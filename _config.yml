@@ -5,16 +5,16 @@ pygments: true
 paginate: 8
 permalink: /:title
 
-title: LI, Yu from 1981
-url: http://liyu1981.github.io
+title: taotao's zone
+url: http://litaotao.github.io
 feed: /atom.xml
-author_info: <a href="http://liyu1981.github.io/">LI,Yu</a>
+author_info: <a href="http://litaotao.github.io/">LI,Taotao</a>
 
 myblog:
   gavatar: 69e88d45076f4d5052b3a71732b1afeb
   gpname: litaotao
-  linkedin: http://www.linkedin.com/pub/yu-li/6/3a4/499
-  github: http://www.github.com/liyu1981?tab=repositories
+  linkedin: cn.linkedin.com/in/taotaoli/
+  github: https://github.com/litaotao
   coverimgs: []
   postbgimg: http://liyu1981.smugmug.com/Photography/365-days-365-photos/i-wLzDhDC/0/X3/R0018155-X3.jpg
 
