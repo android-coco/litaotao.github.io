@@ -1,14 +1,14 @@
-auto: true
+# auto: true
 
 markdown: rdiscount
-pygments: true
+highlighter: pygments
 paginate: 8
 permalink: /:title
 
 title: taotao's zone
 url: http://litaotao.github.io
 feed: /atom.xml
-author_info: <a href="http://litaotao.github.io/">LI,Taotao</a>
+author_info: <a href="http://litaotao.github.io/">Li,Taotao</a>
 
 myblog:
   gavatar: 69e88d45076f4d5052b3a71732b1afeb

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+   <title>taotao's zone</title>
+   <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
+   <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
+   <updated>2014-09-15T16:19:53+08:00</updated>
+   <id>http://litaotao.github.io</id>
+   <author>
+     <name></name>
+     <email></email>
+   </author>
+
+   
+   <entry>
+     <title>this is a test</title>
+     <link href="/this-is-a-test"/>
+     <updated>2014-09-15T00:00:00+08:00</updated>
+     <id>/this-is-a-test</id>
+     <content type="html">&lt;h2&gt;A New Post&lt;/h2&gt;
+
+&lt;p&gt;Enter text in &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;. Use the toolbar above, or click the &lt;strong&gt;?&lt;/strong&gt; button for formatting help.&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>test 2</title>
+     <link href="/test-2"/>
+     <updated>2014-09-15T00:00:00+08:00</updated>
+     <id>/test-2</id>
+     <content type="html">&lt;h2&gt;A New Post&lt;/h2&gt;
+
+&lt;p&gt;Enter text in &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;. Use the toolbar above, or click the &lt;strong&gt;?&lt;/strong&gt; button for formatting help.&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>should add a title</title>
+     <link href="/should-add-a-title"/>
+     <updated>2014-09-15T00:00:00+08:00</updated>
+     <id>/should-add-a-title</id>
+     <content type="html">&lt;h2&gt;A New Post&lt;/h2&gt;
+
+&lt;p&gt;Enter text in &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;. Use the toolbar above, or click the &lt;strong&gt;?&lt;/strong&gt; button for formatting help.&lt;/p&gt;
+</content>
+   </entry>
+   
+
+</feed>
