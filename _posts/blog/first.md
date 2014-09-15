@@ -2,7 +2,7 @@
 category: blog
 published: true
 layout: post
-title: Untitled
+title: should add a title
 ---
 
 ## A New Post
