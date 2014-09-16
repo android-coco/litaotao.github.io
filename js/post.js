@@ -109,7 +109,7 @@ $(document).ready(function(){
     (function lastModifedTime() {
       var $lm = $('span.lastModified');
       $.ajax({
-        url: 'https://api.github.com/repos/liyu1981/liyu1981.github.io/commits?path=/' + $lm.data('source'),
+        url: 'https://api.github.com/repos/litaotao/litaotao.github.io/commits?path=/' + $lm.data('source'),
         method: 'GET',
         contentType: 'application/json',
         success: function(data) {
