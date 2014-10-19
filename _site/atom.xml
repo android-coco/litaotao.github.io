@@ -4,7 +4,7 @@
    <title>taotao's zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-09-16T15:41:14+08:00</updated>
+   <updated>2014-10-20T01:13:32+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -20,6 +20,8 @@
      <content type="html">&lt;h2&gt;A New Post&lt;/h2&gt;
 
 &lt;p&gt;Enter text in &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;. Use the toolbar above, or click the &lt;strong&gt;?&lt;/strong&gt; button for formatting help.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;test&lt;/em&gt;&lt;/p&gt;
 </content>
    </entry>
    
