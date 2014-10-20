@@ -1,11 +1,11 @@
 ---
-category: blog
+category: python
 published: true
 layout: post
-title: test 2
+title: python
 ---
 
-## A New Post
+## python
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
 

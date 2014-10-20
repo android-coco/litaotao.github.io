@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>taotao's zone</title>
+  <title>Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,9 +31,16 @@
         </div>
         <ul class="artical-list">
         
+            <li><div class="title-date">2014-10-20</div>
+                <h2><a href="/python-test">python</a></h2>
+                <div class="title-desc"><h2>python</h2>
+</div>
+            </li>
+        
             <li><div class="title-date">2014-09-16</div>
                 <h2><a href="/test">test 2</a></h2>
-                <div class="title-desc"></div>
+                <div class="title-desc"><h2>A New Post</h2>
+</div>
             </li>
         
         </ul>
@@ -44,13 +51,12 @@
           var all = [  ];
           return all[Math.floor((Math.random()*all.length))];
         }
-        $('div.aside').css('background-image', geturl());
         $('div#avatar').transition({ scale: 2.5 }).transition({ opacity: 1, scale: 1 }, 800, 'ease');
       });
     </script>
     <div class="aside">
       <div id="avatar" class="avatar circle" style="width: 150px; height: 150px; position: absolute; right: -75px; top: 75px; opacity: 0;">
-        <div class="center circle" style="margin-top: 4px; height: 142px; width: 142px; background-image: url('https://secure.gravatar.com/avatar/69e88d45076f4d5052b3a71732b1afeb?s=142')"></div>
+        <div class="center circle" style="margin-top: 4px; height: 142px; width: 142px; background-image: url('images/2.jpg')"></div>
       </div>
     </div>
 </div>
