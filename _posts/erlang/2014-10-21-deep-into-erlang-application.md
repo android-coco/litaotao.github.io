@@ -1,12 +1,25 @@
 ---
 category: erlang
-published: false
+published: true
 layout: post
 title: 深度分析Erlang Application行为
 description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习来分析Erlang中Application行为
 ---
 
 ## 从我在Erlang and OTP in Action中第六章中的错误说起
+
+
+## 看看application行为在启动一个otp应用的简单流程
+
+
+## load应用的过程分析
+
+
+## start应用的过程分析
+
+
+
+
 
 理论上来讲，这是个很简单的事情，甚至可以说不能再简单了。
 
