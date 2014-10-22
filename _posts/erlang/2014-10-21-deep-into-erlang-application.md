@@ -1,6 +1,6 @@
 ---
 category: erlang
-published: true
+published: false
 layout: post
 title: 深度分析Erlang Application行为
 description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习来分析Erlang中Application行为
