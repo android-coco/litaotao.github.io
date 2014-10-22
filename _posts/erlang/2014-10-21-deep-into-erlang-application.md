@@ -1,14 +1,14 @@
 ---
 category: erlang
-published: false
+published: true
 layout: post
 title: 深度分析Erlang Application行为
 description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习来分析Erlang中Application行为
 ---
 
 ## 从我在Erlang and OTP in Action中第六章中的错误说起
-    前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
-谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下  
+　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
+谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：
 
 ```
 root@kali:~/Desktop/erl/6-EOIA# ls -R
@@ -29,6 +29,11 @@ sc_app.beam        sc_store.beam    simple_cache.app
 prim_consult.beam  prim_consult.erl  sc_app.erl  sc_element.erl  sc_store.erl  sc_sup.erl  simple_cache.erl
 root@kali:~/Desktop/erl/6-EOIA#
 ```
+
+**小提示：**   
+1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；   
+2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的； 
+
 
 ## 看看application行为在启动一个otp应用的简单流程
 
