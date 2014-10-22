@@ -7,6 +7,54 @@ description: 通过仔细分析《Erlang and OTP in Action》中第六章的练�
 ---
 
 ## 从我在Erlang and OTP in Action中第六章中的错误说起
+    前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
+谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下  
+
+```
+root@kali:~/Desktop/erl/6-EOIA# ls -R
+.:
+doc  ebin  include  priv  src
+
+./doc:
+
+./ebin:
+prim_consult.beam  sc_element.beam  sc_sup.beam       simple_cache.beam
+sc_app.beam        sc_store.beam    simple_cache.app
+
+./include:
+
+./priv:
+
+./src:
+prim_consult.beam  prim_consult.erl  sc_app.erl  sc_element.erl  sc_store.erl  sc_sup.erl  simple_cache.erl
+root@kali:~/Desktop/erl/6-EOIA#
+```
+
+## 看看application行为在启动一个otp应用的简单流程
+
+
+## load应用的过程分析
+
+
+## start应用的过程分析
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 理论上来讲，这是个很简单的事情，甚至可以说不能再简单了。
 
