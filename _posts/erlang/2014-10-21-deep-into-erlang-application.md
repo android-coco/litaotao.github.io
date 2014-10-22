@@ -11,28 +11,79 @@ description: 通过仔细分析《Erlang and OTP in Action》中第六章的练�
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：
 
 ```
-root@kali:~/Desktop/erl/6-EOIA# ls -R
-.:
-doc  ebin  include  priv  src
-
-./doc:
-
-./ebin:
-prim_consult.beam  sc_element.beam  sc_sup.beam       simple_cache.beam
-sc_app.beam        sc_store.beam    simple_cache.app
-
-./include:
-
-./priv:
-
-./src:
-prim_consult.beam  prim_consult.erl  sc_app.erl  sc_element.erl  sc_store.erl  sc_sup.erl  simple_cache.erl
-root@kali:~/Desktop/erl/6-EOIA#
+chenshan@mac007 6-EOIA$tree
+.
+├── ebin
+│   ├── prim_consult.beam
+│   ├── sc_app.beam
+│   ├── sc_element.beam
+│   ├── sc_store.beam
+│   ├── sc_sup.beam
+│   ├── simple_cache.app
+│   └── simple_cache.beam
+└── src
+    ├── prim_consult.beam
+    ├── prim_consult.erl
+    ├── sc_app.erl
+    ├── sc_element.erl
+    ├── sc_store.erl
+    ├── sc_sup.erl
+    └── simple_cache.erl
 ```
 
 **小提示：**   
 1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；   
 2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的； 
+
+然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。   
+
+```
+chenshan@mac007 6-EOIA$cd ebin/
+chenshan@mac007 ebin$erl
+Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V6.1  (abort with ^G)
+1> application:start(simple_cache).  
+{error,
+    {bad_return,
+        {
+        {sc_app,start,[normal,[]]},
+         {'EXIT',
+             {undef,
+                 [{sr_store,init,[],[]},
+                  {sc_app,start,2,[{file,"../src/sc_app.erl"},{line,6}]},
+                  {application_master,start_supervisor,3,
+                      [{file,"application_master.erl"},{line,326}]},
+                  {application_master,start_the_app,5,
+                      [{file,"application_master.erl"},{line,308}]},
+                  {application_master,start_it_new,7,
+                      [{file,"application_master.erl"},{line,294}]}]}}}}}
+
+=INFO REPORT==== 22-Oct-2014::23:47:18 ===
+    application: simple_cache
+    exited: {bad_return,
+                {
+                {sc_app,start,[normal,[]]},
+                 {'EXIT',
+                     {undef,
+                         [{sr_store,init,[],[]},
+                          {sc_app,start,2,
+                              [{file,"../src/sc_app.erl"},{line,6}]},
+                          {application_master,start_supervisor,3,
+                              [{file,"application_master.erl"},{line,326}]},
+                          {application_master,start_the_app,5,
+                              [{file,"application_master.erl"},{line,308}]},
+                          {application_master,start_it_new,7,
+                              [{file,"application_master.erl"},
+                               {line,294}]}]}}}}
+    type: temporary
+2> 
+```
+
+
+
+
+
 
 
 ## 看看application行为在启动一个otp应用的简单流程
