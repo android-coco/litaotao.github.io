@@ -2,8 +2,8 @@
 category: erlang
 published: false
 layout: post
-title: 深度分析Erlang Application行为
-description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习和Application源代码来分析Erlang中Application行为
+title: 如何调试Erlang程序
+description: 简单试用下Erlang下的调试方法和工具
 ---
 
 ## I. 从我在Erlang and OTP in Action中第六章中的错误说起
