@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>深度分析 Erlang Application 行为 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300" type="text/css" />-->
+  <!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Inconsolata' type='text/css' />-->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  body { background:transparent; }
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/deep-into-erlang-application" title="深度分析 Erlang Application 行为">深度分析 Erlang Application 行为</a></h1>
+
+    <p class="entry-date">2014-10-21 <span class="lastModified" style="display: none;" data-source="_posts/erlang/2014-10-21-deep-into-erlang-application.md">最后更新时间: </span></p>
+
+    <h2>1. 从我在Erlang and OTP in Action中第六章中的错误说起</h2>
+
+<p>　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
+谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：</p>
+
+<pre><code>chenshan@mac007 6-EOIA$tree
+.
+├── ebin
+│   ├── prim_consult.beam
+│   ├── sc_app.beam
+│   ├── sc_element.beam
+│   ├── sc_store.beam
+│   ├── sc_sup.beam
+│   ├── simple_cache.app
+│   └── simple_cache.beam
+└── src
+    ├── prim_consult.beam
+    ├── prim_consult.erl
+    ├── sc_app.erl
+    ├── sc_element.erl
+    ├── sc_store.erl
+    ├── sc_sup.erl
+    └── simple_cache.erl
+</code></pre>
+
+<p><strong>小提示：</strong></p>
+
+<blockquote><p>1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；<br/>
+2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的；</p></blockquote>
+
+<p>　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。</p>
+
+<pre><code>chenshan@mac007 6-EOIA$cd ebin/
+chenshan@mac007 ebin$erl
+Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V6.1  (abort with ^G)
+1&gt; application:start(simple_cache).  
+{error,
+    {bad_return,
+        {
+        {sc_app,start,[normal,[]]},
+         {'EXIT',
+             {undef,
+                 [{sr_store,init,[],[]},
+                  {sc_app,start,2,[{file,"../src/sc_app.erl"},{line,6}]},
+                  {application_master,start_supervisor,3,
+                      [{file,"application_master.erl"},{line,326}]},
+                  {application_master,start_the_app,5,
+                      [{file,"application_master.erl"},{line,308}]},
+                  {application_master,start_it_new,7,
+                      [{file,"application_master.erl"},{line,294}]}]}}}}}
+
+=INFO REPORT==== 22-Oct-2014::23:47:18 ===
+    application: simple_cache
+    exited: {bad_return,
+                {
+                {sc_app,start,[normal,[]]},
+                 {'EXIT',
+                     {undef,
+                         [{sr_store,init,[],[]},
+                          {sc_app,start,2,
+                              [{file,"../src/sc_app.erl"},{line,6}]},
+                          {application_master,start_supervisor,3,
+                              [{file,"application_master.erl"},{line,326}]},
+                          {application_master,start_the_app,5,
+                              [{file,"application_master.erl"},{line,308}]},
+                          {application_master,start_it_new,7,
+                              [{file,"application_master.erl"},
+                               {line,294}]}]}}}}
+    type: temporary
+2&gt; 
+</code></pre>
+
+<h2>2. 看看application行为在启动一个otp应用的简单流程</h2>
+
+<p>　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：</p>
+
+<pre><code>Eshell V6.1  (abort with ^G)
+1&gt; code:which(application).
+"/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam"
+</code></pre>
+
+<p>　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：</p>
+
+<blockquote><ul>
+<li>doc  存放文档；</li>
+<li>ebin  存放编译后的代码以及应用包含应用原子数据的app文件；</li>
+<li>include  存放公共头文件；</li>
+<li>priv  存放各种需要随应用一起发布的其他内容，如模板文件，共享文件对象以及DLL等；</li>
+<li>src  存放应用源代码；</li>
+</ul>
+</blockquote>
+
+<p>　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：</p>
+
+<pre><code>root@kali:~/Desktop/erl/6-EOIA/ebin# mkdir ~/Desktop/temp
+root@kali:~/Desktop/erl/6-EOIA/ebin# cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application*.erl ~/Desktop/ temp/
+root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/te
+temp/ test/
+root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/temp/
+application_controller.erl  application.erl  application_master.erl  application_starter.erl
+</code></pre>
+
+<p>　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。</p>
+
+<pre><code>-spec start(Application) -&gt; 'ok' | {'error', Reason} when
+      Application :: atom(),
+      Reason :: term().
+
+start(Application) -&gt;
+    start(Application, temporary).
+
+-spec start(Application, Type) -&gt; 'ok' | {'error', Reason} when
+      Application :: atom(),
+      Type :: restart_type(),
+      Reason :: term().
+
+start(Application, RestartType) -&gt;
+    case load(Application) of
+  ok -&gt;
+      Name = get_appl_name(Application),
+      application_controller:start_application(Name, RestartType);
+  {error, {already_loaded, Name}} -&gt;
+      application_controller:start_application(Name, RestartType);
+  Error -&gt;
+      Error
+    end.
+</code></pre>
+
+<p>　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：</p>
+
+<blockquote><ul>
+<li>ok：加入start流程；</li>
+<li>{error, {already_loaded, Name}}：失败，原因是这个应用已经load过了，可以直接加入start流程；</li>
+<li>Error：错误，且错误原因不详，需要看console里的输出分析；</li>
+</ul>
+</blockquote>
+
+<p>　　Ok, 思路清晰了，我们就split it into two seperate but sequential procedures，一步一步来，争取最后不靠调试就解决我们上面遇到的问题吧， here we go！</p>
+
+<h2>3. load应用的过程分析</h2>
+
+<p>　　根据application.erl 里第97行知道，load过程是调用application_controller.erl里的函数的，所以这里我们就先去分析application_controller.erl里的load调用了。先上一张图来简单看看load的整个过程。
+<img src="../../images/erlang-application-load.jpg" alt="load 流程图分析" />
+　　上面的图可能画得稍显复杂，没办法，刚开始看源码，还是仔细一点好。仔细了解后，我发现load过程其中重点就只有下面四条：</p>
+
+<ul>
+<li>检查这个应用是否已经load过；</li>
+<li>解析应用描述文件appname.app里的内容；</li>
+<li>根据应用描述文件的描述，把应用的一些原子信息存到一张本地的ets表中；</li>
+<li>给应用的PID发送一条<code>{ac_load_application_req, AppName}</code>的消息；</li>
+</ul>
+
+
+<h3>3.1 load过程中容易发生错误的地方</h3>
+
+<ul>
+<li>do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。</li>
+</ul>
+
+
+<pre><code>do_load_application(Application, S) -&gt;
+    case get_loaded(Application) of
+        {true, _} -&gt;
+            throw({error, {already_loaded, Application}});
+        false -&gt;
+            case make_appl(Application) of
+                {ok, Appl} -&gt; load(S, Appl);
+                Error -&gt; Error
+            end
+    end.
+</code></pre>
+
+<ul>
+<li>在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即<code>{reply, ok, NewS}</code>，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。</li>
+</ul>
+
+
+<pre><code>handle_call({load_application, Application}, From, S) -&gt;
+    case catch do_load_application(Application, S) of
+        {ok, NewS} -&gt;
+            AppName = get_appl_name(Application),
+            case cntrl(AppName, S, {ac_load_application_req, AppName}) of
+                true -&gt;
+                    {noreply, S#state{loading = [{AppName, From} |
+                                                 S#state.loading]}};
+                false -&gt;
+                    {reply, ok, NewS}
+            end;
+        {error, _} = Error -&gt;
+            {reply, Error, S};
+        {'EXIT', R} -&gt;
+            {reply, {error, R}, S}
+    end;
+</code></pre>
+
+<p>　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句<code>[{file,"../src/sc_app.erl"},{line,6}]},</code>， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。</p>
+
+<h2>4. start应用的过程分析</h2>
+
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/deep-into-erlang-application data-title=深度分析 Erlang Application 行为 data-url=/deep-into-erlang-application></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>
