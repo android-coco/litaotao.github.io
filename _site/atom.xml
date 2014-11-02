@@ -4,64 +4,13 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-01T19:12:55+08:00</updated>
+   <updated>2014-11-02T19:56:48+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
-   
-   <entry>
-     <title>我的后台 API 设计经验</title>
-     <link href="/backend-API-design"/>
-     <updated>2014-11-01T00:00:00+08:00</updated>
-     <id>/backend-API-design</id>
-     <content type="html">&lt;h2&gt;1. 从一次活动说起&lt;/h2&gt;
-
-&lt;h2&gt;2. Restful API&lt;/h2&gt;
-
-&lt;h2&gt;3. 学习一些web攻击的手段和防御方法&lt;/h2&gt;
-
-&lt;h3&gt;3.1 DDOS&lt;/h3&gt;
-
-&lt;h3&gt;3.2 XSS&lt;/h3&gt;
-
-&lt;h3&gt;3.3 SQL注入&lt;/h3&gt;
-
-&lt;h2&gt;4. 我的个人总结&lt;/h2&gt;
-
-&lt;h2&gt;5. 一些参考资源&lt;/h2&gt;
-
-&lt;blockquote&gt;&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/column/details/mobilebackend.html&quot;&gt;app后端技术架构&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;以下是我搜集的在INFOQ上有关restful的好资料&lt;br/&gt;
-　　2.1 &lt;a href=&quot;http://www.infoq.com/cn/minibooks/restful-web-services-cookbook-cn&quot;&gt;RESTful Web Services Cookbook中文版&lt;/a&gt;
-　　　　&lt;a href=&quot;&quot;&gt;本书在我的github上的地址&lt;/a&gt;
-　　　　&lt;a href=&quot;&quot;&gt;我的读书笔记&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://coolshell.cn/articles/4787.html&quot;&gt;HTTP幂等性概念和应用&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>Architectural Styles and the Design of Network-based Software Architectures</title>
-     <link href="/restful-api-design"/>
-     <updated>2014-10-30T00:00:00+08:00</updated>
-     <id>/restful-api-design</id>
-     <content type="html">
-</content>
-   </entry>
-   
-   <entry>
-     <title>Python 错误家园</title>
-     <link href="/python-error-zone"/>
-     <updated>2014-10-30T00:00:00+08:00</updated>
-     <id>/python-error-zone</id>
-     <content type="html">
-</content>
-   </entry>
    
    <entry>
      <title>深度分析 Erlang Application 行为</title>
