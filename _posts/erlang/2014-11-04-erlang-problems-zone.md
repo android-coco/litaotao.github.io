@@ -1,3 +1,7 @@
+---
+published: false
+---
+
 ---  
 category: erlang  
 published: false  
@@ -5,12 +9,10 @@ layout: post
 title: 那些年没错过的 Erlang 错误  
 description: 记录 Erlang 实践过程中遇到过的错误  
 ---  
-   
+## 1. Could not find wxe_driver.so  
 
-## Could not find wxe_driver.so  
-
-Key words: wxe_driver.so, debugger, observer, osx, linux, windows
-Problems:  
+***Key words: wxe_driver.so, debugger, observer, osx, linux, windows***
+***Problems***:  
 
 ```
 chenshan@mac007 lists$erl
@@ -28,7 +30,7 @@ ERROR: Could not find 'wxe_driver.so' in: /usr/local/lib/erlang/lib/wx-1.3/priv
 2> 
 ```  
 
-Solutions:  
+***Solutions:***  
 1. [solution 1, failed](http://stackoverflow.com/questions/21297465/erlang-debugger-error-could-not-find-wxe-driver-so)
 > brew install wxmac  
 
