@@ -13,6 +13,12 @@ description: 据说在 Erlang 里，操作lists是最平凡的，那就让我们
 **3. suffix/2**     
 **4. seq/2, seq/3**  
 **5. sort/1**
+**6. merge/1**  
+**7. concat/1**  
+**8. flatten/1, flatten/2**  
+
+
+
 
 ## 
 ## 1. 属性说明

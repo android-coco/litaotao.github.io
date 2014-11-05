@@ -1,8 +1,4 @@
 ---
-published: false
----
-
----  
 category: erlang  
 published: false  
 layout: post  
