@@ -4,7 +4,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-07T22:58:39+08:00</updated>
+   <updated>2014-11-07T23:51:13+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -29,8 +29,7 @@
 &lt;strong&gt;6.  merge/1&lt;/strong&gt;&lt;br/&gt;
 &lt;strong&gt;7.  concat/1&lt;/strong&gt;&lt;br/&gt;
 &lt;strong&gt;8.  flatten/1, flatten/2&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;9.  all/2, any/2&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;10. filtermap/2&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;10. filter/2, map/2, filtermap/2&lt;/strong&gt;&lt;br/&gt;
 &lt;strong&gt;11. foldl/3, foldr/3&lt;/strong&gt; &lt;br/&gt;
 &lt;strong&gt;12. keydelete/3&lt;/strong&gt;&lt;br/&gt;
 &lt;strong&gt;13. keymap/3&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
@@ -205,11 +204,48 @@ do_flatten([], Tail) -&amp;gt;
     Tail.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2&gt;9. all/2, any/2&lt;/h2&gt;
+&lt;h2&gt;10. filter/2, map/2, filtermap/2&lt;/h2&gt;
 
-&lt;p&gt;　　&lt;/p&gt;
+&lt;p&gt;　　先看看函数参数，filter函数是对List1里的每个term都应用一次Pred函数，然后将能使Pred函数返回true的元素按序构成一个新的列表返回。map函数是对List1里对每个term都应用一次Fun函数，然后将Fun函数在每个元素上都返回值按顺序构造成返回值。顾名思义，filtermap函数就是这两个函数的结合，即先filter，再做map操作。下面是源码，有时候发现，如果看document看烦了，可以选择性地看看源码，也许比看document管用。&lt;/p&gt;
 
-&lt;h2&gt;10. filtermap/2&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;-spec map(Fun, List1) -&amp;gt; List2 when
+      Fun :: fun((A) -&amp;gt; B),
+      List1 :: [A],
+      List2 :: [B],
+      A :: term(),
+      B :: term().
+
+map(F, [H|T]) -&amp;gt;
+    [F(H)|map(F, T)];
+map(F, []) when is_function(F, 1) -&amp;gt; [].
+
+-spec filter(Pred, List1) -&amp;gt; List2 when
+      Pred :: fun((Elem :: T) -&amp;gt; boolean()),
+      List1 :: [T],
+      List2 :: [T],
+      T :: term().
+
+filter(Pred, List) when is_function(Pred, 1) -&amp;gt;
+    [ E || E &amp;lt;- List, Pred(E) ].   
+
+-spec filtermap(Fun, List1) -&amp;gt; List2 when
+      Fun :: fun((Elem) -&amp;gt; boolean() | {&#39;true&#39;, Value}),
+      List1 :: [Elem],
+      List2 :: [Elem | Value],
+      Elem :: term(),
+      Value :: term().
+
+filtermap(F, [Hd|Tail]) -&amp;gt;
+    case F(Hd) of
+  true -&amp;gt;
+      [Hd|filtermap(F, Tail)];
+  {true,Val} -&amp;gt;
+      [Val|filtermap(F, Tail)];
+  false -&amp;gt;
+      filtermap(F, Tail)
+    end;
+filtermap(F, []) when is_function(F, 1) -&amp;gt; [].
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;11. foldl/3, foldr/3&lt;/h2&gt;
 
