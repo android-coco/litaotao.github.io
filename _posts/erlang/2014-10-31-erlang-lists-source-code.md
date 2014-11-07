@@ -19,7 +19,6 @@ description: 据说在 Erlang 里，操作lists是最平凡的，那就让我们
 
 
 
-
 ## 
 ## 1. 属性说明
 　　源文件里注明了 `-compile({no_auto_import, [max/2]}).`，这是一个预定义的模块属性【预定义的模块属性有以下四种：`module，import，export，compile，vsn`】。其中`-compile(Options)`是将Options添加到编译器选项表中，Options可以是单个原子，也可以是一个列表。这里的`no_auto_import`是说函数max/2不要自动从erlang模块里导出了，这是为了解决内置函数冲突。没听明白吧，ok，下面详细讲讲这个。至于模块属性，详见《Erlang程序设计》第二版，8.4节；有关compile选项，请移步[http://erlang.org/doc/man/compile.html](http://erlang.org/doc/man/compile.html)。  
