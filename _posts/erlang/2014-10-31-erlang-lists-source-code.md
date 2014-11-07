@@ -6,16 +6,24 @@ title: 解读 Erlang lists 源码
 description: 据说在 Erlang 里，操作lists是最平凡的，那就让我们一起来看看lists是怎么实现的吧~~
 ---
 
-## 捡下面这些重点的说  
+## 写在前面  
+　　lists官方文档在此[http://erlang.org/doc/man/lists.html](http://erlang.org/doc/man/lists.html)，不知因为什么原因，官方文档中函数顺序和lists.erl源码里的顺序完全不一样。我是按照源码里的顺序来写的，目的是为了熟悉一下Erlang的编程风格和巩固基础语法。也不会所有函数都提到，挑下面一些来学习学习。
 >
-**1. 属性说明**    
-**2. keyfind/3**  
-**3. suffix/2**     
-**4. seq/2, seq/3**  
-**5. sort/1**
-**6. merge/1**  
-**7. concat/1**  
-**8. flatten/1, flatten/2**  
+**1.  属性说明**    
+**2.  keyfind/3**  
+**3.  suffix/2**     
+**4.  seq/2, seq/3**  
+**5.  sort/1**
+**6.  merge/1**  
+**7.  concat/1**  
+**8.  flatten/1, flatten/2**  
+**9.  all/2, any/2**  
+**10. filtermap/2**  
+**11. foldl/3, foldr/3**   
+**12. keydelete/3**  
+**13. keymap/3**
+
+
 
 
 
@@ -97,106 +105,103 @@ seq_loop(0, _, L) ->
      L.
 ```  
 ## 5. sort/1  
-　　sort函数是必须要学习学习的拉，第一次看到sort的源码确实是lists里挺长的了，好了，来分析分析。  
+　　Link:   
+
+## 6. merge/1 
+　　Link: 
+
+## 7. concat/1   
+　　concat函数本身的意图是把参数组合成一个项式，特别需要注意的是，当这个项式是可打印的时候，就打印其字符串形式的结果，当该项式是不可打印的时候，就以把它组合成一个list形式。我们先看下面的例子： 
+
+```  
+root@kali:~/Desktop/erlcode/lists# erl
+Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V6.1  (abort with ^G)
+1> lists:concat([1,2,3]).
+"123"
+2> lists:concat([1,2,3,a,b,c]).
+"123abc"
+3> lists:concat([1,2,3,[a,b,c]]).
+[49,50,51,a,b,c]
+4> lists:concat([1,2,3,[1,2,3]]).
+[49,50,51,1,2,3]
+5> lists:concat([1,2,3,a,b,c,[1,2,3]]).
+[49,50,51,97,98,99,1,2,3]
+6> lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3]]).
+[49,50,51,97,98,99,1,2,[a,b,c],3]
+7> lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3],d,e,f]).
+[49,50,51,97,98,99,1,2,[a,b,c],3,100,101,102]
+```  
+　　从例子1、2可以看出，若参数是一个无嵌套的term组成的list，则会返回由这些term组成的一个字符串；若参数是含有嵌套的list，则会把最外层term打印成其在ASCII中的下标，而嵌套的会保持原形。我想这个函数一般都会用在无嵌套的情况吧。下面是源码。  
 
 ```
--spec sort(List1) -> List2 when
-      List1 :: [T],
-      List2 :: [T],
-      T :: term().
+%% concat(L) concatenate the list representation of the elements
+%%  in L - the elements in L can be atoms, numbers of strings.
+%%  Returns a list of characters.
 
-sort([X, Y | L] = L0) when X =< Y ->
-    case L of
-  [] -> 
-      L0;
-  [Z] when Y =< Z ->
-      L0;
-  [Z] when X =< Z ->
-      [X, Z, Y];
-  [Z] ->
-      [Z, X, Y];
-  _ when X == Y ->
-      sort_1(Y, L, [X]);
-  _ ->
-      split_1(X, Y, L, [], [])
-    end;
-sort([X, Y | L]) ->
-    case L of
-  [] ->
-      [Y, X];
-  [Z] when X =< Z ->
-      [Y, X | L];
-  [Z] when Y =< Z ->
-      [Y, Z, X];
-  [Z] ->
-      [Z, Y, X];
-  _ ->
-      split_2(X, Y, L, [], [])
-    end;
-sort([_] = L) ->
-    L;
-sort([] = L) ->
-    L.
+-spec concat(Things) -> string() when
+      Things :: [Thing],
+      Thing :: atom() | integer() | float() | string().
 
-sort_1(X, [Y | L], R) when X == Y ->
-    sort_1(Y, L, [X | R]);
-sort_1(X, [Y | L], R) when X < Y ->
-    split_1(X, Y, L, R, []);
-sort_1(X, [Y | L], R) ->
-    split_2(X, Y, L, R, []);
-sort_1(X, [], R) ->
-    lists:reverse(R, [X]).
+concat(List) ->
+    flatmap(fun thing_to_list/1, List).
 
-%% sort/1
+thing_to_list(X) when is_integer(X) -> integer_to_list(X);
+thing_to_list(X) when is_float(X)   -> float_to_list(X);
+thing_to_list(X) when is_atom(X)    -> atom_to_list(X);
+thing_to_list(X) when is_list(X)    -> X.       %Assumed to be a string
 
-%% Ascending.
-split_1(X, Y, [Z | L], R, Rs) when Z >= Y ->
-    split_1(Y, Z, L, [X | R], Rs);
-split_1(X, Y, [Z | L], R, Rs) when Z >= X ->
-    split_1(Z, Y, L, [X | R], Rs);
-split_1(X, Y, [Z | L], [], Rs) ->
-    split_1(X, Y, L, [Z], Rs);
-split_1(X, Y, [Z | L], R, Rs) ->
-    split_1_1(X, Y, L, R, Rs, Z);
-split_1(X, Y, [], R, Rs) ->
-    rmergel([[Y, X | R] | Rs], []).
+-spec flatmap(Fun, List1) -> List2 when
+      Fun :: fun((A) -> [B]),
+      List1 :: [A],
+      List2 :: [B],
+      A :: term(),
+      B :: term().
 
-split_1_1(X, Y, [Z | L], R, Rs, S) when Z >= Y ->
-    split_1_1(Y, Z, L, [X | R], Rs, S);
-split_1_1(X, Y, [Z | L], R, Rs, S) when Z >= X ->
-    split_1_1(Z, Y, L, [X | R], Rs, S);
-split_1_1(X, Y, [Z | L], R, Rs, S) when S =< Z ->
-    split_1(S, Z, L, [], [[Y, X | R] | Rs]);
-split_1_1(X, Y, [Z | L], R, Rs, S) ->
-    split_1(Z, S, L, [], [[Y, X | R] | Rs]);
-split_1_1(X, Y, [], R, Rs, S) ->
-    rmergel([[S], [Y, X | R] | Rs], []).
+flatmap(F, [Hd|Tail]) ->
+    F(Hd) ++ flatmap(F, Tail);
+flatmap(F, []) when is_function(F, 1) -> [].
+```
 
-%% Descending.
-split_2(X, Y, [Z | L], R, Rs) when Z =< Y ->
-    split_2(Y, Z, L, [X | R], Rs);
-split_2(X, Y, [Z | L], R, Rs) when Z =< X ->
-    split_2(Z, Y, L, [X | R], Rs);
-split_2(X, Y, [Z | L], [], Rs) ->
-    split_2(X, Y, L, [Z], Rs);
-split_2(X, Y, [Z | L], R, Rs) ->
-    split_2_1(X, Y, L, R, Rs, Z);
-split_2(X, Y, [], R, Rs) ->
-    mergel([[Y, X | R] | Rs], []).
+## 8. flatten/1, flatten/2   
+　　flatten/1 和 flatten/2 都是把一个有嵌套的list返回成一个无嵌套的list的函数，其中flatten/2允许在flatten/1的结果后再append一个list，而且不管这个list的形式。其实一会儿可以在源码里看见，flatten/1和flatten/2的唯一区别是flatten/1相当于flatten/2的第二个参数是一个空list。  
 
-split_2_1(X, Y, [Z | L], R, Rs, S) when Z =< Y ->
-    split_2_1(Y, Z, L, [X | R], Rs, S);
-split_2_1(X, Y, [Z | L], R, Rs, S) when Z =< X ->
-    split_2_1(Z, Y, L, [X | R], Rs, S);
-split_2_1(X, Y, [Z | L], R, Rs, S) when S > Z ->
-    split_2(S, Z, L, [], [[Y, X | R] | Rs]);
-split_2_1(X, Y, [Z | L], R, Rs, S) ->
-    split_2(Z, S, L, [], [[Y, X | R] | Rs]);
-split_2_1(X, Y, [], R, Rs, S) ->
-    mergel([[S], [Y, X | R] | Rs], []).  
+```  
+-spec flatten(DeepList) -> List when
+      DeepList :: [term() | DeepList],
+      List :: [term()].
+
+flatten(List) when is_list(List) ->
+    do_flatten(List, []).
+
+-spec flatten(DeepList, Tail) -> List when
+      DeepList :: [term() | DeepList],
+      Tail :: [term()],
+      List :: [term()].
+
+flatten(List, Tail) when is_list(List), is_list(Tail) ->
+    do_flatten(List, Tail).
+
+do_flatten([H|T], Tail) when is_list(H) ->
+    do_flatten(H, do_flatten(T, Tail));
+do_flatten([H|T], Tail) ->
+    [H|do_flatten(T, Tail)];
+do_flatten([], Tail) ->
+    Tail.
 ```  
 
+## 9. all/2, any/2 
+　　
 
+## 10. filtermap/2
+
+## 11. foldl/3, foldr/3
+
+
+## 12. keydelete/3
+
+## 13. keymap/3
 
 
 

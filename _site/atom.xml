@@ -4,7 +4,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-05T09:41:26+08:00</updated>
+   <updated>2014-11-07T11:34:32+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -17,16 +17,23 @@
      <link href="/erlang-lists-source-code"/>
      <updated>2014-10-31T00:00:00+08:00</updated>
      <id>/erlang-lists-source-code</id>
-     <content type="html">&lt;h2&gt;捡下面这些重点的说&lt;/h2&gt;
+     <content type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
 
-&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;1. 属性说明&lt;/strong&gt;  &lt;br/&gt;
-&lt;strong&gt;2. keyfind/3&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;3. suffix/2&lt;/strong&gt;   &lt;br/&gt;
-&lt;strong&gt;4. seq/2, seq/3&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;5. sort/1&lt;/strong&gt;
-&lt;strong&gt;6. merge/1&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;7. concat/1&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;8. flatten/1, flatten/2&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;　　lists官方文档在此&lt;a href=&quot;http://erlang.org/doc/man/lists.html&quot;&gt;http://erlang.org/doc/man/lists.html&lt;/a&gt;，不知因为什么原因，官方文档中函数顺序和lists.erl源码里的顺序完全不一样。我是按照源码里的顺序来写的，目的是为了熟悉一下Erlang的编程风格和巩固基础语法。也不会所有函数都提到，挑下面一些来学习学习。&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;1.  属性说明&lt;/strong&gt;  &lt;br/&gt;
+&lt;strong&gt;2.  keyfind/3&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;3.  suffix/2&lt;/strong&gt;   &lt;br/&gt;
+&lt;strong&gt;4.  seq/2, seq/3&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;5.  sort/1&lt;/strong&gt;
+&lt;strong&gt;6.  merge/1&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;7.  concat/1&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;8.  flatten/1, flatten/2&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;9.  all/2, any/2&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;10. filtermap/2&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;11. foldl/3, foldr/3&lt;/strong&gt; &lt;br/&gt;
+&lt;strong&gt;12. keydelete/3&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;13. keymap/3&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 
 &lt;h2&gt;&lt;/h2&gt;
 
@@ -111,103 +118,104 @@ seq_loop(0, _, L) -&amp;gt;
 
 &lt;h2&gt;5. sort/1&lt;/h2&gt;
 
-&lt;p&gt;　　sort函数是必须要学习学习的拉，第一次看到sort的源码确实是lists里挺长的了，好了，来分析分析。&lt;/p&gt;
+&lt;p&gt;　　Link:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;-spec sort(List1) -&amp;gt; List2 when
-      List1 :: [T],
-      List2 :: [T],
-      T :: term().
+&lt;h2&gt;6. merge/1&lt;/h2&gt;
 
-sort([X, Y | L] = L0) when X =&amp;lt; Y -&amp;gt;
-    case L of
-  [] -&amp;gt; 
-      L0;
-  [Z] when Y =&amp;lt; Z -&amp;gt;
-      L0;
-  [Z] when X =&amp;lt; Z -&amp;gt;
-      [X, Z, Y];
-  [Z] -&amp;gt;
-      [Z, X, Y];
-  _ when X == Y -&amp;gt;
-      sort_1(Y, L, [X]);
-  _ -&amp;gt;
-      split_1(X, Y, L, [], [])
-    end;
-sort([X, Y | L]) -&amp;gt;
-    case L of
-  [] -&amp;gt;
-      [Y, X];
-  [Z] when X =&amp;lt; Z -&amp;gt;
-      [Y, X | L];
-  [Z] when Y =&amp;lt; Z -&amp;gt;
-      [Y, Z, X];
-  [Z] -&amp;gt;
-      [Z, Y, X];
-  _ -&amp;gt;
-      split_2(X, Y, L, [], [])
-    end;
-sort([_] = L) -&amp;gt;
-    L;
-sort([] = L) -&amp;gt;
-    L.
+&lt;p&gt;　　Link:&lt;/p&gt;
 
-sort_1(X, [Y | L], R) when X == Y -&amp;gt;
-    sort_1(Y, L, [X | R]);
-sort_1(X, [Y | L], R) when X &amp;lt; Y -&amp;gt;
-    split_1(X, Y, L, R, []);
-sort_1(X, [Y | L], R) -&amp;gt;
-    split_2(X, Y, L, R, []);
-sort_1(X, [], R) -&amp;gt;
-    lists:reverse(R, [X]).
+&lt;h2&gt;7. concat/1&lt;/h2&gt;
 
-%% sort/1
+&lt;p&gt;　　concat函数本身的意图是把参数组合成一个项式，特别需要注意的是，当这个项式是可打印的时候，就打印其字符串形式的结果，当该项式是不可打印的时候，就以把它组合成一个list形式。我们先看下面的例子：&lt;/p&gt;
 
-%% Ascending.
-split_1(X, Y, [Z | L], R, Rs) when Z &amp;gt;= Y -&amp;gt;
-    split_1(Y, Z, L, [X | R], Rs);
-split_1(X, Y, [Z | L], R, Rs) when Z &amp;gt;= X -&amp;gt;
-    split_1(Z, Y, L, [X | R], Rs);
-split_1(X, Y, [Z | L], [], Rs) -&amp;gt;
-    split_1(X, Y, L, [Z], Rs);
-split_1(X, Y, [Z | L], R, Rs) -&amp;gt;
-    split_1_1(X, Y, L, R, Rs, Z);
-split_1(X, Y, [], R, Rs) -&amp;gt;
-    rmergel([[Y, X | R] | Rs], []).
+&lt;pre&gt;&lt;code class=&quot;&quot;&gt;root@kali:~/Desktop/erlcode/lists# erl
+Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
 
-split_1_1(X, Y, [Z | L], R, Rs, S) when Z &amp;gt;= Y -&amp;gt;
-    split_1_1(Y, Z, L, [X | R], Rs, S);
-split_1_1(X, Y, [Z | L], R, Rs, S) when Z &amp;gt;= X -&amp;gt;
-    split_1_1(Z, Y, L, [X | R], Rs, S);
-split_1_1(X, Y, [Z | L], R, Rs, S) when S =&amp;lt; Z -&amp;gt;
-    split_1(S, Z, L, [], [[Y, X | R] | Rs]);
-split_1_1(X, Y, [Z | L], R, Rs, S) -&amp;gt;
-    split_1(Z, S, L, [], [[Y, X | R] | Rs]);
-split_1_1(X, Y, [], R, Rs, S) -&amp;gt;
-    rmergel([[S], [Y, X | R] | Rs], []).
-
-%% Descending.
-split_2(X, Y, [Z | L], R, Rs) when Z =&amp;lt; Y -&amp;gt;
-    split_2(Y, Z, L, [X | R], Rs);
-split_2(X, Y, [Z | L], R, Rs) when Z =&amp;lt; X -&amp;gt;
-    split_2(Z, Y, L, [X | R], Rs);
-split_2(X, Y, [Z | L], [], Rs) -&amp;gt;
-    split_2(X, Y, L, [Z], Rs);
-split_2(X, Y, [Z | L], R, Rs) -&amp;gt;
-    split_2_1(X, Y, L, R, Rs, Z);
-split_2(X, Y, [], R, Rs) -&amp;gt;
-    mergel([[Y, X | R] | Rs], []).
-
-split_2_1(X, Y, [Z | L], R, Rs, S) when Z =&amp;lt; Y -&amp;gt;
-    split_2_1(Y, Z, L, [X | R], Rs, S);
-split_2_1(X, Y, [Z | L], R, Rs, S) when Z =&amp;lt; X -&amp;gt;
-    split_2_1(Z, Y, L, [X | R], Rs, S);
-split_2_1(X, Y, [Z | L], R, Rs, S) when S &amp;gt; Z -&amp;gt;
-    split_2(S, Z, L, [], [[Y, X | R] | Rs]);
-split_2_1(X, Y, [Z | L], R, Rs, S) -&amp;gt;
-    split_2(Z, S, L, [], [[Y, X | R] | Rs]);
-split_2_1(X, Y, [], R, Rs, S) -&amp;gt;
-    mergel([[S], [Y, X | R] | Rs], []).  
+Eshell V6.1  (abort with ^G)
+1&amp;gt; lists:concat([1,2,3]).
+&quot;123&quot;
+2&amp;gt; lists:concat([1,2,3,a,b,c]).
+&quot;123abc&quot;
+3&amp;gt; lists:concat([1,2,3,[a,b,c]]).
+[49,50,51,a,b,c]
+4&amp;gt; lists:concat([1,2,3,[1,2,3]]).
+[49,50,51,1,2,3]
+5&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,3]]).
+[49,50,51,97,98,99,1,2,3]
+6&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3]]).
+[49,50,51,97,98,99,1,2,[a,b,c],3]
+7&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3],d,e,f]).
+[49,50,51,97,98,99,1,2,[a,b,c],3,100,101,102]
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　从例子1、2可以看出，若参数是一个无嵌套的term组成的list，则会返回由这些term组成的一个字符串；若参数是含有嵌套的list，则会把最外层term打印成其在ASCII中的下标，而嵌套的会保持原形。我想这个函数一般都会用在无嵌套的情况吧。下面是源码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%% concat(L) concatenate the list representation of the elements
+%%  in L - the elements in L can be atoms, numbers of strings.
+%%  Returns a list of characters.
+
+-spec concat(Things) -&amp;gt; string() when
+      Things :: [Thing],
+      Thing :: atom() | integer() | float() | string().
+
+concat(List) -&amp;gt;
+    flatmap(fun thing_to_list/1, List).
+
+thing_to_list(X) when is_integer(X) -&amp;gt; integer_to_list(X);
+thing_to_list(X) when is_float(X)   -&amp;gt; float_to_list(X);
+thing_to_list(X) when is_atom(X)    -&amp;gt; atom_to_list(X);
+thing_to_list(X) when is_list(X)    -&amp;gt; X.       %Assumed to be a string
+
+-spec flatmap(Fun, List1) -&amp;gt; List2 when
+      Fun :: fun((A) -&amp;gt; [B]),
+      List1 :: [A],
+      List2 :: [B],
+      A :: term(),
+      B :: term().
+
+flatmap(F, [Hd|Tail]) -&amp;gt;
+    F(Hd) ++ flatmap(F, Tail);
+flatmap(F, []) when is_function(F, 1) -&amp;gt; [].
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;8. flatten/1, flatten/2&lt;/h2&gt;
+
+&lt;p&gt;　　flatten/1 和 flatten/2 都是把一个有嵌套的list返回成一个无嵌套的list的函数，其中flatten/2允许在flatten/1的结果后再append一个list，而且不管这个list的形式。其实一会儿可以在源码里看见，flatten/1和flatten/2的唯一区别是flatten/1相当于flatten/2的第二个参数是一个空list。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;&quot;&gt;-spec flatten(DeepList) -&amp;gt; List when
+      DeepList :: [term() | DeepList],
+      List :: [term()].
+
+flatten(List) when is_list(List) -&amp;gt;
+    do_flatten(List, []).
+
+-spec flatten(DeepList, Tail) -&amp;gt; List when
+      DeepList :: [term() | DeepList],
+      Tail :: [term()],
+      List :: [term()].
+
+flatten(List, Tail) when is_list(List), is_list(Tail) -&amp;gt;
+    do_flatten(List, Tail).
+
+do_flatten([H|T], Tail) when is_list(H) -&amp;gt;
+    do_flatten(H, do_flatten(T, Tail));
+do_flatten([H|T], Tail) -&amp;gt;
+    [H|do_flatten(T, Tail)];
+do_flatten([], Tail) -&amp;gt;
+    Tail.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;9. all/2, any/2&lt;/h2&gt;
+
+&lt;p&gt;　　&lt;/p&gt;
+
+&lt;h2&gt;10. filtermap/2&lt;/h2&gt;
+
+&lt;h2&gt;11. foldl/3, foldr/3&lt;/h2&gt;
+
+&lt;h2&gt;12. keydelete/3&lt;/h2&gt;
+
+&lt;h2&gt;13. keymap/3&lt;/h2&gt;
 </content>
    </entry>
    
