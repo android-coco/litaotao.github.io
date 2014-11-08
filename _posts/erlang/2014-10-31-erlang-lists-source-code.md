@@ -17,8 +17,7 @@ description: 据说在 Erlang 里，操作lists是最平凡的，那就让我们
 **6.  merge/1**  
 **7.  concat/1**  
 **8.  flatten/1, flatten/2**  
-**9.  all/2, any/2**  
-**10. filtermap/2**  
+**10. filter/2, map/2, filtermap/2**  
 **11. foldl/3, foldr/3**   
 **12. keydelete/3**  
 **13. keymap/3**
@@ -191,10 +190,48 @@ do_flatten([], Tail) ->
     Tail.
 ```  
 
-## 9. all/2, any/2 
-　　
+## 10. filter/2, map/2, filtermap/2
+　　先看看函数参数，filter函数是对List1里的每个term都应用一次Pred函数，然后将能使Pred函数返回true的元素按序构成一个新的列表返回。map函数是对List1里对每个term都应用一次Fun函数，然后将Fun函数在每个元素上都返回值按顺序构造成返回值。顾名思义，filtermap函数就是这两个函数的结合，即先filter，再做map操作。下面是源码，有时候发现，如果看document看烦了，可以选择性地看看源码，也许比看document管用。  
 
-## 10. filtermap/2
+```
+-spec map(Fun, List1) -> List2 when
+      Fun :: fun((A) -> B),
+      List1 :: [A],
+      List2 :: [B],
+      A :: term(),
+      B :: term().
+
+map(F, [H|T]) ->
+    [F(H)|map(F, T)];
+map(F, []) when is_function(F, 1) -> [].
+
+-spec filter(Pred, List1) -> List2 when
+      Pred :: fun((Elem :: T) -> boolean()),
+      List1 :: [T],
+      List2 :: [T],
+      T :: term().
+
+filter(Pred, List) when is_function(Pred, 1) ->
+    [ E || E <- List, Pred(E) ].   
+
+-spec filtermap(Fun, List1) -> List2 when
+      Fun :: fun((Elem) -> boolean() | {'true', Value}),
+      List1 :: [Elem],
+      List2 :: [Elem | Value],
+      Elem :: term(),
+      Value :: term().
+
+filtermap(F, [Hd|Tail]) ->
+    case F(Hd) of
+  true ->
+      [Hd|filtermap(F, Tail)];
+  {true,Val} ->
+      [Val|filtermap(F, Tail)];
+  false ->
+      filtermap(F, Tail)
+    end;
+filtermap(F, []) when is_function(F, 1) -> [].
+```  
 
 ## 11. foldl/3, foldr/3
 
