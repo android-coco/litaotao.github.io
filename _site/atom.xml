@@ -4,13 +4,87 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-08T20:38:21+08:00</updated>
+   <updated>2014-11-09T21:50:41+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>book-1. 50 Tips and Tricks for MongoDB Developers</title>
+     <link href="/50-tips-and-tricks-for-mongodb-developer"/>
+     <updated>2014-11-09T00:00:00+08:00</updated>
+     <id>/50-tips-and-tricks-for-mongodb-developer</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　book 开头的文章都是记录我个人的读书记录的，里面分情况会记录下面这些东西：目录，读书感想，技术分享和推荐等。如果只是写下目录，那大多是留给自己以后看的。我不会把书长篇大论地翻译成中文，只会写下能对我个人以后真正有用的东西。
+　　这是一本讲mongodb实践的经验书籍，就66页，除去前面目录什么的，也就50来页，对我个人还是挺有用的，所以我写下其目录，供以后复习时用。没必要写什么读书笔记，毕竟大脑才是最好用的u盘。&lt;/p&gt;
+
+&lt;h2&gt;目录&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;ol&gt;
+&lt;li&gt;Duplicate data for speed, reference data for integrity&lt;/li&gt;
+&lt;li&gt;Normalize if you need to future-proof data&lt;/li&gt;
+&lt;li&gt;Try to fetech data in a single query&lt;/li&gt;
+&lt;li&gt;Embed dependent fields&lt;/li&gt;
+&lt;li&gt;Embed &quot;point-in-time&quot; data&lt;/li&gt;
+&lt;li&gt;Do not embed fields that have unbound growth&lt;/li&gt;
+&lt;li&gt;Pre-populate anything you can&lt;/li&gt;
+&lt;li&gt;Preallocate space, whenever possible&lt;/li&gt;
+&lt;li&gt;Store embedded information in arrays for anonymous access&lt;/li&gt;
+&lt;li&gt;Desigin documents to be self-sufficient&lt;/li&gt;
+&lt;li&gt;Prefer $-operators to JavaScript&lt;/li&gt;
+&lt;li&gt;Compute aggregations as you go&lt;/li&gt;
+&lt;li&gt;Write code to handle data integrity issues&lt;/li&gt;
+&lt;li&gt;Use the correct types&lt;/li&gt;
+&lt;li&gt;Override _id when you have your own simple, unique id&lt;/li&gt;
+&lt;li&gt;Avoid using a document for _id&lt;/li&gt;
+&lt;li&gt;Do not use database references&lt;/li&gt;
+&lt;li&gt;Don&#39;t use GridFS for small binary data&lt;/li&gt;
+&lt;li&gt;Handle &quot;seamless&quot; failover&lt;/li&gt;
+&lt;li&gt;Handle replica set failure and failover&lt;/li&gt;
+&lt;li&gt;Minimize disk access&lt;/li&gt;
+&lt;li&gt;Use indexes to do more with less memory&lt;/li&gt;
+&lt;li&gt;Don&#39;t always use an index&lt;/li&gt;
+&lt;li&gt;Create indexes that cover your queries&lt;/li&gt;
+&lt;li&gt;Use compound indexes to make multiple queries fast&lt;/li&gt;
+&lt;li&gt;Create hierarchical documents for faster scans&lt;/li&gt;
+&lt;li&gt;AND-queries should match as little as possible as fast as possible&lt;/li&gt;
+&lt;li&gt;OR-queries should match as much as possible as soon as possible&lt;/li&gt;
+&lt;li&gt;Write to the journal for single server, replicas for multiserver&lt;/li&gt;
+&lt;li&gt;Always use replication, journaling, or both&lt;/li&gt;
+&lt;li&gt;Do not depend on repair to recover data&lt;/li&gt;
+&lt;li&gt;Understand getlasterror&lt;/li&gt;
+&lt;li&gt;Always use safe writes in development&lt;/li&gt;
+&lt;li&gt;Use w with replication&lt;/li&gt;
+&lt;li&gt;Always use wtimeout with w&lt;/li&gt;
+&lt;li&gt;Don&#39;s use fsync on every write&lt;/li&gt;
+&lt;li&gt;Start up normally after a crash&lt;/li&gt;
+&lt;li&gt;Take instant-in-time backups of durable servers&lt;/li&gt;
+&lt;li&gt;Manually clean up your chunks collections&lt;/li&gt;
+&lt;li&gt;Compact database with repair&lt;/li&gt;
+&lt;li&gt;Don&#39;t change the number of votes for members of a replic set&lt;/li&gt;
+&lt;li&gt;Replica sets can be reconfigured without a master up&lt;/li&gt;
+&lt;li&gt;--shardsvr and --configsvr aren&#39;t required&lt;/li&gt;
+&lt;li&gt;Only use --notablescan in development&lt;/li&gt;
+&lt;li&gt;Learn some JavaScript&lt;/li&gt;
+&lt;li&gt;Manage all of your servers and databases from one shell&lt;/li&gt;
+&lt;li&gt;Get &quot;help&quot; for any function&lt;/li&gt;
+&lt;li&gt;Create startup files&lt;/li&gt;
+&lt;li&gt;Add your own functions&lt;/li&gt;
+&lt;li&gt;Use a single connection to read your own writes&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;推荐资料&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.51cto.com/zt/107&quot;&gt;中文翻译&lt;/a&gt;&lt;/p&gt;
+</content>
+   </entry>
    
    <entry>
      <title>解读 Erlang lists 源码</title>
