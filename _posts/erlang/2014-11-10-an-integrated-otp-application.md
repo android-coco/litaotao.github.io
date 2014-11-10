@@ -1,6 +1,6 @@
 ---
 category: erlang  
-published: true  
+published: false  
 layout: post  
 title: 一个完整的 OTP 应用 
 description: 通过对一个简单、完整的OTP应用的学习和分析来进入OTP的世界~~ 
