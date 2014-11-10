@@ -4,17 +4,43 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-<<<<<<< HEAD
-   <updated>2014-11-08T20:45:03+08:00</updated>
-=======
-   <updated>2014-11-09T21:50:41+08:00</updated>
->>>>>>> deeb43a3631d95ddb74fffe4ccfbc4e0a2f9835d
+   <updated>2014-11-10T16:42:34+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>我的 Erlang 学习资源</title>
+     <link href="/my-erlang-resources"/>
+     <updated>2014-11-10T00:00:00+08:00</updated>
+     <id>/my-erlang-resources</id>
+     <content type="html">
+</content>
+   </entry>
+   
+   <entry>
+     <title>一个完整的 OTP 应用</title>
+     <link href="/an-integrated-otp-application"/>
+     <updated>2014-11-10T00:00:00+08:00</updated>
+     <id>/an-integrated-otp-application</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　在实践 &lt;em&gt;Erlang and OTP in Action&lt;/em&gt; 的第六章的时候，确实遇到了不少问题，后来慢慢多看了几遍书，多阅读了几次源码，特别是阅读了 application 的源码后，才慢慢理解了这章所讲的这个应用。这个总结不会很长，原本就想简单记在书上的，但想到以后也许会有一些更新，还有一些流程图的绘制需要经过多次修改，就还是放到github上来了，说实话，真挺感谢github的，让我学习如此。&lt;/p&gt;
+
+&lt;h2&gt;2. 程序运行流程&lt;/h2&gt;
+
+&lt;h2&gt;3. OTP 应用的标准组织结构&lt;/h2&gt;
+
+&lt;h2&gt;4. 应用元数据描述文件说明&lt;/h2&gt;
+
+&lt;h2&gt;5. 感想&lt;/h2&gt;
+</content>
+   </entry>
    
    <entry>
      <title>book-1. 50 Tips and Tricks for MongoDB Developers</title>
