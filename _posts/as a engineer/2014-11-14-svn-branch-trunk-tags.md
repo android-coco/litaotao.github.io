@@ -21,4 +21,8 @@ description: trunk是现女友，branches是前女友们，tags是让你记忆�
 
 - **Trunk**: 你的现女友，你会付出很多东西在她身上，期待美好的结果，但时不时也会吵吵闹闹，出现一些意外情况；
 - **Branches**：你的前女友们，按时间排序，她们都有很多相似的东西，那就是隐藏在你最深处的东西，你的Kernel，可以说是你的爱情观、人生观、事业观等等啦；
-- **Tags**：让你记忆尤深的前女友们，她们可不像你这样善变，分手后依然爱你，甚至当你有一天被现女友携款潜逃将你抛弃后，你还能回去找她们，kiss她们的香唇。
+- **Tags**：让你记忆尤深的前女友们，她们可不像你这样善变，分手后依然爱你，甚至当你有一天被现女友携款潜逃将你抛弃后，你还能回去找她们，kiss她们的香唇。  
+
+##  3. 一些资源 
+- [TortoiseSVN 1.8 中文文档](http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html)  
+- [图解git命令](http://marklodato.github.io/visual-git-guide/index-zh-cn.html)

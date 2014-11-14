@@ -4,7 +4,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-14T11:23:45+08:00</updated>
+   <updated>2014-11-14T17:52:49+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -36,6 +36,14 @@
 &lt;li&gt;&lt;strong&gt;Trunk&lt;/strong&gt;: 你的现女友，你会付出很多东西在她身上，期待美好的结果，但时不时也会吵吵闹闹，出现一些意外情况；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Branches&lt;/strong&gt;：你的前女友们，按时间排序，她们都有很多相似的东西，那就是隐藏在你最深处的东西，你的Kernel，可以说是你的爱情观、人生观、事业观等等啦；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Tags&lt;/strong&gt;：让你记忆尤深的前女友们，她们可不像你这样善变，分手后依然爱你，甚至当你有一天被现女友携款潜逃将你抛弃后，你还能回去找她们，kiss她们的香唇。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. 一些资源&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html&quot;&gt;TortoiseSVN 1.8 中文文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://marklodato.github.io/visual-git-guide/index-zh-cn.html&quot;&gt;图解git命令&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -449,10 +457,10 @@ Eshell V6.1  (abort with ^G)
 &lt;p&gt;　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：&lt;/p&gt;
 
 &lt;blockquote&gt;&lt;ul&gt;
-&lt;li&gt;doc  存放文档；&lt;/li&gt;
-&lt;li&gt;ebin  存放编译后的代码以及应用包含应用原子数据的app文件；&lt;/li&gt;
-&lt;li&gt;include  存放公共头文件；&lt;/li&gt;
-&lt;li&gt;priv  存放各种需要随应用一起发布的其他内容，如模板文件，共享文件对象以及DLL等；&lt;/li&gt;
+&lt;li&gt;doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；&lt;/li&gt;
+&lt;li&gt;ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；&lt;/li&gt;
+&lt;li&gt;include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；&lt;/li&gt;
+&lt;li&gt;priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(&lt;application-name&gt;)，便会以字符串形式得到priv目录完整路径；&lt;/li&gt;
 &lt;li&gt;src  存放应用源代码；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
