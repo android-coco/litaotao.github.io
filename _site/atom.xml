@@ -4,7 +4,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-14T11:18:49+08:00</updated>
+   <updated>2014-11-14T11:23:45+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -13,11 +13,13 @@
 
    
    <entry>
-     <title>SVN 中的branches,tags和trunk</title>
+     <title>SVN 中的branches, tags和trunk</title>
      <link href="/svn-branch-trunk-tags"/>
      <updated>2014-11-14T00:00:00+08:00</updated>
      <id>/svn-branch-trunk-tags</id>
-     <content type="html">&lt;h2&gt;1. 直接上正文&lt;/h2&gt;
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 直接上正文&lt;/h2&gt;
 
 &lt;p&gt;　　正文就是，关于这点，&lt;a href=&quot;http://stackoverflow.com/questions/16142/what-do-branch-tag-and-trunk-mean-in-subversion-repositories&quot;&gt;SO&lt;/a&gt;已经有多答案了，下面我引用一下投票最多的答案。&lt;/p&gt;
 
