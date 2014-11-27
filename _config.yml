@@ -4,6 +4,7 @@ markdown: rdiscount
 highlighter: pygments
 paginate: 8
 permalink: /:title
+encoding: UTF-8
 
 title: Taotao's Zone
 url: http://litaotao.github.io
