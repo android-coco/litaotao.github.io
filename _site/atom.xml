@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-11-30T20:38:51+08:00</updated>
+   <updated>2014-12-02T21:26:20+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -49,7 +49,6 @@
 spark-1.1.1-bin-hadoop2.4.tgz
 chenshan@mac007 spark$tar zxf spark-1.1.1-bin-hadoop2.4.tgz 
 chenshan@mac007 spark$ls
-spark-1.1.1-bin-hadoop2.4     spark-1.1.1-bin-hadoop2.4.tgz
 chenshan@mac007 spark$cd spark-1.1.1-bin-hadoop2.4
 chenshan@mac007 spark-1.1.1-bin-hadoop2.4$ls
 CHANGES.txt NOTICE      RELEASE     conf        examples    python

@@ -13,12 +13,12 @@ description: 总结了spark下载，安装，设置环境变量，以及如何�
 　　下载最新版的[spark](http://spark.apache.org/downloads.html). 我选择的是spark-1.1.1-bin-hadoop2.4.tgz。因为是预编译过的，所以没有所谓的“安装”环境，直接解压即可运行了。  
 　　运行路径是：spark-1.1.1-bin-hadoop2.4/bin，如下： 
 
+
 ```
 chenshan@mac007 spark$ls
 spark-1.1.1-bin-hadoop2.4.tgz
 chenshan@mac007 spark$tar zxf spark-1.1.1-bin-hadoop2.4.tgz 
 chenshan@mac007 spark$ls
-spark-1.1.1-bin-hadoop2.4     spark-1.1.1-bin-hadoop2.4.tgz
 chenshan@mac007 spark$cd spark-1.1.1-bin-hadoop2.4
 chenshan@mac007 spark-1.1.1-bin-hadoop2.4$ls
 CHANGES.txt NOTICE      RELEASE     conf        examples    python
