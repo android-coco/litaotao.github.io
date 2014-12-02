@@ -63,7 +63,7 @@ help      -> Python's own help system.
 object?   -> Details about 'object', use 'object??' for extra details.
 ```  
 
-　　成功，我想要的效果达到了，看下面。后来才发现原来官方上面已经有这个说明了，只是感觉也说得不是很明确，看[这里](https://spark.apache.org/docs/0.9.0/python-programming-guide.html)  
+　　成功，我想要的效果达到了，看下面。后来才发现原来官方上面已经有这个说明了，只是感觉也说得不是很明确，看[这里](http://spark.apache.org/docs/latest/programming-guide.html)  
 
 ```
 In [1]: ls
