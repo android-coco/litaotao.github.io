@@ -1,1 +1,0 @@
-document.write('<a href="http://edu.51cto.com/course/course_id-1189.html" target="_blank" style="text-decoration: none;color:red">2014WOT全球软件技术峰会北京站 课程视频发布</a>');
