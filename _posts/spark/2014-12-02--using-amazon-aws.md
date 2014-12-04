@@ -72,4 +72,154 @@ root@ubuntu2:~/Desktop/spark/ampcamp# cp ../company.pem .
 ./spark-ec2 -i <key_file> -k <key_pair> destroy ampcamp  
 ```  
 
+## 3. 查看集群设置和数据准备
 
+### 3.1 获取master节点地址  
+　　在这个练习中，我们会用从[http://aws.amazon.com/datasets/4182](http://aws.amazon.com/datasets/4182)拿到的wikipedia的流量数据来做分析。  
+　　方便起见，AMP Camp已经提前把(May 5 to May 7, 2009; roughly 20G and 329 million entries)的数据准备好，并且预加载到集群里一个HDFS机器上了。这样我们就不用准备数据了，可以专注在体验spark特性的这件事上。
+
+### 3.1 获取master节点地址  
+
+```  
+./spark-ec2 -i <key_file> -k <key_pair> get-master ampcamp  
+```  
+
+　　此时成功的话应该会提示你当前有一个master，3个slave，0个ZooKeeper。  
+
+### 3.2 使用ssh登录master节点  
+
+```  
+ssh -i <key_file> -l root <master_node_hostname>
+or
+ssh -i <key_file> root <master_node_hostname>
+```  
+　　需要注意的是，这里虽然你是登录到一个机器上，但实际是一个集群中。集群里有一个master节点，3个slave节点。其中你登录的地方是master节点，master节点主要负责任务分配和管理HDFS的元数据。其他的3个slave节点是计算节点，也就是真正运行任务的节点。  
+　　在master里，执行ls可以看到以下几个文件夹，下面列出比较重要的几个文件夹：  
+
+- ephemeral-hdfs: Hadoop installation  
+- hive: Hive installation  
+- java-app-template: Some stand-alone Spark programs in java  
+- mesos: Mesos installation  
+- mesos-ec2: A suite of scripts to manage Mesos on EC2  
+- scala-2.9.1.final: Scala installation  
+- scala-app-template: Some stand-alone Spark programs in scala  
+- spark: Spark installation  
+- shark: Shark installation  
+
+　　可以在mesos-ec2/slaves文件里看到自己的3个slave节点地址：  
+
+```
+[root@ip-172-31-22-240 ~]# cat mesos-ec2/slaves
+ec2-54-174-175-127.compute-1.amazonaws.com
+ec2-54-174-183-88.compute-1.amazonaws.com
+ec2-54-174-124-52.compute-1.amazonaws.com
+```
+　　
+　　你的HDFS集群应该已经提前载入20GB的wikipedia数据文件了，可以到ephemeral-hdfs/bin/下执行hadoop fs -ls /wiki/pagecounts查看，这里应该是有74个文件，其中2个是空的。其中每一个文件是以小时为单位来保存的。  
+
+```  
+[root@ip-172-31-22-240 ~]# ephemeral-hdfs/bin/hadoop fs -ls /wiki/pagecounts
+Found 74 items
+-rw-r--r--   3 root supergroup          0 2014-12-03 02:18 /wiki/pagecounts/part-00095
+-rw-r--r--   3 root supergroup  244236879 2014-12-03 02:18 /wiki/pagecounts/part-00096
+-rw-r--r--   3 root supergroup  233905016 2014-12-03 02:18 /wiki/pagecounts/part-00097
+-rw-r--r--   3 root supergroup  225825888 2014-12-03 02:19 /wiki/pagecounts/part-00098
+-rw-r--r--   3 root supergroup  225164279 2014-12-03 02:18 /wiki/pagecounts/part-00099
+-rw-r--r--   3 root supergroup  228145848 2014-12-03 02:19 /wiki/pagecounts/part-00100
+.            
+.
+.
+-rw-r--r--   3 root supergroup  327382691 2014-12-03 02:26 /wiki/pagecounts/part-00163
+-rw-r--r--   3 root supergroup  325471268 2014-12-03 02:27 /wiki/pagecounts/part-00164
+-rw-r--r--   3 root supergroup  288288841 2014-12-03 02:27 /wiki/pagecounts/part-00165
+-rw-r--r--   3 root supergroup  266179174 2014-12-03 02:29 /wiki/pagecounts/part-00166
+-rw-r--r--   3 root supergroup  243451716 2014-12-03 02:18 /wiki/pagecounts/part-00167
+-rw-r--r--   3 root supergroup          0 2014-12-03 02:19 /wiki/pagecounts/part-00168
+```  
+
+　　其中，每个文件都以一行为单位记录，每行都符合模式：<date_time> <project_code> <page_title> <num_hits> <page_size>。其中<date_time>字段以YYYYMMDD-HHMMSS格式，<project_code>字段表示对对应的页面所使用的语言，如"en"则表示英文；<page_title>字段表示该页面在wiki上的标题，<num_hits>表示从<date_time>时间起一小时内的浏览量，<page_size>表示以字节为单位，这个页面的大小。
+
+```  
+20090507-040000 aa Main_Page 7 51309
+20090507-040000 aa Special:Boardvote 1 11631
+20090507-040000 aa Special:Imagelist 1 931
+```
+
+## 4. 利用spark来分析wikipedia流量数据  
+　　启动spark shell。路径在/root/spark/spark-shell。
+
+### 4.1  热身  
+　　创建一个RDD，在spark-shell中，可以用sc代替SparkContext来创建RDD。这里需要注意一点，在Scala中有两种变量类型var和val，其中var是variable的缩写，val是value的缩写。顾名思义，var是可变的，val是不可变的。简单的可以把val理解成C/C++里的常量，或者Erlang里的变量【Erlang里的变量具有单次赋值的特征】。  
+
+``` 
+scala> var a ="aaa"
+a: java.lang.String = aaa
+
+scala> a = "a"
+a: java.lang.String = a
+
+scala> val b = "aaa"
+b: java.lang.String = aaa
+
+scala> b = "a"
+<console>:12: error: reassignment to val
+       b = "a"
+         ^
+```  
+
+　　这里我们需要用val来指定一个新建的RDD，原因有2：第一，我们不需要对RDD做in place的改变，所以可以采用val来指定；其次，我们不应该对RDD做in place的改变，所以必须采用val来指定。下面，我们新建一个val型pagecounts变量，读取wikipedia 20GB的流量数据，并以两种方式打印前3条数据。  
+
+``` 
+scala> val pagecounts = sc.textFile("/wiki/pagecounts")
+14/12/04 05:58:35 INFO mapred.FileInputFormat: Total input paths to process : 74
+pagecounts: spark.RDD[String] = spark.MappedRDD@2fddef87
+
+scala> pagecounts.take(3)
+14/12/04 05:58:49 INFO spark.SparkContext: Starting job...
+14/12/04 05:58:49 INFO spark.CacheTracker: Registering RDD ID 1 with cache
+14/12/04 05:58:49 INFO spark.CacheTrackerActor: Registering RDD 1 with 177 partitions
+14/12/04 05:58:49 INFO spark.CacheTracker: Registering RDD ID 0 with cache
+14/12/04 05:58:49 INFO spark.CacheTrackerActor: Registering RDD 0 with 177 partitions
+14/12/04 05:58:49 INFO spark.CacheTrackerActor: Asked for current cache locations
+14/12/04 05:58:49 INFO spark.MesosScheduler: Final stage: Stage 0
+14/12/04 05:58:49 INFO spark.MesosScheduler: Parents of final stage: List()
+14/12/04 05:58:49 INFO spark.MesosScheduler: Missing parents: List()
+14/12/04 05:58:49 INFO spark.MesosScheduler: Computing the requested partition locally
+14/12/04 05:58:49 INFO spark.SparkContext: Job finished in 0.098193078 s
+14/12/04 05:58:49 INFO spark.SparkContext: Starting job...
+14/12/04 05:58:49 INFO spark.CacheTrackerActor: Asked for current cache locations
+14/12/04 05:58:49 INFO spark.MesosScheduler: Final stage: Stage 1
+14/12/04 05:58:49 INFO spark.MesosScheduler: Parents of final stage: List()
+14/12/04 05:58:49 INFO spark.MesosScheduler: Missing parents: List()
+14/12/04 05:58:49 INFO spark.MesosScheduler: Computing the requested partition locally
+14/12/04 05:58:49 INFO spark.SparkContext: Job finished in 0.026119526 s
+res1: Array[String] = Array(20090505-000000 aa.b ?71G4Bo1cAdWyg 1 14463, 20090505-000000 aa.b Special:Statistics 1 840, 20090505-000000 aa.b Special:Whatlinkshere/MediaWiki:Returnto 1 1019)
+
+scala> pagecounts.take(3).foreach(println)
+14/12/04 05:59:16 INFO spark.SparkContext: Starting job...
+14/12/04 05:59:16 INFO spark.CacheTrackerActor: Asked for current cache locations
+14/12/04 05:59:16 INFO spark.MesosScheduler: Final stage: Stage 2
+14/12/04 05:59:16 INFO spark.MesosScheduler: Parents of final stage: List()
+14/12/04 05:59:16 INFO spark.MesosScheduler: Missing parents: List()
+14/12/04 05:59:16 INFO spark.MesosScheduler: Computing the requested partition locally
+14/12/04 05:59:16 INFO spark.SparkContext: Job finished in 0.004355182 s
+14/12/04 05:59:16 INFO spark.SparkContext: Starting job...
+14/12/04 05:59:16 INFO spark.CacheTrackerActor: Asked for current cache locations
+14/12/04 05:59:16 INFO spark.MesosScheduler: Final stage: Stage 3
+14/12/04 05:59:16 INFO spark.MesosScheduler: Parents of final stage: List()
+14/12/04 05:59:16 INFO spark.MesosScheduler: Missing parents: List()
+14/12/04 05:59:16 INFO spark.MesosScheduler: Computing the requested partition locally
+14/12/04 05:59:16 INFO spark.SparkContext: Job finished in 0.016392708 s
+20090505-000000 aa.b ?71G4Bo1cAdWyg 1 14463
+20090505-000000 aa.b Special:Statistics 1 840
+20090505-000000 aa.b Special:Whatlinkshere/MediaWiki:Returnto 1 1019
+```  
+
+### 4.2 初试RDD Transfomation 和 RDD Action  
+　　下面，我们来演示一个RDD Transformation的例子。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。  
+　　首先，执行pagecounts.count来查看有多少条数据。这个动作会产生177个spark任务，这里是从HDFS读书数据，所以这个任务的瓶颈实在I/O这块，整个任务执行下来大概2~3分钟。这里我执行了几次，大概花了2分钟左右的时间，执行结果如下：  
+
+```
+```
+
+　　在任务运行的时候，可以打开web窗口访问：来实时观察执行进度。

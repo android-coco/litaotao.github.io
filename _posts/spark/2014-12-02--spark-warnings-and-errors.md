@@ -1,5 +1,5 @@
 ---
-category: erlang  
+category: spark  
 published: false  
 layout: post  
 title: ［touch spark］2. spark 一些错误和解决办法
@@ -19,5 +19,15 @@ description: 随时更新哦~~~
 4. 重新执行spark-shell即可   
 
 
-## 2.   
+## 2. SSH Connections freezing with “Write failed: Broken pipe”
+环境： Linux ubuntu2 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux  
+错误： ssh到Amazon EC2上的master进行操作时，长时间不操作后ssh自动断开   
+解决： [配置/etc/ssh/ssh_config文件](http://adminsgoodies.com/ssh-connections-freezing-with-%E2%80%9Cwrite-failed-broken-pipe%E2%80%9D/)    
+步骤:
+>>  
+1. ssh配置文件一般有两个，在/etc/ssh/下面，其中sshd_config是全局共享的，config是用户专用的。我们需要修改sshd_config文件；  
+2. vi /etc/ssh/sshd_config；  
+3. 修改字段KeepAlive的值为yes，ClientAliveInterval的值为60；若没有这两个字段，可以自己新建一个；  
+4. service ssh restart 重启ssh服务。  
+
 
