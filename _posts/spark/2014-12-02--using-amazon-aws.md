@@ -1,6 +1,6 @@
 ---
 category: spark
-published: false
+published: true
 layout: post
 title: ［touch spark］3. Amazon AWS 使用攻略
 description: 准备在AWS上跑spark的看过来了~~~
