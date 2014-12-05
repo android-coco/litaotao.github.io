@@ -26,6 +26,7 @@ export AWS_ACCESS_KEY_ID=<ACCESS_KEY_ID>
 export AWS_SECRET_ACCESS_KEY=<SECRET_ACCESS_KEY>
 ```  
 
+
 ### 2.3 创建key pair  
 　　在EC2 Dashboard左侧边栏->Network & Security->Key Pairs->Create Key Pair。这里会需要你输入一个key pair name，最好搞一个简单好记的，因为以后也会用到。创建成功后会自动下载一个用于后期验证登录的文件，下载该文件把其复制到用户家目录下，确保其权限至少是600，保险起见执行 chmod 600 key_pair_file。  
 
