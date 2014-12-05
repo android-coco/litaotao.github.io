@@ -18,7 +18,6 @@ description: 随时更新哦~~~
 3. vi spark-env.sh, 在`# - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node`这行下面加上一行`SPARK_LOCAL_IP=LOCALHOST`   
 4. 重新执行spark-shell即可   
 
-
 ## 2. SSH Connections freezing with “Write failed: Broken pipe”
 环境： Linux ubuntu2 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux  
 错误： ssh到Amazon EC2上的master进行操作时，长时间不操作后ssh自动断开   

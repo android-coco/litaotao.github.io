@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］3. Amazon AWS 使用攻略
 description: 准备在AWS上跑spark的看过来了~~~
@@ -220,6 +220,132 @@ scala> pagecounts.take(3).foreach(println)
 　　首先，执行pagecounts.count来查看有多少条数据。这个动作会产生177个spark任务，这里是从HDFS读书数据，所以这个任务的瓶颈实在I/O这块，整个任务执行下来大概2~3分钟。这里我执行了几次，大概花了2分钟左右的时间，执行结果如下：  
 
 ```
+scala> pagecounts.count
+.
+.
+.
+14/12/05 01:19:58 INFO spark.SimpleJob: Finished TID 173 (progress: 177/177)
+14/12/05 01:19:58 INFO spark.MesosScheduler: Completed ResultTask(0, 174)
+14/12/05 01:19:58 INFO spark.SparkContext: Job finished in 95.251659404 s
+res0: Long = 329641466
 ```
 
-　　在任务运行的时候，可以打开web窗口访问：来实时观察执行进度。
+　　在任务运行的时候，可以打开web窗口访问：http://<master_node_hostname>:8080 来实时观察执行进度。下面是我的一个截图示例：  
+![mesos-cluster](../../images/mesos-cluster.jpg)  
+
+　　现在，我们来利用现在这个RDD来trasform出另外一个RDD，用于记录英文wiki的数据。也通过把英文wiki的流量数据写到内存里，来比较一下数据在内存中和不在内存中两种情况下一些操作的耗时。这个测试需要下面4步：  
+　　1. 通过trasformation生成一个RDD[enPages]，记录英文wiki流量数据，因为这个步骤也需要遍历一边所有数据，所以这个步骤耗时也应该和上一个 pagecounts.count 耗时相当。
+
+``` 
+scala> val enPages = pagecounts.filter(_.split(" ")(1) == "en")
+enPages: spark.RDD[String] = spark.FilteredRDD@1b8f2e35
+
+scala> enPages.count
+.
+.
+.
+14/12/05 01:51:01 INFO spark.SparkContext: Job finished in 114.035390332 s
+res1: Long = 122352588
+```  
+
+　　2. 把enPages缓存到内存中  
+
+```  
+scala> enPages.cache
+res0: spark.RDD[String] = spark.FilteredRDD@78bf34f4
+```  
+
+　　3. 执行enPages.count，看看执行速度有神马区别，what happened? 按照原计划，现在不应该是神速吗？仔细看看下面的执行log，是不是有一种恍然大悟的赶脚啊？  
+
+```  
+scala> enPages.count
+.
+.
+.
+14/12/05 01:59:33 INFO spark.SimpleJob: Size of task 0:176 is 10680 bytes and took 4 ms to serialize by spark.JavaSerializerInstance
+14/12/05 01:59:33 INFO spark.CacheTrackerActor: Cache entry added: (2, 176) on ip-172-31-25-137.ec2.internal (size added: 16.0B, available: 6.0GB)
+14/12/05 01:59:33 INFO spark.SimpleJob: Finished TID 176 (progress: 172/177)
+14/12/05 01:59:33 INFO spark.MesosScheduler: Completed ResultTask(0, 176)
+14/12/05 01:59:34 INFO spark.CacheTrackerActor: Cache entry added: (2, 170) on ip-172-31-25-139.ec2.internal (size added: 10.3MB, available: 5.0GB)
+14/12/05 01:59:34 INFO spark.SimpleJob: Finished TID 169 (progress: 173/177)
+14/12/05 01:59:34 INFO spark.MesosScheduler: Completed ResultTask(0, 170)
+14/12/05 01:59:35 INFO spark.CacheTrackerActor: Cache entry added: (2, 172) on ip-172-31-25-137.ec2.internal (size added: 183.3MB, available: 5.8GB)
+14/12/05 01:59:35 INFO spark.SimpleJob: Finished TID 171 (progress: 174/177)
+14/12/05 01:59:35 INFO spark.MesosScheduler: Completed ResultTask(0, 172)
+14/12/05 01:59:35 INFO spark.CacheTrackerActor: Cache entry added: (2, 175) on ip-172-31-25-138.ec2.internal (size added: 16.0B, available: 6.1GB)
+14/12/05 01:59:35 INFO spark.SimpleJob: Finished TID 174 (progress: 175/177)
+14/12/05 01:59:35 INFO spark.MesosScheduler: Completed ResultTask(0, 175)
+14/12/05 01:59:36 INFO spark.CacheTrackerActor: Cache entry added: (2, 173) on ip-172-31-25-138.ec2.internal (size added: 16.0B, available: 6.1GB)
+14/12/05 01:59:36 INFO spark.SimpleJob: Finished TID 172 (progress: 176/177)
+14/12/05 01:59:36 INFO spark.MesosScheduler: Completed ResultTask(0, 173)
+14/12/05 01:59:36 INFO spark.CacheTrackerActor: Cache entry added: (2, 174) on ip-172-31-25-139.ec2.internal (size added: 178.3MB, available: 4.8GB)
+14/12/05 01:59:36 INFO spark.SimpleJob: Finished TID 173 (progress: 177/177)
+14/12/05 01:59:36 INFO spark.MesosScheduler: Completed ResultTask(0, 174)
+14/12/05 01:59:36 INFO spark.SparkContext: Job finished in 130.727017576 s
+res0: Long = 122352588
+```
+
+　　4. 好，现在我们再次执行enPages.count，看看是不是有神马神奇的事情发生了。  
+
+```
+scala> enPages.count
+.
+.
+.
+14/12/05 02:12:01 INFO spark.SparkContext: Job finished in 2.492567199 s
+res2: Long = 122352588
+```  
+　　
+　　哇，130秒和2.5秒的对决，心算一下，52倍啊，如果visualize一下这个数据，估计会更让人吃惊吧。擅于YY的我不禁用echarts画了个图，感受一下内存计算的神速。画图代码如下，直接把代码粘贴到[echarts bar](http://echarts.baidu.com/doc/example/bar1.html#macarons)，在再点击刷新就可以看到图了。 
+
+``` 
+option = {
+    title : {
+        text: 'enPages.count',
+        subtext: 'by taotao.li'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['no cache','cache']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['one time']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'no cache',
+            type:'bar',
+            data:[130.727017576]
+        },
+        {
+            name:'cache',
+            type:'bar',
+            data:[2.492567199]
+        }
+    ]
+};
+
+```
+
+![enPages-pic](../../images/enPages-pic.jpg)  

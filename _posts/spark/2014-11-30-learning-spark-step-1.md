@@ -6,13 +6,11 @@ title: ［touch spark］1. 准备和初次体验spark
 description: 总结了spark下载，安装，设置环境变量，以及如何运行python写的spark应用的一些基本点～～～	
 ---  
 
-
 ##  
 ## 1. 下载，安装，运行spark  
 
 　　下载最新版的[spark](http://spark.apache.org/downloads.html). 我选择的是spark-1.1.1-bin-hadoop2.4.tgz。因为是预编译过的，所以没有所谓的“安装”环境，直接解压即可运行了。  
 　　运行路径是：spark-1.1.1-bin-hadoop2.4/bin，如下： 
-
 
 ```
 chenshan@mac007 spark$ls
