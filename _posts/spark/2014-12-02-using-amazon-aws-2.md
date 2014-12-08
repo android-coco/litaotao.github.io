@@ -98,7 +98,7 @@ res0: Long = 329641466
 ```
 
 　　在任务运行的时候，可以打开web窗口访问：http://<master_node_hostname>:8080 来实时观察执行进度。下面是我的一个截图示例：  
-![mesos-cluster](../../images/mesos-cluster.jpg)  
+![mesos-cluster](../../images/mesos-cluster.png)  
 
 　　现在，我们来利用现在这个RDD来trasform出另外一个RDD，用于记录英文wiki的数据。也通过把英文wiki的流量数据写到内存里，来比较一下数据在内存中和不在内存中两种情况下一些操作的耗时。这个测试需要下面4步：  
 　　1. 通过trasformation生成一个RDD[enPages]，记录英文wiki流量数据，因为这个步骤也需要遍历一边所有数据，所以这个步骤耗时也应该和上一个 pagecounts.count 耗时相当。
@@ -215,4 +215,4 @@ option = {
 
 ```
 
-![enPages-pic](../../images/enPages-pic.jpg)  
+![enPages-pic](../../images/enPages-pic.png)  

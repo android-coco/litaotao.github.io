@@ -49,7 +49,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 ## 3. RDD transfomation  
 　　RDD 的transformation有几个和scala里的函数组合子一样，其他的我估计也是基于scala的组合子来写的。所以，为了方便起见，能用scala来展现的，我就用scala来写；不可以的，我再用spark来写示例。下面提到的transformation更新到[spark 1.1.1版本](http://spark.apache.org/docs/latest/programming-guide.html#transformations)。要想查看最新版本的，可以上[官网](http://spark.apache.org/)和[官方API文档](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)。这里顺带提一下，说到transformation，网上几乎每篇说spark的文章都会用到下面这张图。可是我真的想说，这张图可是Matei这哥们2012年发的[RDD论文](https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)里的啊，spark更新的速度也许比大多数人换对象的速度还快啊，好多东西已经变了。大家以后要是发这张图，就该说明出处和版本吧，免得大家误解transformation和actions就那几种类型啊。
-![trans-action-2012](../../images/trans-action-2012.jpg)
+![trans-action-2012](../../images/trans-action-2012.png)
 
 
 ## 3.1 RDD transfomation － flatMap  

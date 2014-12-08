@@ -16,7 +16,7 @@ description: 准备在AWS上跑spark的看过来了~~~
 
 ### 2.2 创建EC2 keys  
 　　首先确保你的地区是US EAST，在右上角可以选择区域，即帐号名右侧。还没找到的请看下图：  
-![choose_ec2_region](../../images/choose_ec2_region.jpg)  
+![choose_ec2_region](../../images/choose_ec2_region.png)  
 
 　　然后在帐号名->Security Credentials->Dashboard 下的 Details->Security Status->Manage Security Credentials->Access Keys->Create New Access Key创建keys，这里最好把keys记录下来，以后好用。  
 　　设置变量，下面的KEY_ID, ACCESS_KEY是在你创建keys的时候产生的：
