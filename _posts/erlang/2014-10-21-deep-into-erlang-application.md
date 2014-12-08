@@ -6,6 +6,9 @@ title: 深度分析 Erlang Application 行为
 description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习和Application源代码来分析Erlang中Application行为
 ---
 
+**扫一扫从手机上打开**
+![2014-10-21-deep-into-erlang-application](../../images/share/deep-into-erlang-application.jpg)
+
 ## 1. 从我在Erlang and OTP in Action中第六章中的错误说起
 　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：

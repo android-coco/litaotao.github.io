@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-12-08T18:27:17+08:00</updated>
+   <updated>2014-12-08T19:19:09+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1137,7 +1137,10 @@ filtermap(F, []) when is_function(F, 1) -&amp;gt; [].
      <link href="/deep-into-erlang-application"/>
      <updated>2014-10-21T00:00:00+08:00</updated>
      <id>/deep-into-erlang-application</id>
-     <content type="html">&lt;h2&gt;1. 从我在Erlang and OTP in Action中第六章中的错误说起&lt;/h2&gt;
+     <content type="html">&lt;p&gt;&lt;strong&gt;扫一扫从手机上打开&lt;/strong&gt;
+&lt;img src=&quot;../../images/share/deep-into-erlang-application.jpg&quot; alt=&quot;2014-10-21-deep-into-erlang-application&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;1. 从我在Erlang and OTP in Action中第六章中的错误说起&lt;/h2&gt;
 
 &lt;p&gt;　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：&lt;/p&gt;
