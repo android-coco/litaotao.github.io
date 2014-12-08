@@ -2,150 +2,16 @@
 category: spark
 published: true
 layout: post
-title: ［touch spark］3. Amazon AWS 使用攻略
-description: 准备在AWS上跑spark的看过来了~~~
+title: ［touch spark］3. 使用Spark分析wikipedia流量数据
+description: 哇，spark还真不是盖的~~~
 ---  
 
+
+　　本文是接上一篇的，所以序号就延续下来了。上一篇主要记录一些EC2配置和启动的问题，有兴趣请移步[Amazon AWS EC2 入门](../using-amazon-aws-1)
+
+
+## 
 ##  
-## 1. 申请Amazon AWS账号   
-　　申请Amazon AWS需要绑定信用卡，无奈兄弟我从来没用过信用卡，所以只能跑到[global cash](https://www.globalcash.hk/)申请一张虚拟信用卡了。有关申请虚拟信用卡的教程[这里](http://www.freehao123.com/globalcash/)已经有了，我就不重复了。
-
-## 2. 在EC2上创建一个spark集群  
-### 2.1 前期准备  
-　　本文中用到的所有脚本都是基于python 2.x写的，且在Linux和0S X上测试通过。  
-
-### 2.2 创建EC2 keys  
-　　首先确保你的地区是US EAST，在右上角可以选择区域，即帐号名右侧。还没找到的请看下图：  
-![choose ec2 region](../../images/choose ec2 region.jpg)  
-
-　　然后在帐号名->Security Credentials->Dashboard 下的 Details->Security Status->Manage Security Credentials->Access Keys->Create New Access Key创建keys，这里最好把keys记录下来，以后好用。  
-　　设置变量，下面的KEY_ID, ACCESS_KEY是在你创建keys的时候产生的：
-
-```  
-export AWS_ACCESS_KEY_ID=<ACCESS_KEY_ID>
-export AWS_SECRET_ACCESS_KEY=<SECRET_ACCESS_KEY>
-```  
-
-
-### 2.3 创建key pair  
-　　在EC2 Dashboard左侧边栏->Network & Security->Key Pairs->Create Key Pair。这里会需要你输入一个key pair name，最好搞一个简单好记的，因为以后也会用到。创建成功后会自动下载一个用于后期验证登录的文件，下载该文件把其复制到用户家目录下，确保其权限至少是600，保险起见执行 chmod 600 key_pair_file。  
-
-### 2.4 下载启动脚本  
-```  
-git clone git://github.com/amplab/ampcamp.git  
-```  
-
-### 2.5 建立并启动集群  
-　　若上面的启动脚本下载成功后，本地会有一个ampcamp的文件夹，cd 到ampcamp文件夹里，执行下面命令启动集群。其中key_file是刚刚下载并复制到家目录下的验证文件，name_of_key_pair是你创建key_pair的时候自己命名的。  
-
-``` 
-./spark-ec2 -i <key_file> -k <name_of_key_pair> --copy launch ampcamp
-``` 
-
-　　上面这个过程大约会持续15-20分钟，耐心等待一下。如果期间出现下面这个问题，那是因为没有把key_pair文件复制到家目录下去。
-
-```
-rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-rsync error: unexplained error (code 255) at io.c(605) [sender=3.0.9]
-Traceback (most recent call last):
-  File "./spark_ec2.py", line 759, in <module>
-    main()
-  File "./spark_ec2.py", line 648, in main
-    setup_cluster(conn, master_nodes, slave_nodes, zoo_nodes, opts, True)
-  File "./spark_ec2.py", line 363, in setup_cluster
-    deploy_files(conn, "deploy.generic", opts, master_nodes, slave_nodes, zoo_nodes)
-  File "./spark_ec2.py", line 604, in deploy_files
-    subprocess.check_call(command, shell=True)
-  File "/root/anaconda/lib/python2.7/subprocess.py", line 540, in check_call
-    raise CalledProcessError(retcode, cmd)
-subprocess.CalledProcessError: Command 'rsync -rv -e 'ssh -o StrictHostKeyChecking=no -i ../company.pem' '/tmp/tmp6YpLzV/' 'root@ec2-54-172-219-206.compute-1.amazonaws.com:/'' returned non-zero exit status 255
-root@ubuntu2:~/Desktop/spark/ampcamp# cp ../company.pem .
-```  
-
-　　如果一切顺利（但愿），最后会有消息提示创建成功：SUCCESS: Cluster successfully launched! You can login to the master at ***
-
-
-### 2.6 其他相关命令    
-　　第一个命令获取ampcamp集群的master节点，这个需要在集群启动成功后执行一次，因为后续也要用到这个节点地址，所以最好把master 节点地址记录下来。第二个命令是删除集群。    
-
-```  
-./spark-ec2 -i <key_file> -k <key_pair> get-master ampcamp   
-./spark-ec2 -i <key_file> -k <key_pair> destroy ampcamp  
-```  
-
-## 3. 查看集群设置和数据准备
-
-### 3.1 获取master节点地址  
-　　在这个练习中，我们会用从[http://aws.amazon.com/datasets/4182](http://aws.amazon.com/datasets/4182)拿到的wikipedia的流量数据来做分析。  
-　　方便起见，AMP Camp已经提前把(May 5 to May 7, 2009; roughly 20G and 329 million entries)的数据准备好，并且预加载到集群里一个HDFS机器上了。这样我们就不用准备数据了，可以专注在体验spark特性的这件事上。
-
-### 3.1 获取master节点地址  
-
-```  
-./spark-ec2 -i <key_file> -k <key_pair> get-master ampcamp  
-```  
-
-　　此时成功的话应该会提示你当前有一个master，3个slave，0个ZooKeeper。  
-
-### 3.2 使用ssh登录master节点  
-
-```  
-ssh -i <key_file> -l root <master_node_hostname>
-or
-ssh -i <key_file> root <master_node_hostname>
-```  
-　　需要注意的是，这里虽然你是登录到一个机器上，但实际是一个集群中。集群里有一个master节点，3个slave节点。其中你登录的地方是master节点，master节点主要负责任务分配和管理HDFS的元数据。其他的3个slave节点是计算节点，也就是真正运行任务的节点。  
-　　在master里，执行ls可以看到以下几个文件夹，下面列出比较重要的几个文件夹：  
-
-- ephemeral-hdfs: Hadoop installation  
-- hive: Hive installation  
-- java-app-template: Some stand-alone Spark programs in java  
-- mesos: Mesos installation  
-- mesos-ec2: A suite of scripts to manage Mesos on EC2  
-- scala-2.9.1.final: Scala installation  
-- scala-app-template: Some stand-alone Spark programs in scala  
-- spark: Spark installation  
-- shark: Shark installation  
-
-　　可以在mesos-ec2/slaves文件里看到自己的3个slave节点地址：  
-
-```
-[root@ip-172-31-22-240 ~]# cat mesos-ec2/slaves
-ec2-54-174-175-127.compute-1.amazonaws.com
-ec2-54-174-183-88.compute-1.amazonaws.com
-ec2-54-174-124-52.compute-1.amazonaws.com
-```
-　　
-　　你的HDFS集群应该已经提前载入20GB的wikipedia数据文件了，可以到ephemeral-hdfs/bin/下执行hadoop fs -ls /wiki/pagecounts查看，这里应该是有74个文件，其中2个是空的。其中每一个文件是以小时为单位来保存的。  
-
-```  
-[root@ip-172-31-22-240 ~]# ephemeral-hdfs/bin/hadoop fs -ls /wiki/pagecounts
-Found 74 items
--rw-r--r--   3 root supergroup          0 2014-12-03 02:18 /wiki/pagecounts/part-00095
--rw-r--r--   3 root supergroup  244236879 2014-12-03 02:18 /wiki/pagecounts/part-00096
--rw-r--r--   3 root supergroup  233905016 2014-12-03 02:18 /wiki/pagecounts/part-00097
--rw-r--r--   3 root supergroup  225825888 2014-12-03 02:19 /wiki/pagecounts/part-00098
--rw-r--r--   3 root supergroup  225164279 2014-12-03 02:18 /wiki/pagecounts/part-00099
--rw-r--r--   3 root supergroup  228145848 2014-12-03 02:19 /wiki/pagecounts/part-00100
-.            
-.
-.
--rw-r--r--   3 root supergroup  327382691 2014-12-03 02:26 /wiki/pagecounts/part-00163
--rw-r--r--   3 root supergroup  325471268 2014-12-03 02:27 /wiki/pagecounts/part-00164
--rw-r--r--   3 root supergroup  288288841 2014-12-03 02:27 /wiki/pagecounts/part-00165
--rw-r--r--   3 root supergroup  266179174 2014-12-03 02:29 /wiki/pagecounts/part-00166
--rw-r--r--   3 root supergroup  243451716 2014-12-03 02:18 /wiki/pagecounts/part-00167
--rw-r--r--   3 root supergroup          0 2014-12-03 02:19 /wiki/pagecounts/part-00168
-```  
-
-　　其中，每个文件都以一行为单位记录，每行都符合模式：<date_time> <project_code> <page_title> <num_hits> <page_size>。其中<date_time>字段以YYYYMMDD-HHMMSS格式，<project_code>字段表示对对应的页面所使用的语言，如"en"则表示英文；<page_title>字段表示该页面在wiki上的标题，<num_hits>表示从<date_time>时间起一小时内的浏览量，<page_size>表示以字节为单位，这个页面的大小。
-
-```  
-20090507-040000 aa Main_Page 7 51309
-20090507-040000 aa Special:Boardvote 1 11631
-20090507-040000 aa Special:Imagelist 1 931
-```
-
 ## 4. 利用spark来分析wikipedia流量数据  
 　　启动spark shell。路径在/root/spark/spark-shell。
 
@@ -217,7 +83,7 @@ scala> pagecounts.take(3).foreach(println)
 ```  
 
 ### 4.2 初试RDD Transfomation 和 RDD Action  
-　　下面，我们来演示一个RDD Transformation的例子。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。  
+　　下面，我们来演示一个RDD Transformation的例子。关于RDD Transformation，这篇有详细介绍和示例[spark RDD transformation 学习](../spark-transformers/)。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。  
 　　首先，执行pagecounts.count来查看有多少条数据。这个动作会产生177个spark任务，这里是从HDFS读书数据，所以这个任务的瓶颈实在I/O这块，整个任务执行下来大概2~3分钟。这里我执行了几次，大概花了2分钟左右的时间，执行结果如下：  
 
 ```
@@ -232,7 +98,7 @@ res0: Long = 329641466
 ```
 
 　　在任务运行的时候，可以打开web窗口访问：http://<master_node_hostname>:8080 来实时观察执行进度。下面是我的一个截图示例：  
-![mesos-cluster](../../images/mesos-cluster.jpg)  
+![mesos-cluster](../../images/mesos-cluster.png)  
 
 　　现在，我们来利用现在这个RDD来trasform出另外一个RDD，用于记录英文wiki的数据。也通过把英文wiki的流量数据写到内存里，来比较一下数据在内存中和不在内存中两种情况下一些操作的耗时。这个测试需要下面4步：  
 　　1. 通过trasformation生成一个RDD[enPages]，记录英文wiki流量数据，因为这个步骤也需要遍历一边所有数据，所以这个步骤耗时也应该和上一个 pagecounts.count 耗时相当。
@@ -349,4 +215,195 @@ option = {
 
 ```
 
-![enPages-pic](../../images/enPages-pic.jpg)  
+![enPages-pic](../../images/enPages-pic.png)  
+
+
+### 4.3 分析wikipedia的每日PV  
+　　重新温习一下[上一篇末尾](../using-amazon-aws-1)分析的wiki流量数据的格式如下：  
+
+- date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；  
+- project_code：表示对应的页面所使用的语言；  
+- page_title：表示访问的wiki标题；  
+- num_hits：表示从date_time起一小时内的浏览量；  
+- page_size： 表示以字节为单位，这个页面的大小；  
+
+　　OK，现在我们如果想要分析wiki流量的日PV，在上面5个字段中应该最关注的是date_time和num_hits吧。所以这里我们针对每一行数据创建一个key-value对，其中key是date_time，value是num_hits，在相加上相同的key对应的value就可以了。 下面我们把这些步骤拆开，一步一步分析，其中有些输出我就省略了。 
+
+```
+scala> val enTuples = enPages.map(line => line.split(" "))
+enTuples: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@34ba89c5
+
+scala> enTuples.take(5)
+.
+.
+.
+14/12/08 03:05:26 INFO spark.SparkContext: Job finished in 7.956625757 s
+res3: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
+
+
+scala> val enKeyValuePairs = enTuples.map(line => (line(0).substring(0, 8), line(3).toInt))
+enKeyValuePairs: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5e62a8d2
+
+scala> enKeyValuePairs.take(5).foreach(println)
+.
+.
+.
+14/12/08 03:07:58 INFO spark.SparkContext: Job finished in 0.001414429 s
+(20090505,4)
+(20090505,21)
+(20090505,9)
+(20090505,2)
+(20090505,2)
+
+scala> val dailyPv = enKeyValuePairs.reduceByKey(_+_, 1)
+dailyPv: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@50a934ec
+
+scala> dailyPv.take(5).foreach(println)
+.
+.
+.
+14/12/08 03:13:18 INFO spark.SparkContext: Job finished in 26.776559986 s
+(20090506,204190442)
+(20090507,202617618)
+(20090505,207698578)
+
+scala> dailyPv.collect
+.
+.
+.
+14/12/08 03:13:45 INFO spark.SparkContext: Job finished in 0.145675681 s
+res8: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+
+　　最后的collect方法会把RDD 转换成scala里的数组。take(n)方法是取出前n条，因为这里我们就分析3天的数据，所以最多也只能取钱3天的，这里take(5)是看看这样会不会有什么错误提示呢。  
+　　上面我们大概用了3-4行语句来完成这个统计，这已经很强大了。而spark更强大的地方是它提供的编程模型，即transformation和action，虽然这些行为也就寥寥数十个，但已经足够处理大多数常见的问题了。比如说上面这个统计日PV的查询，在spark里其实完全可以把上面3-4行语句组合成一行语句，也就是说，在spark里，只有一行语句就可以统计当前wiki数据集下的日PV了。  
+
+```
+scala> enPages.map(line => line.split(" ")).map(line => (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
+.
+.
+.
+14/12/08 03:25:03 INFO spark.SparkContext: Job finished in 27.144072883 s
+res12: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+>
+　　**可是老湿，你上面不是说只用一行语句就可以统计当前wiki数据集下的日PV的吗？可你这里用的是enPages啊！enPages不也是结果转换的吗，得把前几句加上吧？老湿，你骗我！！！**  
+![wawawa](../../images/wawawa.gif)  
+>
+　　**同学，你问这个问题是不是刚才又写情书去了？既然enPages也是由其他RDD转换而来的，那这里不也可以把enPages替换成其他的RDD与与对应的transformation吗？**
+
+![laoshi](../../images/laoshi.gif)  
+
+```
+scala> pagecounts.filter(_.split(" ")(1) == "en").map(line => line.split(" ")).map(line => (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
+ .
+ .
+ .
+ 14/12/08 04:33:52 INFO spark.SparkContext: Job finished in 151.78660518 s
+res14: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+
+### 4.4 做点有趣的事情，看看哪些网页浏览次数最多  
+　　OK，其实分析每日PV已经是一个很有用的分析案例了。特别是长时间段的，比如说一周，一月，一季等，这些数据会让公司在容灾容错方面有很大启发。同样有用的是分析热点数据，即哪些页面是用户最常访问的，这个在缓存系统建立方面是绝对的关键啊。想一想，要是你把一个用户很少访问的页面放到缓存系统里，是不是既浪费了昂贵的缓存空间，又费力不讨好，简直是事倍功半啊。所以，现在我们就来做一件事，根据wiki这几日的流量数据，分析一下用户最常访问的wiki页面。 
+
+>
+　　**要不，我们先预测一下。我个人觉得，怎么说至少也应该有主页，帮助页面吧。**
+
+　　当然，首先还是需要继续温习一下数据流量的格式啊：
+
+- date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；  
+- project_code：表示对应的页面所使用的语言；  
+- page_title：表示访问的wiki标题；  
+- num_hits：表示从date_time起一小时内的浏览量；  
+- page_size： 表示以字节为单位，这个页面的大小； 
+
+　　既然我们要找到最常访问的热点数据，那就应该关注page_title和num_hits了。so，用分析日PV同样的思路，我们来分析一下热点数据：  
+
+```
+scala> enPages.take(5)
+.
+.
+.
+14/12/08 04:59:48 INFO spark.SparkContext: Job finished in 9.6166E-4 s
+res15: Array[String] = Array(20090505-000000 en ! 4 170494, 20090505-000000 en !!! 21 306957, 20090505-000000 en !!!Fuck_You!!! 9 87025, 20090505-000000 en !!!Fuck_You!!!_And_Then_Some 2 18249, 20090505-000000 en !!!Fuck_You!!!_and_Then_Some 2 17960)
+
+scala> val enPageArray = enPages.map( l=>l.split(" "))
+enPageArray: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@27174693
+
+scala> enPageArray.take(5)
+.
+.
+.
+14/12/08 05:02:28 INFO spark.SparkContext: Job finished in 0.001180471 s
+res16: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
+
+scala> val enPageKeyValue = enPageArray.map(l =>(l(2), l(3).toInt))
+enPageKeyValue: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5b68b32
+
+scala> enPageKeyValue.take(5)
+.
+.
+.
+14/12/08 05:03:54 INFO spark.SparkContext: Job finished in 0.00113825 s
+res17: Array[(java.lang.String, Int)] = Array((!,4), (!!!,21), (!!!Fuck_You!!!,9), (!!!Fuck_You!!!_And_Then_Some,2), (!!!Fuck_You!!!_and_Then_Some,2))
+
+scala> val keyValueUnion = enPageKeyValue.reduceByKey(_+_, 40)
+keyValueUnion: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@7843f53
+
+scala> keyValueUnion.take(5).foreach(println)
+.
+.
+.
+14/12/08 05:17:35 INFO spark.SparkContext: Job finished in 98.416456363 s
+(Einst%C3%83%C2%BCrzende_Neubauten,2)
+(Maxemail,1)
+(Michael_Carl,4)
+(Boothe_Homestead,1)
+(File:The_Photographer.jpg,20)
+
+scala> val valueKey = keyValueUnion.map(x=>(x._2, x._1))
+valueKey: spark.RDD[(Int, java.lang.String)] = spark.MappedRDD@47a82a6a
+
+scala> valueKey.take(5).foreach(println)
+
+14/12/08 05:19:42 INFO spark.SparkContext: Job finished in 4.196323691 s
+(2,Einst%C3%83%C2%BCrzende_Neubauten)
+(4,Michael_Carl)
+(1,Maxemail)
+(1,Boothe_Homestead)
+(20,File:The_Photographer.jpg)
+
+scala> valueKey.sortByKey(false).take(5).foreach(println)
+.
+.
+.
+14/12/08 05:21:59 INFO spark.SparkContext: Job finished in 41.025906283 s
+(43822489,404_error/)
+(18730347,Main_Page)
+(17657352,Special:Search)
+(5816953,Special:Random)
+(3521336,Special:Randompage)
+```
+
+　　思路依然和分析每日PV是一样的，当然也可以组织成一行语句： 
+
+```
+val hotPage = enPages.map(l => l.split(" ")).map(l => (l(2), l(3).toInt)).reduceByKey(_+_, 40).map(x => (x._2, x._1)).sortByKey(false).take(10).foreach(println)
+.
+.
+.
+14/12/08 09:57:30 INFO spark.SparkContext: Job finished in 41.232081196 s
+(43822489,404_error/)
+(18730347,Main_Page)
+(17657352,Special:Search)
+(5816953,Special:Random)
+(3521336,Special:Randompage)
+(695817,Cinco_de_Mayo)
+(534253,Swine_influenza)
+(464935,Wiki)
+(396776,Dom_DeLuise)
+(382510,Deadpool_(comics))
+```
+
+　　好，这篇我们就先实践到这里。接下来体会一下shark的power，有兴趣的同志请移步[Spark Shark使用](../using-amazon-aws-3-shark)。
+
