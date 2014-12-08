@@ -1,6 +1,6 @@
 ---
 category: spark
-published: false
+published: true
 layout: post
 title: ［touch spark］3. 使用Spark分析wikipedia流量数据
 description: 哇，spark还真不是盖的~~~
@@ -83,7 +83,7 @@ scala> pagecounts.take(3).foreach(println)
 ```  
 
 ### 4.2 初试RDD Transfomation 和 RDD Action  
-　　下面，我们来演示一个RDD Transformation的例子。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。  
+　　下面，我们来演示一个RDD Transformation的例子。关于RDD Transformation，这篇有详细介绍和示例[spark RDD transformation 学习](../spark-transformers/)。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。  
 　　首先，执行pagecounts.count来查看有多少条数据。这个动作会产生177个spark任务，这里是从HDFS读书数据，所以这个任务的瓶颈实在I/O这块，整个任务执行下来大概2~3分钟。这里我执行了几次，大概花了2分钟左右的时间，执行结果如下：  
 
 ```
@@ -216,3 +216,194 @@ option = {
 ```
 
 ![enPages-pic](../../images/enPages-pic.png)  
+
+
+### 4.3 分析wikipedia的每日PV  
+　　重新温习一下[上一篇末尾](../using-amazon-aws-1)分析的wiki流量数据的格式如下：  
+
+- date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；  
+- project_code：表示对应的页面所使用的语言；  
+- page_title：表示访问的wiki标题；  
+- num_hits：表示从date_time起一小时内的浏览量；  
+- page_size： 表示以字节为单位，这个页面的大小；  
+
+　　OK，现在我们如果想要分析wiki流量的日PV，在上面5个字段中应该最关注的是date_time和num_hits吧。所以这里我们针对每一行数据创建一个key-value对，其中key是date_time，value是num_hits，在相加上相同的key对应的value就可以了。 下面我们把这些步骤拆开，一步一步分析，其中有些输出我就省略了。 
+
+```
+scala> val enTuples = enPages.map(line => line.split(" "))
+enTuples: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@34ba89c5
+
+scala> enTuples.take(5)
+.
+.
+.
+14/12/08 03:05:26 INFO spark.SparkContext: Job finished in 7.956625757 s
+res3: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
+
+
+scala> val enKeyValuePairs = enTuples.map(line => (line(0).substring(0, 8), line(3).toInt))
+enKeyValuePairs: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5e62a8d2
+
+scala> enKeyValuePairs.take(5).foreach(println)
+.
+.
+.
+14/12/08 03:07:58 INFO spark.SparkContext: Job finished in 0.001414429 s
+(20090505,4)
+(20090505,21)
+(20090505,9)
+(20090505,2)
+(20090505,2)
+
+scala> val dailyPv = enKeyValuePairs.reduceByKey(_+_, 1)
+dailyPv: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@50a934ec
+
+scala> dailyPv.take(5).foreach(println)
+.
+.
+.
+14/12/08 03:13:18 INFO spark.SparkContext: Job finished in 26.776559986 s
+(20090506,204190442)
+(20090507,202617618)
+(20090505,207698578)
+
+scala> dailyPv.collect
+.
+.
+.
+14/12/08 03:13:45 INFO spark.SparkContext: Job finished in 0.145675681 s
+res8: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+
+　　最后的collect方法会把RDD 转换成scala里的数组。take(n)方法是取出前n条，因为这里我们就分析3天的数据，所以最多也只能取钱3天的，这里take(5)是看看这样会不会有什么错误提示呢。  
+　　上面我们大概用了3-4行语句来完成这个统计，这已经很强大了。而spark更强大的地方是它提供的编程模型，即transformation和action，虽然这些行为也就寥寥数十个，但已经足够处理大多数常见的问题了。比如说上面这个统计日PV的查询，在spark里其实完全可以把上面3-4行语句组合成一行语句，也就是说，在spark里，只有一行语句就可以统计当前wiki数据集下的日PV了。  
+
+```
+scala> enPages.map(line => line.split(" ")).map(line => (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
+.
+.
+.
+14/12/08 03:25:03 INFO spark.SparkContext: Job finished in 27.144072883 s
+res12: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+>
+　　**可是老湿，你上面不是说只用一行语句就可以统计当前wiki数据集下的日PV的吗？可你这里用的是enPages啊！enPages不也是结果转换的吗，得把前几句加上吧？老湿，你骗我！！！**  
+![wawawa](../../images/wawawa.gif)  
+>
+　　**同学，你问这个问题是不是刚才又写情书去了？既然enPages也是由其他RDD转换而来的，那这里不也可以把enPages替换成其他的RDD与与对应的transformation吗？**
+
+![laoshi](../../images/laoshi.gif)  
+
+```
+scala> pagecounts.filter(_.split(" ")(1) == "en").map(line => line.split(" ")).map(line => (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
+ .
+ .
+ .
+ 14/12/08 04:33:52 INFO spark.SparkContext: Job finished in 151.78660518 s
+res14: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
+```
+
+### 4.4 做点有趣的事情，看看哪些网页浏览次数最多  
+　　OK，其实分析每日PV已经是一个很有用的分析案例了。特别是长时间段的，比如说一周，一月，一季等，这些数据会让公司在容灾容错方面有很大启发。同样有用的是分析热点数据，即哪些页面是用户最常访问的，这个在缓存系统建立方面是绝对的关键啊。想一想，要是你把一个用户很少访问的页面放到缓存系统里，是不是既浪费了昂贵的缓存空间，又费力不讨好，简直是事倍功半啊。所以，现在我们就来做一件事，根据wiki这几日的流量数据，分析一下用户最常访问的wiki页面。 
+
+>
+　　**要不，我们先预测一下。我个人觉得，怎么说至少也应该有主页，帮助页面吧。**
+
+　　当然，首先还是需要继续温习一下数据流量的格式啊：
+
+- date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；  
+- project_code：表示对应的页面所使用的语言；  
+- page_title：表示访问的wiki标题；  
+- num_hits：表示从date_time起一小时内的浏览量；  
+- page_size： 表示以字节为单位，这个页面的大小； 
+
+　　既然我们要找到最常访问的热点数据，那就应该关注page_title和num_hits了。so，用分析日PV同样的思路，我们来分析一下热点数据：  
+
+```
+scala> enPages.take(5)
+.
+.
+.
+14/12/08 04:59:48 INFO spark.SparkContext: Job finished in 9.6166E-4 s
+res15: Array[String] = Array(20090505-000000 en ! 4 170494, 20090505-000000 en !!! 21 306957, 20090505-000000 en !!!Fuck_You!!! 9 87025, 20090505-000000 en !!!Fuck_You!!!_And_Then_Some 2 18249, 20090505-000000 en !!!Fuck_You!!!_and_Then_Some 2 17960)
+
+scala> val enPageArray = enPages.map( l=>l.split(" "))
+enPageArray: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@27174693
+
+scala> enPageArray.take(5)
+.
+.
+.
+14/12/08 05:02:28 INFO spark.SparkContext: Job finished in 0.001180471 s
+res16: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
+
+scala> val enPageKeyValue = enPageArray.map(l =>(l(2), l(3).toInt))
+enPageKeyValue: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5b68b32
+
+scala> enPageKeyValue.take(5)
+.
+.
+.
+14/12/08 05:03:54 INFO spark.SparkContext: Job finished in 0.00113825 s
+res17: Array[(java.lang.String, Int)] = Array((!,4), (!!!,21), (!!!Fuck_You!!!,9), (!!!Fuck_You!!!_And_Then_Some,2), (!!!Fuck_You!!!_and_Then_Some,2))
+
+scala> val keyValueUnion = enPageKeyValue.reduceByKey(_+_, 40)
+keyValueUnion: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@7843f53
+
+scala> keyValueUnion.take(5).foreach(println)
+.
+.
+.
+14/12/08 05:17:35 INFO spark.SparkContext: Job finished in 98.416456363 s
+(Einst%C3%83%C2%BCrzende_Neubauten,2)
+(Maxemail,1)
+(Michael_Carl,4)
+(Boothe_Homestead,1)
+(File:The_Photographer.jpg,20)
+
+scala> val valueKey = keyValueUnion.map(x=>(x._2, x._1))
+valueKey: spark.RDD[(Int, java.lang.String)] = spark.MappedRDD@47a82a6a
+
+scala> valueKey.take(5).foreach(println)
+
+14/12/08 05:19:42 INFO spark.SparkContext: Job finished in 4.196323691 s
+(2,Einst%C3%83%C2%BCrzende_Neubauten)
+(4,Michael_Carl)
+(1,Maxemail)
+(1,Boothe_Homestead)
+(20,File:The_Photographer.jpg)
+
+scala> valueKey.sortByKey(false).take(5).foreach(println)
+.
+.
+.
+14/12/08 05:21:59 INFO spark.SparkContext: Job finished in 41.025906283 s
+(43822489,404_error/)
+(18730347,Main_Page)
+(17657352,Special:Search)
+(5816953,Special:Random)
+(3521336,Special:Randompage)
+```
+
+　　思路依然和分析每日PV是一样的，当然也可以组织成一行语句： 
+
+```
+val hotPage = enPages.map(l => l.split(" ")).map(l => (l(2), l(3).toInt)).reduceByKey(_+_, 40).map(x => (x._2, x._1)).sortByKey(false).take(10).foreach(println)
+.
+.
+.
+14/12/08 09:57:30 INFO spark.SparkContext: Job finished in 41.232081196 s
+(43822489,404_error/)
+(18730347,Main_Page)
+(17657352,Special:Search)
+(5816953,Special:Random)
+(3521336,Special:Randompage)
+(695817,Cinco_de_Mayo)
+(534253,Swine_influenza)
+(464935,Wiki)
+(396776,Dom_DeLuise)
+(382510,Deadpool_(comics))
+```
+
+　　好，这篇我们就先实践到这里。接下来体会一下shark的power，有兴趣的同志请移步[Spark Shark使用](../using-amazon-aws-3-shark)。
+

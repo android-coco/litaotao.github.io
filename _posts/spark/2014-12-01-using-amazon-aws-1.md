@@ -115,7 +115,7 @@ ec2-54-174-175-127.compute-1.amazonaws.com
 ec2-54-174-183-88.compute-1.amazonaws.com
 ec2-54-174-124-52.compute-1.amazonaws.com
 ```
-　　
+
 　　你的HDFS集群应该已经提前载入20GB的wikipedia数据文件了，可以到ephemeral-hdfs/bin/下执行hadoop fs -ls /wiki/pagecounts查看，这里应该是有74个文件，其中2个是空的。其中每一个文件是以小时为单位来保存的。  
 
 ```  
@@ -138,7 +138,7 @@ Found 74 items
 -rw-r--r--   3 root supergroup          0 2014-12-03 02:19 /wiki/pagecounts/part-00168
 ```  
 
-　　其中，每个文件都以一行为单位记录，每行都符合模式：<date_time> <project_code> <page_title> <num_hits> <page_size>。其中<date_time>字段以YYYYMMDD-HHMMSS格式，<project_code>字段表示对对应的页面所使用的语言，如"en"则表示英文；<page_title>字段表示该页面在wiki上的标题，<num_hits>表示从<date_time>时间起一小时内的浏览量，<page_size>表示以字节为单位，这个页面的大小。
+　　其中，每个文件都以一行为单位记录，每行都符合模式：`<date_time> <project_code> <page_title> <num_hits> <page_size>`。其中`<date_time>`字段以YYYYMMDD-HHMMSS为时间格式，表示访问时间，且以小时为单位，所以只有YYYYMMDD-HH为有效数据，MMSS都为0，`<project_code>`字段表示对应的页面所使用的语言，如"en"则表示英文；`<page_title>`字段表示该页面在wiki上的标题，`<num_hits>`表示从`<date_time>`时间起一小时内的浏览量，`<page_size>`表示以字节为单位，这个页面的大小。
 
 ```  
 20090507-040000 aa Main_Page 7 51309
