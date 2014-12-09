@@ -25,7 +25,11 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
+<<<<<<< HEAD
    <updated>2014-12-08T21:03:15+08:00</updated>
+=======
+   <updated>2014-12-09T17:06:13+08:00</updated>
+>>>>>>> 69685be40ec1827ba6d7193763c1bca8ab957d6c
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
