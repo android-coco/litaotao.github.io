@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-12-09T23:58:00+08:00</updated>
+   <updated>2014-12-10T17:31:52+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -886,6 +886,130 @@ Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pys
 &lt;h2&gt;推荐资料&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://blog.51cto.com/zt/107&quot;&gt;中文翻译&lt;/a&gt;&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>My Resume</title>
+     <link href="/resume"/>
+     <updated>2014-11-08T00:00:00+08:00</updated>
+     <id>/resume</id>
+     <content type="html">&lt;h2&gt;联系方式&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;手机：18202171279&lt;/li&gt;
+&lt;li&gt;Email：litaotao#vip.163.com&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;个人信息&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;李涛涛/男/1991&lt;/li&gt;
+&lt;li&gt;本科/北京邮电大学/自动化系&lt;/li&gt;
+&lt;li&gt;工作年限：&amp;lt;1年&lt;/li&gt;
+&lt;li&gt;技术博客：&lt;a href=&quot;http://litaotao.github.io&quot;&gt;http://litaotao.github.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Github: &lt;a href=&quot;http://github.com/litaotao&quot;&gt;http://github.com/litaotao&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Linkedin: &lt;a href=&quot;https://www.linkedin.com/in/taotaoli&quot;&gt;https://www.linkedin.com/in/taotaoli&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;期望职位：后端开发工程师&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;工作经历&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3&gt;通联数据股份公司 ( 2014年4月 ~  )&lt;/h3&gt;
+
+&lt;h4&gt;交易策略分享社区&lt;/h4&gt;
+
+&lt;p&gt;我在此项目中一人负责社区后端开发。社区主要提供交易策略的分享和交流的平台，目标是做到策略投资界的github。项目的难点是策略关系的处理和缓存系统的设计。此外，采用开源模块实现了后台管理系统，管理员可以实时看到社区中用户数据和策略的相关元数据。此项目还在进行中，有诸多地方需要持续实践和改善。&lt;/p&gt;
+
+&lt;h4&gt;通联信用评级&lt;/h4&gt;
+
+&lt;p&gt;我在此项目中一人负责后端开发，首次详细地以敏捷开发的方式组织开发日志，在保证项目质量的前提前最大性地提高了开发速度。项目中使用svn, visio等辅助工具，采用python作为服务端语言，采用flask, restful, MongoDB作为主要框架和数据存储系统。项目之外，我还了解了一些对中小微企业进行信用评估方面的行业知识。并凭此项目获得公司Q2季度最佳新员工奖【公司人数200-250人，获奖人数5人】&lt;/p&gt;
+
+&lt;h2&gt;技能清单&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;操作系统：Linux/Mac/Windows&lt;/li&gt;
+&lt;li&gt;编程语言：Python/Erlang/Scala/C/C++/JS/HTML/CSS&lt;/li&gt;
+&lt;li&gt;框架和库：Flask/Restful/OTP/Pymongo/Flask&lt;/li&gt;
+&lt;li&gt;数据系统：Mongo/MySQL/Redis&lt;/li&gt;
+&lt;li&gt;项目工具：Nginx/Visio/Gliffy&lt;/li&gt;
+&lt;li&gt;技术研究：Spark/Machine Learning/Recommend System&lt;/li&gt;
+&lt;li&gt;项目管理：Svn/Git/Markdown/JIRA/Jenkins/Confluence&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;开源项目&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3&gt;&lt;a href=&quot;http://github.com/litaotao/Magnet&quot;&gt;Magnet&lt;/a&gt;&lt;/h3&gt;
+
+&lt;blockquote&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Magnet : There are endless magnet lines in the magnet field, each of them has different direction and force, invisible but sensible, just like something that connect everyone in this world&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Relation : Relation is something that around everyone in their whole life, it&#39;s so important but we cannot manage our relation effectively nowadays,not merely because it&#39;s unmeasurable and untouchable, but we still didn&#39;t find a simple but effective tool to help us.&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;What mentioned above is the reason why I create this project, it aims to help people:&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Maintain your past : That&#39;s help us to keep in touch with people we ever know but almost out of your memory&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Strengthen your present : That&#39;s help us to strengthen our relationship with people whose name you can come up in mind now&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Discover your future : That&#39;s the magic of this project, it help us to find or discover people around you who share the same insterests, hobbies, skills or anything else.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;&lt;a href=&quot;http://github.com/litaotao/git-statistic&quot;&gt;git-statistic&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;准备用git开放API来做一些技术、趋势统计分析相关的工作，正在开展中。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;业余爱好&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;读书&lt;/li&gt;
+&lt;li&gt;航模&lt;/li&gt;
+&lt;li&gt;车模&lt;/li&gt;
+&lt;li&gt;乒乓&lt;/li&gt;
+&lt;li&gt;书法&lt;/li&gt;
+&lt;li&gt;跑步&lt;/li&gt;
+&lt;li&gt;技术研究&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;曾获荣誉&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;【通联数据股份公司】2014年Q2季度最佳新人奖;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;自我描述&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;我爱好计算机技术，在不断巩固基础知识的同时关注各种前沿技术； &lt;br/&gt;
+我乐助助人，我相信只要团队中所有人的力量都在一个方向，就一定会有所成就； &lt;br/&gt;
+我热爱生活，我大部分业余时间都献给了看书，运动，车模，航模； &lt;br/&gt;
+我希望能在一个充满活力，文化开放的环境里工作，成长； &lt;br/&gt;
+我希望能和最优秀的人才共事，希望大家在工作中是互相学习的同事，在生活中是互相帮助的好朋友；&lt;/p&gt;
+
+&lt;h2&gt;致谢&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;感谢您花时间阅读我的简历，期待能有机会与您共事。&lt;/p&gt;
 </content>
    </entry>
    
