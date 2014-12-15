@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］6. 使用Spark分析来做一些机器学习的事情
 description: 哇，初步体验BDAS---the Berkeley Data Analytics Stack
