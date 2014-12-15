@@ -8,24 +8,28 @@ description: first try spark cluster in company
 
 
 ##   
-## 1. 已知步骤  
+## 1. 写在前面  
+　　因为ssh到AWC EC2实在太慢了，而且公司也建立了spark集群，所以以后都在公司内部的spark集群上实践了。不出意外的话，touch spark这个系列以后都会基于公司的spark集群来记录的。安全起见，其中一些敏感信息当然会省略咯，所以如果朋友们有什么不清楚的地方欢迎随时交流啊，交流方式在我的[resume](../resume/)里有写，谢谢大家。  
 
-1. 解压客户端到 /usr/local  ，客户端在 \\filesvr.datayes.com\Sharefolder\to xiao\client\spark-dev.tar.gz
+##   
+## 2. 已知步骤  
+
+1. 解压客户端到/usr/local;
 2. 配置 /etc/hosts 增加：  
 
 [你的本机IP]    [你的本机IP]
-10.21.208.21    sh-demo-hadoop-01  
-10.21.208.22    sh-demo-hadoop-02  
-10.21.208.23    sh-demo-hadoop-03  
-10.21.208.24    sh-demo-hadoop-04  
-10.21.208.25    sh-demo-hadoop-05  
-10.21.208.26    sh-demo-hadoop-06  
-10.21.208.27    sh-demo-hadoop-07  
-10.21.208.28    sh-demo-hadoop-08  
-10.21.208.29    sh-demo-hadoop-09  
-10.21.208.30    sh-demo-hadoop-10  
+[master_node]    sh-demo-hadoop-01  
+[slave_node1]    sh-demo-hadoop-02  
+[slave_node2]    sh-demo-hadoop-03  
+[slave_node3]    sh-demo-hadoop-04  
+[slave_node4]    sh-demo-hadoop-05  
+[slave_node5]    sh-demo-hadoop-06  
+[slave_node6]    sh-demo-hadoop-07  
+[slave_node7]    sh-demo-hadoop-08  
+[slave_node8]    sh-demo-hadoop-09  
+[slave_node9]    sh-demo-hadoop-10  
 
-其中，你的本机是driver node，10.21.208.21是master node，10.21.208.22-30是worker/executor node。
+其中，你的本机是driver node，master_node是master node，slave_node1-9是worker/executor node。
 
 3. 测试 (所有命令都在 /usr/local/spark 下运行)  
 
