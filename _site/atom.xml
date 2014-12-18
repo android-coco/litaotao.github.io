@@ -25,488 +25,13 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-12-17T16:57:54+08:00</updated>
+   <updated>2014-12-18T09:16:41+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
-   
-   <entry>
-     <title>［touch spark］7. 终于等到你，spark streaming</title>
-     <link href="/spark-streaming"/>
-     <updated>2014-12-16T00:00:00+08:00</updated>
-     <id>/spark-streaming</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　我一直很佩服老外，佩服德国人的严谨，佩服美国人的创新。这次AMP实验室搞了个spark，你看人家产业链就快要出来了，从AMP的一个项目，到Apache的顶级项目，再到Databricks的成立。12年刚发表RDD那篇论文的哥们如今早已是Databricks的CTO了。看吧，其实国内很多人所谓的读书无用论其实作用域也就在国内成立吧。废话不多说，朋友们先看看databricks在2014 spark summit上的这个&lt;a href=&quot;http://v.youku.com/v_show/id_XNzQ1NDgxMzQ4.html&quot;&gt;演讲&lt;/a&gt;，看完你就知道神马叫牛逼，神马叫神速了。&lt;/p&gt;
-
-&lt;h2&gt;2. 这次我想干嘛&lt;/h2&gt;
-
-&lt;p&gt;　　由于项目需要，boss让我调研一下spark。过了大概一两个星期吧，boss突然问我spark学得怎么样了。当时我心里的第一反应是：how to define the junior, middle and senior stage of learning spark ? 反正当时我的肯定也不算midlle和senior，可是junior的话又该怎么定义呢？wow，程序员思维害死人。懒得再纠结这些定义了，我直接给老板说还在起步阶段。boss说那你接着学吧。这还没完，我心里又想了，要是下次boss问我同样的问题该怎么回答呢，或者说，在我心中神马算junior，middle和junior呢？那时候我就想起databricks演讲里那个实时分析twitter的案例了。So amazing，我决定了，要是哪天我也能实现这样一个类似的例子，那我就算是junior入门了。我本身是有一点ML的经验的，看了一段时间的基础知识，现在终于可以实践streaming了，心里太激动了。想想过两天就能实现databricks那个案例了，oh my god，不禁感叹生活如此多娇。ok，spark streaming, here we go.&lt;/p&gt;
-
-&lt;h2&gt;3. 实时分析twitter数据&lt;/h2&gt;
-
-&lt;h3&gt;3.1 事前准备&lt;/h3&gt;
-
-&lt;p&gt;　　这次我们来尝试下实时获取、分析twitter数据流。我们的项目大概由以下几个文件组成：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;login.txt: 包含你的twitter用户名和密码&lt;/li&gt;
-&lt;li&gt;scala/sbt: 包含SBT工具的文件夹&lt;/li&gt;
-&lt;li&gt;scala/build.sbt: SBT项目信息文件&lt;/li&gt;
-&lt;li&gt;scala/Tutorial.scala: 项目主函数文件&lt;/li&gt;
-&lt;li&gt;scala/TutorialHelper.scala: 项目帮助函数文件&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;blockquote&gt;&lt;p&gt;SBT: Simple Build Tool, 一个开源的用来构建scala或java项目的工具。当前，spark可以用sbt或maven来编译，但spark streaming 和shark只能用sbt来编译。&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　我们主要的工作是编写程序主文件，这个文件应该像下面这样。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import spark._
-import spark.streaming._
-import StreamingContext._
-import TutorialHelper._
-object Tutorial {
-  def main(args: Array[String]) {
-    // Location of the Spark directory
-    val sparkHome = &quot;/root/spark&quot;
-
-    // URL of the Spark cluster
-    val sparkUrl = getSparkUrl()
-
-    // Location of the required JAR files
-    val jarFile = &quot;target/scala-2.9.2/tutorial_2.9.2-0.1-SNAPSHOT.jar&quot;
-
-    // HDFS directory for checkpointing
-    val checkpointDir = TutorialHelper.getHdfsUrl() + &quot;/checkpoint/&quot;
-
-    // Twitter credentials from login.txt
-    val (twitterUsername, twitterPassword) = getTwitterCredentials()
-
-    // Your code goes here
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;3.2 牛刀小试&lt;/h3&gt;
-
-&lt;p&gt;　　我们先来看看一个简单的例子，什么都不做，就打印一些截取的实时twitter信息。&lt;br/&gt;
-　　为了实现实时流处理，spark提供了另外一种类型的RDD，叫StreamingContext，这里以后咱们再慢慢聊，其实就是一种特殊的RDD。接下来我们就先创建一个StreamingContext，然后你会发现，用一行语句就可以去拿twitter的实时信息流了。Amazing？Absolutely!当我第一次看到官方这个教程的时候，都不敢相信自己的眼睛，一共两行语句就搞定了。再次对AMP的那几个大师俯首称臣，太厉害了，人家把库都做好了，你直接拿来用就好了。&lt;br/&gt;
-　　这里插播一句，2013年11月27号，那天傍晚是我来面试公司，第一位面试官，也是力排众议把我招进来的CSO。当时他问我会不会hadoop，我说“不会，但是在学校听说过，听说搞这个东西很难的，我们公司也需要这个背景吗？”。他这下就惊奇了，并不是因为我说自己不会hadoop，而是因为我说这个东西很难。直接回答我说“难的东西作者们已经给咱们做过了，你直接拿来用就可以了！”这句话对我一直受用至今，工作这半年多来，我时常想起这句话，的确，难的事情别人已经几乎帮你解决了，大多数工作我们只是拿来主义，根本就没有资格、根本就不应该说难的。没想到当时只听过hadoop的我，现在spark都玩上了，哈哈，心里还是很爽。&lt;/p&gt;
-
-&lt;p&gt;　　ok，废话不多说了，看看这两行语句是怎么写的吧：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;val ssc = new StreamingContext(sparkUrl, &quot;Tutorial&quot;, Seconds(1), sparkHome, Seq(jarFile))
-val tweets = ssc.twitterStream(twitterUsername, twitterPassword)    
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　sparkUrl, sparkHome, jarFile 都是之前初始化好的变量；&quot;Tutorial&quot;是一个标志这个应用的唯一应用名，在Spark Web UI里可以看到；Seconds(1)表示设置每个1秒取一次twitter信息。接着创建了一个tweets的变量，这是一个DStream类型。关于DStream，这里我们另启一篇文章来讲吧，有兴趣的话读完这篇文档就知道&lt;a href=&quot;http://spark.apache.org/docs/latest/streaming-programming-guide.html&quot;&gt;DStream&lt;/a&gt;的前世今生了。&lt;/p&gt;
-
-&lt;p&gt;　　下面，我们打印一些信息来玩玩。和RDD transformation一样，map操作把每个status对象转变成其字符串形式，并构建一个新的DStream对象。而print操作并不是打印所有数据，默认是打印前十条记录。在咱们这个程序中，它打印每秒收到的前十条twitter信息。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;val statuses = tweets.map(status =&amp;gt; status.getText())
-statuses.print()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　然后我们把数据存储到本地磁盘上，这下整个程序看起来应该是这个样子的了：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import spark._
-import spark.streaming._
-import StreamingContext._
-import TutorialHelper._
-object Tutorial {
-  def main(args: Array[String]) {
-    // Location of the Spark directory
-    val sparkHome = &quot;/root/spark&quot;
-
-    // URL of the Spark cluster
-    val sparkUrl = getSparkUrl()
-
-    // Location of the required JAR files
-    val jarFile = &quot;target/scala-2.9.2/tutorial_2.9.2-0.1-SNAPSHOT.jar&quot;
-
-    // HDFS directory for checkpointing
-    val checkpointDir = TutorialHelper.getHdfsUrl() + &quot;/checkpoint/&quot;
-
-    // Twitter credentials from login.txt
-    val (twitterUsername, twitterPassword) = getTwitterCredentials()
-
-    // Your code goes here
-    val ssc = new StreamingContext(sparkUrl, &quot;Tutorial&quot;, Seconds(1), sparkHome, Seq(jarFile))
-    val tweets = ssc.twitterStream(twitterUsername, twitterPassword)  
-    val statuses = tweets.map(status =&amp;gt; status.getText())
-    statuses.print() 
-    ssc.checkpoint(checkpointDir) 
-    ssc.start()
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］4. spark RDD transformation 学习</title>
-     <link href="/spark-transformers"/>
-     <updated>2014-12-08T00:00:00+08:00</updated>
-     <id>/spark-transformers</id>
-     <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/transfomers.jpg&quot; alt=&quot;transfomers&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 什么是RDD&lt;/h2&gt;
-
-&lt;p&gt;　　先看下源码里是怎么描述RDD的。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;blockquote&gt;&lt;p&gt;Internally, each RDD is characterized by five main properties:&lt;br/&gt;
-A list of partitions&lt;br/&gt;
-A function for computing each split &lt;br/&gt;
-A list of dependencies on other RDDs&lt;br/&gt;
-Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned) &lt;br/&gt;
-Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　每个RDD有5个主要的属性：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;一组分片（partition），即数据集的基本组成单位&lt;/li&gt;
-&lt;li&gt;一个计算每个分片的函数&lt;/li&gt;
-&lt;li&gt;对parent RDD的依赖，这个依赖描述了RDD之间的lineage&lt;/li&gt;
-&lt;li&gt;对于key-value的RDD，一个Partitioner，这是可选择的&lt;/li&gt;
-&lt;li&gt;一个列表，存储存取每个partition的preferred位置。对于一个HDFS文件来说，存储每个partition所在的块的位置。这也是可选择的&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　把上面这5个主要的属性总结一下，可以得出RDD的大致概念。首先要知道，RDD大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是spark项目组设计用来表示数据集的一种数据结构。而spark项目组为了让RDD能handle更多的问题，又规定RDD应该是只读的，分区记录的一种数据集合中。可以通过两种方式来创建RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建RDD的方式，即通过其他RDD来创建【以后叫做转换】而成。而正因为RDD满足了这么多特性，所以spark把RDD叫做Resilient Distributed Datasets，中文叫做弹性分布式数据集。很多文章都是先讲RDD的定义，概念，再来说RDD的特性。我觉得其实也可以倒过来，通过RDD的特性反过来理解RDD的定义和概念，通过这种由果溯因的方式来理解RDD也未尝不可。反正对我个人而言这种方式是挺好的。&lt;/p&gt;
-
-&lt;h2&gt;2. RDD transfomation 一览&lt;/h2&gt;
-
-&lt;p&gt;　　ok，了解了RDD的含义，我们可以来看看神马叫transformation了，中文叫转换。上面提到RDD可以由两种方式创建，而在实际应用中，一般第一种方式都是用于新建一个RDD的时候，大多数时候都是通过第二种方式来生成一个新的RDD。so，想想这里我们应该怎么来根据一个已存在的RDD来transform出另一个新的RDD呢？当然就是根据一些规则，比如说筛选，映射，分组等等，而用于支撑这些规则的函数，就叫做RDD的transformation。&lt;br/&gt;
-　　下面我们通过下面这张表来看看RDD都支持哪些规则的transformation吧。 这些是&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;官方&lt;/a&gt;列出的一些常用的transformation，我原本想把所有transformation列出来的，可考虑到2/8原则，想想下面这些在实际应用中应该足够了。如果真的需要其他transformation的时候，相比彼时你的功力应该已到阅读、贡献源码的级别了。也就不需要再参考我下面将要写的东西了。 &lt;br/&gt;
-　　这些transformation中有一些是我不太熟悉的，所以这里记录一下我不太熟悉的那些转换函数的用法，仅供个人参考哦。&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt; No &lt;/th&gt;
-&lt;th&gt; Transformation  &lt;/th&gt;
-&lt;th&gt;  Meaning &lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt; 1 &lt;/td&gt;
-&lt;td&gt; map(func)  &lt;/td&gt;
-&lt;td&gt; Return a new distributed dataset formed by passing each element of the source through a function func.  &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 2 &lt;/td&gt;
-&lt;td&gt; filter(func) &lt;/td&gt;
-&lt;td&gt; Return a new dataset formed by selecting those elements of the source on which func returns true. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 3 &lt;/td&gt;
-&lt;td&gt; flatMap(func) &lt;/td&gt;
-&lt;td&gt; Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item). &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 4 &lt;/td&gt;
-&lt;td&gt; mapPartitions(func) &lt;/td&gt;
-&lt;td&gt; Similar to map, but runs separately on each partition (block) of the RDD, so func must be of type Iterator&lt;T&gt; =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 5 &lt;/td&gt;
-&lt;td&gt; mapPartitionsWithIndex(func) &lt;/td&gt;
-&lt;td&gt; Similar to mapPartitions, but also provides func with an integer value representing the index of the partition, so func must be of type (Int, Iterator&lt;T&gt;) =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 6 &lt;/td&gt;
-&lt;td&gt; sample(withReplacement, fraction, seed) &lt;/td&gt;
-&lt;td&gt; Sample a fraction fraction of the data, with or without replacement, using a given random number generator seed. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 7 &lt;/td&gt;
-&lt;td&gt; union(otherDataset) &lt;/td&gt;
-&lt;td&gt; Return a new dataset that contains the union of the elements in the source dataset and the argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 8 &lt;/td&gt;
-&lt;td&gt; intersection(otherDataset) &lt;/td&gt;
-&lt;td&gt; Return a new RDD that contains the intersection of elements in the source dataset and the argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;td&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-&lt;h2&gt;3. RDD transfomation&lt;/h2&gt;
-
-&lt;p&gt;　　RDD 的transformation有几个和scala里的函数组合子一样，其他的我估计也是基于scala的组合子来写的。所以，为了方便起见，能用scala来展现的，我就用scala来写；不可以的，我再用spark来写示例。下面提到的transformation更新到&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;spark 1.1.1版本&lt;/a&gt;。要想查看最新版本的，可以上&lt;a href=&quot;http://spark.apache.org/&quot;&gt;官网&lt;/a&gt;和&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;官方API文档&lt;/a&gt;。这里顺带提一下，说到transformation，网上几乎每篇说spark的文章都会用到下面这张图。可是我真的想说，这张图可是Matei这哥们2012年发的&lt;a href=&quot;https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文&lt;/a&gt;里的啊，spark更新的速度也许比大多数人换对象的速度还快啊，好多东西已经变了。大家以后要是发这张图，就该说明出处和版本吧，免得大家误解transformation和actions就那几种类型啊。&lt;br/&gt;
-　　以下都是基于官方&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;API DOC&lt;/a&gt;，在我本机上的测试以及网络资料整理而来。所有参考过的资料我都会在最后列出来，供参考。
-&lt;img src=&quot;../../images/trans-action-2012.png&quot; alt=&quot;trans-action-2012&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;3.1 RDD transfomation － flatMap&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　flatMap可以理解成map和flat的组合。他处理一个嵌套列表，对其中每个列表中的元素执行map，然后对每个列表执行flat，最后返回一个列表。
-　　所以，我们也可以先flatten一个列表，再对列表里的每个元素做mapping；当然也可以对嵌套列表里的每个元素做mapping，再对列表做flatten。看下面的例子就明白了：&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-flatMap[U](f: (T) ⇒ TraversableOnce[U])(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// flatMap operation
-scala&amp;gt; val test = List(List(1,2,3,4,5), List(10,20,30,40,50))
-test: List[List[Int]] = List(List(1, 2, 3, 4, 5), List(10, 20, 30, 40, 50))
-
-scala&amp;gt; val test1 = test.flatMap( x =&amp;gt; x.map(_ * 2))
-test1: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-
-// flat first, then mapping
-scala&amp;gt; val tset2 = test.flatten
-tset2: List[Int] = List(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
-
-scala&amp;gt; val test3 = test.flatten.map(_*2)
-test3: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-
-// mapping first, then flat
-scala&amp;gt; val test4 = test.map( x =&amp;gt; x.map(_*2))
-test4: List[List[Int]] = List(List(2, 4, 6, 8, 10), List(20, 40, 60, 80, 100))
-
-scala&amp;gt; val test5 = test.map(x =&amp;gt; x.map(_*2)).flatten
-test5: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.2 RDD transfomation － mapPartitions&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　mapPartitions是map的一个变种。map的输入函数是应用于RDD中每个元素，而mapPartitions的输入函数是应用于每个分区，也就是把每个分区中的内容作为整体来处理的。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def  
-mapPartitions[U](f: (Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　f即为输入函数，它处理每个分区里面的内容。每个分区中的内容将以Iterator[T]传递给输入函数f，f的输出结果是Iterator[U]。最终的RDD由所有分区经过输入函数处理后的结果合并起来的。&lt;/p&gt;
-
-&lt;h2&gt;3.3 RDD transfomation － mapPartitionsWithIndex | mapPartitionsWithContext&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　mapPartitions还有些变种，比如mapPartitionsWithContext，它能把处理过程中的一些状态信息传递给用户指定的输入函数。还有mapPartitionsWithIndex，它能把分区的index传递给用户指定的输入函数。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-mapPartitionsWithContext[U](f: (TaskContext, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD. This is a variant of mapPartitions that also passes the TaskContext into the closure.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
-Annotations
-
-def
-mapPartitionsWithIndex[U](f: (Int, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.3 RDD transfomation －  sample&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　根据fraction指定的比例，对数据进行采样，可以选择是否用随机数进行替换，seed用于指定随机数生成器种子。这里我一直有一个疑问，当我的数据集里有100个元素是，设置fraction为0.1，按理应该是返回10个随机数的，可是就返回了6个。似乎返回的随机数会少于数据集元素数量*随机数的比例，晚点继续研究。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def  sample(withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]
-Return a sampled subset of this RDD.  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 100)
-a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val sample = a.sample(false, 0.1, 0)
-sample: org.apache.spark.rdd.RDD[Int] = PartitionwiseSampledRDD[18] at sample at &amp;lt;console&amp;gt;:14
-
-scala&amp;gt; sample.count
-.
-.
-.
-14/12/12 10:39:07 INFO TaskSchedulerImpl: Removed TaskSet 23.0, whose tasks have all completed, from pool 
-14/12/12 10:39:07 INFO SparkContext: Job finished: count at &amp;lt;console&amp;gt;:17, took 3.491275316 s
-res29: Long = 6
-
-scala&amp;gt; sample.collect
-.
-.
-.
-14/12/12 10:39:11 INFO DAGScheduler: Stage 24 (collect at &amp;lt;console&amp;gt;:17) finished in 0.142 s
-14/12/12 10:39:11 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:17, took 0.151221638 s
-res30: Array[Int] = Array(22, 46, 48, 80, 87, 97)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　后话：&lt;br/&gt;
-　　在看API DOC的时候发现有一个和sample很像的transformation，takeSample，但准确的说这并不是一个transformation，应该算是一个action吧。这个函数可以从数据集里返回固定数量的随机数，弥补上上面我提到的sample那个问题。但是需要注意的是，这个函数是直接在RDD上计算，返回计算结果，并不是一个transformation。看下面的例子就明白了。&lt;/p&gt;
-
-&lt;p&gt;　　示例2：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val takeSample = a.takeSample(false, 10, 0)
-.
-.
-.
-14/12/12 10:43:24 INFO DAGScheduler: Stage 26 (takeSample at &amp;lt;console&amp;gt;:14) finished in 0.068 s
-14/12/12 10:43:24 INFO SparkContext: Job finished: takeSample at &amp;lt;console&amp;gt;:14, took 0.074973222 s
-takeSample: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
-
-scala&amp;gt; takeSample
-res33: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.4 RDD transfomation － union&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　这个把两个RDD合并为一个，很简单，可以理解成计算并集。但值得说明的是，union和++运算符是等价的，至少在函数定义上是完全一致的。先了解下，以后有需要的时候再看是否有细节上的区别。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-++(other: RDD[T]): RDD[T]
-Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
-def
-union(other: RDD[T]): RDD[T]
-Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;br/&gt;
-    scala&gt; a
-    res37: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &lt;console&gt;:12&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 10)
-a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[20] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val b = sc.parallelize(11 to 20)
-b: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[21] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val c1 = a++b
-c1: org.apache.spark.rdd.RDD[Int] = UnionRDD[22] at $plus$plus at &amp;lt;console&amp;gt;:16
-
-scala&amp;gt; val c2 = a.union(b)
-
-scala&amp;gt; c1.collect
-.
-.
-.
-14/12/12 11:01:13 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.3475174 s
-res38: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-
-scala&amp;gt; c2.collect
-.
-.
-.
-14/12/12 11:01:17 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.122094635 s
-res39: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.5 RDD transfomation － intersection&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　对比上面的union就很好理解了，上面是计算并集，这里是计算交集。这个transformation也有需要注意的地方，就是其有三种形式，根据是否提供第二个参数以及第二个参数的类型。具体可以参考函数定义。c++里这叫多态，现在对scala才是初学阶段，我想既然scala也是OO，那应该也有多态类似的概念吧，这里晚点继续补上。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-intersection(other: RDD[T], numPartitions: Int): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did. Performs a hash partition across the cluster
-
-Note that this method performs a shuffle internally.
-numPartitions
-How many partitions to use in the resulting RDD
-
-def
-intersection(other: RDD[T], partitioner: Partitioner)(implicit ord: Ordering[T] = null): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
-
-Note that this method performs a shuffle internally.
-partitioner
-Partitioner to use for the resulting RDD
-
-def
-intersection(other: RDD[T]): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
-
-Note that this method performs a shuffle internally.  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;val x = sc.parallelize(1 to 20)
-val y = sc.parallelize(10 to 30)
-val z = x.intersection(y)
-
-z.collect
-res74: Array[Int] = Array(16, 12, 20, 13, 17, 14, 18, 10, 19, 15, 11)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.4 RDD transfomation － union&lt;/h2&gt;
-
-&lt;p&gt;　　说明：  &lt;br/&gt;
-　　定义：  &lt;br/&gt;
-　　示例：&lt;/p&gt;
-
-&lt;h2&gt;3.4 RDD transfomation － union&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　定义： &lt;br/&gt;
-　　示例：&lt;/p&gt;
-
-&lt;h2&gt;4，一些资源&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;RDD&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://twitter.github.io/scala_school/zh_cn/collections.html#flatMap&quot;&gt;scala school from twitter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.zybuluo.com/jewes/note/35032&quot;&gt;RDD Reference 1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://homepage.cs.latrobe.edu.au/zhe/ZhenHeSparkRDDAPIExamples.html&quot;&gt;RDD API Examples&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
    
    <entry>
      <title>［touch spark］3. 使用Spark分析wikipedia流量数据</title>
@@ -1751,6 +1276,217 @@ filtermap(F, []) when is_function(F, 1) -&amp;gt; [].
 &lt;h2&gt;12. keydelete/3&lt;/h2&gt;
 
 &lt;h2&gt;13. keymap/3&lt;/h2&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>深度分析 Erlang Application 行为</title>
+     <link href="/deep-into-erlang-application"/>
+     <updated>2014-10-21T00:00:00+08:00</updated>
+     <id>/deep-into-erlang-application</id>
+     <content type="html">&lt;p&gt;&lt;strong&gt;扫一扫从手机上打开&lt;/strong&gt;
+&lt;img src=&quot;../../images/share/deep-into-erlang-application.jpg&quot; alt=&quot;2014-10-21-deep-into-erlang-application&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;1. 从我在Erlang and OTP in Action中第六章中的错误说起&lt;/h2&gt;
+
+&lt;p&gt;　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
+谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chenshan@mac007 6-EOIA$tree
+.
+├── ebin
+│   ├── prim_consult.beam
+│   ├── sc_app.beam
+│   ├── sc_element.beam
+│   ├── sc_store.beam
+│   ├── sc_sup.beam
+│   ├── simple_cache.app
+│   └── simple_cache.beam
+└── src
+    ├── prim_consult.beam
+    ├── prim_consult.erl
+    ├── sc_app.erl
+    ├── sc_element.erl
+    ├── sc_store.erl
+    ├── sc_sup.erl
+    └── simple_cache.erl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;小提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；&lt;br/&gt;
+2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的；&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chenshan@mac007 6-EOIA$cd ebin/
+chenshan@mac007 ebin$erl
+Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V6.1  (abort with ^G)
+1&amp;gt; application:start(simple_cache).  
+{error,
+    {bad_return,
+        {
+        {sc_app,start,[normal,[]]},
+         {&#39;EXIT&#39;,
+             {undef,
+                 [{sr_store,init,[],[]},
+                  {sc_app,start,2,[{file,&quot;../src/sc_app.erl&quot;},{line,6}]},
+                  {application_master,start_supervisor,3,
+                      [{file,&quot;application_master.erl&quot;},{line,326}]},
+                  {application_master,start_the_app,5,
+                      [{file,&quot;application_master.erl&quot;},{line,308}]},
+                  {application_master,start_it_new,7,
+                      [{file,&quot;application_master.erl&quot;},{line,294}]}]}}}}}
+
+=INFO REPORT==== 22-Oct-2014::23:47:18 ===
+    application: simple_cache
+    exited: {bad_return,
+                {
+                {sc_app,start,[normal,[]]},
+                 {&#39;EXIT&#39;,
+                     {undef,
+                         [{sr_store,init,[],[]},
+                          {sc_app,start,2,
+                              [{file,&quot;../src/sc_app.erl&quot;},{line,6}]},
+                          {application_master,start_supervisor,3,
+                              [{file,&quot;application_master.erl&quot;},{line,326}]},
+                          {application_master,start_the_app,5,
+                              [{file,&quot;application_master.erl&quot;},{line,308}]},
+                          {application_master,start_it_new,7,
+                              [{file,&quot;application_master.erl&quot;},
+                               {line,294}]}]}}}}
+    type: temporary
+2&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2. 看看application行为在启动一个otp应用的简单流程&lt;/h2&gt;
+
+&lt;p&gt;　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Eshell V6.1  (abort with ^G)
+1&amp;gt; code:which(application).
+&quot;/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;ul&gt;
+&lt;li&gt;doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；&lt;/li&gt;
+&lt;li&gt;ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；&lt;/li&gt;
+&lt;li&gt;include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；&lt;/li&gt;
+&lt;li&gt;priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(&lt;application-name&gt;)，便会以字符串形式得到priv目录完整路径；&lt;/li&gt;
+&lt;li&gt;src  存放应用源代码；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@kali:~/Desktop/erl/6-EOIA/ebin# mkdir ~/Desktop/temp
+root@kali:~/Desktop/erl/6-EOIA/ebin# cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application*.erl ~/Desktop/ temp/
+root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/te
+temp/ test/
+root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/temp/
+application_controller.erl  application.erl  application_master.erl  application_starter.erl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-spec start(Application) -&amp;gt; &#39;ok&#39; | {&#39;error&#39;, Reason} when
+      Application :: atom(),
+      Reason :: term().
+
+start(Application) -&amp;gt;
+    start(Application, temporary).
+
+-spec start(Application, Type) -&amp;gt; &#39;ok&#39; | {&#39;error&#39;, Reason} when
+      Application :: atom(),
+      Type :: restart_type(),
+      Reason :: term().
+
+start(Application, RestartType) -&amp;gt;
+    case load(Application) of
+  ok -&amp;gt;
+      Name = get_appl_name(Application),
+      application_controller:start_application(Name, RestartType);
+  {error, {already_loaded, Name}} -&amp;gt;
+      application_controller:start_application(Name, RestartType);
+  Error -&amp;gt;
+      Error
+    end.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;ul&gt;
+&lt;li&gt;ok：加入start流程；&lt;/li&gt;
+&lt;li&gt;{error, {already_loaded, Name}}：失败，原因是这个应用已经load过了，可以直接加入start流程；&lt;/li&gt;
+&lt;li&gt;Error：错误，且错误原因不详，需要看console里的输出分析；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;　　Ok, 思路清晰了，我们就split it into two seperate but sequential procedures，一步一步来，争取最后不靠调试就解决我们上面遇到的问题吧， here we go！&lt;/p&gt;
+
+&lt;h2&gt;3. load应用的过程分析&lt;/h2&gt;
+
+&lt;p&gt;　　根据application.erl 里第97行知道，load过程是调用application_controller.erl里的函数的，所以这里我们就先去分析application_controller.erl里的load调用了。先上一张图来简单看看load的整个过程。
+&lt;img src=&quot;../../images/erlang-application-load.jpg&quot; alt=&quot;load 流程图分析&quot; /&gt;
+　　上面的图可能画得稍显复杂，没办法，刚开始看源码，还是仔细一点好。仔细了解后，我发现load过程其中重点就只有下面四条：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;检查这个应用是否已经load过；&lt;/li&gt;
+&lt;li&gt;解析应用描述文件appname.app里的内容；&lt;/li&gt;
+&lt;li&gt;根据应用描述文件的描述，把应用的一些原子信息存到一张本地的ets表中；&lt;/li&gt;
+&lt;li&gt;给应用的PID发送一条&lt;code&gt;{ac_load_application_req, AppName}&lt;/code&gt;的消息；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;3.1 load过程中容易发生错误的地方&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;do_load_application(Application, S) -&amp;gt;
+    case get_loaded(Application) of
+        {true, _} -&amp;gt;
+            throw({error, {already_loaded, Application}});
+        false -&amp;gt;
+            case make_appl(Application) of
+                {ok, Appl} -&amp;gt; load(S, Appl);
+                Error -&amp;gt; Error
+            end
+    end.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即&lt;code&gt;{reply, ok, NewS}&lt;/code&gt;，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;handle_call({load_application, Application}, From, S) -&amp;gt;
+    case catch do_load_application(Application, S) of
+        {ok, NewS} -&amp;gt;
+            AppName = get_appl_name(Application),
+            case cntrl(AppName, S, {ac_load_application_req, AppName}) of
+                true -&amp;gt;
+                    {noreply, S#state{loading = [{AppName, From} |
+                                                 S#state.loading]}};
+                false -&amp;gt;
+                    {reply, ok, NewS}
+            end;
+        {error, _} = Error -&amp;gt;
+            {reply, Error, S};
+        {&#39;EXIT&#39;, R} -&amp;gt;
+            {reply, {error, R}, S}
+    end;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句&lt;code&gt;[{file,&quot;../src/sc_app.erl&quot;},{line,6}]},&lt;/code&gt;， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。&lt;/p&gt;
+
+&lt;h2&gt;4. start应用的过程分析&lt;/h2&gt;
 </content>
    </entry>
    
