@@ -23,11 +23,23 @@ description: 针对我个人学习spark的一些笔记总结~~~
 　　现在spark虽然已经很火了，但相关资料确实不是特别多，所以我整理了这份我觉得适合我个人学习spark路线的blog和相关的一些优质资料的推荐。这篇blog随时更新。
 
 
-## 2. 我眼中的spark学习路线
-1. 知道spark是什么，有什么优势，以及确定你知道为什么要学习spark；
-2. 在REPL里学习spark；
-3. 学习spark的集群配置；
-2. 
+## 2. 我眼中的spark学习路线  
+- 知道spark是什么，有什么优势，以及确定你知道为什么要学习spark；
+    + 
+- 在REPL里初步体验spark；
+    + 官网实例；
+    + github repo里的实例； 
+- 理解RDD，熟悉RDD的transformation和action，只有这样你才能懂得复杂的程序都是怎么写出来的，也只有这样你才能写出复杂的程序来；
+    + What is RDD;
+    + RDD transformation;
+    + RDD action;
+- 学习spark的集群配置；
+    + standalone;
+    + mesos;
+    + YARN;
+- 学会编写完整的spark应用程序，并发布到集群运行
+- 按需选择其他扩展模块学习：Streaming, SparkSql, Mlib, GraphX;
+- 阅读spark源码，优化你的spark应用；
 
 
 ## 3. 相关资源推荐  

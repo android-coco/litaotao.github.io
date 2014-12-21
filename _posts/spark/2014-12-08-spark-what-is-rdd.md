@@ -2,11 +2,11 @@
 category: spark
 published: false
 layout: post
-title: ［touch spark］4. spark RDD transformation 学习
-description: 总结spark transformation，了解spark编程内涵～～～	
+title: ［touch spark］4. spark RDD 之：什么是RDD
+description: 要想学好spark，怎么能不先搞清楚RDD的来龙去脉呢～～～	
 ---  
 
-![transfomers](../../images/transfomers.jpg)
+
 
 ##  
 ## 1. 什么是RDD 
@@ -37,7 +37,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 | No | Transformation  |  Meaning | 
 |---|---|---|
-| 1 | map(func)  | Return a new distributed dataset formed by passing each element of the source through a function func.  | 
+| 1 | map(func) | Return a new distributed dataset formed by passing each element of the source through a function func.  | 
 | 2 | filter(func) | Return a new dataset formed by selecting those elements of the source on which func returns true. |
 | 3 | flatMap(func) | Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item). |
 | 4 | mapPartitions(func) | Similar to map, but runs separately on each partition (block) of the RDD, so func must be of type Iterator<T> => Iterator<U> when running on an RDD of type T. |
@@ -45,11 +45,18 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 | 6 | sample(withReplacement, fraction, seed) | Sample a fraction fraction of the data, with or without replacement, using a given random number generator seed. |
 | 7 | union(otherDataset) | Return a new dataset that contains the union of the elements in the source dataset and the argument. |
 | 8 | intersection(otherDataset) | Return a new RDD that contains the intersection of elements in the source dataset and the argument. |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+| 9 | distinct([numTasks])) | Return a new dataset that contains the distinct elements of the source dataset. |
+| 10 | groupByKey([numTasks]) | When called on a dataset of (K, V) pairs, returns a dataset of (K, Iterable<V>) pairs.	 |
+| 11 | reduceByKey(func, [numTasks]) | When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function func, which must be of type (V,V) => V. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. |
+| 12 | aggregateByKey(zeroValue)(seqOp, combOp, [numTasks]) | When called on a dataset of (K, V) pairs, returns a dataset of (K, U) pairs where the values for each key are aggregated using the given combine functions and a neutral "zero" value. Allows an aggregated value type that is different than the input value type, while avoiding unnecessary allocations. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. |
+| 13 | sortByKey([ascending], [numTasks]) | When called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean ascending argument. |
+| 14 | join(otherDataset, [numTasks]) | When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key. Outer joins are also supported through leftOuterJoin and rightOuterJoin. |
+| 15 | cogroup(otherDataset, [numTasks]) | When called on datasets of type (K, V) and (K, W), returns a dataset of (K, Iterable<V>, Iterable<W>) tuples. This operation is also called groupWith. |
+| 16 | cartesian(otherDataset) | When called on datasets of types T and U, returns a dataset of (T, U) pairs (all pairs of elements). |
+| 17 | pipe(command, [envVars]) | Pipe each partition of the RDD through a shell command, e.g. a Perl or bash script. RDD elements are written to the process's stdin and lines output to its stdout are returned as an RDD of strings. |
+| 18 | coalesce(numPartitions) | Decrease the number of partitions in the RDD to numPartitions. Useful for running operations more efficiently after filtering down a large dataset. |
+| 19 | repartition(numPartitions) | Reshuffle the data in the RDD randomly to create either more or fewer partitions and balance it across them. This always shuffles all data over the network. |
+
 
 ## 3. RDD transfomation  
 　　RDD 的transformation有几个和scala里的函数组合子一样，其他的我估计也是基于scala的组合子来写的。所以，为了方便起见，能用scala来展现的，我就用scala来写；不可以的，我再用spark来写示例。下面提到的transformation更新到[spark 1.1.1版本](http://spark.apache.org/docs/latest/programming-guide.html#transformations)。要想查看最新版本的，可以上[官网](http://spark.apache.org/)和[官方API文档](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)。这里顺带提一下，说到transformation，网上几乎每篇说spark的文章都会用到下面这张图。可是我真的想说，这张图可是Matei这哥们2012年发的[RDD论文](https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)里的啊，spark更新的速度也许比大多数人换对象的速度还快啊，好多东西已经变了。大家以后要是发这张图，就该说明出处和版本吧，免得大家误解transformation和actions就那几种类型啊。  
@@ -258,25 +265,165 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 	res74: Array[Int] = Array(16, 12, 20, 13, 17, 14, 18, 10, 19, 15, 11)
 
 
-## 3.4 RDD transfomation － union  
+## 3.6 RDD transfomation － distinct  
   
-　　说明：    
+　　说明：   
+　　即去重，相当于python里面的set。
+
 　　定义：    
+
+	def
+	distinct(): RDD[T]
+	Return a new RDD containing the distinct elements in this RDD.
+	def
+	distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]
+	Return a new RDD containing the distinct elements in this RDD.
+
 　　示例：    
 
 
-## 3.4 RDD transfomation － union  
+## 3.7 RDD transfomation － groupByKey  
   
 　　说明：   
+　　这是一个针对键值对结构来进行操作的转换方法，即你的RDD的结构是(key, value)类型，而其中key不是唯一性的。此时我们可以对这个RDD进行groupByKey的转换得到新的RDD，新的RDD的结构同样也是键值对，只是值改变了，并且键是唯一性的，即(key, iterator(value))。
+
 　　定义：   
+
+	def
+	groupByKey(): RDD[(K, Iterable[V])]
+	Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with the existing partitioner/parallelism level.
+
+	Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+	def
+	groupByKey(numPartitions: Int): RDD[(K, Iterable[V])]
+	Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with into numPartitions partitions.
+
+	Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+	def
+	groupByKey(partitioner: Partitioner): RDD[(K, Iterable[V])]
+	Group the values for each key in the RDD into a single sequence. Allows controlling the partitioning of the resulting key-value pair RDD by passing a Partitioner.
+
+	Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+　　
 　　示例：   
 
 
+## 3.8 RDD transfomation － reduceByKey    
+  
+　　说明：    
+　　和上面的groupByKey一样，这也是一个针对(key, value)型结构的RDD的转换函数。只是上面的groupByKey是将相同key对应的value组合成一个可迭代的对象；而reduceByKey是将相同key对应的value通过传入的函数func计算成一个新的value。
 
+　　定义：     
+
+	def
+	reduceByKey(func: (V, V) ⇒ V): RDD[(K, V)]
+	Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a "combiner" in MapReduce. Output will be hash-partitioned with the existing partitioner/ parallelism level.
+	def
+	reduceByKey(func: (V, V) ⇒ V, numPartitions: Int): RDD[(K, V)]
+	Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a "combiner" in MapReduce. Output will be hash-partitioned with numPartitions partitions.
+	def
+	reduceByKey(partitioner: Partitioner, func: (V, V) ⇒ V): RDD[(K, V)]
+	Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a "combiner" in MapReduce.
+
+　　示例：　  
+
+## 3.9 RDD transfomation － aggregateByKey  
+
+　　说明：    
+
+　　定义：  
+
+	def
+	aggregateByKey[U](zeroValue: U)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+	Aggregate the values of each key, using given combine functions and a neutral "zero value". This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+	def
+	aggregateByKey[U](zeroValue: U, numPartitions: Int)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+	Aggregate the values of each key, using given combine functions and a neutral "zero value". This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+	def
+	aggregateByKey[U](zeroValue: U, partitioner: Partitioner)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+	Aggregate the values of each key, using given combine functions and a neutral "zero value". This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+
+　　示例：　  
+
+## 3.10 RDD transfomation － sortByKey   
+
+　　说明：    
+　　按key来排序。但是在一些情况下，当RDD是(key, value)类型时，如果想对value来排序应该怎么处理呢？很简单，就是先把原来的(key, value)转换成(value, key)结构，然后对(value, key)进行sortByKey操作，最后再把已经排序了的(value, key)转换回(key, value)形式。
+
+　　定义：     
+　　奇怪了，我再官方API DOC里没有找到这个转换函数的定义，晚一点再看一下。
+
+　　示例：　  
+
+## 3.11 RDD transfomation － join  
+
+　　说明：    
+　　把两个(key, value)结构的RDD合成一个新的(key, value)结构的RDD。即(k1, v1).join((k1, v2)) => (k1, (v1, v2))，需要注意的是，为了让join操作成功，必须保证key是可以比较的。
+
+　　定义：     
+
+	def
+	join[W](other: RDD[(K, W)], numPartitions: Int): RDD[(K, (V, W))]
+	Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
+	def
+	join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]
+	Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
+	def
+	join[W](other: RDD[(K, W)], partitioner: Partitioner): RDD[(K, (V, W))]
+	Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Uses the given Partitioner to partition the output RDD.
+
+　　示例：　  
+
+## 3.12 RDD transfomation － cogroup    
+
+　　说明：  
+　　groupByKey的升级用法，针对于多个(key, value)结构的RDD，执行groupByKey转换操作，生成一个(key, value)的RDD，此时的value是多个可迭代的value对象。该方法和groupWith方法有一样的效果。
+
+　　定义：     
+
+　　示例：　  
+
+## 3.13 RDD transfomation － cartesian   
+
+　　说明：    
+　　计算两个RDD的笛卡尔积，关于笛卡尔积可以参考[这里](http://zh.wikipedia.org/zh-cn/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF)。使用这个转换函数是需要注意内存消耗问题。
+
+　　定义：     
+
+　　示例：　  
+
+## 3.14 RDD transfomation － pipe   
+
+　　说明：    
+　　对RDD里的每条数据做一个操作，操作后的结果生成为另一个新的RDD。
+
+　　定义：     
+
+　　示例：　
+
+
+## 3.13 RDD transfomation － coalesce   
+
+　　说明：    
+
+　　定义：     
+
+　　示例：　
+
+## 3.13 RDD transfomation － repartition   
+
+　　说明：    
+
+　　定义：     
+
+　　示例：　
+　　
 
 ## 4，一些资源  
 - [RDD](http://blog.csdn.net/anzhsoft/article/details/39851421)  
 - [scala school from twitter](https://twitter.github.io/scala_school/zh_cn/collections.html#flatMap)  
 - [RDD Reference 1](https://www.zybuluo.com/jewes/note/35032)  
 - [RDD API Examples](http://homepage.cs.latrobe.edu.au/zhe/ZhenHeSparkRDDAPIExamples.html)  
+- [RDD API Docs](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)  
+- [pairRDD API Docs](http://spark.apache.org/docs/1.1.1/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)
 
