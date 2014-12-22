@@ -2011,12 +2011,12 @@ div.center { margin:0 auto; text-align:center;}
 .homepage_grid .grid.ebooks_type .news > div a.ebooks span { font-size:12px; font-weight:normal; color:#222222; line-height:120%; float:left; text-align:left; padding:0px; margin: 0 0 5px 0; clear:both; width:100%;}
 .homepage_grid .grid.ebooks_type .news > div a.ebooks:hover p, .homepage_grid .grid.ebooks_type .news > div a.ebooks:hover span { color:#666666;}
 
-.sponsored_links_section { width:320px; float:left; text-align:left; padding:0px; margin:36px 0 10px 20px; display:block;}
+.sponsored_links_section { width:320px; float:left; text-align:left; padding:0px; margin:36px 0 10px 20px; display:none;}
 .sponsored_links_section .sp_title { border-bottom: 1px solid #ececec; padding:0 10px 10px 10px; margin:0 0 10px 0; display:block; font-size:14px; font-weight:bold;  color:#2160a7;}
 .sponsored_links_section div { margin: 0 auto; width:90%; padding:0px; margin-bottom:10px; display:block; text-align:left; font-size:12px; font-weight:bold;  float:none; line-height:130%;}
 .sponsored_links_section div a { color:#3b9747; display:block; clear:both;}
 .sponsored_links_section div a:hover { color:#000;}
-.sponsored_links_section_i18n { width:320px; float:right; text-align:left; padding:0px; margin:36px 0 10px 0; display:block;}
+.sponsored_links_section_i18n { width:320px; float:right; text-align:left; padding:0px; margin:36px 0 10px 0; display:none;}
 .sponsored_links_section_i18n .sp_title { border-bottom: 1px solid #ececec; padding:0 10px 10px 10px; margin:0 0 10px 0; display:block; font-size:14px; font-weight:bold;  color:#2160a7;}
 .sponsored_links_section_i18n div { margin: 0 auto; width:90%; padding:0px; margin-bottom:10px; display:block; text-align:left; font-size:12px; font-weight:bold;  float:none; line-height:130%;}
 .sponsored_links_section_i18n div a { color:#3b9747; display:block; clear:both;}
