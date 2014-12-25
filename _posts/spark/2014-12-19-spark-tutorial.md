@@ -27,8 +27,8 @@ description: 针对我个人学习spark的一些笔记总结~~~
 - 知道spark是什么，有什么优势，以及确定你知道为什么要学习spark；
     + 
 - 在REPL里初步体验spark；
-    + 官网实例；
-    + github repo里的实例； 
+    + 官网实例 [Nope]；
+    + github repo里的实例 [Nope]； 
 - 理解RDD，熟悉RDD的transformation和action，只有这样你才能懂得复杂的程序都是怎么写出来的，也只有这样你才能写出复杂的程序来；
     + What is RDD;
     + RDD transformation;

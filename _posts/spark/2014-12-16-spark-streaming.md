@@ -27,7 +27,7 @@ description: 自从看到[databricks在spark summit 2014上的那个视频，我
 >
 SBT: Simple Build Tool, 一个开源的用来构建scala或java项目的工具。当前，spark可以用sbt或maven来编译，但spark streaming 和shark只能用sbt来编译。
 
-　　我们主要的工作是编写程序主文件，这个文件应该像下面这样。
+　　我们主要的工作是编写程序主文件 Tutorial.scala，这个文件应该像下面这样。
 
     import spark._
     import spark.streaming._
@@ -54,8 +54,13 @@ SBT: Simple Build Tool, 一个开源的用来构建scala或java项目的工具�
       }
     }
 
+### 3.2 twitter 授权配置     
+- 使用你的twitter账号登陆这个 [twitter apps](https://apps.twitter.com/)，如果你从未创建过twitter app，那登陆上面这个链接后看起来应该是这样的：  
+![twitter-empty-app](../../images/twitter-empty-app.jpg)  
+- 点击“Create a new application”按钮，合法填写相关字段，最后再点击“Create your Twitter application”，如果所填的字段合法，那现在就成功创建了一个 twitter app。如下图所示：  
+![twitter-empty-app](../../images/twitter-create-app.jpg)  
 
-### 3.2 牛刀小试  
+### 3.3 牛刀小试  
 　　我们先来看看一个简单的例子，什么都不做，就打印一些截取的实时twitter信息。  
 　　为了实现实时流处理，spark提供了另外一种类型的RDD，叫StreamingContext，这里以后咱们再慢慢聊，其实就是一种特殊的RDD。接下来我们就先创建一个StreamingContext，然后你会发现，用一行语句就可以去拿twitter的实时信息流了。Amazing？Absolutely!当我第一次看到官方这个教程的时候，都不敢相信自己的眼睛，一共两行语句就搞定了。再次对AMP的那几个大师俯首称臣，太厉害了，人家把库都做好了，你直接拿来用就好了。  
 　　这里插播一句，2013年11月27号，那天傍晚是我来面试公司，第一位面试官，也是力排众议把我招进来的CSO。当时他问我会不会hadoop，我说“不会，但是在学校听说过，听说搞这个东西很难的，我们公司也需要这个背景吗？”。他这下就惊奇了，并不是因为我说自己不会hadoop，而是因为我说这个东西很难。直接回答我说“难的东西作者们已经给咱们做过了，你直接拿来用就可以了！”这句话对我一直受用至今，工作这半年多来，我时常想起这句话，的确，难的事情别人已经几乎帮你解决了，大多数工作我们只是拿来主义，根本就没有资格、根本就不应该说难的。没想到当时只听过hadoop的我，现在spark都玩上了，哈哈，心里还是很爽。  
