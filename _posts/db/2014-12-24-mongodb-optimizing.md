@@ -1,6 +1,6 @@
 ---
 category: db
-published: false
+published: true
 layout: post
 title: 记录MongoDB一些优化方法
 description: 整理网上收集到的和一些项目中用到的MongoDB优化策略～
@@ -12,55 +12,49 @@ description: 整理网上收集到的和一些项目中用到的MongoDB优化策
 ### 1.1 使用MongoDB自带的explain命令查看查询性能  
 　　下面是我在本地测试的一个例子。    
 
-    > db.user.find({'user':'taotao.liddd@datayes.com'}).explain()         
-    {                                                                     
-            "cursor" : "BasicCursor",                                     
-            "isMultiKey" : false,                                         
-            "n" : 1,                                                      
-            "nscannedObjects" : 9,                                        
-            "nscanned" : 9,                                               
+    > db.user.find({'user':'taotao.li@datayes.com'}).explain()         
+    {             
+            // 返回游标类型(BasicCursor | BtreeCursor | GeoSearchCursor | Complex Plan | multi)                                                         
+            "cursor" : "BasicCursor",
+            // 是否使用多重索引(true | false)                                     
+            "isMultiKey" : false,    
+            // 返回的文档数量   (number)                                      
+            "n" : 1,    
+            // 被扫描的文档数量，这个值小于或等于nscanned   (number)                                                   
+            "nscannedObjects" : 9,
+            // 被扫描的文档数量，我们应该尽量使这个值和上面提到的n的值相近    (number)                                          
+            "nscanned" : 9,    
+            // 这个值表明在进行一次查询时，数据库计划扫描的文档数量 (number)                                            
             "nscannedObjectsAllPlans" : 9,                                
-            "nscannedAllPlans" : 9,                                       
-            "scanAndOrder" : false,                                       
-            "indexOnly" : false,                                          
-            "nYields" : 0,                                                
-            "nChunkSkips" : 0,                                            
-            "millis" : 65,                                                
+            "nscannedAllPlans" : 9,    
+            // 若为true，表示查询不能利用文档在索引里的排序来返回结果，用户需要手动对返回进行排序操作，反之(true | false)                                     
+            "scanAndOrder" : false,    
+            // 若为true，表示查询是充分利用了现有的索引的，在设计索引的时候，应该尽量确保热点查询都利用到了已有的索引(true | false)                                     
+            "indexOnly" : false,   
+            // 表示查询语句执行时写锁的等待时间  (ms)                                       
+            "nYields" : 0,          
+            // 在分片的时候可以通过这个字段看分片的效果 (number)                                       
+            "nChunkSkips" : 0, 
+            // 耗时 (ms)                                               
+            "millis" : 65,    
+            // 所使用的索引 (dict of dict)                                             
             "indexBounds" : {                                             
                                                                           
-            },                                                            
+            },        
+            // mongo所在的服务器地址                                            
             "server" : "SHN1408GPVG612:27017"                             
     }                                                                
-
-　　里面的各个字段说明：  
-
-- cursor: 返回游标类型(BasicCursor | BtreeCursor | GeoSearchCursor | Complex Plan | multi)  
-- isMultiKey：是否使用多重索引(true | false)
-- n: 返回的文档数量   (number) 
-- nscannedObjects：被扫描的文档数量，这个值小于或等于nscanned   (number) 
-- nscanned: 被扫描的文档数量，我们应该尽量使这个值和上面提到的n的值相近    (number)  
-- nscannedObjectsAllPlans：这个值表明在进行一次查询时，数据库计划扫描的文档数量 (number) 
-- nscannedAllPlans：类似nscannedObjectsAllPlans  
-- scanAndOrder：若为true，表示查询不能利用文档在索引里的排序来返回结果，用户需要手动对返回进行排序操作，反之(true | false)  
-- indexOnly：若为true，表示查询是充分利用了现有的索引的，在设计索引的时候，应该尽量确保热点查询都利用到了已有的索引(true | false)  
-- nYields：表示查询语句执行时写锁的等待时间  (ms)
-- nChunkSkips：在分片的时候可以通过这个字段看分片的效果 (number) 
-- millis: 耗时 (ms)    
-- indexBounds: 所使用的索引 (dict of dict) 
-- allPlans：
-- oldPlan：
-- server: mongo所在的服务器地址及端口号  
-
 
 ### 1.2 使用MongoDB自带的profile优化器查看查询性能  
 　　MongoDB Database Profiler是一种慢查询日志功能,可以作为我们优化数据库的依据.
 开启Profiling功能,有2种方式可以控制Profiling的开关盒级别。  
 
-- 启动MonggoDB时加上 -profile= 级别即可  
+- 启动MonggoDB时加上 `-profile=级别` 即可  
 - 在客户端调用db.setProfilingLevel(级别)命令来实时配置     
 
-　　Profiler信息保存在system.profile中.我们可以通过db.getProfilingLevel()命令来获取当前的Profile级别。profile的级别有3个，分别是0、1、2，默认没有开启。
+　　Profiler信息保存在system.profile中.我们可以通过db.getProfilingLevel()命令来获取当前的Profile级别。profile的级别有4个，分别是-1、0、1、2，默认没有开启。
 
+- -1: 返回当前设置的级别  
 - 0： 表示不开启  
 - 1： 表示记录慢命令(默认为>100ms)
 - 2： 表示记录所有命令
@@ -122,6 +116,22 @@ description: 整理网上收集到的和一些项目中用到的MongoDB优化策
         *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0   174b     3k    60   10:42:48
         *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:49
         *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0 local:0.0%          0       0|0     0|0   178b     3k    60   10:42:50
+
+　　mongostat各个字段解释：    
+
+- insert/query/update/delete/getmore：每秒执行这5个操作的次数；
+- command：每秒执行指令的次数，在从数据库中，这个字段的值是一个以“|”分开的两个值，表示 local|replicated 数量；  
+- flushes：每秒fsync操作的次数；  
+- mapped：按照官方解释，这个字段表示上一次执行mongostat指令是所有数据的大小，应该是指所有数据占磁盘的大小，但似乎不是很对；  
+- vsize：mongod服务占用的虚拟内存大小；  
+- res：mongod所占用的物理内存；  
+- faluts：page faults次数；
+- index miss：索引缺失的数量； 
+- qr/qw：表示在队列中等待的客户端，rw表示读写；  
+- ar/aw：表示正在进行请求的客户端；  
+- netIn/netOut表示网络流量，单位是字节；  
+- conn：表示连接数；  
+- repl：表示同步状态；  
 
 ### 1.4 使用MongoDB自带的db.serverStatus查看服务器状态   
 　　这里输出的信息太多了，看一个Robomongo的截图吧，里面有几个字段也是很重要的。 ![mongo-db-serverStatus](../../images/mongo-db-serverStats.jpg)
@@ -194,14 +204,13 @@ description: 整理网上收集到的和一些项目中用到的MongoDB优化策
 - 索引的更新周期，更新索引是一件很tricky的事情；  
 - 索引建立后，是否能跟上后期系统扩展的脚步；  
 
+### 3.2 限制返回数据  
+　　使用limit，skip方式返回查询数据，只返回需要返回的数据。   
 
-### 3.2 采用capped collection
-　　
+## 4. 总结  
+　　在记录这篇文章的过程中，我发现监控mongo性能的工具还真的挺多的。但是现在我参与的产品中数据量还很少，还没有涉及到数据库这方面的优化，所以上面提到的这些都是自己在官网和一些优秀博客收集的资料。在后续涉及到自己优化这些查询的时候，我会再把实际经验和优化对比记录下来。
 
-
-
-
-## 4. 一些资料  
+## 5. 一些资料  
 
 - [mongodb性能优化](http://caizi.blog.51cto.com/5234706/1542480)   
 - [6 Rules of Thumb for MongoDB Schema Design](http://blog.mongodb.org/post/87200945828/6-rules-of-thumb-for-mongodb-schema-design-part-1)  
