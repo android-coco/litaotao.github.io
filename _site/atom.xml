@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-12-30T18:30:38+08:00</updated>
+   <updated>2014-12-31T13:36:29+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -313,6 +313,125 @@ insert  query update delete getmore command flushes mapped  vsize    res faults 
 &lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/command/dbStats/&quot;&gt;dbStats&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+</content>
+   </entry>
+   
+   <entry>
+     <title>［touch spark］4. spark RDD 之：什么是RDD</title>
+     <link href="/spark-what-is-rdd"/>
+     <updated>2014-12-08T00:00:00+08:00</updated>
+     <id>/spark-what-is-rdd</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 什么是RDD&lt;/h2&gt;
+
+&lt;p&gt;　　先看下源码里是怎么描述RDD的。&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;blockquote&gt;&lt;p&gt;Internally, each RDD is characterized by five main properties:&lt;br/&gt;
+A list of partitions&lt;br/&gt;
+A function for computing each split &lt;br/&gt;
+A list of dependencies on other RDDs&lt;br/&gt;
+Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned) &lt;br/&gt;
+Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;　　每个RDD有5个主要的属性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一组分片（partition），即数据集的基本组成单位&lt;/li&gt;
+&lt;li&gt;一个计算每个分片的函数&lt;/li&gt;
+&lt;li&gt;对parent RDD的依赖，这个依赖描述了RDD之间的lineage&lt;/li&gt;
+&lt;li&gt;对于key-value的RDD，一个Partitioner，这是可选择的&lt;/li&gt;
+&lt;li&gt;一个列表，存储存取每个partition的preferred位置。对于一个HDFS文件来说，存储每个partition所在的块的位置。这也是可选择的&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　把上面这5个主要的属性总结一下，可以得出RDD的大致概念。首先要知道，RDD大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是spark项目组设计用来表示数据集的一种数据结构。而spark项目组为了让RDD能handle更多的问题，又规定RDD应该是只读的，分区记录的一种数据集合中。可以通过两种方式来创建RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建RDD的方式，即通过其他RDD来创建【以后叫做转换】而成。而正因为RDD满足了这么多特性，所以spark把RDD叫做Resilient Distributed Datasets，中文叫做弹性分布式数据集。很多文章都是先讲RDD的定义，概念，再来说RDD的特性。我觉得其实也可以倒过来，通过RDD的特性反过来理解RDD的定义和概念，通过这种由果溯因的方式来理解RDD也未尝不可。反正对我个人而言这种方式是挺好的。&lt;/p&gt;
+
+&lt;h2&gt;2. 理解RDD的几个关键概念&lt;/h2&gt;
+
+&lt;p&gt;　　本来我是想参考RDD的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先focus on几个关键点，到后期应用的时候再步步深入。&lt;br/&gt;
+　　所以，按照我个人的理解，我认为想用好spark，必须要理解RDD，而为了理解RDD，我认为只要了解下面几个RDD的几个关键点就能handle很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，谢谢。
+　　&lt;/p&gt;
+
+&lt;h3&gt;2.1 RDD的背景及解决的痛点问题&lt;/h3&gt;
+
+&lt;p&gt;　　按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that&#39;s all。&lt;/p&gt;
+
+&lt;h3&gt;2.2 What is DAG - 趣说有向无环图&lt;/h3&gt;
+
+&lt;p&gt;　　DAG - Direct Acyclic Graph，有向五无图，好久没看图片了，先发个图片来理解理解吧。
+&lt;img src=&quot;../../images/dag.jpg&quot; alt=&quot;DAG&quot; /&gt;&lt;br/&gt;
+　　要理解DAG，只需弄明白三个概念就可以毕业了，首先，我们假设上图图二中的A,B,C,D,E都代表spark里不同的RDD：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;图：图是表达RDD Lineage信息的一个结构，在spark中，大部分RDD都是通过其他RDD进行转换而来的，比如说上图图二中，B和D都是通过A转换而来的，而C是通过B转换而来，E的话是通过B和D一起转换来的。&lt;/li&gt;
+&lt;li&gt;有向：有向就更容易理解了，简单来说就是linage是一个top-down的结构，而且是时间序列上的top-down结构，这里不是很好理解，我们在下面讲“无环”这个概念是一起说明。&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;无环：这里就是重点要理解的地方了，我猜想spark的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下B,D,E这样一个RDD转换图，那当我们的需要执行D.collect操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。举个例子，我们按照时间序列分析一下图下左下的B,D,E三个RDD：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt; B通过某种方式初始化了第一个RDD【这里我们抛却A,C不谈】；&lt;/li&gt;
+&lt;li&gt; D通过某种转换从B生成第二个RDD；&lt;/li&gt;
+&lt;li&gt; E通过某种转换从D生成第三个RDD；&lt;/li&gt;
+&lt;li&gt; 现在B这个RDD已经存在了，所以根本无从说明B是从E通过转换生成的，为啥，因为B已经存在了；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　够清楚了吗，啥，还不够清楚，好，那我告诉你，B是小明他爷爷，D是小明他爸爸，E是小明自己，你说小明他爷爷能是小明通过某种方式转换出现在这个世界上的吗？&lt;/p&gt;
+
+&lt;h3&gt;2.3 What is Data Locality - RDD的位置可见性&lt;/h3&gt;
+
+&lt;p&gt;　　这个问题就不重复造轮子了，直接引用Quora上的一个&lt;a href=&quot;https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark&quot;&gt;问答了&lt;/a&gt;。&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;RDD is a dataset which is distributed, that is, it is divided into &quot;partitions&quot;. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to launch one task per partition of the RDD. Its best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data &quot;locally&quot; is known as &quot;locality aware scheduling&quot;.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;2.4 What is Lazy Evaluation - 神马叫惰性求值&lt;/h3&gt;
+
+&lt;p&gt;　　本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫&quot;后续求值&quot;，&quot;按需计算&quot;，&quot;晚点搞&quot;这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。&lt;/p&gt;
+
+&lt;h3&gt;2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖&lt;/h3&gt;
+
+&lt;p&gt;　　首先，先从原文看看宽依赖和窄依赖各自的定义。&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;　　&lt;strong&gt;narrow dependencies&lt;/strong&gt;: where each partition of the parent RDD is used by at most one partition of the child RDD, &lt;strong&gt;wide dependencis&lt;/strong&gt;, where multiple child partitions may depend on it.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;　　按照&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;这篇RDD论文中文译文&lt;/a&gt;的解释，窄依赖是指子RDD的每个分区依赖于常数个父分区（即与数据规模无关）；宽依赖指子RDD的每个分区依赖于所有父RDD分区。暂且不说这样理解是否有偏差，我们先来从两个方面了解下计算一个窄依赖的子RDD和一个宽依赖的RDD时具体都有什么区别，然后再回顾这个定义。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;计算方面：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;计算窄依赖的子RDD：可以在某一个计算节点上直接通过父RDD的某几块数据（通常是一块）计算得到子RDD某一块的数据；&lt;/li&gt;
+&lt;li&gt;计算宽依赖的子RDD：子RDD某一块数据的计算必须等到它的父RDD所有数据都计算完成之后才可以进行，而且需要对父RDD的计算结果进行hash并传递到对应的节点之上；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;容错恢复方面：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;窄依赖：当父RDD的某分片丢失时，只有丢失的那一块数据需要被重新计算；&lt;/li&gt;
+&lt;li&gt;宽依赖：当父RDD的某分片丢失时，需要把父RDD的所有分区数据重新计算一次，计算量明显比窄依赖情况下大很多；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. 尚未提到的一些重要概念&lt;/h2&gt;
+
+&lt;p&gt;　　还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。
+　　&lt;/p&gt;
+
+&lt;h2&gt;4. 参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;Spark技术内幕：究竟什么是RDD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;RDD 论文中文版&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　&lt;/p&gt;
 </content>
    </entry>
    
@@ -1559,217 +1678,6 @@ filtermap(F, []) when is_function(F, 1) -&amp;gt; [].
 &lt;h2&gt;12. keydelete/3&lt;/h2&gt;
 
 &lt;h2&gt;13. keymap/3&lt;/h2&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>深度分析 Erlang Application 行为</title>
-     <link href="/deep-into-erlang-application"/>
-     <updated>2014-10-21T00:00:00+08:00</updated>
-     <id>/deep-into-erlang-application</id>
-     <content type="html">&lt;p&gt;&lt;strong&gt;扫一扫从手机上打开&lt;/strong&gt;
-&lt;img src=&quot;../../images/share/deep-into-erlang-application.jpg&quot; alt=&quot;2014-10-21-deep-into-erlang-application&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;1. 从我在Erlang and OTP in Action中第六章中的错误说起&lt;/h2&gt;
-
-&lt;p&gt;　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
-谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;chenshan@mac007 6-EOIA$tree
-.
-├── ebin
-│   ├── prim_consult.beam
-│   ├── sc_app.beam
-│   ├── sc_element.beam
-│   ├── sc_store.beam
-│   ├── sc_sup.beam
-│   ├── simple_cache.app
-│   └── simple_cache.beam
-└── src
-    ├── prim_consult.beam
-    ├── prim_consult.erl
-    ├── sc_app.erl
-    ├── sc_element.erl
-    ├── sc_store.erl
-    ├── sc_sup.erl
-    └── simple_cache.erl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;小提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；&lt;br/&gt;
-2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的；&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;chenshan@mac007 6-EOIA$cd ebin/
-chenshan@mac007 ebin$erl
-Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
-
-Eshell V6.1  (abort with ^G)
-1&amp;gt; application:start(simple_cache).  
-{error,
-    {bad_return,
-        {
-        {sc_app,start,[normal,[]]},
-         {&#39;EXIT&#39;,
-             {undef,
-                 [{sr_store,init,[],[]},
-                  {sc_app,start,2,[{file,&quot;../src/sc_app.erl&quot;},{line,6}]},
-                  {application_master,start_supervisor,3,
-                      [{file,&quot;application_master.erl&quot;},{line,326}]},
-                  {application_master,start_the_app,5,
-                      [{file,&quot;application_master.erl&quot;},{line,308}]},
-                  {application_master,start_it_new,7,
-                      [{file,&quot;application_master.erl&quot;},{line,294}]}]}}}}}
-
-=INFO REPORT==== 22-Oct-2014::23:47:18 ===
-    application: simple_cache
-    exited: {bad_return,
-                {
-                {sc_app,start,[normal,[]]},
-                 {&#39;EXIT&#39;,
-                     {undef,
-                         [{sr_store,init,[],[]},
-                          {sc_app,start,2,
-                              [{file,&quot;../src/sc_app.erl&quot;},{line,6}]},
-                          {application_master,start_supervisor,3,
-                              [{file,&quot;application_master.erl&quot;},{line,326}]},
-                          {application_master,start_the_app,5,
-                              [{file,&quot;application_master.erl&quot;},{line,308}]},
-                          {application_master,start_it_new,7,
-                              [{file,&quot;application_master.erl&quot;},
-                               {line,294}]}]}}}}
-    type: temporary
-2&amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;2. 看看application行为在启动一个otp应用的简单流程&lt;/h2&gt;
-
-&lt;p&gt;　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eshell V6.1  (abort with ^G)
-1&amp;gt; code:which(application).
-&quot;/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;ul&gt;
-&lt;li&gt;doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；&lt;/li&gt;
-&lt;li&gt;ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；&lt;/li&gt;
-&lt;li&gt;include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；&lt;/li&gt;
-&lt;li&gt;priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(&lt;application-name&gt;)，便会以字符串形式得到priv目录完整路径；&lt;/li&gt;
-&lt;li&gt;src  存放应用源代码；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@kali:~/Desktop/erl/6-EOIA/ebin# mkdir ~/Desktop/temp
-root@kali:~/Desktop/erl/6-EOIA/ebin# cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application*.erl ~/Desktop/ temp/
-root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/te
-temp/ test/
-root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/temp/
-application_controller.erl  application.erl  application_master.erl  application_starter.erl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-spec start(Application) -&amp;gt; &#39;ok&#39; | {&#39;error&#39;, Reason} when
-      Application :: atom(),
-      Reason :: term().
-
-start(Application) -&amp;gt;
-    start(Application, temporary).
-
--spec start(Application, Type) -&amp;gt; &#39;ok&#39; | {&#39;error&#39;, Reason} when
-      Application :: atom(),
-      Type :: restart_type(),
-      Reason :: term().
-
-start(Application, RestartType) -&amp;gt;
-    case load(Application) of
-  ok -&amp;gt;
-      Name = get_appl_name(Application),
-      application_controller:start_application(Name, RestartType);
-  {error, {already_loaded, Name}} -&amp;gt;
-      application_controller:start_application(Name, RestartType);
-  Error -&amp;gt;
-      Error
-    end.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;ul&gt;
-&lt;li&gt;ok：加入start流程；&lt;/li&gt;
-&lt;li&gt;{error, {already_loaded, Name}}：失败，原因是这个应用已经load过了，可以直接加入start流程；&lt;/li&gt;
-&lt;li&gt;Error：错误，且错误原因不详，需要看console里的输出分析；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;　　Ok, 思路清晰了，我们就split it into two seperate but sequential procedures，一步一步来，争取最后不靠调试就解决我们上面遇到的问题吧， here we go！&lt;/p&gt;
-
-&lt;h2&gt;3. load应用的过程分析&lt;/h2&gt;
-
-&lt;p&gt;　　根据application.erl 里第97行知道，load过程是调用application_controller.erl里的函数的，所以这里我们就先去分析application_controller.erl里的load调用了。先上一张图来简单看看load的整个过程。
-&lt;img src=&quot;../../images/erlang-application-load.jpg&quot; alt=&quot;load 流程图分析&quot; /&gt;
-　　上面的图可能画得稍显复杂，没办法，刚开始看源码，还是仔细一点好。仔细了解后，我发现load过程其中重点就只有下面四条：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;检查这个应用是否已经load过；&lt;/li&gt;
-&lt;li&gt;解析应用描述文件appname.app里的内容；&lt;/li&gt;
-&lt;li&gt;根据应用描述文件的描述，把应用的一些原子信息存到一张本地的ets表中；&lt;/li&gt;
-&lt;li&gt;给应用的PID发送一条&lt;code&gt;{ac_load_application_req, AppName}&lt;/code&gt;的消息；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;3.1 load过程中容易发生错误的地方&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;do_load_application(Application, S) -&amp;gt;
-    case get_loaded(Application) of
-        {true, _} -&amp;gt;
-            throw({error, {already_loaded, Application}});
-        false -&amp;gt;
-            case make_appl(Application) of
-                {ok, Appl} -&amp;gt; load(S, Appl);
-                Error -&amp;gt; Error
-            end
-    end.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即&lt;code&gt;{reply, ok, NewS}&lt;/code&gt;，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;handle_call({load_application, Application}, From, S) -&amp;gt;
-    case catch do_load_application(Application, S) of
-        {ok, NewS} -&amp;gt;
-            AppName = get_appl_name(Application),
-            case cntrl(AppName, S, {ac_load_application_req, AppName}) of
-                true -&amp;gt;
-                    {noreply, S#state{loading = [{AppName, From} |
-                                                 S#state.loading]}};
-                false -&amp;gt;
-                    {reply, ok, NewS}
-            end;
-        {error, _} = Error -&amp;gt;
-            {reply, Error, S};
-        {&#39;EXIT&#39;, R} -&amp;gt;
-            {reply, {error, R}, S}
-    end;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句&lt;code&gt;[{file,&quot;../src/sc_app.erl&quot;},{line,6}]},&lt;/code&gt;， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。&lt;/p&gt;
-
-&lt;h2&gt;4. start应用的过程分析&lt;/h2&gt;
 </content>
    </entry>
    
