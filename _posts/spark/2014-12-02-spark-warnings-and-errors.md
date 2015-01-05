@@ -30,3 +30,23 @@ description: 随时更新哦~~~
 4. service ssh restart 重启ssh服务。  
 
 
+## 3. org.apache.spark.SparkException: Could not parse Master URL: 'htpp://10.21.208.21'
+环境： Linux ubuntu2 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux  
+错误： 定义sparkStreamingContext时出现错误，提示不能解析Master URL。 
+
+    scala> val conf = new SparkConf()
+    scala> conf.setMaster("10.21.208.21")
+    scala> conf.setAppName("NetworkWordCount")
+    scala> val ssc = new StreamingContext(conf, Seconds(1))
+    .
+    .
+    .
+    15/01/05 11:18:53 INFO EventLoggingListener: Logging events to hdfs://10.21.208.21:8020/sparklog/networkwordcount-1420427933676
+    org.apache.spark.SparkException: Could not parse Master URL: '10.21.208.21'
+        at org.apache.spark.SparkContext$.org$apache$spark$SparkContext$$createTaskScheduler(SparkContext.scala:1624)
+        at org.apache.spark.SparkContext.<init>(SparkContext.scala:310)
+        at org.apache.spark.streaming.StreamingContext$.createNewSparkContext(StreamingContext.scala:555)
+        at org.apache.spark.streaming.StreamingContext.<init>(StreamingContext.scala:75)
+        .
+        .
+解决： 地址格式不对，应该是conf.setMaster("spark://10.21.208.21:7077")

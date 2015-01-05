@@ -25,7 +25,8 @@ description: 针对我个人学习spark的一些笔记总结~~~
 
 ## 2. 我眼中的spark学习路线  
 - 知道spark是什么，有什么优势，以及确定你知道为什么要学习spark；
-    + 
+    + 看个十篇八篇的spark文章，infoq，博客，youtube上的演讲都可以；
+    + 自己体验一下编译spark的过程，这里有[文档](http://spark.apache.org/docs/latest/building-spark.html)，这里有一篇挺详细的[博客](http://blog.csdn.net/book_mmicky/article/details/25714445)
 - 在REPL里初步体验spark；
     + 官网实例 [Nope]；
     + github repo里的实例 [Nope]； 

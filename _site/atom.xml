@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2014-12-31T13:36:29+08:00</updated>
+   <updated>2015-01-05T16:52:12+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -311,6 +311,449 @@ insert  query update delete getmore command flushes mapped  vsize    res faults 
 &lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/database-profiler/&quot;&gt;Database Profiler Output&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound&quot;&gt;10gen工程师谈MongoDB组合索引的优化&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/command/dbStats/&quot;&gt;dbStats&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
+   
+   <entry>
+     <title>［touch spark］5. spark RDD 之：RDD Transformation</title>
+     <link href="/rdd-transformations"/>
+     <updated>2014-12-20T00:00:00+08:00</updated>
+     <id>/rdd-transformations</id>
+     <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/transfomers.jpg&quot; alt=&quot;transfomers&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 什么是RDD&lt;/h2&gt;
+
+&lt;p&gt;　　关于什么是RDD，可以参考上一篇 &lt;a href=&quot;../spark-what-is-rdd&quot;&gt;4. spark RDD 之：什么是RDD&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;2. RDD transfomation 一览&lt;/h2&gt;
+
+&lt;p&gt;　　ok，了解了RDD的含义，我们可以来看看神马叫transformation了，中文叫转换。上一篇提到RDD可以由两种方式创建，而在实际应用中，一般第一种方式都是用于新建一个RDD的时候，大多数时候都是通过第二种方式来生成一个新的RDD。so，想想这里我们应该怎么来根据一个已存在的RDD来transform出另一个新的RDD呢？当然就是根据一些规则，比如说筛选，映射，分组等等，而用于支撑这些规则的函数，就叫做RDD的transformation。&lt;br/&gt;
+　　下面我们通过下面这张表来看看RDD都支持哪些规则的transformation吧。 这些是&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;官方&lt;/a&gt;列出的一些常用的transformation，我原本想把所有transformation列出来的，可考虑到2/8原则，想想下面这些在实际应用中应该足够了。如果真的需要其他transformation的时候，相比彼时你的功力应该已到阅读、贡献源码的级别了。也就不需要再参考我下面将要写的东西了。 &lt;br/&gt;
+　　这些transformation中有一些是我不太熟悉的，所以这里记录一下我不太熟悉的那些转换函数的用法，仅供个人参考哦。&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt; No &lt;/th&gt;
+&lt;th&gt; Transformation  &lt;/th&gt;
+&lt;th&gt;  Meaning &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt; 1 &lt;/td&gt;
+&lt;td&gt; map(func) &lt;/td&gt;
+&lt;td&gt; Return a new distributed dataset formed by passing each element of the source through a function func.  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 2 &lt;/td&gt;
+&lt;td&gt; filter(func) &lt;/td&gt;
+&lt;td&gt; Return a new dataset formed by selecting those elements of the source on which func returns true. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 3 &lt;/td&gt;
+&lt;td&gt; flatMap(func) &lt;/td&gt;
+&lt;td&gt; Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item). &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 4 &lt;/td&gt;
+&lt;td&gt; mapPartitions(func) &lt;/td&gt;
+&lt;td&gt; Similar to map, but runs separately on each partition (block) of the RDD, so func must be of type Iterator&lt;T&gt; =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 5 &lt;/td&gt;
+&lt;td&gt; mapPartitionsWithIndex(func) &lt;/td&gt;
+&lt;td&gt; Similar to mapPartitions, but also provides func with an integer value representing the index of the partition, so func must be of type (Int, Iterator&lt;T&gt;) =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 6 &lt;/td&gt;
+&lt;td&gt; sample(withReplacement, fraction, seed) &lt;/td&gt;
+&lt;td&gt; Sample a fraction fraction of the data, with or without replacement, using a given random number generator seed. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 7 &lt;/td&gt;
+&lt;td&gt; union(otherDataset) &lt;/td&gt;
+&lt;td&gt; Return a new dataset that contains the union of the elements in the source dataset and the argument. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 8 &lt;/td&gt;
+&lt;td&gt; intersection(otherDataset) &lt;/td&gt;
+&lt;td&gt; Return a new RDD that contains the intersection of elements in the source dataset and the argument. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 9 &lt;/td&gt;
+&lt;td&gt; distinct([numTasks])) &lt;/td&gt;
+&lt;td&gt; Return a new dataset that contains the distinct elements of the source dataset. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 10 &lt;/td&gt;
+&lt;td&gt; groupByKey([numTasks]) &lt;/td&gt;
+&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, Iterable&lt;V&gt;) pairs.   &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 11 &lt;/td&gt;
+&lt;td&gt; reduceByKey(func, [numTasks]) &lt;/td&gt;
+&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function func, which must be of type (V,V) =&gt; V. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 12 &lt;/td&gt;
+&lt;td&gt; aggregateByKey(zeroValue)(seqOp, combOp, [numTasks]) &lt;/td&gt;
+&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, U) pairs where the values for each key are aggregated using the given combine functions and a neutral &quot;zero&quot; value. Allows an aggregated value type that is different than the input value type, while avoiding unnecessary allocations. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 13 &lt;/td&gt;
+&lt;td&gt; sortByKey([ascending], [numTasks]) &lt;/td&gt;
+&lt;td&gt; When called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean ascending argument. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 14 &lt;/td&gt;
+&lt;td&gt; join(otherDataset, [numTasks]) &lt;/td&gt;
+&lt;td&gt; When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key. Outer joins are also supported through leftOuterJoin and rightOuterJoin. &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;h2&gt;3. RDD transfomation&lt;/h2&gt;
+
+&lt;p&gt;　　RDD 的transformation有几个和scala里的函数组合子一样，其他的我估计也是基于scala的组合子来写的。所以，为了方便起见，能用scala来展现的，我就用scala来写；不可以的，我再用spark来写示例。下面提到的transformation更新到&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;spark 1.1.1版本&lt;/a&gt;。要想查看最新版本的，可以上&lt;a href=&quot;http://spark.apache.org/&quot;&gt;官网&lt;/a&gt;和&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;官方API文档&lt;/a&gt;。这里顺带提一下，说到transformation，网上几乎每篇说spark的文章都会用到下面这张图。可是我真的想说，这张图可是Matei这哥们2012年发的&lt;a href=&quot;https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文&lt;/a&gt;里的啊，spark更新的速度也许比大多数人换对象的速度还快啊，好多东西已经变了。大家以后要是发这张图，就该说明出处和版本吧，免得大家误解transformation和actions就那几种类型啊。&lt;br/&gt;
+　　以下都是基于官方&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;API DOC&lt;/a&gt;，在我本机上的测试以及网络资料整理而来。所有参考过的资料我都会在最后列出来，供参考。
+&lt;img src=&quot;../../images/trans-action-2012.png&quot; alt=&quot;trans-action-2012&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;3.1 RDD transfomation － flatMap&lt;/h2&gt;
+
+&lt;p&gt;　　说明：&lt;br/&gt;
+　　flatMap可以理解成map和flat的组合。他处理一个嵌套列表，对其中每个列表中的元素执行map，然后对每个列表执行flat，最后返回一个列表。 &lt;br/&gt;
+　　所以，我们也可以先flatten一个列表，再对列表里的每个元素做mapping；当然也可以对嵌套列表里的每个元素做mapping，再对列表做flatten。看下面的例子就明白了：&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+flatMap[U](f: (T) ⇒ TraversableOnce[U])(implicit arg0: ClassTag[U]): RDD[U]
+Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.   
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// flatMap operation
+scala&amp;gt; val test = List(List(1,2,3,4,5), List(10,20,30,40,50))
+test: List[List[Int]] = List(List(1, 2, 3, 4, 5), List(10, 20, 30, 40, 50))
+
+scala&amp;gt; val test1 = test.flatMap( x =&amp;gt; x.map(_ * 2))
+test1: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
+
+// flat first, then mapping
+scala&amp;gt; val tset2 = test.flatten
+tset2: List[Int] = List(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
+
+scala&amp;gt; val test3 = test.flatten.map(_*2)
+test3: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
+
+// mapping first, then flat
+scala&amp;gt; val test4 = test.map( x =&amp;gt; x.map(_*2))
+test4: List[List[Int]] = List(List(2, 4, 6, 8, 10), List(20, 40, 60, 80, 100))
+
+scala&amp;gt; val test5 = test.map(x =&amp;gt; x.map(_*2)).flatten
+test5: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.2 RDD transfomation － mapPartitions&lt;/h2&gt;
+
+&lt;p&gt;　　说明：&lt;br/&gt;
+　　mapPartitions是map的一个变种。map的输入函数是应用于RDD中每个元素，而mapPartitions的输入函数是应用于每个分区，也就是把每个分区中的内容作为整体来处理的。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def  
+mapPartitions[U](f: (Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
+Return a new RDD by applying a function to each partition of this RDD.
+
+preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　f即为输入函数，它处理每个分区里面的内容。每个分区中的内容将以Iterator[T]传递给输入函数f，f的输出结果是Iterator[U]。最终的RDD由所有分区经过输入函数处理后的结果合并起来的。&lt;/p&gt;
+
+&lt;h2&gt;3.3 RDD transfomation － mapPartitionsWithIndex | mapPartitionsWithContext&lt;/h2&gt;
+
+&lt;p&gt;　　说明： &lt;br/&gt;
+　　mapPartitions还有些变种，比如mapPartitionsWithContext，它能把处理过程中的一些状态信息传递给用户指定的输入函数。还有mapPartitionsWithIndex，它能把分区的index传递给用户指定的输入函数。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+mapPartitionsWithContext[U](f: (TaskContext, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
+Return a new RDD by applying a function to each partition of this RDD. This is a variant of mapPartitions that also passes the TaskContext into the closure.
+
+preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function does not modify the keys.
+Annotations
+
+def
+mapPartitionsWithIndex[U](f: (Int, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
+Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
+
+preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.3 RDD transfomation －  sample&lt;/h2&gt;
+
+&lt;p&gt;　　说明： &lt;br/&gt;
+　　根据fraction指定的比例，对数据进行采样，可以选择是否用随机数进行替换，seed用于指定随机数生成器种子。这里我一直有一个疑问，当我的数据集里有100个元素是，设置fraction为0.1，按理应该是返回10个随机数的，可是就返回了6个。似乎返回的随机数会少于数据集元素数量*随机数的比例，晚点继续研究。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def  sample(withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]
+Return a sampled subset of this RDD.  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 100)
+a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &amp;lt;console&amp;gt;:12
+
+scala&amp;gt; val sample = a.sample(false, 0.1, 0)
+sample: org.apache.spark.rdd.RDD[Int] = PartitionwiseSampledRDD[18] at sample at &amp;lt;console&amp;gt;:14
+
+scala&amp;gt; sample.count
+.
+.
+.
+14/12/12 10:39:07 INFO TaskSchedulerImpl: Removed TaskSet 23.0, whose tasks have all completed, from pool 
+14/12/12 10:39:07 INFO SparkContext: Job finished: count at &amp;lt;console&amp;gt;:17, took 3.491275316 s
+res29: Long = 6
+
+scala&amp;gt; sample.collect
+.
+.
+.
+14/12/12 10:39:11 INFO DAGScheduler: Stage 24 (collect at &amp;lt;console&amp;gt;:17) finished in 0.142 s
+14/12/12 10:39:11 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:17, took 0.151221638 s
+res30: Array[Int] = Array(22, 46, 48, 80, 87, 97)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　后话：&lt;br/&gt;
+　　在看API DOC的时候发现有一个和sample很像的transformation，takeSample，但准确的说这并不是一个transformation，应该算是一个action吧。这个函数可以从数据集里返回固定数量的随机数，弥补上上面我提到的sample那个问题。但是需要注意的是，这个函数是直接在RDD上计算，返回计算结果，并不是一个transformation。看下面的例子就明白了。&lt;/p&gt;
+
+&lt;p&gt;　　示例2：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scala&amp;gt; val takeSample = a.takeSample(false, 10, 0)
+.
+.
+.
+14/12/12 10:43:24 INFO DAGScheduler: Stage 26 (takeSample at &amp;lt;console&amp;gt;:14) finished in 0.068 s
+14/12/12 10:43:24 INFO SparkContext: Job finished: takeSample at &amp;lt;console&amp;gt;:14, took 0.074973222 s
+takeSample: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
+
+scala&amp;gt; takeSample
+res33: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.4 RDD transfomation － union&lt;/h2&gt;
+
+&lt;p&gt;　　说明：&lt;br/&gt;
+　　这个把两个RDD合并为一个，很简单，可以理解成计算并集。但值得说明的是，union和++运算符是等价的，至少在函数定义上是完全一致的。先了解下，以后有需要的时候再看是否有细节上的区别。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+++(other: RDD[T]): RDD[T]
+Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
+def
+union(other: RDD[T]): RDD[T]
+Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：&lt;br/&gt;
+    scala&gt; a
+    res37: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &lt;console&gt;:12&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 10)
+a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[20] at parallelize at &amp;lt;console&amp;gt;:12
+
+scala&amp;gt; val b = sc.parallelize(11 to 20)
+b: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[21] at parallelize at &amp;lt;console&amp;gt;:12
+
+scala&amp;gt; val c1 = a++b
+c1: org.apache.spark.rdd.RDD[Int] = UnionRDD[22] at $plus$plus at &amp;lt;console&amp;gt;:16
+
+scala&amp;gt; val c2 = a.union(b)
+
+scala&amp;gt; c1.collect
+.
+.
+.
+14/12/12 11:01:13 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.3475174 s
+res38: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+
+scala&amp;gt; c2.collect
+.
+.
+.
+14/12/12 11:01:17 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.122094635 s
+res39: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.5 RDD transfomation － intersection&lt;/h2&gt;
+
+&lt;p&gt;　　说明： &lt;br/&gt;
+　　对比上面的union就很好理解了，上面是计算并集，这里是计算交集。这个transformation也有需要注意的地方，就是其有三种形式，根据是否提供第二个参数以及第二个参数的类型。具体可以参考函数定义。c++里这叫多态，现在对scala才是初学阶段，我想既然scala也是OO，那应该也有多态类似的概念吧，这里晚点继续补上。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+intersection(other: RDD[T], numPartitions: Int): RDD[T]
+Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did. Performs a hash partition across the cluster
+
+Note that this method performs a shuffle internally.
+numPartitions
+How many partitions to use in the resulting RDD
+
+def
+intersection(other: RDD[T], partitioner: Partitioner)(implicit ord: Ordering[T] = null): RDD[T]
+Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
+
+Note that this method performs a shuffle internally.
+partitioner
+Partitioner to use for the resulting RDD
+
+def
+intersection(other: RDD[T]): RDD[T]
+Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
+
+Note that this method performs a shuffle internally.  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;val x = sc.parallelize(1 to 20)
+val y = sc.parallelize(10 to 30)
+val z = x.intersection(y)
+
+z.collect
+res74: Array[Int] = Array(16, 12, 20, 13, 17, 14, 18, 10, 19, 15, 11)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.6 RDD transfomation － distinct&lt;/h2&gt;
+
+&lt;p&gt;　　说明： &lt;br/&gt;
+　　即去重，相当于python里面的set。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+distinct(): RDD[T]
+Return a new RDD containing the distinct elements in this RDD.
+def
+distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]
+Return a new RDD containing the distinct elements in this RDD.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.7 RDD transfomation － groupByKey&lt;/h2&gt;
+
+&lt;p&gt;　　说明： &lt;br/&gt;
+　　这是一个针对键值对结构来进行操作的转换方法，即你的RDD的结构是(key, value)类型，而其中key不是唯一性的。此时我们可以对这个RDD进行groupByKey的转换得到新的RDD，新的RDD的结构同样也是键值对，只是值改变了，并且键是唯一性的，即(key, iterator(value))。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+groupByKey(): RDD[(K, Iterable[V])]
+Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with the existing partitioner/parallelism level.
+
+Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+def
+groupByKey(numPartitions: Int): RDD[(K, Iterable[V])]
+Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with into numPartitions partitions.
+
+Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+def
+groupByKey(partitioner: Partitioner): RDD[(K, Iterable[V])]
+Group the values for each key in the RDD into a single sequence. Allows controlling the partitioning of the resulting key-value pair RDD by passing a Partitioner.
+
+Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3.8 RDD transfomation － reduceByKey&lt;/h2&gt;
+
+&lt;p&gt;　　说明：  &lt;br/&gt;
+　　和上面的groupByKey一样，这也是一个针对(key, value)型结构的RDD的转换函数。只是上面的groupByKey是将相同key对应的value组合成一个可迭代的对象；而reduceByKey是将相同key对应的value通过传入的函数func计算成一个新的value。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+reduceByKey(func: (V, V) ⇒ V): RDD[(K, V)]
+Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce. Output will be hash-partitioned with the existing partitioner/ parallelism level.
+def
+reduceByKey(func: (V, V) ⇒ V, numPartitions: Int): RDD[(K, V)]
+Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce. Output will be hash-partitioned with numPartitions partitions.
+def
+reduceByKey(partitioner: Partitioner, func: (V, V) ⇒ V): RDD[(K, V)]
+Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：　&lt;/p&gt;
+
+&lt;h2&gt;3.9 RDD transfomation － aggregateByKey&lt;/h2&gt;
+
+&lt;p&gt;　　说明：&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+aggregateByKey[U](zeroValue: U)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+def
+aggregateByKey[U](zeroValue: U, numPartitions: Int)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+def
+aggregateByKey[U](zeroValue: U, partitioner: Partitioner)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：　&lt;/p&gt;
+
+&lt;h2&gt;3.10 RDD transfomation － sortByKey&lt;/h2&gt;
+
+&lt;p&gt;　　说明：  &lt;br/&gt;
+　　按key来排序。但是在一些情况下，当RDD是(key, value)类型时，如果想对value来排序应该怎么处理呢？很简单，就是先把原来的(key, value)转换成(value, key)结构，然后对(value, key)进行sortByKey操作，最后再把已经排序了的(value, key)转换回(key, value)形式。&lt;/p&gt;
+
+&lt;p&gt;　　定义：   &lt;br/&gt;
+　　奇怪了，我再官方API DOC里没有找到这个转换函数的定义，晚一点再看一下。&lt;/p&gt;
+
+&lt;p&gt;　　示例：　&lt;/p&gt;
+
+&lt;h2&gt;3.11 RDD transfomation － join&lt;/h2&gt;
+
+&lt;p&gt;　　说明：  &lt;br/&gt;
+　　把两个(key, value)结构的RDD合成一个新的(key, value)结构的RDD。即(k1, v1).join((k1, v2)) =&gt; (k1, (v1, v2))，需要注意的是，为了让join操作成功，必须保证key是可以比较的。&lt;/p&gt;
+
+&lt;p&gt;　　定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def
+join[W](other: RDD[(K, W)], numPartitions: Int): RDD[(K, (V, W))]
+Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
+def
+join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]
+Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
+def
+join[W](other: RDD[(K, W)], partitioner: Partitioner): RDD[(K, (V, W))]
+Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Uses the given Partitioner to partition the output RDD.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　示例：　&lt;br/&gt;
+　　&lt;/p&gt;
+
+&lt;h2&gt;4，一些资源&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;RDD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.github.io/scala_school/zh_cn/collections.html#flatMap&quot;&gt;scala school from twitter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.zybuluo.com/jewes/note/35032&quot;&gt;RDD Reference 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://homepage.cs.latrobe.edu.au/zhe/ZhenHeSparkRDDAPIExamples.html&quot;&gt;RDD API Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;RDD API Docs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/1.1.1/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions&quot;&gt;pairRDD API Docs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1435,249 +1878,6 @@ Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pys
 &lt;p&gt;邮件： litaotao#vip.163.com &lt;br/&gt;
 微信： charles_be_good &lt;br/&gt;
 电话： 哈哈，麻烦你邮件问我咯~~~&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>解读 Erlang lists 源码</title>
-     <link href="/erlang-lists-source-code"/>
-     <updated>2014-10-31T00:00:00+08:00</updated>
-     <id>/erlang-lists-source-code</id>
-     <content type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　lists官方文档在此&lt;a href=&quot;http://erlang.org/doc/man/lists.html&quot;&gt;http://erlang.org/doc/man/lists.html&lt;/a&gt;，不知因为什么原因，官方文档中函数顺序和lists.erl源码里的顺序完全不一样。我是按照源码里的顺序来写的，目的是为了熟悉一下Erlang的编程风格和巩固基础语法。也不会所有函数都提到，挑下面一些来学习学习。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;1.  属性说明&lt;/strong&gt;  &lt;br/&gt;
-&lt;strong&gt;2.  keyfind/3&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;3.  suffix/2&lt;/strong&gt;   &lt;br/&gt;
-&lt;strong&gt;4.  seq/2, seq/3&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;5.  sort/1&lt;/strong&gt;
-&lt;strong&gt;6.  merge/1&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;7.  concat/1&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;8.  flatten/1, flatten/2&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;10. filter/2, map/2, filtermap/2&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;11. foldl/3, foldr/3&lt;/strong&gt; &lt;br/&gt;
-&lt;strong&gt;12. keydelete/3&lt;/strong&gt;&lt;br/&gt;
-&lt;strong&gt;13. keymap/3&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 属性说明&lt;/h2&gt;
-
-&lt;p&gt;　　源文件里注明了 &lt;code&gt;-compile({no_auto_import, [max/2]}).&lt;/code&gt;，这是一个预定义的模块属性【预定义的模块属性有以下四种：&lt;code&gt;module，import，export，compile，vsn&lt;/code&gt;】。其中&lt;code&gt;-compile(Options)&lt;/code&gt;是将Options添加到编译器选项表中，Options可以是单个原子，也可以是一个列表。这里的&lt;code&gt;no_auto_import&lt;/code&gt;是说函数max/2不要自动从erlang模块里导出了，这是为了解决内置函数冲突。没听明白吧，ok，下面详细讲讲这个。至于模块属性，详见《Erlang程序设计》第二版，8.4节；有关compile选项，请移步&lt;a href=&quot;http://erlang.org/doc/man/compile.html&quot;&gt;http://erlang.org/doc/man/compile.html&lt;/a&gt;。&lt;br/&gt;
-　　首先，什么叫自动导出：easy，自动导出就是你不加模块前缀就可以运行的函数。平常使用模块函数不都是模块名:函数名的吗。比如说我们要使用erlang模块里的max函数，一般都是erlang:max这样使用。so，顾名思义，如果max函数在erlang里是自动导出的，那我猜想我们可以直接在console里运行max函数了，而且注意，在console里不加模块名直接运行的max函数一定是定义在erlang这个模块里面的。猜想一下，如果含有其他模块【假定为erl】也定义了一个max函数，并且也自动导出了，那当你直接运行max函数时，erlang虚拟机是该运行erl里的max呢还是erlang里的max呢。&lt;br/&gt;
-　　好的，简单测试下，直接看代码得了:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@kali:~/Desktop/erlcode# erl
-Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
-
-Eshell V6.1  (abort with ^G)
-1&amp;gt; erlang:max(1,2).
-2
-2&amp;gt; max(1,2).
-2
-3&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　现在，这个问题解决了，那我们来看看，为什么在lists模块里要阻止max/2自动导入呢。just think it，就和我上面说的一样，防止自动导出的核心是什么？不就是为了防止函数冲突吗？so，我猜想我们lists.erl模块里也有一个max/2函数，而且这个max/2函数的实现必须是和erlang模块里的实现是不同的。CTRL+F查找，果然不出所料：　　&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;%% max(L) -&amp;gt; returns the maximum element of the list L
-
--spec max(List) -&amp;gt; Max when
-      List :: [T,...],
-      Max :: T,
-      T :: term().
-
-max([H|T]) -&amp;gt; max(T, H).
-
-max([H|T], Max) when H &amp;gt; Max -&amp;gt; max(T, H);
-max([_|T], Max)              -&amp;gt; max(T, Max);
-max([],    Max)              -&amp;gt; Max.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　好了，到这里关于模块预定义属性就差不多了，以后遇到了再慢慢补上。&lt;/p&gt;
-
-&lt;h2&gt;2. keyfind/3&lt;/h2&gt;
-
-&lt;p&gt; 　　lists里的&lt;code&gt;keyfind/3, keymember/3, keysearch/3, member/2, reverse/2&lt;/code&gt;都是通过内置函数实现的，源码都在erl_bif_types.erl这个文件里面。在keyfind/3的定义中，看到了pos_integer()这样一个变量类型，看来基础还是不行啊，没办法，大家有空都来这里补补基础吧。&lt;a href=&quot;http://www.erlang.org/doc/reference_manual/typespec.html&quot;&gt;7 Types and Function Specifications&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;3. suffix/2&lt;/h2&gt;
-
-&lt;p&gt;　　之所以要介绍suffix，是想借suffix来简单介绍一下Erlang里的布尔表达式和所谓的短路布尔表达式。函数定义和实现如下，检查Suffix是否是List的后缀。实现就用了两行，真是精湛啊，突然发现其实很多操作不用循环也能很清楚的表达了。&lt;br/&gt;
-　　这里的 andalso 叫做短路布尔表达式，其含义是指 &lt;code&gt;Expr1 andalso Expr2&lt;/code&gt; 这样一个表达式只有在Expr1为真的情况下才会执行Expr2。同样可以理解一下orelse这个短路布尔表达式。而普通的布尔表达式和其他语言里一样的，not, and, or, xor。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;%% suffix(Suffix, List) -&amp;gt; (true | false)
-
--spec suffix(List1, List2) -&amp;gt; boolean() when
-      List1 :: [T],
-      List2 :: [T],
-      T :: term().
-
-suffix(Suffix, List) -&amp;gt;
-    Delta = length(List) - length(Suffix),
-    Delta &amp;gt;= 0 andalso nthtail(Delta, List) =:= Suffix.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;4. seq/2&lt;/h2&gt;
-
-&lt;p&gt;　　seq/2是一个高级接口，调用了一个三参数的接口&lt;code&gt;seq_loop(N, X, L)&lt;/code&gt;，如下，其中N=Last-First+1，是需要生成的长度，X=Last，是最后一个元素的值，L是一个空列表[]，将结果保存到第三个参数L中，最后再返回它。而生成这个列表的方法确实很高效，要么一次生成4个数，要么一次生成2个数，要么生成一个数或者直接返回结果。而实际应用中，大多数情况应该都是一次生成4个数，然后可能会调用1到2次一次生成2个数，最后要么直接返回结果，要么就再生成1个数后再返回结果。极为高效！我又想起了Python里相似的range函数，过两天看看Python里是怎么实现的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-spec seq(From, To) -&amp;gt; Seq when
-      From :: integer(),
-      To :: integer(),
-      Seq :: [integer()].
-
-seq(First, Last)
-    when is_integer(First), is_integer(Last), First-1 =&amp;lt; Last -&amp;gt;
-    seq_loop(Last-First+1, Last, []).
-
-seq_loop(N, X, L) when N &amp;gt;= 4 -&amp;gt;
-     seq_loop(N-4, X-4, [X-3,X-2,X-1,X|L]);
-seq_loop(N, X, L) when N &amp;gt;= 2 -&amp;gt;
-     seq_loop(N-2, X-2, [X-1,X|L]);
-seq_loop(1, X, L) -&amp;gt;
-     [X|L];
-seq_loop(0, _, L) -&amp;gt;
-     L.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;5. sort/1&lt;/h2&gt;
-
-&lt;p&gt;　　Link:&lt;/p&gt;
-
-&lt;h2&gt;6. merge/1&lt;/h2&gt;
-
-&lt;p&gt;　　Link:&lt;/p&gt;
-
-&lt;h2&gt;7. concat/1&lt;/h2&gt;
-
-&lt;p&gt;　　concat函数本身的意图是把参数组合成一个项式，特别需要注意的是，当这个项式是可打印的时候，就打印其字符串形式的结果，当该项式是不可打印的时候，就以把它组合成一个list形式。我们先看下面的例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;root@kali:~/Desktop/erlcode/lists# erl
-Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
-
-Eshell V6.1  (abort with ^G)
-1&amp;gt; lists:concat([1,2,3]).
-&quot;123&quot;
-2&amp;gt; lists:concat([1,2,3,a,b,c]).
-&quot;123abc&quot;
-3&amp;gt; lists:concat([1,2,3,[a,b,c]]).
-[49,50,51,a,b,c]
-4&amp;gt; lists:concat([1,2,3,[1,2,3]]).
-[49,50,51,1,2,3]
-5&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,3]]).
-[49,50,51,97,98,99,1,2,3]
-6&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3]]).
-[49,50,51,97,98,99,1,2,[a,b,c],3]
-7&amp;gt; lists:concat([1,2,3,a,b,c,[1,2,[a,b,c],3],d,e,f]).
-[49,50,51,97,98,99,1,2,[a,b,c],3,100,101,102]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　从例子1、2可以看出，若参数是一个无嵌套的term组成的list，则会返回由这些term组成的一个字符串；若参数是含有嵌套的list，则会把最外层term打印成其在ASCII中的下标，而嵌套的会保持原形。我想这个函数一般都会用在无嵌套的情况吧。下面是源码。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;%% concat(L) concatenate the list representation of the elements
-%%  in L - the elements in L can be atoms, numbers of strings.
-%%  Returns a list of characters.
-
--spec concat(Things) -&amp;gt; string() when
-      Things :: [Thing],
-      Thing :: atom() | integer() | float() | string().
-
-concat(List) -&amp;gt;
-    flatmap(fun thing_to_list/1, List).
-
-thing_to_list(X) when is_integer(X) -&amp;gt; integer_to_list(X);
-thing_to_list(X) when is_float(X)   -&amp;gt; float_to_list(X);
-thing_to_list(X) when is_atom(X)    -&amp;gt; atom_to_list(X);
-thing_to_list(X) when is_list(X)    -&amp;gt; X.       %Assumed to be a string
-
--spec flatmap(Fun, List1) -&amp;gt; List2 when
-      Fun :: fun((A) -&amp;gt; [B]),
-      List1 :: [A],
-      List2 :: [B],
-      A :: term(),
-      B :: term().
-
-flatmap(F, [Hd|Tail]) -&amp;gt;
-    F(Hd) ++ flatmap(F, Tail);
-flatmap(F, []) when is_function(F, 1) -&amp;gt; [].
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;8. flatten/1, flatten/2&lt;/h2&gt;
-
-&lt;p&gt;　　flatten/1 和 flatten/2 都是把一个有嵌套的list返回成一个无嵌套的list的函数，其中flatten/2允许在flatten/1的结果后再append一个list，而且不管这个list的形式。其实一会儿可以在源码里看见，flatten/1和flatten/2的唯一区别是flatten/1相当于flatten/2的第二个参数是一个空list。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;-spec flatten(DeepList) -&amp;gt; List when
-      DeepList :: [term() | DeepList],
-      List :: [term()].
-
-flatten(List) when is_list(List) -&amp;gt;
-    do_flatten(List, []).
-
--spec flatten(DeepList, Tail) -&amp;gt; List when
-      DeepList :: [term() | DeepList],
-      Tail :: [term()],
-      List :: [term()].
-
-flatten(List, Tail) when is_list(List), is_list(Tail) -&amp;gt;
-    do_flatten(List, Tail).
-
-do_flatten([H|T], Tail) when is_list(H) -&amp;gt;
-    do_flatten(H, do_flatten(T, Tail));
-do_flatten([H|T], Tail) -&amp;gt;
-    [H|do_flatten(T, Tail)];
-do_flatten([], Tail) -&amp;gt;
-    Tail.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;10. filter/2, map/2, filtermap/2&lt;/h2&gt;
-
-&lt;p&gt;　　先看看函数参数，filter函数是对List1里的每个term都应用一次Pred函数，然后将能使Pred函数返回true的元素按序构成一个新的列表返回。map函数是对List1里对每个term都应用一次Fun函数，然后将Fun函数在每个元素上都返回值按顺序构造成返回值。顾名思义，filtermap函数就是这两个函数的结合，即先filter，再做map操作。下面是源码，有时候发现，如果看document看烦了，可以选择性地看看源码，也许比看document管用。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-spec map(Fun, List1) -&amp;gt; List2 when
-      Fun :: fun((A) -&amp;gt; B),
-      List1 :: [A],
-      List2 :: [B],
-      A :: term(),
-      B :: term().
-
-map(F, [H|T]) -&amp;gt;
-    [F(H)|map(F, T)];
-map(F, []) when is_function(F, 1) -&amp;gt; [].
-
--spec filter(Pred, List1) -&amp;gt; List2 when
-      Pred :: fun((Elem :: T) -&amp;gt; boolean()),
-      List1 :: [T],
-      List2 :: [T],
-      T :: term().
-
-filter(Pred, List) when is_function(Pred, 1) -&amp;gt;
-    [ E || E &amp;lt;- List, Pred(E) ].   
-
--spec filtermap(Fun, List1) -&amp;gt; List2 when
-      Fun :: fun((Elem) -&amp;gt; boolean() | {&#39;true&#39;, Value}),
-      List1 :: [Elem],
-      List2 :: [Elem | Value],
-      Elem :: term(),
-      Value :: term().
-
-filtermap(F, [Hd|Tail]) -&amp;gt;
-    case F(Hd) of
-  true -&amp;gt;
-      [Hd|filtermap(F, Tail)];
-  {true,Val} -&amp;gt;
-      [Val|filtermap(F, Tail)];
-  false -&amp;gt;
-      filtermap(F, Tail)
-    end;
-filtermap(F, []) when is_function(F, 1) -&amp;gt; [].
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;11. foldl/3, foldr/3&lt;/h2&gt;
-
-&lt;h2&gt;12. keydelete/3&lt;/h2&gt;
-
-&lt;h2&gt;13. keymap/3&lt;/h2&gt;
 </content>
    </entry>
    

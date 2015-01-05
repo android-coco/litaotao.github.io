@@ -1,8 +1,8 @@
 ---
 category: spark
-published: false
+published: true
 layout: post
-title: ［touch spark］9. spark RDD 之：图说RDD Transformation
+title: ［touch spark］5. spark RDD 之：RDD Transformation
 description: 总结spark transformation，了解spark编程内涵～～～	
 ---  
 
@@ -11,11 +11,11 @@ description: 总结spark transformation，了解spark编程内涵～～～
 
 ##  
 ## 1. 什么是RDD 
-　　
+　　关于什么是RDD，可以参考上一篇 [4. spark RDD 之：什么是RDD](../spark-what-is-rdd)
 
 
 ## 2. RDD transfomation 一览  
-　　ok，了解了RDD的含义，我们可以来看看神马叫transformation了，中文叫转换。上面提到RDD可以由两种方式创建，而在实际应用中，一般第一种方式都是用于新建一个RDD的时候，大多数时候都是通过第二种方式来生成一个新的RDD。so，想想这里我们应该怎么来根据一个已存在的RDD来transform出另一个新的RDD呢？当然就是根据一些规则，比如说筛选，映射，分组等等，而用于支撑这些规则的函数，就叫做RDD的transformation。  
+　　ok，了解了RDD的含义，我们可以来看看神马叫transformation了，中文叫转换。上一篇提到RDD可以由两种方式创建，而在实际应用中，一般第一种方式都是用于新建一个RDD的时候，大多数时候都是通过第二种方式来生成一个新的RDD。so，想想这里我们应该怎么来根据一个已存在的RDD来transform出另一个新的RDD呢？当然就是根据一些规则，比如说筛选，映射，分组等等，而用于支撑这些规则的函数，就叫做RDD的transformation。  
 　　下面我们通过下面这张表来看看RDD都支持哪些规则的transformation吧。 这些是[官方](http://spark.apache.org/docs/latest/programming-guide.html#transformations)列出的一些常用的transformation，我原本想把所有transformation列出来的，可考虑到2/8原则，想想下面这些在实际应用中应该足够了。如果真的需要其他transformation的时候，相比彼时你的功力应该已到阅读、贡献源码的级别了。也就不需要再参考我下面将要写的东西了。   
 　　这些transformation中有一些是我不太熟悉的，所以这里记录一下我不太熟悉的那些转换函数的用法，仅供个人参考哦。
 
@@ -36,11 +36,6 @@ description: 总结spark transformation，了解spark编程内涵～～～
 | 12 | aggregateByKey(zeroValue)(seqOp, combOp, [numTasks]) | When called on a dataset of (K, V) pairs, returns a dataset of (K, U) pairs where the values for each key are aggregated using the given combine functions and a neutral "zero" value. Allows an aggregated value type that is different than the input value type, while avoiding unnecessary allocations. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. |
 | 13 | sortByKey([ascending], [numTasks]) | When called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean ascending argument. |
 | 14 | join(otherDataset, [numTasks]) | When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key. Outer joins are also supported through leftOuterJoin and rightOuterJoin. |
-| 15 | cogroup(otherDataset, [numTasks]) | When called on datasets of type (K, V) and (K, W), returns a dataset of (K, Iterable<V>, Iterable<W>) tuples. This operation is also called groupWith. |
-| 16 | cartesian(otherDataset) | When called on datasets of types T and U, returns a dataset of (T, U) pairs (all pairs of elements). |
-| 17 | pipe(command, [envVars]) | Pipe each partition of the RDD through a shell command, e.g. a Perl or bash script. RDD elements are written to the process's stdin and lines output to its stdout are returned as an RDD of strings. |
-| 18 | coalesce(numPartitions) | Decrease the number of partitions in the RDD to numPartitions. Useful for running operations more efficiently after filtering down a large dataset. |
-| 19 | repartition(numPartitions) | Reshuffle the data in the RDD randomly to create either more or fewer partitions and balance it across them. This always shuffles all data over the network. |
 
 
 ## 3. RDD transfomation  
@@ -51,7 +46,7 @@ description: 总结spark transformation，了解spark编程内涵～～～
 
 ## 3.1 RDD transfomation － flatMap  
 　　说明：  
-　　flatMap可以理解成map和flat的组合。他处理一个嵌套列表，对其中每个列表中的元素执行map，然后对每个列表执行flat，最后返回一个列表。
+　　flatMap可以理解成map和flat的组合。他处理一个嵌套列表，对其中每个列表中的元素执行map，然后对每个列表执行flat，最后返回一个列表。   
 　　所以，我们也可以先flatten一个列表，再对列表里的每个元素做mapping；当然也可以对嵌套列表里的每个元素做mapping，再对列表做flatten。看下面的例子就明白了：  
 
 　　定义：  
@@ -108,7 +103,7 @@ description: 总结spark transformation，了解spark编程内涵～～～
     mapPartitionsWithContext[U](f: (TaskContext, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
     Return a new RDD by applying a function to each partition of this RDD. This is a variant of mapPartitions that also passes the TaskContext into the closure.
 
-    preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn't modify the keys.
+    preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function does not modify the keys.
     Annotations
 
     def
@@ -264,8 +259,6 @@ description: 总结spark transformation，了解spark编程内涵～～～
     distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]
     Return a new RDD containing the distinct elements in this RDD.
 
-　　示例：    
-
 
 ## 3.7 RDD transfomation － groupByKey  
   
@@ -289,8 +282,6 @@ description: 总结spark transformation，了解spark编程内涵～～～
     Group the values for each key in the RDD into a single sequence. Allows controlling the partitioning of the resulting key-value pair RDD by passing a Partitioner.
 
     Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
-　　
-　　示例：   
 
 
 ## 3.8 RDD transfomation － reduceByKey    
@@ -358,50 +349,6 @@ description: 总结spark transformation，了解spark编程内涵～～～
     Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Uses the given Partitioner to partition the output RDD.
 
 　　示例：　  
-
-## 3.12 RDD transfomation － cogroup    
-
-　　说明：  
-　　groupByKey的升级用法，针对于多个(key, value)结构的RDD，执行groupByKey转换操作，生成一个(key, value)的RDD，此时的value是多个可迭代的value对象。该方法和groupWith方法有一样的效果。
-
-　　定义：     
-
-　　示例：　  
-
-## 3.13 RDD transfomation － cartesian   
-
-　　说明：    
-　　计算两个RDD的笛卡尔积，关于笛卡尔积可以参考[这里](http://zh.wikipedia.org/zh-cn/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF)。使用这个转换函数是需要注意内存消耗问题。
-
-　　定义：     
-
-　　示例：　  
-
-## 3.14 RDD transfomation － pipe   
-
-　　说明：    
-　　对RDD里的每条数据做一个操作，操作后的结果生成为另一个新的RDD。
-
-　　定义：     
-
-　　示例：　
-
-
-## 3.13 RDD transfomation － coalesce   
-
-　　说明：    
-
-　　定义：     
-
-　　示例：　
-
-## 3.13 RDD transfomation － repartition   
-
-　　说明：    
-
-　　定义：     
-
-　　示例：　
 　　
 
 ## 4，一些资源  
