@@ -1879,7 +1879,7 @@ ul.tabs2 li:last-child a:hover, ul.tabs2 li:last-child a.current { border-right:
 .related_sponsors .paid_section a:hover { text-decoration: none !important;}
 .related_sponsors .paid_section a.logo_paid { float:left; text-align:center; padding:0px; margin:0 0 10px 0; display:block; clear:both; width:100%; text-decoration:none; outline: none !important;}
 .related_sponsors .paid_section .links { padding: 0 10px; display:block;}
-.related_sponsors .paid_section .links p { font-weight:normal;}
+.related_sponsors .paid_section .links p { font-weight:normal; clear:none; float:none;}
 .related_sponsors .paid_section .links h3.whitepaper { background : url(i/whitepaper.png) no-repeat; }
 
 .related_sponsors .paid_section .links a.learn_more { height:31px; line-height:31px; padding: 0 10px; margin:0 auto; text-align:center; background:url(i/learn_bg.png) repeat-x left top; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; font-size:16px; font-weight:bold; color: #FFFFFF; border:1px solid #acb7bd;  display:inline-block; margin-bottom: 10px; }
