@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: ［touch spark］6. 终于等到你，spark streaming + 新浪微博数据  
 description: 自从看到[databricks在spark summit 2014上的那个视频，我就一直想体会spark streaming的power，但心知万丈高楼平地起，所以一直默默地先打底层基础。现在，我觉得只有《终于等到你》这首歌的歌名能够表达我内心的激动了，我来了，streaming~~~
 ---  

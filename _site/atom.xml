@@ -25,13 +25,85 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-01-19T18:41:14+08:00</updated>
+   <updated>2015-01-20T00:01:58+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>［touch spark］6. 终于等到你，spark streaming + 新浪微博数据</title>
+     <link href="/weibo-api-in-action"/>
+     <updated>2015-01-05T00:00:00+08:00</updated>
+     <id>/weibo-api-in-action</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　从最开始想尝试streaming的时候，我一心想实现databricks在spark summit 2014上的那个演示---实时获取twiiter数据，并做分析展示。无奈，在折腾twitter几天后只得放弃。刚开始注册twitter得需要手机号，可是twitter居然不支持中国内地的号码，这里不知道是twitter不支持，还是中国内地的运营商不支持twitter，我想应该是后者吧。当时纠结了好久，一种心碎的感觉。后来终于突然有一天无需手机号也能注册了，我欣喜若狂地注册了一个twitter号，后来发现尼玛新建一个twitter app需要手机验证，这下我就完全down机了，无奈，twitter这条路是完全走不通了。这段时间的心情，就像过山车一样，从心碎到兴奋再到最后的心死。&lt;br/&gt;
+&lt;img src=&quot;../../images/guoshanche.gif&quot; alt=&quot;过山车&quot; /&gt;
+　　可是我不死心啊，还行想玩玩streaming，想体验体验streaming的power，怎么办怎么办？我左思右想，想要做到databricks的效果，唯一的办法就是利用咱们天朝的新浪微博了。在调研了一下新浪微博的API后，其原理和twitter API的原理也是一样的，但是新浪微博的streaming API被取消了。好吧，硬骨头挺多，还得自己啃了。没办法，我想了想，就2个选择，要么不做，然后天天后悔；要么做，然后天天折腾。好吧，我承认我还是义无返顾地选择了第二条路，sigh。&lt;br/&gt;
+　　在写这篇博客的时候看到徐静蕾的新片《有一个地方只有我们知道》，里面一句话让我深有感触---&lt;strong&gt;没有在一起的，就是不对的人，对的人，你是不会失去他的&lt;/strong&gt;，我也想说，没有学到的技术，就是你不喜爱的技术，喜欢的技术，你是不可能学不会的。&lt;/p&gt;
+
+&lt;h2&gt;2. 实验目的&lt;/h2&gt;
+
+&lt;p&gt;　　这次实验是想尝试一下spark streaming的效果，预期是这样的：通过每隔 &lt;strong&gt;几秒&lt;/strong&gt; 从新浪微博拿到 &lt;strong&gt;一些&lt;/strong&gt; 公开的微博数据，然后实时 &lt;strong&gt;处理&lt;/strong&gt; 一下这些数据并 &lt;strong&gt;展现&lt;/strong&gt; 出来。&lt;br/&gt;
+　　ok，这里的关键上面已经用粗体标记出来了。有两个方面，一是时间间隔的设置，数据流量的设置，这关系到streaming的稳定性，比如说若处理速度小于数据流入的速度的话，那数据会慢慢堆积起来；若数据流入速度小于处理速度的话，展现处理结果肯定也不好看。这里是属于tuning的环境，可以在spark官网上仔细瞧瞧，不过具体还是要根据应用需求来定。第二个方面是数据处理和展示，这应该是应用的核心了。这里我们做得很初级，简单做一些TF-IDF的测试或者是更简单的包含性测试。 &lt;br/&gt;
+　　既然是第一次，那就不要太那啥，还是温柔一点比较好。暂时定一个目标，我们想看看实时微博中哪些是包含某某字段的，然后输出这些微博的信息。比如说，我想知道实时微博中，哪些是包含 &lt;strong&gt;建设银行&lt;/strong&gt;，&lt;strong&gt;涨&lt;/strong&gt; 这样两个关键字的微博，并实时打印出来。&lt;/p&gt;
+
+&lt;h2&gt;3. streaming，我的目标&lt;/h2&gt;
+
+&lt;p&gt;　　既然要玩，那就玩得痛快点，下面是我准备在微博streaming这块做的一些各个版本的安排：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;数据方面：
+
+&lt;ul&gt;
+&lt;li&gt;第一步，能够获取微博伪实时数据即可【微博API请求有限制】；&lt;/li&gt;
+&lt;li&gt;第二步，自己设计一个搜集系统，能获取近实时的微博数据，希望能媲美原来微博的streaming API；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;应用方面：
+
+&lt;ul&gt;
+&lt;li&gt;第一步，啥都不干，确认spark   cluster能连到我的数据源，把所有接收到的数据简单打印出来；&lt;/li&gt;
+&lt;li&gt;第二步，简单处理，对实时数据流进行一个简单的filter操作，比如说，看看哪些消息是提到了某人，或某支股票；&lt;/li&gt;
+&lt;li&gt;第三步，复杂一点，用用MLib来对每条消息学习一下，其实就是高级的filter；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　目前我打算从上面几个小目标一点一点上，最近发现一个NB项目，Zeppelin，底层可以集成spark，届时看看是否有需要，可以尝试下
+eppelin+spark。【最近我尝试编译过Zeppelin，遇到很多问题，目前这个项目还不是很成熟，不过项目组说了，他们正在迁移到Apache的孵化器中，完成迁移后会专心发布新版本。Good，看来的确是一个NB项目】 &lt;br/&gt;
+　　冲啊，每天进步一点点。
+&lt;img src=&quot;../../images/stepbystep.jpg&quot; alt=&quot;过山车&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;2. 步骤规划&lt;/h2&gt;
+
+&lt;p&gt;　　我们第一次的目标很简单，当然按照上面的说法，其实也就是三个步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;拿数据，通过新浪微博API&lt;/li&gt;
+&lt;li&gt;处理数据，即对每条微博进行一个检测，看是否包含“建设银行”，“涨”这两条关键字&lt;/li&gt;
+&lt;li&gt;展示数据，简单的打印下来即可&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. 新浪微博API使用&lt;/h2&gt;
+
+&lt;p&gt;　　微博官方已经有详细的新手引导了，这里就不重复造轮子了，大家可以直接参考 &lt;a href=&quot;http://open.weibo.com/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97&quot;&gt;这里&lt;/a&gt;  &lt;br/&gt;
+　　我用的是&lt;a href=&quot;https://github.com/michaelliao/sinaweibopy&quot;&gt;Python SDK&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;4. 处理数据&lt;/h2&gt;
+
+&lt;p&gt;　　要看是否包含“建设银行”，“涨”这两个关键字就简单得多了，用python的话可以直接用 &lt;code&gt;u&#39;涨&#39; in weibo_text and u&#39;建设银行&#39; in weibo_text&lt;/code&gt; 就可以了，scala的话也有 &lt;code&gt;contains&lt;/code&gt; 方法可以直接用。&lt;/p&gt;
+
+&lt;h2&gt;5. 展示数据&lt;/h2&gt;
+</content>
+   </entry>
    
    <entry>
      <title>记录MongoDB一些优化方法</title>
@@ -1731,153 +1803,6 @@ Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pys
 &lt;h2&gt;推荐资料&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://blog.51cto.com/zt/107&quot;&gt;中文翻译&lt;/a&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>My Resume</title>
-     <link href="/resume"/>
-     <updated>2014-11-08T00:00:00+08:00</updated>
-     <id>/resume</id>
-     <content type="html">&lt;h2&gt;联系方式&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;手机：18202171279&lt;/li&gt;
-&lt;li&gt;Email：litaotao#vip.163.com&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;个人信息&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;李涛涛/男/1991&lt;/li&gt;
-&lt;li&gt;本科/北京邮电大学/自动化系&lt;/li&gt;
-&lt;li&gt;工作年限：&amp;lt;1年&lt;/li&gt;
-&lt;li&gt;技术博客：&lt;a href=&quot;http://litaotao.github.io&quot;&gt;http://litaotao.github.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Github: &lt;a href=&quot;http://github.com/litaotao&quot;&gt;http://github.com/litaotao&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Linkedin: &lt;a href=&quot;https://www.linkedin.com/in/taotaoli&quot;&gt;https://www.linkedin.com/in/taotaoli&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;期望职位：后端开发工程师&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;工作经历&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;h3&gt;通联数据股份公司 ( 2014年4月 ~  )&lt;/h3&gt;
-
-&lt;h4&gt;交易策略分享社区&lt;/h4&gt;
-
-&lt;p&gt;我在此项目中一人负责社区后端开发。社区主要提供交易策略的分享和交流的平台，目标是做到策略投资界的github。项目的难点是策略关系的处理和缓存系统的设计。此外，采用开源模块实现了后台管理系统，管理员可以实时看到社区中用户数据和策略的相关元数据。此项目还在进行中，有诸多地方需要持续实践和改善。&lt;/p&gt;
-
-&lt;h4&gt;通联信用评级&lt;/h4&gt;
-
-&lt;p&gt;我在此项目中一人负责后端开发，首次详细地以敏捷开发的方式组织开发日志，在保证项目质量的前提前最大性地提高了开发速度。项目中使用svn, visio等辅助工具，采用python作为服务端语言，采用flask, restful, MongoDB作为主要框架和数据存储系统。项目之外，我还了解了一些对中小微企业进行信用评估方面的行业知识。并凭此项目获得公司Q2季度最佳新员工奖【公司人数200-250人，获奖人数5人】&lt;/p&gt;
-
-&lt;h2&gt;技能清单&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;操作系统：Linux/Mac/Windows&lt;/li&gt;
-&lt;li&gt;编程语言：Python/Erlang/Scala/C/C++/JS/HTML/CSS&lt;/li&gt;
-&lt;li&gt;框架和库：Flask/Restful/OTP/Pymongo/Flask&lt;/li&gt;
-&lt;li&gt;数据系统：Mongo/MySQL/Redis&lt;/li&gt;
-&lt;li&gt;项目工具：Nginx/Visio/Gliffy&lt;/li&gt;
-&lt;li&gt;技术研究：Spark/Machine Learning/Recommend System&lt;/li&gt;
-&lt;li&gt;项目管理：Svn/Git/Markdown/JIRA/Jenkins/Confluence&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;开源项目&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;h3&gt;&lt;a href=&quot;http://github.com/litaotao/Magnet&quot;&gt;Magnet&lt;/a&gt;&lt;/h3&gt;
-
-&lt;blockquote&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Magnet : There are endless magnet lines in the magnet field, each of them has different direction and force, invisible but sensible, just like something that connect everyone in this world&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Relation : Relation is something that around everyone in their whole life, it&#39;s so important but we cannot manage our relation effectively nowadays,not merely because it&#39;s unmeasurable and untouchable, but we still didn&#39;t find a simple but effective tool to help us.&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;What mentioned above is the reasons why I create this project, it aims to help people:&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Maintain your past : That&#39;s help us to keep in touch with people we ever know but almost out of your memory&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Strengthen your present : That&#39;s help us to strengthen our relationship with people whose name you can come up in mind now&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Discover your future : That&#39;s the magic of this project, it help us to find or discover people around you who share the same insterests, hobbies, skills or anything else.&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h3&gt;&lt;a href=&quot;http://github.com/litaotao/git-statistic&quot;&gt;git-statistic&lt;/a&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;准备用git开放API来做一些技术、趋势统计分析相关的工作，正在开展中。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;技术分享  &lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;../files/spark-fire.ppt&quot;&gt;Spark Fire&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;业余爱好&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;读书&lt;/li&gt;
-&lt;li&gt;航模&lt;/li&gt;
-&lt;li&gt;车模&lt;/li&gt;
-&lt;li&gt;乒乓&lt;/li&gt;
-&lt;li&gt;书法&lt;/li&gt;
-&lt;li&gt;跑步&lt;/li&gt;
-&lt;li&gt;技术研究&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;曾获荣誉&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;【通联数据股份公司】2014年Q2季度最佳新人奖;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;自我描述&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;我爱好计算机技术，在不断巩固基础知识的同时关注各种前沿技术； &lt;br/&gt;
-我乐助助人，我相信只要团队中所有人的力量都在一个方向，就一定会有所成就； &lt;br/&gt;
-我热爱生活，我大部分业余时间都献给了看书，运动，车模，航模； &lt;br/&gt;
-我希望能在一个充满活力，文化开放的环境里工作，成长； &lt;br/&gt;
-我希望能和最优秀的人才共事，希望大家在工作中是互相学习的同事，在生活中是互相帮助的好朋友；&lt;/p&gt;
-
-&lt;h2&gt;致谢&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;感谢您花时间阅读我的简历，期待能有机会与您共事。&lt;/p&gt;
-
-&lt;h2&gt;PDF 版下载&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;谢谢，下载地址：&lt;a href=&quot;http://litaotao.github.io/files/resume-litaotao-SE.pdf&quot;&gt;resume-litaotao-SE&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;PS: 所有联系方式  &lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;邮件： litaotao#vip.163.com &lt;br/&gt;
-微信： charles_be_good &lt;br/&gt;
-电话： 哈哈，麻烦你邮件问我咯~~~&lt;/p&gt;
 </content>
    </entry>
    
