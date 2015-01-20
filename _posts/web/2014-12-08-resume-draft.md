@@ -136,3 +136,144 @@ key words：安全，soa，策略推荐，线索推荐，做社区的感想，�
 - 设计模式
 - mysql关系数据库设计
 - sql查询语句
+
+图表数据
+---
+自我评价
+http://echarts.baidu.com/doc/example/radar1.html#macarons
+
+    option = {
+        title : {
+            text: '自我评价'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            orient : 'vertical',
+            x : 'right',
+            y : 'bottom',
+            data:['自我评价']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+              
+            }
+        },
+        polar : [
+           {
+               indicator : [
+                   { text: '爱好技术', max: 10},
+                   { text: '积极乐观', max: 10},
+                   { text: '乐于助人', max: 10},
+                   { text: '团队合作', max: 10},
+                   { text: '善于交流', max: 10},
+                   { text: '创新思维', max: 10}
+                ]
+            }
+        ],
+        calculable : true,
+        series : [
+            {
+                name: '自我评价',
+                type: 'radar',
+                data : [
+                    {
+                        value : [9, 8, 7, 8, 7, 8],
+                        name : '自我评价'
+                    }
+                ]
+            }
+        ]
+    };
+
+技能分布
+http://echarts.baidu.com/doc/example/bar14.html#red
+
+    option = {
+        title: {
+            x: 'center',
+            text: '技能分布'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+            }
+        },
+        calculable: true,
+        grid: {
+            borderWidth: 0,
+            y: 80,
+            y2: 60
+        },
+        xAxis: [
+            {
+                type: 'category',
+                show: false,
+                data: ['Python', 'Win, Linux, Mac', 'C, C++', 'Erlang', 'Flask', 'Celery', 'Mongo', 'Redis', 'Spark', 'Svn, Git', 'Visio, Gliffy']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                show: true
+            }
+        ],
+        series: [
+            {
+                name: '技能分布',
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        label: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                data: [12,21,10,4,12,5,6,5,25,23,7],
+                markPoint: {
+                    tooltip: {
+                        trigger: 'item',
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        formatter: function(params){
+                            return '<img src="' 
+                                    + params.data.symbol.replace('image://', '')
+                                    + '"/>';
+                        }
+                    },
+                    data: [
+                        {xAxis:0, y: 350, name:'python', symbolSize:10},
+                        {xAxis:1, y: 350, name:'Bar', symbolSize:10},
+                        {xAxis:2, y: 350, name:'Scatter', symbolSize:10},
+                        {xAxis:3, y: 350, name:'K', symbolSize:10},
+                        {xAxis:4, y: 350, name:'Pie', symbolSize:10},
+                        {xAxis:5, y: 350, name:'Radar', symbolSize:10},
+                        {xAxis:6, y: 350, name:'Chord', symbolSize:10},
+                        {xAxis:7, y: 350, name:'Force', symbolSize:10},
+                        {xAxis:8, y: 350, name:'Map', symbolSize:10},
+                        {xAxis:9, y: 350, name:'Gauge', symbolSize:10},
+                        {xAxis:10, y: 350, name:'Funnel', symbolSize:10},
+                    ]
+                }
+            }
+        ]
+    };
+
+
+
+
