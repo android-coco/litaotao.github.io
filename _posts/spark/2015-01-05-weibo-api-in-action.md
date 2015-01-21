@@ -1,11 +1,11 @@
 ---
 layout: post
-published: false
+published: true
 title: ［touch spark］6. 终于等到你，spark streaming + 新浪微博数据  
 description: 自从看到[databricks在spark summit 2014上的那个视频，我就一直想体会spark streaming的power，但心知万丈高楼平地起，所以一直默默地先打底层基础。现在，我觉得只有《终于等到你》这首歌的歌名能够表达我内心的激动了，我来了，streaming~~~
 ---  
 
-
+注：与本文相关的所有源代码已放在最最喜爱的 [Github](https://github.com/litaotao/weibostreaming) 上。
 
 ##  
 ## 1. 写在前面
@@ -33,20 +33,24 @@ description: 自从看到[databricks在spark summit 2014上的那个视频，我
 　　目前我打算从上面几个小目标一点一点上，最近发现一个NB项目，Zeppelin，底层可以集成spark，届时看看是否有需要，可以尝试下
 eppelin+spark。【最近我尝试编译过Zeppelin，遇到很多问题，目前这个项目还不是很成熟，不过项目组说了，他们正在迁移到Apache的孵化器中，完成迁移后会专心发布新版本。Good，看来的确是一个NB项目】   
 　　冲啊，每天进步一点点。
-![过山车](../../images/stepbystep.jpg)
+![每天进步一点点咯](../../images/stepbystep.jpg)
 
-## 2. 步骤规划
-　　我们第一次的目标很简单，当然按照上面的说法，其实也就是三个步骤：  
+## 4. 步骤规划
+　　我们第一次的目标很简单，我准备在数据方面，简单地完成第一步；在应用方面，也是简单地完成第一步，算是一个最小的MVP了，暂定为MVP 0.1.0
+吧，哈哈。好，现在简单地分析下，大概有下面几个步骤：  
 
-- 拿数据，通过新浪微博API  
-- 处理数据，即对每条微博进行一个检测，看是否包含“建设银行”，“涨”这两条关键字  
-- 展示数据，简单的打印下来即可  
+- 获取数据，通过新浪微博API，这里需要我们设计一个数据收集器  
+- 发送/接收数据，因为我改用Python来玩spark了，目前spark 1.2版的python streaming只支持socket包，当然socket包也是最简单的了，所以我准备用socket方式进行数据的收发。So，这里我们需要写一个简单的Socket Server
+- 展示数据，简单的打印下来即可
 
-## 3. 新浪微博API使用
+　　下面，我们就按照MVP 0.1.0 的步骤规划，一步一步来搞定咱们这个小系统。 
+
+
+## 5. 获取数据：新浪微博API使用
 　　微博官方已经有详细的新手引导了，这里就不重复造轮子了，大家可以直接参考 [这里](http://open.weibo.com/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97)    
 　　我用的是[Python SDK](https://github.com/michaelliao/sinaweibopy)  
 
-## 4. 处理数据  
-　　要看是否包含“建设银行”，“涨”这两个关键字就简单得多了，用python的话可以直接用 ` u'涨' in weibo_text and u'建设银行' in weibo_text` 就可以了，scala的话也有 `contains` 方法可以直接用。  
+## 6. 收发数据：Socket Server  
 
-## 5. 展示数据  
+## 7. 展示数据: Just print
+
