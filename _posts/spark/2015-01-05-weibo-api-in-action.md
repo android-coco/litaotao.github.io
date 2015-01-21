@@ -47,10 +47,284 @@ eppelin+spark。【最近我尝试编译过Zeppelin，遇到很多问题，目�
 
 
 ## 5. 获取数据：新浪微博API使用
-　　微博官方已经有详细的新手引导了，这里就不重复造轮子了，大家可以直接参考 [这里](http://open.weibo.com/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97)    
-　　我用的是[Python SDK](https://github.com/michaelliao/sinaweibopy)  
+　　微博官方已经有详细的新手引导了，这里就不重复造轮子了，大家可以直接参考 [这里](http://open.weibo.com/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97)。我用的是[Python SDK](https://github.com/michaelliao/sinaweibopy)  
 
 ## 6. 收发数据：Socket Server  
+　　好久没有接触网络编程这块了，这里为了快速完成MVP的效果，我用了最简单的多线程socket server模型，即新建一个线程用于处理一个新的连接。整个socket server的模型如下：  
+![simple-socket-server](../../images/socket-server.jpg)
+
+　　socket server的核心代码如下，完整代码请查看github。这里send_data应该是到去拿新浪微博的数据的，但是我在测试的时候为了方便起见，先简单地用了一条测试数据： data = 'hello, I am litaotao'。
+
+    def send_data(conn, client):
+        # data = get_data(client)
+        data = 'hello, I am litaotao'
+        conn.sendall(data.encode('utf-8'))
+        print '\nIN THREAD: send to {}, data length: {}'.format(str(conn), str(len(data)))
+        conn.close()
+
+    def socket_server(HOST, PORT):
+        client = get_local_weibo_client() or get_weibo_client()
+
+        # s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)  
+        s = socket.socket()    
+        s.bind((HOST, PORT))
+        s.listen(10)
+        
+        while  True:
+            print 'wait for connection ...'
+            conn, addr = s.accept()
+            print 'connect with {} : {}'.format(addr[0], str(addr[1]))
+            thread.start_new_thread(send_data, (conn, client))      
+        s.shutdown()
+
+    if __name__ == '__main__':
+        HOST, PORT = '', 9999
+        socket_server(HOST, PORT)
 
 ## 7. 展示数据: Just print
+　　现在socket server已经准备就绪了，接下来准备一下spark端的任务逻辑。在这之前，我先简单介绍一下目前我的spark集群环境，为了方便理解，我也把环境的IP地址列出来了，这样在以后启动命令的时候也比较清楚。  
+　　可以清楚的看到，目前spark cluster测试环境里一共有10台机器，其中一台`10.21.208.21`作为cluster manager，即master使用，其他9台作为worker使用。而我们写spark任务程序以及提交任务，拿到任务运行结果，都在一台driver机器上，driver机器ip是`10.20.70.80`。
+![spark-cluster](../../images/spark-cluster.jpg)
+　　ok，现在可以来写spark的任务程序了，很简单，就是一个print语句，我是用python写的，代码如下：  
 
+```
+# -*- coding: utf-8 -*-
+import sys
+
+from pyspark import SparkContext
+from pyspark.streaming import StreamingContext
+
+
+def change_nothing(lines):
+    return lines
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print >> sys.stderr, "Usage: weibo_message.py <hostname> <port>"
+        exit(-1)
+    sc = SparkContext(appName="PythonStreamingWeiboMessage")
+    ssc = StreamingContext(sc, 5)
+
+    lines = ssc.socketTextStream(sys.argv[1], int(sys.argv[2]))
+    lines = change_nothing(lines)
+    lines.pprint()
+    ssc.start()
+    ssc.awaitTermination()
+```
+
+## 8. Opps, 为神马只有一个worker接收到数据了
+　　原本以为这样就大功告成，可是当我兴奋地运行程序的时候，突然发现一个极为严重的问题---只有一个worker会到socket server这里来获取数据，并**处理**后返回给driver，而且有时候是第一台worker来拿数据，有时候却又是另外一台worker来拿数据，anyway，问题就是：9太worker中，一直只有1台worker来拿数据，处理并返回，且这台worker并不是固定的。   
+　　下面是日志：  
+
+- socket server的运行日志
+
+```
+C:\Users\taotao.li\Desktop\weibostreaming (master)                                        
+λ python socket_server_1.py                                                               
+wait for connection ...                                                                   
+-----------------------                                                                   
+connect with 10.21.208.30 : 48927                                                         
+wait for connection ...                                                                   
+-----------------------                                                                   
+                                                                                          
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+connect with 10.21.208.30 : 48929                                                         
+wait for connection ...                                                                   
+-----------------------                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48931                                                         
+wait for connection ...                                                                   
+ -----------------------                                                                  
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48933                                                         
+wait for connection ...                                                                   
+-----------------------                                                                   
+                                                                                          
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+connect with 10.21.208.30 : 48935                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48937                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48938                                                         
+wait for connection ...                                                                   
+ -----------------------                                                                  
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48940                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48942                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48944                                                         
+wait for connection ...                                                                   
+-----------------------                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48946                                                         
+wait for connection ...                                                                   
+ -----------------------                                                                  
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48948                                                         
+wait for connection ...                                                                   
+ -----------------------                                                                  
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+connect with 10.21.208.30 : 48952                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+-----------------------                                                                   
+                                                                                          
+connect with 10.21.208.30 : 48953                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48955                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48956                                                         
+wait for connection ...                                                                   
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E80>, data length: 20   
+                                                                                          
+-----------------------                                                                   
+connect with 10.21.208.30 : 48957                                                         
+wait for connection ...                                                                   
+ -----------------------                                                                  
+IN THREAD: send to <socket._socketobject object at 0x0000000002C45E18>, data length: 20   
+
+-----------------------
+Traceback (most recent call last):
+  File "socket_server_1.py", line 24, in <module>
+    socket_server(HOST, PORT)
+  File "socket_server_1.py", line 16, in socket_server
+    conn, addr = s.accept()
+  File "C:\Anaconda\lib\socket.py", line 202, in accept
+    sock, addr = self._sock.accept()
+KeyboardInterrupt
+```
+
+- spark 任务的启动命令，我把处理返回的结果重定向到log.txt里，方便查看  
+
+```
+root@ubuntu2[17:41:01]:~/Desktop/streaming#spark-submit --master spark://10.21.208.21077 weibo_message.py 10.20.102.52 9999 > log.txt
+```
+
+- spark 任务运行日志，太多了，完整的日志可以到 [这里下载 spark-console.log](../../files/spark-console.log)   
+
+- spark 任务运行结果日志 log.txt，完整的日志可以到 [这里下载 log.txt](../../files/log.txt)    
+
+```
+-------------------------------------------
+Time: 2015-01-21 18:50:05
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:10
+-------------------------------------------
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:50:15
+-------------------------------------------
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:50:20
+-------------------------------------------
+hello, I am litaotao
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:50:25
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:30
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:35
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:40
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:45
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:50
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:50:55
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:51:00
+-------------------------------------------
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:51:05
+-------------------------------------------
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:51:10
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:51:15
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:51:20
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:51:25
+-------------------------------------------
+
+-------------------------------------------
+Time: 2015-01-21 18:51:30
+-------------------------------------------
+hello, I am litaotao
+hello, I am litaotao
+
+-------------------------------------------
+Time: 2015-01-21 18:51:35
+-------------------------------------------
+hello, I am litaotao
+hello, I am litaotao
+
+```
+
+
+- Web UI 监控截图，显示只有一个receiver
+![only-one-receiver](../../images/only-one-receiver.jpg)
+
+
+## 9. Why! What happened?
+　　百思不得其解，这是为什么呢，这里我有两个疑点：  
+
+- 难道我对这个任务的理解有误吗。我的理解是，当运行spark-submit提交任务后，master应该会把这个weibo_message代码分发到9个worker上，然后9个worker分别在自己的机器上新建TCP连接到socket server，并从这个socket server上获取数据，然后处理后各自独立返回给driver。难道是我理解错误了吗。   
+- 我仔细研读了官方[spark streaming的教程](http://spark.apache.org/docs/latest/streaming-programming-guide.html#reducing-the-processing-time-of-each-batch)，在里面发现这样一个主题 [Level of Parallelism in Data Receiving](http://spark.apache.org/docs/latest/streaming-programming-guide.html#reducing-the-processing-time-of-each-batch)，似乎对比起上图的Web UI监控图来看，难道是要自己根据worker的数据自定义receiver的数量。即目前我有9太worker，那我必须手动定义9个receiver？难道真的应该是这样的吗，我怎么觉得这样设计会很不灵活呢？why？
