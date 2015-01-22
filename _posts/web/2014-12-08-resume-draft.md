@@ -164,11 +164,12 @@ option = {
        {
            indicator : [
                { text: '爱好技术', max: 10},
-               { text: '积极乐观', max: 10},
-               { text: '乐于助人', max: 10},
+               { text: '解决问题', max: 10},
+               { text: '乐于分享', max: 10},
                { text: '团队合作', max: 10},
                { text: '善于交流', max: 10},
-               { text: '创新思维', max: 10}
+               { text: '创新思维', max: 10},
+               { text: '敢于挑战', max: 10}
             ]
         }
     ],
@@ -179,7 +180,7 @@ option = {
             type: 'radar',
             data : [
                 {
-                    value : [9, 8, 7, 8, 7, 8],
+                    value : [9, 8, 7, 8, 7, 8, 9],
                     name : '自我评价'
                 }
             ]
