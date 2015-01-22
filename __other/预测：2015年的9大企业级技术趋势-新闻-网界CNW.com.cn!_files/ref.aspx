@@ -1,1 +1,0 @@
-var currenturl="";var refurl="https://www.google.com.hk/";

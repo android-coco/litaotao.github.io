@@ -1,1 +1,0 @@
-window.FileManager && (window.FileManager.bad = false);
