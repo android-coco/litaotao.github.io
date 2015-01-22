@@ -25,11 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-<<<<<<< HEAD
-   <updated>2015-01-21T19:19:05+08:00</updated>
-=======
-   <updated>2015-01-21T20:02:13+08:00</updated>
->>>>>>> 190d2f6dd4a5b93c175db87e4fec93325d68c13b
+   <updated>2015-01-22T09:04:17+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -110,7 +106,6 @@ eppelin+spark。【最近我尝试编译过Zeppelin，遇到很多问题，目�
 &lt;p&gt;　　好久没有接触网络编程这块了，这里为了快速完成MVP的效果，我用了最简单的多线程socket server模型，即新建一个线程用于处理一个新的连接。整个socket server的模型如下：&lt;br/&gt;
 &lt;img src=&quot;../../images/socket-server.jpg&quot; alt=&quot;simple-socket-server&quot; /&gt;&lt;/p&gt;
 
-<<<<<<< HEAD
 &lt;p&gt;　　socket server的核心代码如下，完整代码请查看github。这里send_data应该是到去拿新浪微博的数据的，但是我在测试的时候为了方便起见，先简单地用了一条测试数据： data = &#39;hello, I am litaotao&#39;。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;def send_data(conn, client):
@@ -118,15 +113,6 @@ eppelin+spark。【最近我尝试编译过Zeppelin，遇到很多问题，目�
     data = &#39;hello, I am litaotao&#39;
     conn.sendall(data.encode(&#39;utf-8&#39;))
     print &#39;\nIN THREAD: send to {}, data length: {}&#39;.format(str(conn), str(len(data)))
-=======
-&lt;p&gt;　　socket server的核心代码如下，完整代码请查看github。这里send_data应该是到去拿新浪微博的数据的，但是我在测试的时候为了方便起见，先简单地用了一条测试数据： data = 'hello, I am litaotao'。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def send_data(conn, client):
-    # data = get_data(client)
-    data = 'hello, I am litaotao'
-    conn.sendall(data.encode('utf-8'))
-    print '\nIN THREAD: send to {}, data length: {}'.format(str(conn), str(len(data)))
->>>>>>> 190d2f6dd4a5b93c175db87e4fec93325d68c13b
     conn.close()
 
 def socket_server(HOST, PORT):
@@ -138,7 +124,6 @@ def socket_server(HOST, PORT):
     s.listen(10)
 
     while  True:
-<<<<<<< HEAD
         print &#39;wait for connection ...&#39;
         conn, addr = s.accept()
         print &#39;connect with {} : {}&#39;.format(addr[0], str(addr[1]))
@@ -147,16 +132,6 @@ def socket_server(HOST, PORT):
 
 if __name__ == &#39;__main__&#39;:
     HOST, PORT = &#39;&#39;, 9999
-=======
-        print 'wait for connection ...'
-        conn, addr = s.accept()
-        print 'connect with {} : {}'.format(addr[0], str(addr[1]))
-        thread.start_new_thread(send_data, (conn, client))      
-    s.shutdown()
-
-if __name__ == '__main__':
-    HOST, PORT = '', 9999
->>>>>>> 190d2f6dd4a5b93c175db87e4fec93325d68c13b
     socket_server(HOST, PORT)
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -433,7 +408,7 @@ hello, I am litaotao
 
 &lt;p&gt;　　下面是我在本地测试的一个例子。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.user.find({'user':'taotao.li@datayes.com'}).explain()         
+&lt;pre&gt;&lt;code&gt;&amp;gt; db.user.find({&#39;user&#39;:&#39;taotao.li@datayes.com&#39;}).explain()         
 {             
         // 返回游标类型(BasicCursor | BtreeCursor | GeoSearchCursor | Complex Plan | multi)                                                         
         &quot;cursor&quot; : &quot;BasicCursor&quot;,
@@ -859,7 +834,7 @@ test5: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
 mapPartitions[U](f: (Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
 Return a new RDD by applying a function to each partition of this RDD.
 
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn't modify the keys.
+preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　f即为输入函数，它处理每个分区里面的内容。每个分区中的内容将以Iterator[T]传递给输入函数f，f的输出结果是Iterator[U]。最终的RDD由所有分区经过输入函数处理后的结果合并起来的。&lt;/p&gt;
@@ -882,7 +857,7 @@ def
 mapPartitionsWithIndex[U](f: (Int, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
 Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
 
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn't modify the keys.
+preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;3.3 RDD transfomation －  sample&lt;/h2&gt;
@@ -1090,13 +1065,13 @@ Merge the values for each key using an associative reduce function. This will al
 
 &lt;pre&gt;&lt;code&gt;def
 aggregateByKey[U](zeroValue: U)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
 def
 aggregateByKey[U](zeroValue: U, numPartitions: Int)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
 def
 aggregateByKey[U](zeroValue: U, partitioner: Partitioner)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
+Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　示例：　&lt;/p&gt;
@@ -1185,7 +1160,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 &lt;h3&gt;2.1 RDD的背景及解决的痛点问题&lt;/h3&gt;
 
-&lt;p&gt;　　按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that's all。&lt;/p&gt;
+&lt;p&gt;　　按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that&#39;s all。&lt;/p&gt;
 
 &lt;h3&gt;2.2 What is DAG - 趣说有向无环图&lt;/h3&gt;
 
@@ -1428,21 +1403,21 @@ res2: Long = 122352588
 
 &lt;pre&gt;&lt;code class=&quot;&quot;&gt;option = {
     title : {
-        text: 'enPages.count',
-        subtext: 'by taotao.li'
+        text: &#39;enPages.count&#39;,
+        subtext: &#39;by taotao.li&#39;
     },
     tooltip : {
-        trigger: 'axis'
+        trigger: &#39;axis&#39;
     },
     legend: {
-        data:['no cache','cache']
+        data:[&#39;no cache&#39;,&#39;cache&#39;]
     },
     toolbox: {
         show : true,
         feature : {
             mark : {show: true},
             dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['line', 'bar']},
+            magicType : {show: true, type: [&#39;line&#39;, &#39;bar&#39;]},
             restore : {show: true},
             saveAsImage : {show: true}
         }
@@ -1450,24 +1425,24 @@ res2: Long = 122352588
     calculable : true,
     xAxis : [
         {
-            type : 'category',
-            data : ['one time']
+            type : &#39;category&#39;,
+            data : [&#39;one time&#39;]
         }
     ],
     yAxis : [
         {
-            type : 'value'
+            type : &#39;value&#39;
         }
     ],
     series : [
         {
-            name:'no cache',
-            type:'bar',
+            name:&#39;no cache&#39;,
+            type:&#39;bar&#39;,
             data:[130.727017576]
         },
         {
-            name:'cache',
-            type:'bar',
+            name:&#39;cache&#39;,
+            type:&#39;bar&#39;,
             data:[2.492567199]
         }
     ]
@@ -1729,7 +1704,7 @@ Traceback (most recent call last):
     subprocess.check_call(command, shell=True)
   File &quot;/root/anaconda/lib/python2.7/subprocess.py&quot;, line 540, in check_call
     raise CalledProcessError(retcode, cmd)
-subprocess.CalledProcessError: Command 'rsync -rv -e 'ssh -o StrictHostKeyChecking=no -i ../company.pem' '/tmp/tmp6YpLzV/' 'root@ec2-54-172-219-206.compute-1.amazonaws.com:/'' returned non-zero exit status 255
+subprocess.CalledProcessError: Command &#39;rsync -rv -e &#39;ssh -o StrictHostKeyChecking=no -i ../company.pem&#39; &#39;/tmp/tmp6YpLzV/&#39; &#39;root@ec2-54-172-219-206.compute-1.amazonaws.com:/&#39;&#39; returned non-zero exit status 255
 root@ubuntu2:~/Desktop/spark/ampcamp# cp ../company.pem .
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1872,10 +1847,10 @@ Python 2.7.5 (default, Mar  9 2014, 22:15:05)
 Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 
 IPython 2.1.0 -- An enhanced Interactive Python.
-?         -&amp;gt; Introduction and overview of IPython's features.
+?         -&amp;gt; Introduction and overview of IPython&#39;s features.
 %quickref -&amp;gt; Quick reference.
-help      -&amp;gt; Python's own help system.
-object?   -&amp;gt; Details about 'object', use 'object??' for extra details.
+help      -&amp;gt; Python&#39;s own help system.
+object?   -&amp;gt; Details about &#39;object&#39;, use &#39;object??&#39; for extra details.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　成功，我想要的效果达到了，看下面。后来才发现原来官方上面已经有这个说明了，只是感觉也说得不是很明确，看&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
@@ -1905,7 +1880,7 @@ t.cartesian                  t.getStorageLevel            t.name                
 &lt;pre&gt;&lt;code class=&quot;&quot;&gt;In [13]: import pyspark
 
 In [14]: pyspark.__file__
-Out[14]: '/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark/__init__.pyc'
+Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark/__init__.pyc&#39;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　&lt;/p&gt;
@@ -2079,12 +2054,12 @@ Out[14]: '/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark
 &lt;li&gt;Override _id when you have your own simple, unique id&lt;/li&gt;
 &lt;li&gt;Avoid using a document for _id&lt;/li&gt;
 &lt;li&gt;Do not use database references&lt;/li&gt;
-&lt;li&gt;Don't use GridFS for small binary data&lt;/li&gt;
+&lt;li&gt;Don&#39;t use GridFS for small binary data&lt;/li&gt;
 &lt;li&gt;Handle &quot;seamless&quot; failover&lt;/li&gt;
 &lt;li&gt;Handle replica set failure and failover&lt;/li&gt;
 &lt;li&gt;Minimize disk access&lt;/li&gt;
 &lt;li&gt;Use indexes to do more with less memory&lt;/li&gt;
-&lt;li&gt;Don't always use an index&lt;/li&gt;
+&lt;li&gt;Don&#39;t always use an index&lt;/li&gt;
 &lt;li&gt;Create indexes that cover your queries&lt;/li&gt;
 &lt;li&gt;Use compound indexes to make multiple queries fast&lt;/li&gt;
 &lt;li&gt;Create hierarchical documents for faster scans&lt;/li&gt;
@@ -2097,14 +2072,14 @@ Out[14]: '/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark
 &lt;li&gt;Always use safe writes in development&lt;/li&gt;
 &lt;li&gt;Use w with replication&lt;/li&gt;
 &lt;li&gt;Always use wtimeout with w&lt;/li&gt;
-&lt;li&gt;Don's use fsync on every write&lt;/li&gt;
+&lt;li&gt;Don&#39;s use fsync on every write&lt;/li&gt;
 &lt;li&gt;Start up normally after a crash&lt;/li&gt;
 &lt;li&gt;Take instant-in-time backups of durable servers&lt;/li&gt;
 &lt;li&gt;Manually clean up your chunks collections&lt;/li&gt;
 &lt;li&gt;Compact database with repair&lt;/li&gt;
-&lt;li&gt;Don't change the number of votes for members of a replic set&lt;/li&gt;
+&lt;li&gt;Don&#39;t change the number of votes for members of a replic set&lt;/li&gt;
 &lt;li&gt;Replica sets can be reconfigured without a master up&lt;/li&gt;
-&lt;li&gt;--shardsvr and --configsvr aren't required&lt;/li&gt;
+&lt;li&gt;--shardsvr and --configsvr aren&#39;t required&lt;/li&gt;
 &lt;li&gt;Only use --notablescan in development&lt;/li&gt;
 &lt;li&gt;Learn some JavaScript&lt;/li&gt;
 &lt;li&gt;Manage all of your servers and databases from one shell&lt;/li&gt;

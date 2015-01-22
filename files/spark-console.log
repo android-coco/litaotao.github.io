@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 root@ubuntu2[18:49:48]:~/Desktop/streaming#spark-submit --master spark://10.21.208.21:7077 weibo_message.py 10.20.102.52 9999 > log.txt
 Spark assembly has been built with Hive, including Datanucleus jars on classpath
 Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
