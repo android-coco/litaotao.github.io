@@ -222,7 +222,7 @@ KeyboardInterrupt
 - spark 任务的启动命令，我把处理返回的结果重定向到log.txt里，方便查看  
 
 ```
-root@ubuntu2[17:41:01]:~/Desktop/streaming#spark-submit --master spark://10.21.208.21077 weibo_message.py 10.20.102.52 9999 > log.txt
+root@ubuntu2[17:41:01]:~/Desktop/streaming#spark-submit --master spark://10.21.208.21:7077 weibo_message.py 10.20.102.52 9999 > log.txt
 ```
 
 - spark 任务运行日志，太多了，完整的日志可以到 [这里下载 spark-console.log](../../files/spark-console.log)   
