@@ -142,3 +142,4 @@ description: 记录我在使用celery过程中遇到过的一些错误。
     + StackOverflow: [SO](https://stackoverflow.com/questions/25495613/celery-getting-started-not-able-to-retrieve-results-always-pending)
     + Github Issue: [Github](https://github.com/celery/celery/issues/2146)
 
+

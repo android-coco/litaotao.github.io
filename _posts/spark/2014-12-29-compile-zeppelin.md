@@ -101,3 +101,4 @@ description: ～～～
 	failed to launch Zeppelin:
 	  Error: Could not find or load main class com.nflabs.zeppelin.server.ZeppelinServer
 	full log in /root/../logs/zeppelin-root-ubuntu2.out
+
