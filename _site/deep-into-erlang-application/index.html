@@ -45,10 +45,7 @@
 
     <p class="entry-date">2014-10-21 <span class="lastModified" style="display: none;" data-source="_posts/erlang/2014-10-21-deep-into-erlang-application.md">最后更新时间: </span></p>
 
-    <p><strong>扫一扫从手机上打开</strong>
-<img src="../../images/share/deep-into-erlang-application.jpg" alt="2014-10-21-deep-into-erlang-application" /></p>
-
-<h2>1. 从我在Erlang and OTP in Action中第六章中的错误说起</h2>
+    <h2>1. 从我在Erlang and OTP in Action中第六章中的错误说起</h2>
 
 <p>　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：</p>
@@ -246,8 +243,6 @@ start(Application, RestartType) -&gt;
 </code></pre>
 
 <p>　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句<code>[{file,"../src/sc_app.erl"},{line,6}]},</code>， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。</p>
-
-<h2>4. start应用的过程分析</h2>
 
 
     <div id="disqus_container">

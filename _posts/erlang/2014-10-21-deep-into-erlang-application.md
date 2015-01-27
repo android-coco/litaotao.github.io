@@ -6,9 +6,6 @@ title: 深度分析 Erlang Application 行为
 description: 通过仔细分析《Erlang and OTP in Action》中第六章的练习和Application源代码来分析Erlang中Application行为
 ---
 
-**扫一扫从手机上打开**
-![2014-10-21-deep-into-erlang-application](../../images/share/deep-into-erlang-application.jpg)
-
 ## 1. 从我在Erlang and OTP in Action中第六章中的错误说起
 　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：
@@ -195,4 +192,3 @@ handle_call({load_application, Application}, From, S) ->
 ```
 　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句`[{file,"../src/sc_app.erl"},{line,6}]},`， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。
 
-## 4. start应用的过程分析

@@ -6,6 +6,10 @@ title: My Resume Draft
 description: My resume
 ---
 
+[查看新版简历](../files/resume.html)   
+
+
+联系方式，个人信息，荣誉 - ppt模板
 
 联系方式  采用图标展示
 ---  
@@ -25,14 +29,16 @@ description: My resume
 - Linkedin: [https://www.linkedin.com/in/taotaoli](https://www.linkedin.com/in/taotaoli)
 - 期望职位：后端开发工程师
 
-工作经历
+工作经历 ppt 模板
 ---  
 ---
 
 ### 通联数据股份公司 ( 2014年4月 ~  )
 
+### 信用大数据项目
+
 #### 交易策略分享社区   
-我在此项目中一人负责社区后端开发。社区主要提供交易策略的分享和交流的平台，目标是做到策略投资界的github。项目的难点是策略关系的处理和缓存系统的设计。此外，采用开源模块实现了后台管理系统，管理员可以实时看到社区中用户数据和策略的相关元数据。此项目还在进行中，有诸多地方需要持续实践和改善。
+我在此项目中一人负责社区后端开发。社区主要提供交易策略的分享和交流的平台，目标是做到策略投资界的github。项目的难点是策略，用户之间关系的处理，缓存系统的设计和推荐系统的设计。存储上采用NoSQL数据库，后台采用Python，Flask作为主要方案。关系处理和通知上采用Celery管理任务；在对API测试的基础上，有依据地设计缓存策略，缓存系统采用Redis，并基于页面热度设计了动态缓存方式；推荐系统尚在实现当中。该项目尚未成熟，有很多地方需要持续改进。
 
 key words：安全，soa，策略推荐，线索推荐，做社区的感想，消息通知，分享［微信，微博，领英］，扩展性，模块性
 		   性能测试，erlang写的并发测试脚本，分析瓶颈，数据收集，瓶颈展示，抽样调查，消息广播，
@@ -94,26 +100,21 @@ key words：安全，soa，策略推荐，线索推荐，做社区的感想，�
  - 9月公司内部分享：[云计算的前生今世](http://jobdeer.com)
 
 
-业余爱好
+业余爱好 - 饼图 [done]
 ---  
 ---
-
-- 读书
-- 航模  
-- 车模
-- 乒乓
-- 书法
-- 跑步
-- 技术研究 
+- 读书思考，技术研究
+- 航模，车模
+- 乒乓，跑步，台球
 
 
-曾获荣誉
+曾获荣誉 - 归到个人信息，联系方式里
 ---  
 ---  
 - 2014年Q2季度最佳新人奖;
 
 
-自我描述
+自我描述 - ppt 模板
 ---
 ---    
 我爱好计算机技术，在不断巩固基础知识的同时关注各种前沿技术；   
@@ -138,6 +139,39 @@ key words：安全，soa，策略推荐，线索推荐，做社区的感想，�
 - sql查询语句
 
 图表数据
+
+业余爱好
+http://echarts.baidu.com/doc/example/pie1.html
+option = {
+    title : {
+        text: '业余爱好',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    calculable : true,
+    series : [
+        {
+            name:'业余爱好',
+            type:'pie',
+            radius : '60%',
+            center: ['50%', '60%'],
+            data:[
+                {value:335, name:'读书思考'},
+                {value:310, name:'技术研究'},
+                {value:300, name:'跑步'},
+                {value:200, name:'乒乓'},
+                {value:150, name:'车模'},
+                {value:150, name:'台球'},
+                {value:100, name:'航模'},
+            ]
+        }
+    ]
+};
+
+
 
 自我评价 http://echarts.baidu.com/doc/example/radar1.html#macarons
 

@@ -96,5 +96,3 @@ Out[14]: '/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark
 
 
 　　
-
-

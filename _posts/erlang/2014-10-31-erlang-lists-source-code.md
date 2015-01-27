@@ -238,6 +238,3 @@ filtermap(F, []) when is_function(F, 1) -> [].
 
 ## 13. keymap/3
 
-
-
-

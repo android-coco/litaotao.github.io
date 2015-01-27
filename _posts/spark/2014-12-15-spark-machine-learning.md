@@ -83,17 +83,3 @@ description: 哇，初步体验BDAS---the Berkeley Data Analytics Stack
 
     featurizedRDD.cache.map(t => t._1 + "#" + t._2.mkString(",")).saveAsTextFile("/wikistats_featurized")
 　　
-
-
-
-
-
-
-
-
-
-
-
-
-
-
