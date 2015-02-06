@@ -25,13 +25,80 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-02-04T17:28:37+08:00</updated>
+   <updated>2015-02-06T17:08:10+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>今天发生了一件坏事，也发生了一件好事</title>
+     <link href="/the-badest-thing-in-my-life"/>
+     <updated>2015-02-06T00:00:00+08:00</updated>
+     <id>/the-badest-thing-in-my-life</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　以前读过两篇文章，一片叫《为什么从现在起你应该写博客》，第二篇记不得了，但其中有一个中心思想，说的是你写的东西都是给别人看的，应该都是对别人有用的。看了第一篇文章，我从不久之前终于借助Github建立了自己的一个博客，记录自己的技术成长经历；看了第二篇文章，我几乎每周都会对自己有一个总结，而从不把这些总结发到博客上。因为我认为这些总结都是未来回忆自己年轻时的年少轻狂用的，不应该发到博客上了。&lt;br/&gt;
+　　但是今天，发生了一件坏事，算是从小到大最丑的一件事了，但同时也是一件好事。至少以后别人再问我最丑的经历时，我有话可说了。&lt;/p&gt;
+
+&lt;h2&gt;2. 人生最丑的事&lt;/h2&gt;
+
+&lt;p&gt;　　今天在小组内做第二次关于spark的技术分享，讲得很烂，算是人生的一个污点了，具体经历就不讲了。但我保证这是历史和未来所有presentation中最烂的一次。我将从以下几个方面来记录这次事件，以后每次活动之前，我都要自己看看今天的这篇文章，告诫自己，不要在同一个地方跌倒两次。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;没有事先准备好&lt;br/&gt;
+　　以后进行presentation，一定要提前半小时入场，把电脑环境配置好。今天失败的根本原因是一个自定义的配置文件在断网重连后没有进行source操作，导致IPython Notebook Server和Spark集群之间连接不上。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;紧急情况下不会冷静分析问题&lt;br/&gt;
+　　在启动IPython Notebook后，发现 &lt;code&gt;from pyspark import SparkContext, SparkConf&lt;/code&gt; 不能成功，提示没有pyspark这个包。当时我就慌了，没有沿着本质去分析问题，然后在老板的催促和心慌当中就开始讲了，在大家的迷茫和我不知所以的回答中，我就这样浑浑噩噩的度过了几十分钟，中间还幸得一位同事解围。在最后几分钟的时候，我实在忍不住了，心想反正今天已经完蛋了，就不管别人在那里讨论什么了。我开始研究到底是什么原因导致Notebook Server连接不上spark集群。我首先查看了下IPython的配置，在 &lt;code&gt;~/.ipython/profile_pyspark/&lt;/code&gt; 目录下面，我先看ipython_notebook_config.py文件，发现没有什么异常的，心想也应该不会出现在这里吧，因为IPython notebook还是能用的，只是找不到pyspark这个包。我突然回忆起来，在当初配置spark+IPython的时候，需要设置一个启动脚本文件。接着，我查看了那个启动脚本，在 &lt;code&gt;/root/.ipython/profile_pyspark/startup/00-pyspark-setup.py&lt;/code&gt; 下，恍然大悟，我发现问题了，这个脚本是这样写的：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;import os
+import sys
+
+spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
+
+if not spark_home:
+    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
+sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
+sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))
+#execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　Say，关键就是这句 &lt;code&gt;spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)&lt;/code&gt; 因为没有定义一个环境变量，因此不能在IPython Notebook的环境变量sys.path里加入pyspark包所在的地址。再想想自己在哪里定义了SPARK_HOME这个变量，明明就在Desktop下的&lt;code&gt;ipython_notebook_spark.bashrc&lt;/code&gt; 里，看看里面是怎么写的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;&quot;&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
+export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　这下知道了，原因是自己定义的.bashrc文件在登出linux后会失效，而刚才把电脑带到会议室后重新连接的网络，linux console重新登出了，所以必须重新source这个文件。 &lt;br/&gt;
+　　现在回想，其实应该在看到错误提示没有pyspark这个包的时候就应该发现这个问题了，之所以一开始没有推测出这个问题，有几个原因：一是在这种情况下发现错误，头脑发热发慌，不能冷静处理；二是自己对这部分技术没有掌握彻底；3是在学习一门新技术时，没有详细地把学习过程和一些操作过程记录下来，导致出问题后不能及时参考。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;表达不清 &lt;br/&gt;
+　　还有一条经验就是表达不清楚，思路不清楚，回答别人的问题不够明确。在别人提问没有表达清晰时，自己没有和别人进行沟通就贸然回答，导致交流效率极低。曾经看过很多文章，都讲做技术的一定要努力提高自己的表达能力，我满不在乎，因为平时和大家感觉交流起来还算流畅的，没想到这次碰了瓷。得到一条宝贵的经验，以后再做分享的时候，一定要准备好详细讲稿和提纲。别人在提问时，一定要先把别人提问的问题搞清楚，理解了再进行回答。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;一些细节问题 &lt;br/&gt;
+　　这次分享出来本组人员，还有鹏哥和他们组的两个人员，这种情况下在开始前应该由主讲人[我]来互相介绍一下，介绍双方的人员和职责。 &lt;br/&gt;
+　　在讲稿，PPT，程序准备的时候，要注意配色和字体，字体要大，颜色要和谐，让听众能清晰地看到投影仪的东西。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;最后&lt;br/&gt;
+　　最后，我想说，这真的是人生最糟糕的一次经历，以后绝对不能出现同样的问题，在以后每次做分享的时候，我要多回头看看这篇文章，想想今天尴尬的我。今天的分享，远远没有达到预期效果，还耽误了大家不少时间，也影响了自己的形象。这种情况下不能逃避，我应该给参会的每个人员发封邮件表示歉意，这也是对别人的尊重。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. 感悟&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;机会，永远只给有所准备，并且已经准备好了的人；&lt;/li&gt;
+&lt;li&gt;从每一件小事做起，把每一件小事做到极致；
+&lt;img src=&quot;../images/make_little_thing_best.jpg&quot; alt=&quot;make_little_thing_best&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>［touch spark］6. 终于等到你，spark streaming + 新浪微博数据</title>
@@ -2019,80 +2086,6 @@ Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pys
 &lt;p&gt;&lt;a href=&quot;http://www.quora.com/Why-was-Erlang-chosen-for-use-in-Facebook-chat&quot;&gt;2. 介绍FB一开始选用Erlang来开发聊天服务的原因&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.quora.com/When-did-Facebook-switch-away-from-using-Erlang-for-Facebook-Chat&quot;&gt;3. 介绍FB聊天服务从Erlang转向C++的原因&lt;/a&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>book-1. 50 Tips and Tricks for MongoDB Developers</title>
-     <link href="/50-tips-and-tricks-for-mongodb-developer"/>
-     <updated>2014-11-09T00:00:00+08:00</updated>
-     <id>/50-tips-and-tricks-for-mongodb-developer</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　book 开头的文章都是记录我个人的读书记录的，里面分情况会记录下面这些东西：目录，读书感想，技术分享和推荐等。如果只是写下目录，那大多是留给自己以后看的。我不会把书长篇大论地翻译成中文，只会写下能对我个人以后真正有用的东西。
-　　这是一本讲mongodb实践的经验书籍，就66页，除去前面目录什么的，也就50来页，对我个人还是挺有用的，所以我写下其目录，供以后复习时用。没必要写什么读书笔记，毕竟大脑才是最好用的u盘。&lt;/p&gt;
-
-&lt;h2&gt;目录&lt;/h2&gt;
-
-&lt;blockquote&gt;&lt;ol&gt;
-&lt;li&gt;Duplicate data for speed, reference data for integrity&lt;/li&gt;
-&lt;li&gt;Normalize if you need to future-proof data&lt;/li&gt;
-&lt;li&gt;Try to fetech data in a single query&lt;/li&gt;
-&lt;li&gt;Embed dependent fields&lt;/li&gt;
-&lt;li&gt;Embed &quot;point-in-time&quot; data&lt;/li&gt;
-&lt;li&gt;Do not embed fields that have unbound growth&lt;/li&gt;
-&lt;li&gt;Pre-populate anything you can&lt;/li&gt;
-&lt;li&gt;Preallocate space, whenever possible&lt;/li&gt;
-&lt;li&gt;Store embedded information in arrays for anonymous access&lt;/li&gt;
-&lt;li&gt;Desigin documents to be self-sufficient&lt;/li&gt;
-&lt;li&gt;Prefer $-operators to JavaScript&lt;/li&gt;
-&lt;li&gt;Compute aggregations as you go&lt;/li&gt;
-&lt;li&gt;Write code to handle data integrity issues&lt;/li&gt;
-&lt;li&gt;Use the correct types&lt;/li&gt;
-&lt;li&gt;Override _id when you have your own simple, unique id&lt;/li&gt;
-&lt;li&gt;Avoid using a document for _id&lt;/li&gt;
-&lt;li&gt;Do not use database references&lt;/li&gt;
-&lt;li&gt;Don&#39;t use GridFS for small binary data&lt;/li&gt;
-&lt;li&gt;Handle &quot;seamless&quot; failover&lt;/li&gt;
-&lt;li&gt;Handle replica set failure and failover&lt;/li&gt;
-&lt;li&gt;Minimize disk access&lt;/li&gt;
-&lt;li&gt;Use indexes to do more with less memory&lt;/li&gt;
-&lt;li&gt;Don&#39;t always use an index&lt;/li&gt;
-&lt;li&gt;Create indexes that cover your queries&lt;/li&gt;
-&lt;li&gt;Use compound indexes to make multiple queries fast&lt;/li&gt;
-&lt;li&gt;Create hierarchical documents for faster scans&lt;/li&gt;
-&lt;li&gt;AND-queries should match as little as possible as fast as possible&lt;/li&gt;
-&lt;li&gt;OR-queries should match as much as possible as soon as possible&lt;/li&gt;
-&lt;li&gt;Write to the journal for single server, replicas for multiserver&lt;/li&gt;
-&lt;li&gt;Always use replication, journaling, or both&lt;/li&gt;
-&lt;li&gt;Do not depend on repair to recover data&lt;/li&gt;
-&lt;li&gt;Understand getlasterror&lt;/li&gt;
-&lt;li&gt;Always use safe writes in development&lt;/li&gt;
-&lt;li&gt;Use w with replication&lt;/li&gt;
-&lt;li&gt;Always use wtimeout with w&lt;/li&gt;
-&lt;li&gt;Don&#39;s use fsync on every write&lt;/li&gt;
-&lt;li&gt;Start up normally after a crash&lt;/li&gt;
-&lt;li&gt;Take instant-in-time backups of durable servers&lt;/li&gt;
-&lt;li&gt;Manually clean up your chunks collections&lt;/li&gt;
-&lt;li&gt;Compact database with repair&lt;/li&gt;
-&lt;li&gt;Don&#39;t change the number of votes for members of a replic set&lt;/li&gt;
-&lt;li&gt;Replica sets can be reconfigured without a master up&lt;/li&gt;
-&lt;li&gt;--shardsvr and --configsvr aren&#39;t required&lt;/li&gt;
-&lt;li&gt;Only use --notablescan in development&lt;/li&gt;
-&lt;li&gt;Learn some JavaScript&lt;/li&gt;
-&lt;li&gt;Manage all of your servers and databases from one shell&lt;/li&gt;
-&lt;li&gt;Get &quot;help&quot; for any function&lt;/li&gt;
-&lt;li&gt;Create startup files&lt;/li&gt;
-&lt;li&gt;Add your own functions&lt;/li&gt;
-&lt;li&gt;Use a single connection to read your own writes&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h2&gt;推荐资料&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.51cto.com/zt/107&quot;&gt;中文翻译&lt;/a&gt;&lt;/p&gt;
 </content>
    </entry>
    
