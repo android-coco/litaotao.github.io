@@ -1,0 +1,55 @@
+---
+layout: post
+published: true
+title: ［touch spark］9. Spark 学习资源集锦  
+description: 我搜集、看过并认为是不错的 Spark 学习资源。
+---  
+
+##  
+## 1. 写在前面  
+　　实际上，学习任何一门技术，最好的学习资料肯定是官网。但是，在我学习spark的过程中，我发现有两个理由告诉我为什么学习一门技术仍然需要一些官网之外的资料：  
+
+- 广度：官网上的资料大都focus在技术本身的实现和用法，而有很多资料会提及这门技术的应用，以及实践、应用这门技术中遇到的坑，还有由这门技术衍生出来的其他辅助技术。    
+- 深度：很多资料都会解析这门技术的实现以及原理，反应到官网上，大多都是API文档或技术架构；我发现，很多在官网上理解不了的细节，可能在一些资料上描述起来更明确。
+
+　　基于上面这两个原因，我准备把自己在学习Spark过程中有幸遇到的好的资料搜集起来，并从广度和深度两个方面来整理这些资料，希望对大家有所帮助。还有，我会整理一些和spark相关的第三方开源工具，相信这些工具在帮助大家构建基于spark的应用时会助一臂之力。   
+
+　　所有这些我都会同步到github上：[link](https://github.com/litaotao/spark-materials)
+
+## 2. 资源列表  
+
+- **广度**：[spark和ipython notebook结合](http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/)  
+**备注**：我参考这篇文章搭建了自己基于ipython notebook的分析平台，详细记录在这篇博客上了：[当Ipython Notebook遇见Spark](../ipython-notebook-server-spark)
+
+## 3. Spark相关的第三方开源工具   
+
+- **Zeppelin**： 
+    + 官网：[http://zeppelin-project.org/](http://zeppelin-project.org/)
+
+- **Hue**:  
+    + 官网：[http://gethue.com/](http://gethue.com/)
+
+- **IPyhon**:  
+    + 官网：[http://ipython.org/](http://ipython.org/)
+
+- **ISpark**: 
+    + Github：[https://github.com/tribbloid/ISpark](https://github.com/tribbloid/ISpark)
+
+- **scala-notebook**:  
+    + Github: [https://github.com/Bridgewater/scala-notebook](https://github.com/Bridgewater/scala-notebook)
+
+- **spark-notebook**:  
+    + Github: [https://github.com/andypetrella/spark-notebook](https://github.com/andypetrella/spark-notebook)
+
+- **Ipython-sql**:  
+    + Github: [https://github.com/catherinedevlin/ipython-sql](https://github.com/catherinedevlin/ipython-sql)
+
+- **sparknotebook**:  
+    + Github: [https://github.com/hohonuuli/sparknotebook](https://github.com/hohonuuli/sparknotebook)
+
+- **spark-kernel**:
+    + Github: [https://github.com/ibm-et/spark-kernel](https://github.com/ibm-et/spark-kernel)
+
+- **spark-jobserver**:
+    + Github: [https://github.com/spark-jobserver/spark-jobserver](https://github.com/spark-jobserver/spark-jobserver)
+

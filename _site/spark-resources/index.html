@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>［touch spark］9. Spark 学习资源集锦 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  body { background:transparent; }
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/spark-resources" title="［touch spark］9. Spark 学习资源集锦">［touch spark］9. Spark 学习资源集锦</a></h1>
+
+    <p class="entry-date">2015-03-01 <span class="lastModified" style="display: none;" data-source="_posts/spark/2015-03-01-spark-resources.md">最后更新时间: </span></p>
+
+    <h2></h2>
+
+<h2>1. 写在前面</h2>
+
+<p>　　实际上，学习任何一门技术，最好的学习资料肯定是官网。但是，在我学习spark的过程中，我发现有两个理由告诉我为什么学习一门技术仍然需要一些官网之外的资料：</p>
+
+<ul>
+<li>广度：官网上的资料大都focus在技术本身的实现和用法，而有很多资料会提及这门技术的应用，以及实践、应用这门技术中遇到的坑，还有由这门技术衍生出来的其他辅助技术。</li>
+<li>深度：很多资料都会解析这门技术的实现以及原理，反应到官网上，大多都是API文档或技术架构；我发现，很多在官网上理解不了的细节，可能在一些资料上描述起来更明确。</li>
+</ul>
+
+
+<p>　　基于上面这两个原因，我准备把自己在学习Spark过程中有幸遇到的好的资料搜集起来，并从广度和深度两个方面来整理这些资料，希望对大家有所帮助。还有，我会整理一些和spark相关的第三方开源工具，相信这些工具在帮助大家构建基于spark的应用时会助一臂之力。</p>
+
+<p>　　所有这些我都会同步到github上：<a href="https://github.com/litaotao/spark-materials">link</a></p>
+
+<h2>2. 资源列表</h2>
+
+<ul>
+<li><strong>广度</strong>：<a href="http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/">spark和ipython notebook结合</a><br/>
+<strong>备注</strong>：我参考这篇文章搭建了自己基于ipython notebook的分析平台，详细记录在这篇博客上了：<a href="../ipython-notebook-server-spark">当Ipython Notebook遇见Spark</a></li>
+</ul>
+
+
+<h2>3. Spark相关的第三方开源工具</h2>
+
+<ul>
+<li><p><strong>Zeppelin</strong>：</p>
+
+<ul>
+<li>官网：<a href="http://zeppelin-project.org/">http://zeppelin-project.org/</a></li>
+</ul>
+</li>
+<li><p><strong>Hue</strong>:</p>
+
+<ul>
+<li>官网：<a href="http://gethue.com/">http://gethue.com/</a></li>
+</ul>
+</li>
+<li><p><strong>IPyhon</strong>:</p>
+
+<ul>
+<li>官网：<a href="http://ipython.org/">http://ipython.org/</a></li>
+</ul>
+</li>
+<li><p><strong>ISpark</strong>:</p>
+
+<ul>
+<li>Github：<a href="https://github.com/tribbloid/ISpark">https://github.com/tribbloid/ISpark</a></li>
+</ul>
+</li>
+<li><p><strong>scala-notebook</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/Bridgewater/scala-notebook">https://github.com/Bridgewater/scala-notebook</a></li>
+</ul>
+</li>
+<li><p><strong>spark-notebook</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/andypetrella/spark-notebook">https://github.com/andypetrella/spark-notebook</a></li>
+</ul>
+</li>
+<li><p><strong>Ipython-sql</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/catherinedevlin/ipython-sql">https://github.com/catherinedevlin/ipython-sql</a></li>
+</ul>
+</li>
+<li><p><strong>sparknotebook</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/hohonuuli/sparknotebook">https://github.com/hohonuuli/sparknotebook</a></li>
+</ul>
+</li>
+<li><p><strong>spark-kernel</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/ibm-et/spark-kernel">https://github.com/ibm-et/spark-kernel</a></li>
+</ul>
+</li>
+<li><p><strong>spark-jobserver</strong>:</p>
+
+<ul>
+<li>Github: <a href="https://github.com/spark-jobserver/spark-jobserver">https://github.com/spark-jobserver/spark-jobserver</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/spark-resources data-title=［touch spark］9. Spark 学习资源集锦 data-url=/spark-resources></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

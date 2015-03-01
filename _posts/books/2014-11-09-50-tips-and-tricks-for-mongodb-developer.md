@@ -14,7 +14,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 ## 目录
 >
 1. Duplicate data for speed, reference data for integrity
-2. Normalize if you need to future-proof data
+2. Normalize if you need to future-proof 
+3. data
 3. Try to fetech data in a single query
 4. Embed dependent fields
 5. Embed "point-in-time" data

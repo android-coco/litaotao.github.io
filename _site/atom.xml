@@ -25,13 +25,110 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-02-13T16:15:31+08:00</updated>
+   <updated>2015-03-01T15:25:39+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>［touch spark］9. Spark 学习资源集锦</title>
+     <link href="/spark-resources"/>
+     <updated>2015-03-01T00:00:00+08:00</updated>
+     <id>/spark-resources</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　实际上，学习任何一门技术，最好的学习资料肯定是官网。但是，在我学习spark的过程中，我发现有两个理由告诉我为什么学习一门技术仍然需要一些官网之外的资料：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;广度：官网上的资料大都focus在技术本身的实现和用法，而有很多资料会提及这门技术的应用，以及实践、应用这门技术中遇到的坑，还有由这门技术衍生出来的其他辅助技术。&lt;/li&gt;
+&lt;li&gt;深度：很多资料都会解析这门技术的实现以及原理，反应到官网上，大多都是API文档或技术架构；我发现，很多在官网上理解不了的细节，可能在一些资料上描述起来更明确。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　基于上面这两个原因，我准备把自己在学习Spark过程中有幸遇到的好的资料搜集起来，并从广度和深度两个方面来整理这些资料，希望对大家有所帮助。还有，我会整理一些和spark相关的第三方开源工具，相信这些工具在帮助大家构建基于spark的应用时会助一臂之力。&lt;/p&gt;
+
+&lt;p&gt;　　所有这些我都会同步到github上：&lt;a href=&quot;https://github.com/litaotao/spark-materials&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;2. 资源列表&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;广度&lt;/strong&gt;：&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;spark和ipython notebook结合&lt;/a&gt;&lt;br/&gt;
+&lt;strong&gt;备注&lt;/strong&gt;：我参考这篇文章搭建了自己基于ipython notebook的分析平台，详细记录在这篇博客上了：&lt;a href=&quot;../ipython-notebook-server-spark&quot;&gt;当Ipython Notebook遇见Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. Spark相关的第三方开源工具&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Zeppelin&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;官网：&lt;a href=&quot;http://zeppelin-project.org/&quot;&gt;http://zeppelin-project.org/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Hue&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;官网：&lt;a href=&quot;http://gethue.com/&quot;&gt;http://gethue.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;IPyhon&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;官网：&lt;a href=&quot;http://ipython.org/&quot;&gt;http://ipython.org/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ISpark&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github：&lt;a href=&quot;https://github.com/tribbloid/ISpark&quot;&gt;https://github.com/tribbloid/ISpark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;scala-notebook&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/Bridgewater/scala-notebook&quot;&gt;https://github.com/Bridgewater/scala-notebook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;spark-notebook&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/andypetrella/spark-notebook&quot;&gt;https://github.com/andypetrella/spark-notebook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Ipython-sql&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/catherinedevlin/ipython-sql&quot;&gt;https://github.com/catherinedevlin/ipython-sql&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;sparknotebook&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/hohonuuli/sparknotebook&quot;&gt;https://github.com/hohonuuli/sparknotebook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;spark-kernel&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/ibm-et/spark-kernel&quot;&gt;https://github.com/ibm-et/spark-kernel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;spark-jobserver&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&quot;https://github.com/spark-jobserver/spark-jobserver&quot;&gt;https://github.com/spark-jobserver/spark-jobserver&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>今天发生了一件坏事，也发生了一件好事</title>
@@ -97,6 +194,245 @@ export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mod
 &lt;img src=&quot;../images/make_little_thing_best.jpg&quot; alt=&quot;make_little_thing_best&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+</content>
+   </entry>
+   
+   <entry>
+     <title>［touch spark］8. 当Ipython Notebook遇见Spark</title>
+     <link href="/ipython-notebook-server-spark"/>
+     <updated>2015-01-27T00:00:00+08:00</updated>
+     <id>/ipython-notebook-server-spark</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 致谢&lt;/h2&gt;
+
+&lt;p&gt;　　首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.&lt;br/&gt;
+　　下面是这两个项目的github地址：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。 &lt;br/&gt;
+　　但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
+
+&lt;h2&gt;2. 路线规划&lt;/h2&gt;
+
+&lt;p&gt;　　基于 &lt;a href=&quot;http://www.databricks.com/&quot;&gt;Databricks&lt;/a&gt;，&lt;a href=&quot;zeppelin-project.org&quot;&gt;Zeppelin&lt;/a&gt; 和 &lt;a href=&quot;www.gethue.com&quot;&gt;Hue&lt;/a&gt; 的启发，我也想尝试搭建一个丰富可用的在线大数据REPL分析平台，正好用此机会好好实践一下spark，毕竟都学习spark几个月了呢。 &lt;br/&gt;
+　　不说废话，同&lt;a href=&quot;../weibo-api-in-action&quot;&gt;使用spark分析微博数据那篇博文一样&lt;/a&gt;，我们也要有一个路线规划：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server；&lt;/li&gt;
+&lt;li&gt;完善 Weibo Message Driver，使用户可在Notebook里获取、分析微博数据，as simple as possible；&lt;/li&gt;
+&lt;li&gt;研究Zeppelin和Hue项目，把其中一个嫁接在Notebook的上层，实现准产品级的大数据实时ETL，Analytic，Sharing平台；这一步可能需要较长时间，可根据自己的时间安排灵活调整；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　Dream：在年前完成上面三步，that&#39;s really full or chanllenge, but more funny. &lt;strong&gt;Anyway, we need dreams, and I can&#39;t wait to make this dream into reality.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/dreams.jpg&quot; alt=&quot;dreams&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　这篇主要记录我在实现第一步的过程中遇到的主要步骤，遇到的问题和解决方法：搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server。&lt;/p&gt;
+
+&lt;h2&gt;3. 配置Ipython&lt;/h2&gt;
+
+&lt;h3&gt;3.1: ipython 配置名profile介绍&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile 命令说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　profile是ipython的一个子命令，其中profile又有两个子命令，分别是create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[13:54:01]:~/Desktop#ipython profile 
+No subcommand specified. Must specify one of: [&#39;create&#39;, &#39;list&#39;]
+
+Manage IPython profiles
+
+Profile directories contain configuration, log and security related files and
+are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
+your ipython directory.  You can create profiles with `ipython profile create
+&amp;lt;name&amp;gt;`, or see the profiles you already have with `ipython profile list`
+
+To get started configuring IPython, simply do:
+
+$&amp;gt; ipython profile create
+
+and IPython will create the default profile in &amp;lt;ipython_dir&amp;gt;/profile_default,
+where you can edit ipython_config.py to start configuring IPython.
+
+Subcommands
+-----------
+
+Subcommands are launched as `ipython cmd [args]`. For information on using
+subcommand &#39;cmd&#39;, do: `ipython cmd -h`.
+
+create
+    Create an IPython profile by name
+list
+    List available IPython profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile子命令list说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　本想list命令应该很简单的，和linux下的ls差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 &lt;code&gt;Available profiles in /root/.config/ipython:&lt;/code&gt; 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇文章&lt;/a&gt;中，作者说创建的配置文件会放到 &lt;code&gt;~/.ipython/profile_pyspark/&lt;/code&gt; 下，其实这并不是一定的，具体放在哪个目录下面，可以根据profile list的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下面的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:09:12]:~/Desktop#ipython profile list
+
+Available profiles in IPython:
+    pysh
+    math
+    sympy
+    cluster
+
+    The first request for a bundled profile will copy it
+    into your IPython directory (/root/.config/ipython),
+    where you can customize it.
+
+Available profiles in /root/.config/ipython:
+    default
+    pyspark
+
+To use any of the above profiles, start IPython with:
+    ipython --profile=&amp;lt;name&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile子命令create说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　简单介绍下create子命令的用法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:25:57]:~/Desktop#ipython profile help create
+Create an IPython profile by name
+
+Create an ipython profile directory by its name or profile directory path.
+Profile directories contain configuration, log and security related files and
+are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
+your ipython directory. Once created, you will can edit the configuration files
+in the profile directory to configure IPython. Most users will create a profile
+directory by name, `ipython profile create myprofile`, which will put the
+directory in `&amp;lt;ipython_dir&amp;gt;/profile_myprofile`.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;创建配置文件&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　因为我之前已经配置过一个pyspark的配置文件了，这里我们创建一个测试用的配置文件，pytest。运行一下命令后，会在 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下生成一个 pytest的目录。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:54:14]:~/Desktop#ipython profile create pytest
+[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_config.py&#39;
+[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_notebook_config.py&#39;
+
+root@ubuntu2[15:00:57]:~/Desktop#ls ~/.config/ipython/profile_pytest/
+ipython_config.py  ipython_notebook_config.py  log  pid  security  startup 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3.3 编辑配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;    c = get_config()
+
+    # about line 15, the ip address the notebook server will listen on. Set it to * means that any IP/Machine which can connect to the server can connect to the notebook server.
+    c.NotebookApp.ip = &#39;*&#39;
+    # about line 37, whether to open a browser or not. cause what we want to build is a backend server, so we set it False, no need to open a browser.
+    c.NotebookApp.open_browser = False
+    # about line 54, the port which the notebook server will listen on
+    c.NotebookApp.port = 8880 # or whatever you want, make sure the port is available  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;设置访问密码 &lt;br/&gt;
+　　如果你的notebook server是需要访问控制的，简单的话可以设置一个访问密码。听说Ipython 2.x 版本有用户访问控制，这里我还没有接触过，晚点会看看是否有成熟的可用的用户控制方案。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;生成密码文件&lt;br/&gt;
+这里我们用python自带的密码包生成一个密码，然后再把这个密码重定向到nvpasswd.txt文件里。注意这里重定向的路径哦。&lt;/li&gt;
+&lt;li&gt;编辑配置文件，设置读取密码文件配置项
+这里有一个需要注意的，就是PWDFILE的设置，一开始我设置为 &lt;code&gt;~/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，但是启动ipython notebook server的时候老师报错，说找不到密码文件nbpasswd.txt，很奇怪，明明文件就是在的，可就是提示找不到。无奈我到nbpasswd.txt路径下用 pwd 打印当前路径，显示为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，可是这两个路径应该是一样的啊。无奈之下，死马当作活马医，我就把PWDFILE设置成为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，没想到这样还成功了。关于这点为什么会有效，目前我还不是很清楚，等我请教了公司大神后再补上这一个tip吧。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;  示例如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:40:29]:~/Desktop#python -c &#39;from IPython.lib import passwd; print passwd()&#39; &amp;gt; ~/.config/ipython/profile_pytest/nbpasswd.txt
+Enter password: 
+Verify password: 
+root@ubuntu2[09:43:35]:~/Desktop#vi /root/.config/ipython/profile_pytest/nbpasswd.txt 
+sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1fb8f  
+
+root@ubuntu2[09:49:09]:~/Desktop#vi /root/.config/ipython/profile_pytest/ipython_notebook_config.py 
+# about line 95
+PWDFILE=&#39;root/.config/ipython/profile_pytest/nbpasswd.txt&#39;
+c.NotebookApp.password = open(PWDFILE).read().strip()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置启动文件&lt;br/&gt;
+　　这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py 
+root@ubuntu2[10:08:44]:~/Desktop#vi ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py   
+
+import os
+import sys
+
+spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
+if not spark_home:
+    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
+sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
+sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.1-src.zip&#39;))
+execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　上面的启动配置文件也还简单，即拿到spark_home路径，并在系统环境变量path里加上两个路径，然后再执行一个shell.py文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的SPARK_HOME配置对了，并且下面有python这个文件夹，并且python/lib下有py4j-0.8.1这个文件。我在检查的时候就发现我的包版本是py4j-0.8.2.1的，所以还是要改得和自己的包一致才行。 &lt;br/&gt;
+　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，比较各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;code&gt;sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;4. Ok，here we go　　&lt;/h2&gt;
+
+&lt;p&gt;　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# for the CDH-installed Spark
+export SPARK_HOME=&#39;/usr/local/spark-1.2.0-bin-cdh4/&#39;
+
+# this is where you specify all the options you wou
+ld normally add after bin/pyspark
+  export PYSPARK_SUBMIT_ARGS=&#39;--master spark://10.21.208.21:7077 --deploy-mode client&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　ok，万事具备，只欠东风了。让我们来尝尝鲜吧：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
+2015-02-01 10:40:54.850 [NotebookApp] Using existing profile dir: u&#39;/root/.config/ipython/profile_pyspark&#39;
+2015-02-01 10:40:54.858 [NotebookApp] Using MathJax from CDN: http://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-02-01 10:40:54.868 [NotebookApp] CRITICAL | WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+2015-02-01 10:40:54.869 [NotebookApp] Serving notebooks from local directory: /root/Desktop
+2015-02-01 10:40:54.869 [NotebookApp] The IPython Notebook is running at: http://[all ip addresses on your system]:8880/
+2015-02-01 10:40:54.869 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
+&lt;img src=&quot;../images/notebook-spark-1.jpg&quot; alt=&quot;notebook-spark-1&quot; /&gt;
+&lt;img src=&quot;../images/notebook-spark-2.jpg&quot; alt=&quot;notebook-spark-2&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -1951,141 +2287,6 @@ Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pys
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>SVN 中的branches, tags和trunk</title>
-     <link href="/svn-branch-trunk-tags"/>
-     <updated>2014-11-14T00:00:00+08:00</updated>
-     <id>/svn-branch-trunk-tags</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 直接上正文&lt;/h2&gt;
-
-&lt;p&gt;　　正文就是，关于这点，&lt;a href=&quot;http://stackoverflow.com/questions/16142/what-do-branch-tag-and-trunk-mean-in-subversion-repositories&quot;&gt;SO&lt;/a&gt;已经有多答案了，下面我引用一下投票最多的答案。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Trunk&lt;/strong&gt;：would be the main body of development, originating from the start of the project until the present.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Branch&lt;/strong&gt;： will be a copy of code derived from a certain point in the trunk that is used for applying major changes to the code while preserving the integrity of the code in the trunk. If the major changes work according to plan, they are usually merged back into the trunk.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tag&lt;/strong&gt;： will be a point in time on the trunk or a branch that you wish to preserve. The two main reasons for preservation would be that either this is a major release of the software, whether alpha, beta, RC or RTM, or this is the most stable point of the software before major revisions on the trunk were applied.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;2. 我是怎么理解的&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Trunk&lt;/strong&gt;: 你的现女友，你会付出很多东西在她身上，期待美好的结果，但时不时也会吵吵闹闹，出现一些意外情况；&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Branches&lt;/strong&gt;：你的前女友们，按时间排序，她们都有很多相似的东西，那就是隐藏在你最深处的东西，你的Kernel，可以说是你的爱情观、人生观、事业观等等啦；&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tags&lt;/strong&gt;：让你记忆尤深的前女友们，她们可不像你这样善变，分手后依然爱你，甚至当你有一天被现女友携款潜逃将你抛弃后，你还能回去找她们，kiss她们的香唇。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. 一些资源&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html&quot;&gt;TortoiseSVN 1.8 中文文档&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://marklodato.github.io/visual-git-guide/index-zh-cn.html&quot;&gt;图解git命令&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>一个完整的 OTP 应用</title>
-     <link href="/an-integrated-otp-application"/>
-     <updated>2014-11-10T00:00:00+08:00</updated>
-     <id>/an-integrated-otp-application</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　在实践 &lt;em&gt;Erlang and OTP in Action&lt;/em&gt; 的第六章的时候，确实遇到了不少问题，后来慢慢多看了几遍书，多阅读了几次源码，特别是阅读了 application 的源码后，才慢慢理解了这章所讲的这个应用。这个总结不会很长，原本就想简单记在书上的，但想到以后也许会有一些更新，还有一些流程图的绘制需要经过多次修改，就还是放到github上来了，说实话，真挺感谢github的，让我学习和管理代码如此方便。&lt;/p&gt;
-
-&lt;h2&gt;2. 程序运行流程&lt;/h2&gt;
-
-&lt;p&gt;　　下图是整个simple_cache应用运行的流程，我们先上图，然后在后面再说说重要的地方。
-&lt;img src=&quot;../../images/simple_cache.jpg&quot; alt=&quot;simple_cache运行流程图&quot; /&gt;
-　　
-　　下面我们再说明一下各个模块各自的职责：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;sc_app: 应用行为模式的实现模块&lt;/li&gt;
-&lt;li&gt;simple_cache: 用户API，应用的外部接口&lt;/li&gt;
-&lt;li&gt;sc_store: 用于封装键和pid之间映射关系的模块&lt;/li&gt;
-&lt;li&gt;sc_element: 缓存数据存储进程&lt;/li&gt;
-&lt;li&gt;sc_sup: 根监督者实现模块&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　其中sc_app并没有出现在流程图中，因为流程图是展示应用已经被启动后的运行流程，而sc_app是用于启动应用的，这点会单独在下一节讨论。现在先focus在应用成功启动后的运行流程。下面我们分别以insert，lookup，delete过程单独看一下流程。&lt;/p&gt;
-
-&lt;h3&gt;2.1 insert流程&lt;/h3&gt;
-
-&lt;p&gt;　　假设需要缓存的键为 K，值为 V。用户在API接口调用 &lt;code&gt;simple_cache:insert(K, V)&lt;/code&gt;；simple_cache先调用sc_store:lookup(K) 检查这个键是否已经缓存，若缓存则更新键值为V，否则新建一个缓存进程。因为我们是第一次insert，所以会调用sc_element来新建一个进程，并将值 V 放到这个新建进程的状态里，这个状态被定义为一个记录&lt;code&gt;-record(state, {value, lease_time, start_time}).&lt;/code&gt;；即sc_element新建的进程状态state中的value字段存储的就是我们需要缓存的键值 v。sc_element新建的进程PID会被返回，且返回后会被组合成(K, PID), 然后调用sc_store:insert(K, PID)来存储键K和进程的PID。(K, PID) 是存储到ets表里的。
-　　从上面可以看到，其实使用进程做了一次中转类似的操作。我们原本要缓存一对键值k－v，现在是将k和进程pid单一映射，存储在ets表中，然后将值v存储到进程到状态state里。这样，当要拿到一个缓存的键值k－v时，先到ets表中查找k对应到进程pid，然后根据再读取这个进程到状态state即可。这个过程可以参考下图：
-&lt;img src=&quot;../../images/key-value-map.jpg&quot; alt=&quot;key-value-mapping&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;2.2 lookup流程&lt;/h3&gt;
-
-&lt;p&gt;　　其实lookup流程上面也提到了，即先根据k查找对应到pid，然后在以模块到方式调用sc_element来查找pid对应到进程到状态。这里可能大家很容易混淆标注1中的sc_element和标注2中supervisor监督的一系列sc_element自进程。其实一开始我也很纳闷，supervisor下有这么多sc_element自进程，可当调用sc_element来查找进程pid当状态时，是调用哪个自进程呢？这里其实是一个比较容易犯的低级错误，当调用sc_element来读取进程pid的状态时，是将sc_element当作一个模块来调用，和supervisor监督下的sc_element自进程毛线关系都没有，根本就不是一个概念呀。&lt;/p&gt;
-
-&lt;h3&gt;2.3 delete流程&lt;/h3&gt;
-
-&lt;p&gt;　　至于delete流程，则非常简单了，调用流程如下：simple_cache:delete/1 -&gt; sc_store:lookup/1 -&gt; sc_element:delete/1 -&gt; gen_server:cast/2 -&gt; handle_cast/2.&lt;/p&gt;
-
-&lt;h2&gt;3. OTP 应用的标准组织结构&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；&lt;/li&gt;
-&lt;li&gt;ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；&lt;/li&gt;
-&lt;li&gt;include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；&lt;/li&gt;
-&lt;li&gt;priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(&lt;application-name&gt;)，便会以字符串形式得到priv目录完整路径；&lt;/li&gt;
-&lt;li&gt;src  存放应用源代码；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;4. 应用元数据描述文件说明&lt;/h2&gt;
-
-&lt;p&gt;　　&lt;a href=&quot;http://www.erlang.org/doc/man/app.html&quot;&gt;官方关于应用元数据描述文件的文档&lt;/a&gt;
-　　我们的应用元数据如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{application, simple_cache,
-    [{description, &quot;A simple caching system&quot;},
-     {vsn, &quot;0.1.0&quot;},
-     {modules, [sc_app,
-                sc_sup]},
-     {registered, [sc_sup]},
-     {applications, [kernel, sasl, stdlib]},
-     {mod, {sc_app, []}}}.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　应用元数据文件里其实是定义了一个Erlang项式，这里真想吐槽一下，感觉这样写好麻烦，Python 里的配置文件多方面啊，简单易用。而Erlang应用元数据里的这个Erlang项式，是一个三元组{application, ApplicationName, ApplicationConfigureList}. application表示用application来启动，ApplicationName代表这个应用的名字，应该和应用元数据文件的文件名是一样的，ApplicationConfigureList是应用描述应用配置的信息，是一个列表类型。下面我们看看这个配置列表里的一些信息说明：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;description：应用描述；&lt;/li&gt;
-&lt;li&gt;vsn：应用版本，推荐&amp;lt;主版本号&gt;.&amp;lt;次版本号&gt;.&amp;lt;修正版本号&gt;的格式；&lt;/li&gt;
-&lt;li&gt;modules：应用中的模块列表，erlang的systools会用这个列表中的模块来制作启动脚本和应用程序包；&lt;/li&gt;
-&lt;li&gt;registered：需要在系统中注册的模块名字，常用于系统服务等场合，erlang的systools会检查这个列表里的模块是否有命名冲突；&lt;/li&gt;
-&lt;li&gt;application：必须在应用启动前先行启动的所有应用。主动应用要求自己所依赖的所有应用在自己的生命周期开始之前先行启动并就绪，这个列表中的各个应用的顺序无关紧要；&lt;/li&gt;
-&lt;li&gt;mod：告知OTP系统应该如何启动应用，该参数的值是一个元组，其内容为一个模块名和一些可选的启动参数；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　还有其他很多东西，今天就先不讲了，过几天再补上。&lt;/p&gt;
-
-&lt;h2&gt;5. 感想&lt;/h2&gt;
-
-&lt;p&gt;　　理解这个OTP应用的关键是监督树的建立和sc_element作为模块来调用的方式。最近看了一些公司在实践erlang后又转向其他语言来实施项目的文章分享，心里确实对Erlang对前途不是很明确，但凡事都得多面对待，不能别人说不行你也说不行，不能过去说不行现在，将来也说不行。&lt;br/&gt;
-　　下面附上最近了解的小米和Facebook在Erlang的实践中的一些探索，仅供参考：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.infoq.com/cn/news/2014/11/xiaomi-1111-pushservice&quot;&gt;1. 小米推送服务从Erlang转到java&lt;/a&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;开发语言从Erlang 转为Java。 小米原来的消息系统是使用Erlang开发的，所以推送系统的第一版也是基于Erlang；但是Erlang的社区不够活跃，开发人员很难找，学习曲线陡，支持工具和类库少，所以后来开发团队选择了使用Java重新开发；迁移到Java后，对开发人员的要求降低，各种工具和类库较多，大大提高了开发效率。&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.quora.com/Why-was-Erlang-chosen-for-use-in-Facebook-chat&quot;&gt;2. 介绍FB一开始选用Erlang来开发聊天服务的原因&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.quora.com/When-did-Facebook-switch-away-from-using-Erlang-for-Facebook-Chat&quot;&gt;3. 介绍FB聊天服务从Erlang转向C++的原因&lt;/a&gt;&lt;/p&gt;
 </content>
    </entry>
    
