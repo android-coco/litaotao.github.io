@@ -73,74 +73,31 @@ root@ubuntu2[15:30:17]:~/Desktop/zeppelin-build#mvn clean package -DskipTests
 　　这个错误在[mailing list](https://groups.google.com/forum/#!searchin/zeppelin-developers/npm$20install)里提到了，我们按照里面的解决方案来尝试一下。注意，以前的mailing list的维护在google groups里面的，但今年2月份之后groups就只读，不可以发帖了，新的mailing list移植到apache旗下，地址在[这里](http://mail-archives.apache.org/mod_mbox/incubator-zeppelin-users/)。
 　　解决方案：先在zeppelin-web文件夹里运行 `npm install`，然后再回到zeppelin-build目录构建。
 
-### 2.2 构建成功，可以运行markdown语句，但不能运行scala语句   
-　　这个问题很奇怪，如下图所示，可以运行markdown，但不可以运行scala，spark和sql，看日志好像是和scala有关系。
-![markdown-scala](../images/markdown-scala.jpg)   
-　　下面是运行日志 logs/zeppelin-root-ubuntu2.log 里的摘要：  
+### 2.2 启动zeppelin服务器错误，提示Unsupported major.minor
+　　在运行 bin/zeppelin-daemon.sh start 的时候提示错误如下。一开始没有发现什么原因，后来google 关键字 `nsupported major.minor`后在[这里](http://www.oecp.cn/hi/yangtaoorange/blog/1168263)知道问题应该和JAVA编译器的版本有问题，因为zeppelin需要java 1.7以上，我本机是java 1.6的，当时为了编译zeppelin我自己下了java 1.7和设置了一个java 1.7的环境变量文件，应该是没有source这个环境变量吧，测试一下发现$JAVA_HOME这个环境变量为空。这里再次source一下java_1.7_path.bashrc这个文件就可以了，这个文件是这样写的：
+```
+root@ubuntu2[10:59:24]:~/Desktop#cat java_1.7_path.bashrc 
+export PATH=/usr/local/jdk1.7.0_71/bin:$PATH
+export CLASSPATH="/usr/local/jdk1.7.0_71/lib:."
+export JAVA_HOME="/usr/local/jdk1.7.0_71/"
+```
 
 ```
-# exec markdown
-
- INFO [2015-02-13 15:28:08,180] ({WebSocketWorker-8} NotebookServer.java[onMessage]:76) - RECEIVE << RUN_PARAGRAPH
- INFO [2015-02-13 15:28:08,180] ({WebSocketWorker-8} Note.java[persist]:263) - Persist note 2ADHVQAWJ into /root/Desktop/zeppelin-build/notebook/2ADHVQAWJ/note.json
- INFO [2015-02-13 15:28:08,184] ({WebSocketWorker-8} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:08,186] ({WebSocketWorker-8} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:08,188] ({pool-2-thread-7} SchedulerFactory.java[jobStarted]:94) - Job paragraph_1423811165331_-1611479589 started by scheduler com.nflabs.zeppelin.markdown.Markdown263264514
- INFO [2015-02-13 15:28:08,188] ({pool-2-thread-7} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:08,190] ({pool-2-thread-7} Paragraph.java[jobRun]:165) - run paragraph 20150213-150605_329484409 using md com.nflabs.zeppelin.interpreter.LazyOpenInterpreter@35d2c3c6
- INFO [2015-02-13 15:28:08,191] ({pool-2-thread-7} Paragraph.java[jobRun]:183) - RUN :   # ***Hello, every one, I love you all***
- INFO [2015-02-13 15:28:08,191] ({pool-2-thread-7} NotebookServer.java[afterStatusChange]:456) - Job 20150213-150605_329484409 is finished
- INFO [2015-02-13 15:28:08,191] ({pool-2-thread-7} Note.java[persist]:263) - Persist note 2ADHVQAWJ into /root/Desktop/zeppelin-build/notebook/2ADHVQAWJ/note.json
- INFO [2015-02-13 15:28:08,195] ({pool-2-thread-7} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:08,197] ({pool-2-thread-7} SchedulerFactory.java[jobFinished]:99) - Job paragraph_1423811165331_-1611479589 finished by scheduler com.nflabs.zeppelin.markdown.Markdown263264514
-
-
-# exec spark
-
- INFO [2015-02-13 15:28:19,388] ({WebSocketWorker-8} NotebookServer.java[onMessage]:76) - RECEIVE << RUN_PARAGRAPH
- INFO [2015-02-13 15:28:19,388] ({WebSocketWorker-8} Note.java[persist]:263) - Persist note 2ADHVQAWJ into /root/Desktop/zeppelin-build/notebook/2ADHVQAWJ/note.json
- INFO [2015-02-13 15:28:19,393] ({WebSocketWorker-8} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:19,394] ({WebSocketWorker-8} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:19,396] ({pool-2-thread-4} SchedulerFactory.java[jobStarted]:94) - Job paragraph_1423811203262_-601452430 started by scheduler com.nflabs.zeppelin.spark.SparkInterpreter1951918777
- INFO [2015-02-13 15:28:19,396] ({pool-2-thread-4} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:19,398] ({pool-2-thread-4} Paragraph.java[jobRun]:165) - run paragraph 20150213-150643_299836602 using spark com.nflabs.zeppelin.interpreter.LazyOpenInterpreter@285f4e6b
- INFO [2015-02-13 15:28:19,414] ({pool-2-thread-4} Logging.scala[logInfo]:59) - Changing view acls to: root
- INFO [2015-02-13 15:28:19,414] ({pool-2-thread-4} Logging.scala[logInfo]:59) - Changing modify acls to: root
- INFO [2015-02-13 15:28:19,414] ({pool-2-thread-4} Logging.scala[logInfo]:59) - SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(root); users with modify permissions: Set(root)
- INFO [2015-02-13 15:28:19,414] ({pool-2-thread-4} Logging.scala[logInfo]:59) - Starting HTTP Server
- INFO [2015-02-13 15:28:19,415] ({pool-2-thread-4} Server.java[doStart]:272) - jetty-8.1.14.v20131031
- INFO [2015-02-13 15:28:19,422] ({pool-2-thread-4} AbstractConnector.java[doStart]:338) - Started SocketConnector@0.0.0.0:46268
- INFO [2015-02-13 15:28:19,422] ({pool-2-thread-4} Logging.scala[logInfo]:59) - Successfully started service 'HTTP class server' on port 46268.
- WARN [2015-02-13 15:28:19,569] ({pool-2-thread-4} Logging.scala[logWarning]:71) - Warning: compiler accessed before init set up.  Assuming no postInit code.
-ERROR [2015-02-13 15:28:19,572] ({pool-2-thread-4} Job.java[run]:164) - Job failed
-java.lang.AssertionError: assertion failed: null
-        at scala.Predef$.assert(Predef.scala:179)
-        at org.apache.spark.repl.SparkIMain.initializeSynchronous(SparkIMain.scala:203)
-        at com.nflabs.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:271)
-        at com.nflabs.zeppelin.interpreter.ClassloaderInterpreter.open(ClassloaderInterpreter.java:83)
-        at com.nflabs.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:52)
-        at com.nflabs.zeppelin.interpreter.LazyOpenInterpreter.bindValue(LazyOpenInterpreter.java:88)
-        at com.nflabs.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:175)
-        at com.nflabs.zeppelin.scheduler.Job.run(Job.java:147)
-        at com.nflabs.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:85)
-        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
-        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
-        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
-        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
-        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
-        at java.lang.Thread.run(Thread.java:745)
- INFO [2015-02-13 15:28:19,574] ({pool-2-thread-4} NotebookServer.java[afterStatusChange]:456) - Job 20150213-150643_299836602 is finished
- INFO [2015-02-13 15:28:19,574] ({pool-2-thread-4} Note.java[persist]:263) - Persist note 2ADHVQAWJ into /root/Desktop/zeppelin-build/notebook/2ADHVQAWJ/note.json
- INFO [2015-02-13 15:28:19,578] ({pool-2-thread-4} NotebookServer.java[broadcast]:205) - SEND >> NOTE
- INFO [2015-02-13 15:28:20,230] ({pool-2-thread-4} SchedulerFactory.java[jobFinished]:99) - Job paragraph_1423811203262_-601452430 finished by scheduler com.nflabs.zeppelin.spark.SparkInterpreter1951918777
- INFO [2015-02-13 15:28:20,241] ({Thread-62} Logging.scala[logInfo]:59) - Changing view acls to: root
- INFO [2015-02-13 15:28:20,242] ({Thread-62} Logging.scala[logInfo]:59) - Changing modify acls to: root
- INFO [2015-02-13 15:28:20,242] ({Thread-62} Logging.scala[logInfo]:59) - SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(root); users with modify permissions: Set(root)
- INFO [2015-02-13 15:28:20,242] ({Thread-62} Logging.scala[logInfo]:59) - Starting HTTP Server
- INFO [2015-02-13 15:28:20,243] ({Thread-62} Server.java[doStart]:272) - jetty-8.1.14.v20131031
- INFO [2015-02-13 15:28:20,245] ({Thread-62} AbstractConnector.java[doStart]:338) - Started SocketConnector@0.0.0.0:56107
- INFO [2015-02-13 15:28:20,245] ({Thread-62} Logging.scala[logInfo]:59) - Successfully started service 'HTTP class server' on port 56107.
- WARN [2015-02-13 15:28:20,393] ({Thread-62} Logging.scala[logWarning]:71) - Warning: compiler accessed before init set up.  Assuming no postInit code.
+root@ubuntu2[10:51:15]:~/Desktop/zeppelin-build#vi logs/zeppelin-root-ubuntu2.out 
+Exception in thread "main" java.lang.UnsupportedClassVersionError: com/nflabs/zeppelin/
+server/ZeppelinServer : Unsupported major.minor version 51.0
+        at java.lang.ClassLoader.defineClass1(Native Method)
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:643)
+        at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+        at java.net.URLClassLoader.defineClass(URLClassLoader.java:277)
+        at java.net.URLClassLoader.access$000(URLClassLoader.java:73)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:212)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:205)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:323)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:294)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:268)
+Could not find the main class: com.nflabs.zeppelin.server.ZeppelinServer. Program will
+exit.
 ```
 
