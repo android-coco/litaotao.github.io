@@ -1,6 +1,6 @@
 ---
 category: spark
-published: false
+published: true
 layout: post
 title: ［touch spark］8. 编译Zeppelin
 description: ～～～	
@@ -100,4 +100,25 @@ server/ZeppelinServer : Unsupported major.minor version 51.0
 Could not find the main class: com.nflabs.zeppelin.server.ZeppelinServer. Program will
 exit.
 ```
+
+### 2.3 运行出错，日志提示：java.net.UnknownHostException: *<your hostname>*: nodename nor servname provided, or not known
+
+![run-error](../images/zeppelin-run-error.jpg)
+
+解决办法[我的机器host名叫mac007]，修改/etc/hosts，新增一项 127.0.0.1   mac007
+
+![revise-hosts](../images/zeppelin-hosts.jpg)
+　　
+
+
+
+
+
+
+
+
+
+
+
+
 

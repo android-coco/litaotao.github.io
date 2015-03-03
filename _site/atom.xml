@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-03T13:39:10+08:00</updated>
+   <updated>2015-03-04T00:25:12+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -194,6 +194,117 @@ export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mod
 &lt;img src=&quot;../images/make_little_thing_best.jpg&quot; alt=&quot;make_little_thing_best&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+</content>
+   </entry>
+   
+   <entry>
+     <title>［touch spark］8. 编译Zeppelin</title>
+     <link href="/compile-zeppelin"/>
+     <updated>2015-01-29T00:00:00+08:00</updated>
+     <id>/compile-zeppelin</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　这篇记录是我按照&lt;a href=&quot;http://zeppelin-project.org/docs/install/install.html&quot;&gt;官网&lt;/a&gt;的步骤来写的，主要是记录在编译Zeppelin过程中的一些经验。&lt;br/&gt;
+　　对于这类没有发布特别稳定版本的项目，我倾向于这样一种实践方法，在本地建两个文件夹：project, project-build，把project文件夹作为一个本地的repo，可以随时update到最新的源码，然后在project-build里构建，就算失败了也可以保证不会污染项目源文件。
+　　再具体一点就是我在实践Zeppelin的时候使用的方法，如下所示，可以随时保证zeppelin文件夹里的源码最新，然后在zeppelin-build里用最新的源码构建。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@kali:~/Desktop# mkdir zeppelin zeppelin-build
+root@kali:~/Desktop# cd zeppelin
+root@kali:~/Desktop/zeppelin# git init
+Initialized empty Git repository in /root/Desktop/zeppelin/.git/
+root@kali:~/Desktop/zeppelin# git remote add origin git@github.com:NFLabs/zeppelin.git
+root@kali:~/Desktop/zeppelin# git pull origin master
+root@kali:~/Desktop/zeppelin# cd ../zeppelin-build/
+root@kali:~/Desktop/zeppelin-build# cp -R ../zeppelin/* .
+root@kali:~/Desktop/zeppelin-build# mvn clean package -DskipTests
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2. 详细步骤及错误解决&lt;/h2&gt;
+
+&lt;h3&gt;2.1 按照默认配置编译 : mvn clean package -DskipTests&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[15:30:17]:~/Desktop/zeppelin-build#mvn clean package -DskipTests
+.
+.
+.
+[INFO] npm WARN deprecated grunt-ngmin@0.0.3: use grunt-ng-annotate instead
+[INFO] npm ERR! 
+[INFO] npm ERR! Additional logging details can be found in:
+[INFO] npm ERR!     /root/Desktop/zeppelin-build/zeppelin-web/npm-debug.log
+[INFO] npm ERR! not ok code 0
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Zeppelin ........................................... SUCCESS [ 37.320 s]
+[INFO] Zeppelin: Zengine .................................. SUCCESS [  9.899 s]
+[INFO] Zeppelin: Spark .................................... SUCCESS [ 12.115 s]
+[INFO] Zeppelin: Markdown interpreter ..................... SUCCESS [  2.257 s]
+[INFO] Zeppelin: Shell interpreter ........................ SUCCESS [  2.239 s]
+[INFO] Zeppelin: web Application .......................... FAILURE [04:10 min]
+[INFO] Zeppelin: Server ................................... SKIPPED
+[INFO] Zeppelin: Packaging distribution ................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 05:15 min
+[INFO] Finished at: 2015-02-11T15:30:16+08:00
+[INFO] Final Memory: 61M/409M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:0.0.20:npm (npm install) on project zeppelin-web: Failed to run task: &#39;npm install --color=false&#39; failed. (error code 1) -&amp;gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn &amp;lt;goals&amp;gt; -rf :zeppelin-web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;2.1 出错: npm install --color=false&lt;/h3&gt;
+
+&lt;p&gt;　　这个错误在&lt;a href=&quot;https://groups.google.com/forum/#!searchin/zeppelin-developers/npm$20install&quot;&gt;mailing list&lt;/a&gt;里提到了，我们按照里面的解决方案来尝试一下。注意，以前的mailing list的维护在google groups里面的，但今年2月份之后groups就只读，不可以发帖了，新的mailing list移植到apache旗下，地址在&lt;a href=&quot;http://mail-archives.apache.org/mod_mbox/incubator-zeppelin-users/&quot;&gt;这里&lt;/a&gt;。
+　　解决方案：先在zeppelin-web文件夹里运行 &lt;code&gt;npm install&lt;/code&gt;，然后再回到zeppelin-build目录构建。&lt;/p&gt;
+
+&lt;h3&gt;2.2 启动zeppelin服务器错误，提示Unsupported major.minor&lt;/h3&gt;
+
+&lt;p&gt;　　在运行 bin/zeppelin-daemon.sh start 的时候提示错误如下。一开始没有发现什么原因，后来google 关键字 &lt;code&gt;nsupported major.minor&lt;/code&gt;后在&lt;a href=&quot;http://www.oecp.cn/hi/yangtaoorange/blog/1168263&quot;&gt;这里&lt;/a&gt;知道问题应该和JAVA编译器的版本有问题，因为zeppelin需要java 1.7以上，我本机是java 1.6的，当时为了编译zeppelin我自己下了java 1.7和设置了一个java 1.7的环境变量文件，应该是没有source这个环境变量吧，测试一下发现$JAVA_HOME这个环境变量为空。这里再次source一下java_1.7_path.bashrc这个文件就可以了，这个文件是这样写的：
+&lt;code&gt;
+root@ubuntu2[10:59:24]:~/Desktop#cat java_1.7_path.bashrc
+export PATH=/usr/local/jdk1.7.0_71/bin:$PATH
+export CLASSPATH=&quot;/usr/local/jdk1.7.0_71/lib:.&quot;
+export JAVA_HOME=&quot;/usr/local/jdk1.7.0_71/&quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[10:51:15]:~/Desktop/zeppelin-build#vi logs/zeppelin-root-ubuntu2.out 
+Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError: com/nflabs/zeppelin/
+server/ZeppelinServer : Unsupported major.minor version 51.0
+        at java.lang.ClassLoader.defineClass1(Native Method)
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:643)
+        at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+        at java.net.URLClassLoader.defineClass(URLClassLoader.java:277)
+        at java.net.URLClassLoader.access$000(URLClassLoader.java:73)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:212)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:205)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:323)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:294)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:268)
+Could not find the main class: com.nflabs.zeppelin.server.ZeppelinServer. Program will
+exit.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;2.3 运行出错，日志提示：java.net.UnknownHostException: &lt;em&gt;&lt;your hostname&gt;&lt;/em&gt;: nodename nor servname provided, or not known&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/zeppelin-run-error.jpg&quot; alt=&quot;run-error&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;解决办法[我的机器host名叫mac007]，修改/etc/hosts，新增一项 127.0.0.1   mac007&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/zeppelin-hosts.jpg&quot; alt=&quot;revise-hosts&quot; /&gt;
+　　&lt;/p&gt;
 </content>
    </entry>
    
@@ -2195,98 +2306,6 @@ Found 74 items
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　下一篇会记录在EC2上用spark分析wikipedia流量的过程，请移步&lt;a href=&quot;../using-amazon-aws-2&quot;&gt;使用Spark分析wikipedia流量数据&lt;/a&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］1. 准备和初次体验spark</title>
-     <link href="/learning-spark-step-1"/>
-     <updated>2014-11-30T00:00:00+08:00</updated>
-     <id>/learning-spark-step-1</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 下载，安装，运行spark&lt;/h2&gt;
-
-&lt;p&gt;　　下载最新版的&lt;a href=&quot;http://spark.apache.org/downloads.html&quot;&gt;spark&lt;/a&gt;. 我选择的是spark-1.1.1-bin-hadoop2.4.tgz。因为是预编译过的，所以没有所谓的“安装”环境，直接解压即可运行了。&lt;br/&gt;
-　　运行路径是：spark-1.1.1-bin-hadoop2.4/bin，如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;chenshan@mac007 spark$ls
-spark-1.1.1-bin-hadoop2.4.tgz
-chenshan@mac007 spark$tar zxf spark-1.1.1-bin-hadoop2.4.tgz 
-chenshan@mac007 spark$ls
-chenshan@mac007 spark$cd spark-1.1.1-bin-hadoop2.4
-chenshan@mac007 spark-1.1.1-bin-hadoop2.4$ls
-CHANGES.txt NOTICE      RELEASE     conf        examples    python
-LICENSE     README.md   bin         ec2         lib         sbin
-chenshan@mac007 spark-1.1.1-bin-hadoop2.4$cd bin
-chenshan@mac007 bin$ls
-beeline               pyspark               run-example.cmd       spark-class2.cmd      spark-submit
-compute-classpath.cmd pyspark.cmd           run-example2.cmd      spark-shell           spark-submit.cmd
-compute-classpath.sh  pyspark2.cmd          spark-class           spark-shell.cmd       utils.sh
-load-spark-env.sh     run-example           spark-class.cmd       spark-sql
-chenshan@mac007 bin$./pyspark 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;2. 设置环境变量&lt;/h2&gt;
-
-&lt;p&gt;　　为了方便以后使用，最好把bin文件夹加入环境变量，关于环境变量的设置可以参考&lt;a href=&quot;http://www.tuicool.com/articles/7nu2E3R&quot;&gt;这里&lt;/a&gt;。编辑～/.bash_profile，在最后加上一句：export PATH=~/Desktop/spark/spark-1.1.1-bin-hadoop2.4/bin:$PATH，保存文件后退出，在执行 source ～/.bash_profile 或 . ～/.bash_profile 即可生效。&lt;br/&gt;
-　　ok，现在可以随时随地在任何路径下执行pyspark启动spark了。因为默认是用python的console来启动的，这样也可以用，但在python console里编码多多少少有很多不便，对我个人而言就是一些ls/cd啊这些常用命令，以及查看每个对象但方法和属性和自动补全了。所以这里如果可以在ipython里启动spark的话不就完美了。先google了下，没什么结果。那就来看看pyspark这个脚本里是怎么写的吧，果不其然，在最后几行还真找到东西了：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  if [[ &quot;$IPYTHON&quot; = &quot;1&quot; ]]; then
-    exec ipython $IPYTHON_OPTS
-  else
-    exec &quot;$PYSPARK_PYTHON&quot;
-  fi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　好，神秘钥匙找到了，看来我们需要设置一个IPYTHON的变量，且把该变量设置成1。ok，试一下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;chenshan@mac007 bin$$IPTYHON
-chenshan@mac007 bin$export IPYTHON=&quot;1&quot;
-chenshan@mac007 bin$$IPTYHON
--bash: 1: command not found
-chenshan@mac007 bin$pyspark 
-Python 2.7.5 (default, Mar  9 2014, 22:15:05) 
-Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-
-IPython 2.1.0 -- An enhanced Interactive Python.
-?         -&amp;gt; Introduction and overview of IPython&#39;s features.
-%quickref -&amp;gt; Quick reference.
-help      -&amp;gt; Python&#39;s own help system.
-object?   -&amp;gt; Details about &#39;object&#39;, use &#39;object??&#39; for extra details.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　成功，我想要的效果达到了，看下面。后来才发现原来官方上面已经有这个说明了，只是感觉也说得不是很明确，看&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;In [1]: ls
-README.md
-
-In [2]: t = sc.textFile(&quot;R
-README.md       ReferenceError  RuntimeError    RuntimeWarning  
-
-In [2]: t = sc.textFile(&quot;README.md&quot;)
-14/11/30 12:48:12 INFO MemoryStore: ensureFreeSpace(172851) called with curMem=0, maxMem=286300569
-14/11/30 12:48:12 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 168.8 KB, free 272.9 MB)
-
-In [3]: t.
-t.aggregate                  t.foreachPartition           t.max                        t.setName
-t.aggregateByKey             t.getCheckpointFile          t.mean                       t.sortBy
-t.cache                      t.getNumPartitions           t.min                        t.sortByKey
-t.cartesian                  t.getStorageLevel            t.name                       t.stats
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3. 单机版的spark应用&lt;/h2&gt;
-
-&lt;p&gt;　　官方的&lt;a href=&quot;http://spark.apache.org/docs/latest/quick-start.html&quot;&gt;quick start&lt;/a&gt;里已经有了一个单机版的spark应用的示例。很简单的例子，但我觉得还是有一个地方需要理解下才行。那就是运行python写但spark应用但方法，需要使用spark安装目录里bin可执行文件目录下但spark-submit来运行。我第一次运行这个示例的时候，很不知所谓地就python SimpleApp.py，然后自然而然地提示我没有pyspark这个包，我心想，没有这个包还不好办吗，直接pip install pyspark，可pip居然提示也没有这个包。我想难道是pip抽风了，那好，我就google下pyspark，按理说第一项应该就是pyspark在pip的网页了，我靠，可连google也没搜出什么东西来啊。这下我觉得应该是我的问题了。想了下，先启动pyspark来看看有没有这个包，居然是有的，这？执行pyspark.&lt;strong&gt;file&lt;/strong&gt;来看看这个包的路径，我才恍然大悟。原来是我短路了，spark官方都说了，人家自己提供了scala，java，python都接口，全部都在源码里了，还提供了一些基于这三种语言都examples。只是这个包没有放到pip里去，而是随spark一起发布的。我想是因为spark现在还不够成熟，基于python的接口也会跟着每一个小版本的spark发布而改变，所以暂时没把pyspark发布到pip上去吧。&lt;br/&gt;
-　　所以，这里值得注意的是，一定要用spark-submit来运行python写的spark应用。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;In [13]: import pyspark
-
-In [14]: pyspark.__file__
-Out[14]: &#39;/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark/__init__.pyc&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　&lt;/p&gt;
 </content>
    </entry>
    
