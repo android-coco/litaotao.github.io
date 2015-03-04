@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-04T00:25:12+08:00</updated>
+   <updated>2015-03-04T16:49:52+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -34,7 +34,7 @@
 
    
    <entry>
-     <title>［touch spark］9. Spark 学习资源集锦</title>
+     <title>［touch spark］10. Spark 学习资源集锦</title>
      <link href="/spark-resources"/>
      <updated>2015-03-01T00:00:00+08:00</updated>
      <id>/spark-resources</id>
@@ -50,17 +50,30 @@
 &lt;/ul&gt;
 
 
-&lt;p&gt;　　基于上面这两个原因，我准备把自己在学习Spark过程中有幸遇到的好的资料搜集起来，并从广度和深度两个方面来整理这些资料，希望对大家有所帮助。还有，我会整理一些和spark相关的第三方开源工具，相信这些工具在帮助大家构建基于spark的应用时会助一臂之力。&lt;/p&gt;
+&lt;p&gt;　　基于上面这两个原因，我准备把自己在学习Spark过程中有幸遇到的好的资料搜集起来，并从广度和深度两个方面来整理这些资&lt;/p&gt;
+
+&lt;p&gt;料，希望对大家有所帮助。还有，我会整理一些和spark相关的第三方开源工具，相信这些工具在帮助大家构建基于spark的应用时会助一臂之力。&lt;/p&gt;
 
 &lt;p&gt;　　所有这些我都会同步到github上：&lt;a href=&quot;https://github.com/litaotao/spark-materials&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;2. 资源列表&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;广度&lt;/strong&gt;：&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;spark和ipython notebook结合&lt;/a&gt;&lt;br/&gt;
-&lt;strong&gt;备注&lt;/strong&gt;：我参考这篇文章搭建了自己基于ipython notebook的分析平台，详细记录在这篇博客上了：&lt;a href=&quot;../ipython-notebook-server-spark&quot;&gt;当Ipython Notebook遇见Spark&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;广度&lt;/strong&gt;：&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;spark和ipython notebook结合&lt;/a&gt;&lt;br/&gt;
+&lt;strong&gt;备注&lt;/strong&gt;：我参考这篇文章搭建了自己基于ipython notebook的分析平台，详细记录在这篇博客上了：&lt;a href=&quot;../ipython-notebook-server-spark&quot;&gt;当Ipython Notebook遇见Spark&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;广深&lt;/strong&gt;：&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文英文版&lt;/a&gt;
+&lt;strong&gt;备注&lt;/strong&gt;：这篇论文绝对值得多读和深读，中文版在&lt;a href=&quot;https://code.csdn.net/CODE_Translation/spark_matei_phd&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;一个对Spark 2分钟的介绍视频，如果有人要你介绍Spark，按照里面的说就perfect了。&lt;a href=&quot;https://www.youtube.com/watch?v=cs3_3LdCny8&quot;&gt;YouTube&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;blockquote&gt;&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;Apache Spark is：&lt;/strong&gt;  &lt;br/&gt;
+    + A data analytics, cluster computing framework;   &lt;br/&gt;
+    + Fits into Hadoop open-source community, and builds on top of Hadoop     Distributed File System(HDFS);  &lt;br/&gt;
+    + Not tied to two-stage MapReduce paradigm, it&#39;s performance up to 100 times faster than Hadoop MapReduce for certain applications;         &lt;br/&gt;
+    + Provides primitives for in-memeory cluster computing;         &lt;br/&gt;
+    + In-memory cluster computing allows user load data to cluster&#39;s memory and queried repeatedly;        &lt;br/&gt;
+    + Suited for machine learning algorithms;&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
 
 &lt;h2&gt;3. Spark相关的第三方开源工具&lt;/h2&gt;
 
@@ -123,6 +136,12 @@
 
 &lt;ul&gt;
 &lt;li&gt;Github: &lt;a href=&quot;https://github.com/spark-jobserver/spark-jobserver&quot;&gt;https://github.com/spark-jobserver/spark-jobserver&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;spark-packages&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;官网：&lt;a href=&quot;http://spark-packages.org/&quot;&gt;http://spark-packages.org/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -198,7 +217,7 @@ export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mod
    </entry>
    
    <entry>
-     <title>［touch spark］8. 编译Zeppelin</title>
+     <title>［touch spark］9. 编译Zeppelin</title>
      <link href="/compile-zeppelin"/>
      <updated>2015-01-29T00:00:00+08:00</updated>
      <id>/compile-zeppelin</id>
