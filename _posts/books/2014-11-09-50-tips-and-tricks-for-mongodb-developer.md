@@ -1,5 +1,5 @@
 ---
-category: erlang
+category: books
 published: true
 layout: post
 title: book-1. 50 Tips and Tricks for MongoDB Developers
