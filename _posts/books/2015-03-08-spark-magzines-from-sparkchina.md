@@ -38,3 +38,45 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 　　这里详细参考pdf的P35。    
 　　在spark【版本1.0.0】中支持三种配置方式：代码中的SparkConf，命令行参数或者环境变量配置文件spark-env.sh，以及属性配置文件spark.conf。在生产环境中，参数尽量配置在文件中方便查看和管理，另外spark参数选取的优先级是：SaprkConf > 命令行参数 > 配置文件。   
 　　一个spark-submit提交执行的流程分析：详细参考pdf的P40。
+
+## 3. spark生态
+
+### 3.1 spark core
+　　spark core包含spark的基本功能，这些功能包括任务调度，内存管理，故障恢复以及存储系统的交互等。其中包含几个重要的概念：RDD, Stage，DAG。spark core的核心思想就是将数据集缓存在内存中，并用linage机制来进行容错。   
+
+### 3.2 RDD
+　　RDD具有自动容错，位置感知调度和可伸缩性。RDD只支持粗粒度的转换，也就是记录如何从其他RDD转换而来，以便恢复丢失的分区。其特性如下： 
+
+- 数据存储结构不可变；
+- 支持跨集群的分布式数据操作；
+- 可对数据集按key进行分区；
+- 提供了粗粒度的转换操作；
+- 数据存储在内存中，保证了低延迟性；
+
+### 3.3 RDD的依赖关系　  　
+- 窄依赖：    
+　　一个父RDD分区最多被一个子RDD分区引用，表现为一个父RDD的分区对应于一个子RDD的分区，或多个父RDD的分区对应于一个子RDD的分区。反之，也可以理解成一个父RDD的一个分区不可能对应于一个子RDD的多个分区，如map，filter，union等操作能产生窄依赖。
+
+- 宽依赖：   
+　　一个子RDD的分区依赖于父RDD的多个分区或所有分区，也就是说存在一个父RDD的一个分区对应一个子RDD的多个分区。如groupByKey等操作则产生宽依赖操作。
+
+- Stage DAG:    
+　　spark提交job后会把job生成多个stage，多个stage之间是有依赖的，stage之间的依赖就构成了DAG。对于窄依赖，spark会尽量多的将RDD放在一个stage中，而对于宽依赖，大多数时候需要shuffle操作。
+
+### 3.4 spark streaming
+　　构建在spark上处理stream数据的框架，基本原理是将stream数据分成小的时间片段，以赖斯batch批处理的方式来处理这小部分数据。
+
+### 3.5 spark shark
+　　shark即hive on shark，本质是通过hive的hql解析，把hql解析成spark上的RDD操作，然后通过hive的metadata获取数据库里的表信息，shark获取HDFS上的数据和文件并放到spark上运算。shark最大的特性就是快且与hive完全兼容。
+
+### 3.6 spark sql
+　　spark sql使用SchemaRDD来操作sql，这个功能和shark雷系，但它比shark支持更多的查询表达式。
+
+### 3.7 Tachyon
+　　Tachyon是一个高容错的分布式文件系统，允许文件以内存的速度在集群框架中进行可靠的共享，就像spark和mapreduce那样。
+
+### 3.8 BlinkDB
+　　BlinkDB是一个用于在海量数据上运行交互式sql查询的大规模并行查询引擎，他允许用户通过权衡数据精度来提升查询响应时间，其数据的精度被控制在允许的误差范围内。
+
+### 3.9 Akka
+　　Akka是一个平台，灵感来自Erlang却用scala语言实现，能更轻松地开发可扩展，实现多线程安全应用。在大多数流行语言中，并发是基于多线程之间的共享内存，使用同步方法防止写争夺来实现的。但Akka提供的并发模型是基于Actors，Actors是一个轻量级的对象，通过发送消息实现交互。每个Actors在同一时间处理最多一个消息，可以发送消息给其他Actors。
