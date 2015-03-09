@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-08T16:44:28+08:00</updated>
+   <updated>2015-03-09T13:01:45+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -542,7 +542,9 @@ exit.
      <link href="/ipython-notebook-server-spark"/>
      <updated>2015-01-27T00:00:00+08:00</updated>
      <id>/ipython-notebook-server-spark</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+     <content type="html">&lt;p&gt;注：和本文相关的资料和文件都放到Github上了：&lt;a href=&quot;https://github.com/litaotao/ipython-notebook-spark&quot;&gt;ipython-notebook-spark&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
 
 &lt;h2&gt;1. 致谢&lt;/h2&gt;
 
@@ -741,11 +743,17 @@ if not spark_home:
     raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
 sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
 sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.1-src.zip&#39;))
-execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
+# execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;　　上面的启动配置文件也还简单，即拿到spark_home路径，并在系统环境变量path里加上两个路径，然后再执行一个shell.py文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的SPARK_HOME配置对了，并且下面有python这个文件夹，并且python/lib下有py4j-0.8.1这个文件。我在检查的时候就发现我的包版本是py4j-0.8.2.1的，所以还是要改得和自己的包一致才行。 &lt;br/&gt;
-　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，比较各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;code&gt;sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))&lt;/code&gt;&lt;/p&gt;
+　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;code&gt;sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))&lt;/code&gt;  &lt;br/&gt;
+　　注意，上面的最后一行 &lt;code&gt;execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))&lt;/code&gt; 被注释掉了，表示在新建或打开一个notebook时并不去执行shell.py这个文件，这个文件是创建SparkContext的，即如果执行改行语句，那在启动notebook时就会初始化一个sc，但这个sc的配置都是写死了的，在spark web UI监控里的appName也是一样的，很不方便。而且考虑到并不是打开一个notebook就要用到spark的资源，所以最好是要用户自己定义sc了。 &lt;br/&gt;
+　　python/pyspark/shell.py的核心代码： &lt;br/&gt;
+&lt;code&gt;
+sc = SparkContext(appName=&quot;PySparkShell&quot;, pyFiles=add_files)
+atexit.register(lambda: sc.stop())
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2&gt;4. Ok，here we go　　&lt;/h2&gt;
 
@@ -773,6 +781,37 @@ ld normally add after bin/pyspark
 &lt;p&gt;　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
 &lt;img src=&quot;../images/notebook-spark-1.jpg&quot; alt=&quot;notebook-spark-1&quot; /&gt;
 &lt;img src=&quot;../images/notebook-spark-2.jpg&quot; alt=&quot;notebook-spark-2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;5. 总结&lt;/h2&gt;
+
+&lt;p&gt;　　下面是简单的步骤总结：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;建立环境变量配置文件：ipython_notebook_spark.bashrc&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
+export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;配置Ipython notebook server
+
+&lt;ul&gt;
+&lt;li&gt;ipython profile create pyspark&lt;/li&gt;
+&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
+&lt;li&gt;[可选]配置ipython notebook登录密码&lt;/li&gt;
+&lt;li&gt;设置启动文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;设置启动脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;6. 启动脚本和文件&lt;/h2&gt;
+
+&lt;p&gt;　　为了方便，都放到Github上了。&lt;/p&gt;
 </content>
    </entry>
    

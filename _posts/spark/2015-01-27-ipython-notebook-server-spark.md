@@ -5,6 +5,7 @@ title: ［touch spark］8. 当Ipython Notebook遇见Spark
 description: 首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.
 ---  
 
+注：和本文相关的资料和文件都放到Github上了：[ipython-notebook-spark](https://github.com/litaotao/ipython-notebook-spark)
 
 ##  
 ## 1. 致谢   
@@ -168,11 +169,18 @@ if not spark_home:
     raise ValueError('SPARK_HOME environment variable is not set')
 sys.path.insert(0, os.path.join(spark_home, 'python'))
 sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.1-src.zip'))
-execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
+# execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
 ```
 
 　　上面的启动配置文件也还简单，即拿到spark_home路径，并在系统环境变量path里加上两个路径，然后再执行一个shell.py文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的SPARK_HOME配置对了，并且下面有python这个文件夹，并且python/lib下有py4j-0.8.1这个文件。我在检查的时候就发现我的包版本是py4j-0.8.2.1的，所以还是要改得和自己的包一致才行。   
-　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，比较各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： `sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))`    
+　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： `sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))`    
+　　注意，上面的最后一行 `execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))` 被注释掉了，表示在新建或打开一个notebook时并不去执行shell.py这个文件，这个文件是创建SparkContext的，即如果执行改行语句，那在启动notebook时就会初始化一个sc，但这个sc的配置都是写死了的，在spark web UI监控里的appName也是一样的，很不方便。而且考虑到并不是打开一个notebook就要用到spark的资源，所以最好是要用户自己定义sc了。   
+　　python/pyspark/shell.py的核心代码：   
+```
+sc = SparkContext(appName="PySparkShell", pyFiles=add_files)
+atexit.register(lambda: sc.stop())
+```
+
 
 ## 4. Ok，here we go　　
 　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。  
@@ -201,3 +209,23 @@ root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
 　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
 ![notebook-spark-1](../images/notebook-spark-1.jpg)
 ![notebook-spark-2](../images/notebook-spark-2.jpg)
+
+
+## 5. 总结
+　　下面是简单的步骤总结：
+
+- 建立环境变量配置文件：ipython_notebook_spark.bashrc    
+
+```
+export SPARK_HOME="/usr/local/spark-1.2.0-bin-cdh4/"
+export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode client"
+```
+- 配置Ipython notebook server
+    + ipython profile create pyspark
+    + 编辑ipython_notebook_config.py   
+    + [可选]配置ipython notebook登录密码
+    + 设置启动文件 
+- 设置启动脚本    
+
+## 6. 启动脚本和文件
+　　为了方便，都放到Github上了。
