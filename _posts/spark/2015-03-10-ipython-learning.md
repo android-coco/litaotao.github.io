@@ -50,24 +50,57 @@ description: 记录我学习、研究IPython的笔记。
 ## 5. Using IPython for interactive work
 
 ### 5.1 Introducing IPython
-　　常用的四个帮助方法：
 
-- ? ：  Introduction and overview of IPython’s features.
-- %quickref ：  Quick reference.
-- help ：   Python’s own help system.
-- object? ： Details about ‘object’, use ‘object??’ for extra details.
+- 常用的四个帮助方法：
+    - ? ：  Introduction and overview of IPython’s features.
+    - %quickref ：  Quick reference.
+    - help ：   Python’s own help system.
+    - object? ： Details about ‘object’, use ‘object??’ for extra details.
 
 　　Typing object_name? will print all sorts of details about any object, including docstrings, function definition lines (for call arguments) and constructor details for classes. To get specific information on an object, you can use the magic commands %pdoc, %pdef, %psource and %pfile
 
+- Configuration
+
+Much of IPython can be tweaked through configuration. To get started, use the command ipython profile create to produce the default config files. These will be placed in ~/.ipython/profile_default, and contain comments explaining what the various options do.
+
+Profiles allow you to use IPython for different tasks, keeping separate config files and history for each one. More details in the profiles section.
+
+- Startup Files
+
+If you want some code to be run at the beginning of every IPython session, the easiest way is to add Python (.py) or IPython (.ipy) scripts to your profile_default/startup/ directory. Files here will be executed as soon as the IPython shell is constructed, before any other code or scripts you have specified. The files will be run in order of their names, so you can control the ordering with prefixes, like 10-myimports.py.
 
 
+### 5.2 IPython reference
+
+- Command-line usage
+
+You start IPython with the command:
+
+    $ ipython [options] files
+
+If invoked with no options, it executes all the files listed in sequence and drops you into the interpreter while still acknowledging any options you may have set in your ipython_config.py. This behavior is different from standard Python, which when called as python -i will only execute one file and ignore your configuration setup.
+
+Please note that some of the configuration options are not available at the command line, simply because they are not practical here. Look into your configuration files for details on those. There are separate configuration files for each profile, and the files look like ipython_config.py or ipython_config_frontendname.py. Profile directories look like profile_profilename and are typically installed in the IPYTHONDIR directory, which defaults to $HOME/.ipython. For Windows users, HOME resolves to C:\Users\YourUserName in most instances.
+
+- IPython as your default Python environment
+
+Python honors the environment variable PYTHONSTARTUP and will execute at startup the file referenced by this variable. If you put the following code at the end of that file, then IPython will be your working environment anytime you start Python:
+
+    import os, IPython
+    os.environ['PYTHONSTARTUP'] = ''  # Prevent running this again
+    IPython.start_ipython()
+    raise SystemExit
+
+The raise SystemExit is needed to exit Python when it finishes, otherwise you’ll be back at the normal Python >>> prompt.
+
+This is probably useful to developers who manage multiple Python versions and don’t want to have correspondingly multiple IPython versions. Note that in this mode, there is no way to pass IPython any command-line options, as those are trapped first by Python itself.
 
 
-
-
+## 6. The IPython notebook
 
 
 
 # . 学习资源
 
 - [官网](http://ipython.org/)
+- [IPython Cookbook](https://github.com/ipython/ipython/wiki?path=Cookbook)
