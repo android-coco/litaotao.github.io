@@ -2,7 +2,7 @@
 category: books
 published: false
 layout: post
-title: book-3. spark专刊笔记之：spark最佳学习路径
+title: spark专刊笔记之：spark最佳学习路径
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---
 
@@ -19,16 +19,19 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 
 ### 2.1 相关术语
 
-- Application：spark的应用程序，包含一个driver program和若干executor；
+- Application：用户编写的spark应用程序，包含一个driver program和分布在集群中多个节点上运行的executor；
+- Driver：使用Driver这一概念的分布式框架很多，比如hive等。spark中的driver即运行上述application的main()函数并创建sparkcontext，创建sparkcontext的目的是为了准备spark应用程序的运行环境。在spark中由sparkcontext负责和clustermanager通信，进行资源的申请，任务的分配和监控等。当executor部分运行完毕后，driver同时负责将sparkcontext关闭，通常用sparkcontext代表driver。
 - SparkContext：spark应用程序的入口，负责调度各个运算资源，协调各个worker node上的executor；
-- Driver Program：运行Application的main函数并创建SparkContext；
 - Executor：为Application运行在worker node上的一个进程，该进程负责运行task，并且负责将数据存在内存或者磁盘上；每个Application都会申请各自的Executor来处理任务；
 - Cluster manager：在集群上获取资源的外部服务；
-- Worker node：集群中任何可以运行Application的节点，运行一个或多个Executor进程；
-- Task：运行在Executor上的工作单元；
-- Job：SparkContext提交的具体Action操作，常和Action对应；
-- Stage：每个Job会被拆分为很多组task，每组任务被称为stage，也称taskSet；
-- RDD：是Resilient distributed datasets的简称，中文为弹性分布式数据集，是spark的核心模块和类；
+- Worker node：集群中任何可以运行Application的节点，运行一个或多个Executor进程。在standalone模式中指的就是通过slave文件配置的worker节点，在spark on yarn模式中指的就是nodemanager节点；
+- Task：运行在Executor上的工作单元，多个task组成一个stage，而task的调度及管理等由厦门的taskscheduler负责；
+- Job：包含多个task组成的并行计算，往往由spark action触发，一个application可能会产生多个job；
+- Stage：每个Job会被拆分为很多组task，每组任务被称为stage，也称taskSet。stage的划分和调度由下面的DAGSeheduler负责，stage有非最终的stage即shuffle map stage和最终的stage即result stage两种。stage的边界就是发生shuffle的地方；
+- RDD：是Resilient distributed datasets的简称，中文为弹性分布式数据集，是spark的核心模块和类。它表示已被分区、序列化的、不可变的、有容错机制的并且能够被并行操作的数据集合。其存储级别可以是内存，也可以是磁盘，可通过spark.storage.StorageLevel属性配置；
+- 共享变量：在spark application运行时，可能需要共享一些变量，提供task或driver等实用。spark提供了两种共享变量，一种是可以缓存到各个节点的广播变量，一种是只支持加法操作、可以实现求和的累加变量；
+- 宽依赖：或称为ShuffleDependency，跟hadoop mapreduce中shuffle的数据依赖相同，款依赖需要计算所有父RDD对应分区的数据，然后在节点之间进行shuffle；
+- 窄依赖：或称为NarrowDependency，指某个具体的RDD，其分区partition a最多被父RDD中的一个分区partition b依赖。窄依赖又分为1:1和N:1两种。
 - DAGScheduler：根据Job构建基于stage的DAG，并提交stage给taskScheduler；
 
 ### 2.2 程序运行流程分析
