@@ -25,13 +25,276 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-12T10:25:43+08:00</updated>
+   <updated>2015-03-12T17:42:13+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>book-3. 设计模式总结之结构型模式</title>
+     <link href="/design-pattern-structure-pattern"/>
+     <updated>2015-03-12T00:00:00+08:00</updated>
+     <id>/design-pattern-structure-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 迭代器模式&lt;/h2&gt;
+
+&lt;p&gt;　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;抽象容器：一般是一个接口，提供一个iterator()方法，例如java中的Collection接口，List接口，Set接口等。&lt;/li&gt;
+&lt;li&gt;具体容器：就是抽象容器的具体实现类，比如List接口的有序列表实现ArrayList，List接口的链表实现LinkList，Set接口的哈希列表的实现HashSet等。&lt;/li&gt;
+&lt;li&gt;抽象迭代器：定义遍历元素所需要的方法，一般来说会有这么三个方法：取得第一个元素的方法first()，取得下一个元素的方法next()，判断是否遍历结束的方法isDone()（或者叫hasNext()），移出当前对象的方法remove(),&lt;/li&gt;
+&lt;li&gt;迭代器实现：实现迭代器接口中定义的方法，完成集合的迭代。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;1.1 Python源码实例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
+Implementation of the iterator pattern with a generator&quot;&quot;&quot;
+
+
+def count_to(count):
+    &quot;&quot;&quot;Counts by word numbers, up to a maximum of five&quot;&quot;&quot;
+    numbers = [&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]
+    # enumerate() returns a tuple containing a count (from start which
+    # defaults to 0) and the values obtained from iterating over sequence
+    for pos, number in zip(range(count), numbers):
+        yield number
+
+# Test the generator
+count_to_two = lambda: count_to(2)
+count_to_five = lambda: count_to(5)
+
+print(&#39;Counting to two...&#39;)
+for number in count_to_two():
+    print(number, end=&#39; &#39;)
+
+print()
+
+print(&#39;Counting to five...&#39;)
+for number in count_to_five():
+    print(number, end=&#39; &#39;)
+
+print()
+
+### OUTPUT ###
+# Counting to two...
+# one two
+# Counting to five...
+# one two three four five
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2. 观察者模式&lt;/h2&gt;
+
+&lt;p&gt;　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。&lt;/p&gt;
+
+&lt;h3&gt;2.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;
+Reference: http://www.slideshare.net/ishraqabd/publish-subscribe-model-overview-13368808
+Author: https://github.com/HanWenfang
+&quot;&quot;&quot;
+
+
+class Provider:
+
+    def __init__(self):
+        self.msg_queue = []
+        self.subscribers = {}
+
+    def notify(self, msg):
+        self.msg_queue.append(msg)
+
+    def subscribe(self, msg, subscriber):
+        if msg not in self.subscribers:
+            self.subscribers[msg] = []
+            self.subscribers[msg].append(subscriber)  # unfair
+        else:
+            self.subscribers[msg].append(subscriber)
+
+    def unsubscribe(self, msg, subscriber):
+        self.subscribers[msg].remove(subscriber)
+
+    def update(self):
+        for msg in self.msg_queue:
+            if msg in self.subscribers:
+                for sub in self.subscribers[msg]:
+                    sub.run(msg)
+        self.msg_queue = []
+
+
+class Publisher:
+
+    def __init__(self, msg_center):
+        self.provider = msg_center
+
+    def publish(self, msg):
+        self.provider.notify(msg)
+
+
+class Subscriber:
+
+    def __init__(self, name, msg_center):
+        self.name = name
+        self.provider = msg_center
+
+    def subscribe(self, msg):
+        self.provider.subscribe(msg, self)
+
+    def run(self, msg):
+        print(&quot;{} got {}&quot;.format(self.name, msg))
+
+
+def main():
+    message_center = Provider()
+
+    fftv = Publisher(message_center)
+
+    jim = Subscriber(&quot;jim&quot;, message_center)
+    jim.subscribe(&quot;cartoon&quot;)
+    jack = Subscriber(&quot;jack&quot;, message_center)
+    jack.subscribe(&quot;music&quot;)
+    gee = Subscriber(&quot;gee&quot;, message_center)
+    gee.subscribe(&quot;movie&quot;)
+
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;music&quot;)
+    fftv.publish(&quot;ads&quot;)
+    fftv.publish(&quot;movie&quot;)
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;movie&quot;)
+    fftv.publish(&quot;blank&quot;)
+
+    message_center.update()
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+
+### OUTPUT ###
+# jim got cartoon
+# jack got music
+# gee got movie
+# jim got cartoon
+# jim got cartoon
+# gee got movie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 策略模式&lt;/h2&gt;
+
+&lt;p&gt;　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。&lt;/p&gt;
+
+&lt;h3&gt;3.1 Python 源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;class Duck(object):
+    # 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类
+    def __init__(self, strategy=None):
+        self.action = None
+        self.count = 0
+        if strategy:
+            # 指定策略，那么执行action就是用这个类的实例
+            self.action = strategy()
+
+    def fly(self, kind):
+        if self.action:
+            self.count += 1
+            # 这里的第二个参数self，算是炫技吧，就是为了让操作的方法获得这里计算好的count
+            return self.action.fly(kind, self)
+
+        else:
+            raise UnboundLocalError(&#39;Exception raised, no strategyClass supplied to Duck!&#39;)
+
+# 注意这里没有继承Duck，因为是以参数的方式传入类名
+class Duck1(object):
+
+    def fly(self, kind, instance):
+        return &#39;Duck1 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
+
+
+class Duck2(object):
+
+    def fly(self, kind, instance):
+        return &#39;Duck2 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
+
+
+if __name__ == &#39;__main__&#39;:
+    duckfly = Duck()
+    duck1fly = Duck(strategy=Duck1)
+    duck2fly = Duck(strategy=Duck2)
+
+    try:
+        print duckfly.fly(&#39;yes&#39;)
+    except Exception as e:
+        print &quot;The following exception was expected:&quot;
+        print e
+
+    print duck1fly.fly(&#39;yes&#39;)
+    print duck1fly.fly(&#39;no&#39;)
+    print duck1fly.fly(&#39;yes&#39;)
+    print duck2fly.fly(&#39;yes&#39;)
+    print duck2fly.fly(&#39;no&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;4. 模板方法模式&lt;/h2&gt;
+
+&lt;p&gt;　　模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。在软件工程中，它是一种软件设计模式，和C++模板没有关连。也可以理解为定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。因此模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定变量。优点是把不变行为搬移到超类，去除子类中的重复代码。&lt;/p&gt;
+
+&lt;h3&gt;4.1 Python源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/five3/article/details/7564578&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python  
+#encoding: utf-8  
+
+class template:
+    def __init__(self):
+        pass
+
+    def logic(self):
+        print &#39;do something before ....&#39;
+        print self.do_something_now()
+        print &#39;do something after ....&#39;
+
+    def do_something_now(self):
+        return None      
+
+class apply_temp1(template):
+    def __init__(self):
+        pass
+
+    def do_something_now(self):
+        return &#39;apply 1&#39;  
+
+class apply_temp2(template):
+    def __init__(self):
+        pass
+
+    def do_something_now(self):
+        return &#39;apply 2&#39;  
+
+
+if &#39;__main__&#39; == __name__:  
+    obj1 = apply_temp1()
+    obj2 = apply_temp2()
+    obj1.logic()
+    obj2.logic()
+    print obj1.__class__
+    print obj2.__class__
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+   </entry>
    
    <entry>
      <title>book-3. 设计模式总结之创建型模式</title>
@@ -1863,449 +2126,6 @@ insert  query update delete getmore command flushes mapped  vsize    res faults 
 &lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/database-profiler/&quot;&gt;Database Profiler Output&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound&quot;&gt;10gen工程师谈MongoDB组合索引的优化&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/command/dbStats/&quot;&gt;dbStats&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］5. spark RDD 之：RDD Transformation</title>
-     <link href="/rdd-transformations"/>
-     <updated>2014-12-20T00:00:00+08:00</updated>
-     <id>/rdd-transformations</id>
-     <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/transfomers.jpg&quot; alt=&quot;transfomers&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 什么是RDD&lt;/h2&gt;
-
-&lt;p&gt;　　关于什么是RDD，可以参考上一篇 &lt;a href=&quot;../spark-what-is-rdd&quot;&gt;4. spark RDD 之：什么是RDD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;2. RDD transfomation 一览&lt;/h2&gt;
-
-&lt;p&gt;　　ok，了解了RDD的含义，我们可以来看看神马叫transformation了，中文叫转换。上一篇提到RDD可以由两种方式创建，而在实际应用中，一般第一种方式都是用于新建一个RDD的时候，大多数时候都是通过第二种方式来生成一个新的RDD。so，想想这里我们应该怎么来根据一个已存在的RDD来transform出另一个新的RDD呢？当然就是根据一些规则，比如说筛选，映射，分组等等，而用于支撑这些规则的函数，就叫做RDD的transformation。&lt;br/&gt;
-　　下面我们通过下面这张表来看看RDD都支持哪些规则的transformation吧。 这些是&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;官方&lt;/a&gt;列出的一些常用的transformation，我原本想把所有transformation列出来的，可考虑到2/8原则，想想下面这些在实际应用中应该足够了。如果真的需要其他transformation的时候，相比彼时你的功力应该已到阅读、贡献源码的级别了。也就不需要再参考我下面将要写的东西了。 &lt;br/&gt;
-　　这些transformation中有一些是我不太熟悉的，所以这里记录一下我不太熟悉的那些转换函数的用法，仅供个人参考哦。&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt; No &lt;/th&gt;
-&lt;th&gt; Transformation  &lt;/th&gt;
-&lt;th&gt;  Meaning &lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt; 1 &lt;/td&gt;
-&lt;td&gt; map(func) &lt;/td&gt;
-&lt;td&gt; Return a new distributed dataset formed by passing each element of the source through a function func.  &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 2 &lt;/td&gt;
-&lt;td&gt; filter(func) &lt;/td&gt;
-&lt;td&gt; Return a new dataset formed by selecting those elements of the source on which func returns true. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 3 &lt;/td&gt;
-&lt;td&gt; flatMap(func) &lt;/td&gt;
-&lt;td&gt; Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item). &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 4 &lt;/td&gt;
-&lt;td&gt; mapPartitions(func) &lt;/td&gt;
-&lt;td&gt; Similar to map, but runs separately on each partition (block) of the RDD, so func must be of type Iterator&lt;T&gt; =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 5 &lt;/td&gt;
-&lt;td&gt; mapPartitionsWithIndex(func) &lt;/td&gt;
-&lt;td&gt; Similar to mapPartitions, but also provides func with an integer value representing the index of the partition, so func must be of type (Int, Iterator&lt;T&gt;) =&gt; Iterator&lt;U&gt; when running on an RDD of type T. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 6 &lt;/td&gt;
-&lt;td&gt; sample(withReplacement, fraction, seed) &lt;/td&gt;
-&lt;td&gt; Sample a fraction fraction of the data, with or without replacement, using a given random number generator seed. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 7 &lt;/td&gt;
-&lt;td&gt; union(otherDataset) &lt;/td&gt;
-&lt;td&gt; Return a new dataset that contains the union of the elements in the source dataset and the argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 8 &lt;/td&gt;
-&lt;td&gt; intersection(otherDataset) &lt;/td&gt;
-&lt;td&gt; Return a new RDD that contains the intersection of elements in the source dataset and the argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 9 &lt;/td&gt;
-&lt;td&gt; distinct([numTasks])) &lt;/td&gt;
-&lt;td&gt; Return a new dataset that contains the distinct elements of the source dataset. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 10 &lt;/td&gt;
-&lt;td&gt; groupByKey([numTasks]) &lt;/td&gt;
-&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, Iterable&lt;V&gt;) pairs.   &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 11 &lt;/td&gt;
-&lt;td&gt; reduceByKey(func, [numTasks]) &lt;/td&gt;
-&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function func, which must be of type (V,V) =&gt; V. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 12 &lt;/td&gt;
-&lt;td&gt; aggregateByKey(zeroValue)(seqOp, combOp, [numTasks]) &lt;/td&gt;
-&lt;td&gt; When called on a dataset of (K, V) pairs, returns a dataset of (K, U) pairs where the values for each key are aggregated using the given combine functions and a neutral &quot;zero&quot; value. Allows an aggregated value type that is different than the input value type, while avoiding unnecessary allocations. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 13 &lt;/td&gt;
-&lt;td&gt; sortByKey([ascending], [numTasks]) &lt;/td&gt;
-&lt;td&gt; When called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean ascending argument. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; 14 &lt;/td&gt;
-&lt;td&gt; join(otherDataset, [numTasks]) &lt;/td&gt;
-&lt;td&gt; When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key. Outer joins are also supported through leftOuterJoin and rightOuterJoin. &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-&lt;h2&gt;3. RDD transfomation&lt;/h2&gt;
-
-&lt;p&gt;　　RDD 的transformation有几个和scala里的函数组合子一样，其他的我估计也是基于scala的组合子来写的。所以，为了方便起见，能用scala来展现的，我就用scala来写；不可以的，我再用spark来写示例。下面提到的transformation更新到&lt;a href=&quot;http://spark.apache.org/docs/latest/programming-guide.html#transformations&quot;&gt;spark 1.1.1版本&lt;/a&gt;。要想查看最新版本的，可以上&lt;a href=&quot;http://spark.apache.org/&quot;&gt;官网&lt;/a&gt;和&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;官方API文档&lt;/a&gt;。这里顺带提一下，说到transformation，网上几乎每篇说spark的文章都会用到下面这张图。可是我真的想说，这张图可是Matei这哥们2012年发的&lt;a href=&quot;https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文&lt;/a&gt;里的啊，spark更新的速度也许比大多数人换对象的速度还快啊，好多东西已经变了。大家以后要是发这张图，就该说明出处和版本吧，免得大家误解transformation和actions就那几种类型啊。&lt;br/&gt;
-　　以下都是基于官方&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;API DOC&lt;/a&gt;，在我本机上的测试以及网络资料整理而来。所有参考过的资料我都会在最后列出来，供参考。
-&lt;img src=&quot;../../images/trans-action-2012.png&quot; alt=&quot;trans-action-2012&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;3.1 RDD transfomation － flatMap&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　flatMap可以理解成map和flat的组合。他处理一个嵌套列表，对其中每个列表中的元素执行map，然后对每个列表执行flat，最后返回一个列表。 &lt;br/&gt;
-　　所以，我们也可以先flatten一个列表，再对列表里的每个元素做mapping；当然也可以对嵌套列表里的每个元素做mapping，再对列表做flatten。看下面的例子就明白了：&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-flatMap[U](f: (T) ⇒ TraversableOnce[U])(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// flatMap operation
-scala&amp;gt; val test = List(List(1,2,3,4,5), List(10,20,30,40,50))
-test: List[List[Int]] = List(List(1, 2, 3, 4, 5), List(10, 20, 30, 40, 50))
-
-scala&amp;gt; val test1 = test.flatMap( x =&amp;gt; x.map(_ * 2))
-test1: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-
-// flat first, then mapping
-scala&amp;gt; val tset2 = test.flatten
-tset2: List[Int] = List(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
-
-scala&amp;gt; val test3 = test.flatten.map(_*2)
-test3: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-
-// mapping first, then flat
-scala&amp;gt; val test4 = test.map( x =&amp;gt; x.map(_*2))
-test4: List[List[Int]] = List(List(2, 4, 6, 8, 10), List(20, 40, 60, 80, 100))
-
-scala&amp;gt; val test5 = test.map(x =&amp;gt; x.map(_*2)).flatten
-test5: List[Int] = List(2, 4, 6, 8, 10, 20, 40, 60, 80, 100)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.2 RDD transfomation － mapPartitions&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　mapPartitions是map的一个变种。map的输入函数是应用于RDD中每个元素，而mapPartitions的输入函数是应用于每个分区，也就是把每个分区中的内容作为整体来处理的。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def  
-mapPartitions[U](f: (Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　f即为输入函数，它处理每个分区里面的内容。每个分区中的内容将以Iterator[T]传递给输入函数f，f的输出结果是Iterator[U]。最终的RDD由所有分区经过输入函数处理后的结果合并起来的。&lt;/p&gt;
-
-&lt;h2&gt;3.3 RDD transfomation － mapPartitionsWithIndex | mapPartitionsWithContext&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　mapPartitions还有些变种，比如mapPartitionsWithContext，它能把处理过程中的一些状态信息传递给用户指定的输入函数。还有mapPartitionsWithIndex，它能把分区的index传递给用户指定的输入函数。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-mapPartitionsWithContext[U](f: (TaskContext, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD. This is a variant of mapPartitions that also passes the TaskContext into the closure.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function does not modify the keys.
-Annotations
-
-def
-mapPartitionsWithIndex[U](f: (Int, Iterator[T]) ⇒ Iterator[U], preservesPartitioning: Boolean = false)(implicit arg0: ClassTag[U]): RDD[U]
-Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
-
-preservesPartitioning indicates whether the input function preserves the partitioner, which should be false unless this is a pair RDD and the input function doesn&#39;t modify the keys.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.3 RDD transfomation －  sample&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　根据fraction指定的比例，对数据进行采样，可以选择是否用随机数进行替换，seed用于指定随机数生成器种子。这里我一直有一个疑问，当我的数据集里有100个元素是，设置fraction为0.1，按理应该是返回10个随机数的，可是就返回了6个。似乎返回的随机数会少于数据集元素数量*随机数的比例，晚点继续研究。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def  sample(withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]
-Return a sampled subset of this RDD.  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 100)
-a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val sample = a.sample(false, 0.1, 0)
-sample: org.apache.spark.rdd.RDD[Int] = PartitionwiseSampledRDD[18] at sample at &amp;lt;console&amp;gt;:14
-
-scala&amp;gt; sample.count
-.
-.
-.
-14/12/12 10:39:07 INFO TaskSchedulerImpl: Removed TaskSet 23.0, whose tasks have all completed, from pool 
-14/12/12 10:39:07 INFO SparkContext: Job finished: count at &amp;lt;console&amp;gt;:17, took 3.491275316 s
-res29: Long = 6
-
-scala&amp;gt; sample.collect
-.
-.
-.
-14/12/12 10:39:11 INFO DAGScheduler: Stage 24 (collect at &amp;lt;console&amp;gt;:17) finished in 0.142 s
-14/12/12 10:39:11 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:17, took 0.151221638 s
-res30: Array[Int] = Array(22, 46, 48, 80, 87, 97)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　后话：&lt;br/&gt;
-　　在看API DOC的时候发现有一个和sample很像的transformation，takeSample，但准确的说这并不是一个transformation，应该算是一个action吧。这个函数可以从数据集里返回固定数量的随机数，弥补上上面我提到的sample那个问题。但是需要注意的是，这个函数是直接在RDD上计算，返回计算结果，并不是一个transformation。看下面的例子就明白了。&lt;/p&gt;
-
-&lt;p&gt;　　示例2：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val takeSample = a.takeSample(false, 10, 0)
-.
-.
-.
-14/12/12 10:43:24 INFO DAGScheduler: Stage 26 (takeSample at &amp;lt;console&amp;gt;:14) finished in 0.068 s
-14/12/12 10:43:24 INFO SparkContext: Job finished: takeSample at &amp;lt;console&amp;gt;:14, took 0.074973222 s
-takeSample: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
-
-scala&amp;gt; takeSample
-res33: Array[Int] = Array(68, 18, 97, 26, 61, 33, 67, 10, 2, 1)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.4 RDD transfomation － union&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;br/&gt;
-　　这个把两个RDD合并为一个，很简单，可以理解成计算并集。但值得说明的是，union和++运算符是等价的，至少在函数定义上是完全一致的。先了解下，以后有需要的时候再看是否有细节上的区别。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-++(other: RDD[T]): RDD[T]
-Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
-def
-union(other: RDD[T]): RDD[T]
-Return the union of this RDD and another one. Any identical elements will appear multiple times (use .distinct() to eliminate them).
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;br/&gt;
-    scala&gt; a
-    res37: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at parallelize at &lt;console&gt;:12&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val a = sc.parallelize(1 to 10)
-a: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[20] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val b = sc.parallelize(11 to 20)
-b: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[21] at parallelize at &amp;lt;console&amp;gt;:12
-
-scala&amp;gt; val c1 = a++b
-c1: org.apache.spark.rdd.RDD[Int] = UnionRDD[22] at $plus$plus at &amp;lt;console&amp;gt;:16
-
-scala&amp;gt; val c2 = a.union(b)
-
-scala&amp;gt; c1.collect
-.
-.
-.
-14/12/12 11:01:13 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.3475174 s
-res38: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-
-scala&amp;gt; c2.collect
-.
-.
-.
-14/12/12 11:01:17 INFO SparkContext: Job finished: collect at &amp;lt;console&amp;gt;:19, took 0.122094635 s
-res39: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.5 RDD transfomation － intersection&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　对比上面的union就很好理解了，上面是计算并集，这里是计算交集。这个transformation也有需要注意的地方，就是其有三种形式，根据是否提供第二个参数以及第二个参数的类型。具体可以参考函数定义。c++里这叫多态，现在对scala才是初学阶段，我想既然scala也是OO，那应该也有多态类似的概念吧，这里晚点继续补上。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-intersection(other: RDD[T], numPartitions: Int): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did. Performs a hash partition across the cluster
-
-Note that this method performs a shuffle internally.
-numPartitions
-How many partitions to use in the resulting RDD
-
-def
-intersection(other: RDD[T], partitioner: Partitioner)(implicit ord: Ordering[T] = null): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
-
-Note that this method performs a shuffle internally.
-partitioner
-Partitioner to use for the resulting RDD
-
-def
-intersection(other: RDD[T]): RDD[T]
-Return the intersection of this RDD and another one. The output will not contain any duplicate elements, even if the input RDDs did.
-
-Note that this method performs a shuffle internally.  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;val x = sc.parallelize(1 to 20)
-val y = sc.parallelize(10 to 30)
-val z = x.intersection(y)
-
-z.collect
-res74: Array[Int] = Array(16, 12, 20, 13, 17, 14, 18, 10, 19, 15, 11)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.6 RDD transfomation － distinct&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　即去重，相当于python里面的set。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-distinct(): RDD[T]
-Return a new RDD containing the distinct elements in this RDD.
-def
-distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]
-Return a new RDD containing the distinct elements in this RDD.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.7 RDD transfomation － groupByKey&lt;/h2&gt;
-
-&lt;p&gt;　　说明： &lt;br/&gt;
-　　这是一个针对键值对结构来进行操作的转换方法，即你的RDD的结构是(key, value)类型，而其中key不是唯一性的。此时我们可以对这个RDD进行groupByKey的转换得到新的RDD，新的RDD的结构同样也是键值对，只是值改变了，并且键是唯一性的，即(key, iterator(value))。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-groupByKey(): RDD[(K, Iterable[V])]
-Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with the existing partitioner/parallelism level.
-
-Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
-def
-groupByKey(numPartitions: Int): RDD[(K, Iterable[V])]
-Group the values for each key in the RDD into a single sequence. Hash-partitions the resulting RDD with into numPartitions partitions.
-
-Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
-def
-groupByKey(partitioner: Partitioner): RDD[(K, Iterable[V])]
-Group the values for each key in the RDD into a single sequence. Allows controlling the partitioning of the resulting key-value pair RDD by passing a Partitioner.
-
-Note: This operation may be very expensive. If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using PairRDDFunctions.aggregateByKey or PairRDDFunctions.reduceByKey will provide much better performance.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3.8 RDD transfomation － reduceByKey&lt;/h2&gt;
-
-&lt;p&gt;　　说明：  &lt;br/&gt;
-　　和上面的groupByKey一样，这也是一个针对(key, value)型结构的RDD的转换函数。只是上面的groupByKey是将相同key对应的value组合成一个可迭代的对象；而reduceByKey是将相同key对应的value通过传入的函数func计算成一个新的value。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-reduceByKey(func: (V, V) ⇒ V): RDD[(K, V)]
-Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce. Output will be hash-partitioned with the existing partitioner/ parallelism level.
-def
-reduceByKey(func: (V, V) ⇒ V, numPartitions: Int): RDD[(K, V)]
-Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce. Output will be hash-partitioned with numPartitions partitions.
-def
-reduceByKey(partitioner: Partitioner, func: (V, V) ⇒ V): RDD[(K, V)]
-Merge the values for each key using an associative reduce function. This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a &quot;combiner&quot; in MapReduce.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：　&lt;/p&gt;
-
-&lt;h2&gt;3.9 RDD transfomation － aggregateByKey&lt;/h2&gt;
-
-&lt;p&gt;　　说明：&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-aggregateByKey[U](zeroValue: U)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
-def
-aggregateByKey[U](zeroValue: U, numPartitions: Int)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
-def
-aggregateByKey[U](zeroValue: U, partitioner: Partitioner)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
-Aggregate the values of each key, using given combine functions and a neutral &quot;zero value&quot;. This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U&#39;s, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：　&lt;/p&gt;
-
-&lt;h2&gt;3.10 RDD transfomation － sortByKey&lt;/h2&gt;
-
-&lt;p&gt;　　说明：  &lt;br/&gt;
-　　按key来排序。但是在一些情况下，当RDD是(key, value)类型时，如果想对value来排序应该怎么处理呢？很简单，就是先把原来的(key, value)转换成(value, key)结构，然后对(value, key)进行sortByKey操作，最后再把已经排序了的(value, key)转换回(key, value)形式。&lt;/p&gt;
-
-&lt;p&gt;　　定义：   &lt;br/&gt;
-　　奇怪了，我再官方API DOC里没有找到这个转换函数的定义，晚一点再看一下。&lt;/p&gt;
-
-&lt;p&gt;　　示例：　&lt;/p&gt;
-
-&lt;h2&gt;3.11 RDD transfomation － join&lt;/h2&gt;
-
-&lt;p&gt;　　说明：  &lt;br/&gt;
-　　把两个(key, value)结构的RDD合成一个新的(key, value)结构的RDD。即(k1, v1).join((k1, v2)) =&gt; (k1, (v1, v2))，需要注意的是，为了让join操作成功，必须保证key是可以比较的。&lt;/p&gt;
-
-&lt;p&gt;　　定义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def
-join[W](other: RDD[(K, W)], numPartitions: Int): RDD[(K, (V, W))]
-Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
-def
-join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]
-Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Performs a hash join across the cluster.
-def
-join[W](other: RDD[(K, W)], partitioner: Partitioner): RDD[(K, (V, W))]
-Return an RDD containing all pairs of elements with matching keys in this and other. Each pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in this and (k, v2) is in other. Uses the given Partitioner to partition the output RDD.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　示例：　&lt;br/&gt;
-　　&lt;/p&gt;
-
-&lt;h2&gt;4，一些资源&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;RDD&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://twitter.github.io/scala_school/zh_cn/collections.html#flatMap&quot;&gt;scala school from twitter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.zybuluo.com/jewes/note/35032&quot;&gt;RDD Reference 1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://homepage.cs.latrobe.edu.au/zhe/ZhenHeSparkRDDAPIExamples.html&quot;&gt;RDD API Examples&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD&quot;&gt;RDD API Docs&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/1.1.1/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions&quot;&gt;pairRDD API Docs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>

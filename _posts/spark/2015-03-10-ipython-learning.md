@@ -98,6 +98,17 @@ This is probably useful to developers who manage multiple Python versions and do
 
 ## 6. The IPython notebook
 
+### 6.1 Running a notebook server
+
+The IPython notebook web-application is based on a server-client structure. This server uses a ***two-process kernel architecture*** based on ***ZeroMQ***, as well as ***Tornado*** for serving HTTP requests. By default, a notebook server runs on http://127.0.0.1:8888/ and is accessible only from localhost. This document describes how you can secure a notebook server and how to run it on a public interface.
+
+## 7. Using IPython for parallel computing
+目前研究的方向和IPython自身的parallel关联不大，暂时不看这块。
+
+## 8. Configuration and customization
+
+
+
 
 
 # . 学习资源
