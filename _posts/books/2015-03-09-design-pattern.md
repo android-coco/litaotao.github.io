@@ -1,6 +1,6 @@
 ---
 category: books
-published: false
+published: true
 layout: post
 title: book-3. 设计模式总结
 description: 仅仅是记录我个人的读书记录，看官不必在意～

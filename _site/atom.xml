@@ -25,13 +25,406 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-11T18:20:56+08:00</updated>
+   <updated>2015-03-12T10:21:35+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>book-3. 设计模式总结之创建型模式</title>
+     <link href="/design-pattern-create-pattern"/>
+     <updated>2015-03-11T00:00:00+08:00</updated>
+     <id>/design-pattern-create-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 抽象工厂模式&lt;/h2&gt;
+
+&lt;p&gt;　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。&lt;/p&gt;
+
+&lt;p&gt;　　举个例子来说，比如一个抽象工厂类叫做DocumentCreator（文档创建器），此类提供创建若干种产品的接口，包括createLetter()（创建邮件）和createResume()（创建简历）。其中，createLetter()返回一个Letter（邮件），createResume()返回一个Resume（简历）。系统中还有一些DocumentCreator的具体实现类，包括FancyDocumentCreator和ModernDocumentCreator。这两个类对DocumentCreator的两个方法分别有不同的实现，用来创建不同的“邮件”和“简历”（用FancyDocumentCreator的实例可以创建FancyLetter和FancyResume，用ModernDocumentCreator的实例可以创建ModernLetter和ModernResume）。这些具体的“邮件”和“简历”类均继承自抽象类，即Letter和Resume类。客户端需要创建“邮件”或“简历”时，先要得到一个合适的DocumentCreator实例，然后调用它的方法。一个工厂中创建的每个对象都是同一个主题的（“fancy”或者“modern”）。客户端程序只需要知道得到的对象是“邮件”或者“简历”，而不需要知道具体的主题，因此客户端程序从抽象工厂DocumentCreator中得到了Letter或Resume类的引用，而不是具体类的对象引用。&lt;/p&gt;
+
+&lt;p&gt;　　“工厂”是创建产品（对象）的地方，其目的是将产品的创建与产品的使用分离。抽象工厂模式的目的，是将若干抽象产品的接口与不同主题产品的具体实现分离开。这样就能在增加新的具体工厂的时候，不用修改引用抽象工厂的客户端代码。&lt;/p&gt;
+
+&lt;p&gt;　　使用抽象工厂模式，能够在具体工厂变化的时候，不用修改使用工厂的客户端代码，甚至是在运行时。然而，使用这种模式或者相似的设计模式，可能给编写代码带来不必要的复杂性和额外的工作。正确使用设计模式能够抵消这样的“额外工作”。&lt;/p&gt;
+
+&lt;h3&gt;1.1 Python 源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
+
+&quot;&quot;&quot;Implementation of the abstract factory pattern&quot;&quot;&quot;
+
+import random
+
+class PetShop:
+
+    &quot;&quot;&quot;A pet shop&quot;&quot;&quot;
+
+    def __init__(self, animal_factory=None):
+        &quot;&quot;&quot;pet_factory is our abstract factory.  We can set it at will.&quot;&quot;&quot;
+
+        self.pet_factory = animal_factory
+
+    def show_pet(self):
+        &quot;&quot;&quot;Creates and shows a pet using the abstract factory&quot;&quot;&quot;
+
+        pet = self.pet_factory.get_pet()
+        print(&quot;We have a lovely {}&quot;.format(pet))
+        print(&quot;It says {}&quot;.format(pet.speak()))
+        print(&quot;We also have {}&quot;.format(self.pet_factory.get_food()))
+
+
+# Stuff that our factory makes
+
+class Dog:
+
+    def speak(self):
+        return &quot;woof&quot;
+
+    def __str__(self):
+        return &quot;Dog&quot;
+
+
+class Cat:
+
+    def speak(self):
+        return &quot;meow&quot;
+
+    def __str__(self):
+        return &quot;Cat&quot;
+
+
+# Factory classes
+
+class DogFactory:
+
+    def get_pet(self):
+        return Dog()
+
+    def get_food(self):
+        return &quot;dog food&quot;
+
+
+class CatFactory:
+
+    def get_pet(self):
+        return Cat()
+
+    def get_food(self):
+        return &quot;cat food&quot;
+
+# Create the proper family
+def get_factory():
+    &quot;&quot;&quot;Let&#39;s be dynamic!&quot;&quot;&quot;
+    return random.choice([DogFactory, CatFactory])()
+
+
+# Show pets with various factories
+if __name__ == &quot;__main__&quot;:
+    for i in range(3):
+        shop = PetShop(get_factory())
+        shop.show_pet()
+        print(&quot;=&quot; * 20)
+
+### OUTPUT ###
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Cat
+# It says meow
+# We also have cat food
+# ====================
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2.工厂方法模式&lt;/h2&gt;
+
+&lt;p&gt;　　工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”&lt;/p&gt;
+
+&lt;p&gt;　　创建一个对象常常需要复杂的过程，所以不适合包含在一个复合对象中。创建对象可能会导致大量的重复代码，可能会需要复合对象访问不到的信息，也可能提供不了足够级别的抽象，还可能并不是复合对象概念的一部分。工厂方法模式通过定义一个单独的创建对象的方法来解决这些问题。由子类实现这个方法来创建具体类型的对象。&lt;/p&gt;
+
+&lt;p&gt;　　对象创建中的有些过程包括决定创建哪个对象、管理对象的生命周期，以及管理特定对象的创建和销毁的概念。&lt;/p&gt;
+
+&lt;p&gt;　　如果抛开设计模式的范畴，“工厂方法”这个词也可以指作为“工厂”的方法，这个方法的主要目的就是创建对象，而这个方法不一定在单独的工厂类中。这些方法通常作为静态方法，定义在方法所实例化的类中。&lt;/p&gt;
+
+&lt;p&gt;　　每个工厂方法都有特定的名称。在许多面向对象的编程语言中，构造方法必须和它所在的类具有相同的名称，这样的话，如果有多种创建对象的方式（重载）就可能导致歧义。工厂方法没有这种限制，所以可以具有描述性的名称。举例来说，根据两个实数创建一个复数，而这两个实数表示直角坐标或极坐标，如果使用工厂方法，方法的含义就非常清晰了。当工厂方法起到这种消除歧义的作用时，构造方法常常被设置为私有方法，从而强制客户端代码使用工厂方法创建对象。&lt;/p&gt;
+
+&lt;h3&gt;2.1 Python 源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/&quot;&quot;&quot;
+
+
+class GreekGetter:
+
+    &quot;&quot;&quot;A simple localizer a la gettext&quot;&quot;&quot;
+
+    def __init__(self):
+        self.trans = dict(dog=&quot;σκύλος&quot;, cat=&quot;γάτα&quot;)
+
+    def get(self, msgid):
+        &quot;&quot;&quot;We&#39;ll punt if we don&#39;t have a translation&quot;&quot;&quot;
+        try:
+            return self.trans[msgid]
+        except KeyError:
+            return str(msgid)
+
+
+class EnglishGetter:
+
+    &quot;&quot;&quot;Simply echoes the msg ids&quot;&quot;&quot;
+
+    def get(self, msgid):
+        return str(msgid)
+
+
+def get_localizer(language=&quot;English&quot;):
+    &quot;&quot;&quot;The factory method&quot;&quot;&quot;
+    languages = dict(English=EnglishGetter, Greek=GreekGetter)
+    return languages[language]()
+
+# Create our localizers
+e, g = get_localizer(language=&quot;English&quot;), get_localizer(language=&quot;Greek&quot;)
+# Localize some text
+for msgid in &quot;dog parrot cat bear&quot;.split():
+    print(e.get(msgid), g.get(msgid))
+
+### OUTPUT ###
+# dog σκύλος
+# parrot parrot
+# cat γάτα
+# bear bear
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 单例模式&lt;/h2&gt;
+
+&lt;p&gt;　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。&lt;/p&gt;
+
+&lt;p&gt;　　实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。&lt;/p&gt;
+
+&lt;p&gt;　　单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，有两个线程同时调用创建方法，那么它们同时没有检测到唯一实例的存在，从而同时各自创建了一个实例，这样就有两个实例被构造出来，从而违反了单例模式中实例唯一的原则。 解决这个问题的办法是为指示类是否已经实例化的变量提供一个互斥锁(虽然这样会降低效率)。&lt;/p&gt;
+
+&lt;h3&gt;3.1 Python源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/ghostfromheaven/article/details/7671853&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#-*- encoding=utf-8 -*-
+print &#39;----------------------方法1--------------------------&#39;
+#方法1,实现__new__方法
+#并在将一个类的实例绑定到类变量_instance上,
+#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回
+#如果cls._instance不为None,直接返回cls._instance
+class Singleton(object):
+    def __new__(cls, *args, **kw):
+        if not hasattr(cls, &#39;_instance&#39;):
+            orig = super(Singleton, cls)
+            cls._instance = orig.__new__(cls, *args, **kw)
+        return cls._instance
+
+class MyClass(Singleton):
+    a = 1
+
+one = MyClass()
+two = MyClass()
+
+two.a = 3
+print one.a
+#3
+#one和two完全相同,可以用id(), ==, is检测
+print id(one)
+#29097904
+print id(two)
+#29097904
+print one == two
+#True
+print one is two
+#True
+
+print &#39;----------------------方法2--------------------------&#39;
+#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)
+#同一个类的所有实例天然拥有相同的行为(方法),
+#只需要保证同一个类的所有实例具有相同的状态(属性)即可
+#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)
+#可参看:http://code.activestate.com/recipes/66531/
+class Borg(object):
+    _state = {}
+    def __new__(cls, *args, **kw):
+        ob = super(Borg, cls).__new__(cls, *args, **kw)
+        ob.__dict__ = cls._state
+        return ob
+
+class MyClass2(Borg):
+    a = 1
+
+one = MyClass2()
+two = MyClass2()
+
+#one和two是两个不同的对象,id, ==, is对比结果可看出
+two.a = 3
+print one.a
+#3
+print id(one)
+#28873680
+print id(two)
+#28873712
+print one == two
+#False
+print one is two
+#False
+#但是one和two具有相同的（同一个__dict__属性）,见:
+print id(one.__dict__)
+#30104000
+print id(two.__dict__)
+#30104000
+
+print &#39;----------------------方法3--------------------------&#39;
+#方法3:本质上是方法1的升级（或者说高级）版
+#使用__metaclass__（元类）的高级python用法
+class Singleton2(type):
+    def __init__(cls, name, bases, dict):
+        super(Singleton2, cls).__init__(name, bases, dict)
+        cls._instance = None
+    def __call__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = super(Singleton2, cls).__call__(*args, **kw)
+        return cls._instance
+
+class MyClass3(object):
+    __metaclass__ = Singleton2
+
+one = MyClass3()
+two = MyClass3()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#31495472
+print id(two)
+#31495472
+print one == two
+#True
+print one is two
+#True
+
+print &#39;----------------------方法4--------------------------&#39;
+#方法4:也是方法1的升级（高级）版本,
+#使用装饰器(decorator),
+#这是一种更pythonic,更elegant的方法,
+#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的
+def singleton(cls, *args, **kw):
+    instances = {}
+    def _singleton():
+        if cls not in instances:
+            instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return _singleton
+
+@singleton
+class MyClass4(object):
+    a = 1
+    def __init__(self, x=0):
+        self.x = x
+
+one = MyClass4()
+two = MyClass4()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#29660784
+print id(two)
+#29660784
+print one == two
+#True
+print one is two
+#True
+one.x = 1
+print one.x
+#1
+print two.x
+#1
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>book-3. 设计模式总结</title>
+     <link href="/design-pattern"/>
+     <updated>2015-03-09T00:00:00+08:00</updated>
+     <id>/design-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 设计模式概念&lt;/h2&gt;
+
+&lt;p&gt;　　设计模式这个术语是由Erich Gamma等人在1990年代从建筑设计领域引入到计算机科学的。它是对软件设计中普遍存在（反复出现）的各种问题，所提出的解决方案。
+　　设计模式并不直接用来完成代码的编写，而是描述在各种不同情况下，要怎么解决问题的一种方案。面向对象设计模式通常以类或对象来描述其中的关系和相互作用，但不涉及用来完成应用程序的特定类或对象。设计模式能使不稳定依赖于相对稳定、具体依赖于相对抽象，避免会引起麻烦的紧耦合，以增强软件设计面对并适应变化的能力。
+　　并非所有的软件模式都是设计模式，设计模式特指软件“设计”层次上的问题。还有其它非设计模式的模式，如架构模式。同时，算法不能算是一种设计模式，因为算法主要是用来解决计算上的问题，而非设计上的问题。&lt;/p&gt;
+
+&lt;h2&gt;2. 模式分类&lt;/h2&gt;
+
+&lt;p&gt;　　《设计模式》一书把设计模式分为创建型、结构性、行为型三大模式。把它们通过授权，聚合，诊断的概念来描述。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;创建型模式：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;抽象工厂：为一个产品族提供了统一的创建接口，当需要这个产品族的某一系列的时候，可以从抽象工厂中选出相应的系列创建一个具体的工厂类。&lt;/li&gt;
+&lt;li&gt;工厂方法：定义一个接口用于创建对象，但是让子类觉得初始化那个类。工厂方法把一个类的初始化下方到子类。&lt;/li&gt;
+&lt;li&gt;生成器：讲一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。&lt;/li&gt;
+&lt;li&gt;惰性初始：推迟对象的创建，数据的计算等需要耗费较多资源的操作，只有在第一次访问的时候才执行。&lt;/li&gt;
+&lt;li&gt;对象池：通过回收利用对象避免获取和释放资源所需的昂贵成本。&lt;/li&gt;
+&lt;li&gt;原型：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。&lt;/li&gt;
+&lt;li&gt;单例：确保一个类只有一个实例，并提供对该实例的全局访问。&lt;/li&gt;
+&lt;li&gt;多例：确保一个类只有命名的实例，并提供对这些实例的全局访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;结构型模式：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;适配器：将某个类的接口转化为客户端期望的另一个接口表示，适配器模式可以消除由于接口不匹配所造成的类兼容性问题。&lt;/li&gt;
+&lt;li&gt;桥接：将一个抽象与实现解耦，以便两者可以独立地变化。&lt;/li&gt;
+&lt;li&gt;组合：把多个对象组成树状结构来表示局部与整体，这样用户可以一样地对待单个对象和对象的组合。&lt;/li&gt;
+&lt;li&gt;修饰：向某个对象动态地添加更多的功能，修饰模式是除类继承之外另一种扩展功能的方法。&lt;/li&gt;
+&lt;li&gt;外观模式：为子系统的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。&lt;/li&gt;
+&lt;li&gt;享元：通过共享以便有效地支持大量小颗粒对象。&lt;/li&gt;
+&lt;li&gt;代理：为其他对象提供一个代理以控制这个对象的访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;行为型：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;责任链：为接触请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。&lt;/li&gt;
+&lt;li&gt;命令：将一个请求封装为一个对象，从而使你可用不同的请求对客户端进行参数化，对请求排队或者记录请求日志，以及支持可取消的操作。&lt;/li&gt;
+&lt;li&gt;解释器：给定一个语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子。&lt;/li&gt;
+&lt;li&gt;迭代器：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。&lt;/li&gt;
+&lt;li&gt;备忘录：备忘录对象是一个用来存储另外一个对象内部状态的快照的对象，备忘录模式的用意是在不破坏封装的条件下，讲一个对象的状态捉住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。&lt;/li&gt;
+&lt;li&gt;观察者：在对象间定义一个一对多的联系性，由此当一个对象改变了状态，所有其他相关的对象会被通知并且自动更新。&lt;/li&gt;
+&lt;li&gt;策略：定义一个算法的系列，将其各个分装，并且使他们有交互性，策略模式使得算法在用户使用的时候能独立地改变。&lt;/li&gt;
+&lt;li&gt;模板方法：模板方法模式准备一个抽象类，将部分逻辑以具体的方法及具体构造子类的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。先构建一个顶级逻辑框架，而将逻辑的细节留给具体的子类去实现。&lt;/li&gt;
+&lt;li&gt;访问者：封装一些施加于某种数据结构元素之上的操作。一旦这些操作需要修改，接受这个操作的数据结构可以保持不变。访问者模式适用于数据结构相对未定的系统，它把数据结果和作用于结构上的操作之间的耦合解开，使得操作集合可以相对自由的演化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>book-2. 苏黎世投机定律</title>
@@ -1904,529 +2297,6 @@ Return an RDD containing all pairs of elements with matching keys in this and ot
 &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/1.1.1/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions&quot;&gt;pairRDD API Docs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］4. spark RDD 之：什么是RDD</title>
-     <link href="/spark-what-is-rdd"/>
-     <updated>2014-12-08T00:00:00+08:00</updated>
-     <id>/spark-what-is-rdd</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 什么是RDD&lt;/h2&gt;
-
-&lt;p&gt;　　先看下源码里是怎么描述RDD的。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;blockquote&gt;&lt;p&gt;Internally, each RDD is characterized by five main properties:&lt;br/&gt;
-A list of partitions&lt;br/&gt;
-A function for computing each split &lt;br/&gt;
-A list of dependencies on other RDDs&lt;br/&gt;
-Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned) &lt;br/&gt;
-Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　每个RDD有5个主要的属性：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;一组分片（partition），即数据集的基本组成单位&lt;/li&gt;
-&lt;li&gt;一个计算每个分片的函数&lt;/li&gt;
-&lt;li&gt;对parent RDD的依赖，这个依赖描述了RDD之间的lineage&lt;/li&gt;
-&lt;li&gt;对于key-value的RDD，一个Partitioner，这是可选择的&lt;/li&gt;
-&lt;li&gt;一个列表，存储存取每个partition的preferred位置。对于一个HDFS文件来说，存储每个partition所在的块的位置。这也是可选择的&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　把上面这5个主要的属性总结一下，可以得出RDD的大致概念。首先要知道，RDD大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是spark项目组设计用来表示数据集的一种数据结构。而spark项目组为了让RDD能handle更多的问题，又规定RDD应该是只读的，分区记录的一种数据集合中。可以通过两种方式来创建RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建RDD的方式，即通过其他RDD来创建【以后叫做转换】而成。而正因为RDD满足了这么多特性，所以spark把RDD叫做Resilient Distributed Datasets，中文叫做弹性分布式数据集。很多文章都是先讲RDD的定义，概念，再来说RDD的特性。我觉得其实也可以倒过来，通过RDD的特性反过来理解RDD的定义和概念，通过这种由果溯因的方式来理解RDD也未尝不可。反正对我个人而言这种方式是挺好的。&lt;/p&gt;
-
-&lt;h2&gt;2. 理解RDD的几个关键概念&lt;/h2&gt;
-
-&lt;p&gt;　　本来我是想参考RDD的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先focus on几个关键点，到后期应用的时候再步步深入。&lt;br/&gt;
-　　所以，按照我个人的理解，我认为想用好spark，必须要理解RDD，而为了理解RDD，我认为只要了解下面几个RDD的几个关键点就能handle很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，谢谢。
-　　&lt;/p&gt;
-
-&lt;h3&gt;2.1 RDD的背景及解决的痛点问题&lt;/h3&gt;
-
-&lt;p&gt;　　按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that&#39;s all。&lt;/p&gt;
-
-&lt;h3&gt;2.2 What is DAG - 趣说有向无环图&lt;/h3&gt;
-
-&lt;p&gt;　　DAG - Direct Acyclic Graph，有向五无图，好久没看图片了，先发个图片来理解理解吧。
-&lt;img src=&quot;../../images/dag.jpg&quot; alt=&quot;DAG&quot; /&gt;&lt;br/&gt;
-　　要理解DAG，只需弄明白三个概念就可以毕业了，首先，我们假设上图图二中的A,B,C,D,E都代表spark里不同的RDD：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;图：图是表达RDD Lineage信息的一个结构，在spark中，大部分RDD都是通过其他RDD进行转换而来的，比如说上图图二中，B和D都是通过A转换而来的，而C是通过B转换而来，E的话是通过B和D一起转换来的。&lt;/li&gt;
-&lt;li&gt;有向：有向就更容易理解了，简单来说就是linage是一个top-down的结构，而且是时间序列上的top-down结构，这里不是很好理解，我们在下面讲“无环”这个概念是一起说明。&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;无环：这里就是重点要理解的地方了，我猜想spark的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下B,D,E这样一个RDD转换图，那当我们的需要执行D.collect操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。举个例子，我们按照时间序列分析一下图下左下的B,D,E三个RDD：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt; B通过某种方式初始化了第一个RDD【这里我们抛却A,C不谈】；&lt;/li&gt;
-&lt;li&gt; D通过某种转换从B生成第二个RDD；&lt;/li&gt;
-&lt;li&gt; E通过某种转换从D生成第三个RDD；&lt;/li&gt;
-&lt;li&gt; 现在B这个RDD已经存在了，所以根本无从说明B是从E通过转换生成的，为啥，因为B已经存在了；&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　够清楚了吗，啥，还不够清楚，好，那我告诉你，B是小明他爷爷，D是小明他爸爸，E是小明自己，你说小明他爷爷能是小明通过某种方式转换出现在这个世界上的吗？&lt;/p&gt;
-
-&lt;h3&gt;2.3 What is Data Locality - RDD的位置可见性&lt;/h3&gt;
-
-&lt;p&gt;　　这个问题就不重复造轮子了，直接引用Quora上的一个&lt;a href=&quot;https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark&quot;&gt;问答了&lt;/a&gt;。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;RDD is a dataset which is distributed, that is, it is divided into &quot;partitions&quot;. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to launch one task per partition of the RDD. Its best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data &quot;locally&quot; is known as &quot;locality aware scheduling&quot;.&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;h3&gt;2.4 What is Lazy Evaluation - 神马叫惰性求值&lt;/h3&gt;
-
-&lt;p&gt;　　本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫&quot;后续求值&quot;，&quot;按需计算&quot;，&quot;晚点搞&quot;这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。&lt;/p&gt;
-
-&lt;h3&gt;2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖&lt;/h3&gt;
-
-&lt;p&gt;　　首先，先从原文看看宽依赖和窄依赖各自的定义。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;　　&lt;strong&gt;narrow dependencies&lt;/strong&gt;: where each partition of the parent RDD is used by at most one partition of the child RDD, &lt;strong&gt;wide dependencis&lt;/strong&gt;, where multiple child partitions may depend on it.&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　按照&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;这篇RDD论文中文译文&lt;/a&gt;的解释，窄依赖是指子RDD的每个分区依赖于常数个父分区（即与数据规模无关）；宽依赖指子RDD的每个分区依赖于所有父RDD分区。暂且不说这样理解是否有偏差，我们先来从两个方面了解下计算一个窄依赖的子RDD和一个宽依赖的RDD时具体都有什么区别，然后再回顾这个定义。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;计算方面：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;计算窄依赖的子RDD：可以在某一个计算节点上直接通过父RDD的某几块数据（通常是一块）计算得到子RDD某一块的数据；&lt;/li&gt;
-&lt;li&gt;计算宽依赖的子RDD：子RDD某一块数据的计算必须等到它的父RDD所有数据都计算完成之后才可以进行，而且需要对父RDD的计算结果进行hash并传递到对应的节点之上；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;容错恢复方面：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;窄依赖：当父RDD的某分片丢失时，只有丢失的那一块数据需要被重新计算；&lt;/li&gt;
-&lt;li&gt;宽依赖：当父RDD的某分片丢失时，需要把父RDD的所有分区数据重新计算一次，计算量明显比窄依赖情况下大很多；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. 尚未提到的一些重要概念&lt;/h2&gt;
-
-&lt;p&gt;　　还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。
-　　&lt;/p&gt;
-
-&lt;h2&gt;4. 参考资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;Spark技术内幕：究竟什么是RDD&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
-In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;RDD 论文中文版&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］3. 使用Spark分析wikipedia流量数据</title>
-     <link href="/using-amazon-aws-2"/>
-     <updated>2014-12-02T00:00:00+08:00</updated>
-     <id>/using-amazon-aws-2</id>
-     <content type="html">&lt;p&gt;　　本文是接上一篇的，所以序号就延续下来了。上一篇主要记录一些EC2配置和启动的问题，有兴趣请移步&lt;a href=&quot;../using-amazon-aws-1&quot;&gt;Amazon AWS EC2 入门&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;4. 利用spark来分析wikipedia流量数据&lt;/h2&gt;
-
-&lt;p&gt;　　启动spark shell。路径在/root/spark/spark-shell。&lt;/p&gt;
-
-&lt;h3&gt;4.1  热身&lt;/h3&gt;
-
-&lt;p&gt;　　创建一个RDD，在spark-shell中，可以用sc代替SparkContext来创建RDD。这里需要注意一点，在Scala中有两种变量类型var和val，其中var是variable的缩写，val是value的缩写。顾名思义，var是可变的，val是不可变的。简单的可以把val理解成C/C++里的常量，或者Erlang里的变量【Erlang里的变量具有单次赋值的特征】。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;scala&amp;gt; var a =&quot;aaa&quot;
-a: java.lang.String = aaa
-
-scala&amp;gt; a = &quot;a&quot;
-a: java.lang.String = a
-
-scala&amp;gt; val b = &quot;aaa&quot;
-b: java.lang.String = aaa
-
-scala&amp;gt; b = &quot;a&quot;
-&amp;lt;console&amp;gt;:12: error: reassignment to val
-       b = &quot;a&quot;
-         ^
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　这里我们需要用val来指定一个新建的RDD，原因有2：第一，我们不需要对RDD做in place的改变，所以可以采用val来指定；其次，我们不应该对RDD做in place的改变，所以必须采用val来指定。下面，我们新建一个val型pagecounts变量，读取wikipedia 20GB的流量数据，并以两种方式打印前3条数据。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;scala&amp;gt; val pagecounts = sc.textFile(&quot;/wiki/pagecounts&quot;)
-14/12/04 05:58:35 INFO mapred.FileInputFormat: Total input paths to process : 74
-pagecounts: spark.RDD[String] = spark.MappedRDD@2fddef87
-
-scala&amp;gt; pagecounts.take(3)
-14/12/04 05:58:49 INFO spark.SparkContext: Starting job...
-14/12/04 05:58:49 INFO spark.CacheTracker: Registering RDD ID 1 with cache
-14/12/04 05:58:49 INFO spark.CacheTrackerActor: Registering RDD 1 with 177 partitions
-14/12/04 05:58:49 INFO spark.CacheTracker: Registering RDD ID 0 with cache
-14/12/04 05:58:49 INFO spark.CacheTrackerActor: Registering RDD 0 with 177 partitions
-14/12/04 05:58:49 INFO spark.CacheTrackerActor: Asked for current cache locations
-14/12/04 05:58:49 INFO spark.MesosScheduler: Final stage: Stage 0
-14/12/04 05:58:49 INFO spark.MesosScheduler: Parents of final stage: List()
-14/12/04 05:58:49 INFO spark.MesosScheduler: Missing parents: List()
-14/12/04 05:58:49 INFO spark.MesosScheduler: Computing the requested partition locally
-14/12/04 05:58:49 INFO spark.SparkContext: Job finished in 0.098193078 s
-14/12/04 05:58:49 INFO spark.SparkContext: Starting job...
-14/12/04 05:58:49 INFO spark.CacheTrackerActor: Asked for current cache locations
-14/12/04 05:58:49 INFO spark.MesosScheduler: Final stage: Stage 1
-14/12/04 05:58:49 INFO spark.MesosScheduler: Parents of final stage: List()
-14/12/04 05:58:49 INFO spark.MesosScheduler: Missing parents: List()
-14/12/04 05:58:49 INFO spark.MesosScheduler: Computing the requested partition locally
-14/12/04 05:58:49 INFO spark.SparkContext: Job finished in 0.026119526 s
-res1: Array[String] = Array(20090505-000000 aa.b ?71G4Bo1cAdWyg 1 14463, 20090505-000000 aa.b Special:Statistics 1 840, 20090505-000000 aa.b Special:Whatlinkshere/MediaWiki:Returnto 1 1019)
-
-scala&amp;gt; pagecounts.take(3).foreach(println)
-14/12/04 05:59:16 INFO spark.SparkContext: Starting job...
-14/12/04 05:59:16 INFO spark.CacheTrackerActor: Asked for current cache locations
-14/12/04 05:59:16 INFO spark.MesosScheduler: Final stage: Stage 2
-14/12/04 05:59:16 INFO spark.MesosScheduler: Parents of final stage: List()
-14/12/04 05:59:16 INFO spark.MesosScheduler: Missing parents: List()
-14/12/04 05:59:16 INFO spark.MesosScheduler: Computing the requested partition locally
-14/12/04 05:59:16 INFO spark.SparkContext: Job finished in 0.004355182 s
-14/12/04 05:59:16 INFO spark.SparkContext: Starting job...
-14/12/04 05:59:16 INFO spark.CacheTrackerActor: Asked for current cache locations
-14/12/04 05:59:16 INFO spark.MesosScheduler: Final stage: Stage 3
-14/12/04 05:59:16 INFO spark.MesosScheduler: Parents of final stage: List()
-14/12/04 05:59:16 INFO spark.MesosScheduler: Missing parents: List()
-14/12/04 05:59:16 INFO spark.MesosScheduler: Computing the requested partition locally
-14/12/04 05:59:16 INFO spark.SparkContext: Job finished in 0.016392708 s
-20090505-000000 aa.b ?71G4Bo1cAdWyg 1 14463
-20090505-000000 aa.b Special:Statistics 1 840
-20090505-000000 aa.b Special:Whatlinkshere/MediaWiki:Returnto 1 1019
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;4.2 初试RDD Transfomation 和 RDD Action&lt;/h3&gt;
-
-&lt;p&gt;　　下面，我们来演示一个RDD Transformation的例子。关于RDD Transformation，这篇有详细介绍和示例&lt;a href=&quot;../spark-transformers/&quot;&gt;spark RDD transformation 学习&lt;/a&gt;。首先，我们先看看这20GB的文件里有多少条数据，然后查询一下看所有流量数据中，有多少条是浏览的英文wiki。&lt;br/&gt;
-　　首先，执行pagecounts.count来查看有多少条数据。这个动作会产生177个spark任务，这里是从HDFS读书数据，所以这个任务的瓶颈实在I/O这块，整个任务执行下来大概2~3分钟。这里我执行了几次，大概花了2分钟左右的时间，执行结果如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; pagecounts.count
-.
-.
-.
-14/12/05 01:19:58 INFO spark.SimpleJob: Finished TID 173 (progress: 177/177)
-14/12/05 01:19:58 INFO spark.MesosScheduler: Completed ResultTask(0, 174)
-14/12/05 01:19:58 INFO spark.SparkContext: Job finished in 95.251659404 s
-res0: Long = 329641466
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　在任务运行的时候，可以打开web窗口访问：http://&lt;master_node_hostname&gt;:8080 来实时观察执行进度。下面是我的一个截图示例：&lt;br/&gt;
-&lt;img src=&quot;../../images/mesos-cluster.png&quot; alt=&quot;mesos-cluster&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　现在，我们来利用现在这个RDD来trasform出另外一个RDD，用于记录英文wiki的数据。也通过把英文wiki的流量数据写到内存里，来比较一下数据在内存中和不在内存中两种情况下一些操作的耗时。这个测试需要下面4步：&lt;br/&gt;
-　　1. 通过trasformation生成一个RDD[enPages]，记录英文wiki流量数据，因为这个步骤也需要遍历一边所有数据，所以这个步骤耗时也应该和上一个 pagecounts.count 耗时相当。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;scala&amp;gt; val enPages = pagecounts.filter(_.split(&quot; &quot;)(1) == &quot;en&quot;)
-enPages: spark.RDD[String] = spark.FilteredRDD@1b8f2e35
-
-scala&amp;gt; enPages.count
-.
-.
-.
-14/12/05 01:51:01 INFO spark.SparkContext: Job finished in 114.035390332 s
-res1: Long = 122352588
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　2. 把enPages缓存到内存中&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;scala&amp;gt; enPages.cache
-res0: spark.RDD[String] = spark.FilteredRDD@78bf34f4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　3. 执行enPages.count，看看执行速度有神马区别，what happened? 按照原计划，现在不应该是神速吗？仔细看看下面的执行log，是不是有一种恍然大悟的赶脚啊？&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;scala&amp;gt; enPages.count
-.
-.
-.
-14/12/05 01:59:33 INFO spark.SimpleJob: Size of task 0:176 is 10680 bytes and took 4 ms to serialize by spark.JavaSerializerInstance
-14/12/05 01:59:33 INFO spark.CacheTrackerActor: Cache entry added: (2, 176) on ip-172-31-25-137.ec2.internal (size added: 16.0B, available: 6.0GB)
-14/12/05 01:59:33 INFO spark.SimpleJob: Finished TID 176 (progress: 172/177)
-14/12/05 01:59:33 INFO spark.MesosScheduler: Completed ResultTask(0, 176)
-14/12/05 01:59:34 INFO spark.CacheTrackerActor: Cache entry added: (2, 170) on ip-172-31-25-139.ec2.internal (size added: 10.3MB, available: 5.0GB)
-14/12/05 01:59:34 INFO spark.SimpleJob: Finished TID 169 (progress: 173/177)
-14/12/05 01:59:34 INFO spark.MesosScheduler: Completed ResultTask(0, 170)
-14/12/05 01:59:35 INFO spark.CacheTrackerActor: Cache entry added: (2, 172) on ip-172-31-25-137.ec2.internal (size added: 183.3MB, available: 5.8GB)
-14/12/05 01:59:35 INFO spark.SimpleJob: Finished TID 171 (progress: 174/177)
-14/12/05 01:59:35 INFO spark.MesosScheduler: Completed ResultTask(0, 172)
-14/12/05 01:59:35 INFO spark.CacheTrackerActor: Cache entry added: (2, 175) on ip-172-31-25-138.ec2.internal (size added: 16.0B, available: 6.1GB)
-14/12/05 01:59:35 INFO spark.SimpleJob: Finished TID 174 (progress: 175/177)
-14/12/05 01:59:35 INFO spark.MesosScheduler: Completed ResultTask(0, 175)
-14/12/05 01:59:36 INFO spark.CacheTrackerActor: Cache entry added: (2, 173) on ip-172-31-25-138.ec2.internal (size added: 16.0B, available: 6.1GB)
-14/12/05 01:59:36 INFO spark.SimpleJob: Finished TID 172 (progress: 176/177)
-14/12/05 01:59:36 INFO spark.MesosScheduler: Completed ResultTask(0, 173)
-14/12/05 01:59:36 INFO spark.CacheTrackerActor: Cache entry added: (2, 174) on ip-172-31-25-139.ec2.internal (size added: 178.3MB, available: 4.8GB)
-14/12/05 01:59:36 INFO spark.SimpleJob: Finished TID 173 (progress: 177/177)
-14/12/05 01:59:36 INFO spark.MesosScheduler: Completed ResultTask(0, 174)
-14/12/05 01:59:36 INFO spark.SparkContext: Job finished in 130.727017576 s
-res0: Long = 122352588
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　4. 好，现在我们再次执行enPages.count，看看是不是有神马神奇的事情发生了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; enPages.count
-.
-.
-.
-14/12/05 02:12:01 INFO spark.SparkContext: Job finished in 2.492567199 s
-res2: Long = 122352588
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　
-　　哇，130秒和2.5秒的对决，心算一下，52倍啊，如果visualize一下这个数据，估计会更让人吃惊吧。擅于YY的我不禁用echarts画了个图，感受一下内存计算的神速。画图代码如下，直接把代码粘贴到&lt;a href=&quot;http://echarts.baidu.com/doc/example/bar1.html#macarons&quot;&gt;echarts bar&lt;/a&gt;，在再点击刷新就可以看到图了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;option = {
-    title : {
-        text: &#39;enPages.count&#39;,
-        subtext: &#39;by taotao.li&#39;
-    },
-    tooltip : {
-        trigger: &#39;axis&#39;
-    },
-    legend: {
-        data:[&#39;no cache&#39;,&#39;cache&#39;]
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: [&#39;line&#39;, &#39;bar&#39;]},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : &#39;category&#39;,
-            data : [&#39;one time&#39;]
-        }
-    ],
-    yAxis : [
-        {
-            type : &#39;value&#39;
-        }
-    ],
-    series : [
-        {
-            name:&#39;no cache&#39;,
-            type:&#39;bar&#39;,
-            data:[130.727017576]
-        },
-        {
-            name:&#39;cache&#39;,
-            type:&#39;bar&#39;,
-            data:[2.492567199]
-        }
-    ]
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/enPages-pic.png&quot; alt=&quot;enPages-pic&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;4.3 分析wikipedia的每日PV&lt;/h3&gt;
-
-&lt;p&gt;　　重新温习一下&lt;a href=&quot;../using-amazon-aws-1&quot;&gt;上一篇末尾&lt;/a&gt;分析的wiki流量数据的格式如下：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；&lt;/li&gt;
-&lt;li&gt;project_code：表示对应的页面所使用的语言；&lt;/li&gt;
-&lt;li&gt;page_title：表示访问的wiki标题；&lt;/li&gt;
-&lt;li&gt;num_hits：表示从date_time起一小时内的浏览量；&lt;/li&gt;
-&lt;li&gt;page_size： 表示以字节为单位，这个页面的大小；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　OK，现在我们如果想要分析wiki流量的日PV，在上面5个字段中应该最关注的是date_time和num_hits吧。所以这里我们针对每一行数据创建一个key-value对，其中key是date_time，value是num_hits，在相加上相同的key对应的value就可以了。 下面我们把这些步骤拆开，一步一步分析，其中有些输出我就省略了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; val enTuples = enPages.map(line =&amp;gt; line.split(&quot; &quot;))
-enTuples: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@34ba89c5
-
-scala&amp;gt; enTuples.take(5)
-.
-.
-.
-14/12/08 03:05:26 INFO spark.SparkContext: Job finished in 7.956625757 s
-res3: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
-
-
-scala&amp;gt; val enKeyValuePairs = enTuples.map(line =&amp;gt; (line(0).substring(0, 8), line(3).toInt))
-enKeyValuePairs: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5e62a8d2
-
-scala&amp;gt; enKeyValuePairs.take(5).foreach(println)
-.
-.
-.
-14/12/08 03:07:58 INFO spark.SparkContext: Job finished in 0.001414429 s
-(20090505,4)
-(20090505,21)
-(20090505,9)
-(20090505,2)
-(20090505,2)
-
-scala&amp;gt; val dailyPv = enKeyValuePairs.reduceByKey(_+_, 1)
-dailyPv: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@50a934ec
-
-scala&amp;gt; dailyPv.take(5).foreach(println)
-.
-.
-.
-14/12/08 03:13:18 INFO spark.SparkContext: Job finished in 26.776559986 s
-(20090506,204190442)
-(20090507,202617618)
-(20090505,207698578)
-
-scala&amp;gt; dailyPv.collect
-.
-.
-.
-14/12/08 03:13:45 INFO spark.SparkContext: Job finished in 0.145675681 s
-res8: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　最后的collect方法会把RDD 转换成scala里的数组。take(n)方法是取出前n条，因为这里我们就分析3天的数据，所以最多也只能取钱3天的，这里take(5)是看看这样会不会有什么错误提示呢。&lt;br/&gt;
-　　上面我们大概用了3-4行语句来完成这个统计，这已经很强大了。而spark更强大的地方是它提供的编程模型，即transformation和action，虽然这些行为也就寥寥数十个，但已经足够处理大多数常见的问题了。比如说上面这个统计日PV的查询，在spark里其实完全可以把上面3-4行语句组合成一行语句，也就是说，在spark里，只有一行语句就可以统计当前wiki数据集下的日PV了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; enPages.map(line =&amp;gt; line.split(&quot; &quot;)).map(line =&amp;gt; (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
-.
-.
-.
-14/12/08 03:25:03 INFO spark.SparkContext: Job finished in 27.144072883 s
-res12: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;&lt;p&gt;　　&lt;strong&gt;可是老湿，你上面不是说只用一行语句就可以统计当前wiki数据集下的日PV的吗？可你这里用的是enPages啊！enPages不也是结果转换的吗，得把前几句加上吧？老湿，你骗我！！！&lt;/strong&gt;&lt;br/&gt;
-&lt;img src=&quot;../../images/wawawa.gif&quot; alt=&quot;wawawa&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　&lt;strong&gt;同学，你问这个问题是不是刚才又写情书去了？既然enPages也是由其他RDD转换而来的，那这里不也可以把enPages替换成其他的RDD与与对应的transformation吗？&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/laoshi.gif&quot; alt=&quot;laoshi&quot; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; pagecounts.filter(_.split(&quot; &quot;)(1) == &quot;en&quot;).map(line =&amp;gt; line.split(&quot; &quot;)).map(line =&amp;gt; (line(0).substring(0,8), line(3).toInt)).reduceByKey(_+_, 1).collect
- .
- .
- .
- 14/12/08 04:33:52 INFO spark.SparkContext: Job finished in 151.78660518 s
-res14: Array[(java.lang.String, Int)] = Array((20090506,204190442), (20090507,202617618), (20090505,207698578))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;4.4 做点有趣的事情，看看哪些网页浏览次数最多&lt;/h3&gt;
-
-&lt;p&gt;　　OK，其实分析每日PV已经是一个很有用的分析案例了。特别是长时间段的，比如说一周，一月，一季等，这些数据会让公司在容灾容错方面有很大启发。同样有用的是分析热点数据，即哪些页面是用户最常访问的，这个在缓存系统建立方面是绝对的关键啊。想一想，要是你把一个用户很少访问的页面放到缓存系统里，是不是既浪费了昂贵的缓存空间，又费力不讨好，简直是事倍功半啊。所以，现在我们就来做一件事，根据wiki这几日的流量数据，分析一下用户最常访问的wiki页面。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;　　&lt;strong&gt;要不，我们先预测一下。我个人觉得，怎么说至少也应该有主页，帮助页面吧。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;　　当然，首先还是需要继续温习一下数据流量的格式啊：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;date_time: 以YYYYMMDD-HHMMSS格式表示的访问时间，且以小时为单位；&lt;/li&gt;
-&lt;li&gt;project_code：表示对应的页面所使用的语言；&lt;/li&gt;
-&lt;li&gt;page_title：表示访问的wiki标题；&lt;/li&gt;
-&lt;li&gt;num_hits：表示从date_time起一小时内的浏览量；&lt;/li&gt;
-&lt;li&gt;page_size： 表示以字节为单位，这个页面的大小；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　既然我们要找到最常访问的热点数据，那就应该关注page_title和num_hits了。so，用分析日PV同样的思路，我们来分析一下热点数据：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scala&amp;gt; enPages.take(5)
-.
-.
-.
-14/12/08 04:59:48 INFO spark.SparkContext: Job finished in 9.6166E-4 s
-res15: Array[String] = Array(20090505-000000 en ! 4 170494, 20090505-000000 en !!! 21 306957, 20090505-000000 en !!!Fuck_You!!! 9 87025, 20090505-000000 en !!!Fuck_You!!!_And_Then_Some 2 18249, 20090505-000000 en !!!Fuck_You!!!_and_Then_Some 2 17960)
-
-scala&amp;gt; val enPageArray = enPages.map( l=&amp;gt;l.split(&quot; &quot;))
-enPageArray: spark.RDD[Array[java.lang.String]] = spark.MappedRDD@27174693
-
-scala&amp;gt; enPageArray.take(5)
-.
-.
-.
-14/12/08 05:02:28 INFO spark.SparkContext: Job finished in 0.001180471 s
-res16: Array[Array[java.lang.String]] = Array(Array(20090505-000000, en, !, 4, 170494), Array(20090505-000000, en, !!!, 21, 306957), Array(20090505-000000, en, !!!Fuck_You!!!, 9, 87025), Array(20090505-000000, en, !!!Fuck_You!!!_And_Then_Some, 2, 18249), Array(20090505-000000, en, !!!Fuck_You!!!_and_Then_Some, 2, 17960))
-
-scala&amp;gt; val enPageKeyValue = enPageArray.map(l =&amp;gt;(l(2), l(3).toInt))
-enPageKeyValue: spark.RDD[(java.lang.String, Int)] = spark.MappedRDD@5b68b32
-
-scala&amp;gt; enPageKeyValue.take(5)
-.
-.
-.
-14/12/08 05:03:54 INFO spark.SparkContext: Job finished in 0.00113825 s
-res17: Array[(java.lang.String, Int)] = Array((!,4), (!!!,21), (!!!Fuck_You!!!,9), (!!!Fuck_You!!!_And_Then_Some,2), (!!!Fuck_You!!!_and_Then_Some,2))
-
-scala&amp;gt; val keyValueUnion = enPageKeyValue.reduceByKey(_+_, 40)
-keyValueUnion: spark.RDD[(java.lang.String, Int)] = spark.ShuffledRDD@7843f53
-
-scala&amp;gt; keyValueUnion.take(5).foreach(println)
-.
-.
-.
-14/12/08 05:17:35 INFO spark.SparkContext: Job finished in 98.416456363 s
-(Einst%C3%83%C2%BCrzende_Neubauten,2)
-(Maxemail,1)
-(Michael_Carl,4)
-(Boothe_Homestead,1)
-(File:The_Photographer.jpg,20)
-
-scala&amp;gt; val valueKey = keyValueUnion.map(x=&amp;gt;(x._2, x._1))
-valueKey: spark.RDD[(Int, java.lang.String)] = spark.MappedRDD@47a82a6a
-
-scala&amp;gt; valueKey.take(5).foreach(println)
-
-14/12/08 05:19:42 INFO spark.SparkContext: Job finished in 4.196323691 s
-(2,Einst%C3%83%C2%BCrzende_Neubauten)
-(4,Michael_Carl)
-(1,Maxemail)
-(1,Boothe_Homestead)
-(20,File:The_Photographer.jpg)
-
-scala&amp;gt; valueKey.sortByKey(false).take(5).foreach(println)
-.
-.
-.
-14/12/08 05:21:59 INFO spark.SparkContext: Job finished in 41.025906283 s
-(43822489,404_error/)
-(18730347,Main_Page)
-(17657352,Special:Search)
-(5816953,Special:Random)
-(3521336,Special:Randompage)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　思路依然和分析每日PV是一样的，当然也可以组织成一行语句：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;val hotPage = enPages.map(l =&amp;gt; l.split(&quot; &quot;)).map(l =&amp;gt; (l(2), l(3).toInt)).reduceByKey(_+_, 40).map(x =&amp;gt; (x._2, x._1)).sortByKey(false).take(10).foreach(println)
-.
-.
-.
-14/12/08 09:57:30 INFO spark.SparkContext: Job finished in 41.232081196 s
-(43822489,404_error/)
-(18730347,Main_Page)
-(17657352,Special:Search)
-(5816953,Special:Random)
-(3521336,Special:Randompage)
-(695817,Cinco_de_Mayo)
-(534253,Swine_influenza)
-(464935,Wiki)
-(396776,Dom_DeLuise)
-(382510,Deadpool_(comics))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　好，这篇我们就先实践到这里。接下来体会一下shark的power，有兴趣的同志请移步&lt;a href=&quot;../using-amazon-aws-3-shark&quot;&gt;Spark Shark使用&lt;/a&gt;。&lt;/p&gt;
 </content>
    </entry>
    
