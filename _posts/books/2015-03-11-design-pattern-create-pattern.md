@@ -1,12 +1,10 @@
 ---
 category: books
-published: false
+published: true
 layout: post
 title: book-3. 设计模式总结之创建型模式
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---  
-
-
 
 ## 
 ## 1. 抽象工厂模式
@@ -179,4 +177,154 @@ for msgid in "dog parrot cat bear".split():
 # parrot parrot
 # cat γάτα
 # bear bear
+```
+
+## 3. 单例模式
+　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。
+
+　　实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。
+
+　　单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，有两个线程同时调用创建方法，那么它们同时没有检测到唯一实例的存在，从而同时各自创建了一个实例，这样就有两个实例被构造出来，从而违反了单例模式中实例唯一的原则。 解决这个问题的办法是为指示类是否已经实例化的变量提供一个互斥锁(虽然这样会降低效率)。
+
+### 3.1 Python源码示例
+　　源码来自[csdn.net](http://blog.csdn.net/ghostfromheaven/article/details/7671853)
+
+```
+#-*- encoding=utf-8 -*-
+print '----------------------方法1--------------------------'
+#方法1,实现__new__方法
+#并在将一个类的实例绑定到类变量_instance上,
+#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回
+#如果cls._instance不为None,直接返回cls._instance
+class Singleton(object):
+    def __new__(cls, *args, **kw):
+        if not hasattr(cls, '_instance'):
+            orig = super(Singleton, cls)
+            cls._instance = orig.__new__(cls, *args, **kw)
+        return cls._instance
+
+class MyClass(Singleton):
+    a = 1
+
+one = MyClass()
+two = MyClass()
+
+two.a = 3
+print one.a
+#3
+#one和two完全相同,可以用id(), ==, is检测
+print id(one)
+#29097904
+print id(two)
+#29097904
+print one == two
+#True
+print one is two
+#True
+
+print '----------------------方法2--------------------------'
+#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)
+#同一个类的所有实例天然拥有相同的行为(方法),
+#只需要保证同一个类的所有实例具有相同的状态(属性)即可
+#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)
+#可参看:http://code.activestate.com/recipes/66531/
+class Borg(object):
+    _state = {}
+    def __new__(cls, *args, **kw):
+        ob = super(Borg, cls).__new__(cls, *args, **kw)
+        ob.__dict__ = cls._state
+        return ob
+
+class MyClass2(Borg):
+    a = 1
+
+one = MyClass2()
+two = MyClass2()
+
+#one和two是两个不同的对象,id, ==, is对比结果可看出
+two.a = 3
+print one.a
+#3
+print id(one)
+#28873680
+print id(two)
+#28873712
+print one == two
+#False
+print one is two
+#False
+#但是one和two具有相同的（同一个__dict__属性）,见:
+print id(one.__dict__)
+#30104000
+print id(two.__dict__)
+#30104000
+
+print '----------------------方法3--------------------------'
+#方法3:本质上是方法1的升级（或者说高级）版
+#使用__metaclass__（元类）的高级python用法
+class Singleton2(type):
+    def __init__(cls, name, bases, dict):
+        super(Singleton2, cls).__init__(name, bases, dict)
+        cls._instance = None
+    def __call__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = super(Singleton2, cls).__call__(*args, **kw)
+        return cls._instance
+
+class MyClass3(object):
+    __metaclass__ = Singleton2
+
+one = MyClass3()
+two = MyClass3()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#31495472
+print id(two)
+#31495472
+print one == two
+#True
+print one is two
+#True
+
+print '----------------------方法4--------------------------'
+#方法4:也是方法1的升级（高级）版本,
+#使用装饰器(decorator),
+#这是一种更pythonic,更elegant的方法,
+#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的
+def singleton(cls, *args, **kw):
+    instances = {}
+    def _singleton():
+        if cls not in instances:
+            instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return _singleton
+
+@singleton
+class MyClass4(object):
+    a = 1
+    def __init__(self, x=0):
+        self.x = x
+
+one = MyClass4()
+two = MyClass4()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#29660784
+print id(two)
+#29660784
+print one == two
+#True
+print one is two
+#True
+one.x = 1
+print one.x
+#1
+print two.x
+#1
 ```
