@@ -107,7 +107,82 @@ The IPython notebook web-application is based on a server-client structure. This
 
 ## 8. Configuration and customization
 
+### 8.1 Serveral config methods
 
+- Config files
+- Command line arguments
+- The config magics
+
+### 8.2 IPython options
+重点研究notebook options和kernel options，细节用到时再仔细看。
+
+- Terminal IPython options
+- IPython kernel options
+- IPython notebook options
+- IPython Qt console options
+
+### 8.3 IPython extensions
+A level above configuration are IPython extensions, Python modules which modify the behaviour of the shell. They are referred to by an importable module name, and can be placed anywhere you’d normally import from, or in .ipython/extensions/.
+
+## 9. IPython developer’s guide
+This are two categories of developer focused documentation:
+
+- Documentation for developers of IPython itself.
+- Documentation for developers of third party tools and libraries that use IPython.
+
+This part of our documentation only contains information in the second category.
+
+Developers interested in working on IPython itself should consult our developer information on the IPython GitHub wiki.
+
+## 10 How IPython works
+
+### 10.1 Terminal IPython  
+
+When you type ipython, you get the original IPython interface, running in the terminal. It does something like this:
+
+    while True:
+        code = input(">>> ")
+        exec(code)
+
+Of course, it’s much more complex, because it has to deal with multi-line code, tab completion using readline, magic commands, and so on. But the model is like that: prompt the user for some code, and when they’ve entered it, exec it in the same process. This model is often called a REPL, or Read-Eval-Print-Loop.
+
+### 10.2 The IPython Kernel 
+
+All the other interfaces—the Notebook, the Qt console, ipython console in the terminal, and third party interfaces—use the IPython Kernel. This is a separate process which is responsible for running user code, and things like computing possible completions. Frontends communicate with it using JSON messages sent over ZeroMQ sockets; the protocol they use is described in Messaging in IPython.
+
+The core execution machinery for the kernel is shared with terminal IPython:
+
+![ipy_kernel_and_terminal.png](../images/ipy_kernel_and_terminal.png)
+
+A kernel process can be connected to more than one frontend simultaneously. In this case, the different frontends will have access to the same variables.
+
+This design was intended to allow easy development of different frontends based on the same kernel, but it also made it possible to support new languages in the same frontends, by developing kernels in those languages, and we are refining IPython to make that more practical.
+
+Today, there are two ways to develop a kernel for another language. Wrapper kernels reuse the communications machinery from IPython, and implement only the core execution part. Native kernels implement execution and communications in the target language:
+
+![other_kernels.png](../images/other_kernels.png)
+
+Wrapper kernels are easier to write quickly for languages that have good Python wrappers, like octave_kernel, or languages where it’s impractical to implement the communications machinery, like bash_kernel. Native kernels are likely to be better maintained by the community using them, like IJulia or IHaskell.
+
+### 10.3 Notebook
+
+The Notebook frontend does something extra. In addition to running your code, it stores code and output, together with markdown notes, in an editable document called a notebook. When you save it, this is sent from your browser to the notebook server, which saves it on disk as a JSON file with a .ipynb extension.
+
+![notebook_components.png](../images/notebook_components.png)
+
+The notebook server, not the kernel, is responsible for saving and loading notebooks, so you can edit notebooks even if you don’t have the kernel for that language—you just won’t be able to run code. The kernel doesn’t know anything about the notebook document: it just gets sent cells of code to execute when the user runs them.
+
+The Nbconvert tool in IPython converts notebook files to other formats, such as HTML, LaTeX, or reStructuredText. This conversion goes through a series of steps:
+
+![nbconvert.png](../images/nbconvert.png) 
+
+- Preprocessors modify the notebook in memory. E.g. ExecutePreprocessor runs the code in the notebook and updates the output.
+- An exporter converts the notebook to another file format. Most of the exporters use templates for this.
+- Postprocessors work on the file produced by exporting.
+
+The nbviewer website uses nbconvert with the HTML exporter. When you give it a URL, it fetches the notebook from that URL, converts it to HTML, and serves that HTML to you.
+
+## 11. Messaging in IPython
 
 
 
