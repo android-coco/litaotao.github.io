@@ -184,6 +184,79 @@ The nbviewer website uses nbconvert with the HTML exporter. When you give it a U
 
 ## 11. Messaging in IPython
 
+The IPython message specification is versioned independently of IPython. The current version of the specification is 5.0.
+
+### 11.1 Introduction
+
+This document explains the basic communications design and messaging specification for how the various IPython objects interact over a network transport. The current implementation uses the ZeroMQ library for messaging within and between hosts.
+
+The basic design is explained in the following diagram:
+
+![frontend-kernel.png](../images/frontend-kernel.png)
+
+A single kernel can be simultaneously connected to one or more frontends. The kernel has three sockets that serve the following functions:
+
+- Shell: this single ROUTER socket allows multiple incoming connections from frontends, and this is the socket where requests for code execution, object information, prompts, etc. are made to the kernel by any frontend. The communication on this socket is a sequence of request/reply actions from each frontend and the kernel.
+
+- IOPub: this socket is the ‘broadcast channel’ where the kernel publishes all side effects (stdout, stderr, etc.) as well as the requests coming from any client over the shell socket and its own requests on the stdin socket. There are a number of actions in Python which generate side effects: print() writes to sys.stdout, errors generate tracebacks, etc. Additionally, in a multi-client scenario, we want all frontends to be able to know what each other has sent to the kernel (this can be useful in collaborative scenarios, for example). This socket allows both side effects and the information about communications taking place with one client over the shell channel to be made available to all clients in a uniform manner.
+
+- stdin: this ROUTER socket is connected to all frontends, and it allows the kernel to request input from the active frontend when raw_input() is called. The frontend that executed the code has a DEALER socket that acts as a ‘virtual keyboard’ for the kernel while this communication is happening (illustrated in the figure by the black outline around the central keyboard). In practice, frontends may display such kernel requests using a special input widget or otherwise indicating that the user is to type input for the kernel instead of normal commands in the frontend.   
+All messages are tagged with enough information (details below) for clients to know which messages come from their own interaction with the kernel and which ones are from other clients, so they can display each type appropriately.
+
+- Control: This channel is identical to Shell, but operates on a separate socket, to allow important messages to avoid queueing behind execution requests (e.g. shutdown or abort).
+
+The actual format of the messages allowed on each of these channels is specified below. Messages are dicts of dicts with string keys and values that are reasonably representable in JSON. Our current implementation uses JSON explicitly as its message format, but this shouldn’t be considered a permanent feature. As we’ve discovered that JSON has non-trivial performance issues due to excessive copying, we may in the future move to a pure pickle-based raw message format. However, it should be possible to easily convert from the raw objects to JSON, since we may have non-python clients (e.g. a web frontend). As long as it’s easy to make a JSON version of the objects that is a faithful representation of all the data, we can communicate with such clients.
+
+### 11.2 General Message Format
+
+A message is defined by the following four-dictionary structure:
+
+```
+{
+  # The message header contains a pair of unique identifiers for the
+  # originating session and the actual message id, in addition to the
+  # username for the process that generated the message.  This is useful in
+  # collaborative settings where multiple users may be interacting with the
+  # same kernel simultaneously, so that frontends can label the various
+  # messages in a meaningful way.
+  'header' : {
+                'msg_id' : uuid,
+                'username' : str,
+                'session' : uuid,
+                # All recognized message type strings are listed below.
+                'msg_type' : str,
+                # the message protocol version
+                'version' : '5.0',
+     },
+
+  # In a chain of messages, the header from the parent is copied so that
+  # clients can track where messages come from.
+  'parent_header' : dict,
+
+  # Any metadata associated with the message.
+  'metadata' : dict,
+
+  # The actual content of the message must be a dict, whose structure
+  # depends on the message type.
+  'content' : dict,
+}
+```
+
+## 12. Making kernels for IPython
+
+A ‘kernel’ is a program that runs and introspects the user’s code. IPython includes a kernel for Python code, and people have written kernels for several other languages.
+
+When IPython starts a kernel, it passes it a connection file. This specifies how to set up communications with the frontend.
+
+There are two options for writing a kernel:
+
+- You can reuse the IPython kernel machinery to handle the communications, and just describe how to execute your code. This is much simpler if the target language can be driven from Python. See Making simple Python wrapper kernels for details.
+- You can implement the kernel machinery in your target language. This is more work initially, but the people using your kernel might be more likely to contribute to it if it’s in the language they know.
+
+
+
+
+
 
 
 # . 学习资源

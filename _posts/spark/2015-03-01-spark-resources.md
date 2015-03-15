@@ -35,6 +35,7 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
     + Suited for machine learning algorithms;              
 
 - **广深**：[Spark专刊之：spark最佳学习路径](http://down.51cto.com/tag-spark%E4%B8%93%E5%88%8A.html)      
+- **广深**：[Spark专刊之：spark运行原理解析](http://down.51cto.com/tag-spark%E4%B8%93%E5%88%8A.html)      
 **备注**：国人整理和翻译的spark学习资料，质量不错哦~
 
 
