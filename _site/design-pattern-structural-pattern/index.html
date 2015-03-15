@@ -1,19 +1,59 @@
----
-category: books
-published: true
-layout: post
-title: book-3. 设计模式总结之结构型模式
-description: 仅仅是记录我个人的读书记录，看官不必在意～
----  
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>book-3. 设计模式总结之结构型模式 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  body { background:transparent; }
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
 
-## 
-## 1. 适配器模式
-　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
 
-### 1.1 Python源码示例
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/design-pattern-structural-pattern" title="book-3. 设计模式总结之结构型模式">book-3. 设计模式总结之结构型模式</a></h1>
 
-```
-#!/usr/bin/env python
+    <p class="entry-date">2015-03-13 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-13-design-pattern-structural-pattern.md">最后更新时间: </span></p>
+
+    <h2></h2>
+
+<h2>1. 适配器模式</h2>
+
+<p>　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
+
+<h3>1.1 Python源码示例</h3>
+
+<pre><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/"""
@@ -53,17 +93,17 @@ class Adapter(object):
     Usage:
     dog = Dog
     dog = Adapter(dog, dict(make_noise=dog.bark))
-    >>> objects = []
-    >>> dog = Dog()
-    >>> objects.append(Adapter(dog, make_noise=dog.bark))
-    >>> cat = Cat()
-    >>> objects.append(Adapter(cat, make_noise=cat.meow))
-    >>> human = Human()
-    >>> objects.append(Adapter(human, make_noise=human.speak))
-    >>> car = Car()
-    >>> car_noise = lambda: car.make_noise(3)
-    >>> objects.append(Adapter(car, make_noise=car_noise))
-    >>> for obj in objects:
+    &gt;&gt;&gt; objects = []
+    &gt;&gt;&gt; dog = Dog()
+    &gt;&gt;&gt; objects.append(Adapter(dog, make_noise=dog.bark))
+    &gt;&gt;&gt; cat = Cat()
+    &gt;&gt;&gt; objects.append(Adapter(cat, make_noise=cat.meow))
+    &gt;&gt;&gt; human = Human()
+    &gt;&gt;&gt; objects.append(Adapter(human, make_noise=human.speak))
+    &gt;&gt;&gt; car = Car()
+    &gt;&gt;&gt; car_noise = lambda: car.make_noise(3)
+    &gt;&gt;&gt; objects.append(Adapter(car, make_noise=car_noise))
+    &gt;&gt;&gt; for obj in objects:
     ...     print('A {} goes {}'.format(obj.name, obj.make_noise()))
     A Dog goes woof!
     A Cat goes meow!
@@ -104,16 +144,15 @@ if __name__ == "__main__":
 # A Cat goes meow!
 # A Human goes 'hello'
 # A Car goes vroom!!!
-```
+</code></pre>
 
+<h2>2. 桥接模式</h2>
 
-## 2. 桥接模式
-　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。
+<p>　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。</p>
 
-### 2.1 Python源码示例
+<h3>2.1 Python源码示例</h3>
 
-```
-#!/usr/bin/env python
+<pre><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python"""
@@ -168,15 +207,15 @@ if __name__ == '__main__':
 ### OUTPUT ###
 # API1.circle at 1:2 radius 7.5
 # API2.circle at 5:7 radius 27.5
-```
+</code></pre>
 
-## 3. 组合模式
-　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。
+<h2>3. 组合模式</h2>
 
-### 3.1 Python源码示例
+<p>　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
 
-```
-#!/usr/bin/env python
+<h3>3.1 Python源码示例</h3>
+
+<pre><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -185,7 +224,7 @@ hieararchical dictionaries with names.
 This class is same as a hiearchical dictionary, but it
 provides methods to add/access/modify children by name,
 like a Composite.
-Created Anand B Pillai     <abpillai@gmail.com>
+Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
 """
 __author__ = "Anand B Pillai"
 __maintainer__ = "Anand B Pillai"
@@ -512,15 +551,15 @@ if __name__ == "__main__":
 ### OUTPUT ###
 # Submit
 # Browse
-```
+</code></pre>
 
-## 4. 修饰模式
-　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。
+<h2>4. 修饰模式</h2>
 
-### 4.1 Python源码示例
+<p>　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。</p>
 
-```
-"""https://docs.python.org/2/library/functools.html#functools.wraps"""
+<h3>4.1 Python源码示例</h3>
+
+<pre><code>"""https://docs.python.org/2/library/functools.html#functools.wraps"""
 """https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""
 
 from functools import wraps
@@ -529,14 +568,14 @@ from functools import wraps
 def makebold(fn):
     @wraps(fn)
     def wrapped():
-        return "<b>" + fn() + "</b>"
+        return "&lt;b&gt;" + fn() + "&lt;/b&gt;"
     return wrapped
 
 
 def makeitalic(fn):
     @wraps(fn)
     def wrapped():
-        return "<i>" + fn() + "</i>"
+        return "&lt;i&gt;" + fn() + "&lt;/i&gt;"
     return wrapped
 
 
@@ -550,16 +589,16 @@ if __name__ == '__main__':
     print('result:{}   name:{}   doc:{}'.format(hello(), hello.__name__, hello.__doc__))
 
 ### OUTPUT ###
-# result:<b><i>hello world</i></b>   name:hello   doc:a decorated hello world
-```
+# result:&lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;   name:hello   doc:a decorated hello world
+</code></pre>
 
-## 5. 外观模式
-　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。
+<h2>5. 外观模式</h2>
 
-### 5.1 Python源码示例
+<p>　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。</p>
 
-```
-#!/usr/bin/env python
+<h3>5.1 Python源码示例</h3>
+
+<pre><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import time
@@ -647,21 +686,44 @@ if __name__ == '__main__':
 # Tearing down
 # Test Finished
 #
-```
+</code></pre>
 
 
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/design-pattern-structural-pattern data-title=book-3. 设计模式总结之结构型模式 data-url=/design-pattern-structural-pattern></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
 
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
 
+<script src="/js/post.js" type="text/javascript"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>

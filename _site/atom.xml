@@ -25,13 +25,663 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-13T17:10:00+08:00</updated>
+   <updated>2015-03-15T14:04:12+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>book-3. 设计模式总结之结构型模式</title>
+     <link href="/design-pattern-structural-pattern"/>
+     <updated>2015-03-13T00:00:00+08:00</updated>
+     <id>/design-pattern-structural-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 适配器模式&lt;/h2&gt;
+
+&lt;p&gt;　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。&lt;/p&gt;
+
+&lt;h3&gt;1.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/&quot;&quot;&quot;
+
+import os
+
+class Dog(object):
+    def __init__(self):
+        self.name = &quot;Dog&quot;
+    def bark(self):
+        return &quot;woof!&quot;
+
+class Cat(object):
+    def __init__(self):
+        self.name = &quot;Cat&quot;
+    def meow(self):
+        return &quot;meow!&quot;
+
+class Human(object):
+    def __init__(self):
+        self.name = &quot;Human&quot;
+    def speak(self):
+        return &quot;&#39;hello&#39;&quot;
+
+
+class Car(object):
+    def __init__(self):
+        self.name = &quot;Car&quot;
+    def make_noise(self, octane_level):
+        return &quot;vroom{0}&quot;.format(&quot;!&quot; * octane_level)
+
+
+class Adapter(object):
+
+    &quot;&quot;&quot;
+    Adapts an object by replacing methods.
+    Usage:
+    dog = Dog
+    dog = Adapter(dog, dict(make_noise=dog.bark))
+    &amp;gt;&amp;gt;&amp;gt; objects = []
+    &amp;gt;&amp;gt;&amp;gt; dog = Dog()
+    &amp;gt;&amp;gt;&amp;gt; objects.append(Adapter(dog, make_noise=dog.bark))
+    &amp;gt;&amp;gt;&amp;gt; cat = Cat()
+    &amp;gt;&amp;gt;&amp;gt; objects.append(Adapter(cat, make_noise=cat.meow))
+    &amp;gt;&amp;gt;&amp;gt; human = Human()
+    &amp;gt;&amp;gt;&amp;gt; objects.append(Adapter(human, make_noise=human.speak))
+    &amp;gt;&amp;gt;&amp;gt; car = Car()
+    &amp;gt;&amp;gt;&amp;gt; car_noise = lambda: car.make_noise(3)
+    &amp;gt;&amp;gt;&amp;gt; objects.append(Adapter(car, make_noise=car_noise))
+    &amp;gt;&amp;gt;&amp;gt; for obj in objects:
+    ...     print(&#39;A {} goes {}&#39;.format(obj.name, obj.make_noise()))
+    A Dog goes woof!
+    A Cat goes meow!
+    A Human goes &#39;hello&#39;
+    A Car goes vroom!!!
+    &quot;&quot;&quot;
+
+    def __init__(self, obj, **adapted_methods):
+        &quot;&quot;&quot;We set the adapted methods in the object&#39;s dict&quot;&quot;&quot;
+        self.obj = obj
+        self.__dict__.update(adapted_methods)
+
+    def __getattr__(self, attr):
+        &quot;&quot;&quot;All non-adapted calls are passed to the object&quot;&quot;&quot;
+        return getattr(self.obj, attr)
+
+
+def main():
+    objects = []
+    dog = Dog()
+    objects.append(Adapter(dog, make_noise=dog.bark))
+    cat = Cat()
+    objects.append(Adapter(cat, make_noise=cat.meow))
+    human = Human()
+    objects.append(Adapter(human, make_noise=human.speak))
+    car = Car()
+    objects.append(Adapter(car, make_noise=lambda: car.make_noise(3)))
+
+    for obj in objects:
+        print(&quot;A {0} goes {1}&quot;.format(obj.name, obj.make_noise()))
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+
+### OUTPUT ###
+# A Dog goes woof!
+# A Cat goes meow!
+# A Human goes &#39;hello&#39;
+# A Car goes vroom!!!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2. 桥接模式&lt;/h2&gt;
+
+&lt;p&gt;　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。&lt;/p&gt;
+
+&lt;h3&gt;2.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python&quot;&quot;&quot;
+
+
+# ConcreteImplementor 1/2
+class DrawingAPI1(object):
+
+    def draw_circle(self, x, y, radius):
+        print(&#39;API1.circle at {}:{} radius {}&#39;.format(x, y, radius))
+
+
+# ConcreteImplementor 2/2
+class DrawingAPI2(object):
+
+    def draw_circle(self, x, y, radius):
+        print(&#39;API2.circle at {}:{} radius {}&#39;.format(x, y, radius))
+
+
+# Refined Abstraction
+class CircleShape(object):
+
+    def __init__(self, x, y, radius, drawing_api):
+        self._x = x
+        self._y = y
+        self._radius = radius
+        self._drawing_api = drawing_api
+
+    # low-level i.e. Implementation specific
+    def draw(self):
+        self._drawing_api.draw_circle(self._x, self._y, self._radius)
+
+    # high-level i.e. Abstraction specific
+    def scale(self, pct):
+        self._radius *= pct
+
+
+def main():
+    shapes = (
+        CircleShape(1, 2, 3, DrawingAPI1()),
+        CircleShape(5, 7, 11, DrawingAPI2())
+    )
+
+    for shape in shapes:
+        shape.scale(2.5)
+        shape.draw()
+
+
+if __name__ == &#39;__main__&#39;:
+    main()
+
+### OUTPUT ###
+# API1.circle at 1:2 radius 7.5
+# API2.circle at 5:7 radius 27.5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 组合模式&lt;/h2&gt;
+
+&lt;p&gt;　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。&lt;/p&gt;
+
+&lt;h3&gt;3.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;
+A class which defines a composite object which can store
+hieararchical dictionaries with names.
+This class is same as a hiearchical dictionary, but it
+provides methods to add/access/modify children by name,
+like a Composite.
+Created Anand B Pillai     &amp;lt;abpillai@gmail.com&amp;gt;
+&quot;&quot;&quot;
+__author__ = &quot;Anand B Pillai&quot;
+__maintainer__ = &quot;Anand B Pillai&quot;
+__version__ = &quot;0.2&quot;
+
+
+def normalize(val):
+    &quot;&quot;&quot; Normalize a string so that it can be used as an attribute
+    to a Python object &quot;&quot;&quot;
+
+    if val.find(&#39;-&#39;) != -1:
+        val = val.replace(&#39;-&#39;, &#39;_&#39;)
+
+    return val
+
+
+def denormalize(val):
+    &quot;&quot;&quot; De-normalize a string &quot;&quot;&quot;
+
+    if val.find(&#39;_&#39;) != -1:
+        val = val.replace(&#39;_&#39;, &#39;-&#39;)
+
+    return val
+
+
+class SpecialDict(dict):
+
+    &quot;&quot;&quot; A dictionary type which allows direct attribute
+    access to its keys &quot;&quot;&quot;
+
+    def __getattr__(self, name):
+
+        if name in self.__dict__:
+            return self.__dict__[name]
+        elif name in self:
+            return self.get(name)
+        else:
+            # Check for denormalized name
+            name = denormalize(name)
+            if name in self:
+                return self.get(name)
+            else:
+                raise AttributeError(&#39;no attribute named %s&#39; % name)
+
+    def __setattr__(self, name, value):
+
+        if name in self.__dict__:
+            self.__dict__[name] = value
+        elif name in self:
+            self[name] = value
+        else:
+            # Check for denormalized name
+            name2 = denormalize(name)
+            if name2 in self:
+                self[name2] = value
+            else:
+                # New attribute
+                self[name] = value
+
+
+class CompositeDict(SpecialDict):
+
+    &quot;&quot;&quot; A class which works like a hierarchical dictionary.
+    This class is based on the Composite design-pattern &quot;&quot;&quot;
+
+    ID = 0
+
+    def __init__(self, name=&#39;&#39;):
+
+        if name:
+            self._name = name
+        else:
+            self._name = &#39;&#39;.join((&#39;id#&#39;, str(self.__class__.ID)))
+            self.__class__.ID += 1
+
+        self._children = []
+        # Link  back to father
+        self._father = None
+        self[self._name] = SpecialDict()
+
+    def __getattr__(self, name):
+
+        if name in self.__dict__:
+            return self.__dict__[name]
+        elif name in self:
+            return self.get(name)
+        else:
+            # Check for denormalized name
+            name = denormalize(name)
+            if name in self:
+                return self.get(name)
+            else:
+                # Look in children list
+                child = self.findChild(name)
+                if child:
+                    return child
+                else:
+                    attr = getattr(self[self._name], name)
+                    if attr:
+                        return attr
+
+                    raise AttributeError(&#39;no attribute named %s&#39; % name)
+
+    def isRoot(self):
+        &quot;&quot;&quot; Return whether I am a root component or not &quot;&quot;&quot;
+
+        # If I don&#39;t have a parent, I am root
+        return not self._father
+
+    def isLeaf(self):
+        &quot;&quot;&quot; Return whether I am a leaf component or not &quot;&quot;&quot;
+
+        # I am a leaf if I have no children
+        return not self._children
+
+    def getName(self):
+        &quot;&quot;&quot; Return the name of this ConfigInfo object &quot;&quot;&quot;
+
+        return self._name
+
+    def getIndex(self, child):
+        &quot;&quot;&quot; Return the index of the child ConfigInfo object &#39;child&#39; &quot;&quot;&quot;
+
+        if child in self._children:
+            return self._children.index(child)
+        else:
+            return -1
+
+    def getDict(self):
+        &quot;&quot;&quot; Return the contained dictionary &quot;&quot;&quot;
+
+        return self[self._name]
+
+    def getProperty(self, child, key):
+        &quot;&quot;&quot; Return the value for the property for child
+        &#39;child&#39; with key &#39;key&#39; &quot;&quot;&quot;
+
+        # First get the child&#39;s dictionary
+        childDict = self.getInfoDict(child)
+        if childDict:
+            return childDict.get(key, None)
+
+    def setProperty(self, child, key, value):
+        &quot;&quot;&quot; Set the value for the property &#39;key&#39; for
+        the child &#39;child&#39; to &#39;value&#39; &quot;&quot;&quot;
+
+        # First get the child&#39;s dictionary
+        childDict = self.getInfoDict(child)
+        if childDict:
+            childDict[key] = value
+
+    def getChildren(self):
+        &quot;&quot;&quot; Return the list of immediate children of this object &quot;&quot;&quot;
+
+        return self._children
+
+    def getAllChildren(self):
+        &quot;&quot;&quot; Return the list of all children of this object &quot;&quot;&quot;
+
+        l = []
+        for child in self._children:
+            l.append(child)
+            l.extend(child.getAllChildren())
+
+        return l
+
+    def getChild(self, name):
+        &quot;&quot;&quot; Return the immediate child object with the given name &quot;&quot;&quot;
+
+        for child in self._children:
+            if child.getName() == name:
+                return child
+
+    def findChild(self, name):
+        &quot;&quot;&quot; Return the child with the given name from the tree &quot;&quot;&quot;
+
+        # Note - this returns the first child of the given name
+        # any other children with similar names down the tree
+        # is not considered.
+
+        for child in self.getAllChildren():
+            if child.getName() == name:
+                return child
+
+    def findChildren(self, name):
+        &quot;&quot;&quot; Return a list of children with the given name from the tree &quot;&quot;&quot;
+
+        # Note: this returns a list of all the children of a given
+        # name, irrespective of the depth of look-up.
+
+        children = []
+
+        for child in self.getAllChildren():
+            if child.getName() == name:
+                children.append(child)
+
+        return children
+
+    def getPropertyDict(self):
+        &quot;&quot;&quot; Return the property dictionary &quot;&quot;&quot;
+
+        d = self.getChild(&#39;__properties&#39;)
+        if d:
+            return d.getDict()
+        else:
+            return {}
+
+    def getParent(self):
+        &quot;&quot;&quot; Return the person who created me &quot;&quot;&quot;
+
+        return self._father
+
+    def __setChildDict(self, child):
+        &quot;&quot;&quot; Private method to set the dictionary of the child
+        object &#39;child&#39; in the internal dictionary &quot;&quot;&quot;
+
+        d = self[self._name]
+        d[child.getName()] = child.getDict()
+
+    def setParent(self, father):
+        &quot;&quot;&quot; Set the parent object of myself &quot;&quot;&quot;
+
+        # This should be ideally called only once
+        # by the father when creating the child :-)
+        # though it is possible to change parenthood
+        # when a new child is adopted in the place
+        # of an existing one - in that case the existing
+        # child is orphaned - see addChild and addChild2
+        # methods !
+        self._father = father
+
+    def setName(self, name):
+        &quot;&quot;&quot; Set the name of this ConfigInfo object to &#39;name&#39; &quot;&quot;&quot;
+
+        self._name = name
+
+    def setDict(self, d):
+        &quot;&quot;&quot; Set the contained dictionary &quot;&quot;&quot;
+
+        self[self._name] = d.copy()
+
+    def setAttribute(self, name, value):
+        &quot;&quot;&quot; Set a name value pair in the contained dictionary &quot;&quot;&quot;
+
+        self[self._name][name] = value
+
+    def getAttribute(self, name):
+        &quot;&quot;&quot; Return value of an attribute from the contained dictionary &quot;&quot;&quot;
+
+        return self[self._name][name]
+
+    def addChild(self, name, force=False):
+        &quot;&quot;&quot; Add a new child &#39;child&#39; with the name &#39;name&#39;.
+        If the optional flag &#39;force&#39; is set to True, the
+        child object is overwritten if it is already there.
+        This function returns the child object, whether
+        new or existing &quot;&quot;&quot;
+
+        if type(name) != str:
+            raise ValueError(&#39;Argument should be a string!&#39;)
+
+        child = self.getChild(name)
+        if child:
+            # print(&#39;Child %s present!&#39; % name)
+            # Replace it if force==True
+            if force:
+                index = self.getIndex(child)
+                if index != -1:
+                    child = self.__class__(name)
+                    self._children[index] = child
+                    child.setParent(self)
+
+                    self.__setChildDict(child)
+            return child
+        else:
+            child = self.__class__(name)
+            child.setParent(self)
+
+            self._children.append(child)
+            self.__setChildDict(child)
+
+            return child
+
+    def addChild2(self, child):
+        &quot;&quot;&quot; Add the child object &#39;child&#39;. If it is already present,
+        it is overwritten by default &quot;&quot;&quot;
+
+        currChild = self.getChild(child.getName())
+        if currChild:
+            index = self.getIndex(currChild)
+            if index != -1:
+                self._children[index] = child
+                child.setParent(self)
+                # Unset the existing child&#39;s parent
+                currChild.setParent(None)
+                del currChild
+
+                self.__setChildDict(child)
+        else:
+            child.setParent(self)
+            self._children.append(child)
+            self.__setChildDict(child)
+
+
+if __name__ == &quot;__main__&quot;:
+    window = CompositeDict(&#39;Window&#39;)
+    frame = window.addChild(&#39;Frame&#39;)
+    tfield = frame.addChild(&#39;Text Field&#39;)
+    tfield.setAttribute(&#39;size&#39;, &#39;20&#39;)
+
+    btn = frame.addChild(&#39;Button1&#39;)
+    btn.setAttribute(&#39;label&#39;, &#39;Submit&#39;)
+
+    btn = frame.addChild(&#39;Button2&#39;)
+    btn.setAttribute(&#39;label&#39;, &#39;Browse&#39;)
+
+    # print(window)
+    # print(window.Frame)
+    # print(window.Frame.Button1)
+    # print(window.Frame.Button2)
+    print(window.Frame.Button1.label)
+    print(window.Frame.Button2.label)
+
+### OUTPUT ###
+# Submit
+# Browse
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;4. 修饰模式&lt;/h2&gt;
+
+&lt;p&gt;　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。&lt;/p&gt;
+
+&lt;h3&gt;4.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;&quot;&quot;https://docs.python.org/2/library/functools.html#functools.wraps&quot;&quot;&quot;
+&quot;&quot;&quot;https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665&quot;&quot;&quot;
+
+from functools import wraps
+
+
+def makebold(fn):
+    @wraps(fn)
+    def wrapped():
+        return &quot;&amp;lt;b&amp;gt;&quot; + fn() + &quot;&amp;lt;/b&amp;gt;&quot;
+    return wrapped
+
+
+def makeitalic(fn):
+    @wraps(fn)
+    def wrapped():
+        return &quot;&amp;lt;i&amp;gt;&quot; + fn() + &quot;&amp;lt;/i&amp;gt;&quot;
+    return wrapped
+
+
+@makebold
+@makeitalic
+def hello():
+    &quot;&quot;&quot;a decorated hello world&quot;&quot;&quot;
+    return &quot;hello world&quot;
+
+if __name__ == &#39;__main__&#39;:
+    print(&#39;result:{}   name:{}   doc:{}&#39;.format(hello(), hello.__name__, hello.__doc__))
+
+### OUTPUT ###
+# result:&amp;lt;b&amp;gt;&amp;lt;i&amp;gt;hello world&amp;lt;/i&amp;gt;&amp;lt;/b&amp;gt;   name:hello   doc:a decorated hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;5. 外观模式&lt;/h2&gt;
+
+&lt;p&gt;　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。&lt;/p&gt;
+
+&lt;h3&gt;5.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import time
+
+SLEEP = 0.5
+
+
+# Complex Parts
+class TC1:
+
+    def run(self):
+        print(&quot;###### In Test 1 ######&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Setting up&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Running test&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Tearing down&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Test Finished\n&quot;)
+
+
+class TC2:
+
+    def run(self):
+        print(&quot;###### In Test 2 ######&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Setting up&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Running test&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Tearing down&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Test Finished\n&quot;)
+
+
+class TC3:
+
+    def run(self):
+        print(&quot;###### In Test 3 ######&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Setting up&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Running test&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Tearing down&quot;)
+        time.sleep(SLEEP)
+        print(&quot;Test Finished\n&quot;)
+
+
+# Facade
+class TestRunner:
+
+    def __init__(self):
+        self.tc1 = TC1()
+        self.tc2 = TC2()
+        self.tc3 = TC3()
+        self.tests = [i for i in (self.tc1, self.tc2, self.tc3)]
+
+    def runAll(self):
+        [i.run() for i in self.tests]
+
+
+# Client
+if __name__ == &#39;__main__&#39;:
+    testrunner = TestRunner()
+    testrunner.runAll()
+
+### OUTPUT ###
+# ###### In Test 1 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+# ###### In Test 2 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+# ###### In Test 3 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+   </entry>
    
    <entry>
      <title>book-3. 设计模式总结之行为型模式</title>
@@ -1843,289 +2493,6 @@ hello, I am litaotao
 &lt;ul&gt;
 &lt;li&gt;难道我对这个任务的理解有误吗。我的理解是，当运行spark-submit提交任务后，master应该会把这个weibo_message代码分发到9个worker上，然后9个worker分别在自己的机器上新建TCP连接到socket server，并从这个socket server上获取数据，然后处理后各自独立返回给driver。难道是我理解错误了吗。&lt;/li&gt;
 &lt;li&gt;我仔细研读了官方&lt;a href=&quot;http://spark.apache.org/docs/latest/streaming-programming-guide.html#reducing-the-processing-time-of-each-batch&quot;&gt;spark streaming的教程&lt;/a&gt;，在里面发现这样一个主题 &lt;a href=&quot;http://spark.apache.org/docs/latest/streaming-programming-guide.html#reducing-the-processing-time-of-each-batch&quot;&gt;Level of Parallelism in Data Receiving&lt;/a&gt;，似乎对比起上图的Web UI监控图来看，难道是要自己根据worker的数据自定义receiver的数量。即目前我有9太worker，那我必须手动定义9个receiver？难道真的应该是这样的吗，我怎么觉得这样设计会很不灵活呢？why？&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>记录MongoDB一些优化方法</title>
-     <link href="/mongodb-optimizing"/>
-     <updated>2014-12-24T00:00:00+08:00</updated>
-     <id>/mongodb-optimizing</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 决定是否优化&lt;/h2&gt;
-
-&lt;h3&gt;1.1 使用MongoDB自带的explain命令查看查询性能&lt;/h3&gt;
-
-&lt;p&gt;　　下面是我在本地测试的一个例子。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.user.find({&#39;user&#39;:&#39;taotao.li@datayes.com&#39;}).explain()         
-{             
-        // 返回游标类型(BasicCursor | BtreeCursor | GeoSearchCursor | Complex Plan | multi)                                                         
-        &quot;cursor&quot; : &quot;BasicCursor&quot;,
-        // 是否使用多重索引(true | false)                                     
-        &quot;isMultiKey&quot; : false,    
-        // 返回的文档数量   (number)                                      
-        &quot;n&quot; : 1,    
-        // 被扫描的文档数量，这个值小于或等于nscanned   (number)                                                   
-        &quot;nscannedObjects&quot; : 9,
-        // 被扫描的文档数量，我们应该尽量使这个值和上面提到的n的值相近    (number)                                          
-        &quot;nscanned&quot; : 9,    
-        // 这个值表明在进行一次查询时，数据库计划扫描的文档数量 (number)                                            
-        &quot;nscannedObjectsAllPlans&quot; : 9,                                
-        &quot;nscannedAllPlans&quot; : 9,    
-        // 若为true，表示查询不能利用文档在索引里的排序来返回结果，用户需要手动对返回进行排序操作，反之(true | false)                                     
-        &quot;scanAndOrder&quot; : false,    
-        // 若为true，表示查询是充分利用了现有的索引的，在设计索引的时候，应该尽量确保热点查询都利用到了已有的索引(true | false)                                     
-        &quot;indexOnly&quot; : false,   
-        // 表示查询语句执行时写锁的等待时间  (ms)                                       
-        &quot;nYields&quot; : 0,          
-        // 在分片的时候可以通过这个字段看分片的效果 (number)                                       
-        &quot;nChunkSkips&quot; : 0, 
-        // 耗时 (ms)                                               
-        &quot;millis&quot; : 65,    
-        // 所使用的索引 (dict of dict)                                             
-        &quot;indexBounds&quot; : {                                             
-
-        },        
-        // mongo所在的服务器地址                                            
-        &quot;server&quot; : &quot;SHN1408GPVG612:27017&quot;                             
-}                                                                
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;1.2 使用MongoDB自带的profile优化器查看查询性能&lt;/h3&gt;
-
-&lt;p&gt;　　MongoDB Database Profiler是一种慢查询日志功能,可以作为我们优化数据库的依据.
-开启Profiling功能,有2种方式可以控制Profiling的开关盒级别。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;启动MonggoDB时加上 &lt;code&gt;-profile=级别&lt;/code&gt; 即可&lt;/li&gt;
-&lt;li&gt;在客户端调用db.setProfilingLevel(级别)命令来实时配置&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　Profiler信息保存在system.profile中.我们可以通过db.getProfilingLevel()命令来获取当前的Profile级别。profile的级别有4个，分别是-1、0、1、2，默认没有开启。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;-1: 返回当前设置的级别&lt;/li&gt;
-&lt;li&gt;0： 表示不开启&lt;/li&gt;
-&lt;li&gt;1： 表示记录慢命令(默认为&gt;100ms)&lt;/li&gt;
-&lt;li&gt;2： 表示记录所有命令&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　下面是我运行profile的一个示例及各个字段的解释：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.system.profile.findOne()
-{
-    //操作类型：insert | query | update | remove | getmore | command
-    &quot;op&quot; : &quot;query&quot;,
-    //进行op操作的地方，比如现在是说在community数据库的system集合的indexes中进行了一次查询操作
-    &quot;ns&quot; : &quot;community.system.indexes&quot;,
-    &quot;query&quot; : {
-            &quot;expireAfterSeconds&quot; : {
-                    &quot;$exists&quot; : true
-            }
-    },
-    &quot;ntoreturn&quot; : 0,
-    &quot;ntoskip&quot; : 0,
-    &quot;nscanned&quot; : 2,
-    &quot;keyUpdates&quot; : 0,
-    &quot;numYield&quot; : 0,
-    // 此次查询花在处理锁上的时间；其中R/W代表全局读/写锁，r/w代表数据库层面的读/写锁；
-    &quot;lockStats&quot; : {
-            &quot;timeLockedMicros&quot; : {
-                    &quot;r&quot; : NumberLong(79),
-                    &quot;w&quot; : NumberLong(0)
-            },
-            &quot;timeAcquiringMicros&quot; : {
-                    &quot;r&quot; : NumberLong(1),
-                    &quot;w&quot; : NumberLong(2)
-            }
-    },
-    // 返回的文档数量
-    &quot;nreturned&quot; : 0,
-    // 返回字节长度，如果这个数字很大，考虑值返回所需字段
-    &quot;responseLength&quot; : 20,
-    // 查询所耗时间，这个时间是在mongo服务器端，从这个查询开始到查询结束；类似于一般程序执行的CPU时间；
-    &quot;millis&quot; : 0,
-    &quot;ts&quot; : ISODate(&quot;2014-11-19T09:33:58.965Z&quot;),
-    // 发起此次查询的远程地址
-    &quot;client&quot; : &quot;0.0.0.0&quot;,
-    &quot;allUsers&quot; : [ ],
-    // 执行此查询语句的用户，不知道这里为什么是空的
-    &quot;user&quot; : &quot;&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;1.3 使用MongoDB自带的mongostat优化器查看查询性能&lt;/h3&gt;
-
-&lt;p&gt;　　下面是我本地测试的一个mongostat示例即相关字段含义：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;D:\mongodb-2.4.10\bin
-λ mongostat.exe
-connected to: 127.0.0.1
-insert  query update delete getmore command flushes mapped  vsize    res faults  locked db idx miss %     qr|qw   ar|aw  netIn netOut  conn       time
-    *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      1  test:3.3%          0       0|0     0|0    62b     3k    60   10:42:44
-    *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:45
-    *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:46
-    *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:47
-    *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0   174b     3k    60   10:42:48
-    *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:49
-    *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0 local:0.0%          0       0|0     0|0   178b     3k    60   10:42:50
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　mongostat各个字段解释：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;insert/query/update/delete/getmore：每秒执行这5个操作的次数；&lt;/li&gt;
-&lt;li&gt;command：每秒执行指令的次数，在从数据库中，这个字段的值是一个以“|”分开的两个值，表示 local|replicated 数量；&lt;/li&gt;
-&lt;li&gt;flushes：每秒fsync操作的次数；&lt;/li&gt;
-&lt;li&gt;mapped：按照官方解释，这个字段表示上一次执行mongostat指令是所有数据的大小，应该是指所有数据占磁盘的大小，但似乎不是很对；&lt;/li&gt;
-&lt;li&gt;vsize：mongod服务占用的虚拟内存大小；&lt;/li&gt;
-&lt;li&gt;res：mongod所占用的物理内存；&lt;/li&gt;
-&lt;li&gt;faluts：page faults次数；&lt;/li&gt;
-&lt;li&gt;index miss：索引缺失的数量；&lt;/li&gt;
-&lt;li&gt;qr/qw：表示在队列中等待的客户端，rw表示读写；&lt;/li&gt;
-&lt;li&gt;ar/aw：表示正在进行请求的客户端；&lt;/li&gt;
-&lt;li&gt;netIn/netOut表示网络流量，单位是字节；&lt;/li&gt;
-&lt;li&gt;conn：表示连接数；&lt;/li&gt;
-&lt;li&gt;repl：表示同步状态；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;1.4 使用MongoDB自带的db.serverStatus查看服务器状态&lt;/h3&gt;
-
-&lt;p&gt;　　这里输出的信息太多了，看一个Robomongo的截图吧，里面有几个字段也是很重要的。 &lt;img src=&quot;../../images/mongo-db-serverStats.jpg&quot; alt=&quot;mongo-db-serverStatus&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;1.5 使用MongoDB自带的db.stats查看服务器状态&lt;/h3&gt;
-
-&lt;p&gt;　　说到这里，我突然发现监控MongoDB performance的工具真的挺多的，完全可以自己给予这些命令和工具来开发后台管理的工具啊。比如说stats这个命令，也提供了挺多的信息：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.stats()                                        
-{                                                   
-        &quot;db&quot; : &quot;community&quot;,                         
-        &quot;collections&quot; : 7,   
-        // 记录在数据库中的所有文档总数                       
-        &quot;objects&quot; : 73,                
-        // 数据库中所有文档的平均大小，等于 dataSize/objects             
-        &quot;avgObjSize&quot; : 24965.424657534248,          
-        // 数据库所有文档的总大小，以字节为单位
-        &quot;dataSize&quot; : 1822476,                  
-        // 分配给每一个文档的磁盘空间，奇怪这里为什么不是16MB     
-        &quot;storageSize&quot; : 11943936,                   
-        &quot;numExtents&quot; : 12,                          
-        &quot;indexes&quot; : 4,                              
-        &quot;indexSize&quot; : 32704,                        
-        &quot;fileSize&quot; : 201326592,                     
-        &quot;nsSizeMB&quot; : 16,                            
-        &quot;dataFileVersion&quot; : {                       
-                &quot;major&quot; : 4,                        
-                &quot;minor&quot; : 5                         
-        },                                          
-        &quot;ok&quot; : 1                                    
-}                                                   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;2. 优化Schema&lt;/h2&gt;
-
-&lt;p&gt;　　解决一个问题永远都有多种方法，且在产品的不同时期也会有不同的解决办法。但核心观点都不变：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;理解产品的核心应用；&lt;/li&gt;
-&lt;li&gt;合理平衡数据库的读写，读写比例很大程度上决定你的Schema设计；&lt;/li&gt;
-&lt;li&gt;避免随机性IO操作；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　即使是NoSQL，也无法避免一些数据库字段在关系上的建立。所以在设计NoSQL Schema的时候不可避免地要进行一些关系的处理。在MongoDB方面，处理关系有以下三种方法：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;数据库引用&lt;/li&gt;
-&lt;li&gt;集合间的应用&lt;/li&gt;
-&lt;li&gt;文档嵌套&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　其中数据库引用很少用到，并且官方也不推荐这种用法。相对于集合间引用和文档嵌套，这个需要看具体设计。特别是在应用文档嵌套方式的时候，需要注意一个文档的最大容量是&lt;a href=&quot;http://docs.mongodb.org/manual/core/document/&quot;&gt;16MB&lt;/a&gt;。文章末尾的&lt;strong&gt;6 Rules of Thumb for MongoDB Schema Design&lt;/strong&gt;详细介绍、对比了一些集合引用和嵌套文档方面的案例，&lt;strong&gt;MongoDB Schema Design: Four Real-World Examples&lt;/strong&gt;介绍了MongoDB 4个真实的应用设计案例，有比较大的参考价值。&lt;/p&gt;
-
-&lt;h2&gt;2.1 MongoDB 和 RDBMS的一些概念联系&lt;/h2&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt; RDBMS &lt;/th&gt;
-&lt;th&gt; MongoDB &lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt; Database &lt;/td&gt;
-&lt;td&gt; Database &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; Table &lt;/td&gt;
-&lt;td&gt; Collection &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; Row &lt;/td&gt;
-&lt;td&gt; Document &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; Index &lt;/td&gt;
-&lt;td&gt; Index &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; Join &lt;/td&gt;
-&lt;td&gt; Embedded Document &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt; Foreign Key &lt;/td&gt;
-&lt;td&gt; Reference &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-&lt;h2&gt;3. 查询优化&lt;/h2&gt;
-
-&lt;h3&gt;3.1 建立索引&lt;/h3&gt;
-
-&lt;p&gt;　　首先要明确的是，mongo里会自动根据&lt;em&gt;id来创建一个唯一性索引，所以如果你是以&lt;/em&gt;id为key来进行查询的话都会很快的。比如下面这个截图，nscanned为1。
-&lt;img src=&quot;../../images/mongo-index-id.jpg&quot; alt=&quot;mongo-explain&quot; /&gt;&lt;br/&gt;
-　　database.collection.ensureIndex( { key : 1 } , { background : true } ); &lt;br/&gt;
-　　说明：在数据库database里，对collection中的字段key建立索引，按照升序方式建立索引background参数设置为true时表示后台创建索引【建立索引略耗时】。  &lt;br/&gt;
-　　索引是一把双刃剑啊，用得好不好，全看也许需求和数据库设计了，在设计索引前最好参考参考&lt;a href=&quot;http://docs.mongodb.org/manual/core/indexes-introduction/&quot;&gt;官方文档&lt;/a&gt;，而且最好要有一个建索引前后的performance的一些对比，talk is cheap, show me the data.  &lt;br/&gt;
-　　总而言之，当需要建立索引的时候，一定要仔细思考下面几个方面：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;热点查询的数据是什么，可否用缓存替代；&lt;/li&gt;
-&lt;li&gt;建立索引的顺序也会影响查询速度，参考: 10gen工程师谈MongoDB组合索引的优化；&lt;/li&gt;
-&lt;li&gt;索引的更新周期，更新索引是一件很tricky的事情；&lt;/li&gt;
-&lt;li&gt;索引建立后，是否能跟上后期系统扩展的脚步；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;3.2 限制返回数据&lt;/h3&gt;
-
-&lt;p&gt;　　使用limit，skip方式返回查询数据，只返回需要返回的数据。&lt;/p&gt;
-
-&lt;h2&gt;4. 总结&lt;/h2&gt;
-
-&lt;p&gt;　　在记录这篇文章的过程中，我发现监控mongo性能的工具还真的挺多的。但是现在我参与的产品中数据量还很少，还没有涉及到数据库这方面的优化，所以上面提到的这些都是自己在官网和一些优秀博客收集的资料。在后续涉及到自己优化这些查询的时候，我会再把实际经验和优化对比记录下来。&lt;/p&gt;
-
-&lt;h2&gt;5. 一些资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://caizi.blog.51cto.com/5234706/1542480&quot;&gt;mongodb性能优化&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.mongodb.org/post/87200945828/6-rules-of-thumb-for-mongodb-schema-design-part-1&quot;&gt;6 Rules of Thumb for MongoDB Schema Design&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/friedo/data-modeling-examples&quot;&gt;MongoDB Schema Design: Four Real-World Examples&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/administration/optimization/&quot;&gt;Optimization Strategies for MongoDB&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/database-profiler/&quot;&gt;Database Profiler Output&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound&quot;&gt;10gen工程师谈MongoDB组合索引的优化&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.mongodb.org/v2.4/reference/command/dbStats/&quot;&gt;dbStats&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
