@@ -59,14 +59,37 @@ key words：安全，soa，策略推荐，线索推荐，做社区的感想，�
 技能清单
 ---  
 ---
+- 操作系统：Linux，Mac，Windows
+- 编程语言：Python/IPython，Erlang，C，Shell，C++，JS，HTML，CSS
+- 框架和库：Flask，Restful，OTP，Celery
+- 数据系统：Mongo，MySQL，Redis
+- 项目工具：Nginx，Visio，Gliffy，Phabricator
+- 技术研究：Spark，Machine Learning，Recommend System
+- 项目管理：Svn，Git，Markdown，JIRA，Jenkins，Confluence
 
-- 操作系统：Linux/Mac/Windows
-- 编程语言：Python/Erlang/Scala/C/C++/JS/HTML/CSS
-- 框架和库：Flask/Restful/OTP/Pymongo/Flask  
-- 数据系统：Mongo/MySQL/Redis
-- 项目工具：Nginx/Visio/Gliffy
-- 技术研究：Spark/Machine Learning/Recommend System 
-- 项目管理：Svn/Git/Markdown/JIRA/Jenkins/Confluence
+***Already***
+Python -> docs
+IPython -> docs -> done
+Erlang -> In action, docs
+Shell -> summarize
+Flask -> docs
+Restful -> summarize
+Mongo -> 权威指南, docs
+Redis -> 设计与实现，docs
+Nginx -> summarize
+Spark -> learning spark, docs
+Recommand system -> 推荐系统实践
+
+***Plan***
+SAC
+产品书籍
+营销书籍
+战略书籍
+统计书籍
+celery
+OTP
+
+
 
 
 开源项目
