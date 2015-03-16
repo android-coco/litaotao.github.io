@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: IPython 学习
 description: 记录我学习、研究IPython的笔记。
 ---  
