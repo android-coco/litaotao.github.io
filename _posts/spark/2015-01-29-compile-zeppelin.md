@@ -109,8 +109,13 @@ exit.
 
 ![revise-hosts](../images/zeppelin-hosts.jpg)
 　　
+### 2.4 RDD Action 出错，提示：java.io.IOException: Failed on local exception: com.google.protobuf.InvalidProtocolBufferException: Protocol message contained an invalid tag (zero).; Host Details : local host is: "ubuntu2/10.20.70.80"; destination host is: "sh-demo-hadoop-01":8020;
 
+![zeppelin-error-1.jpg](../images/zeppelin-error-1.jpg)
 
+原因是我是连接到公司spark集群的，截图里可以看到，公司spark集群的hadoop版本和我当时编译zeppelin是定义的hadoop版本不一致。公司spark集群的hadoop版本是：Hadoop 2.0.0-cdh4.5.0，而我当时编译zeppelin时的命令是：mvn clean package -Pspark-1.2 -Dhadoop.version=2.2.0 -Phadoop-2.2 -DskipTests。
+
+解决办法就是重新拉zeppelin最新源码，然后用如下命令再次编译了：mvn clean package -Pspark-1.2 -Dhadoop.version=2.0.0-cdh4.5.0 -Phadoop-2.0 -DskipTests
 
 
 
