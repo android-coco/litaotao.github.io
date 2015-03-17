@@ -37,3 +37,6 @@ drwxr-xr-x  4 root root 4.0K Jan 19 18:02 community
 
 ## 3. vim配置
 　　一次在secureCRT里启动vim编辑源代码的时候发现tab键是8个空格，想设置成4个空格，我还莫名其妙地在secureCRT的Options里找了半天，后来才反应过来这应该是系统vim的配置，果不其然，在这篇博客里找到了vim的详细配置。[link](http://blog.sina.com.cn/s/blog_544f18310100iim0.html)
+
+## 4. SecureCRT 信号灯设置
+　　session option选中Terminal的Anti-idle框中Send protocol NO-OP复选框后面的秒默认60就可以了。

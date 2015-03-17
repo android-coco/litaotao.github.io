@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-16T16:36:18+08:00</updated>
+   <updated>2015-03-17T18:48:12+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -2171,6 +2171,14 @@ exit.
 
 &lt;p&gt;&lt;img src=&quot;../images/zeppelin-hosts.jpg&quot; alt=&quot;revise-hosts&quot; /&gt;
 　　&lt;/p&gt;
+
+&lt;h3&gt;2.4 RDD Action 出错，提示：java.io.IOException: Failed on local exception: com.google.protobuf.InvalidProtocolBufferException: Protocol message contained an invalid tag (zero).; Host Details : local host is: &quot;ubuntu2/10.20.70.80&quot;; destination host is: &quot;sh-demo-hadoop-01&quot;:8020;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/zeppelin-error-1.jpg&quot; alt=&quot;zeppelin-error-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;原因是我是连接到公司spark集群的，截图里可以看到，公司spark集群的hadoop版本和我当时编译zeppelin是定义的hadoop版本不一致。公司spark集群的hadoop版本是：Hadoop 2.0.0-cdh4.5.0，而我当时编译zeppelin时的命令是：mvn clean package -Pspark-1.2 -Dhadoop.version=2.2.0 -Phadoop-2.2 -DskipTests。&lt;/p&gt;
+
+&lt;p&gt;解决办法就是重新拉zeppelin最新源码，然后用如下命令再次编译了：mvn clean package -Pspark-1.2 -Dhadoop.version=2.0.0-cdh4.5.0 -Phadoop-2.0 -DskipTests&lt;/p&gt;
 </content>
    </entry>
    
