@@ -104,3 +104,62 @@ badLinesRDD = errorsRDD.union(warningRDD)
 
 - partitionBy() is a transformation, RDDs can never be modified once created. Therefore need to persist and save as userData the result of partitionBy(), not the original sequenceFile(). Also, the 100 passed to partitionBy represents the number of partitions, which will control how many parallel tasks perform further operations on the RDD, in general, make this at least as large as the number of cores in your cluster.
 - There is a PageRand example in this chapter.
+
+## 5. Chapter 5. Loading and Saving Your Data
+
+This chapter will cover three common sets of data sources:
+
+- File formats and filesystems;
+- Structured data sources through Spark SQL;
+- Databases and key/value stores;
+
+### File Formats
+
+![learning-spark-7.jpg](../images/learning-spark-7.jpg)
+
+- Spark supports reading all the files in a given directory and doing wildcard expansion on the input(e.g., part-*.txt).
+- Use sc.textFile or sc.wholeTextFiles to load text files.
+- Use saveAsTextFile to outputting files to a directory of file.
+
+### JSON
+
+- The simplest way to load JSON data is by loading the data as a text file and then mapping over the values with a JSON parser.
+- Use accumulators to keep track of the number of errors.
+- Save as json is much simpler, bellow is how to load and save as json in Python.
+
+```
+### load from json
+import json
+data = input.map(lambda x: json.loads(x))
+
+### save as json
+(data.filter(lambda x: x["lovesPandas"]).map(lambda x: json.dumps(x)).saveAsTextFile(outputFile))
+```
+
+### Comma-Separated Values and Tab-Separated Values
+### SequenceFiles
+
+- SequenceFiles are a popular Hadoop format composed of flat files with key/value pairs. It's a common input/output format for Hadoop MR jobs.
+- Hadoop's RecordReader reuses the same object for each record, so directly calling cache on an RDD you read in like this can fail; instead, add a simple map() operation and cache its result. Furthermore, many Hadoop Writable classes do not implement java.io.Serializable, so for them to work in RDDs we need to convert them with a map() anyway. 
+- Use sequenceFile(path, keyClass, valueClass, minPartitions) to load sequenceFiles, make sure that keyClass and valueClass should be the Writable class. e.g in Python:
+
+```
+data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.io.IntWritable')
+```
+
+### Hadoop Input and Output Formats
+### File Compression
+### Local FS
+
+- Load data from 'local' fs required that all the files are available at the same path on all nodes in your cluster. 
+- Some network filesystems are exposed to the user as a regular filesystem, if your data is already in one of these systems, can use it as an input by specifying a file:// path, Spark will handle it as long as the filesystem is mounted at the same path on each node. 
+- If your file isn't already on all nodes in the cluster, you can load it locally on the driver without going through Spark and then call parallelize to distribute the contents to workers. This approach can be slow, so recommend put files in a shared filesystem, like HDFS, NFS or S3.  
+
+### HDFS
+
+- HDFS is designed to work on commodity hardware and be resilient to node failure while providing high data throughout. Using Spark with HDFS is as simple as specifying hdfs://master:port/path for your input and output.
+- The HDFS protocol changes across Hadoop versions, so if you run a version of Spark that is compiled for a different version it will fail.
+
+### Structured Data with Spark SQL
+
+- Give Spark SQL a sql query to run on the data source, and we get back an RDD of Row objects, one per record.
