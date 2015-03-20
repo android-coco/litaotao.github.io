@@ -163,3 +163,77 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
 ### Structured Data with Spark SQL
 
 - Give Spark SQL a sql query to run on the data source, and we get back an RDD of Row objects, one per record.
+
+### Apache Hive
+
+- Hive can store tables in a variety of formats, from plain text to column-oriented formats.
+- To connect Spark SQL to an Hive, configuring your Hive by coping hive-site.xml file to Spark's ./conf/ directory. Then you can create a HiveContext object, the entry point to Spark SQL, and write Hive Query Language to get data back as RDDs of rows.
+- An example of HQL:
+
+![learning-spark-8.jpg](../images/learning-spark-8.jpg)
+
+### Databases
+
+- Spark can access databases using either their Hadoop connectors or custom Spark connectors. We'll show four common connectors.
+
+### Java Database Connectivity
+
+- Load relational data that support JDBC, MySQL, Postgres and so on.
+- Get an org.apache.spark.rdd.JdbcRDD and provide it with our SparkContext and the other parameters. Bellow is a example in scala:
+
+![learning-spark-9.jpg](../images/learning-spark-9.jpg)
+
+### Cassandra
+
+- Maintained by DataStax open source project, currently not the official part of Spark.
+
+### HBase
+
+### Elasticsearch
+
+- Different than the other connectors we have examined, it ignores the path information we provide and instead depends on setting up configuration on our SparkContext.
+
+## 6. Chapter 6. Advanced Spark Programming
+
+- Introduce two types of shared variables:
+    + accumulators to aggregate information;
+    + broadcast variables to efficiently distribute large values;
+- Cover Spark's methods for interacting with external programs, such as written scripts in R.  
+- In addition to the languages directly supported by Spark, the system can call into programs written in other languages. We introduce how to use Spark's language-agnostic pipe() method to interact with other programs through standard input and output.
+
+### Accumulators
+
+- When we normally pass functions to Spark, such as map or filter, then can use variables defined outside them in the driver program, but each task running on the cluster gets a new copy of each variable, and updates from these copies are not propageted back to the driver. Spark's shared variables, accumulators and broadcast variables, relax this restriction for two common types of communication patterns: aggregation of results and broadcasts.
+- Accumulators provide a simple syntax for aggregating values from worker nodes back to the driver program. One of the most common uses of accumulators is to count events that occur during job execution for debugging purposes.
+- E.g in Python:
+
+![learning-spark-10.jpg](../images/learning-spark-10.jpg)
+
+- Accumulators work as follows:
+    + create by: SparkContext.accumulator(initalValue), returning an org.apache.spark.Accumulator[T] object;
+    + Worker node in Spark closures can add to the accumulator with its += method(or add in Java);
+    + The driver program can call the value property on the accumulator to access its value.
+- Worker nodes can not access the accumulator's value(), that is, accumulator are write-only to the tasks on the worker nodes.
+
+### Accumulators and Fault Tolerance
+
+### Custom Accumulators
+
+### Broadcast Variables
+
+- Broadcast variables allow the program to efficiently send a large, read-only value to all the worker nodes for use in one or more Spark operations. For example, when app needs to send a large, read-only lookup table to all the nodes, or even a large feature vector in a machine learning algorithm.
+- E.g in Python without broadcast variable:
+
+![learning-spark-11.jpg](../images/learning-spark-11.jpg)
+
+- This program above can run, but if we had a larger table, the signPreFixes could easily be much larger, making it expensive to send that Array from the master alongside each task. In addition, if we used the same signPrefixes object later, it would be sent again to each node. We can fix this by making signPrefixes a broadcast variable.
+- E.g in Python with broadcast variable:
+
+![learning-spark-12.jpg](../images/learning-spark-12.jpg)
+
+- The process of using broadcast variables is bellow:
+    + Create a broadcast[T] by SparkContext.broadcast;
+    + Access its value with the value property;
+    + The variable will be sent to each node only once, and should be treated as read-only(update will not be propagated to other nodes.)
+
+
