@@ -236,4 +236,59 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
     + Access its value with the value property;
     + The variable will be sent to each node only once, and should be treated as read-only(update will not be propagated to other nodes.)
 
+### Working on a Per-Partition Basis
+
+### Piping to External Programs
+
+- Spark provides a general mechanism to pipe data to programs in other languages.
+- Spark provides a pipe() method on RDDs, it lets us write parts of jobs using any language we want as long as it can read and write to Unix standard streams. 
+
+## 7. Chapter 7. Running on a Cluster
+
+- The driver's duties are:
+    + Converting a user program into tasks;
+    + Scheduling tasks on executors;
+- Executor have two roles:
+    + Run the tasks that make up the application and return results to the driver;
+    + Provide in-memory storage for RDDs that are cached by user program through a service called the Block Manager that lives within each executor.
+
+### Drivers and Executors in Local Mode
+
+### Cluster Manager
+
+- Spark's documentation consistently uses the terms driver and executor when describing the processes that execute each Spark application, the terms master and worker are used to describe the centralized and distributed portions of the cluster manager.
+
+- The exact steps that occur when you run a Spark app on a cluster:
+    + The user submits an app using spark-submit;
+    + spark-submit launches the driver program and invokes the main() method specified by the user;
+    + The driver program contacts the cluster manager to ask for resources to launch executors;
+    + The cluster manager launches executors on behalf on the driver program;
+    + The driver process runs through the user application, based on the RDD actions and transformations in the program, the driver sends work to executors in the form of tasks
+    + Tasks are run on executors processes to compute and save results;
+    + If the driver's main() method exits or it calls SparkContext.stop(), it will terminate the executors and release resources from the cluster manager;
+
+
+### Deploying Applications with spark-submit
+
+### Packaging Your Code and Dependencies
+
+- If your program imports any libs that are note in the org.apache.spark package or part of the language library, you need to ensure that all your dependecies are present at the runtime of your Spark application;
+- For Python users, there are a few ways to install third-party libs, since pyspark uses the existing Python installation on worker machines, you can install dependency libs directly on the cluster machines using standard python package managers, or via a manually installation into the site-packages/ directory of your Python installation. Alternatively, you can submit individual libs using the -py-files argument to spark-submit and they will be added to the Python interpreter's path. Adding libs manually is more convenient if you do not have access to install packages on the cluster, but do keep in mind potential conflicts with existing packages already installed on the machines.
+
+### Scheduling Within and Between Spark Applications
+
+### Standalone Cluster Manager 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
