@@ -25,498 +25,13 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-03-23T13:46:25+08:00</updated>
+   <updated>2015-03-23T17:53:45+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
-   
-   <entry>
-     <title>book-4. Learning Spark 阅读笔记</title>
-     <link href="/learning-spark"/>
-     <updated>2015-03-16T00:00:00+08:00</updated>
-     <id>/learning-spark</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;0. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;代码示例在 &lt;a href=&quot;https://github.com/databricks/learning-spark&quot;&gt;databricks/github&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;Chapter 1. Introduction to Data Analysis with Spark&lt;/h2&gt;
-
-&lt;h3&gt;What is Apache Spark&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Designed to be fast and general-purpose.&lt;/li&gt;
-&lt;li&gt;Extends MP model, more computations, interactive query, streaming.&lt;/li&gt;
-&lt;li&gt;Run computations in memory, also do well in data on disk.&lt;/li&gt;
-&lt;li&gt;Easy to use, Python, Java, Scala and SQL, can access HDFS and Cassandra and so on.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;A Unified Stack&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Spark contains mutiple closely integrated components.&lt;/li&gt;
-&lt;li&gt;Tight integration&#39;s benefits.
-
-&lt;ul&gt;
-&lt;li&gt;All components in the stack benefit from improvments at the lower layers.&lt;/li&gt;
-&lt;li&gt;The cost associated with running the stack are minimized.&lt;/li&gt;
-&lt;li&gt;Build app that seamlessly combine different models.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Spark stack grpah:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/spark-stack.jpg&quot; alt=&quot;spark-stack.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Spark Core&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The basic functionality of spark:
-
-&lt;ul&gt;
-&lt;li&gt;Task scheduling&lt;/li&gt;
-&lt;li&gt;Memory management&lt;/li&gt;
-&lt;li&gt;Fault recovery&lt;/li&gt;
-&lt;li&gt;Interacting with storage system&lt;/li&gt;
-&lt;li&gt;RDD definition&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 2. Downloading Spark and Getting Started&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Spark itself is written in scala, and runs on the Java Virtual Machine. Need Java 6 or newer, if write Python, need Python 2.6 or 2.7, does not yet support Python 3.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Using IPython&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;IPYTHON: set this environment variable to 1 will use the IPython shell to access Spark when ./bin/pyspark&lt;/li&gt;
-&lt;li&gt;IPYTHON_OPTS: set this environment variable to &quot;notebook&quot; will use the IPython notebook to access Spark when ./bin/pyspark&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Introduction to Core Spark Concepts&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Driver program: Contains the app&#39;s main function and defines distributed datasets on the cluster, then applies operations to them. In shells, the driver program is the Spark shell itself.&lt;/li&gt;
-&lt;li&gt;Driver program access Spark through a SparkContext object, which represents a connection to a computing cluster.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chatper 3. Programming with RDDs&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;An RDD is simple a distributed collection of elements, in Spark all work is expressed as either creating new RDDs, transforming RDDs or calling operations on RDDs to compute a result.&lt;/li&gt;
-&lt;li&gt;Two ways to create RDDs:
-
-&lt;ul&gt;
-&lt;li&gt;Loading an external dataset;&lt;/li&gt;
-&lt;li&gt;Parallelizing a collection in your driver program, not that widely used since it required that you have your entire dataset in memeory on one machine;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;RDD.filter() does not mutate the existing inputRDD, it just retures a pointer to an entirely new RDD, inputRDD can still be reused later in the program. For example, the execute graph of printing the error and warn message in a logfile is as bellow:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;errorsRDD = inputRDD.filter(lambda x: &quot;error&quot; in x)
-warningRDD = inputRDD.filter(lambda x: &quot;warn&quot; in x)
-badLinesRDD = errorsRDD.union(warningRDD)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/learning-spark-1.jpg&quot; alt=&quot;learning-spark-1.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Actions: The operations that return a final value to the driver program or write data to an external storage system. Should note that each time we call a new action, the entire RDD must be computed &quot;from scratch&quot;, to avoid this inefficiency, users can persist intermediate results.&lt;/li&gt;
-&lt;li&gt;Lazy evaluation: Spark will not begin to execute until it sees an action.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Persistence(Cache)&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;If wish to use the same RDD mutiple times, Spark will recompute the RDD and all of its dependencies each time we call an action on the RDD, it&#39;s expensive for iterative algorithm, so that we need persist or cache data.&lt;/li&gt;
-&lt;li&gt;The for cache level, defined in pyspark.StorageLevel or org.apache.spark.storage.StorageLevel:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../../images/learning-spark-2.jpg&quot; alt=&quot;learning-spark-2.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;The default persist() will store the data in the JVM heap as unserialized objects, in Python, we always serialize the data persist stores, so the default is instead stored in the JVM heap as pickled objects, when write data out to disk or off-heap storage, the data is also always serialized. Off-heap caching is experimental and uses Tachyon.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;The ability to always recompute an RDD is actually why RDDs are called &quot;resilient&quot;, when a machine holding RDD data losts, it can be recomputed the missing data.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 4. Working with Key/Value Pairs&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Key/Value RDDs are commonly used to perform aggregations, and often we&#39;ll do some initial ETL(extract, transform, load) to get our data into a key/value format.&lt;/li&gt;
-&lt;li&gt;The advanced feature that lets users control the layout of pair RDDs across nodes is partitioning. Using controllable partitioning, applications can sometimes greatly reduce communications costs by ensuring that data will be accessed together and will be on the same node.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Data Partitioning(Advanced)&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Partitioning is important but not necessary for all applications, for if a given RDD is scanned only once, there is not point in partitioning it in advance. It&#39;s very useful when a dataset is reused multiple times in key-oriented operations such as joins.&lt;/li&gt;
-&lt;li&gt;There is a good example in the book, bellow is the comparison:
-
-&lt;ul&gt;
-&lt;li&gt;Before&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-3.jpg&quot; alt=&quot;learning-spark-3.jpg&quot; /&gt;
-&lt;img src=&quot;../images/learning-spark-4.jpg&quot; alt=&quot;learning-spark-4.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;After&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-5.jpg&quot; alt=&quot;learning-spark-5.jpg&quot; /&gt;
-&lt;img src=&quot;../images/learning-spark-6.jpg&quot; alt=&quot;learning-spark-6.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;partitionBy() is a transformation, RDDs can never be modified once created. Therefore need to persist and save as userData the result of partitionBy(), not the original sequenceFile(). Also, the 100 passed to partitionBy represents the number of partitions, which will control how many parallel tasks perform further operations on the RDD, in general, make this at least as large as the number of cores in your cluster.&lt;/li&gt;
-&lt;li&gt;There is a PageRand example in this chapter.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 5. Loading and Saving Your Data&lt;/h2&gt;
-
-&lt;p&gt;This chapter will cover three common sets of data sources:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;File formats and filesystems;&lt;/li&gt;
-&lt;li&gt;Structured data sources through Spark SQL;&lt;/li&gt;
-&lt;li&gt;Databases and key/value stores;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;File Formats&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-7.jpg&quot; alt=&quot;learning-spark-7.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Spark supports reading all the files in a given directory and doing wildcard expansion on the input(e.g., part-*.txt).&lt;/li&gt;
-&lt;li&gt;Use sc.textFile or sc.wholeTextFiles to load text files.&lt;/li&gt;
-&lt;li&gt;Use saveAsTextFile to outputting files to a directory of file.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;JSON&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The simplest way to load JSON data is by loading the data as a text file and then mapping over the values with a JSON parser.&lt;/li&gt;
-&lt;li&gt;Use accumulators to keep track of the number of errors.&lt;/li&gt;
-&lt;li&gt;Save as json is much simpler, bellow is how to load and save as json in Python.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;### load from json
-import json
-data = input.map(lambda x: json.loads(x))
-
-### save as json
-(data.filter(lambda x: x[&quot;lovesPandas&quot;]).map(lambda x: json.dumps(x)).saveAsTextFile(outputFile))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Comma-Separated Values and Tab-Separated Values&lt;/h3&gt;
-
-&lt;h3&gt;SequenceFiles&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;SequenceFiles are a popular Hadoop format composed of flat files with key/value pairs. It&#39;s a common input/output format for Hadoop MR jobs.&lt;/li&gt;
-&lt;li&gt;Hadoop&#39;s RecordReader reuses the same object for each record, so directly calling cache on an RDD you read in like this can fail; instead, add a simple map() operation and cache its result. Furthermore, many Hadoop Writable classes do not implement java.io.Serializable, so for them to work in RDDs we need to convert them with a map() anyway.&lt;/li&gt;
-&lt;li&gt;Use sequenceFile(path, keyClass, valueClass, minPartitions) to load sequenceFiles, make sure that keyClass and valueClass should be the Writable class. e.g in Python:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;data = sc.sequenceFile(inFile, &#39;org.apache.hadoop.io.Text&#39;, &#39;org.apache.hadoop.io.IntWritable&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Hadoop Input and Output Formats&lt;/h3&gt;
-
-&lt;h3&gt;File Compression&lt;/h3&gt;
-
-&lt;h3&gt;Local FS&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Load data from &#39;local&#39; fs required that all the files are available at the same path on all nodes in your cluster.&lt;/li&gt;
-&lt;li&gt;Some network filesystems are exposed to the user as a regular filesystem, if your data is already in one of these systems, can use it as an input by specifying a file:// path, Spark will handle it as long as the filesystem is mounted at the same path on each node.&lt;/li&gt;
-&lt;li&gt;If your file isn&#39;t already on all nodes in the cluster, you can load it locally on the driver without going through Spark and then call parallelize to distribute the contents to workers. This approach can be slow, so recommend put files in a shared filesystem, like HDFS, NFS or S3.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;HDFS&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;HDFS is designed to work on commodity hardware and be resilient to node failure while providing high data throughout. Using Spark with HDFS is as simple as specifying hdfs://master:port/path for your input and output.&lt;/li&gt;
-&lt;li&gt;The HDFS protocol changes across Hadoop versions, so if you run a version of Spark that is compiled for a different version it will fail.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Structured Data with Spark SQL&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Give Spark SQL a sql query to run on the data source, and we get back an RDD of Row objects, one per record.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Apache Hive&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Hive can store tables in a variety of formats, from plain text to column-oriented formats.&lt;/li&gt;
-&lt;li&gt;To connect Spark SQL to an Hive, configuring your Hive by coping hive-site.xml file to Spark&#39;s ./conf/ directory. Then you can create a HiveContext object, the entry point to Spark SQL, and write Hive Query Language to get data back as RDDs of rows.&lt;/li&gt;
-&lt;li&gt;An example of HQL:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-8.jpg&quot; alt=&quot;learning-spark-8.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Databases&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Spark can access databases using either their Hadoop connectors or custom Spark connectors. We&#39;ll show four common connectors.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Java Database Connectivity&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Load relational data that support JDBC, MySQL, Postgres and so on.&lt;/li&gt;
-&lt;li&gt;Get an org.apache.spark.rdd.JdbcRDD and provide it with our SparkContext and the other parameters. Bellow is a example in scala:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-9.jpg&quot; alt=&quot;learning-spark-9.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Cassandra&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Maintained by DataStax open source project, currently not the official part of Spark.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;HBase&lt;/h3&gt;
-
-&lt;h3&gt;Elasticsearch&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Different than the other connectors we have examined, it ignores the path information we provide and instead depends on setting up configuration on our SparkContext.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 6. Advanced Spark Programming&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Introduce two types of shared variables:
-
-&lt;ul&gt;
-&lt;li&gt;accumulators to aggregate information;&lt;/li&gt;
-&lt;li&gt;broadcast variables to efficiently distribute large values;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Cover Spark&#39;s methods for interacting with external programs, such as written scripts in R.&lt;/li&gt;
-&lt;li&gt;In addition to the languages directly supported by Spark, the system can call into programs written in other languages. We introduce how to use Spark&#39;s language-agnostic pipe() method to interact with other programs through standard input and output.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Accumulators&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;When we normally pass functions to Spark, such as map or filter, then can use variables defined outside them in the driver program, but each task running on the cluster gets a new copy of each variable, and updates from these copies are not propageted back to the driver. Spark&#39;s shared variables, accumulators and broadcast variables, relax this restriction for two common types of communication patterns: aggregation of results and broadcasts.&lt;/li&gt;
-&lt;li&gt;Accumulators provide a simple syntax for aggregating values from worker nodes back to the driver program. One of the most common uses of accumulators is to count events that occur during job execution for debugging purposes.&lt;/li&gt;
-&lt;li&gt;E.g in Python:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-10.jpg&quot; alt=&quot;learning-spark-10.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Accumulators work as follows:
-
-&lt;ul&gt;
-&lt;li&gt;create by: SparkContext.accumulator(initalValue), returning an org.apache.spark.Accumulator[T] object;&lt;/li&gt;
-&lt;li&gt;Worker node in Spark closures can add to the accumulator with its += method(or add in Java);&lt;/li&gt;
-&lt;li&gt;The driver program can call the value property on the accumulator to access its value.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Worker nodes can not access the accumulator&#39;s value(), that is, accumulator are write-only to the tasks on the worker nodes.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Accumulators and Fault Tolerance&lt;/h3&gt;
-
-&lt;h3&gt;Custom Accumulators&lt;/h3&gt;
-
-&lt;h3&gt;Broadcast Variables&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Broadcast variables allow the program to efficiently send a large, read-only value to all the worker nodes for use in one or more Spark operations. For example, when app needs to send a large, read-only lookup table to all the nodes, or even a large feature vector in a machine learning algorithm.&lt;/li&gt;
-&lt;li&gt;E.g in Python without broadcast variable:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-11.jpg&quot; alt=&quot;learning-spark-11.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This program above can run, but if we had a larger table, the signPreFixes could easily be much larger, making it expensive to send that Array from the master alongside each task. In addition, if we used the same signPrefixes object later, it would be sent again to each node. We can fix this by making signPrefixes a broadcast variable.&lt;/li&gt;
-&lt;li&gt;E.g in Python with broadcast variable:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;&lt;img src=&quot;../images/learning-spark-12.jpg&quot; alt=&quot;learning-spark-12.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The process of using broadcast variables is bellow:
-
-&lt;ul&gt;
-&lt;li&gt;Create a broadcast[T] by SparkContext.broadcast;&lt;/li&gt;
-&lt;li&gt;Access its value with the value property;&lt;/li&gt;
-&lt;li&gt;The variable will be sent to each node only once, and should be treated as read-only(update will not be propagated to other nodes.)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Working on a Per-Partition Basis&lt;/h3&gt;
-
-&lt;h3&gt;Piping to External Programs&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Spark provides a general mechanism to pipe data to programs in other languages.&lt;/li&gt;
-&lt;li&gt;Spark provides a pipe() method on RDDs, it lets us write parts of jobs using any language we want as long as it can read and write to Unix standard streams.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 7. Running on a Cluster&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The driver&#39;s duties are:
-
-&lt;ul&gt;
-&lt;li&gt;Converting a user program into tasks;&lt;/li&gt;
-&lt;li&gt;Scheduling tasks on executors;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Executor have two roles:
-
-&lt;ul&gt;
-&lt;li&gt;Run the tasks that make up the application and return results to the driver;&lt;/li&gt;
-&lt;li&gt;Provide in-memory storage for RDDs that are cached by user program through a service called the Block Manager that lives within each executor.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Drivers and Executors in Local Mode&lt;/h3&gt;
-
-&lt;h3&gt;Cluster Manager&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Spark&#39;s documentation consistently uses the terms driver and executor when describing the processes that execute each Spark application, the terms master and worker are used to describe the centralized and distributed portions of the cluster manager.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;The exact steps that occur when you run a Spark app on a cluster:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The user submits an app using spark-submit;&lt;/li&gt;
-&lt;li&gt;spark-submit launches the driver program and invokes the main() method specified by the user;&lt;/li&gt;
-&lt;li&gt;The driver program contacts the cluster manager to ask for resources to launch executors;&lt;/li&gt;
-&lt;li&gt;The cluster manager launches executors on behalf on the driver program;&lt;/li&gt;
-&lt;li&gt;The driver process runs through the user application, based on the RDD actions and transformations in the program, the driver sends work to executors in the form of tasks&lt;/li&gt;
-&lt;li&gt;Tasks are run on executors processes to compute and save results;&lt;/li&gt;
-&lt;li&gt;If the driver&#39;s main() method exits or it calls SparkContext.stop(), it will terminate the executors and release resources from the cluster manager;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Deploying Applications with spark-submit&lt;/h3&gt;
-
-&lt;h3&gt;Packaging Your Code and Dependencies&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;If your program imports any libs that are note in the org.apache.spark package or part of the language library, you need to ensure that all your dependecies are present at the runtime of your Spark application;&lt;/li&gt;
-&lt;li&gt;For Python users, there are a few ways to install third-party libs, since pyspark uses the existing Python installation on worker machines, you can install dependency libs directly on the cluster machines using standard python package managers, or via a manually installation into the site-packages/ directory of your Python installation. Alternatively, you can submit individual libs using the -py-files argument to spark-submit and they will be added to the Python interpreter&#39;s path. Adding libs manually is more convenient if you do not have access to install packages on the cluster, but do keep in mind potential conflicts with existing packages already installed on the machines.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Scheduling Within and Between Spark Applications&lt;/h3&gt;
-
-&lt;h3&gt;Standalone Cluster Manager&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Can start a master and workers by hand or by using launch scripts in Spark&#39;s sbin directory. The launch scripts are the simplest option to use, but require SSH access between your machines. To use the scripts, follow these steps:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Copy a compiled version of Spark to the same location on all your machines;&lt;/li&gt;
-&lt;li&gt;Set up password-less SSH access from your master machine to the others. This requires having the same user account on all the machines, creating a private SSH key for it on the master via ssh-keygen, and adding this key to the .ssh/authorized_keys file of all the workers.&lt;/li&gt;
-&lt;li&gt;Edit the conf/slaves file on your master and fill in the workers&#39; hostnames;&lt;/li&gt;
-&lt;li&gt;To start the cluster, run sbin/start-all.sh on your master, if everything started, you should get no prompts for a password, and the cluster manager&#39;s web UI should appear http://masternode:8080 and show all your workers;&lt;/li&gt;
-&lt;li&gt;To stop the cluster, run sbin/stop-all.sh on your master node;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;To start the cluster manually, using the spark-class script in Spark&#39;s bin/ directory:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;master: bin/spark-class org.apache.spark.deploy.master.Master&lt;/li&gt;
-&lt;li&gt;worker: bin/spark-class org.apache.spark.deploy.worker.Worker spark://masternode:7077&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Submitting Applications&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;If the application is requesting more memory for executors(with the --executor-memory flag to spark-submit) than is avialable in the cluster. The standalone cluster manager will never allocate executors for the application.&lt;/li&gt;
-&lt;li&gt;Two deploy modes supported by standalone cluster:
-
-&lt;ul&gt;
-&lt;li&gt;Client mode: defalut, the driver runs on the machine where you executed spark-submit, as part of the spark-submit command.&lt;/li&gt;
-&lt;li&gt;Cluster mode: the driver is launched within the standalone cluster, as another process on one of the worker nodes, and then it connects back to request executors. In this mode, spark-submit is &quot;fire-and-forget&quot; in that you can close you laptop while the app can still running. Switching to cluster mode by passing --deploy-mode cluster to spark-submit.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;When sharing a spark cluster among multiple applications, you will need to decide how to allocate resources between the executors, in the standalone cluster manager, resource allocation is controlled by two settings:
-
-&lt;ul&gt;
-&lt;li&gt;executor memory: configure it by --executor-memory of spark-submit; default is 1 GB;&lt;/li&gt;
-&lt;li&gt;maximum number of total cores: The total cores across all executors for an application. Default is unlimited, that is, the application will launch executors on every available node is the cluster. For a multiuser workload, you should instead ask uses to cap their usage. You can set this value through the --total-executor-cores argument to spark-submit, or by configuring spark.cores.max in you Spark configuration file;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;The standalone cluster manager works by spreading out each application across the maximum number of executors by default.&lt;/li&gt;
-&lt;li&gt;Use Apache ZooKeeper(a distributed coordination system) to keep multiple standby masters and switch to a new one when any of them fails in order to make HA.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Chapter 8. Tuning and Debugging Spark&lt;/h2&gt;
-
-&lt;h3&gt;Configuring Spark with SparkConf&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;A SparkConf instance contains key/value pairs of configuration options the user would like to override. Every configuration option in Spark is based on a string key and value.&lt;/li&gt;
-&lt;li&gt;The spark-submit tool provides built-in flags for the most common Spark configuration parameters and a generic --conf flag that accepts any Spark configuration value.&lt;/li&gt;
-&lt;li&gt;spark-submit also supports loading configuration values from a file, this can be useful to set environmental configuraion, which may be shared across multiple uses, such as a default master. By default, spark-submit will look for a file called conf/spark-defaults.conf in the Spark directory and attempt to read whitespace-delimited key/value pairs from this file. You can also customize the exact location of the file using the --properties-file flag to spark-submit.&lt;/li&gt;
-&lt;li&gt;The precedence of configuration: SparkConf instance &gt; spark-submit arguments &gt; spark-submit configuration file;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;Components of Execution: Jobs, Tasks, and Stages&lt;/h3&gt;
-</content>
-   </entry>
    
    <entry>
      <title>book-3. 设计模式总结之结构型模式</title>
@@ -2664,6 +2179,284 @@ exit.
 &lt;p&gt;原因是我是连接到公司spark集群的，截图里可以看到，公司spark集群的hadoop版本和我当时编译zeppelin是定义的hadoop版本不一致。公司spark集群的hadoop版本是：Hadoop 2.0.0-cdh4.5.0，而我当时编译zeppelin时的命令是：mvn clean package -Pspark-1.2 -Dhadoop.version=2.2.0 -Phadoop-2.2 -DskipTests。&lt;/p&gt;
 
 &lt;p&gt;解决办法就是重新拉zeppelin最新源码，然后用如下命令再次编译了：mvn clean package -Pspark-1.2 -Dhadoop.version=2.0.0-cdh4.5.0 -Phadoop-2.0 -DskipTests&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>［touch spark］8. 当Ipython Notebook遇见Spark</title>
+     <link href="/ipython-notebook-server-spark"/>
+     <updated>2015-01-27T00:00:00+08:00</updated>
+     <id>/ipython-notebook-server-spark</id>
+     <content type="html">&lt;p&gt;注：和本文相关的资料和文件都放到Github上了：&lt;a href=&quot;https://github.com/litaotao/ipython-notebook-spark&quot;&gt;ipython-notebook-spark&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 致谢&lt;/h2&gt;
+
+&lt;p&gt;　　首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.&lt;br/&gt;
+　　下面是这两个项目的github地址：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。 &lt;br/&gt;
+　　但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
+
+&lt;h2&gt;2. 路线规划&lt;/h2&gt;
+
+&lt;p&gt;　　基于 &lt;a href=&quot;http://www.databricks.com/&quot;&gt;Databricks&lt;/a&gt;，&lt;a href=&quot;zeppelin-project.org&quot;&gt;Zeppelin&lt;/a&gt; 和 &lt;a href=&quot;www.gethue.com&quot;&gt;Hue&lt;/a&gt; 的启发，我也想尝试搭建一个丰富可用的在线大数据REPL分析平台，正好用此机会好好实践一下spark，毕竟都学习spark几个月了呢。 &lt;br/&gt;
+　　不说废话，同&lt;a href=&quot;../weibo-api-in-action&quot;&gt;使用spark分析微博数据那篇博文一样&lt;/a&gt;，我们也要有一个路线规划：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server；&lt;/li&gt;
+&lt;li&gt;完善 Weibo Message Driver，使用户可在Notebook里获取、分析微博数据，as simple as possible；&lt;/li&gt;
+&lt;li&gt;研究Zeppelin和Hue项目，把其中一个嫁接在Notebook的上层，实现准产品级的大数据实时ETL，Analytic，Sharing平台；这一步可能需要较长时间，可根据自己的时间安排灵活调整；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　Dream：在年前完成上面三步，that&#39;s really full or chanllenge, but more funny. &lt;strong&gt;Anyway, we need dreams, and I can&#39;t wait to make this dream into reality.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/dreams.jpg&quot; alt=&quot;dreams&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　这篇主要记录我在实现第一步的过程中遇到的主要步骤，遇到的问题和解决方法：搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server。&lt;/p&gt;
+
+&lt;h2&gt;3. 配置Ipython&lt;/h2&gt;
+
+&lt;h3&gt;3.1: ipython 配置名profile介绍&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile 命令说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　profile是ipython的一个子命令，其中profile又有两个子命令，分别是create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[13:54:01]:~/Desktop#ipython profile 
+No subcommand specified. Must specify one of: [&#39;create&#39;, &#39;list&#39;]
+
+Manage IPython profiles
+
+Profile directories contain configuration, log and security related files and
+are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
+your ipython directory.  You can create profiles with `ipython profile create
+&amp;lt;name&amp;gt;`, or see the profiles you already have with `ipython profile list`
+
+To get started configuring IPython, simply do:
+
+$&amp;gt; ipython profile create
+
+and IPython will create the default profile in &amp;lt;ipython_dir&amp;gt;/profile_default,
+where you can edit ipython_config.py to start configuring IPython.
+
+Subcommands
+-----------
+
+Subcommands are launched as `ipython cmd [args]`. For information on using
+subcommand &#39;cmd&#39;, do: `ipython cmd -h`.
+
+create
+    Create an IPython profile by name
+list
+    List available IPython profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile子命令list说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　本想list命令应该很简单的，和linux下的ls差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 &lt;code&gt;Available profiles in /root/.config/ipython:&lt;/code&gt; 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇文章&lt;/a&gt;中，作者说创建的配置文件会放到 &lt;code&gt;~/.ipython/profile_pyspark/&lt;/code&gt; 下，其实这并不是一定的，具体放在哪个目录下面，可以根据profile list的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下面的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:09:12]:~/Desktop#ipython profile list
+
+Available profiles in IPython:
+    pysh
+    math
+    sympy
+    cluster
+
+    The first request for a bundled profile will copy it
+    into your IPython directory (/root/.config/ipython),
+    where you can customize it.
+
+Available profiles in /root/.config/ipython:
+    default
+    pyspark
+
+To use any of the above profiles, start IPython with:
+    ipython --profile=&amp;lt;name&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile子命令create说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　简单介绍下create子命令的用法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:25:57]:~/Desktop#ipython profile help create
+Create an IPython profile by name
+
+Create an ipython profile directory by its name or profile directory path.
+Profile directories contain configuration, log and security related files and
+are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
+your ipython directory. Once created, you will can edit the configuration files
+in the profile directory to configure IPython. Most users will create a profile
+directory by name, `ipython profile create myprofile`, which will put the
+directory in `&amp;lt;ipython_dir&amp;gt;/profile_myprofile`.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;创建配置文件&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　因为我之前已经配置过一个pyspark的配置文件了，这里我们创建一个测试用的配置文件，pytest。运行一下命令后，会在 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下生成一个 pytest的目录。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:54:14]:~/Desktop#ipython profile create pytest
+[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_config.py&#39;
+[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_notebook_config.py&#39;
+
+root@ubuntu2[15:00:57]:~/Desktop#ls ~/.config/ipython/profile_pytest/
+ipython_config.py  ipython_notebook_config.py  log  pid  security  startup 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3.3 编辑配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;    c = get_config()
+
+    # about line 15, the ip address the notebook server will listen on. Set it to * means that any IP/Machine which can connect to the server can connect to the notebook server.
+    c.NotebookApp.ip = &#39;*&#39;
+    # about line 37, whether to open a browser or not. cause what we want to build is a backend server, so we set it False, no need to open a browser.
+    c.NotebookApp.open_browser = False
+    # about line 54, the port which the notebook server will listen on
+    c.NotebookApp.port = 8880 # or whatever you want, make sure the port is available  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;设置访问密码 &lt;br/&gt;
+　　如果你的notebook server是需要访问控制的，简单的话可以设置一个访问密码。听说Ipython 2.x 版本有用户访问控制，这里我还没有接触过，晚点会看看是否有成熟的可用的用户控制方案。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;生成密码文件&lt;br/&gt;
+这里我们用python自带的密码包生成一个密码，然后再把这个密码重定向到nvpasswd.txt文件里。注意这里重定向的路径哦。&lt;/li&gt;
+&lt;li&gt;编辑配置文件，设置读取密码文件配置项
+这里有一个需要注意的，就是PWDFILE的设置，一开始我设置为 &lt;code&gt;~/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，但是启动ipython notebook server的时候老师报错，说找不到密码文件nbpasswd.txt，很奇怪，明明文件就是在的，可就是提示找不到。无奈我到nbpasswd.txt路径下用 pwd 打印当前路径，显示为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，可是这两个路径应该是一样的啊。无奈之下，死马当作活马医，我就把PWDFILE设置成为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，没想到这样还成功了。关于这点为什么会有效，目前我还不是很清楚，等我请教了公司大神后再补上这一个tip吧。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;  示例如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:40:29]:~/Desktop#python -c &#39;from IPython.lib import passwd; print passwd()&#39; &amp;gt; ~/.config/ipython/profile_pytest/nbpasswd.txt
+Enter password: 
+Verify password: 
+root@ubuntu2[09:43:35]:~/Desktop#vi /root/.config/ipython/profile_pytest/nbpasswd.txt 
+sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1fb8f  
+
+root@ubuntu2[09:49:09]:~/Desktop#vi /root/.config/ipython/profile_pytest/ipython_notebook_config.py 
+# about line 95
+PWDFILE=&#39;root/.config/ipython/profile_pytest/nbpasswd.txt&#39;
+c.NotebookApp.password = open(PWDFILE).read().strip()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置启动文件&lt;br/&gt;
+　　这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py 
+root@ubuntu2[10:08:44]:~/Desktop#vi ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py   
+
+import os
+import sys
+
+spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
+if not spark_home:
+    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
+sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
+sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.1-src.zip&#39;))
+# execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　上面的启动配置文件也还简单，即拿到spark_home路径，并在系统环境变量path里加上两个路径，然后再执行一个shell.py文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的SPARK_HOME配置对了，并且下面有python这个文件夹，并且python/lib下有py4j-0.8.1这个文件。我在检查的时候就发现我的包版本是py4j-0.8.2.1的，所以还是要改得和自己的包一致才行。 &lt;br/&gt;
+　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;code&gt;sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))&lt;/code&gt;  &lt;br/&gt;
+　　注意，上面的最后一行 &lt;code&gt;execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))&lt;/code&gt; 被注释掉了，表示在新建或打开一个notebook时并不去执行shell.py这个文件，这个文件是创建SparkContext的，即如果执行改行语句，那在启动notebook时就会初始化一个sc，但这个sc的配置都是写死了的，在spark web UI监控里的appName也是一样的，很不方便。而且考虑到并不是打开一个notebook就要用到spark的资源，所以最好是要用户自己定义sc了。 &lt;br/&gt;
+　　python/pyspark/shell.py的核心代码： &lt;br/&gt;
+&lt;code&gt;
+sc = SparkContext(appName=&quot;PySparkShell&quot;, pyFiles=add_files)
+atexit.register(lambda: sc.stop())
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;4. Ok，here we go　　&lt;/h2&gt;
+
+&lt;p&gt;　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# for the CDH-installed Spark
+export SPARK_HOME=&#39;/usr/local/spark-1.2.0-bin-cdh4/&#39;
+
+# this is where you specify all the options you wou
+ld normally add after bin/pyspark
+  export PYSPARK_SUBMIT_ARGS=&#39;--master spark://10.21.208.21:7077 --deploy-mode client&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　ok，万事具备，只欠东风了。让我们来尝尝鲜吧：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
+2015-02-01 10:40:54.850 [NotebookApp] Using existing profile dir: u&#39;/root/.config/ipython/profile_pyspark&#39;
+2015-02-01 10:40:54.858 [NotebookApp] Using MathJax from CDN: http://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-02-01 10:40:54.868 [NotebookApp] CRITICAL | WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+2015-02-01 10:40:54.869 [NotebookApp] Serving notebooks from local directory: /root/Desktop
+2015-02-01 10:40:54.869 [NotebookApp] The IPython Notebook is running at: http://[all ip addresses on your system]:8880/
+2015-02-01 10:40:54.869 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
+&lt;img src=&quot;../images/notebook-spark-1.jpg&quot; alt=&quot;notebook-spark-1&quot; /&gt;
+&lt;img src=&quot;../images/notebook-spark-2.jpg&quot; alt=&quot;notebook-spark-2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;5. 总结&lt;/h2&gt;
+
+&lt;p&gt;　　下面是简单的步骤总结：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;建立环境变量配置文件：ipython_notebook_spark.bashrc&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
+export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;配置Ipython notebook server
+
+&lt;ul&gt;
+&lt;li&gt;ipython profile create pyspark&lt;/li&gt;
+&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
+&lt;li&gt;[可选]配置ipython notebook登录密码&lt;/li&gt;
+&lt;li&gt;设置启动文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;设置启动脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;6. 启动脚本和文件&lt;/h2&gt;
+
+&lt;p&gt;　　为了方便，都放到Github上了。&lt;/p&gt;
 </content>
    </entry>
    
