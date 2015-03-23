@@ -1,6 +1,6 @@
 ---
 category: books
-published: false
+published: true
 layout: post
 title: book-4. Learning Spark 阅读笔记
 description: 仅仅是记录我个人的读书记录，看官不必在意～
@@ -10,7 +10,7 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 ## 0. 写在前面
 代码示例在 [databricks/github](https://github.com/databricks/learning-spark)
 
-## 1. Chapter 1. Introduction to Data Analysis with Spark
+## Chapter 1. Introduction to Data Analysis with Spark
 
 ### What is Apache Spark
 
@@ -39,7 +39,7 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
     + Interacting with storage system
     + RDD definition
 
-## 2. Chapter 2. Downloading Spark and Getting Started
+## Chapter 2. Downloading Spark and Getting Started
 
 - Spark itself is written in scala, and runs on the Java Virtual Machine. Need Java 6 or newer, if write Python, need Python 2.6 or 2.7, does not yet support Python 3.
 
@@ -53,7 +53,7 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 - Driver program: Contains the app's main function and defines distributed datasets on the cluster, then applies operations to them. In shells, the driver program is the Spark shell itself.
 - Driver program access Spark through a SparkContext object, which represents a connection to a computing cluster.
 
-## 3. Chatper 3. Programming with RDDs
+## Chatper 3. Programming with RDDs
 
 - An RDD is simple a distributed collection of elements, in Spark all work is expressed as either creating new RDDs, transforming RDDs or calling operations on RDDs to compute a result.
 - Two ways to create RDDs: 
@@ -83,7 +83,7 @@ badLinesRDD = errorsRDD.union(warningRDD)
 
 - The ability to always recompute an RDD is actually why RDDs are called "resilient", when a machine holding RDD data losts, it can be recomputed the missing data.
 
-## 4. Chapter 4. Working with Key/Value Pairs
+## Chapter 4. Working with Key/Value Pairs
 
 - Key/Value RDDs are commonly used to perform aggregations, and often we'll do some initial ETL(extract, transform, load) to get our data into a key/value format.
 - The advanced feature that lets users control the layout of pair RDDs across nodes is partitioning. Using controllable partitioning, applications can sometimes greatly reduce communications costs by ensuring that data will be accessed together and will be on the same node. 
@@ -105,7 +105,7 @@ badLinesRDD = errorsRDD.union(warningRDD)
 - partitionBy() is a transformation, RDDs can never be modified once created. Therefore need to persist and save as userData the result of partitionBy(), not the original sequenceFile(). Also, the 100 passed to partitionBy represents the number of partitions, which will control how many parallel tasks perform further operations on the RDD, in general, make this at least as large as the number of cores in your cluster.
 - There is a PageRand example in this chapter.
 
-## 5. Chapter 5. Loading and Saving Your Data
+## Chapter 5. Loading and Saving Your Data
 
 This chapter will cover three common sets of data sources:
 
@@ -193,7 +193,7 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
 
 - Different than the other connectors we have examined, it ignores the path information we provide and instead depends on setting up configuration on our SparkContext.
 
-## 6. Chapter 6. Advanced Spark Programming
+## Chapter 6. Advanced Spark Programming
 
 - Introduce two types of shared variables:
     + accumulators to aggregate information;
@@ -243,7 +243,7 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
 - Spark provides a general mechanism to pipe data to programs in other languages.
 - Spark provides a pipe() method on RDDs, it lets us write parts of jobs using any language we want as long as it can read and write to Unix standard streams. 
 
-## 7. Chapter 7. Running on a Cluster
+## Chapter 7. Running on a Cluster
 
 - The driver's duties are:
     + Converting a user program into tasks;
@@ -279,7 +279,39 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
 
 ### Standalone Cluster Manager 
 
+- Can start a master and workers by hand or by using launch scripts in Spark's sbin directory. The launch scripts are the simplest option to use, but require SSH access between your machines. To use the scripts, follow these steps:
+    + Copy a compiled version of Spark to the same location on all your machines;
+    + Set up password-less SSH access from your master machine to the others. This requires having the same user account on all the machines, creating a private SSH key for it on the master via ssh-keygen, and adding this key to the .ssh/authorized_keys file of all the workers. 
+    + Edit the conf/slaves file on your master and fill in the workers' hostnames;
+    + To start the cluster, run sbin/start-all.sh on your master, if everything started, you should get no prompts for a password, and the cluster manager's web UI should appear http://masternode:8080 and show all your workers;
+    + To stop the cluster, run sbin/stop-all.sh on your master node;
 
+- To start the cluster manually, using the spark-class script in Spark's bin/ directory:
+    + master: bin/spark-class org.apache.spark.deploy.master.Master
+    + worker: bin/spark-class org.apache.spark.deploy.worker.Worker spark://masternode:7077
+
+### Submitting Applications
+
+- If the application is requesting more memory for executors(with the --executor-memory flag to spark-submit) than is avialable in the cluster. The standalone cluster manager will never allocate executors for the application.
+- Two deploy modes supported by standalone cluster:
+    + Client mode: defalut, the driver runs on the machine where you executed spark-submit, as part of the spark-submit command.
+    + Cluster mode: the driver is launched within the standalone cluster, as another process on one of the worker nodes, and then it connects back to request executors. In this mode, spark-submit is "fire-and-forget" in that you can close you laptop while the app can still running. Switching to cluster mode by passing --deploy-mode cluster to spark-submit.
+- When sharing a spark cluster among multiple applications, you will need to decide how to allocate resources between the executors, in the standalone cluster manager, resource allocation is controlled by two settings:
+    + executor memory: configure it by --executor-memory of spark-submit; default is 1 GB;
+    + maximum number of total cores: The total cores across all executors for an application. Default is unlimited, that is, the application will launch executors on every available node is the cluster. For a multiuser workload, you should instead ask uses to cap their usage. You can set this value through the --total-executor-cores argument to spark-submit, or by configuring spark.cores.max in you Spark configuration file;
+- The standalone cluster manager works by spreading out each application across the maximum number of executors by default.
+- Use Apache ZooKeeper(a distributed coordination system) to keep multiple standby masters and switch to a new one when any of them fails in order to make HA.
+
+## Chapter 8. Tuning and Debugging Spark
+
+### Configuring Spark with SparkConf
+
+- A SparkConf instance contains key/value pairs of configuration options the user would like to override. Every configuration option in Spark is based on a string key and value.
+- The spark-submit tool provides built-in flags for the most common Spark configuration parameters and a generic --conf flag that accepts any Spark configuration value.
+- spark-submit also supports loading configuration values from a file, this can be useful to set environmental configuraion, which may be shared across multiple uses, such as a default master. By default, spark-submit will look for a file called conf/spark-defaults.conf in the Spark directory and attempt to read whitespace-delimited key/value pairs from this file. You can also customize the exact location of the file using the --properties-file flag to spark-submit.
+- The precedence of configuration: SparkConf instance > spark-submit arguments > spark-submit configuration file;
+
+### Components of Execution: Jobs, Tasks, and Stages
 
 
 
