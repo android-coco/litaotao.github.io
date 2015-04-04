@@ -1,5 +1,5 @@
 ---
-category: erlang
+category: web
 published: false
 layout: post
 title: 我的后台 API 设计经验

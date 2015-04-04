@@ -124,6 +124,157 @@ The IPython notebook web-application is based on a server-client structure. This
 ### 8.3 IPython extensions
 A level above configuration are IPython extensions, Python modules which modify the behaviour of the shell. They are referred to by an importable module name, and can be placed anywhere you’d normally import from, or in .ipython/extensions/.
 
+Getting extensions
+A few important extensions are bundled with IPython. Others can be found on the extensions index on the wiki, and the Framework :: IPython tag on PyPI.
+
+Extensions on PyPI can be installed using pip, like any other Python package. Other simple extensions can be installed with the %install_ext magic. The latter does no validation, so be careful using it on untrusted networks like public wifi.
+
+Using extensions
+To load an extension while IPython is running, use the %load_ext magic:
+```
+In [1]: %load_ext myextension
+```
+To load it each time IPython starts, list it in your configuration file:
+```
+c.InteractiveShellApp.extensions = [
+    'myextension'
+]
+```
+
+Writing extensions
+An IPython extension is an importable Python module that has a couple of special functions to load and unload it. Here is a template:
+```
+# myextension.py
+
+def load_ipython_extension(ipython):
+    # The `ipython` argument is the currently active `InteractiveShell`
+    # instance, which can be used in any way. This allows you to register
+    # new magics or aliases, for example.
+
+def unload_ipython_extension(ipython):
+    # If you want your extension to be unloadable, put that logic here.
+```
+This load_ipython_extension() function is called after your extension is imported, and the currently active InteractiveShell instance is passed as the only argument. You can do anything you want with IPython at that point.
+
+load_ipython_extension() will be called again if you load or reload the extension again. It is up to the extension author to add code to manage that.
+
+Useful InteractiveShell methods include register_magic_function(), push() (to add variables to the user namespace) and drop_by_id() (to remove variables on unloading).
+
+My extensions dir: 
+/root/anaconda/lib/python2.7/site-packages/IPython/entensions/
+
+**Defining custom magics**
+There are two main ways to define your own magic functions: from standalone functions and by inheriting from a base class provided by IPython: IPython.core.magic.Magics. Below we show code you can place in a file that you load from your configuration, such as any file in the startup subdirectory of your default IPython profile.
+
+First, let us see the simplest case. The following shows how to create a line magic, a cell one and one that works in both modes, using just plain functions:
+
+```
+from IPython.core.magic import (register_line_magic, register_cell_magic,
+                                register_line_cell_magic)
+
+@register_line_magic
+def lmagic(line):
+    "my line magic"
+    return line
+
+@register_cell_magic
+def cmagic(line, cell):
+    "my cell magic"
+    return line, cell
+
+@register_line_cell_magic
+def lcmagic(line, cell=None):
+    "Magic that works both as %lcmagic and as %%lcmagic"
+    if cell is None:
+        print("Called as line magic")
+        return line
+    else:
+        print("Called as cell magic")
+        return line, cell
+
+# We delete these to avoid name conflicts for automagic to work
+del lmagic, lcmagic
+```
+
+You can also create magics of all three kinds by inheriting from the IPython.core.magic.Magics class. This lets you create magics that can potentially hold state in between calls, and that have full access to the main IPython object:
+
+```
+# This code can be put in any Python module, it does not require IPython
+# itself to be running already.  It only creates the magics subclass but
+# doesn't instantiate it yet.
+from __future__ import print_function
+from IPython.core.magic import (Magics, magics_class, line_magic,
+                                cell_magic, line_cell_magic)
+
+# The class MUST call this class decorator at creation time
+@magics_class
+class MyMagics(Magics):
+
+    @line_magic
+    def lmagic(self, line):
+        "my line magic"
+        print("Full access to the main IPython object:", self.shell)
+        print("Variables in the user namespace:", list(self.shell.user_ns.keys()))
+        return line
+
+    @cell_magic
+    def cmagic(self, line, cell):
+        "my cell magic"
+        return line, cell
+
+    @line_cell_magic
+    def lcmagic(self, line, cell=None):
+        "Magic that works both as %lcmagic and as %%lcmagic"
+        if cell is None:
+            print("Called as line magic")
+            return line
+        else:
+            print("Called as cell magic")
+            return line, cell
+
+
+# In order to actually use these magics, you must register them with a
+# running IPython.  This code must be placed in a file that is loaded once
+# IPython is up and running:
+ip = get_ipython()
+# You can register the class itself without instantiating it.  IPython will
+# call the default constructor on it.
+ip.register_magics(MyMagics)
+```
+
+If you want to create a class with a different constructor that holds additional state, then you should always call the parent constructor and instantiate the class yourself before registration:
+
+```
+@magics_class
+class StatefulMagics(Magics):
+    "Magics that hold additional state"
+
+    def __init__(self, shell, data):
+        # You must call the parent constructor
+        super(StatefulMagics, self).__init__(shell)
+        self.data = data
+
+    # etc...
+
+# This class must then be registered with a manually created instance,
+# since its constructor has different arguments from the default:
+ip = get_ipython()
+magics = StatefulMagics(ip, some_data)
+ip.register_magics(magics)
+```
+
+In earlier versions, IPython had an API for the creation of line magics (cell magics did not exist at the time) that required you to create functions with a method-looking signature and to manually pass both the function and the name. While this API is no longer recommended, it remains indefinitely supported for backwards compatibility purposes. With the old API, you’d create a magic as follows:
+
+```
+def func(self, line):
+    print("Line magic called with line:", line)
+    print("IPython object:", self.shell)
+
+ip = get_ipython()
+# Declare this function as the magic %mycommand
+ip.define_magic('mycommand', func)
+```
+
 ## 9. IPython developer’s guide
 This are two categories of developer focused documentation:
 
