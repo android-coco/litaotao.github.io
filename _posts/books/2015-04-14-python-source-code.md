@@ -77,5 +77,33 @@ func = f()
 func()  # [2]
 ```
 
+　　同样，下面这个例子会抛异常“local variables 'a' referenced before assignment”。关键要理解最内嵌套作用域规则，由一个赋值语句引进的名字在这个赋值语句所在的作用域里是可见的。这句话的意思，对应到代码里，就是说虽然“a=2”这个约束在“print a”之后定义的，但由于他们在同一个作用域内，所以[2]处a的定义对[1]出的a是可见的。按照LEGB规则，在local名字空间里就能找到名字a，所以使用的是local名字空间里的a。所以，这里的逻辑是这样的，在执行"print a"时，虽然已经知道f()函数作用域里是有a这个变量的，但a还没有被赋值呢，所以才抛出一个异常。    
 
+```
+a = 1
+def g():
+    print a
+
+def f():
+    print a #[1]
+    a = 2   #[2]
+
+g()
+f()
+```
+
+　　如果想要 'print a' 输出2的话，可以在之前加一句 'global a'。当一个作用域里出现了global语句时，就意味着我们强制命令python对某个名字的引用只参考global名字空间，而再不去管LEGB规则。   
+
+```
+a = 1
+def f():
+    global a 
+    print a # output : 1
+    a = 2
+
+f()
+print a # output : 2
+```
+
+### 8.2 
 
