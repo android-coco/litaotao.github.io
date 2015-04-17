@@ -105,5 +105,53 @@ f()
 print a # output : 2
 ```
 
-### 8.2 
+### 8.2 Python运行时环境初探
+　　简单了解下 Python的运行模型(主要是线程模型)。Python在初始化时会创建一个主线程，其运行时环境中存在一个主线程。以win32平台为例，对原生的win32可执行文件，都会在一个进程中运行。进程并非是与机器指令序列相对应的活动对象，这个与可执行文件中的机器指令序列对应的活动对象是由线程这个概念来进行抽象的，而进程则是线程的活动环境。   
+　　对于通常的单线程可执行文件，在执行时操作系统会创建一个进程，在进程中又会有一个主线程。而对于多线程的可执行文件，在执行时会创建一个进程和多个线程，该多个线程能共享进程地址空间中的全局变量，这就自然而然出现了多线程同步的问题。   
+　　在win32下，线程是不能独立存活的，它需要存活在进程的环境中，而多个线程可以共享进程的一些资源。在Python中也是如此。例如，一个python出现有两个线程，都会进行一个 import sys 的动作，那这个sys模块是全局共享的。如果每个线程都有自己独立的module集合，那么python对内存的消耗会大得惊人。  
+
+## 9. Python虚拟机中的一般表达式
+
+## 10. Python虚拟机中的控制流
+
+## 11. Python虚拟机中的函数机制  
+
+## 12. Python虚拟机中的类机制    
+
+　　从Python 2.5开始，python中有两套类机制，一套称为classic class，另一套称为new style class。   
+　　在python 2.2之前，python中存在一个裂缝，就是python的内置type与程序员定义的class并不是完全等同的。比如，用户定义的classA可以被继承，作为另一个classB的基类。但python的内置type却不能被继承，也就是说没有办法以类似c++中的继承方式，创建一个继承自dict的类myDict。    
+　　在面向对象的理论中，有两个核心的概念：类和对象。在python中所有的东西都是对象，所以类也是一种对象。以下定义了一些术语，尝试用另一套结构对python中的类机制建模。   
+　　在python 2.2之前，python中实际存在三类对象：   
+
+- type对象：表示python内置的类型；  
+- class对象：表示python程序员定义的类型；
+- instance对象：表示由class对象创建的实例；
+
+　　而在python 2.2之后，type和class已经统一，所以我们用“class对象”来统一表示python 2.2之前的“type对象”和“class对象”。   
+
+　　在python的三种对象之间，存在着两种关系：  
+
+- is kind of: 对应于面向对象中的基类与子类之间的关系； 
+- is instance of: 对应于面向对象中类与实例之间的关系；  
+
+```
+class A(object):
+    pass
+
+a = A()
+```
+
+　　其中包含了三个对象：object - class对象；A - class 对象；a - instance对象。通过对象的__class__属性或内置的type方法可以探测一个对象和哪个对象存在is instance of关系；而通过对象的__bases__属性可以探测一个对象和哪个对象存在is kind of关系。
+
+## 13. Python运行环境初始化   
+
+## 14. Python模块的动态加载机制   
+　　
+　　同java的package机制，c++的namespace机制一样，python通过module和package机制来实现对系统复杂度的分解，以及保护名字空间不受污染。  
+　　python在初始化时，就将一批module加载到了内存中，但是为了使local名字空间能够达到最干净的效果，python并没有将这些符号暴露在当前的local名字空间中，而上需要用户显示地通过import机制通知python。这些预先被加载进内存的module放在sys.modules中。  
+　　python的import机制基本上可以分为3个不同的功能：
+
+- python运行时全局module pool的维护和搜索；
+- 解析与搜索module路径的树状结构；
+- 对不同文件格式的module的动态加载机制；
 
