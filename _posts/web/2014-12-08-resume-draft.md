@@ -30,6 +30,25 @@ description: My resume
 - Linkedin: [https://www.linkedin.com/in/taotaoli](https://www.linkedin.com/in/taotaoli)
 - 期望职位：后端开发工程师
 
+
+扎实的编程功底
+分布式数据系统开发与设计
+- 高并发Web 
+- 数据挖掘推荐系统
+大数据系统设计和开发
+- 敏捷开发方法
+Github, Stackoverflow
+性能优化和改进
+- 精通flask
+- Redis/MongoDB
+对爬虫/搜索/监控系统有一定了解
+- 征信平台软件系统架构设计
+- 征信平台数据平台的规划、建设、管理
+熟悉linux下系统和网络编程
+- 有海量服务、高性能、分布式系统设计、开发经验者优先
+
+
+
 工作经历 ppt 模板
 ---  
 ---
