@@ -25,13 +25,91 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-05-06T13:35:30+08:00</updated>
+   <updated>2015-05-08T13:15:09+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>book-4. Web 高性能开发参考资料</title>
+     <link href="/web-high-performance"/>
+     <updated>2015-05-02T00:00:00+08:00</updated>
+     <id>/web-high-performance</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;0. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　工作一年多了，发现自己还是没什么长进。学技术这件事儿，还是得靠自己啊，所以我准备以专题的形式来提升自己的能力。这篇我总结了一些搜集的比较好的讲web高性能开发的文章和书籍，都是我自己看过的。以后再也不怕别人问到高性能web的经验和知识了，用老话说，就算没吃过猪肉也应该见过猪跑吧，咱就算没经历过高性能web开发实践，也至少了解一些这方面的知识吧。哈哈。&lt;/p&gt;
+
+&lt;h2&gt;1. 模式相关&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2014/09/05/design-pattern-cheatsheet/&quot;&gt;设计模式概览图&lt;/a&gt;  &lt;br/&gt;
+　　以图形的形式简单阐述了各种模式的概念，图画得不错，表述也清晰，可以有空翻开看看；
+&lt;img src=&quot;../images/design_pattern.png&quot; alt=&quot;design_pattern.png&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/08/software-architecture-patterns/&quot;&gt;软件架构模式&lt;/a&gt; &lt;br/&gt;
+　　是作者对这本书的&lt;a href=&quot;http://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf&quot;&gt;Software Architecture Patterns&lt;/a&gt; 笔记和总结，写得很详细，可以时常参考，提升架构方面的基础和概念，同时，有时间也推荐读读原书，原书PDF链接在后面。 &lt;br/&gt;
+　　这里面提的架构有：分层架构，事件驱动架构，微内核架构，微服务架构，基于空间的架构。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/10/microservice-architecture-a-quick-guide/&quot;&gt;微服务架构快速指南&lt;/a&gt; &lt;br/&gt;
+　　不常听说为服务架构，简单的理解，就是介于monolithic和SOA模式之间的一个架构模式，比monolithic灵活，轻便，比SOA有更强的组织性。不必过于在乎三者之间的差别，根据实际情况选择合适自己项目的架构模式。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/24/microservice-design-patterns/&quot;&gt;微服务架构的设计模式&lt;/a&gt; &lt;br/&gt;
+　　是&lt;strong&gt;微服务架构快速指南&lt;/strong&gt;的细节篇，里面介绍了一些常用的微服务架构的设计模式，在设计项目架构的时候，如果没有什么思路，这篇文章是很好的参考资料。简单的说，里面提到了常用的微服务设计模式：聚合器，代理，链式服务，分支，数据共享，异步消息。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://www.admin10000.com/document/5980.html&quot;&gt;大型网站系统架构的演化&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5981.html&quot;&gt;大型网站的灵魂——性能&lt;/a&gt;&lt;br/&gt;
+　　非常好的介绍大型网站架构变化的文章，这个网站有一个专门讲大型网站性能的文章系列，都非常值得学习。我把这个系列也列在下面了，写得很细，算是最值得参考和学习的文章了。
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5880.html&quot;&gt;关于大型网站技术演进的思考（一）--存储的瓶颈（1）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5881.html&quot;&gt;关于大型网站技术演进的思考（二）--存储的瓶颈（2）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5882.html&quot;&gt;关于大型网站技术演进的思考（三）--存储的瓶颈（3）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5909.html&quot;&gt;关于大型网站技术演进的思考（四）--存储的瓶颈（4）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5910.html&quot;&gt;关于大型网站技术演进的思考（五）--存储的瓶颈（5）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5911.html&quot;&gt;关于大型网站技术演进的思考（六）--存储的瓶颈（6）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5951.html&quot;&gt;关于大型网站技术演进的思考（七）--存储的瓶颈（7）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5952.html&quot;&gt;关于大型网站技术演进的思考（八）--存储的瓶颈终篇（8）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5966.html&quot;&gt;关于大型网站技术演进的思考（九）--网站静态化处理--总述（1）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5967.html&quot;&gt;关于大型网站技术演进的思考（十）--网站静态化处理—动静整合方案（2）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5968.html&quot;&gt;关于大型网站技术演进的思考（十一）--网站静态化处理—动静分离策略（3）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6020.html&quot;&gt;关于大型网站技术演进的思考（十二）--网站静态化处理—缓存（4）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6021.html&quot;&gt;关于大型网站技术演进的思考（十三）--网站静态化处理—CSI（5）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6022.html&quot;&gt;关于大型网站技术演进的思考（十四）--网站静态化处理—前后端分离—上（6）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6023.html&quot;&gt;关于大型网站技术演进的思考（十五）--网站静态化处理—前后端分离—中（7）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6024.html&quot;&gt;关于大型网站技术演进的思考（十六）--网站静态化处理—前后端分离—下（8）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6025.html&quot;&gt;关于大型网站技术演进的思考（十七）--网站静态化处理—满足静态化的前后端分离（9）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6026.html&quot;&gt;关于大型网站技术演进的思考（十八）--网站静态化处理—反向代理（10）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6027.html&quot;&gt;关于大型网站技术演进的思考（十九）--网站静态化处理—web前端优化—上（11）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6028.html&quot;&gt;关于大型网站技术演进的思考（二十）--网站静态化处理—web前端优化—中（12）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6029.html&quot;&gt;关于大型网站技术演进的思考（二十一）--网站静态化处理—web前端优化—下【终篇】（13）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;2. 高性能网站相关&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/20/how-to-build-a-scalable-website/&quot;&gt;如何构建高扩展性网站&lt;/a&gt; &lt;br/&gt;
+　　是一本小册子&lt;a href=&quot;http://book.douban.com/subject/10756899/&quot;&gt;《高扩展性网站的50条原则》&lt;/a&gt;的读书笔记。这本书不错，值得一看，在设计、改进项目架构时都可以拿来翻翻，不错的小册子。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2014/09/26/best-free-website-speed-testing-tools/&quot;&gt;最佳免费的网站性能测试工具&lt;/a&gt; &lt;br/&gt;
+　　这篇博文是我认为最有实际意义的一篇博文之一了，里面提到了12个免费的网站性能测试工具，比如大名鼎鼎的google pagespeed insights。我的建议是，在进行任何优化前，都先简单地用这些工具在线测试一下。不要盲目地进行后台的优化，更不要盲目的去设计一些高端的算法来做所谓的加速。比如说，一个请求后台返回的时间控制在100ms之内，但发起这个请求的js脚本被写在一个很大的js文件里面，导致下载这个js文件需要数百毫秒，那此时应该怎么优化呢？别跟我说你会让你的后台工程师去找一什么高大上的算法来解决这个问题。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://www.blogjava.net/BearRui/archive/2010/04/26/web_performance.html&quot;&gt;web高性能开发系列随笔&lt;/a&gt; &lt;br/&gt;
+　　算是一篇比较简单，但是完善的web性能优化博客了，里面涉及到前后端的各种优化方法，虽然我只是后台开发，但看这种文章能够让开发人员从全局的视角去设计和优化你的web系统。就跟上一篇 &lt;a href=&quot;http://colobu.com/2014/09/26/best-free-website-speed-testing-tools/&quot;&gt;最佳免费的网站性能测试工具&lt;/a&gt; 文章一样，在优化前，先全局、完整地了解你的web系统，再来说具体怎么优化吧。如果你在优化前，不知道怎么对web系统“全局”地了解，这篇博客可以入门用。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. 参考书籍&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf&quot;&gt;Software Architecture Patterns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://book.douban.com/subject/10756899/&quot;&gt;高扩展性网站的50条原则&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://book.douban.com/subject/3924175/&quot;&gt;构建高性能Web站点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>book-3. 设计模式总结之结构型模式</title>
@@ -2327,284 +2405,6 @@ exit.
 &lt;p&gt;原因是我是连接到公司spark集群的，截图里可以看到，公司spark集群的hadoop版本和我当时编译zeppelin是定义的hadoop版本不一致。公司spark集群的hadoop版本是：Hadoop 2.0.0-cdh4.5.0，而我当时编译zeppelin时的命令是：mvn clean package -Pspark-1.2 -Dhadoop.version=2.2.0 -Phadoop-2.2 -DskipTests。&lt;/p&gt;
 
 &lt;p&gt;解决办法就是重新拉zeppelin最新源码，然后用如下命令再次编译了：mvn clean package -Pspark-1.2 -Dhadoop.version=2.0.0-cdh4.5.0 -Phadoop-2.0 -DskipTests&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］8. 当Ipython Notebook遇见Spark</title>
-     <link href="/ipython-notebook-server-spark"/>
-     <updated>2015-01-27T00:00:00+08:00</updated>
-     <id>/ipython-notebook-server-spark</id>
-     <content type="html">&lt;p&gt;注：和本文相关的资料和文件都放到Github上了：&lt;a href=&quot;https://github.com/litaotao/ipython-notebook-spark&quot;&gt;ipython-notebook-spark&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 致谢&lt;/h2&gt;
-
-&lt;p&gt;　　首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.&lt;br/&gt;
-　　下面是这两个项目的github地址：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。 &lt;br/&gt;
-　　但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
-
-&lt;h2&gt;2. 路线规划&lt;/h2&gt;
-
-&lt;p&gt;　　基于 &lt;a href=&quot;http://www.databricks.com/&quot;&gt;Databricks&lt;/a&gt;，&lt;a href=&quot;zeppelin-project.org&quot;&gt;Zeppelin&lt;/a&gt; 和 &lt;a href=&quot;www.gethue.com&quot;&gt;Hue&lt;/a&gt; 的启发，我也想尝试搭建一个丰富可用的在线大数据REPL分析平台，正好用此机会好好实践一下spark，毕竟都学习spark几个月了呢。 &lt;br/&gt;
-　　不说废话，同&lt;a href=&quot;../weibo-api-in-action&quot;&gt;使用spark分析微博数据那篇博文一样&lt;/a&gt;，我们也要有一个路线规划：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server；&lt;/li&gt;
-&lt;li&gt;完善 Weibo Message Driver，使用户可在Notebook里获取、分析微博数据，as simple as possible；&lt;/li&gt;
-&lt;li&gt;研究Zeppelin和Hue项目，把其中一个嫁接在Notebook的上层，实现准产品级的大数据实时ETL，Analytic，Sharing平台；这一步可能需要较长时间，可根据自己的时间安排灵活调整；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　Dream：在年前完成上面三步，that&#39;s really full or chanllenge, but more funny. &lt;strong&gt;Anyway, we need dreams, and I can&#39;t wait to make this dream into reality.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/dreams.jpg&quot; alt=&quot;dreams&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　这篇主要记录我在实现第一步的过程中遇到的主要步骤，遇到的问题和解决方法：搭建一个可多用户使用的，底层接入了spark集群的Ipython Notebook Server。&lt;/p&gt;
-
-&lt;h2&gt;3. 配置Ipython&lt;/h2&gt;
-
-&lt;h3&gt;3.1: ipython 配置名profile介绍&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;profile 命令说明&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　profile是ipython的一个子命令，其中profile又有两个子命令，分别是create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[13:54:01]:~/Desktop#ipython profile 
-No subcommand specified. Must specify one of: [&#39;create&#39;, &#39;list&#39;]
-
-Manage IPython profiles
-
-Profile directories contain configuration, log and security related files and
-are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
-your ipython directory.  You can create profiles with `ipython profile create
-&amp;lt;name&amp;gt;`, or see the profiles you already have with `ipython profile list`
-
-To get started configuring IPython, simply do:
-
-$&amp;gt; ipython profile create
-
-and IPython will create the default profile in &amp;lt;ipython_dir&amp;gt;/profile_default,
-where you can edit ipython_config.py to start configuring IPython.
-
-Subcommands
------------
-
-Subcommands are launched as `ipython cmd [args]`. For information on using
-subcommand &#39;cmd&#39;, do: `ipython cmd -h`.
-
-create
-    Create an IPython profile by name
-list
-    List available IPython profiles
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;profile子命令list说明&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　本想list命令应该很简单的，和linux下的ls差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 &lt;code&gt;Available profiles in /root/.config/ipython:&lt;/code&gt; 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇文章&lt;/a&gt;中，作者说创建的配置文件会放到 &lt;code&gt;~/.ipython/profile_pyspark/&lt;/code&gt; 下，其实这并不是一定的，具体放在哪个目录下面，可以根据profile list的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下面的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:09:12]:~/Desktop#ipython profile list
-
-Available profiles in IPython:
-    pysh
-    math
-    sympy
-    cluster
-
-    The first request for a bundled profile will copy it
-    into your IPython directory (/root/.config/ipython),
-    where you can customize it.
-
-Available profiles in /root/.config/ipython:
-    default
-    pyspark
-
-To use any of the above profiles, start IPython with:
-    ipython --profile=&amp;lt;name&amp;gt;  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;profile子命令create说明&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　简单介绍下create子命令的用法。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:25:57]:~/Desktop#ipython profile help create
-Create an IPython profile by name
-
-Create an ipython profile directory by its name or profile directory path.
-Profile directories contain configuration, log and security related files and
-are named using the convention &#39;profile_&amp;lt;name&amp;gt;&#39;. By default they are located in
-your ipython directory. Once created, you will can edit the configuration files
-in the profile directory to configure IPython. Most users will create a profile
-directory by name, `ipython profile create myprofile`, which will put the
-directory in `&amp;lt;ipython_dir&amp;gt;/profile_myprofile`.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;创建配置文件&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　因为我之前已经配置过一个pyspark的配置文件了，这里我们创建一个测试用的配置文件，pytest。运行一下命令后，会在 &lt;code&gt;/root/.config/ipython&lt;/code&gt; 下生成一个 pytest的目录。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[14:54:14]:~/Desktop#ipython profile create pytest
-[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_config.py&#39;
-[ProfileCreate] Generating default config file: u&#39;/root/.config/ipython/profile_pytest/ipython_notebook_config.py&#39;
-
-root@ubuntu2[15:00:57]:~/Desktop#ls ~/.config/ipython/profile_pytest/
-ipython_config.py  ipython_notebook_config.py  log  pid  security  startup 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;3.3 编辑配置文件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;    c = get_config()
-
-    # about line 15, the ip address the notebook server will listen on. Set it to * means that any IP/Machine which can connect to the server can connect to the notebook server.
-    c.NotebookApp.ip = &#39;*&#39;
-    # about line 37, whether to open a browser or not. cause what we want to build is a backend server, so we set it False, no need to open a browser.
-    c.NotebookApp.open_browser = False
-    # about line 54, the port which the notebook server will listen on
-    c.NotebookApp.port = 8880 # or whatever you want, make sure the port is available  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;设置访问密码 &lt;br/&gt;
-　　如果你的notebook server是需要访问控制的，简单的话可以设置一个访问密码。听说Ipython 2.x 版本有用户访问控制，这里我还没有接触过，晚点会看看是否有成熟的可用的用户控制方案。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;生成密码文件&lt;br/&gt;
-这里我们用python自带的密码包生成一个密码，然后再把这个密码重定向到nvpasswd.txt文件里。注意这里重定向的路径哦。&lt;/li&gt;
-&lt;li&gt;编辑配置文件，设置读取密码文件配置项
-这里有一个需要注意的，就是PWDFILE的设置，一开始我设置为 &lt;code&gt;~/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，但是启动ipython notebook server的时候老师报错，说找不到密码文件nbpasswd.txt，很奇怪，明明文件就是在的，可就是提示找不到。无奈我到nbpasswd.txt路径下用 pwd 打印当前路径，显示为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，可是这两个路径应该是一样的啊。无奈之下，死马当作活马医，我就把PWDFILE设置成为 &lt;code&gt;root/.config/ipython/profile_pytest/nbpasswd.txt&lt;/code&gt;，没想到这样还成功了。关于这点为什么会有效，目前我还不是很清楚，等我请教了公司大神后再补上这一个tip吧。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;  示例如下：&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:40:29]:~/Desktop#python -c &#39;from IPython.lib import passwd; print passwd()&#39; &amp;gt; ~/.config/ipython/profile_pytest/nbpasswd.txt
-Enter password: 
-Verify password: 
-root@ubuntu2[09:43:35]:~/Desktop#vi /root/.config/ipython/profile_pytest/nbpasswd.txt 
-sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1fb8f  
-
-root@ubuntu2[09:49:09]:~/Desktop#vi /root/.config/ipython/profile_pytest/ipython_notebook_config.py 
-# about line 95
-PWDFILE=&#39;root/.config/ipython/profile_pytest/nbpasswd.txt&#39;
-c.NotebookApp.password = open(PWDFILE).read().strip()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;设置启动文件&lt;br/&gt;
-　　这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py 
-root@ubuntu2[10:08:44]:~/Desktop#vi ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py   
-
-import os
-import sys
-
-spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
-if not spark_home:
-    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
-sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
-sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.1-src.zip&#39;))
-# execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　上面的启动配置文件也还简单，即拿到spark_home路径，并在系统环境变量path里加上两个路径，然后再执行一个shell.py文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的SPARK_HOME配置对了，并且下面有python这个文件夹，并且python/lib下有py4j-0.8.1这个文件。我在检查的时候就发现我的包版本是py4j-0.8.2.1的，所以还是要改得和自己的包一致才行。 &lt;br/&gt;
-　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;code&gt;sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))&lt;/code&gt;  &lt;br/&gt;
-　　注意，上面的最后一行 &lt;code&gt;execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))&lt;/code&gt; 被注释掉了，表示在新建或打开一个notebook时并不去执行shell.py这个文件，这个文件是创建SparkContext的，即如果执行改行语句，那在启动notebook时就会初始化一个sc，但这个sc的配置都是写死了的，在spark web UI监控里的appName也是一样的，很不方便。而且考虑到并不是打开一个notebook就要用到spark的资源，所以最好是要用户自己定义sc了。 &lt;br/&gt;
-　　python/pyspark/shell.py的核心代码： &lt;br/&gt;
-&lt;code&gt;
-sc = SparkContext(appName=&quot;PySparkShell&quot;, pyFiles=add_files)
-atexit.register(lambda: sc.stop())
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;4. Ok，here we go　　&lt;/h2&gt;
-
-&lt;p&gt;　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# for the CDH-installed Spark
-export SPARK_HOME=&#39;/usr/local/spark-1.2.0-bin-cdh4/&#39;
-
-# this is where you specify all the options you wou
-ld normally add after bin/pyspark
-  export PYSPARK_SUBMIT_ARGS=&#39;--master spark://10.21.208.21:7077 --deploy-mode client&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　ok，万事具备，只欠东风了。让我们来尝尝鲜吧：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
-2015-02-01 10:40:54.850 [NotebookApp] Using existing profile dir: u&#39;/root/.config/ipython/profile_pyspark&#39;
-2015-02-01 10:40:54.858 [NotebookApp] Using MathJax from CDN: http://cdn.mathjax.org/mathjax/latest/MathJax.js
-2015-02-01 10:40:54.868 [NotebookApp] CRITICAL | WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
-2015-02-01 10:40:54.869 [NotebookApp] Serving notebooks from local directory: /root/Desktop
-2015-02-01 10:40:54.869 [NotebookApp] The IPython Notebook is running at: http://[all ip addresses on your system]:8880/
-2015-02-01 10:40:54.869 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
-&lt;img src=&quot;../images/notebook-spark-1.jpg&quot; alt=&quot;notebook-spark-1&quot; /&gt;
-&lt;img src=&quot;../images/notebook-spark-2.jpg&quot; alt=&quot;notebook-spark-2&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;5. 总结&lt;/h2&gt;
-
-&lt;p&gt;　　下面是简单的步骤总结：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;建立环境变量配置文件：ipython_notebook_spark.bashrc&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
-export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;配置Ipython notebook server
-
-&lt;ul&gt;
-&lt;li&gt;ipython profile create pyspark&lt;/li&gt;
-&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
-&lt;li&gt;[可选]配置ipython notebook登录密码&lt;/li&gt;
-&lt;li&gt;设置启动文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;设置启动脚本&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;6. 启动脚本和文件&lt;/h2&gt;
-
-&lt;p&gt;　　为了方便，都放到Github上了。&lt;/p&gt;
 </content>
    </entry>
    
