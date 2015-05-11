@@ -54,10 +54,6 @@ description: 个人搜集的一些关于 Web高性能开发的书籍和文章。
     - [关于大型网站技术演进的思考（二十一）--网站静态化处理—web前端优化—下【终篇】（13）](http://www.admin10000.com/document/6029.html)    
 
 
-
-
-
-
 ## 2. 高性能网站相关  
 
 - [如何构建高扩展性网站](http://colobu.com/2015/04/20/how-to-build-a-scalable-website/)   
@@ -68,7 +64,6 @@ description: 个人搜集的一些关于 Web高性能开发的书籍和文章。
 
 - [web高性能开发系列随笔](http://www.blogjava.net/BearRui/archive/2010/04/26/web_performance.html)   
 　　算是一篇比较简单，但是完善的web性能优化博客了，里面涉及到前后端的各种优化方法，虽然我只是后台开发，但看这种文章能够让开发人员从全局的视角去设计和优化你的web系统。就跟上一篇 [最佳免费的网站性能测试工具](http://colobu.com/2014/09/26/best-free-website-speed-testing-tools/) 文章一样，在优化前，先全局、完整地了解你的web系统，再来说具体怎么优化吧。如果你在优化前，不知道怎么对web系统“全局”地了解，这篇博客可以入门用。  
-
 
 
 
