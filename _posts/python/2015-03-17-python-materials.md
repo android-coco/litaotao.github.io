@@ -631,7 +631,6 @@ for i in range(0, n):
 
 
 
-
 ## 参考文章   
 
 - [初学者必知的Python中优雅的用法](http://python.jobbole.com/81393/)   
