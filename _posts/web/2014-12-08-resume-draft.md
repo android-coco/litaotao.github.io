@@ -67,7 +67,7 @@ Github, Stackoverflow
 - 缓存系统；Redis缓存图片数据；[Redis与Mongo需要在不同的服务器上]
 - 推荐系统；用户关系存储；
 - 异步任务；gevent；grequests；
-- 即时搜索；
+- 即时搜索；倒排索引，实时补全；
 
 
 #### Z-Score模型研究和开发  
@@ -138,7 +138,7 @@ OTP
 ### 技术文章
 
 - [一个产品经理眼中的云计算：前生今世和未来](http://get.jobdeer.com/706.get)
-- [来自HeroKu的HTTP API 设计指南(翻译文章)](http://get.jobdeer.com/343.get) 
+- [来自HeroKu的HTTP API 设计指南(翻译文章)](http://get.jobdeer.com/343.get)   
 
 ### 演讲和讲义
  - 2014架构师大会演讲：[如何通过Docker优化内部开发](http://jobdeer.com)
