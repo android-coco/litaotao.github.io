@@ -76,6 +76,11 @@ Github, Stackoverflow
 #### 通联信用评级
 我在此项目中一人负责后端开发，首次详细地以敏捷开发的方式组织开发日志，在保证项目质量的前提前最大性地提高了开发速度。项目中使用svn, visio等辅助工具，采用python作为服务端语言，采用flask, restful, MongoDB作为主要框架和数据存储系统。项目之外，我还了解了一些对中小微企业进行信用评估方面的行业知识。并凭此项目获得公司Q2季度最佳新员工奖【公司人数200-250人，获奖人数5人】
 
+难点： 
+
+- 模型模块化；
+- 异常处理；  
+
 
 技能清单
 ---  
@@ -130,6 +135,9 @@ OTP
 ### [git-statistic](http://github.com/litaotao/git-statistic) 
 - 项目的简要说明，Star和Fork数多的可以注明
 
+### [cmdtranslator](https://github.com/litaotao/cmdtranslator)   
+一个专门为程序员准备的命令行翻译工具。项目起由是每次我要打开翻译网站和应用，都非常慢，而且还有不少广告和更新信息，信息噪声太大，效率太低，所以自己设计了这样一个工具。源码很短，但是很实用，我自己一直都在用。   
+It's a command line translation tool. I build it for saving time when I need to translate a word, for every time, it costs too much time to open an applicaiton or a website, and I often feel confused about the App update information and endless ads. The source code is easy and pithy, but it's very practical, I discard translation application and website since this tool has been released.  
 
 技术分享  
 ---  
