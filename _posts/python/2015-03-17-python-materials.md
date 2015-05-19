@@ -411,7 +411,7 @@ Hello James !
 ```
 
 列表推导构造permutation：  
-
+可以用 itertools.permutations 来实现。  
 ```
 In[47]: a = 'abcd'
 
@@ -619,7 +619,560 @@ for i in range(0, n):
 两种情况下具有相同的输出：{‘d’: 4, ‘c’: 4, ‘b’: 4, ‘a’: 4}。唯一的不同是这个输出是如何得到的。跳出固定的思维模式，创造新的编码技巧，能够帮助你利用你的应用程序获得更快的结果。  
 
 
+## 35. 使用列表推导式    
 
+一个列表推导式包含以下几个部分：
+
+- 一个输入序列   
+- 一个表示输入序列成员的变量   
+- 一个可选的断言表达式   
+- 一个将输入序列中满足断言表达式的成员变换成输出列表成员的输出表达式   
+
+```
+num = [1, 4, -5, 10, -7, 2, 3, -1]
+filtered_and_squared = []
+ 
+for number in num:
+    if number > 0:
+        filtered_and_squared.append(number ** 2)
+print filtered_and_squared
+ 
+# [1, 16, 100, 4, 9]
+```
+
+而如果使用filter、lambda和map函数，则能够将代码大大简化：   
+
+```
+num = [1, 4, -5, 10, -7, 2, 3, -1]
+filtered_and_squared = map(lambda x: x ** 2, filter(lambda x: x > 0, num))
+print filtered_and_squared
+ 
+# [1, 16, 100, 4, 9]
+
+## 更简化的一种写法    
+num = [1, 4, -5, 10, -7, 2, 3, -1]
+filtered_and_squared = [ x**2 for x in num if x > 0]
+print filtered_and_squared
+ 
+# [1, 16, 100, 4, 9]
+```
+
+![comprehension.jpg](../images/comprehension.jpg)
+
+列表推导也可能会有一些负面效应，那就是整个列表必须一次性加载于内存之中，这对上面举的例子而言不是问题，甚至扩大若干倍之后也都不是问题。但是总会达到极限，内存总会被用完。
+
+针对上面的问题，生成器(Generator)能够很好的解决。生成器表达式不会一次将整个列表加载到内存之中，而是生成一个生成器对象(Generator objector)，所以一次只加载一个列表元素。
+
+生成器表达式同列表推导式有着几乎相同的语法结构，区别在于生成器表达式是被圆括号包围，而不是方括号：
+
+```
+num = [1, 4, -5, 10, -7, 2, 3, -1]
+filtered_and_squared = ( x**2 for x in num if x > 0 )
+print filtered_and_squared
+ 
+# <generator object <genexpr> at 0x00583E18>
+ 
+for item in filtered_and_squared:
+    print item
+ 
+# 1, 16, 100 4,9
+```
+
+这比列表推导效率稍微提高一些，让我们再一次改造一下代码：  
+
+```
+num = [1, 4, -5, 10, -7, 2, 3, -1]
+ 
+def square_generator(optional_parameter):
+    return (x ** 2 for x in num if x > optional_parameter)
+ 
+print square_generator(0)
+# <generator object <genexpr> at 0x004E6418>
+ 
+# Option I
+for k in square_generator(0):
+    print k
+# 1, 16, 100, 4, 9
+ 
+# Option II
+g = list(square_generator(0))
+print g
+# [1, 16, 100, 4, 9]
+```
+
+除非特殊的原因，应该经常在代码中使用生成器表达式。但除非是面对非常大的列表，否则是不会看出明显区别的。
+再来看一个通过两阶列表推导式遍历目录的例子：
+
+```
+import os
+def tree(top):
+    for path, names, fnames in os.walk(top):
+        for fname in fnames:
+            yield os.path.join(path, fname)
+ 
+for name in tree('C:\Users\XXX\Downloads\Test'):
+    print name
+```
+
+## 36. 装饰器(Decorators)   
+
+装饰器为我们提供了一个增加已有函数或类的功能的有效方法。听起来是不是很像Java中的面向切面编程(Aspect-Oriented Programming)概念？两者都很简单，并且装饰器有着更为强大的功能。举个例子，假定你希望在一个函数的入口和退出点做一些特别的操作(比如一些安全、追踪以及锁定等操作)就可以使用装饰器。
+
+装饰器是一个包装了另一个函数的特殊函数：主函数被调用，并且其返回值将会被传给装饰器，接下来装饰器将返回一个包装了主函数的替代函数，程序的其他部分看到的将是这个包装函数。
+
+```
+import time
+from functools import wraps
+ 
+def timethis(func):
+    '''
+    Decorator that reports the execution time.
+    '''
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(func.__name__, end-start)
+        return result
+    return wrapper
+ 
+@timethis
+def countdown(n):
+    while n > 0:
+        n -= 1
+ 
+countdown(100000)
+ 
+# ('countdown', 0.006999969482421875)
+```
+
+## 37. 上下文管理库(ContextLib)   
+
+contextlib模块包含了与上下文管理器和with声明相关的工具。通常如果你想写一个上下文管理器，则你需要定义一个类包含__enter__方法以及__exit__方法，例如：  
+
+```
+import time
+class demo:
+    def __init__(self, label):
+        self.label = label
+ 
+    def __enter__(self):
+        self.start = time.time()
+ 
+    def __exit__(self, exc_ty, exc_val, exc_tb):
+        end = time.time()
+        print('{}: {}'.format(self.label, end - self.start))
+```
+
+完整的例子在此：   
+
+```
+import time
+ 
+class demo:
+    def __init__(self, label):
+        self.label = label
+ 
+    def __enter__(self):
+        self.start = time.time()
+ 
+    def __exit__(self, exc_ty, exc_val, exc_tb):
+        end = time.time()
+        print('{}: {}'.format(self.label, end - self.start))
+ 
+with demo('counting'):
+    n = 10000000
+    while n > 0:
+        n -= 1
+ 
+# counting: 1.36000013351
+```
+ 
+上下文管理器被with声明所激活，这个API涉及到两个方法。
+1. __enter__方法，当执行流进入with代码块时，__enter__方法将执行。并且它将返回一个可供上下文使用的对象。
+2. 当执行流离开with代码块时，__exit__方法被调用，它将清理被使用的资源。
+
+利用@contextmanager装饰器改写上面那个例子：
+
+```
+from contextlib import contextmanager
+import time
+ 
+@contextmanager
+def demo(label):
+    start = time.time()
+    try:
+        yield
+    finally:
+        end = time.time()
+        print('{}: {}'.format(label, end - start))
+ 
+with demo('counting'):
+    n = 10000000
+    while n > 0:
+        n -= 1
+ 
+# counting: 1.32399988174
+```
+
+看上面这个例子，函数中yield之前的所有代码都类似于上下文管理器中__enter__方法的内容。而yield之后的所有代码都如__exit__方法的内容。如果执行过程中发生了异常，则会在yield语句触发。
+
+
+## 38. 描述器(Descriptors)   
+
+描述器决定了对象属性是如何被访问的。描述器的作用是定制当你想引用一个属性时所发生的操作。
+
+构建描述器的方法是至少定义以下三个方法中的一个。需要注意，下文中的instance是包含被访问属性的对象实例，而owner则是被描述器修辞的类。
+
+__get__(self, instance, owner) – 这个方法是当属性被通过(value = obj.attr)的方式获取时调用，这个方法的返回值将被赋给请求此属性值的代码部分。
+__set__(self, instance, value) – 这个方法是当希望设置属性的值(obj.attr = ‘value’)时被调用，该方法不会返回任何值。
+__delete__(self, instance) – 当从一个对象中删除一个属性时(del obj.attr)，调用此方法。
+译者注：对于instance和owner的理解，考虑以下代码：
+
+```
+class Celsius(object):
+    def __init__(self, value=0.0):
+        self.value = float(value)
+    def __get__(self, instance, owner):
+        return self.value
+    def __set__(self, instance, value):
+        self.value = float(value)
+ 
+class Temperature(object):
+    celsius = Celsius()
+ 
+temp=Temperature()
+temp.celsius #calls Celsius.__get__
+```
+
+## 39. Zipping and unzipping lists and iterables   
+
+```
+>>> a = [1, 2, 3]
+>>> b = ['a', 'b', 'c']
+>>> z = zip(a, b)
+>>> z
+[(1, 'a'), (2, 'b'), (3, 'c')]
+>>> zip(*z)
+[(1, 2, 3), ('a', 'b', 'c')]
+```
+
+## 40. Grouping adjacent list items using zip  
+
+```
+>>> a = [1, 2, 3, 4, 5, 6]
+
+>>> # Using iterators
+>>> group_adjacent = lambda a, k: zip(*([iter(a)] * k))
+>>> group_adjacent(a, 3)
+[(1, 2, 3), (4, 5, 6)]
+>>> group_adjacent(a, 2)
+[(1, 2), (3, 4), (5, 6)]
+>>> group_adjacent(a, 1)
+[(1,), (2,), (3,), (4,), (5,), (6,)]
+
+
+>>> # Using slices
+>>> from itertools import islice
+>>> group_adjacent = lambda a, k: zip(*(islice(a, i, None, k) for i in range(k)))
+>>> group_adjacent(a, 3)
+[(1, 2, 3), (4, 5, 6)]
+>>> group_adjacent(a, 2)
+[(1, 2), (3, 4), (5, 6)]
+>>> group_adjacent(a, 1)
+[(1,), (2,), (3,), (4,), (5,), (6,)]
+```
+
+## 41. Sliding windows (n-grams) using zip and iterators   
+
+```
+>>> from itertools import islice
+>>> def n_grams(a, n):
+...     z = (islice(a, i, None) for i in range(n))
+...     return zip(*z)
+...
+>>> a = [1, 2, 3, 4, 5, 6]
+>>> n_grams(a, 3)
+[(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)]
+>>> n_grams(a, 2)
+[(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
+>>> n_grams(a, 4)
+[(1, 2, 3, 4), (2, 3, 4, 5), (3, 4, 5, 6)]
+```
+
+## 42. Inverting a dictionary using zip   
+
+```
+>>> m = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+>>> m.items()
+[('a', 1), ('c', 3), ('b', 2), ('d', 4)]
+>>> zip(m.values(), m.keys())
+[(1, 'a'), (3, 'c'), (2, 'b'), (4, 'd')]
+>>> mi = dict(zip(m.values(), m.keys()))
+>>> mi
+{1: 'a', 2: 'b', 3: 'c', 4: 'd'}
+```
+
+## 43. Flattening lists
+
+```
+>>> a = [[1, 2], [3, 4], [5, 6]]
+>>> list(itertools.chain.from_iterable(a))
+[1, 2, 3, 4, 5, 6]
+
+>>> sum(a, [])
+[1, 2, 3, 4, 5, 6]
+
+>>> [x for l in a for x in l]
+[1, 2, 3, 4, 5, 6]
+
+>>> a = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+>>> [x for l1 in a for l2 in l1 for x in l2]
+[1, 2, 3, 4, 5, 6, 7, 8]
+
+>>> a = [1, 2, [3, 4], [[5, 6], [7, 8]]]
+>>> flatten = lambda x: [y for l in x for y in flatten(l)] if type(x) is list else [x]
+>>> flatten(a)
+[1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+## 44. Dictionary comprehensions
+
+```
+>>> m = {x: x ** 2 for x in range(5)}
+>>> m
+{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+>>> m = {x: 'A' + str(x) for x in range(10)}
+>>> m
+{0: 'A0', 1: 'A1', 2: 'A2', 3: 'A3', 4: 'A4', 5: 'A5', 6: 'A6', 7: 'A7', 8: 'A8', 9: 'A9'}
+```
+
+## 45. 常犯错误，滥用表达式作为函数参数默认值   
+
+Python允许开发者指定一个默认值给函数参数，虽然这是该语言的一个特征，但当参数可变时，很容易导致混乱，例如，下面这段函数定义：   
+
+```
+>>> def foo(bar=[]):        # bar is optional and defaults to [] if not specified
+...    bar.append("baz")    # but this line could be problematic, as we'll see...
+...    return bar
+```
+
+在上面这段代码里，一旦重复调用foo()函数（没有指定一个bar参数），那么将一直返回'bar'，因为没有指定参数，那么foo()每次被调用的时候，都会赋予[]。下面来看看，这样做的结果：   
+
+```
+>>> foo()
+["baz"]
+>>> foo()
+["baz", "baz"]
+>>> foo()
+["baz", "baz", "baz"]
+```
+
+解决方案：   
+
+```
+>>> def foo(bar=None):
+...    if bar is None:		# or if not bar:
+...        bar = []
+...    bar.append("baz")
+...    return bar
+...
+>>> foo()
+["baz"]
+>>> foo()
+["baz"]
+>>> foo()
+["baz"]
+```
+
+## 46. 误解Python规则范围   
+
+Python的作用域解析是基于LEGB规则，分别是Local、Enclosing、Global、Built-in。实际上，这种解析方法也有一些玄机，看下面这个例子：    
+
+```
+>>> x = 10
+>>> def foo():
+...     x += 1
+...     print x
+...
+>>> foo()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in foo
+UnboundLocalError: local variable 'x' referenced before assignment
+```
+
+许多人会感动惊讶，当他们在工作的函数体里添加一个参数语句，会在先前工作的代码里报UnboundLocalError错误（ 点击这里查看更详细描述）。 
+在使用列表时，开发者是很容易犯这种错误的，看看下面这个例子： 
+
+```
+>>> lst = [1, 2, 3]
+>>> def foo1():
+...     lst.append(5)   # This works ok...
+...
+>>> foo1()
+>>> lst
+[1, 2, 3, 5]
+
+>>> lst = [1, 2, 3]
+>>> def foo2():
+...     lst += [5]      # ... but this bombs!
+...
+>>> foo2()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in foo
+UnboundLocalError: local variable 'lst' referenced before assignment
+```
+
+为什么foo2失败而foo1运行正常？ 
+答案与前面那个例子是一样的，但又有一些微妙之处。foo1没有赋值给lst，而foo2赋值了。lst += [5]实际上就是lst = lst + [5]，试图给lst赋值（因此，假设Python是在局部作用域里）。然而，我们正在寻找指定给lst的值是基于lst本身，其实尚未确定。
+
+
+## 47. 修改遍历列表
+
+```
+>>> odd = lambda x : bool(x % 2)
+>>> numbers = [n for n in range(10)]
+>>> for i in range(len(numbers)):
+...     if odd(numbers[i]):
+...         del numbers[i]  # BAD: Deleting item from a list while iterating over it
+...
+Traceback (most recent call last):
+  	  File "<stdin>", line 2, in <module>
+IndexError: list index out of range
+```
+
+在遍历的时候，对列表进行删除操作，这是很低级的错误。稍微有点经验的人都不会犯。
+对上面的代码进行修改，正确地执行：   
+
+```
+>>> odd = lambda x : bool(x % 2)
+>>> numbers = [n for n in range(10)]
+>>> numbers[:] = [n for n in numbers if not odd(n)]  # ahh, the beauty of it all
+>>> numbers
+[0, 2, 4, 6, 8]
+```
+
+## 48. 合理使用copy与deepcopy
+
+对于dict和list等数据结构的对象，直接赋值使用的是引用的方式。而有些情况下需要复制整个对象，这时可以使用copy包里的copy和deepcopy，这两个函数的不同之处在于后者是递归复制的。效率也不一样：（以下程序在ipython中运行）  
+
+timeit后面的-n表示运行的次数，后两行对应的是两个timeit的输出，下同。由此可见后者慢一个数量级。
+
+
+```
+import copy
+a = range(100000)
+%timeit -n 10 copy.copy(a) # 运行10次 copy.copy(a)
+%timeit -n 10 copy.deepcopy(a)
+10 loops, best of 3: 1.55 ms per loop
+10 loops, best of 3: 151 ms per loop
+```
+
+## 49. 合理使用生成器（generator）和yield   
+
+```
+%timeit -n 100 a = (i for i in range(100000))
+%timeit -n 100 b = [i for i in range(100000)]
+100 loops, best of 3: 1.54 ms per loop
+100 loops, best of 3: 4.56 ms per loop
+```
+
+使用()得到的是一个generator对象，所需要的内存空间与列表的大小无关，所以效率会高一些。在具体应用上，比如set(i for i in range(100000))会比set([i for i in range(100000)])快。
+
+但是对于需要循环遍历的情况：
+
+```
+%timeit -n 10 for x in (i for i in range(100000)): pass
+%timeit -n 10 for x in [i for i in range(100000)]: pass
+10 loops, best of 3: 6.51 ms per loop
+10 loops, best of 3: 5.54 ms per loop
+```
+
+后者的效率反而更高，但是如果循环里有break,用generator的好处是显而易见的。yield也是用于创建generator：   
+
+
+## 50. 使用级联比较x < y < z   
+
+```
+x, y, z = 1,2,3
+%timeit -n 1000000 if x < y < z:pass
+%timeit -n 1000000 if x < y and y < z:pass
+1000000 loops, best of 3: 101 ns per loop
+1000000 loops, best of 3: 121 ns per loop
+``` 
+
+x < y < z效率略高，而且可读性更好。
+
+
+## 51. while 1 比 while True 更快    
+
+```
+def while_1():
+    n = 100000
+    while 1:
+        n -= 1
+        if n <= 0: break
+def while_true():
+    n = 100000
+    while True:
+        n -= 1
+        if n <= 0: break    
+
+m, n = 1000000, 1000000 
+%timeit -n 100 while_1()
+%timeit -n 100 while_true()
+100 loops, best of 3: 3.69 ms per loop
+100 loops, best of 3: 5.61 ms per loop
+```
+
+while 1 比 while true快很多，原因是在python2.x中，True是一个全局变量，而非关键字。
+
+
+## 52. 使用**而不是pow   
+
+```
+%timeit -n 10000 c = pow(2,20)
+%timeit -n 10000 c = 2**20
+10000 loops, best of 3: 284 ns per loop
+10000 loops, best of 3: 16.9 ns per loop
+```
+
+## 53. 使用 cProfile, cStringIO 和 cPickle等用c实现相同功能（分别对应profile, StringIO, pickle）的包   
+
+```
+import cPickle
+import pickle
+a = range(10000)
+%timeit -n 100 x = cPickle.dumps(a)
+%timeit -n 100 x = pickle.dumps(a)
+100 loops, best of 3: 1.58 ms per loop
+100 loops, best of 3: 17 ms per loop
+```
+由c实现的包，速度快10倍以上！  
+
+## 54. 使用最佳的反序列化方式 
+
+下面比较了eval, cPickle, json方式三种对相应字符串反序列化的效率，可见json比cPickle快近3倍，比eval快20多倍。  
+```
+import json
+import cPickle
+a = range(10000)
+s1 = str(a)
+s2 = cPickle.dumps(a)
+s3 = json.dumps(a)
+%timeit -n 100 x = eval(s1)
+%timeit -n 100 x = cPickle.loads(s2)
+%timeit -n 100 x = json.loads(s3)
+100 loops, best of 3: 16.8 ms per loop
+100 loops, best of 3: 2.02 ms per loop
+100 loops, best of 3: 798 µs per loop
+```
+
+## 55. 
 
 
 
@@ -644,8 +1197,14 @@ for i in range(0, n):
 - [详解Python中的下划线](http://python.jobbole.com/81129/)     
 - [9. (译)Python的隐藏特性(StackOverflow)](http://pyzh.readthedocs.org/en/latest/python-hidden-features.html)  
 - [提升 Python 程序性能的 6 个技巧](http://python.jobbole.com/81035/)    
-- [在Python中正确使用Unicode](http://python.jobbole.com/80939/)    
-
+- [在Python中正确使用Unicode](http://python.jobbole.com/80939/)      
+- [Python高级编程技巧 - 赞](http://blog.jobbole.com/61171/)    
+- [Python中的高级数据结构 - 赞](http://blog.jobbole.com/65218/)
+- [30 Python Language Features and Tricks You May Not Know About](http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html)
+- [Python开发者最常犯的10个错误](http://www.csdn.net/article/2014-05-12/2819716-Top-10-Mistakes-that-Python-Programmers-Make)   
+- [The Insider's Guide to Python Interviewing - 赞](http://www.toptal.com/python#hiring-guide)    
+- [Python性能优化的20条建议](http://segmentfault.com/a/1190000000666603)
+- [我常用的 Python 调试工具 - 赞](http://blog.jobbole.com/51062/)
 
 
 
