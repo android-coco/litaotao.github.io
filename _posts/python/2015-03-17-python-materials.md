@@ -1,6 +1,6 @@
 ---
 category: python
-published: false
+published: true
 layout: post
 title: Python 技巧总结    
 description: 该是好好学习python的时候了~
@@ -134,24 +134,24 @@ Deep copy operation on arbitrary Python objects.
 
 ## 8. python中如何判断对象相等
 
-首先是C#中字符串的==和equal方法。
+    首先是C#中字符串的==和equal方法。
 
-“==” :
-对于内置值类型而言， == 判断两个内存值是否相等。
-对于用户自定义的值类型而言(Struct)， == 需要重载，否则不能使用。
-对于引用类型而言，默认是同一引用才返回true，但是系统重载了很多引用类型的 == （比如下文提到的string），所以c#中引用类型的比较并不建议使用 ==。
+    “==” :
+    对于内置值类型而言， == 判断两个内存值是否相等。
+    对于用户自定义的值类型而言(Struct)， == 需要重载，否则不能使用。
+    对于引用类型而言，默认是同一引用才返回true，但是系统重载了很多引用类型的 == （比如下文提到的string），所以c#中引用类型的比较并不建议使用 ==。
 
-“equals” :
-对于值类型而言， 内存相等才返回true。
-对于引用类型而言，指向同一个引用才算相等。
-但是比较特殊的是字符串String,是一个特殊的引用型类型，在C#语言中，重载了string的equals()方法，使string对象用起来就像是值类型一样。
+    “equals” :
+    对于值类型而言， 内存相等才返回true。
+    对于引用类型而言，指向同一个引用才算相等。
+    但是比较特殊的是字符串String,是一个特殊的引用型类型，在C#语言中，重载了string的equals()方法，使string对象用起来就像是值类型一样。
 
-python中的 ==
+    python中的 ==
 
-python中的对象包含三要素:id, type, value
-id 用来标识唯一一个对象，type标识对象的类型，value用来设置对象的值。
-is 判断是否是一个对象，使用id来判断的。
-== 是判断a对象的值是否是b对象的值，默认调用它的__eq__方法。
+    python中的对象包含三要素:id, type, value
+    id 用来标识唯一一个对象，type标识对象的类型，value用来设置对象的值。
+    is 判断是否是一个对象，使用id来判断的。
+    == 是判断a对象的值是否是b对象的值，默认调用它的__eq__方法。
 
 ## 9. 命名技巧    
 
@@ -291,13 +291,13 @@ def my_view(request):
 
 程序员使用名称前的单下划线，用于指定该名称属性为“私有”。这有点类似于惯例，为了使其他人（或你自己）使用这些代码时将会知道以“_”开头的名称只供内部使用。正如Python文档中所述：   
 
-以下划线“_”为前缀的名称（如_pam）应该被视为API中非公开的部分（不管是函数、方法还是数据成员）。此时，应该将它们看作是一种实现细节，在修改它们时无需对外部通知。  
+以下划线 __ 为前缀的名称（如_pam）应该被视为API中非公开的部分（不管是函数、方法还是数据成员）。此时，应该将它们看作是一种实现细节，在修改它们时无需对外部通知。  
 
-正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码“from <模块/包名> import *”，那么以“_”开头的名称都不会被导入，除非模块或包中的“__all__”列表显式地包含了它们。了解更多请查看“Importing * in Python”    
+正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码 ```from <模块/包名> import *```，那么以 _ 开头的名称都不会被导入，除非模块或包中的 `__all__` 列表显式地包含了它们。了解更多请查看 `Importing * in Python`    
 
 ## 16. 名称前的双下划线（如：__shahriar）
 
-名称（具体为一个方法名）前双下划线（__）的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，“__spam”这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被“_classname__spam”这种形式原文取代，在这里“classname”是去掉前导下划线的当前类名。例如下面的例子：   
+名称（具体为一个方法名）前双下划线 _ 的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，__spam 这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被 正如所预料的，“_internal_use”并未改变，而“__method_name”却被变成了“_ClassName__method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。spam 这种形式原文取代，在这里 classname 是去掉前导下划线的当前类名。例如下面的例子：   
 
 ```
 >>> class A(object): 
@@ -406,12 +406,13 @@ Hello James !
 ## 23. 隐藏特性 7，嵌套列表推导式
 
 ```
->>> [(i, j) for i in range(3) for j in range(i)]
+[(i, j) for i in range(3) for j in range(i)]
 [(1, 0), (2, 0), (2, 1)]
 ```
 
 列表推导构造permutation：  
 可以用 itertools.permutations 来实现。  
+
 ```
 In[47]: a = 'abcd'
 
@@ -1157,6 +1158,7 @@ a = range(10000)
 ## 54. 使用最佳的反序列化方式 
 
 下面比较了eval, cPickle, json方式三种对相应字符串反序列化的效率，可见json比cPickle快近3倍，比eval快20多倍。  
+
 ```
 import json
 import cPickle
@@ -1171,16 +1173,6 @@ s3 = json.dumps(a)
 100 loops, best of 3: 2.02 ms per loop
 100 loops, best of 3: 798 µs per loop
 ```
-
-## 55. 
-
-
-
-
-
-
-
-
 
 
 
@@ -1204,7 +1196,8 @@ s3 = json.dumps(a)
 - [Python开发者最常犯的10个错误](http://www.csdn.net/article/2014-05-12/2819716-Top-10-Mistakes-that-Python-Programmers-Make)   
 - [The Insider's Guide to Python Interviewing - 赞](http://www.toptal.com/python#hiring-guide)    
 - [Python性能优化的20条建议](http://segmentfault.com/a/1190000000666603)
-- [我常用的 Python 调试工具 - 赞](http://blog.jobbole.com/51062/)
+- [我常用的 Python 调试工具 - 赞](http://blog.jobbole.com/51062/)   
+- [怎么样才算是精通 Python - 赞](http://www.zhihu.com/question/19794855)
 
 
 
