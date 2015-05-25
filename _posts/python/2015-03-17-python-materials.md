@@ -1174,6 +1174,22 @@ s3 = json.dumps(a)
 100 loops, best of 3: 798 µs per loop
 ```
 
+## 55. 怎么才算精通python
+
+这个问题比较难回答，我是看 [怎么样才算是精通 Python](http://www.zhihu.com/question/19794855) 这个知乎问答，按照自己的看法整理了一些观点。不要问我是按什么标准整理的，我只能说，整理的这些点，第一，在我看来都说得不错；第二，我自己都会去按照这些点来看看自己离 “精通” python还有多远。   
+
+- 熟悉语法以及原声数据结构    
+- 熟悉基本实现中的性能特点，就是知道什么操作会慢  
+- 会使用profile以及基于profile的性能分析工具  
+- 会使用运行时编译和静态编译的工具。pypy，numba，cython，ctypes，original C/C++ extension   
+- 熟悉你所在领域的拓展库，比如我，科学计算方面的库不要太多，numpy衍生出来的一大堆大堆    
+- 了解基本的编译过程，基本的操作系统知识（只要你C、C++学的还行就可以了）      
+- 要想精通python，写的代码首先得pythonic    
+- 研读牛B的开源代码，在这过程中会遇到python的许多高阶用法    
+- 理解装饰器，生成器，描述符，元类   
+- 掌握list comprehension，
+- 多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip
+
 
 
 ## 参考文章   
@@ -1198,6 +1214,8 @@ s3 = json.dumps(a)
 - [Python性能优化的20条建议](http://segmentfault.com/a/1190000000666603)
 - [我常用的 Python 调试工具 - 赞](http://blog.jobbole.com/51062/)   
 - [怎么样才算是精通 Python - 赞](http://www.zhihu.com/question/19794855)
+- [python内置函数大全](http://jianfeihit.iteye.com/blog/1835272)
+
 
 
 
