@@ -143,3 +143,8 @@ description: 记录我在使用celery过程中遇到过的一些错误。
     + Github Issue: [Github](https://github.com/celery/celery/issues/2146)
 
 
+
+
+## 扫一扫     
+
+![2015-01-20-errors-using-celery.md](../../images/share/2015-01-20-errors-using-celery.md.jpg)

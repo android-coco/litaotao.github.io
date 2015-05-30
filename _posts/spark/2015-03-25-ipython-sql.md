@@ -39,3 +39,8 @@ root@ubuntu2[15:26:48]:~/Desktop/ipython-notebook-spark#pip install ipython-sql
 ## 3. Deep Into IPython Extension
 
 
+
+
+## 扫一扫     
+
+![2015-03-25-ipython-sql.md](../../images/share/2015-03-25-ipython-sql.md.jpg)

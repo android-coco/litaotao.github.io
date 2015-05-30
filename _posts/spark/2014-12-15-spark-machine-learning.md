@@ -83,3 +83,8 @@ description: 哇，初步体验BDAS---the Berkeley Data Analytics Stack
 
     featurizedRDD.cache.map(t => t._1 + "#" + t._2.mkString(",")).saveAsTextFile("/wikistats_featurized")
 　　
+
+
+## 扫一扫     
+
+![2014-12-15-spark-machine-learning.md](../../images/share/2014-12-15-spark-machine-learning.md.jpg)

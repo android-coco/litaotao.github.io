@@ -74,3 +74,7 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
 
 - **spark-packages**:
     + 官网：[http://spark-packages.org/](http://spark-packages.org/)
+
+## 扫一扫     
+
+![2015-03-01-spark-resources.md](../../images/share/2015-03-01-spark-resources.md.jpg)

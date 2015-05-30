@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-05-30T12:49:19+08:00</updated>
+   <updated>2015-05-30T12:55:01+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -141,6 +141,10 @@ foo: 主控又回到我手上了，打我阿笨蛋
 &lt;li&gt;&lt;a href=&quot;http://www.elias.cn/Python/PyConcurrency?from=Develop.PyConcurrency&quot;&gt;Python几种并发实现方案的性能比较&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-05-28-python-gevent.md.jpg&quot; alt=&quot;2015-05-28-python-gevent.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -219,6 +223,10 @@ foo: 主控又回到我手上了，打我阿笨蛋
 &lt;li&gt;&lt;a href=&quot;http://book.douban.com/subject/3924175/&quot;&gt;构建高性能Web站点&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-05-02-web-high-performance.md.jpg&quot; alt=&quot;2015-05-02-web-high-performance.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -1369,6 +1377,10 @@ s3 = json.dumps(a)
 &lt;li&gt;&lt;a href=&quot;http://www.freebuf.com/&quot;&gt;黑客与极客的python文章集锦&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-17-python-materials.md.jpg&quot; alt=&quot;2015-03-17-python-materials.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -2019,6 +2031,10 @@ if __name__ == &#39;__main__&#39;:
 # Test Finished
 #
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg&quot; alt=&quot;2015-03-13-design-pattern-structural-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -2282,6 +2298,10 @@ if &#39;__main__&#39; == __name__:
     print obj1.__class__
     print obj2.__class__
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg&quot; alt=&quot;2015-03-12-design-pattern-behavior-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -2613,6 +2633,10 @@ print one.x
 print two.x
 #1
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg&quot; alt=&quot;2015-03-11-design-pattern-create-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -3076,6 +3100,10 @@ All messages are tagged with enough information (details below) for clients to k
 &lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython/wiki?path=Cookbook&quot;&gt;IPython Cookbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-10-ipython-learning.md.jpg&quot; alt=&quot;2015-03-10-ipython-learning.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -3149,6 +3177,10 @@ All messages are tagged with enough information (details below) for clients to k
 &lt;li&gt;行为型模式：迭代器，观察者，模板，策略；&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-09-design-pattern.md.jpg&quot; alt=&quot;2015-03-09-design-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -3359,6 +3391,10 @@ All messages are tagged with enough information (details below) for clients to k
 
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;次要定律十五&lt;/em&gt;&lt;/strong&gt;：绝对不要用摊平法挽救失败的投资。&lt;/p&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-01-zurich-invest-principles.md.jpg&quot; alt=&quot;2015-03-01-zurich-invest-principles.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -3480,6 +3516,10 @@ All messages are tagged with enough information (details below) for clients to k
 &lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-01-spark-resources.md.jpg&quot; alt=&quot;2015-03-01-spark-resources.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    

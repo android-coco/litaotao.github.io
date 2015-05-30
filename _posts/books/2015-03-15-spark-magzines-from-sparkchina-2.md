@@ -21,3 +21,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 - 计算资源的弹性扩展
 
 
+
+
+## 扫一扫     
+
+![2015-03-15-spark-magzines-from-sparkchina-2.md](../../images/share/2015-03-15-spark-magzines-from-sparkchina-2.md.jpg)

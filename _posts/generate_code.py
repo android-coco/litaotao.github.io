@@ -71,7 +71,7 @@ def gen_all_posts():
 def insert_qrcode_into_blog():
     '''
     '''
-    template = """## 扫一扫     \n\n![{}](../../images/share/{}.jpg)"""
+    template = """\n\n## 扫一扫     \n\n![{}](../../images/share/{}.jpg)"""
 
     for i in os.listdir('.'):
         if not os.path.isdir(i):
@@ -90,8 +90,7 @@ def remove_qrcode_from_blog():
 
 
 def main():
-    # gen_all_posts()
-
+    gen_all_posts()
     insert_qrcode_into_blog()
 
 

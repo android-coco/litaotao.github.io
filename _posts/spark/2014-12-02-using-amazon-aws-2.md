@@ -407,3 +407,8 @@ val hotPage = enPages.map(l => l.split(" ")).map(l => (l(2), l(3).toInt)).reduce
 
 　　好，这篇我们就先实践到这里。接下来体会一下shark的power，有兴趣的同志请移步[Spark Shark使用](../using-amazon-aws-3-shark)。
 
+
+
+## 扫一扫     
+
+![2014-12-02-using-amazon-aws-2.md](../../images/share/2014-12-02-using-amazon-aws-2.md.jpg)

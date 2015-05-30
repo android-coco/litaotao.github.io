@@ -83,3 +83,8 @@ description: 通过对一个简单、完整的OTP应用的学习和分析来进�
 [3. 介绍FB聊天服务从Erlang转向C++的原因](http://www.quora.com/When-did-Facebook-switch-away-from-using-Erlang-for-Facebook-Chat)
 
 
+
+
+## 扫一扫     
+
+![2014-11-10-an-integrated-otp-application.md](../../images/share/2014-11-10-an-integrated-otp-application.md.jpg)

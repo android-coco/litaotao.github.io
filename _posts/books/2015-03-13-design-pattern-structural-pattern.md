@@ -665,3 +665,8 @@ if __name__ == '__main__':
 
 
 
+
+
+## 扫一扫     
+
+![2015-03-13-design-pattern-structural-pattern.md](../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg)

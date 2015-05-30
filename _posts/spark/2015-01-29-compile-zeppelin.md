@@ -127,3 +127,8 @@ exit.
 
 
 
+
+
+## 扫一扫     
+
+![2015-01-29-compile-zeppelin.md](../../images/share/2015-01-29-compile-zeppelin.md.jpg)

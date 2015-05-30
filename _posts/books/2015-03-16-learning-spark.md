@@ -325,3 +325,8 @@ data = sc.sequenceFile(inFile, 'org.apache.hadoop.io.Text', 'org.apache.hadoop.i
 
 
 
+
+
+## 扫一扫     
+
+![2015-03-16-learning-spark.md](../../images/share/2015-03-16-learning-spark.md.jpg)

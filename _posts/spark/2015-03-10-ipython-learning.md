@@ -414,3 +414,7 @@ There are two options for writing a kernel:
 
 - [官网](http://ipython.org/)
 - [IPython Cookbook](https://github.com/ipython/ipython/wiki?path=Cookbook)
+
+## 扫一扫     
+
+![2015-03-10-ipython-learning.md](../../images/share/2015-03-10-ipython-learning.md.jpg)

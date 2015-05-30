@@ -381,3 +381,8 @@ option = {
         }
     ]
 };
+
+
+## 扫一扫     
+
+![2014-12-08-resume-draft.md](../../images/share/2014-12-08-resume-draft.md.jpg)

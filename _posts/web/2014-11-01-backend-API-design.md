@@ -30,3 +30,8 @@ description: 记录一些我的后台API设计的教训、经验和感悟
 　　　　[我的读书笔记]()
 3.	[HTTP幂等性概念和应用](http://coolshell.cn/articles/4787.html)
 
+
+
+## 扫一扫     
+
+![2014-11-01-backend-API-design.md](../../images/share/2014-11-01-backend-API-design.md.jpg)

@@ -293,3 +293,8 @@ default              10.0.2.2             UG        4     122171 e1000g0
 ```
 
 其中`ip`那里我随便选了个`10.0.2.52`，反正不和别的机器冲突就行。
+
+
+## 扫一扫     
+
+![2014-10-27-how-to-debug-erlang-programs.md](../../images/share/2014-10-27-how-to-debug-erlang-programs.md.jpg)

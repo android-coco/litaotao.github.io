@@ -59,3 +59,7 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
 - 机会，永远只给有所准备，并且已经准备好了的人；
 - 从每一件小事做起，把每一件小事做到极致；
 ![make_little_thing_best](../images/make_little_thing_best.jpg)
+
+## 扫一扫     
+
+![2015-02-06-the-badest-thing-in-my-life.md](../../images/share/2015-02-06-the-badest-thing-in-my-life.md.jpg)

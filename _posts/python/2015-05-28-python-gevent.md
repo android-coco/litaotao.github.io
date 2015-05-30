@@ -107,3 +107,8 @@ foo: 主控又回到我手上了，打我阿笨蛋
 - [Python几种并发实现方案的性能比较](http://www.elias.cn/Python/PyConcurrency?from=Develop.PyConcurrency)
 
 
+
+
+## 扫一扫     
+
+![2015-05-28-python-gevent.md](../../images/share/2015-05-28-python-gevent.md.jpg)

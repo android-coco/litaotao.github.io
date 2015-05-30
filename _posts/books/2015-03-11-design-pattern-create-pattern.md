@@ -328,3 +328,7 @@ print one.x
 print two.x
 #1
 ```
+
+## 扫一扫     
+
+![2015-03-11-design-pattern-create-pattern.md](../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg)

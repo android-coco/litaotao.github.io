@@ -1224,3 +1224,8 @@ s3 = json.dumps(a)
 - [python 日报](http://py.memect.com/)   
 - [伯乐在线-python文章集锦](http://python.jobbole.com/category/python/)   
 - [黑客与极客的python文章集锦](http://www.freebuf.com/)
+
+
+## 扫一扫     
+
+![2015-03-17-python-materials.md](../../images/share/2015-03-17-python-materials.md.jpg)

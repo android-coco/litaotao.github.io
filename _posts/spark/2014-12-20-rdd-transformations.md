@@ -359,3 +359,8 @@ description: 总结spark transformation，了解spark编程内涵～～～
 - [RDD API Docs](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)  
 - [pairRDD API Docs](http://spark.apache.org/docs/1.1.1/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)
 
+
+
+## 扫一扫     
+
+![2014-12-20-rdd-transformations.md](../../images/share/2014-12-20-rdd-transformations.md.jpg)

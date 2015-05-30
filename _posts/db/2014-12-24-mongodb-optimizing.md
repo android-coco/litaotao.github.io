@@ -220,3 +220,8 @@ description: 整理网上收集到的和一些项目中用到的MongoDB优化策
 - [10gen工程师谈MongoDB组合索引的优化](http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound)   
 - [dbStats](http://docs.mongodb.org/v2.4/reference/command/dbStats/)  
 
+
+
+## 扫一扫     
+
+![2014-12-24-mongodb-optimizing.md](../../images/share/2014-12-24-mongodb-optimizing.md.jpg)
