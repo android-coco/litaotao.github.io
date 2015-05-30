@@ -2,7 +2,7 @@
 category: python
 published: true
 layout: post
-title: Python 并行编程之一：Gevent    
+title: Python 并发编程之一：Gevent    
 description: Gevent，用过都说好~
 ---    
 
