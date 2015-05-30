@@ -25,13 +25,124 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-05-21T21:03:27+08:00</updated>
+   <updated>2015-05-30T11:37:21+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>Python 并行编程之一：Gevent</title>
+     <link href="/python-gevent"/>
+     <updated>2015-05-28T00:00:00+08:00</updated>
+     <id>/python-gevent</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 什么是Gevent&lt;/h2&gt;
+
+&lt;p&gt;gevent是一个基于libev的python并发框架,以微线程greenlet为核心，使用了epoll事件监听机制以及诸多其他优化而变得高效.而且其中有个monkey类, 将现有基于Python线程直接转化为greenlet(类似于打patch).&lt;/p&gt;
+
+&lt;p&gt;greenlet 包是 Stackless 的副产品，其将微线程称为 “tasklet” 。tasklet运行在伪并发中，使用channel进行同步数据交换。&lt;/p&gt;
+
+&lt;p&gt;一个”greenlet”，是一个更加原始的微线程的概念，但是没有调度，或者叫做协程。这在你需要控制你的代码时很有用。你可以自己构造微线程的 调度器；也可以使用”greenlet”实现高级的控制流。例如可以重新创建构造器；不同于Python的构造器，我们的构造器可以嵌套的调用函数，而被嵌套的函数也可以 yield 一个值。(另外，你并不需要一个”yield”关键字，参考例子)。&lt;/p&gt;
+
+&lt;h2&gt;2. 什么是 Coroutine&lt;/h2&gt;
+
+&lt;p&gt;要理解Gevent，明白Gevent的执行机制，需要了解另外一个概念：Coroutine，中文叫做协程。第一次看见这个名词，确实很奇怪，进程、线程都了解了，突然冒出个协程，还真有点反应不过来。&lt;/p&gt;
+
+&lt;p&gt;按照 &lt;a href=&quot;http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html&quot;&gt;进程、线程和协程的理解&lt;/a&gt; 的说法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。
+线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。
+协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的说法不是很好理解，后来发现这篇文章 &lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt;, 里面对协程的解释是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;用简单的一句话来说Coroutine，就是可以暂时中断，之后再继续执行的程序，
+我们来看一个例子，事实上Python就有最基础的Coroutine，也就是generator
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;好了，通过上面两篇文章，理解协程已经对比协程、进程、线程的概念就清晰很多了：&lt;/p&gt;
+
+&lt;p&gt;协程就是一种特殊的并发机制，其调度[就是指什么时候调用什么函数]完全由程序员指定，比如说这篇文章里的例子：  &lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt; ：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# -*- coding: utf8 -*-
+def foo():
+    for i in range(10):
+        # 丢资料并且把主控权交给呼叫者
+        yield i
+        print u&#39;foo: 主控又回到我手上了，打我阿笨蛋&#39;
+
+bar = foo()
+# 执行coroutine
+print bar.next()
+print u&#39;main: 现在主控权在我们手上，做点杂事&#39;
+print &#39;main:hello baby!&#39;
+# 回到刚才foo这个coroutine中断的地方继续执行
+print bar.next()
+print bar.next()
+
+
+###结果：
+
+0
+main: 现在主控权在我们手上，做点杂事
+main:hello baby!
+foo: 主控又回到我手上了，打我阿笨蛋
+1
+foo: 主控又回到我手上了，打我阿笨蛋
+2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. Gevent适用场景&lt;/h2&gt;
+
+&lt;p&gt;说到Gevent的适用场景，不得不先理解Gevent的优缺点。按照上面我们的说法，还有那两篇文章的理解，Gevent是通过协程的机制来实现并行，即其并行机制并没有利用到多核CPU的优势，所以很明显了，Gevent的优缺如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;多进程能够利用多核优势，但是进程间通信比较麻烦，另外，进程数目的增加会使性能下降，进程切换的成本较高。程序流程复杂度相对I/O多路复用要低。&lt;/li&gt;
+&lt;li&gt;I/O多路复用是在一个进程内部处理多个逻辑流程，不用进行进程切换，性能较高，另外流程间共享信息简单。但是无法利用多核优势，另外，程序流程被事件处理切割成一个个小块，程序比较复杂，难于理解。&lt;/li&gt;
+&lt;li&gt;线程运行在一个进程内部，由操作系统调度，切换成本较低，另外，他们共享进程的虚拟地址空间，线程间共享信息简单。但是线程安全问题导致线程学习曲线陡峭，而且易出错。&lt;/li&gt;
+&lt;li&gt;协程有编程语言提供，由程序员控制进行切换，所以没有线程安全问题，可以用来处理状态机，并发请求等。但是无法利用多核优势。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;所以，协程的适用场景，应该是一些I/O密集型的并行程序，而对应的计算密集型，应当采用传统的多线程、多进程方案。&lt;/p&gt;
+
+&lt;h2&gt;4. Gevent编程模式和思维方法&lt;/h2&gt;
+
+&lt;p&gt;我想从两个例子来介绍Gevent的编程模式，第一个比较简单，可以直接去看这篇文章里的开篇例子，&lt;a href=&quot;http://xlambda.com/gevent-tutorial/#&quot;&gt;gevent程序员指南&lt;/a&gt;。不过这个例子只是简单的解释gevent的执行流程和编程模式，离现实应用还有一定的距离。当看完这篇文章后，可以参考Firefox的一个实例就行了，&lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;总结一下，按照我个人的理解，要想用好gevent，需要先思考下面几点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;你的应用是否需要考虑Gevent；&lt;/li&gt;
+&lt;li&gt;如何把你的大任务slice成小任务，这些任务之间是否独立；&lt;/li&gt;
+&lt;li&gt;如果收集，处理小任务执行的结果；&lt;/li&gt;
+&lt;li&gt;理解如何真正利用gevent来实现并行，很多情况下，如果是网络I/O，需要打patch的；比说 &lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;这里接上一点，打patch要小心，比如说打了socket的patch，要先知道会不会影响到本应用中其他用了socket的服务，因为打patch是直接替换了当前运行时环境里的socket，所以在当前运行时环境里使用socket的服务都会受影响；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;5. Gevent In Action&lt;/h2&gt;
+
+&lt;p&gt;因为Gevent多用于I/O密集型并发程序，而网络请求又是很常见的一种I/O请求，所以在大规模网络并发请求的时候，可以使用Gevent。相信python程序员都应该用过 requests 这个包吧，都应该知道 requests 的作者，kennethreitz，一个货真价实的 python界的大牛。他在写了 requests 的同时，还写了一个包：&lt;a href=&quot;https://github.com/kennethreitz/grequests&quot;&gt;grequest ： gevent + requests &lt;/a&gt;，把requests用gevent包了一下，实现异步的网络请求，下次大家要是有网络方面的并发请求，需要用到gevent的话，就不用重复造轮子了，直接用 &lt;a href=&quot;https://github.com/kennethreitz/grequests&quot;&gt;grequests&lt;/a&gt; 就好了。&lt;/p&gt;
+
+&lt;h2&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html&quot;&gt;进程、线程和协程的理解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://xlambda.com/gevent-tutorial/#&quot;&gt;gevent程序员指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/77240/&quot;&gt;python greenlet背景介绍与实现机制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.elias.cn/Python/PyConcurrency?from=Develop.PyConcurrency&quot;&gt;Python几种并发实现方案的性能比较&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>book-4. Web 高性能开发参考资料</title>
@@ -1204,6 +1315,25 @@ s3 = json.dumps(a)
 100 loops, best of 3: 798 µs per loop
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h2&gt;55. 怎么才算精通python&lt;/h2&gt;
+
+&lt;p&gt;这个问题比较难回答，我是看 &lt;a href=&quot;http://www.zhihu.com/question/19794855&quot;&gt;怎么样才算是精通 Python&lt;/a&gt; 这个知乎问答，按照自己的看法整理了一些观点。不要问我是按什么标准整理的，我只能说，整理的这些点，第一，在我看来都说得不错；第二，我自己都会去按照这些点来看看自己离 “精通” python还有多远。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;熟悉语法以及原声数据结构&lt;/li&gt;
+&lt;li&gt;熟悉基本实现中的性能特点，就是知道什么操作会慢&lt;/li&gt;
+&lt;li&gt;会使用profile以及基于profile的性能分析工具&lt;/li&gt;
+&lt;li&gt;会使用运行时编译和静态编译的工具。pypy，numba，cython，ctypes，original C/C++ extension&lt;/li&gt;
+&lt;li&gt;熟悉你所在领域的拓展库，比如我，科学计算方面的库不要太多，numpy衍生出来的一大堆大堆&lt;/li&gt;
+&lt;li&gt;了解基本的编译过程，基本的操作系统知识（只要你C、C++学的还行就可以了）&lt;/li&gt;
+&lt;li&gt;要想精通python，写的代码首先得pythonic&lt;/li&gt;
+&lt;li&gt;研读牛B的开源代码，在这过程中会遇到python的许多高阶用法&lt;/li&gt;
+&lt;li&gt;理解装饰器，生成器，描述符，元类&lt;/li&gt;
+&lt;li&gt;掌握list comprehension，&lt;/li&gt;
+&lt;li&gt;多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;h2&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -1227,6 +1357,7 @@ s3 = json.dumps(a)
 &lt;li&gt;&lt;a href=&quot;http://segmentfault.com/a/1190000000666603&quot;&gt;Python性能优化的20条建议&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/51062/&quot;&gt;我常用的 Python 调试工具 - 赞&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.zhihu.com/question/19794855&quot;&gt;怎么样才算是精通 Python - 赞&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://jianfeihit.iteye.com/blog/1835272&quot;&gt;python内置函数大全&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -3347,73 +3478,6 @@ All messages are tagged with enough information (details below) for clients to k
 &lt;li&gt;官网：&lt;a href=&quot;http://spark-packages.org/&quot;&gt;http://spark-packages.org/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>今天发生了一件坏事，也发生了一件好事</title>
-     <link href="/the-badest-thing-in-my-life"/>
-     <updated>2015-02-06T00:00:00+08:00</updated>
-     <id>/the-badest-thing-in-my-life</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　以前读过两篇文章，一片叫《为什么从现在起你应该写博客》，第二篇记不得了，但其中有一个中心思想，说的是你写的东西都是给别人看的，应该都是对别人有用的。看了第一篇文章，我从不久之前终于借助Github建立了自己的一个博客，记录自己的技术成长经历；看了第二篇文章，我几乎每周都会对自己有一个总结，而从不把这些总结发到博客上。因为我认为这些总结都是未来回忆自己年轻时的年少轻狂用的，不应该发到博客上了。&lt;br/&gt;
-　　但是今天，发生了一件坏事，算是从小到大最丑的一件事了，但同时也是一件好事。至少以后别人再问我最丑的经历时，我有话可说了。&lt;/p&gt;
-
-&lt;h2&gt;2. 人生最丑的事&lt;/h2&gt;
-
-&lt;p&gt;　　今天在小组内做第二次关于spark的技术分享，讲得很烂，算是人生的一个污点了，具体经历就不讲了。但我保证这是历史和未来所有presentation中最烂的一次。我将从以下几个方面来记录这次事件，以后每次活动之前，我都要自己看看今天的这篇文章，告诫自己，不要在同一个地方跌倒两次。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;没有事先准备好&lt;br/&gt;
-　　以后进行presentation，一定要提前半小时入场，把电脑环境配置好。今天失败的根本原因是一个自定义的配置文件在断网重连后没有进行source操作，导致IPython Notebook Server和Spark集群之间连接不上。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;紧急情况下不会冷静分析问题&lt;br/&gt;
-　　在启动IPython Notebook后，发现 &lt;code&gt;from pyspark import SparkContext, SparkConf&lt;/code&gt; 不能成功，提示没有pyspark这个包。当时我就慌了，没有沿着本质去分析问题，然后在老板的催促和心慌当中就开始讲了，在大家的迷茫和我不知所以的回答中，我就这样浑浑噩噩的度过了几十分钟，中间还幸得一位同事解围。在最后几分钟的时候，我实在忍不住了，心想反正今天已经完蛋了，就不管别人在那里讨论什么了。我开始研究到底是什么原因导致Notebook Server连接不上spark集群。我首先查看了下IPython的配置，在 &lt;code&gt;~/.ipython/profile_pyspark/&lt;/code&gt; 目录下面，我先看ipython_notebook_config.py文件，发现没有什么异常的，心想也应该不会出现在这里吧，因为IPython notebook还是能用的，只是找不到pyspark这个包。我突然回忆起来，在当初配置spark+IPython的时候，需要设置一个启动脚本文件。接着，我查看了那个启动脚本，在 &lt;code&gt;/root/.ipython/profile_pyspark/startup/00-pyspark-setup.py&lt;/code&gt; 下，恍然大悟，我发现问题了，这个脚本是这样写的：&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;import os
-import sys
-
-spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
-
-if not spark_home:
-    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
-sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
-sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))
-#execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　Say，关键就是这句 &lt;code&gt;spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)&lt;/code&gt; 因为没有定义一个环境变量，因此不能在IPython Notebook的环境变量sys.path里加入pyspark包所在的地址。再想想自己在哪里定义了SPARK_HOME这个变量，明明就在Desktop下的&lt;code&gt;ipython_notebook_spark.bashrc&lt;/code&gt; 里，看看里面是怎么写的：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
-export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　　这下知道了，原因是自己定义的.bashrc文件在登出linux后会失效，而刚才把电脑带到会议室后重新连接的网络，linux console重新登出了，所以必须重新source这个文件。 &lt;br/&gt;
-　　现在回想，其实应该在看到错误提示没有pyspark这个包的时候就应该发现这个问题了，之所以一开始没有推测出这个问题，有几个原因：一是在这种情况下发现错误，头脑发热发慌，不能冷静处理；二是自己对这部分技术没有掌握彻底；3是在学习一门新技术时，没有详细地把学习过程和一些操作过程记录下来，导致出问题后不能及时参考。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;表达不清 &lt;br/&gt;
-　　还有一条经验就是表达不清楚，思路不清楚，回答别人的问题不够明确。在别人提问没有表达清晰时，自己没有和别人进行沟通就贸然回答，导致交流效率极低。曾经看过很多文章，都讲做技术的一定要努力提高自己的表达能力，我满不在乎，因为平时和大家感觉交流起来还算流畅的，没想到这次碰了瓷。得到一条宝贵的经验，以后再做分享的时候，一定要准备好详细讲稿和提纲。别人在提问时，一定要先把别人提问的问题搞清楚，理解了再进行回答。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;一些细节问题 &lt;br/&gt;
-　　这次分享出来本组人员，还有鹏哥和他们组的两个人员，这种情况下在开始前应该由主讲人[我]来互相介绍一下，介绍双方的人员和职责。 &lt;br/&gt;
-　　在讲稿，PPT，程序准备的时候，要注意配色和字体，字体要大，颜色要和谐，让听众能清晰地看到投影仪的东西。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;最后&lt;br/&gt;
-　　最后，我想说，这真的是人生最糟糕的一次经历，以后绝对不能出现同样的问题，在以后每次做分享的时候，我要多回头看看这篇文章，想想今天尴尬的我。今天的分享，远远没有达到预期效果，还耽误了大家不少时间，也影响了自己的形象。这种情况下不能逃避，我应该给参会的每个人员发封邮件表示歉意，这也是对别人的尊重。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. 感悟&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;机会，永远只给有所准备，并且已经准备好了的人；&lt;/li&gt;
-&lt;li&gt;从每一件小事做起，把每一件小事做到极致；
-&lt;img src=&quot;../images/make_little_thing_best.jpg&quot; alt=&quot;make_little_thing_best&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
