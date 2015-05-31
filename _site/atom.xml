@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-05-30T13:15:38+08:00</updated>
+   <updated>2015-05-31T15:22:29+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1342,6 +1342,14 @@ s3 = json.dumps(a)
 &lt;/ul&gt;
 
 
+&lt;h2&gt;56. python 猴子补丁相关&lt;/h2&gt;
+
+&lt;p&gt;python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指的是在运行时动态替换某些已加载的模块的实现。第一次了解这个概念是在使用gevent的时候，需要把python自带的socket，os等相关模块的实现改变成异步形式，但同时不改动python的源代码。&lt;/p&gt;
+
+&lt;h2&gt;57. 了解 functools.partial&lt;/h2&gt;
+
+&lt;p&gt;先参考 &lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/9712125&quot;&gt;飘逸的python - 偏函数functools.partial&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -1366,6 +1374,10 @@ s3 = json.dumps(a)
 &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/51062/&quot;&gt;我常用的 Python 调试工具 - 赞&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.zhihu.com/question/19794855&quot;&gt;怎么样才算是精通 Python - 赞&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://jianfeihit.iteye.com/blog/1835272&quot;&gt;python内置函数大全&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/40297775&quot;&gt;什么是猴子补丁(monkey patch)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/5626193/what-is-monkey-patch&quot;&gt;What is monkey patch?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.tryolabs.com/2013/07/05/run-time-method-patching-python/&quot;&gt;RUN-TIME METHOD PATCHING IN PYTHON&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/9712125&quot;&gt;飘逸的python - 偏函数functools.partial&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

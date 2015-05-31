@@ -91,7 +91,7 @@ def remove_qrcode_from_blog():
 
 def main():
     gen_all_posts()
-    insert_qrcode_into_blog()
+    # insert_qrcode_into_blog()
 
 
 if __name__ == '__main__':
