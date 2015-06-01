@@ -7,3 +7,8 @@ description:
 ---  
 
 
+
+
+## 扫一扫     
+
+![2015-01-26-sublime-key-shortcut.md](../../images/share/2015-01-26-sublime-key-shortcut.md.jpg)

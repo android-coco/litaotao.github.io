@@ -246,3 +246,8 @@ a = A()
 
 
 
+
+
+## 扫一扫     
+
+![2015-04-14-python-source-code.md](../../images/share/2015-04-14-python-source-code.md.jpg)

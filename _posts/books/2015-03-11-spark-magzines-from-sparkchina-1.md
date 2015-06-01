@@ -32,3 +32,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 　　即使是在standalone模式下，driver的运行位置也有所不同。如果使用spark-shell等方式交互运行spark任务或直接使用run-example来运行spark官方提示的示例的话，driver是运行在master节点上的；如果使用spark-submit工具进行任务的提交或者在Eclipse，IDEA等开发平台进行开发时使用“new SparkContext("spark://master:7077", "AppName")”方式运行spark任务的话，driver是运行在本地客户端的。
 　　spark-submit方式来提交任务说明standalone运行原理，详见P24.
 
+
+
+## 扫一扫     
+
+![2015-03-11-spark-magzines-from-sparkchina-1.md](../../images/share/2015-03-11-spark-magzines-from-sparkchina-1.md.jpg)

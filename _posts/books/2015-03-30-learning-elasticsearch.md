@@ -545,3 +545,8 @@ curl -XGET 'http://localhost:9200/twitter/tweet/1?_source=false
 
 
 
+
+
+## 扫一扫     
+
+![2015-03-30-learning-elasticsearch.md](../../images/share/2015-03-30-learning-elasticsearch.md.jpg)

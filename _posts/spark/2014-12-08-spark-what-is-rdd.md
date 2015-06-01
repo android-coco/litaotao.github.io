@@ -88,3 +88,8 @@ In-Memory Cluster Computing](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_
 - [RDD 论文中文版](http://shiyanjun.cn/archives/744.html )
 
 　　
+
+
+## 扫一扫     
+
+![2014-12-08-spark-what-is-rdd.md](../../images/share/2014-12-08-spark-what-is-rdd.md.jpg)

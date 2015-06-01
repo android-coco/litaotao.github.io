@@ -229,3 +229,8 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
 
 ## 6. 启动脚本和文件
 　　为了方便，都放到Github上了。
+
+
+## 扫一扫     
+
+![2015-01-27-ipython-notebook-server-spark.md](../../images/share/2015-01-27-ipython-notebook-server-spark.md.jpg)

@@ -75,3 +75,8 @@ description: 个人搜集的一些关于 Web高性能开发的书籍和文章。
 
 
 
+
+
+## 扫一扫     
+
+![2015-05-02-web-high-performance.md](../../images/share/2015-05-02-web-high-performance.md.jpg)

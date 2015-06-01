@@ -32,3 +32,8 @@ ERROR: Could not find 'wxe_driver.so' in: /usr/local/lib/erlang/lib/wx-1.3/priv
 
 ## 2. 
 
+
+
+## 扫一扫     
+
+![2014-11-04-erlang-problems-zone.md](../../images/share/2014-11-04-erlang-problems-zone.md.jpg)

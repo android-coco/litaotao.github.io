@@ -1190,6 +1190,15 @@ s3 = json.dumps(a)
 - 掌握list comprehension，
 - 多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip+
 
+## 56. python 猴子补丁相关
+
+python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指的是在运行时动态替换某些已加载的模块的实现。第一次了解这个概念是在使用gevent的时候，需要把python自带的socket，os等相关模块的实现改变成异步形式，但同时不改动python的源代码。    
+
+## 57. 了解 functools.partial  
+
+先参考 [飘逸的python - 偏函数functools.partial](http://blog.csdn.net/handsomekang/article/details/9712125)  
+
+
 
 
 ## 参考文章   
@@ -1214,7 +1223,14 @@ s3 = json.dumps(a)
 - [Python性能优化的20条建议](http://segmentfault.com/a/1190000000666603)
 - [我常用的 Python 调试工具 - 赞](http://blog.jobbole.com/51062/)   
 - [怎么样才算是精通 Python - 赞](http://www.zhihu.com/question/19794855)
-- [python内置函数大全](http://jianfeihit.iteye.com/blog/1835272)
+- [python内置函数大全](http://jianfeihit.iteye.com/blog/1835272)   
+- [什么是猴子补丁(monkey patch)](http://blog.csdn.net/handsomekang/article/details/40297775)
+- [What is monkey patch?](http://stackoverflow.com/questions/5626193/what-is-monkey-patch)   
+- [RUN-TIME METHOD PATCHING IN PYTHON](http://blog.tryolabs.com/2013/07/05/run-time-method-patching-python/)   
+- [飘逸的python - 偏函数functools.partial](http://blog.csdn.net/handsomekang/article/details/9712125)  
+- [Drastically Improve Your Python: Understanding Python's Execution Model](http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/)
+
+
 
 
 
@@ -1224,3 +1240,8 @@ s3 = json.dumps(a)
 - [python 日报](http://py.memect.com/)   
 - [伯乐在线-python文章集锦](http://python.jobbole.com/category/python/)   
 - [黑客与极客的python文章集锦](http://www.freebuf.com/)
+
+
+## 扫一扫     
+
+![2015-03-17-python-materials.md](../../images/share/2015-03-17-python-materials.md.jpg)

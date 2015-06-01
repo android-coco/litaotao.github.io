@@ -257,3 +257,7 @@ if '__main__' == __name__:
     print obj1.__class__
     print obj2.__class__
 ```
+
+## 扫一扫     
+
+![2015-03-12-design-pattern-behavior-pattern.md](../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg)

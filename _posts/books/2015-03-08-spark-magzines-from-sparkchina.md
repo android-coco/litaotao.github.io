@@ -83,3 +83,7 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 
 ### 3.9 Akka
 　　Akka是一个平台，灵感来自Erlang却用scala语言实现，能更轻松地开发可扩展，实现多线程安全应用。在大多数流行语言中，并发是基于多线程之间的共享内存，使用同步方法防止写争夺来实现的。但Akka提供的并发模型是基于Actors，Actors是一个轻量级的对象，通过发送消息实现交互。每个Actors在同一时间处理最多一个消息，可以发送消息给其他Actors。
+
+## 扫一扫     
+
+![2015-03-08-spark-magzines-from-sparkchina.md](../../images/share/2015-03-08-spark-magzines-from-sparkchina.md.jpg)

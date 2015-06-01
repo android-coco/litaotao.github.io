@@ -148,3 +148,8 @@ Found 74 items
 
 　　下一篇会记录在EC2上用spark分析wikipedia流量的过程，请移步[使用Spark分析wikipedia流量数据](../using-amazon-aws-2)
 
+
+
+## 扫一扫     
+
+![2014-12-01-using-amazon-aws-1.md](../../images/share/2014-12-01-using-amazon-aws-1.md.jpg)

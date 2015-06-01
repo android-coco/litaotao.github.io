@@ -40,3 +40,7 @@ drwxr-xr-x  4 root root 4.0K Jan 19 18:02 community
 
 ## 4. SecureCRT 信号灯设置
 　　session option选中Terminal的Anti-idle框中Send protocol NO-OP复选框后面的秒默认60就可以了。
+
+## 扫一扫     
+
+![2015-02-06-securecrt-tips.md](../../images/share/2015-02-06-securecrt-tips.md.jpg)

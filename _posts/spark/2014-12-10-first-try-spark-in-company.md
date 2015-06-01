@@ -52,3 +52,8 @@ c)  Pyspark
 	counts.collect()
 ```  
 
+
+
+## 扫一扫     
+
+![2014-12-10-first-try-spark-in-company.md](../../images/share/2014-12-10-first-try-spark-in-company.md.jpg)

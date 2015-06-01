@@ -111,3 +111,8 @@ SBT: Simple Build Tool, 一个开源的用来构建scala或java项目的工具�
     }
 
 
+
+
+## 扫一扫     
+
+![2014-12-16-spark-streaming.md](../../images/share/2014-12-16-spark-streaming.md.jpg)

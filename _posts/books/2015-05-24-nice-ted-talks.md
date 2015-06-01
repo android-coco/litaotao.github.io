@@ -15,3 +15,8 @@ description: 我看过的，并且觉得值得深看的TED演讲
 
 
 
+
+
+## 扫一扫     
+
+![2015-05-24-nice-ted-talks.md](../../images/share/2015-05-24-nice-ted-talks.md.jpg)

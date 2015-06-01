@@ -69,3 +69,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 
 [中文翻译](http://blog.51cto.com/zt/107)
 
+
+
+## 扫一扫     
+
+![2014-11-09-50-tips-and-tricks-for-mongodb-developer.md](../../images/share/2014-11-09-50-tips-and-tricks-for-mongodb-developer.md.jpg)

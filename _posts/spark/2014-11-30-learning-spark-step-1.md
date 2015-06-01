@@ -96,3 +96,7 @@ Out[14]: '/Users/chenshan/Desktop/spark/spark-1.1.1-bin-hadoop2.4/python/pyspark
 
 
 　　
+
+## 扫一扫     
+
+![2014-11-30-learning-spark-step-1.md](../../images/share/2014-11-30-learning-spark-step-1.md.jpg)

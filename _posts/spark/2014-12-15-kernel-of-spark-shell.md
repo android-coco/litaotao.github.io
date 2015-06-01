@@ -16,3 +16,8 @@ description: 看过很多“当你**的时候都发生了什么”的文章，�
 
 
 
+
+
+## 扫一扫     
+
+![2014-12-15-kernel-of-spark-shell.md](../../images/share/2014-12-15-kernel-of-spark-shell.md.jpg)

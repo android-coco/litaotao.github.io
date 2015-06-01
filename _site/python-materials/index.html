@@ -1133,6 +1133,33 @@ s3 = json.dumps(a)
 100 loops, best of 3: 798 µs per loop
 </code></pre>
 
+<h2>55. 怎么才算精通python</h2>
+
+<p>这个问题比较难回答，我是看 <a href="http://www.zhihu.com/question/19794855">怎么样才算是精通 Python</a> 这个知乎问答，按照自己的看法整理了一些观点。不要问我是按什么标准整理的，我只能说，整理的这些点，第一，在我看来都说得不错；第二，我自己都会去按照这些点来看看自己离 “精通” python还有多远。</p>
+
+<ul>
+<li>熟悉语法以及原声数据结构</li>
+<li>熟悉基本实现中的性能特点，就是知道什么操作会慢</li>
+<li>会使用profile以及基于profile的性能分析工具</li>
+<li>会使用运行时编译和静态编译的工具。pypy，numba，cython，ctypes，original C/C++ extension</li>
+<li>熟悉你所在领域的拓展库，比如我，科学计算方面的库不要太多，numpy衍生出来的一大堆大堆</li>
+<li>了解基本的编译过程，基本的操作系统知识（只要你C、C++学的还行就可以了）</li>
+<li>要想精通python，写的代码首先得pythonic</li>
+<li>研读牛B的开源代码，在这过程中会遇到python的许多高阶用法</li>
+<li>理解装饰器，生成器，描述符，元类</li>
+<li>掌握list comprehension，</li>
+<li>多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip</li>
+</ul>
+
+
+<h2>56. python 猴子补丁相关</h2>
+
+<p>python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指的是在运行时动态替换某些已加载的模块的实现。第一次了解这个概念是在使用gevent的时候，需要把python自带的socket，os等相关模块的实现改变成异步形式，但同时不改动python的源代码。</p>
+
+<h2>57. 了解 functools.partial</h2>
+
+<p>先参考 <a href="http://blog.csdn.net/handsomekang/article/details/9712125">飘逸的python - 偏函数functools.partial</a></p>
+
 <h2>参考文章</h2>
 
 <ul>
@@ -1156,6 +1183,12 @@ s3 = json.dumps(a)
 <li><a href="http://segmentfault.com/a/1190000000666603">Python性能优化的20条建议</a></li>
 <li><a href="http://blog.jobbole.com/51062/">我常用的 Python 调试工具 - 赞</a></li>
 <li><a href="http://www.zhihu.com/question/19794855">怎么样才算是精通 Python - 赞</a></li>
+<li><a href="http://jianfeihit.iteye.com/blog/1835272">python内置函数大全</a></li>
+<li><a href="http://blog.csdn.net/handsomekang/article/details/40297775">什么是猴子补丁(monkey patch)</a></li>
+<li><a href="http://stackoverflow.com/questions/5626193/what-is-monkey-patch">What is monkey patch?</a></li>
+<li><a href="http://blog.tryolabs.com/2013/07/05/run-time-method-patching-python/">RUN-TIME METHOD PATCHING IN PYTHON</a></li>
+<li><a href="http://blog.csdn.net/handsomekang/article/details/9712125">飘逸的python - 偏函数functools.partial</a></li>
+<li><a href="http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/">Drastically Improve Your Python: Understanding Python's Execution Model</a></li>
 </ul>
 
 
@@ -1167,6 +1200,10 @@ s3 = json.dumps(a)
 <li><a href="http://www.freebuf.com/">黑客与极客的python文章集锦</a></li>
 </ul>
 
+
+<h2>扫一扫</h2>
+
+<p><img src="../../images/share/2015-03-17-python-materials.md.jpg" alt="2015-03-17-python-materials.md" /></p>
 
 
     <div id="disqus_container">

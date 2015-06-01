@@ -22,3 +22,8 @@ description: 哇，初步体验BDAS---the Berkeley Data Analytics Stack
 	UserID::MovieID::Rating::Timestamp
 	MovieID::Title::Genres
 
+
+
+## 扫一扫     
+
+![2014-12-18-spark-machine-learning.md](../../images/share/2014-12-18-spark-machine-learning.md.jpg)

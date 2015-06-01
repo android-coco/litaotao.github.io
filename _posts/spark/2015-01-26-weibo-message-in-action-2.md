@@ -58,3 +58,8 @@ if __name__ == "__main__":
 - 结合Ipython Notebook和spark，使得可以再Ipython notebook里可以创建spark应用，这是在线大数据REPL的基石；
 - 研究，构建Zeppelin，理解Zepplin内涵，这是在线大数据REPL的电梯；
 - 自定义Zeppelin+Spark+Ipython，争取构建一个在线大数据REPL的MVP版；
+
+
+## 扫一扫     
+
+![2015-01-26-weibo-message-in-action-2.md](../../images/share/2015-01-26-weibo-message-in-action-2.md.jpg)

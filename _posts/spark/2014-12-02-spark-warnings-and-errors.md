@@ -51,3 +51,8 @@ description: 随时更新哦~~~
         .
 解决： 地址格式不对，应该是conf.setMaster("spark://10.21.208.21:7077")
 
+
+
+## 扫一扫     
+
+![2014-12-02-spark-warnings-and-errors.md](../../images/share/2014-12-02-spark-warnings-and-errors.md.jpg)
