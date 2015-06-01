@@ -1188,7 +1188,7 @@ s3 = json.dumps(a)
 - 研读牛B的开源代码，在这过程中会遇到python的许多高阶用法    
 - 理解装饰器，生成器，描述符，元类   
 - 掌握list comprehension，
-- 多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip
+- 多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip+
 
 
 
