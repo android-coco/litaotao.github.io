@@ -1228,7 +1228,9 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 - [What is monkey patch?](http://stackoverflow.com/questions/5626193/what-is-monkey-patch)   
 - [RUN-TIME METHOD PATCHING IN PYTHON](http://blog.tryolabs.com/2013/07/05/run-time-method-patching-python/)   
 - [飘逸的python - 偏函数functools.partial](http://blog.csdn.net/handsomekang/article/details/9712125)  
-- [Drastically Improve Your Python: Understanding Python's Execution Model](http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/)
+- [Drastically Improve Your Python: Understanding Python's Execution Model](http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/)   
+- [飘逸的python - descriptor(描述器)就是这么回事](http://blog.csdn.net/handsomekang/article/details/39895871)      
+- [Python描述器引导(翻译)](http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html)     
 
 
 

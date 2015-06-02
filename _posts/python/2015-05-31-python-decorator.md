@@ -62,7 +62,8 @@ def fib(n):
 ## 参考资料
 
 - [Python修饰器的函数式编程](http://coolshell.cn/articles/11265.html)  
-- [python黑魔法---装饰器（decorator）](http://www.jianshu.com/p/7e5466661744)
+- [python黑魔法---装饰器（decorator）](http://www.jianshu.com/p/7e5466661744)   
+- [PythonDecoratorLibrary](https://wiki.python.org/moin/PythonDecoratorLibrary)
 
 
 
