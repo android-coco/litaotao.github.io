@@ -5,7 +5,7 @@ highlighter: pygments
 paginate: 8
 permalink: /:title
 
-title: taotao's zone
+title: Taotao | 一个爱思考的工程师
 url: http://litaotao.github.io
 feed: /atom.xml
 author_info: <a href="http://litaotao.github.io/">taotaoli</a>
