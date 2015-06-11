@@ -1231,7 +1231,7 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 - [Drastically Improve Your Python: Understanding Python's Execution Model](http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/)   
 - [飘逸的python - descriptor(描述器)就是这么回事](http://blog.csdn.net/handsomekang/article/details/39895871)      
 - [Python描述器引导(翻译)](http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html)     
-
+- [PYTHON-进阶-ITERTOOLS模块小结](http://wklken.me/posts/2013/08/20/python-extra-itertools.html)
 
 
 
@@ -1247,3 +1247,7 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 ## 扫一扫     
 
 ![2015-03-17-python-materials.md](../../images/share/2015-03-17-python-materials.md.jpg)
+
+
+
+
