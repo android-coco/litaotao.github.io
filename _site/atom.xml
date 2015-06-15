@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Taotao | 一个爱思考的工程师</title>
+  <title>Taotao | 爱思考的工程师</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,10 +22,10 @@
   <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-   <title>Taotao | 一个爱思考的工程师</title>
+   <title>Taotao | 爱思考的工程师</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-06-09T23:08:21+08:00</updated>
+   <updated>2015-06-11T20:02:39+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1381,6 +1381,7 @@ s3 = json.dumps(a)
 &lt;li&gt;&lt;a href=&quot;http://www.jeffknupp.com/blog/2013/02/14/drastically-improve-your-python-understanding-pythons-execution-model/&quot;&gt;Drastically Improve Your Python: Understanding Python&#39;s Execution Model&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/39895871&quot;&gt;飘逸的python - descriptor(描述器)就是这么回事&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html&quot;&gt;Python描述器引导(翻译)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://wklken.me/posts/2013/08/20/python-extra-itertools.html&quot;&gt;PYTHON-进阶-ITERTOOLS模块小结&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
