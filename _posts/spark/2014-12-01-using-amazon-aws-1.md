@@ -8,17 +8,22 @@ description: 准备在AWS上跑spark的看过来了~~~
 
 ##  
 ## 1. 申请Amazon AWS账号   
-　　申请Amazon AWS需要绑定信用卡，无奈兄弟我从来没用过信用卡，所以只能跑到[global cash](https://www.globalcash.hk/)申请一张虚拟信用卡了。有关申请虚拟信用卡的教程[这里](http://www.freehao123.com/globalcash/)已经有了，我就不重复了。
+　　申请Amazon AWS需要绑定信用卡，无奈兄弟我从来没用过信用卡，所以只能跑到[global cash](https://www.globalcash.hk/)申请一张虚拟信用卡了。有关申请虚拟信用卡的教程[这里](http://www.freehao123.com/globalcash/)已经有了，我就不重复了。   
+　　需要注意的是，申请好AWS账号后，会需要一段时间验证，一般一天之内就可以正常使用了。在此期间可以做一些基本的设置，比如说设置安全证书。未完成验证之前使用一些组件，比如说EC2，S3等时会出现下面这样子的提示。如果出现这样子的提示，可以先看看文档，到处随便逛逛，等验证好了就可以用了。   
+
+![learning-spark-13](../../images/learning-spark-13.jpg)  
+
 
 ## 2. 在EC2上创建一个spark集群  
 ### 2.1 前期准备  
 　　本文中用到的所有脚本都是基于python 2.x写的，且在Linux和0S X上测试通过。  
 
-### 2.2 创建EC2 keys  
+### 2.2 创建AWS IAM，安全证书 
 　　首先确保你的地区是US EAST，在右上角可以选择区域，即帐号名右侧。还没找到的请看下图：  
 ![choose_ec2_region](../../images/choose_ec2_region.png)  
 
-　　然后在帐号名->Security Credentials->Dashboard 下的 Details->Security Status->Manage Security Credentials->Access Keys->Create New Access Key创建keys，这里最好把keys记录下来，以后好用。  
+　　然后在帐号名->Security Credentials->Dashboard 下的 Details->Security Status->Manage Security Credentials->Access Keys->Create New Access Key创建keys，这里最好把keys记录下来，以后好用。    
+　　在与 AWS 交互时，使用 AWS 安全证书验证您的身份以及您是否有权访问请求的资源。换句话说，安全证书可用于验证和授权对 AWS 的调用。关于安全证书更多的讲解，可以参考[这篇文档](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws-security-credentials.html)。    
 　　设置变量，下面的KEY_ID, ACCESS_KEY是在你创建keys的时候产生的：
 
 ```  
@@ -148,6 +153,10 @@ Found 74 items
 
 　　下一篇会记录在EC2上用spark分析wikipedia流量的过程，请移步[使用Spark分析wikipedia流量数据](../using-amazon-aws-2)
 
+
+## 相关资料   
+
+- [AWS官方中文文档](http://docs.aws.amazon.com/zh_cn/general/latest/gr/Welcome.html)
 
 
 ## 扫一扫     
