@@ -25,7 +25,7 @@
    <title>Taotao | 一个爱思考的工程师</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-06-19T12:36:18+08:00</updated>
+   <updated>2015-06-19T12:38:58+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -128,6 +128,10 @@
 &lt;h2&gt;6. 最后，我想说&lt;/h2&gt;
 
 &lt;p&gt;　　最后，我想说，以上所有，都只是自己对微信这次升级中，钱包功能的一个简单看法。小生是后端工程师一枚，非科班出身的产品经理，只是简单的出于对这次升级的感谢，以及对产品的一点技术方面的简单思考而写的这篇文章。bug肯定很多，不过我享受调bug这个过程啊，哈哈。&lt;/p&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-06-08-thinking-of-wechat-design.md.jpg&quot; alt=&quot;2015-06-08-thinking-of-wechat-design.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    

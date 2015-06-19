@@ -1,12 +1,12 @@
 # auto: true
 
 markdown: rdiscount
-highlighter: 
+highlighter: pygments
 paginate: 8
 permalink: /:title
 encoding: UTF-8
 
-title: Taotao | 一个爱思考的工程师
+title: Taotao's Zone
 url: http://litaotao.github.io
 feed: /atom.xml
 author_info: <a href="http://litaotao.github.io/">taotaoli</a>
