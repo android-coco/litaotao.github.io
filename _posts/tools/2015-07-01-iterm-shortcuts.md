@@ -1,0 +1,30 @@
+---
+category: tools
+published: false
+layout: post
+title: 我常用的 iTerm 快捷键
+description: 我常用的 iTerm 快捷键
+---  
+
+
+##  
+## 1. 选中即复制，鼠标中键粘贴   
+
+## 2. 屏幕分割 
+
+command + d: 垂直分割
+command + shift + d: 水平分割  
+
+## 3. 自动补全
+
+command + ; : 自动列出之前输入过的类似命令。   
+
+## 4. 剪贴板历史 
+
+command + shift + h，列出剪贴板的历史记录。
+
+## 5. 全屏切换  
+
+command + enter: 进入与返回全屏模式。
+
+## 6. 
