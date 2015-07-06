@@ -15,6 +15,8 @@ description: 我常用的 iTerm 快捷键
 command + d: 垂直分割
 command + shift + d: 水平分割  
 
+屏幕分割后分屏之前的切换： command + {, command + }
+
 ## 3. 自动补全
 
 command + ; : 自动列出之前输入过的类似命令。   
@@ -27,4 +29,9 @@ command + shift + h，列出剪贴板的历史记录。
 
 command + enter: 进入与返回全屏模式。
 
-## 6. 
+## 6. 快捷显示和隐藏iTerm窗口  
+
+preferences -> keys -> hotkey 
+
+
+## 7. 
