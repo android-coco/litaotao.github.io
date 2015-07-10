@@ -86,6 +86,22 @@ ctrl + shift + f：在当前打开的folder中的所有文件内查找，还可�
 
 选中单词，command + g，快速选中下一个，command + shift + g，快速选中上一个。
 
+## 17. 缩进中tab转为space
+
+command + , 打开用户设置，设置 "translateTabsToSpaces" 为 "ture"，然后保存一下就ok了。
+
+顺便了解一下sublime加载配置文件的顺序：
+
+Packages/Default/Preferences.sublime-settings
+Packages/Default/Preferences (<platform>).sublime-settings
+Packages/User/Preferences.sublime-settings
+Packages/<syntax>/<syntax>.sublime-settings
+Packages/User/<syntax>.sublime-settings
+
+更多的配置详情可以查询这两个链接：
+
+[config sublime 1](https://www.sublimetext.com/docs/2/indentation.html)
+[config sublime 2](http://www.sublimetext.com/docs/indentation)
 
 
 
