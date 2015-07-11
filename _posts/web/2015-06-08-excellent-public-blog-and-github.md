@@ -12,3 +12,7 @@ description: 收藏的公司技术博客和 Github
 
 blog: [tech.glowing.com](tech.glowing.com)
 github: []()
+
+- Airbnb 
+blog: [nerds](http://nerds.airbnb.com/)
+github: [airbnb](https://github.com/airbnb)
