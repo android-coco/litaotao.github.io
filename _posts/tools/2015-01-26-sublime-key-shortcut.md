@@ -1,6 +1,6 @@
 ---
 category: tools
-published: false
+published: true
 layout: post
 title: 我常用的 sublime 快捷键
 description: 我常用的 sublime 快捷键
@@ -102,6 +102,17 @@ Packages/User/<syntax>.sublime-settings
 
 [config sublime 1](https://www.sublimetext.com/docs/2/indentation.html)
 [config sublime 2](http://www.sublimetext.com/docs/indentation)
+
+
+## 18. 安装插件
+
+按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。  
+
+```
+import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
+```
+
+安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。
 
 
 
