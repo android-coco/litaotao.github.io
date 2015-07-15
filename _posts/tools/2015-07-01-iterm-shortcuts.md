@@ -34,4 +34,7 @@ command + enter: 进入与返回全屏模式。
 preferences -> keys -> hotkey 
 
 
-## 7. 
+## 7. 关闭窗口
+
+command + w，关闭窗口
+

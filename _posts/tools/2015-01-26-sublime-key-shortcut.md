@@ -115,6 +115,12 @@ import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_pac
 安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。
 
 
+## 19. 大小写互换
+
+command + kl：将选中的单词转换为小写
+command + ku：将选中的单词转换为大写
+
+
 
 ## 扫一扫     
 
