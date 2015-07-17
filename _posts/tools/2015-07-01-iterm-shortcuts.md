@@ -2,8 +2,8 @@
 category: tools
 published: false
 layout: post
-title: 我常用的 iTerm 快捷键
-description: 我常用的 iTerm 快捷键
+title: 常用的 iTerm + tmux 快捷键
+description: 我常用的 iTerm + tmux 快捷键
 ---  
 
 
@@ -37,4 +37,10 @@ preferences -> keys -> hotkey
 ## 7. 关闭窗口
 
 command + w，关闭窗口
+
+## 8. 搜索字符
+
+command + f，就可以了，会自动高亮匹配字符串，很好用。
+
+还有更高级的一个搜索是 option + command + f，会在所有tabs里搜索字符串。
 
