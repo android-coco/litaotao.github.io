@@ -25,13 +25,82 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-07-11T17:36:37+08:00</updated>
+   <updated>2015-07-18T13:30:09+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>如何处理用户手机注册时收不到验证码的问题</title>
+     <link href="/verified-code-register-failed"/>
+     <updated>2015-07-16T00:00:00+08:00</updated>
+     <id>/verified-code-register-failed</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 写在前面&lt;/h2&gt;
+
+&lt;p&gt;　　本文提到的所有案例【实际上就两个案例】，都是自己亲身经历过的，但为了安全友好起见，文中出现的一些数字都是假设的，如果有截图，都会把一些不便透露的信息隐藏的，我想只要能说明问题就行了。&lt;/p&gt;
+
+&lt;h2&gt;2. 一次新增用户骤减的经历&lt;/h2&gt;
+
+&lt;p&gt;　　那是之前做的一个项目【假设名字叫 Girl】，这个项目对外简单来说有两个访问等级【匿名和登陆】，然后如果需要登陆的话，需要经过一个统一的用户管理系统【假设名字叫 Boy】，boy ，girl 和 第三者【也就是用户 users】之间的关系可以用下面这张图一探一二。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/girl-boy-and-user.jpg&quot; alt=&quot;girl-boy-and-user.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　然后我们定义一下新增用户，所谓新增用户，就是：那些对这个 girl 因为 permission limited 而不满的人，他们愿意通过 boy 注册或登陆之后，全方位地拥有 girl。&lt;/p&gt;
+
+&lt;p&gt;　　事件发生的时间我们假设在 1月1号 - 1月12号 这段时间，在1月9号之前的一段时间，我们发现 girl 项目每天的新增用户都稳定在 100 - 150 之间，然后1月10号，11号是周末，大家12号周一来上班，第一时间当然是看这个周末又新增了多少用户了，我勒个去，一看，才新增了20个不到，oh ~~ my ~~~ go~~~~d, what happened ?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/oh-my-god.gif&quot; alt=&quot;oh-my-god.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　好吧，蛋定后，我们就开始找原因了，新增用户数据不可能一下子就跳崖了啊~&lt;/p&gt;
+
+&lt;p&gt;“此处省略各种场景~~~”&lt;/p&gt;
+
+&lt;p&gt;　　最后原因定位了，是boy出问题了，关键时候掉链了。因为用户来注册的时候，很多都是通过手机注册的，手机注册需要输入那蛋疼的验证码，然后问题就出来了，11号，12号两天验证码发送出现了问题，选择用手机注册的新用户没法收到验证码，自然也就没法 wholly own that girl 了。当然最后修正好这个问题后，每日新增用户又稳定在 100 - 150 了。&lt;/p&gt;
+
+&lt;h2&gt;3. 最近的一次经历&lt;/h2&gt;
+
+&lt;p&gt;　　前几天一个师兄和我联系，他们做了一个创业公司。既然是师兄，当然要支持了，于是我就准备注册一下，但是同样的问题也发生了，同样也是收不到验证码，而且他们目前只支持手机注册，出现这个问题，比上面那个例子更严重，因为在问题解决之前，都不会有一个新增用户了。而且，聊下来，似乎都是我第一个发现这个问题的，不知道是不是他们后台没有做新增用户这块儿的监控。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/register-photo-2.jpg.jpg&quot; alt=&quot;register-photo-2.jpg.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;4. 同一个坑，为毛还要掉两次&lt;/h2&gt;
+
+&lt;p&gt;　　就在这周，第一个例子中的那个问题再次出现了。还是同样项目，还是同样的人员，还是同样的问题。&lt;/p&gt;
+
+&lt;p&gt;　　看到这个问题，我的第一反应是，怎么之前出现过的问题现在依然还在。为什么同一个坑，还要掉进去两次呢？我们就先不深究到底是不是用户那边出问题了。我的态度是：即使产品这边发送手机验证码的module是work的，而是用户手机端本身有问题，收不到短信验证码，那我们也要尝试替用户解决这个问题。下面我将分析一下，就算接触不了用户的手机，怎么最大限度地替用户解决问题。【 其实图片中已经说到了我的解决方案，但是为了说得更清晰，我在下面一节仔细讲讲】&lt;/p&gt;
+
+&lt;h2&gt;5. 怎么避免掉进同一个坑&lt;/h2&gt;
+
+&lt;p&gt;　　事实上，上面关于 girl 和 boy 项目的那张图有一个重要的遗漏，更完整的应该是下面这样子的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/girl-boy-and-user-1.jpg&quot; alt=&quot;girl-boy-and-user-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　我想这下子有经验的人应该一眼就能看出来，这个结构有一个很大的、并且也是很常见的问题了，就是传说中的单点故障。因为后面的很多菇凉【就是代号如 girl 的那些产品】，要想全部拥有它们，所有用户就都得先通过 boy 的这门关卡。如果说，哪天 boy 不高兴了，或者和 boy 相关的下游模块抽风了，那所有用户就都只能干瞪眼了。&lt;/p&gt;
+
+&lt;p&gt;　　怎么避免掉进同一个坑，这个问题很宽泛了，都是要具体场景，具体需求实际分析了。今天我想记录一下，我对手机注册这个坑的一个解决办法。我先把案例一中的注册页面贴到下面：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/register-photos-1.jpg&quot; alt=&quot;register-photos-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　首先，注册的时候要提供至少两种注册方式：手机和邮箱，现在很多网站除了这两种方式，还有微信、qq登陆这种方式。比如说，上面提到的师兄的创业项目，在注册时只支持手机注册，他们在这个方面第一要改进的就应该是提供第二种注册方法。这是简单的第一步粒度很粗的解决方案。&lt;/p&gt;
+
+&lt;p&gt;　　两种注册方式真的就没有问题了吗？现在我们来看看案例一中的注册界面，如果这个时候，什么信息都填完整了，就等验证码的时候出问题了，那怎么办？首先，这个网站确实提供了邮箱注册方式，但尼玛这“邮箱注册”四个字也太小了吧，而且在图片里看起来还算容易找到，但是在整个网页里看，因为干扰元素太多，“邮箱注册”这四个字得花个吃奶的劲儿才能找到啊。也不知道是哪门子的交互设计砖家这样设计的，好了，言归正传。如果用户收不到手机验证码，那能有幸发现 “邮箱注册” 这四个小字的用户就很幸运了，可以转为邮箱注册。更值得幸运的是，这个网站，无论是手机注册还是邮箱注册，需要用户填写的信息都很少，即使手机注册失败，转到邮箱注册时，也不会再次花费用户的时间。&lt;/p&gt;
+
+&lt;p&gt;　　但是，很多情况下，用户注册时需要填写不少的信息，什么生日，性别，地址，验证问题等等，如果用户花了极大的耐心终于填完这些信息，然后突然发现尼玛验证码收不到了，而转为邮箱注册的话这些信息又得重新再写，这给用户留下的心理阴影，那得多大啊，反正我已经受伤很多次了。所以，即使在提供两种注册方式的情况下，在很多时候，还是会有细节上、体验上的问题。&lt;/p&gt;
+
+&lt;p&gt;　　Details make perfect。有了两种注册方式，再把细节处理好，我觉得那就足够好了。假设说，用户是以手机注册的，这个时候填完了很多附加信息，突然发现验证码收不到，有两种非常 nice 的解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;提示，一定要提示用户可以转为邮箱注册，并且告诉用户，即使转为邮箱注册，之前填过的信息都不会丢失；&lt;/li&gt;
+&lt;li&gt;因为手机验证码都有一个时间限制，大多都是30-60秒，那前端完全可以监控，看倒计时完成之前，用户是否有在验证码输入框中输入数据，如果说，一个验证码的有效时间是60秒，但直到50秒时用户还没有在验证码输入框中输入数据，那么前端就可以提示用户，也许手机验证码会延迟很久【一定要用“延迟”，把责任推到运营商】，然后弹出一个邮箱输入框，告知用户，可以输入邮箱，通过邮箱来接收验证码即可。&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>我常用的 sublime 快捷键</title>
@@ -114,6 +183,41 @@ ctrl + shift + f：在当前打开的folder中的所有文件内查找，还可�
 &lt;h2&gt;15. 切换标签：command + 数字&lt;/h2&gt;
 
 &lt;p&gt;切换到第N个文件。&lt;/p&gt;
+
+&lt;h2&gt;16. 快速查找下一个、上一个&lt;/h2&gt;
+
+&lt;p&gt;选中单词，command + g，快速选中下一个，command + shift + g，快速选中上一个。&lt;/p&gt;
+
+&lt;h2&gt;17. 缩进中tab转为space&lt;/h2&gt;
+
+&lt;p&gt;command + , 打开用户设置，设置 &quot;translateTabsToSpaces&quot; 为 &quot;ture&quot;，然后保存一下就ok了。&lt;/p&gt;
+
+&lt;p&gt;顺便了解一下sublime加载配置文件的顺序：&lt;/p&gt;
+
+&lt;p&gt;Packages/Default/Preferences.sublime-settings
+Packages/Default/Preferences (&lt;platform&gt;).sublime-settings
+Packages/User/Preferences.sublime-settings
+Packages/&lt;syntax&gt;/&lt;syntax&gt;.sublime-settings
+Packages/User/&lt;syntax&gt;.sublime-settings&lt;/p&gt;
+
+&lt;p&gt;更多的配置详情可以查询这两个链接：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.sublimetext.com/docs/2/indentation.html&quot;&gt;config sublime 1&lt;/a&gt;
+&lt;a href=&quot;http://www.sublimetext.com/docs/indentation&quot;&gt;config sublime 2&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;18. 安装插件&lt;/h2&gt;
+
+&lt;p&gt;按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import urllib2,os;pf=&#39;Package Control.sublime-package&#39;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&#39;wb&#39;).write(urllib2.urlopen(&#39;http://sublime.wbond.net/&#39;+pf.replace(&#39; &#39;,&#39;%20&#39;)).read())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。&lt;/p&gt;
+
+&lt;h2&gt;19. 大小写互换&lt;/h2&gt;
+
+&lt;p&gt;command + kl：将选中的单词转换为小写
+command + ku：将选中的单词转换为大写&lt;/p&gt;
 
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
@@ -3310,83 +3414,6 @@ All messages are tagged with enough information (details below) for clients to k
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-10-ipython-learning.md.jpg&quot; alt=&quot;2015-03-10-ipython-learning.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>book-3. 设计模式总结</title>
-     <link href="/design-pattern"/>
-     <updated>2015-03-09T00:00:00+08:00</updated>
-     <id>/design-pattern</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 设计模式概念&lt;/h2&gt;
-
-&lt;p&gt;　　设计模式这个术语是由Erich Gamma等人在1990年代从建筑设计领域引入到计算机科学的。它是对软件设计中普遍存在（反复出现）的各种问题，所提出的解决方案。 &lt;br/&gt;
-　　设计模式并不直接用来完成代码的编写，而是描述在各种不同情况下，要怎么解决问题的一种方案。面向对象设计模式通常以类或对象来描述其中的关系和相互作用，但不涉及用来完成应用程序的特定类或对象。设计模式能使不稳定依赖于相对稳定、具体依赖于相对抽象，避免会引起麻烦的紧耦合，以增强软件设计面对并适应变化的能力。 &lt;br/&gt;
-　　并非所有的软件模式都是设计模式，设计模式特指软件“设计”层次上的问题。还有其它非设计模式的模式，如架构模式。同时，算法不能算是一种设计模式，因为算法主要是用来解决计算上的问题，而非设计上的问题。&lt;/p&gt;
-
-&lt;h2&gt;2. 模式分类&lt;/h2&gt;
-
-&lt;p&gt;　　《设计模式》一书把设计模式分为创建型、结构性、行为型三大模式。把它们通过授权，聚合，诊断的概念来描述。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;创建型模式：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;抽象工厂：为一个产品族提供了统一的创建接口，当需要这个产品族的某一系列的时候，可以从抽象工厂中选出相应的系列创建一个具体的工厂类。&lt;/li&gt;
-&lt;li&gt;工厂方法：定义一个接口用于创建对象，但是让子类觉得初始化那个类。工厂方法把一个类的初始化下方到子类。&lt;/li&gt;
-&lt;li&gt;生成器：讲一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。&lt;/li&gt;
-&lt;li&gt;惰性初始：推迟对象的创建，数据的计算等需要耗费较多资源的操作，只有在第一次访问的时候才执行。&lt;/li&gt;
-&lt;li&gt;对象池：通过回收利用对象避免获取和释放资源所需的昂贵成本。&lt;/li&gt;
-&lt;li&gt;原型：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。&lt;/li&gt;
-&lt;li&gt;单例：确保一个类只有一个实例，并提供对该实例的全局访问。&lt;/li&gt;
-&lt;li&gt;多例：确保一个类只有命名的实例，并提供对这些实例的全局访问。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;结构型模式：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;适配器：将某个类的接口转化为客户端期望的另一个接口表示，适配器模式可以消除由于接口不匹配所造成的类兼容性问题。&lt;/li&gt;
-&lt;li&gt;桥接：将一个抽象与实现解耦，以便两者可以独立地变化。&lt;/li&gt;
-&lt;li&gt;组合：把多个对象组成树状结构来表示局部与整体，这样用户可以一样地对待单个对象和对象的组合。&lt;/li&gt;
-&lt;li&gt;修饰：向某个对象动态地添加更多的功能，修饰模式是除类继承之外另一种扩展功能的方法。&lt;/li&gt;
-&lt;li&gt;外观模式：为子系统的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。&lt;/li&gt;
-&lt;li&gt;享元：通过共享以便有效地支持大量小颗粒对象。&lt;/li&gt;
-&lt;li&gt;代理：为其他对象提供一个代理以控制这个对象的访问。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;行为型：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;责任链：为接触请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。&lt;/li&gt;
-&lt;li&gt;命令：将一个请求封装为一个对象，从而使你可用不同的请求对客户端进行参数化，对请求排队或者记录请求日志，以及支持可取消的操作。&lt;/li&gt;
-&lt;li&gt;解释器：给定一个语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子。&lt;/li&gt;
-&lt;li&gt;迭代器：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。&lt;/li&gt;
-&lt;li&gt;备忘录：备忘录对象是一个用来存储另外一个对象内部状态的快照的对象，备忘录模式的用意是在不破坏封装的条件下，讲一个对象的状态捉住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。&lt;/li&gt;
-&lt;li&gt;观察者：在对象间定义一个一对多的联系性，由此当一个对象改变了状态，所有其他相关的对象会被通知并且自动更新。&lt;/li&gt;
-&lt;li&gt;策略：定义一个算法的系列，将其各个分装，并且使他们有交互性，策略模式使得算法在用户使用的时候能独立地改变。&lt;/li&gt;
-&lt;li&gt;模板方法：模板方法模式准备一个抽象类，将部分逻辑以具体的方法及具体构造子类的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。先构建一个顶级逻辑框架，而将逻辑的细节留给具体的子类去实现。&lt;/li&gt;
-&lt;li&gt;访问者：封装一些施加于某种数据结构元素之上的操作。一旦这些操作需要修改，接受这个操作的数据结构可以保持不变。访问者模式适用于数据结构相对未定的系统，它把数据结果和作用于结构上的操作之间的耦合解开，使得操作集合可以相对自由的演化。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. 2/8原则&lt;/h2&gt;
-
-&lt;p&gt;　　本着2/8原则的指导，准备先仔细了解学习以下几种最常用的模式：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;创建型模式：抽象工厂，工厂方法，单例模式；&lt;/li&gt;
-&lt;li&gt;结构性模式：适配器，桥接，组合，修饰，外观；&lt;/li&gt;
-&lt;li&gt;行为型模式：迭代器，观察者，模板，策略；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-09-design-pattern.md.jpg&quot; alt=&quot;2015-03-09-design-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    

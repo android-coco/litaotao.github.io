@@ -83,6 +83,43 @@ command + shift + {, 转向当前标签的左面一个标签，反之。
 
 切换到第N个文件。
 
+## 16. 快速查找下一个、上一个
+
+选中单词，command + g，快速选中下一个，command + shift + g，快速选中上一个。
+
+## 17. 缩进中tab转为space
+
+command + , 打开用户设置，设置 "translateTabsToSpaces" 为 "ture"，然后保存一下就ok了。
+
+顺便了解一下sublime加载配置文件的顺序：
+
+Packages/Default/Preferences.sublime-settings
+Packages/Default/Preferences (<platform>).sublime-settings
+Packages/User/Preferences.sublime-settings
+Packages/<syntax>/<syntax>.sublime-settings
+Packages/User/<syntax>.sublime-settings
+
+更多的配置详情可以查询这两个链接：
+
+[config sublime 1](https://www.sublimetext.com/docs/2/indentation.html)
+[config sublime 2](http://www.sublimetext.com/docs/indentation)
+
+
+## 18. 安装插件
+
+按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。  
+
+```
+import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
+```
+
+安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。
+
+
+## 19. 大小写互换
+
+command + kl：将选中的单词转换为小写
+command + ku：将选中的单词转换为大写
 
 
 
