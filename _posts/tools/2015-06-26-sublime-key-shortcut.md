@@ -17,6 +17,8 @@ description: 我常用的 sublime 快捷键
 
 　　需要注意的是，sublime的快捷键在 OSX 下和 Windows 下是不一样的，这里我就以 OSX 为标准吧。完整的快捷键可以在 sublime -> Preferences -> King Bindings [Default, User] 这里查看和更改设置。
 
+　　先说明一下，如果快捷键不work的话，一般是因为和系统或其他快捷键有冲突，可以在 preference -> key binding 里更改一下。
+
 ## 1. 功能查找：ctrl + p
 
 - 直接输入，可以快速查找文件
@@ -121,6 +123,12 @@ import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_pac
 command + kl：将选中的单词转换为小写
 command + ku：将选中的单词转换为大写
 
+## 20. 折叠函数 
+
+command + k + 1: 折叠所有函数    
+command + k + j: 展开所有函数    
+
+如果不work，查看： edit -> code foldingcd 'dkaf'
 
 
 ## 扫一扫     

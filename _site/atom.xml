@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-07-21T17:55:32+08:00</updated>
+   <updated>2015-07-24T11:19:53+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -116,6 +116,8 @@
 &lt;p&gt;　　我用sublime很久了，一些快捷用法也挺熟悉，不过似乎还没怎么整理过。估计以后都要和sublime同甘共苦了，还是很有必要好好总结一下的，所以就有了这篇博客。&lt;/p&gt;
 
 &lt;p&gt;　　需要注意的是，sublime的快捷键在 OSX 下和 Windows 下是不一样的，这里我就以 OSX 为标准吧。完整的快捷键可以在 sublime -&gt; Preferences -&gt; King Bindings [Default, User] 这里查看和更改设置。&lt;/p&gt;
+
+&lt;p&gt;　　先说明一下，如果快捷键不work的话，一般是因为和系统或其他快捷键有冲突，可以在 preference -&gt; key binding 里更改一下。&lt;/p&gt;
 
 &lt;h2&gt;1. 功能查找：ctrl + p&lt;/h2&gt;
 
@@ -218,6 +220,13 @@ Packages/User/&lt;syntax&gt;.sublime-settings&lt;/p&gt;
 
 &lt;p&gt;command + kl：将选中的单词转换为小写
 command + ku：将选中的单词转换为大写&lt;/p&gt;
+
+&lt;h2&gt;20. 折叠函数&lt;/h2&gt;
+
+&lt;p&gt;command + k + 1: 折叠所有函数  &lt;br/&gt;
+command + k + j: 展开所有函数&lt;/p&gt;
+
+&lt;p&gt;如果不work，查看： edit -&gt; code foldingcd &#39;dkaf&#39;&lt;/p&gt;
 
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
