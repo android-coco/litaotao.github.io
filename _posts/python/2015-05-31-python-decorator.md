@@ -58,6 +58,24 @@ def fib(n):
     return fib(n-1) + fib(n-2)
 ```  
 
+## 3. 获取数据库连接，或者redis 连接等，常用
+
+这个是在另一片文章里提到的一个bug分析，连接在此：[伴我一路走来的那些bug们，你们好](../bugs-in-my-life/)
+
+```
+class Test(object):
+    def assign_user_to_exp(self, user_id, cell_id):
+            self.g_pool.spawn(
+                self.async_assign_user_to_exp,
+                user_id,
+                cell_id,
+            )
+            return
+
+    @get_dbc
+    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
+        return dbc.execute(''' there is a sql sentence that refering user_id and cell_id, just leave details here ''')
+```
 
 ## 参考资料
 
