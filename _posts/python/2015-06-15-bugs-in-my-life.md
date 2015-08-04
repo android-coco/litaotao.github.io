@@ -79,6 +79,73 @@ class Test(object):
 
 - 相关：bug的原因是在执行 Test().assign_user_to_exp() 的时候，都先会通过装饰器 get_dbc 去取一个 db 的connection/cursor，然后作为参数传给 async_assign_user_to_exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign_user_to_exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async_assign_user_to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～
 
+## 4. fluentd 启动报错： unexpected error error_class=RuntimeError error=#<RuntimeError: can't call S3 API. Please check your aws_key_id / aws_sec_key or s3_region configuration. error = #<AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.>>  
+
+- 环境：OSX, Python 2.7, fluentd
+- 操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：
+
+```
+<match *.group_ab_testing>
+  type s3
+  aws_key_id ***
+  aws_sec_key ***
+  s3_bucket dev-test-bucket-name
+  path storage_path/
+  time_slice_format %Y/%m/%d/dev/%H
+  buffer_path /mnt/td-agent/temp_file
+  buffer_chunk_limit 10m
+  utc
+</match>
+```
+
+问题表现得像是这个aws_key_id和aws_sec_key访问不到，或者访问s3超时，已经排除aws_key_id和aws_sec_key无效的可能性。fluentd配置文件也没有错，于是安装 `sudo pip install awscli` awsci 客户端来调试，调试过程如下：   
+
+```
+aaron@dev-aaron:/etc/td-agent$aws configure
+AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
+AWS Secret Access Key [None]: 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
+Default region name [None]:
+Default output format [None]:
+aaron@dev-aaron:/etc/td-agent$aws s3 ls
+
+A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
+```
+
+看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了： 
+[aws-s3-upload-fails-requesttimetooskewed](http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed) 
+
+高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：   
+
+```
+aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
+* About to connect() to s3.amazonaws.com port 80 (#0)
+*   Trying 54.231.14.248... connected
+> GET / HTTP/1.1
+> User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+> Host: s3.amazonaws.com
+> Accept: */*
+>
+< HTTP/1.1 307 Temporary Redirect
+< x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
+< x-amz-request-id: 90748BF8849F53E7
+< Date: Tue, 04 Aug 2015 04:41:44 GMT
+< Location: http://aws.amazon.com/s3/
+< Content-Length: 0
+< Server: AmazonS3
+<
+* Connection #0 to host s3.amazonaws.com left intact
+* Closing connection #0
+aaron@dev-aaron:/etc/td-agent$date -u
+Tue Aug  4 04:23:27 UTC 2015
+```
+
+- 办法：重启机器或者同步utc时间即可；
+- 相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；
+
+
+
+
+
 
 
 
