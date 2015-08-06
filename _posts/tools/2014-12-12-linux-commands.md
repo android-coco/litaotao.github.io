@@ -449,8 +449,40 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 ## 5. ss  
 
 
+## 6. vimdiff
+linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，可编辑保存，不同的地方会有高亮显示。非常实用，我常用来查看不同的配置文件区别。  
+ 
+![vimdiff.jpg](../images/vimdiff.jpg)
+
+有几种方法可以使用vimdiff：   
+
+－ vimdiff file1 file2
+－ vim -d file1 file2
+－ vim file1 之后打开vim后输入:vertical diffsplit file2
+
+下面是vimdiff中的一些常用快捷键：
+
+- Ctrl-w H（把当前窗口移到最左边）
+- Ctrl-w L（把当前窗口移到最右边）
+- ]c，跳到下一个差异点
+- [c，跳到上一个差异点
+- qa，同时退出
+- wa，同时保存
+- wqa，同时保存并退出
+－ qa，同时退出不保存
+
+
+
+## 7. vi/vim
+
 
 
 ## 扫一扫     
 
 ![2014-12-12-linux-commands.md](../../images/share/2014-12-12-linux-commands.md.jpg)
+
+
+
+## 参考
+
+- [技巧：Vimdiff 使用](http://www.ibm.com/developerworks/cn/linux/l-vimdiff/)
