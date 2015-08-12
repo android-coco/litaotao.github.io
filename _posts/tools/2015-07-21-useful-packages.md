@@ -21,7 +21,10 @@ description: 随时总结，建设自己的技术栈。
 - google apps: emails, calendar, drive, docs, slides, sheets, sites, video call, 
 - asana:
 - slack:
+- rollbar:
+- datadog:
 
 ## 3. 工具链   
 
 - vagrant：
+- fluentd:

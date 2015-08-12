@@ -9,8 +9,7 @@ description: 记录我80%时间里用到的那些linux命令～
 ##  
 ## 1. ps
 　　Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。  
-　　要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。   
-　　ps 为我们提供了进程的一次性的查看，它所提供的查看结果并不动态连续的；如果想对进程时间监控，应该用 top 工具。   
+　　要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。     
 　　kill 命令用于杀死进程。   
 　　linux上进程有5种状态:    
 
@@ -64,15 +63,6 @@ ps -A
         1 ?        00:00:00 init
         2 ?        00:00:01 migration/0
         3 ?        00:00:00 ksoftirqd/0
-        4 ?        00:00:01 migration/1
-        5 ?        00:00:00 ksoftirqd/1
-        6 ?        00:29:57 events/0
-        7 ?        00:00:00 events/1
-        8 ?        00:00:00 khelper
-       49 ?        00:00:00 kthread
-       54 ?        00:00:00 kblockd/0
-       55 ?        00:00:00 kblockd/1
-       56 ?        00:00:00 kacpid
       217 ?        00:00:00 cqueue/0
       ……省略部分结果
 
@@ -85,13 +75,6 @@ ps -u root
       PID TTY          TIME CMD
         1 ?        00:00:00 init
         2 ?        00:00:01 migration/0
-        3 ?        00:00:00 ksoftirqd/0
-        4 ?        00:00:01 migration/1
-        5 ?        00:00:00 ksoftirqd/1
-        6 ?        00:29:57 events/0
-        7 ?        00:00:00 events/1
-        8 ?        00:00:00 khelper
-       49 ?        00:00:00 kthread
        54 ?        00:00:00 kblockd/0
        55 ?        00:00:00 kblockd/1
        56 ?        00:00:00 kacpid
@@ -106,13 +89,6 @@ ps -ef
     UID        PID  PPID  C STIME TTY          TIME CMD
     root         1     0  0 Nov02 ?        00:00:00 init [3]                  
     root         2     1  0 Nov02 ?        00:00:01 [migration/0]
-    root         3     1  0 Nov02 ?        00:00:00 [ksoftirqd/0]
-    root         4     1  0 Nov02 ?        00:00:01 [migration/1]
-    root         5     1  0 Nov02 ?        00:00:00 [ksoftirqd/1]
-    root         6     1  0 Nov02 ?        00:29:57 [events/0]
-    root         7     1  0 Nov02 ?        00:00:00 [events/1]
-    root         8     1  0 Nov02 ?        00:00:00 [khelper]
-    root        49     1  0 Nov02 ?        00:00:00 [kthread]
     root        54    49  0 Nov02 ?        00:00:00 [kblockd/0]
     root        55    49  0 Nov02 ?        00:00:00 [kblockd/1]
     root        56    49  0 Nov02 ?        00:00:00 [kacpid]
@@ -168,13 +144,6 @@ ps aux
     root         3  0.0  0.0      0     0 ?        SN   Nov02   0:00 [ksoftirqd/0]
     root         4  0.0  0.0      0     0 ?        S<   Nov02   0:01 [migration/1]
     root         5  0.0  0.0      0     0 ?        SN   Nov02   0:00 [ksoftirqd/1]
-    root         6  0.0  0.0      0     0 ?        S<   Nov02  29:57 [events/0]
-    root         7  0.0  0.0      0     0 ?        S<   Nov02   0:00 [events/1]
-    root         8  0.0  0.0      0     0 ?        S<   Nov02   0:00 [khelper]
-    root        49  0.0  0.0      0     0 ?        S<   Nov02   0:00 [kthread]
-    root        54  0.0  0.0      0     0 ?        S<   Nov02   0:00 [kblockd/0]
-    root        55  0.0  0.0      0     0 ?        S<   Nov02   0:00 [kblockd/1]
-    root        56  0.0  0.0      0     0 ?        S<   Nov02   0:00 [kacpid]
     ……省略部分结果
 
 说明：  
@@ -203,14 +172,7 @@ ps -axjf
     [root@localhost test6]# ps -axjf
     Warning: bad syntax, perhaps a bogus '-'? See /usr/share/doc/procps-3.2.7/FAQ
      PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
-        0     1     1     1 ?           -1 Ss       0   0:00 init [3]                  
-        1     2     1     1 ?           -1 S<       0   0:01 [migration/0]
-        1     3     1     1 ?           -1 SN       0   0:00 [ksoftirqd/0]
-        1     4     1     1 ?           -1 S<       0   0:01 [migration/1]
-        1     5     1     1 ?           -1 SN       0   0:00 [ksoftirqd/1]
-        1     6     1     1 ?           -1 S<       0  29:58 [events/0]
-        1     7     1     1 ?           -1 S<       0   0:00 [events/1]
-        1     8     1     1 ?           -1 S<       0   0:00 [khelper]
+        0     1     1     1 ?           -1 Ss       0   0:00 init [3]         
         1    49     1     1 ?           -1 S<       0   0:00 [kthread]
        49    54     1     1 ?           -1 S<       0   0:00  \_ [kblockd/0]
        49    55     1     1 ?           -1 S<       0   0:00  \_ [kblockd/1]
@@ -449,6 +411,7 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 ## 5. ss  
 
 
+## 6. vimdiff
 
 
 ## 扫一扫     
