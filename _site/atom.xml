@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-08-06T23:33:42+08:00</updated>
+   <updated>2015-08-19T23:36:11+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -231,6 +231,175 @@ command + k + j: 展开所有函数&lt;/p&gt;
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-26-sublime-key-shortcut.md.jpg&quot; alt=&quot;2015-01-26-sublime-key-shortcut.md&quot; /&gt;&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>伴我一路走来的那些bug们，你们好</title>
+     <link href="/bugs-in-my-life"/>
+     <updated>2015-06-15T00:00:00+08:00</updated>
+     <id>/bugs-in-my-life</id>
+     <content type="html">&lt;h2&gt;1. failed to write data to stream&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：ipython, OSX&lt;/li&gt;
+&lt;li&gt;操作：在ipython里import 一个pure module&lt;/li&gt;
+&lt;li&gt;问题： Python - ERROR - failed to write data to stream: &lt;open file &#39;&lt;stdout&gt;&#39;, mode &#39;w&#39; at 0x104c8f150&gt;&lt;/li&gt;
+&lt;li&gt;办法：export PYTHONIOENCODING=UTF-8 will solve it.&lt;/li&gt;
+&lt;li&gt;相关：&lt;a href=&quot;http://stackoverflow.com/questions/28115375/python-error-failed-to-write-data-to-stream-open-file-stdout-mode-w&quot;&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;2. Git: fatal: Pathspec is in submodule&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Git&lt;/li&gt;
+&lt;li&gt;操作：git add *&lt;/li&gt;
+&lt;li&gt;问题：有一个github repo [暂且叫father]，其中这个repo里有子module [暂且叫 child]，且这个child也是作为一个独立的github repo存在，我更改了child下的一些文件，然后在father下执行git add，准备在father下直接commit和push，执行git add 的时候出错，提示 &lt;code&gt;Pathspec is in submodule&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;办法：现在child下add，commit和push，然后再到father下add，commit和push；&lt;/li&gt;
+&lt;li&gt;相关：最好的方式是：在child下git branch 一个新的分支，然后在这个分支上修改，然后add，commit，push；修改好child后，再到father下新建一个分支，执行add，commit，push。最后，要merge的时候，也是先merge掉child，然后再merge掉father。因为child作为一个独立的repo，所有的更改都要在child这个独立repo下面做更改，由于项目需要，child作为father的一个子module，不能直接在father里更改child然后再add，commit，push。因为father里的child，只是链接到了child这个独立repo。或者说，father里的child只是独立的child的一个只读镜像。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;3. DB: (2013, &#39;Lost connection to MySQL server during query&#39;), python decorator, gevent, greenlet, function life cycle&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Python 2.7, Gevent, MySQL&lt;/li&gt;
+&lt;li&gt;操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;(total request times)/(total time in seconds) = 
+10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
+180 * 10^8 / 7200 = 
+0.025 * 10^8 = 
+2.5 * 10^6 = 25 万次请求／每秒
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。&lt;/p&gt;
+
+&lt;p&gt;ok了，场景大概就是这样了。 详情见代码片段 ：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Test(object):
+    @get_dbc
+    def assign_user_to_exp(self, dbc, user_id, cell_id):
+            self.g_pool.spawn(
+                self.async_assign_user_to_exp,
+                dbc,
+                user_id,
+                cell_id,
+            )
+            return
+
+    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
+        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;问题：现在的问题是，每次执行 Test().assign_user_to_exp() 时，都会发生错误：(2013, &#39;Lost connection to MySQL server during query&#39;)。&lt;/li&gt;
+&lt;li&gt;办法：装饰器get_dbc换个位置， 如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;class Test(object):
+    def assign_user_to_exp(self, user_id, cell_id):
+            self.g_pool.spawn(
+                self.async_assign_user_to_exp,
+                user_id,
+                cell_id,
+            )
+            return
+
+    @get_dbc
+    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
+        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;相关：bug的原因是在执行 Test().assign_user_to_exp() 的时候，都先会通过装饰器 get_dbc 去取一个 db 的connection/cursor，然后作为参数传给 async_assign_user_to_exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign_user_to_exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async_assign_user_to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;4. fluentd 启动报错： unexpected error error_class=RuntimeError error=#&amp;lt;RuntimeError: can&#39;t call S3 API. Please check your aws_key_id / aws_sec_key or s3_region configuration. error = #&amp;lt;AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.&gt;&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Python 2.7, fluentd&lt;/li&gt;
+&lt;li&gt;操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;match *.group_ab_testing&amp;gt;
+  type s3
+  aws_key_id ***
+  aws_sec_key ***
+  s3_bucket dev-test-bucket-name
+  path storage_path/
+  time_slice_format %Y/%m/%d/dev/%H
+  buffer_path /mnt/td-agent/temp_file
+  buffer_chunk_limit 10m
+  utc
+&amp;lt;/match&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;问题表现得像是这个aws_key_id和aws_sec_key访问不到，或者访问s3超时，已经排除aws_key_id和aws_sec_key无效的可能性。fluentd配置文件也没有错，于是安装 &lt;code&gt;sudo pip install awscli&lt;/code&gt; awsci 客户端来调试，调试过程如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$aws configure
+AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
+AWS Secret Access Key [None]: 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
+Default region name [None]:
+Default output format [None]:
+aaron@dev-aaron:/etc/td-agent$aws s3 ls
+
+A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了：
+&lt;a href=&quot;http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed&quot;&gt;aws-s3-upload-fails-requesttimetooskewed&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
+* About to connect() to s3.amazonaws.com port 80 (#0)
+*   Trying 54.231.14.248... connected
+&amp;gt; GET / HTTP/1.1
+&amp;gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+&amp;gt; Host: s3.amazonaws.com
+&amp;gt; Accept: */*
+&amp;gt;
+&amp;lt; HTTP/1.1 307 Temporary Redirect
+&amp;lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
+&amp;lt; x-amz-request-id: 90748BF8849F53E7
+&amp;lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
+&amp;lt; Location: http://aws.amazon.com/s3/
+&amp;lt; Content-Length: 0
+&amp;lt; Server: AmazonS3
+&amp;lt;
+* Connection #0 to host s3.amazonaws.com left intact
+* Closing connection #0
+aaron@dev-aaron:/etc/td-agent$date -u
+Tue Aug  4 04:23:27 UTC 2015
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;办法：重启机器或者同步utc时间即可；&lt;/li&gt;
+&lt;li&gt;相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;5. sublime 配置文件&lt;/h2&gt;
+
+&lt;h2&gt;6. 一次 A/B testing 中遇到的错误&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;场景
+
+&lt;ul&gt;
+&lt;li&gt;操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -2956,473 +3125,6 @@ print two.x
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg&quot; alt=&quot;2015-03-11-design-pattern-create-pattern.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>IPython 学习</title>
-     <link href="/ipython-learning"/>
-     <updated>2015-03-10T00:00:00+08:00</updated>
-     <id>/ipython-learning</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　最近一直在学习spark，延伸到学习IPython，发现IPython这东西还真是不一般啊，所以决定还是应该坐下了认真学习一下。下面都是我在官网上学习时的笔记了。&lt;/p&gt;
-
-&lt;h2&gt;2. 前言&lt;/h2&gt;
-
-&lt;p&gt;　　IPython provides a rich architecture for interactive computing with:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Powerful interactive shells (terminal and Qt-based).&lt;/li&gt;
-&lt;li&gt;A browser-based notebook with support for code, text, mathematical expressions, inline plots and other rich media.&lt;/li&gt;
-&lt;li&gt;Support for interactive data visualization and use of GUI toolkits.&lt;/li&gt;
-&lt;li&gt;Flexible, embeddable interpreters to load into your own projects.&lt;/li&gt;
-&lt;li&gt;Easy to use, high performance tools for parallel computing.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　IPython 3.x will be the last monolithic release of IPython, containing the notebook server, qtconsole, etc. The language-agnostic parts of the project: the notebook format, message protocol, qtconsole, notebook web application, etc. will move to new projects under the name Jupyter. IPython itself will return to being focused on interactive Python, part of which will be providing a Python kernel for Jupyter.&lt;/p&gt;
-
-&lt;h2&gt;3. 介绍&lt;/h2&gt;
-
-&lt;p&gt;　　The goal of IPython is to create a comprehensive environment for interactive and exploratory computing. To support this goal, IPython has three main components:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;An enhanced interactive Python shell.&lt;/li&gt;
-&lt;li&gt;A decoupled two-process communication model, which allows for multiple clients to connect to a computation kernel, most notably the web-based notebook&lt;/li&gt;
-&lt;li&gt;An architecture for interactive parallel computing.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;3.1 Enhanced interactive Python shell&lt;/h3&gt;
-
-&lt;p&gt;　　看官网。&lt;a href=&quot;http://ipython.org/ipython-doc/stable/overview.html#ipythonzmq&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3&gt;3.2 Decoupled two-process model&lt;/h3&gt;
-
-&lt;p&gt;　　IPython has abstracted and extended the notion of a traditional Read-Evaluate-Print Loop (REPL) environment by decoupling the evaluation into its own process. We call this process a kernel: it receives execution instructions from clients and communicates the results back to them.&lt;/p&gt;
-
-&lt;p&gt;　　This decoupling allows us to have several clients connected to the same kernel, and even allows clients and kernels to live on different machines. With the exclusion of the traditional single process terminal-based IPython (what you start if you run ipython without any subcommands), all other IPython machinery uses this two-process model. This includes ipython console, ipython qtconsole, and ipython notebook.&lt;/p&gt;
-
-&lt;p&gt;　　As an example, this means that when you start ipython qtconsole, you’re really starting two processes, a kernel and a Qt-based client can send commands to and receive results from that kernel. If there is already a kernel running that you want to connect to, you can pass the --existing flag which will skip initiating a new kernel and connect to the most recent kernel, instead. To connect to a specific kernel once you have several kernels running, use the %connect_info magic to get the unique connection file, which will be something like --existing kernel-19732.json but with different numbers which correspond to the Process ID of the kernel.&lt;/p&gt;
-
-&lt;p&gt;　　You can read more about using ipython qtconsole, and ipython notebook. There is also a message spec which documents the protocol for communication between kernels and clients.&lt;/p&gt;
-
-&lt;p&gt;　　zeppelin也是用了这样的机制的，看来databricks也是这样搞的。关于这个机制，这篇notebook有简单的&lt;a href=&quot;http://nbviewer.ipython.org/github/ipython/ipython/blob/1.x/examples/notebooks/Frontend-Kernel%20Model.ipynb&quot;&gt;描述&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3&gt;3.3 Interactive parallel computing&lt;/h3&gt;
-
-&lt;p&gt;　　看官网。&lt;/p&gt;
-
-&lt;h2&gt;4. 安装&lt;/h2&gt;
-
-&lt;p&gt;　　还是看&lt;a href=&quot;../http://ipython.org/ipython-doc/stable/install/install.html&quot;&gt;官网&lt;/a&gt;有用，主要还是要解决依赖的问题，最好的方法就是 pip install &quot;ipython[all]&quot;。&lt;/p&gt;
-
-&lt;h2&gt;5. Using IPython for interactive work&lt;/h2&gt;
-
-&lt;h3&gt;5.1 Introducing IPython&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;常用的四个帮助方法：
-
-&lt;ul&gt;
-&lt;li&gt;? ：  Introduction and overview of IPython’s features.&lt;/li&gt;
-&lt;li&gt;%quickref ：  Quick reference.&lt;/li&gt;
-&lt;li&gt;help ：   Python’s own help system.&lt;/li&gt;
-&lt;li&gt;object? ： Details about ‘object’, use ‘object??’ for extra details.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;　　Typing object_name? will print all sorts of details about any object, including docstrings, function definition lines (for call arguments) and constructor details for classes. To get specific information on an object, you can use the magic commands %pdoc, %pdef, %psource and %pfile&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Configuration&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;Much of IPython can be tweaked through configuration. To get started, use the command ipython profile create to produce the default config files. These will be placed in ~/.ipython/profile_default, and contain comments explaining what the various options do.&lt;/p&gt;
-
-&lt;p&gt;Profiles allow you to use IPython for different tasks, keeping separate config files and history for each one. More details in the profiles section.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Startup Files&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;If you want some code to be run at the beginning of every IPython session, the easiest way is to add Python (.py) or IPython (.ipy) scripts to your profile_default/startup/ directory. Files here will be executed as soon as the IPython shell is constructed, before any other code or scripts you have specified. The files will be run in order of their names, so you can control the ordering with prefixes, like 10-myimports.py.&lt;/p&gt;
-
-&lt;h3&gt;5.2 IPython reference&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Command-line usage&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;You start IPython with the command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ipython [options] files
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If invoked with no options, it executes all the files listed in sequence and drops you into the interpreter while still acknowledging any options you may have set in your ipython_config.py. This behavior is different from standard Python, which when called as python -i will only execute one file and ignore your configuration setup.&lt;/p&gt;
-
-&lt;p&gt;Please note that some of the configuration options are not available at the command line, simply because they are not practical here. Look into your configuration files for details on those. There are separate configuration files for each profile, and the files look like ipython_config.py or ipython_config_frontendname.py. Profile directories look like profile_profilename and are typically installed in the IPYTHONDIR directory, which defaults to $HOME/.ipython. For Windows users, HOME resolves to C:\Users\YourUserName in most instances.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;IPython as your default Python environment&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;Python honors the environment variable PYTHONSTARTUP and will execute at startup the file referenced by this variable. If you put the following code at the end of that file, then IPython will be your working environment anytime you start Python:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import os, IPython
-os.environ[&#39;PYTHONSTARTUP&#39;] = &#39;&#39;  # Prevent running this again
-IPython.start_ipython()
-raise SystemExit
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The raise SystemExit is needed to exit Python when it finishes, otherwise you’ll be back at the normal Python &gt;&gt;&gt; prompt.&lt;/p&gt;
-
-&lt;p&gt;This is probably useful to developers who manage multiple Python versions and don’t want to have correspondingly multiple IPython versions. Note that in this mode, there is no way to pass IPython any command-line options, as those are trapped first by Python itself.&lt;/p&gt;
-
-&lt;h2&gt;6. The IPython notebook&lt;/h2&gt;
-
-&lt;h3&gt;6.1 Running a notebook server&lt;/h3&gt;
-
-&lt;p&gt;The IPython notebook web-application is based on a server-client structure. This server uses a &lt;strong&gt;&lt;em&gt;two-process kernel architecture&lt;/em&gt;&lt;/strong&gt; based on &lt;strong&gt;&lt;em&gt;ZeroMQ&lt;/em&gt;&lt;/strong&gt;, as well as &lt;strong&gt;&lt;em&gt;Tornado&lt;/em&gt;&lt;/strong&gt; for serving HTTP requests. By default, a notebook server runs on http://127.0.0.1:8888/ and is accessible only from localhost. This document describes how you can secure a notebook server and how to run it on a public interface.&lt;/p&gt;
-
-&lt;h2&gt;7. Using IPython for parallel computing&lt;/h2&gt;
-
-&lt;p&gt;目前研究的方向和IPython自身的parallel关联不大，暂时不看这块。&lt;/p&gt;
-
-&lt;h2&gt;8. Configuration and customization&lt;/h2&gt;
-
-&lt;h3&gt;8.1 Serveral config methods&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Config files&lt;/li&gt;
-&lt;li&gt;Command line arguments&lt;/li&gt;
-&lt;li&gt;The config magics&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;8.2 IPython options&lt;/h3&gt;
-
-&lt;p&gt;重点研究notebook options和kernel options，细节用到时再仔细看。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Terminal IPython options&lt;/li&gt;
-&lt;li&gt;IPython kernel options&lt;/li&gt;
-&lt;li&gt;IPython notebook options&lt;/li&gt;
-&lt;li&gt;IPython Qt console options&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;8.3 IPython extensions&lt;/h3&gt;
-
-&lt;p&gt;A level above configuration are IPython extensions, Python modules which modify the behaviour of the shell. They are referred to by an importable module name, and can be placed anywhere you’d normally import from, or in .ipython/extensions/.&lt;/p&gt;
-
-&lt;p&gt;Getting extensions
-A few important extensions are bundled with IPython. Others can be found on the extensions index on the wiki, and the Framework :: IPython tag on PyPI.&lt;/p&gt;
-
-&lt;p&gt;Extensions on PyPI can be installed using pip, like any other Python package. Other simple extensions can be installed with the %install_ext magic. The latter does no validation, so be careful using it on untrusted networks like public wifi.&lt;/p&gt;
-
-&lt;p&gt;Using extensions
-To load an extension while IPython is running, use the %load_ext magic:
-&lt;code&gt;
-In [1]: %load_ext myextension
-&lt;/code&gt;
-To load it each time IPython starts, list it in your configuration file:
-&lt;code&gt;
-c.InteractiveShellApp.extensions = [
-    &#39;myextension&#39;
-]
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Writing extensions
-An IPython extension is an importable Python module that has a couple of special functions to load and unload it. Here is a template:
-```&lt;/p&gt;
-
-&lt;h1&gt;myextension.py&lt;/h1&gt;
-
-&lt;p&gt;def load_ipython_extension(ipython):
-    # The &lt;code&gt;ipython&lt;/code&gt; argument is the currently active &lt;code&gt;InteractiveShell&lt;/code&gt;
-    # instance, which can be used in any way. This allows you to register
-    # new magics or aliases, for example.&lt;/p&gt;
-
-&lt;p&gt;def unload_ipython_extension(ipython):
-    # If you want your extension to be unloadable, put that logic here.
-```
-This load_ipython_extension() function is called after your extension is imported, and the currently active InteractiveShell instance is passed as the only argument. You can do anything you want with IPython at that point.&lt;/p&gt;
-
-&lt;p&gt;load_ipython_extension() will be called again if you load or reload the extension again. It is up to the extension author to add code to manage that.&lt;/p&gt;
-
-&lt;p&gt;Useful InteractiveShell methods include register_magic_function(), push() (to add variables to the user namespace) and drop_by_id() (to remove variables on unloading).&lt;/p&gt;
-
-&lt;p&gt;My extensions dir:
-/root/anaconda/lib/python2.7/site-packages/IPython/entensions/&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Defining custom magics&lt;/strong&gt;
-There are two main ways to define your own magic functions: from standalone functions and by inheriting from a base class provided by IPython: IPython.core.magic.Magics. Below we show code you can place in a file that you load from your configuration, such as any file in the startup subdirectory of your default IPython profile.&lt;/p&gt;
-
-&lt;p&gt;First, let us see the simplest case. The following shows how to create a line magic, a cell one and one that works in both modes, using just plain functions:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;from IPython.core.magic import (register_line_magic, register_cell_magic,
-                                register_line_cell_magic)
-
-@register_line_magic
-def lmagic(line):
-    &quot;my line magic&quot;
-    return line
-
-@register_cell_magic
-def cmagic(line, cell):
-    &quot;my cell magic&quot;
-    return line, cell
-
-@register_line_cell_magic
-def lcmagic(line, cell=None):
-    &quot;Magic that works both as %lcmagic and as %%lcmagic&quot;
-    if cell is None:
-        print(&quot;Called as line magic&quot;)
-        return line
-    else:
-        print(&quot;Called as cell magic&quot;)
-        return line, cell
-
-# We delete these to avoid name conflicts for automagic to work
-del lmagic, lcmagic
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can also create magics of all three kinds by inheriting from the IPython.core.magic.Magics class. This lets you create magics that can potentially hold state in between calls, and that have full access to the main IPython object:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# This code can be put in any Python module, it does not require IPython
-# itself to be running already.  It only creates the magics subclass but
-# doesn&#39;t instantiate it yet.
-from __future__ import print_function
-from IPython.core.magic import (Magics, magics_class, line_magic,
-                                cell_magic, line_cell_magic)
-
-# The class MUST call this class decorator at creation time
-@magics_class
-class MyMagics(Magics):
-
-    @line_magic
-    def lmagic(self, line):
-        &quot;my line magic&quot;
-        print(&quot;Full access to the main IPython object:&quot;, self.shell)
-        print(&quot;Variables in the user namespace:&quot;, list(self.shell.user_ns.keys()))
-        return line
-
-    @cell_magic
-    def cmagic(self, line, cell):
-        &quot;my cell magic&quot;
-        return line, cell
-
-    @line_cell_magic
-    def lcmagic(self, line, cell=None):
-        &quot;Magic that works both as %lcmagic and as %%lcmagic&quot;
-        if cell is None:
-            print(&quot;Called as line magic&quot;)
-            return line
-        else:
-            print(&quot;Called as cell magic&quot;)
-            return line, cell
-
-
-# In order to actually use these magics, you must register them with a
-# running IPython.  This code must be placed in a file that is loaded once
-# IPython is up and running:
-ip = get_ipython()
-# You can register the class itself without instantiating it.  IPython will
-# call the default constructor on it.
-ip.register_magics(MyMagics)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you want to create a class with a different constructor that holds additional state, then you should always call the parent constructor and instantiate the class yourself before registration:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@magics_class
-class StatefulMagics(Magics):
-    &quot;Magics that hold additional state&quot;
-
-    def __init__(self, shell, data):
-        # You must call the parent constructor
-        super(StatefulMagics, self).__init__(shell)
-        self.data = data
-
-    # etc...
-
-# This class must then be registered with a manually created instance,
-# since its constructor has different arguments from the default:
-ip = get_ipython()
-magics = StatefulMagics(ip, some_data)
-ip.register_magics(magics)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In earlier versions, IPython had an API for the creation of line magics (cell magics did not exist at the time) that required you to create functions with a method-looking signature and to manually pass both the function and the name. While this API is no longer recommended, it remains indefinitely supported for backwards compatibility purposes. With the old API, you’d create a magic as follows:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def func(self, line):
-    print(&quot;Line magic called with line:&quot;, line)
-    print(&quot;IPython object:&quot;, self.shell)
-
-ip = get_ipython()
-# Declare this function as the magic %mycommand
-ip.define_magic(&#39;mycommand&#39;, func)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;9. IPython developer’s guide&lt;/h2&gt;
-
-&lt;p&gt;This are two categories of developer focused documentation:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Documentation for developers of IPython itself.&lt;/li&gt;
-&lt;li&gt;Documentation for developers of third party tools and libraries that use IPython.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;This part of our documentation only contains information in the second category.&lt;/p&gt;
-
-&lt;p&gt;Developers interested in working on IPython itself should consult our developer information on the IPython GitHub wiki.&lt;/p&gt;
-
-&lt;h2&gt;10 How IPython works&lt;/h2&gt;
-
-&lt;h3&gt;10.1 Terminal IPython&lt;/h3&gt;
-
-&lt;p&gt;When you type ipython, you get the original IPython interface, running in the terminal. It does something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;while True:
-    code = input(&quot;&amp;gt;&amp;gt;&amp;gt; &quot;)
-    exec(code)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of course, it’s much more complex, because it has to deal with multi-line code, tab completion using readline, magic commands, and so on. But the model is like that: prompt the user for some code, and when they’ve entered it, exec it in the same process. This model is often called a REPL, or Read-Eval-Print-Loop.&lt;/p&gt;
-
-&lt;h3&gt;10.2 The IPython Kernel&lt;/h3&gt;
-
-&lt;p&gt;All the other interfaces—the Notebook, the Qt console, ipython console in the terminal, and third party interfaces—use the IPython Kernel. This is a separate process which is responsible for running user code, and things like computing possible completions. Frontends communicate with it using JSON messages sent over ZeroMQ sockets; the protocol they use is described in Messaging in IPython.&lt;/p&gt;
-
-&lt;p&gt;The core execution machinery for the kernel is shared with terminal IPython:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/ipy_kernel_and_terminal.png&quot; alt=&quot;ipy_kernel_and_terminal.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A kernel process can be connected to more than one frontend simultaneously. In this case, the different frontends will have access to the same variables.&lt;/p&gt;
-
-&lt;p&gt;This design was intended to allow easy development of different frontends based on the same kernel, but it also made it possible to support new languages in the same frontends, by developing kernels in those languages, and we are refining IPython to make that more practical.&lt;/p&gt;
-
-&lt;p&gt;Today, there are two ways to develop a kernel for another language. Wrapper kernels reuse the communications machinery from IPython, and implement only the core execution part. Native kernels implement execution and communications in the target language:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/other_kernels.png&quot; alt=&quot;other_kernels.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Wrapper kernels are easier to write quickly for languages that have good Python wrappers, like octave_kernel, or languages where it’s impractical to implement the communications machinery, like bash_kernel. Native kernels are likely to be better maintained by the community using them, like IJulia or IHaskell.&lt;/p&gt;
-
-&lt;h3&gt;10.3 Notebook&lt;/h3&gt;
-
-&lt;p&gt;The Notebook frontend does something extra. In addition to running your code, it stores code and output, together with markdown notes, in an editable document called a notebook. When you save it, this is sent from your browser to the notebook server, which saves it on disk as a JSON file with a .ipynb extension.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/notebook_components.png&quot; alt=&quot;notebook_components.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The notebook server, not the kernel, is responsible for saving and loading notebooks, so you can edit notebooks even if you don’t have the kernel for that language—you just won’t be able to run code. The kernel doesn’t know anything about the notebook document: it just gets sent cells of code to execute when the user runs them.&lt;/p&gt;
-
-&lt;p&gt;The Nbconvert tool in IPython converts notebook files to other formats, such as HTML, LaTeX, or reStructuredText. This conversion goes through a series of steps:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/nbconvert.png&quot; alt=&quot;nbconvert.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Preprocessors modify the notebook in memory. E.g. ExecutePreprocessor runs the code in the notebook and updates the output.&lt;/li&gt;
-&lt;li&gt;An exporter converts the notebook to another file format. Most of the exporters use templates for this.&lt;/li&gt;
-&lt;li&gt;Postprocessors work on the file produced by exporting.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;The nbviewer website uses nbconvert with the HTML exporter. When you give it a URL, it fetches the notebook from that URL, converts it to HTML, and serves that HTML to you.&lt;/p&gt;
-
-&lt;h2&gt;11. Messaging in IPython&lt;/h2&gt;
-
-&lt;p&gt;The IPython message specification is versioned independently of IPython. The current version of the specification is 5.0.&lt;/p&gt;
-
-&lt;h3&gt;11.1 Introduction&lt;/h3&gt;
-
-&lt;p&gt;This document explains the basic communications design and messaging specification for how the various IPython objects interact over a network transport. The current implementation uses the ZeroMQ library for messaging within and between hosts.&lt;/p&gt;
-
-&lt;p&gt;The basic design is explained in the following diagram:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/frontend-kernel.png&quot; alt=&quot;frontend-kernel.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A single kernel can be simultaneously connected to one or more frontends. The kernel has three sockets that serve the following functions:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Shell: this single ROUTER socket allows multiple incoming connections from frontends, and this is the socket where requests for code execution, object information, prompts, etc. are made to the kernel by any frontend. The communication on this socket is a sequence of request/reply actions from each frontend and the kernel.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;IOPub: this socket is the ‘broadcast channel’ where the kernel publishes all side effects (stdout, stderr, etc.) as well as the requests coming from any client over the shell socket and its own requests on the stdin socket. There are a number of actions in Python which generate side effects: print() writes to sys.stdout, errors generate tracebacks, etc. Additionally, in a multi-client scenario, we want all frontends to be able to know what each other has sent to the kernel (this can be useful in collaborative scenarios, for example). This socket allows both side effects and the information about communications taking place with one client over the shell channel to be made available to all clients in a uniform manner.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;stdin: this ROUTER socket is connected to all frontends, and it allows the kernel to request input from the active frontend when raw_input() is called. The frontend that executed the code has a DEALER socket that acts as a ‘virtual keyboard’ for the kernel while this communication is happening (illustrated in the figure by the black outline around the central keyboard). In practice, frontends may display such kernel requests using a special input widget or otherwise indicating that the user is to type input for the kernel instead of normal commands in the frontend. &lt;br/&gt;
-All messages are tagged with enough information (details below) for clients to know which messages come from their own interaction with the kernel and which ones are from other clients, so they can display each type appropriately.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Control: This channel is identical to Shell, but operates on a separate socket, to allow important messages to avoid queueing behind execution requests (e.g. shutdown or abort).&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;The actual format of the messages allowed on each of these channels is specified below. Messages are dicts of dicts with string keys and values that are reasonably representable in JSON. Our current implementation uses JSON explicitly as its message format, but this shouldn’t be considered a permanent feature. As we’ve discovered that JSON has non-trivial performance issues due to excessive copying, we may in the future move to a pure pickle-based raw message format. However, it should be possible to easily convert from the raw objects to JSON, since we may have non-python clients (e.g. a web frontend). As long as it’s easy to make a JSON version of the objects that is a faithful representation of all the data, we can communicate with such clients.&lt;/p&gt;
-
-&lt;h3&gt;11.2 General Message Format&lt;/h3&gt;
-
-&lt;p&gt;A message is defined by the following four-dictionary structure:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  # The message header contains a pair of unique identifiers for the
-  # originating session and the actual message id, in addition to the
-  # username for the process that generated the message.  This is useful in
-  # collaborative settings where multiple users may be interacting with the
-  # same kernel simultaneously, so that frontends can label the various
-  # messages in a meaningful way.
-  &#39;header&#39; : {
-                &#39;msg_id&#39; : uuid,
-                &#39;username&#39; : str,
-                &#39;session&#39; : uuid,
-                # All recognized message type strings are listed below.
-                &#39;msg_type&#39; : str,
-                # the message protocol version
-                &#39;version&#39; : &#39;5.0&#39;,
-     },
-
-  # In a chain of messages, the header from the parent is copied so that
-  # clients can track where messages come from.
-  &#39;parent_header&#39; : dict,
-
-  # Any metadata associated with the message.
-  &#39;metadata&#39; : dict,
-
-  # The actual content of the message must be a dict, whose structure
-  # depends on the message type.
-  &#39;content&#39; : dict,
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;12. Making kernels for IPython&lt;/h2&gt;
-
-&lt;p&gt;A ‘kernel’ is a program that runs and introspects the user’s code. IPython includes a kernel for Python code, and people have written kernels for several other languages.&lt;/p&gt;
-
-&lt;p&gt;When IPython starts a kernel, it passes it a connection file. This specifies how to set up communications with the frontend.&lt;/p&gt;
-
-&lt;p&gt;There are two options for writing a kernel:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;You can reuse the IPython kernel machinery to handle the communications, and just describe how to execute your code. This is much simpler if the target language can be driven from Python. See Making simple Python wrapper kernels for details.&lt;/li&gt;
-&lt;li&gt;You can implement the kernel machinery in your target language. This is more work initially, but the people using your kernel might be more likely to contribute to it if it’s in the language they know.&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h1&gt;. 学习资源&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://ipython.org/&quot;&gt;官网&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython/wiki?path=Cookbook&quot;&gt;IPython Cookbook&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-10-ipython-learning.md.jpg&quot; alt=&quot;2015-03-10-ipython-learning.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
