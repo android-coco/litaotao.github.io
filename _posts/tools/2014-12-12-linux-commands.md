@@ -1,6 +1,6 @@
 ---
 category: tools
-published: false
+published: true
 layout: post
 title: 我常用到的linux命令
 description: 记录我80%时间里用到的那些linux命令～
@@ -52,131 +52,7 @@ ps[参数]
         --width<字符数> 每页显示的字符数
         --help 显示帮助信息
         --version 显示版本显示
- 
-实例1：显示所有进程信息  
-命令：
-ps -A  
-输出：  
 
-    [root@localhost test6]# ps -A
-      PID TTY          TIME CMD
-        1 ?        00:00:00 init
-        2 ?        00:00:01 migration/0
-        3 ?        00:00:00 ksoftirqd/0
-      217 ?        00:00:00 cqueue/0
-      ……省略部分结果
-
-实例2：显示指定用户信息  
-命令：  
-ps -u root  
-输出：  
-
-    [root@localhost test6]# ps -u root
-      PID TTY          TIME CMD
-        1 ?        00:00:00 init
-        2 ?        00:00:01 migration/0
-       54 ?        00:00:00 kblockd/0
-       55 ?        00:00:00 kblockd/1
-       56 ?        00:00:00 kacpid
-        ……省略部分结果
-
-实例3：显示所有进程信息，连同命令行   
-命令：  
-ps -ef  
-输出：  
-
-    [root@localhost test6]# ps -ef
-    UID        PID  PPID  C STIME TTY          TIME CMD
-    root         1     0  0 Nov02 ?        00:00:00 init [3]                  
-    root         2     1  0 Nov02 ?        00:00:01 [migration/0]
-    root        54    49  0 Nov02 ?        00:00:00 [kblockd/0]
-    root        55    49  0 Nov02 ?        00:00:00 [kblockd/1]
-    root        56    49  0 Nov02 ?        00:00:00 [kacpid]
-    ……省略部分结果
-
-实例4： ps 与grep 常用组合用法，查找特定进程   
-命令：  
-ps -ef|grep ssh  
-输出：  
-
-    [root@localhost test6]# ps -ef|grep ssh
-    root      2720     1  0 Nov02 ?        00:00:00 /usr/sbin/sshd
-    root     17394  2720  0 14:58 ?        00:00:00 sshd: root@pts/0 
-    root     17465 17398  0 15:57 pts/0    00:00:00 grep ssh
-
-实例5：将目前属于您自己这次登入的 PID 与相关信息列示出来  
-命令： 
-ps -l  
-输出：  
-
-    [root@localhost test6]# ps -l
-    F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
-    4 S     0 17398 17394  0  75   0 - 16543 wait   pts/0    00:00:00 bash
-    4 R     0 17469 17398  0  77   0 - 15877 -      pts/0    00:00:00 ps
-说明：  
-各相关信息的意义：  
-
-    F 代表这个程序的旗标 (flag)， 4 代表使用者为 super user
-    S 代表这个程序的状态 (STAT)，关于各 STAT 的意义将在内文介绍
-    UID 程序被该 UID 所拥有
-    PID 就是这个程序的 ID ！
-    PPID 则是其上级父程序的ID
-    C CPU 使用的资源百分比
-    PRI 这个是 Priority (优先执行序) 的缩写，详细后面介绍
-    NI 这个是 Nice 值，在下一小节我们会持续介绍
-    ADDR 这个是 kernel function，指出该程序在内存的那个部分。如果是个 running的程序，一般就是 "-"
-    SZ 使用掉的内存大小
-    WCHAN 目前这个程序是否正在运作当中，若为 - 表示正在运作
-    TTY 登入者的终端机位置
-    TIME 使用掉的 CPU 时间。
-    CMD 所下达的指令为何
-    在预设的情况下， ps 仅会列出与目前所在的 bash shell 有关的 PID 而已，所以， 当我使用 ps -l 的时候，只有三个 PID
-
-实例6：列出目前所有的正在内存当中的程序  
-命令：  
-ps aux  
-输出：  
-
-    [root@localhost test6]# ps aux
-    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-    root         1  0.0  0.0  10368   676 ?        Ss   Nov02   0:00 init [3]                  
-    root         2  0.0  0.0      0     0 ?        S<   Nov02   0:01 [migration/0]
-    root         3  0.0  0.0      0     0 ?        SN   Nov02   0:00 [ksoftirqd/0]
-    root         4  0.0  0.0      0     0 ?        S<   Nov02   0:01 [migration/1]
-    root         5  0.0  0.0      0     0 ?        SN   Nov02   0:00 [ksoftirqd/1]
-    ……省略部分结果
-
-说明：  
-
-    USER：该 process 属于那个使用者账号的
-    PID ：该 process 的号码
-    %CPU：该 process 使用掉的 CPU 资源百分比
-    %MEM：该 process 所占用的物理内存百分比
-    VSZ ：该 process 使用掉的虚拟内存量 (Kbytes)
-    RSS ：该 process 占用的固定的内存量 (Kbytes)
-    TTY ：该 process 是在那个终端机上面运作，若与终端机无关，则显示 ?，另外， tty1-tty6 是本机上面的登入者程序，若为 pts/0 等等的，则表示为由网络连接进主机的程序。
-    STAT：该程序目前的状态，主要的状态有
-    R ：该程序目前正在运作，或者是可被运作
-    S ：该程序目前正在睡眠当中 (可说是 idle 状态)，但可被某些讯号 (signal) 唤醒。
-    T ：该程序目前正在侦测或者是停止了
-    Z ：该程序应该已经终止，但是其父程序却无法正常的终止他，造成 zombie (疆尸) 程序的状态
-    START：该 process 被触发启动的时间
-    TIME ：该 process 实际使用 CPU 运作的时间
-    COMMAND：该程序的实际指令
-
-实例7：列出类似程序树的程序显示   
-命令：  
-ps -axjf  
-输出：  
-
-    [root@localhost test6]# ps -axjf
-    Warning: bad syntax, perhaps a bogus '-'? See /usr/share/doc/procps-3.2.7/FAQ
-     PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
-        0     1     1     1 ?           -1 Ss       0   0:00 init [3]         
-        1    49     1     1 ?           -1 S<       0   0:00 [kthread]
-       49    54     1     1 ?           -1 S<       0   0:00  \_ [kblockd/0]
-       49    55     1     1 ?           -1 S<       0   0:00  \_ [kblockd/1]
-       49    56     1     1 ?           -1 S<       0   0:00  \_ [kacpid]
 
 ## 2. kill  
 　　Linux中的kill命令用来终止指定的进程（terminate a process）的运行，是Linux下进程管理的常用命令。通常，终止一个前台进程可以使用Ctrl+C键，但是，对于一个后台进程就须用kill命令来终止，我们就需要先使用ps/pidof/pstree/top等工具获取进程PID，然后使用kill命令来杀掉该进程。kill命令是通过向进程发送指定的信号来结束相应进程的。在默认情况下，采用编号为15的TERM信号。TERM信号将终止所有不能捕获该信号的进程。对于那些可以捕获该信号的进程就要用编号为9的kill信号，强行“杀掉”该进程。   
@@ -202,102 +78,6 @@ kill -2 123
 - 当kill成功地发送了信号后，shell会在屏幕上显示出进程的终止信息。有时这个信息不会马上显示，只有当按下Enter键使shell的命令提示符再次出现时，才会显示出来。   
 - 应注意，信号使进程强行终止，这常会带来一些副作用，如数据丢失或者终端无法恢复到正常状态。发送信号时必须小心，只有在万不得已时，才用kill信号(9)，因为进程不能首先捕获它。要撤销所有的后台作业，可以输入kill 0。因为有些在后台运行的命令会启动多个进程，跟踪并找到所有要杀掉的进程的PID是件很麻烦的事。这时，使用kill 0来终止所有由当前shell启动的进程，是个有效的方法。    
 
-实例1：列出所有信号名称   
-命令：  
-kill -l   
-输出：  
-
-    [root@localhost test6]# kill -l
-     1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
-     5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
-     9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
-    13) SIGPIPE     14) SIGALRM     15) SIGTERM     16) SIGSTKFLT
-    17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
-    21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU
-    25) SIGXFSZ     26) SIGVTALRM   27) SIGPROF     28) SIGWINCH
-    29) SIGIO       30) SIGPWR      31) SIGSYS      34) SIGRTMIN
-    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4
-    39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
-    43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12
-    47) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14
-    51) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10
-    55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6
-    59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
-    63) SIGRTMAX-1  64) SIGRTMAX
-说明：  
-只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略。     下面是常用的信号：   
-
-    HUP    1    终端断线
-    INT     2    中断（同 Ctrl + C）
-    QUIT    3    退出（同 Ctrl + \）
-    TERM   15    终止
-    KILL    9    强制终止
-    CONT   18    继续（与STOP相反， fg/bg命令）
-    STOP    19    暂停（同 Ctrl + Z）
-
-实例2：得到指定信号的数值   
-命令：  
-输出：  
-
-    [root@localhost test6]# kill -l KILL
-    9[root@localhost test6]# kill -l SIGKILL
-    9[root@localhost test6]# kill -l TERM
-    15[root@localhost test6]# kill -l SIGTERM
-    15[root@localhost test6]#
-
-实例3：先用ps查找进程，然后用kill杀掉   
-命令：  
-kill [pid number]    
-输出：  
-
-    [root@localhost test6]# ps -ef|grep vim 
-    root      3268  2884  0 16:21 pts/1    00:00:00 vim install.log
-    root      3370  2822  0 16:21 pts/0    00:00:00 grep vim
-    [root@localhost test6]# kill 3268 
-    [root@localhost test6]# kill 3268 
-    -bash: kill: (3268) - 没有那个进程
-    [root@localhost test6]#
-
-实例4：彻底杀死进程   
-命令：   
-kill –9 [pid number]   
-输出：  
-
-    [root@localhost test6]# ps -ef|grep vim 
-    root      3268  2884  0 16:21 pts/1    00:00:00 vim install.log
-    root      3370  2822  0 16:21 pts/0    00:00:00 grep vim
-    [root@localhost test6]# kill –9 3268 
-    [root@localhost test6]# kill 3268 
-    -bash: kill: (3268) - 没有那个进程
-    [root@localhost test6]#
-
-实例5：杀死指定用户所有进程  
-命令：  
-kill -9 $(ps -ef | grep peidalinux)  
-kill -u peidalinux  
-输出：  
-
-    [root@localhost ~]# kill -9 $(ps -ef | grep peidalinux) 
-    [root@localhost ~]# kill -u peidalinux
-
-实例6：init进程是不可杀的   
-命令：  
-kill -9 1   
-输出：  
-
-    [root@localhost ~]# ps -ef|grep init
-    root         1     0  0 Nov02 ?        00:00:00 init [3]                  
-    root     17563 17534  0 17:37 pts/1    00:00:00 grep init
-    [root@localhost ~]# kill -9 1
-    [root@localhost ~]# kill -HUP 1
-    [root@localhost ~]# ps -ef|grep init
-    root         1     0  0 Nov02 ?        00:00:00 init [3]                  
-    root     17565 17534  0 17:38 pts/1    00:00:00 grep init
-    [root@localhost ~]# kill -KILL 1
-    [root@localhost ~]# ps -ef|grep init
-    root         1     0  0 Nov02 ?        00:00:00 init [3]                  
-    root     17567 17534  0 17:38 pts/1    00:00:00 grep init
-    [root@localhost ~]#
 
 说明：   
 　　init是Linux系统操作中不可缺少的程序之一。所谓的init进程，它是一个由内核启动的用户级进程。内核自行启动（已经被载入内存，开始运行，并已初始化所有的设备驱动程序和数据结构等）之后，就通过启动一个用户级程序init的方式，完成引导进程。所以,init始终是第一个进程（其进程编号始终为1）。   其它所有进程都是init进程的子孙。init进程是不可杀的！  
@@ -344,71 +124,9 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 
 提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到
 
-实例 1. 列出所有端口 (包括监听和未监听的)：列出所有端口， netstat -a  
-
-    # netstat -a | more
-     Active Internet connections (servers and established)
-     Proto Recv-Q Send-Q Local Address           Foreign Address         State
-     tcp        0      0 localhost:30037         *:*                     LISTEN
-     udp        0      0 *:bootpc                *:*
-     
-    Active UNIX domain sockets (servers and established)
-     Proto RefCnt Flags       Type       State         I-Node   Path
-     unix  2      [ ACC ]     STREAM     LISTENING     6135     /tmp/.X11-unix/X0
-     unix  2      [ ACC ]     STREAM     LISTENING     5140     /var/run/acpid.socket
-
-
-实例 2. 列出所有端口 (包括监听和未监听的)：列出所有 tcp 端口， netstat -at
-
-    # netstat -at
-     Active Internet connections (servers and established)
-     Proto Recv-Q Send-Q Local Address           Foreign Address         State
-     tcp        0      0 localhost:30037         *:*                     LISTEN
-     tcp        0      0 localhost:ipp           *:*                     LISTEN
-     tcp        0      0 *:smtp                  *:*                     LISTEN
-     tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
-
-实例 3. 列出所有端口 (包括监听和未监听的)：列出所有 udp 端口， netstat -au  
-
-    # netstat -au
-     Active Internet connections (servers and established)
-     Proto Recv-Q Send-Q Local Address           Foreign Address         State
-     udp        0      0 *:bootpc                *:*
-     udp        0      0 *:49119                 *:*
-     udp        0      0 *:mdns                  *:*
-
-实例 3. 找出程序运行的端口，并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。  
-
-    # netstat -ap | grep ssh
-     tcp        1      0 dev-db:ssh           101.174.100.22:39213        CLOSE_WAIT  -
-     tcp        1      0 dev-db:ssh           101.174.100.22:57643        CLOSE_WAIT  -
-
-找出运行在指定端口的进程   
-
-    # netstat -an | grep ':80'
-
-实例 4. IP和TCP分析，查看连接某服务端口最多的的IP地址
-
-    wss8848@ubuntu:~$ netstat -nat | grep "192.168.1.15:22" |awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -nr|head -20
-    18 221.136.168.36
-    3 154.74.45.242
-    2 78.173.31.236
-    2 62.183.207.98
-    2 192.168.1.14
-    2 182.48.111.215
-    2 124.193.219.34
-    2 119.145.41.2
-    2 114.255.41.30
-    1 75.102.11.99
-
 备注：  
-这篇 [blog](linux命令五分钟系列之四十三) 说netstat命令似乎已经不再维护了，后续将被ip和ss命令取代。那我们也来顺带了解一下ip和ss这两个命令吧。  
+这篇 [blog](linux命令五分钟系列之四十三) 说netstat命令似乎已经不再维护了，后续将被ip和ss命令取代。  
 ![netstat-replaced](../images/netstat_subsititute.jpg) 
-
-## 4. ip  
-
-
-## 5. ss  
 
 
 ## 6. vimdiff
@@ -433,6 +151,47 @@ linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，�
 - wa，同时保存
 - wqa，同时保存并退出
 － qa，同时退出不保存
+
+
+## 7. head
+
+head 可以用来查看一个文件的前几行，我通常用来查看一个文件的结构。算是最简单的一个命令了，但是很实用啊，当然如果配合其他命令使用起来就更舒服了，比如配合管道做 grep，或者配合管道用 column 来格式化显示csv格式的文件。
+
+![head_command.jpg](../images/head_command.jpg)
+
+## 8. grep
+
+这个命令就不用说了，因为用得太多了。常用来在很多数据里找到匹配某一模式［可以是正则哦，很强大］的字段，我更常用的场景是配合 “tail －f” 来在实时更新的日志里查找一些相关的字段，比如查找某一个请求api，在debug的时候比较常用。
+
+默认的grep是没有高亮匹配字段的，可以在grep 后加上 "--color"来高亮匹配的字段，更方便的做法是 `alias grep="grep --color=auto`，这样每次用grep的时候都有高亮了，用起来更方便。
+
+常用的几个参数：
+
+```
+-a 以文本文件方式搜索
+-c 计算找到的符合行的次数
+-i 忽略大小写
+-n 顺便输出行号
+-v 反向选择，即找 没有搜索字符串的行
+```
+
+## 9. du
+
+以前一直没有用过这么命令，因为都用 `ls` 加上一些参数来查看文件大小。但有一次，我从 AWS S3 上下载了将近1000个文件下来，想查看这一千个文件的总大小，用 `ls -lh' 发现只能查看每个文件的大小，而显示的文件夹大小并不是文件夹下所有文件的大小，而且这个文件夹的一些元信息的大小：  
+
+![ls_command.jpg](../../images/ls_command.jpg)
+
+所以查了半天，才找到 du 这个命令，用起来方便多了。
+
+关于 ls 和 du 这两个命令，我觉得下面这几个帖子值得一看：
+
+- [what-does-size-of-a-directory-mean-in-output-of-ls-l-command](http://unix.stackexchange.com/questions/55/what-does-size-of-a-directory-mean-in-output-of-ls-l-command)
+- [file holes/文件黑洞](http://blog.sina.com.cn/s/blog_70122437010122m1.html)
+
+
+## 10. tail
+
+tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 "-f" 参数后和grep一起使用。
 
 
 
