@@ -43,7 +43,7 @@
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="/linux-commands" title="我常用到的linux命令">我常用到的linux命令</a></h1>
 
-    <p class="entry-date">2014-12-12 <span class="lastModified" style="display: none;" data-source="_posts/tools/2014-12-12-linux-commands.md">最后更新时间: </span></p>
+    <p class="entry-date">2015-08-12 <span class="lastModified" style="display: none;" data-source="_posts/tools/2015-08-12-linux-commands.md">最后更新时间: </span></p>
 
     <h2></h2>
 
@@ -249,6 +249,25 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 <h2>10. tail</h2>
 
 <p>tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 "-f" 参数后和grep一起使用。</p>
+
+<h2>11. scp</h2>
+
+<p>scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p>
+
+<p>以前在windows下开发的时候，和服务器上的文件上传下载都是通过 securcrt 的sz 和 rz命令，现在用 MAC 了，才知道原来还有这样一个好用的命令，真是弱爆了呀。已经有一篇<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html">文章</a>讲这个命令很详细了，我就简单copy一下，把自己常用的参数含义纪录下来。</p>
+
+<p>scp [参数] [原路径] [目标路径]</p>
+
+<p>-B  使用批处理模式（传输过程中不询问传输口令或短语）<br/>
+-C  允许压缩。（将-C标志传递给ssh，从而打开压缩功能）<br/>
+-p 保留原文件的修改时间，访问时间和访问权限。<br/>
+-q  不显示传输进度条。<br/>
+-r  递归复制整个目录。<br/>
+-v 详细方式显示输出。scp和ssh(1)会显示出整个过程的调试信息。这些信息用于调试连接，验证和配置问题。 <br/>
+-F ssh_config  指定一个替代的ssh配置文件，此参数直接传递给ssh。<br/>
+-i identity_file  从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh。  <br/>
+-l limit  限定用户所能使用的带宽，以Kbit/s为单位。   <br/>
+-P port  注意是大写的P, port是指定数据传输用到的端口号</p>
 
 <h2>扫一扫</h2>
 

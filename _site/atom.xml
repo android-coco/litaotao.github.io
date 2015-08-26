@@ -25,13 +25,255 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-08-24T12:07:46+08:00</updated>
+   <updated>2015-08-26T11:25:30+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>我常用到的linux命令</title>
+     <link href="/linux-commands"/>
+     <updated>2015-08-12T00:00:00+08:00</updated>
+     <id>/linux-commands</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. ps&lt;/h2&gt;
+
+&lt;p&gt;　　Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。&lt;br/&gt;
+　　要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。   &lt;br/&gt;
+　　kill 命令用于杀死进程。 &lt;br/&gt;
+　　linux上进程有5种状态:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;运行(正在运行或在运行队列中等待)&lt;/li&gt;
+&lt;li&gt;中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号)&lt;/li&gt;
+&lt;li&gt;不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)&lt;/li&gt;
+&lt;li&gt;僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)&lt;/li&gt;
+&lt;li&gt;停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　ps工具标识进程的5种状态码:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;D 不可中断 uninterruptible sleep (usually IO)&lt;/li&gt;
+&lt;li&gt;R 运行 runnable (on run queue)&lt;/li&gt;
+&lt;li&gt;S 中断 sleeping&lt;/li&gt;
+&lt;li&gt;T 停止 traced or stopped&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Z 僵死 a defunct (”zombie”) process&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;命令格式：
+ps[参数]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;命令功能：&lt;br/&gt;
+用来显示当前进程的状态&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;命令参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  a  显示所有进程
+  -a 显示同一终端下的所有程序
+  -A 显示所有进程
+  c  显示进程的真实名称
+  -N 反向选择
+  -e 等于“-A”
+  e  显示环境变量
+  f  显示程序间的关系
+  -H 显示树状结构
+  r  显示当前终端的进程
+  T  显示当前终端的所有程序
+  u  指定用户的所有进程
+  -au 显示较详细的资讯
+  -aux 显示所有包含其他使用者的行程 
+  -C&amp;lt;命令&amp;gt; 列出指定命令的状况
+  --lines&amp;lt;行数&amp;gt; 每页显示的行数
+  --width&amp;lt;字符数&amp;gt; 每页显示的字符数
+  --help 显示帮助信息
+  --version 显示版本显示
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;2. kill&lt;/h2&gt;
+
+&lt;p&gt;　　Linux中的kill命令用来终止指定的进程（terminate a process）的运行，是Linux下进程管理的常用命令。通常，终止一个前台进程可以使用Ctrl+C键，但是，对于一个后台进程就须用kill命令来终止，我们就需要先使用ps/pidof/pstree/top等工具获取进程PID，然后使用kill命令来杀掉该进程。kill命令是通过向进程发送指定的信号来结束相应进程的。在默认情况下，采用编号为15的TERM信号。TERM信号将终止所有不能捕获该信号的进程。对于那些可以捕获该信号的进程就要用编号为9的kill信号，强行“杀掉”该进程。 &lt;br/&gt;
+- 命令格式：&lt;br/&gt;
+kill[参数][进程号]&lt;br/&gt;
+- 命令功能：&lt;br/&gt;
+　　发送指定的信号到相应进程。不指定型号将发送SIGTERM（15）终止指定进程。如果任无法终止该程序可用“-KILL” 参数，其发送的信号为SIGKILL(9)，将强制结束进程，使用ps命令或者jobs 命令可以查看进程号。root用户将影响用户的进程，非root用户只能影响自己的进程。
+- 命令参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    -l  信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称
+    -a  当处理当前进程时，不限制命令名和进程号的对应关系
+    -p  指定kill 命令只打印相关进程的进程号，而不发送任何信号
+    -s  指定发送信号
+    -u  指定用户 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kill命令可以带信号号码选项，也可以不带。如果没有信号号码，kill命令就会发出终止信号(15)，这个信号可以被进程捕获，使得进程在退出之前可以清理并释放资源。也可以用kill向进程发送特定的信号。例如：
+kill -2 123
+它的效果等同于在前台运行PID为123的进程时按下Ctrl+C键。但是，普通用户只能使用不带signal参数的kill命令或最多使用-9信号。&lt;/li&gt;
+&lt;li&gt;kill可以带有进程ID号作为参数。当用kill向这些进程发送信号时，必须是这些进程的主人。如果试图撤销一个没有权限撤销的进程或撤销一个不存在的进程，就会得到一个错误信息。&lt;/li&gt;
+&lt;li&gt;可以向多个进程发信号或终止它们。&lt;/li&gt;
+&lt;li&gt;当kill成功地发送了信号后，shell会在屏幕上显示出进程的终止信息。有时这个信息不会马上显示，只有当按下Enter键使shell的命令提示符再次出现时，才会显示出来。&lt;/li&gt;
+&lt;li&gt;应注意，信号使进程强行终止，这常会带来一些副作用，如数据丢失或者终端无法恢复到正常状态。发送信号时必须小心，只有在万不得已时，才用kill信号(9)，因为进程不能首先捕获它。要撤销所有的后台作业，可以输入kill 0。因为有些在后台运行的命令会启动多个进程，跟踪并找到所有要杀掉的进程的PID是件很麻烦的事。这时，使用kill 0来终止所有由当前shell启动的进程，是个有效的方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;说明： &lt;br/&gt;
+　　init是Linux系统操作中不可缺少的程序之一。所谓的init进程，它是一个由内核启动的用户级进程。内核自行启动（已经被载入内存，开始运行，并已初始化所有的设备驱动程序和数据结构等）之后，就通过启动一个用户级程序init的方式，完成引导进程。所以,init始终是第一个进程（其进程编号始终为1）。   其它所有进程都是init进程的子孙。init进程是不可杀的！&lt;/p&gt;
+
+&lt;h2&gt;3. netstat&lt;/h2&gt;
+
+&lt;p&gt;　　Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。 &lt;br/&gt;
+　　执行netstat后，其输出结果为:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address Foreign Address State
+tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
+tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
+tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
+tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
+tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags Type State I-Node Path
+unix 1 [ ] STREAM CONNECTED 16178 @000000dd
+unix 1 [ ] STREAM CONNECTED 16176 @000000dc
+unix 9 [ ] DGRAM 5292 /dev/log
+unix 1 [ ] STREAM CONNECTED 16182 @000000df
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　从整体上看，netstat的输出结果可以分为两个部分：&lt;/p&gt;
+
+&lt;p&gt;　　一个是Active Internet connections，称为有源TCP连接，其中&quot;Recv-Q&quot;和&quot;Send-Q&quot;指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。&lt;/p&gt;
+
+&lt;p&gt;　　另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;常见参数&lt;/p&gt;
+
+&lt;p&gt;  -a (all)显示所有选项，默认不显示LISTEN相关
+  -t (tcp)仅显示tcp相关选项
+  -u (udp)仅显示udp相关选项
+  -n 拒绝显示别名，能显示数字的全部转化成数字。
+  -l 仅列出有在 Listen (监听) 的服務状态&lt;/p&gt;
+
+&lt;p&gt;  -p 显示建立相关链接的程序名
+  -r 显示路由信息，路由表
+  -e 显示扩展信息，例如uid等
+  -s 按各个协议进行统计
+  -c 每隔一个固定时间，执行该netstat命令。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到&lt;/p&gt;
+
+&lt;p&gt;备注：&lt;br/&gt;
+这篇 &lt;a href=&quot;linux%E5%91%BD%E4%BB%A4%E4%BA%94%E5%88%86%E9%92%9F%E7%B3%BB%E5%88%97%E4%B9%8B%E5%9B%9B%E5%8D%81%E4%B8%89&quot;&gt;blog&lt;/a&gt; 说netstat命令似乎已经不再维护了，后续将被ip和ss命令取代。&lt;br/&gt;
+&lt;img src=&quot;../images/netstat_subsititute.jpg&quot; alt=&quot;netstat-replaced&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;6. vimdiff&lt;/h2&gt;
+
+&lt;p&gt;linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，可编辑保存，不同的地方会有高亮显示。非常实用，我常用来查看不同的配置文件区别。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/vimdiff.jpg&quot; alt=&quot;vimdiff.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有几种方法可以使用vimdiff：&lt;/p&gt;
+
+&lt;p&gt;－ vimdiff file1 file2
+－ vim -d file1 file2
+－ vim file1 之后打开vim后输入:vertical diffsplit file2&lt;/p&gt;
+
+&lt;p&gt;下面是vimdiff中的一些常用快捷键：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ctrl-w H（把当前窗口移到最左边）&lt;/li&gt;
+&lt;li&gt;Ctrl-w L（把当前窗口移到最右边）&lt;/li&gt;
+&lt;li&gt;]c，跳到下一个差异点&lt;/li&gt;
+&lt;li&gt;[c，跳到上一个差异点&lt;/li&gt;
+&lt;li&gt;qa，同时退出&lt;/li&gt;
+&lt;li&gt;wa，同时保存&lt;/li&gt;
+&lt;li&gt;wqa，同时保存并退出
+－ qa，同时退出不保存&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;7. head&lt;/h2&gt;
+
+&lt;p&gt;head 可以用来查看一个文件的前几行，我通常用来查看一个文件的结构。算是最简单的一个命令了，但是很实用啊，当然如果配合其他命令使用起来就更舒服了，比如配合管道做 grep，或者配合管道用 column 来格式化显示csv格式的文件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/head_command.jpg&quot; alt=&quot;head_command.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;8. grep&lt;/h2&gt;
+
+&lt;p&gt;这个命令就不用说了，因为用得太多了。常用来在很多数据里找到匹配某一模式［可以是正则哦，很强大］的字段，我更常用的场景是配合 “tail －f” 来在实时更新的日志里查找一些相关的字段，比如查找某一个请求api，在debug的时候比较常用。&lt;/p&gt;
+
+&lt;p&gt;默认的grep是没有高亮匹配字段的，可以在grep 后加上 &quot;--color&quot;来高亮匹配的字段，更方便的做法是 &lt;code&gt;alias grep=&quot;grep --color=auto&lt;/code&gt;，这样每次用grep的时候都有高亮了，用起来更方便。&lt;/p&gt;
+
+&lt;p&gt;常用的几个参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-a 以文本文件方式搜索
+-c 计算找到的符合行的次数
+-i 忽略大小写
+-n 顺便输出行号
+-v 反向选择，即找 没有搜索字符串的行
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;9. du&lt;/h2&gt;
+
+&lt;p&gt;以前一直没有用过这么命令，因为都用 &lt;code&gt;ls&lt;/code&gt; 加上一些参数来查看文件大小。但有一次，我从 AWS S3 上下载了将近1000个文件下来，想查看这一千个文件的总大小，用 `ls -lh&#39; 发现只能查看每个文件的大小，而显示的文件夹大小并不是文件夹下所有文件的大小，而且这个文件夹的一些元信息的大小：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/ls_command.jpg&quot; alt=&quot;ls_command.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以查了半天，才找到 du 这个命令，用起来方便多了。&lt;/p&gt;
+
+&lt;p&gt;关于 ls 和 du 这两个命令，我觉得下面这几个帖子值得一看：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://unix.stackexchange.com/questions/55/what-does-size-of-a-directory-mean-in-output-of-ls-l-command&quot;&gt;what-does-size-of-a-directory-mean-in-output-of-ls-l-command&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.sina.com.cn/s/blog_70122437010122m1.html&quot;&gt;file holes/文件黑洞&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;10. tail&lt;/h2&gt;
+
+&lt;p&gt;tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 &quot;-f&quot; 参数后和grep一起使用。&lt;/p&gt;
+
+&lt;h2&gt;11. scp&lt;/h2&gt;
+
+&lt;p&gt;scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。&lt;/p&gt;
+
+&lt;p&gt;以前在windows下开发的时候，和服务器上的文件上传下载都是通过 securcrt 的sz 和 rz命令，现在用 MAC 了，才知道原来还有这样一个好用的命令，真是弱爆了呀。已经有一篇&lt;a href=&quot;http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html&quot;&gt;文章&lt;/a&gt;讲这个命令很详细了，我就简单copy一下，把自己常用的参数含义纪录下来。&lt;/p&gt;
+
+&lt;p&gt;scp [参数] [原路径] [目标路径]&lt;/p&gt;
+
+&lt;p&gt;-B  使用批处理模式（传输过程中不询问传输口令或短语）&lt;br/&gt;
+-C  允许压缩。（将-C标志传递给ssh，从而打开压缩功能）&lt;br/&gt;
+-p 保留原文件的修改时间，访问时间和访问权限。&lt;br/&gt;
+-q  不显示传输进度条。&lt;br/&gt;
+-r  递归复制整个目录。&lt;br/&gt;
+-v 详细方式显示输出。scp和ssh(1)会显示出整个过程的调试信息。这些信息用于调试连接，验证和配置问题。 &lt;br/&gt;
+-F ssh_config  指定一个替代的ssh配置文件，此参数直接传递给ssh。&lt;br/&gt;
+-i identity_file  从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh。  &lt;br/&gt;
+-l limit  限定用户所能使用的带宽，以Kbit/s为单位。   &lt;br/&gt;
+-P port  注意是大写的P, port是指定数据传输用到的端口号&lt;/p&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2014-12-12-linux-commands.md.jpg&quot; alt=&quot;2014-12-12-linux-commands.md&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ibm.com/developerworks/cn/linux/l-vimdiff/&quot;&gt;技巧：Vimdiff 使用&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>如何处理用户手机注册时收不到验证码的问题</title>
@@ -2790,341 +3032,6 @@ if &#39;__main__&#39; == __name__:
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg&quot; alt=&quot;2015-03-12-design-pattern-behavior-pattern.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>book-3. 设计模式总结之创建型模式</title>
-     <link href="/design-pattern-create-pattern"/>
-     <updated>2015-03-11T00:00:00+08:00</updated>
-     <id>/design-pattern-create-pattern</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 抽象工厂模式&lt;/h2&gt;
-
-&lt;p&gt;　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。&lt;/p&gt;
-
-&lt;p&gt;　　举个例子来说，比如一个抽象工厂类叫做DocumentCreator（文档创建器），此类提供创建若干种产品的接口，包括createLetter()（创建邮件）和createResume()（创建简历）。其中，createLetter()返回一个Letter（邮件），createResume()返回一个Resume（简历）。系统中还有一些DocumentCreator的具体实现类，包括FancyDocumentCreator和ModernDocumentCreator。这两个类对DocumentCreator的两个方法分别有不同的实现，用来创建不同的“邮件”和“简历”（用FancyDocumentCreator的实例可以创建FancyLetter和FancyResume，用ModernDocumentCreator的实例可以创建ModernLetter和ModernResume）。这些具体的“邮件”和“简历”类均继承自抽象类，即Letter和Resume类。客户端需要创建“邮件”或“简历”时，先要得到一个合适的DocumentCreator实例，然后调用它的方法。一个工厂中创建的每个对象都是同一个主题的（“fancy”或者“modern”）。客户端程序只需要知道得到的对象是“邮件”或者“简历”，而不需要知道具体的主题，因此客户端程序从抽象工厂DocumentCreator中得到了Letter或Resume类的引用，而不是具体类的对象引用。&lt;/p&gt;
-
-&lt;p&gt;　　“工厂”是创建产品（对象）的地方，其目的是将产品的创建与产品的使用分离。抽象工厂模式的目的，是将若干抽象产品的接口与不同主题产品的具体实现分离开。这样就能在增加新的具体工厂的时候，不用修改引用抽象工厂的客户端代码。&lt;/p&gt;
-
-&lt;p&gt;　　使用抽象工厂模式，能够在具体工厂变化的时候，不用修改使用工厂的客户端代码，甚至是在运行时。然而，使用这种模式或者相似的设计模式，可能给编写代码带来不必要的复杂性和额外的工作。正确使用设计模式能够抵消这样的“额外工作”。&lt;/p&gt;
-
-&lt;h3&gt;1.1 Python 源码示例&lt;/h3&gt;
-
-&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
-
-&quot;&quot;&quot;Implementation of the abstract factory pattern&quot;&quot;&quot;
-
-import random
-
-class PetShop:
-
-    &quot;&quot;&quot;A pet shop&quot;&quot;&quot;
-
-    def __init__(self, animal_factory=None):
-        &quot;&quot;&quot;pet_factory is our abstract factory.  We can set it at will.&quot;&quot;&quot;
-
-        self.pet_factory = animal_factory
-
-    def show_pet(self):
-        &quot;&quot;&quot;Creates and shows a pet using the abstract factory&quot;&quot;&quot;
-
-        pet = self.pet_factory.get_pet()
-        print(&quot;We have a lovely {}&quot;.format(pet))
-        print(&quot;It says {}&quot;.format(pet.speak()))
-        print(&quot;We also have {}&quot;.format(self.pet_factory.get_food()))
-
-
-# Stuff that our factory makes
-
-class Dog:
-
-    def speak(self):
-        return &quot;woof&quot;
-
-    def __str__(self):
-        return &quot;Dog&quot;
-
-
-class Cat:
-
-    def speak(self):
-        return &quot;meow&quot;
-
-    def __str__(self):
-        return &quot;Cat&quot;
-
-
-# Factory classes
-
-class DogFactory:
-
-    def get_pet(self):
-        return Dog()
-
-    def get_food(self):
-        return &quot;dog food&quot;
-
-
-class CatFactory:
-
-    def get_pet(self):
-        return Cat()
-
-    def get_food(self):
-        return &quot;cat food&quot;
-
-# Create the proper family
-def get_factory():
-    &quot;&quot;&quot;Let&#39;s be dynamic!&quot;&quot;&quot;
-    return random.choice([DogFactory, CatFactory])()
-
-
-# Show pets with various factories
-if __name__ == &quot;__main__&quot;:
-    for i in range(3):
-        shop = PetShop(get_factory())
-        shop.show_pet()
-        print(&quot;=&quot; * 20)
-
-### OUTPUT ###
-# We have a lovely Dog
-# It says woof
-# We also have dog food
-# ====================
-# We have a lovely Dog
-# It says woof
-# We also have dog food
-# ====================
-# We have a lovely Cat
-# It says meow
-# We also have cat food
-# ====================
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;2.工厂方法模式&lt;/h2&gt;
-
-&lt;p&gt;　　工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”&lt;/p&gt;
-
-&lt;p&gt;　　创建一个对象常常需要复杂的过程，所以不适合包含在一个复合对象中。创建对象可能会导致大量的重复代码，可能会需要复合对象访问不到的信息，也可能提供不了足够级别的抽象，还可能并不是复合对象概念的一部分。工厂方法模式通过定义一个单独的创建对象的方法来解决这些问题。由子类实现这个方法来创建具体类型的对象。&lt;/p&gt;
-
-&lt;p&gt;　　对象创建中的有些过程包括决定创建哪个对象、管理对象的生命周期，以及管理特定对象的创建和销毁的概念。&lt;/p&gt;
-
-&lt;p&gt;　　如果抛开设计模式的范畴，“工厂方法”这个词也可以指作为“工厂”的方法，这个方法的主要目的就是创建对象，而这个方法不一定在单独的工厂类中。这些方法通常作为静态方法，定义在方法所实例化的类中。&lt;/p&gt;
-
-&lt;p&gt;　　每个工厂方法都有特定的名称。在许多面向对象的编程语言中，构造方法必须和它所在的类具有相同的名称，这样的话，如果有多种创建对象的方式（重载）就可能导致歧义。工厂方法没有这种限制，所以可以具有描述性的名称。举例来说，根据两个实数创建一个复数，而这两个实数表示直角坐标或极坐标，如果使用工厂方法，方法的含义就非常清晰了。当工厂方法起到这种消除歧义的作用时，构造方法常常被设置为私有方法，从而强制客户端代码使用工厂方法创建对象。&lt;/p&gt;
-
-&lt;h3&gt;2.1 Python 源码示例&lt;/h3&gt;
-
-&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/&quot;&quot;&quot;
-
-
-class GreekGetter:
-
-    &quot;&quot;&quot;A simple localizer a la gettext&quot;&quot;&quot;
-
-    def __init__(self):
-        self.trans = dict(dog=&quot;σκύλος&quot;, cat=&quot;γάτα&quot;)
-
-    def get(self, msgid):
-        &quot;&quot;&quot;We&#39;ll punt if we don&#39;t have a translation&quot;&quot;&quot;
-        try:
-            return self.trans[msgid]
-        except KeyError:
-            return str(msgid)
-
-
-class EnglishGetter:
-
-    &quot;&quot;&quot;Simply echoes the msg ids&quot;&quot;&quot;
-
-    def get(self, msgid):
-        return str(msgid)
-
-
-def get_localizer(language=&quot;English&quot;):
-    &quot;&quot;&quot;The factory method&quot;&quot;&quot;
-    languages = dict(English=EnglishGetter, Greek=GreekGetter)
-    return languages[language]()
-
-# Create our localizers
-e, g = get_localizer(language=&quot;English&quot;), get_localizer(language=&quot;Greek&quot;)
-# Localize some text
-for msgid in &quot;dog parrot cat bear&quot;.split():
-    print(e.get(msgid), g.get(msgid))
-
-### OUTPUT ###
-# dog σκύλος
-# parrot parrot
-# cat γάτα
-# bear bear
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3. 单例模式&lt;/h2&gt;
-
-&lt;p&gt;　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。&lt;/p&gt;
-
-&lt;p&gt;　　实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。&lt;/p&gt;
-
-&lt;p&gt;　　单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，有两个线程同时调用创建方法，那么它们同时没有检测到唯一实例的存在，从而同时各自创建了一个实例，这样就有两个实例被构造出来，从而违反了单例模式中实例唯一的原则。 解决这个问题的办法是为指示类是否已经实例化的变量提供一个互斥锁(虽然这样会降低效率)。&lt;/p&gt;
-
-&lt;h3&gt;3.1 Python源码示例&lt;/h3&gt;
-
-&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/ghostfromheaven/article/details/7671853&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#-*- encoding=utf-8 -*-
-print &#39;----------------------方法1--------------------------&#39;
-#方法1,实现__new__方法
-#并在将一个类的实例绑定到类变量_instance上,
-#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回
-#如果cls._instance不为None,直接返回cls._instance
-class Singleton(object):
-    def __new__(cls, *args, **kw):
-        if not hasattr(cls, &#39;_instance&#39;):
-            orig = super(Singleton, cls)
-            cls._instance = orig.__new__(cls, *args, **kw)
-        return cls._instance
-
-class MyClass(Singleton):
-    a = 1
-
-one = MyClass()
-two = MyClass()
-
-two.a = 3
-print one.a
-#3
-#one和two完全相同,可以用id(), ==, is检测
-print id(one)
-#29097904
-print id(two)
-#29097904
-print one == two
-#True
-print one is two
-#True
-
-print &#39;----------------------方法2--------------------------&#39;
-#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)
-#同一个类的所有实例天然拥有相同的行为(方法),
-#只需要保证同一个类的所有实例具有相同的状态(属性)即可
-#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)
-#可参看:http://code.activestate.com/recipes/66531/
-class Borg(object):
-    _state = {}
-    def __new__(cls, *args, **kw):
-        ob = super(Borg, cls).__new__(cls, *args, **kw)
-        ob.__dict__ = cls._state
-        return ob
-
-class MyClass2(Borg):
-    a = 1
-
-one = MyClass2()
-two = MyClass2()
-
-#one和two是两个不同的对象,id, ==, is对比结果可看出
-two.a = 3
-print one.a
-#3
-print id(one)
-#28873680
-print id(two)
-#28873712
-print one == two
-#False
-print one is two
-#False
-#但是one和two具有相同的（同一个__dict__属性）,见:
-print id(one.__dict__)
-#30104000
-print id(two.__dict__)
-#30104000
-
-print &#39;----------------------方法3--------------------------&#39;
-#方法3:本质上是方法1的升级（或者说高级）版
-#使用__metaclass__（元类）的高级python用法
-class Singleton2(type):
-    def __init__(cls, name, bases, dict):
-        super(Singleton2, cls).__init__(name, bases, dict)
-        cls._instance = None
-    def __call__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = super(Singleton2, cls).__call__(*args, **kw)
-        return cls._instance
-
-class MyClass3(object):
-    __metaclass__ = Singleton2
-
-one = MyClass3()
-two = MyClass3()
-
-two.a = 3
-print one.a
-#3
-print id(one)
-#31495472
-print id(two)
-#31495472
-print one == two
-#True
-print one is two
-#True
-
-print &#39;----------------------方法4--------------------------&#39;
-#方法4:也是方法1的升级（高级）版本,
-#使用装饰器(decorator),
-#这是一种更pythonic,更elegant的方法,
-#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的
-def singleton(cls, *args, **kw):
-    instances = {}
-    def _singleton():
-        if cls not in instances:
-            instances[cls] = cls(*args, **kw)
-        return instances[cls]
-    return _singleton
-
-@singleton
-class MyClass4(object):
-    a = 1
-    def __init__(self, x=0):
-        self.x = x
-
-one = MyClass4()
-two = MyClass4()
-
-two.a = 3
-print one.a
-#3
-print id(one)
-#29660784
-print id(two)
-#29660784
-print one == two
-#True
-print one is two
-#True
-one.x = 1
-print one.x
-#1
-print two.x
-#1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg&quot; alt=&quot;2015-03-11-design-pattern-create-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
