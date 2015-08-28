@@ -14,6 +14,13 @@ description: 随时总结，建设自己的技术栈。
 - luigi: 
 - gevent:
 - celery:
+- pandas:
+- numpy:
+- scipy:
+- matplotlib:
+- seabor:
+- mpld3:
+
 
 ## 2. 第三方服务  
 
@@ -28,3 +35,7 @@ description: 随时总结，建设自己的技术栈。
 
 - vagrant：
 - fluentd:
+- sublime:
+- oneNote:
+- iterm + tmux + vim:
+- ansible:
