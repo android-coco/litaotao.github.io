@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-08-26T11:25:30+08:00</updated>
+   <updated>2015-09-01T23:33:07+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -473,175 +473,6 @@ command + k + j: 展开所有函数&lt;/p&gt;
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-26-sublime-key-shortcut.md.jpg&quot; alt=&quot;2015-01-26-sublime-key-shortcut.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>伴我一路走来的那些bug们，你们好</title>
-     <link href="/bugs-in-my-life"/>
-     <updated>2015-06-15T00:00:00+08:00</updated>
-     <id>/bugs-in-my-life</id>
-     <content type="html">&lt;h2&gt;1. failed to write data to stream&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：ipython, OSX&lt;/li&gt;
-&lt;li&gt;操作：在ipython里import 一个pure module&lt;/li&gt;
-&lt;li&gt;问题： Python - ERROR - failed to write data to stream: &lt;open file &#39;&lt;stdout&gt;&#39;, mode &#39;w&#39; at 0x104c8f150&gt;&lt;/li&gt;
-&lt;li&gt;办法：export PYTHONIOENCODING=UTF-8 will solve it.&lt;/li&gt;
-&lt;li&gt;相关：&lt;a href=&quot;http://stackoverflow.com/questions/28115375/python-error-failed-to-write-data-to-stream-open-file-stdout-mode-w&quot;&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;2. Git: fatal: Pathspec is in submodule&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Git&lt;/li&gt;
-&lt;li&gt;操作：git add *&lt;/li&gt;
-&lt;li&gt;问题：有一个github repo [暂且叫father]，其中这个repo里有子module [暂且叫 child]，且这个child也是作为一个独立的github repo存在，我更改了child下的一些文件，然后在father下执行git add，准备在father下直接commit和push，执行git add 的时候出错，提示 &lt;code&gt;Pathspec is in submodule&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;办法：现在child下add，commit和push，然后再到father下add，commit和push；&lt;/li&gt;
-&lt;li&gt;相关：最好的方式是：在child下git branch 一个新的分支，然后在这个分支上修改，然后add，commit，push；修改好child后，再到father下新建一个分支，执行add，commit，push。最后，要merge的时候，也是先merge掉child，然后再merge掉father。因为child作为一个独立的repo，所有的更改都要在child这个独立repo下面做更改，由于项目需要，child作为father的一个子module，不能直接在father里更改child然后再add，commit，push。因为father里的child，只是链接到了child这个独立repo。或者说，father里的child只是独立的child的一个只读镜像。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. DB: (2013, &#39;Lost connection to MySQL server during query&#39;), python decorator, gevent, greenlet, function life cycle&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, Gevent, MySQL&lt;/li&gt;
-&lt;li&gt;操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;(total request times)/(total time in seconds) = 
-10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
-180 * 10^8 / 7200 = 
-0.025 * 10^8 = 
-2.5 * 10^6 = 25 万次请求／每秒
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。&lt;/p&gt;
-
-&lt;p&gt;ok了，场景大概就是这样了。 详情见代码片段 ：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class Test(object):
-    @get_dbc
-    def assign_user_to_exp(self, dbc, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                dbc,
-                user_id,
-                cell_id,
-            )
-            return
-
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;问题：现在的问题是，每次执行 Test().assign_user_to_exp() 时，都会发生错误：(2013, &#39;Lost connection to MySQL server during query&#39;)。&lt;/li&gt;
-&lt;li&gt;办法：装饰器get_dbc换个位置， 如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;class Test(object):
-    def assign_user_to_exp(self, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                user_id,
-                cell_id,
-            )
-            return
-
-    @get_dbc
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;相关：bug的原因是在执行 Test().assign_user_to_exp() 的时候，都先会通过装饰器 get_dbc 去取一个 db 的connection/cursor，然后作为参数传给 async_assign_user_to_exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign_user_to_exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async_assign_user_to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;4. fluentd 启动报错： unexpected error error_class=RuntimeError error=#&amp;lt;RuntimeError: can&#39;t call S3 API. Please check your aws_key_id / aws_sec_key or s3_region configuration. error = #&amp;lt;AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.&gt;&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, fluentd&lt;/li&gt;
-&lt;li&gt;操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;match *.group_ab_testing&amp;gt;
-  type s3
-  aws_key_id ***
-  aws_sec_key ***
-  s3_bucket dev-test-bucket-name
-  path storage_path/
-  time_slice_format %Y/%m/%d/dev/%H
-  buffer_path /mnt/td-agent/temp_file
-  buffer_chunk_limit 10m
-  utc
-&amp;lt;/match&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;问题表现得像是这个aws_key_id和aws_sec_key访问不到，或者访问s3超时，已经排除aws_key_id和aws_sec_key无效的可能性。fluentd配置文件也没有错，于是安装 &lt;code&gt;sudo pip install awscli&lt;/code&gt; awsci 客户端来调试，调试过程如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$aws configure
-AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
-AWS Secret Access Key [None]: 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
-Default region name [None]:
-Default output format [None]:
-aaron@dev-aaron:/etc/td-agent$aws s3 ls
-
-A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了：
-&lt;a href=&quot;http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed&quot;&gt;aws-s3-upload-fails-requesttimetooskewed&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
-* About to connect() to s3.amazonaws.com port 80 (#0)
-*   Trying 54.231.14.248... connected
-&amp;gt; GET / HTTP/1.1
-&amp;gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
-&amp;gt; Host: s3.amazonaws.com
-&amp;gt; Accept: */*
-&amp;gt;
-&amp;lt; HTTP/1.1 307 Temporary Redirect
-&amp;lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
-&amp;lt; x-amz-request-id: 90748BF8849F53E7
-&amp;lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
-&amp;lt; Location: http://aws.amazon.com/s3/
-&amp;lt; Content-Length: 0
-&amp;lt; Server: AmazonS3
-&amp;lt;
-* Connection #0 to host s3.amazonaws.com left intact
-* Closing connection #0
-aaron@dev-aaron:/etc/td-agent$date -u
-Tue Aug  4 04:23:27 UTC 2015
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;办法：重启机器或者同步utc时间即可；&lt;/li&gt;
-&lt;li&gt;相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;5. sublime 配置文件&lt;/h2&gt;
-
-&lt;h2&gt;6. 一次 A/B testing 中遇到的错误&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;场景
-
-&lt;ul&gt;
-&lt;li&gt;操作&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
 </content>
    </entry>
    
@@ -3032,6 +2863,341 @@ if &#39;__main__&#39; == __name__:
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg&quot; alt=&quot;2015-03-12-design-pattern-behavior-pattern.md&quot; /&gt;&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>book-3. 设计模式总结之创建型模式</title>
+     <link href="/design-pattern-create-pattern"/>
+     <updated>2015-03-11T00:00:00+08:00</updated>
+     <id>/design-pattern-create-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 抽象工厂模式&lt;/h2&gt;
+
+&lt;p&gt;　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。&lt;/p&gt;
+
+&lt;p&gt;　　举个例子来说，比如一个抽象工厂类叫做DocumentCreator（文档创建器），此类提供创建若干种产品的接口，包括createLetter()（创建邮件）和createResume()（创建简历）。其中，createLetter()返回一个Letter（邮件），createResume()返回一个Resume（简历）。系统中还有一些DocumentCreator的具体实现类，包括FancyDocumentCreator和ModernDocumentCreator。这两个类对DocumentCreator的两个方法分别有不同的实现，用来创建不同的“邮件”和“简历”（用FancyDocumentCreator的实例可以创建FancyLetter和FancyResume，用ModernDocumentCreator的实例可以创建ModernLetter和ModernResume）。这些具体的“邮件”和“简历”类均继承自抽象类，即Letter和Resume类。客户端需要创建“邮件”或“简历”时，先要得到一个合适的DocumentCreator实例，然后调用它的方法。一个工厂中创建的每个对象都是同一个主题的（“fancy”或者“modern”）。客户端程序只需要知道得到的对象是“邮件”或者“简历”，而不需要知道具体的主题，因此客户端程序从抽象工厂DocumentCreator中得到了Letter或Resume类的引用，而不是具体类的对象引用。&lt;/p&gt;
+
+&lt;p&gt;　　“工厂”是创建产品（对象）的地方，其目的是将产品的创建与产品的使用分离。抽象工厂模式的目的，是将若干抽象产品的接口与不同主题产品的具体实现分离开。这样就能在增加新的具体工厂的时候，不用修改引用抽象工厂的客户端代码。&lt;/p&gt;
+
+&lt;p&gt;　　使用抽象工厂模式，能够在具体工厂变化的时候，不用修改使用工厂的客户端代码，甚至是在运行时。然而，使用这种模式或者相似的设计模式，可能给编写代码带来不必要的复杂性和额外的工作。正确使用设计模式能够抵消这样的“额外工作”。&lt;/p&gt;
+
+&lt;h3&gt;1.1 Python 源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
+
+&quot;&quot;&quot;Implementation of the abstract factory pattern&quot;&quot;&quot;
+
+import random
+
+class PetShop:
+
+    &quot;&quot;&quot;A pet shop&quot;&quot;&quot;
+
+    def __init__(self, animal_factory=None):
+        &quot;&quot;&quot;pet_factory is our abstract factory.  We can set it at will.&quot;&quot;&quot;
+
+        self.pet_factory = animal_factory
+
+    def show_pet(self):
+        &quot;&quot;&quot;Creates and shows a pet using the abstract factory&quot;&quot;&quot;
+
+        pet = self.pet_factory.get_pet()
+        print(&quot;We have a lovely {}&quot;.format(pet))
+        print(&quot;It says {}&quot;.format(pet.speak()))
+        print(&quot;We also have {}&quot;.format(self.pet_factory.get_food()))
+
+
+# Stuff that our factory makes
+
+class Dog:
+
+    def speak(self):
+        return &quot;woof&quot;
+
+    def __str__(self):
+        return &quot;Dog&quot;
+
+
+class Cat:
+
+    def speak(self):
+        return &quot;meow&quot;
+
+    def __str__(self):
+        return &quot;Cat&quot;
+
+
+# Factory classes
+
+class DogFactory:
+
+    def get_pet(self):
+        return Dog()
+
+    def get_food(self):
+        return &quot;dog food&quot;
+
+
+class CatFactory:
+
+    def get_pet(self):
+        return Cat()
+
+    def get_food(self):
+        return &quot;cat food&quot;
+
+# Create the proper family
+def get_factory():
+    &quot;&quot;&quot;Let&#39;s be dynamic!&quot;&quot;&quot;
+    return random.choice([DogFactory, CatFactory])()
+
+
+# Show pets with various factories
+if __name__ == &quot;__main__&quot;:
+    for i in range(3):
+        shop = PetShop(get_factory())
+        shop.show_pet()
+        print(&quot;=&quot; * 20)
+
+### OUTPUT ###
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Cat
+# It says meow
+# We also have cat food
+# ====================
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2.工厂方法模式&lt;/h2&gt;
+
+&lt;p&gt;　　工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”&lt;/p&gt;
+
+&lt;p&gt;　　创建一个对象常常需要复杂的过程，所以不适合包含在一个复合对象中。创建对象可能会导致大量的重复代码，可能会需要复合对象访问不到的信息，也可能提供不了足够级别的抽象，还可能并不是复合对象概念的一部分。工厂方法模式通过定义一个单独的创建对象的方法来解决这些问题。由子类实现这个方法来创建具体类型的对象。&lt;/p&gt;
+
+&lt;p&gt;　　对象创建中的有些过程包括决定创建哪个对象、管理对象的生命周期，以及管理特定对象的创建和销毁的概念。&lt;/p&gt;
+
+&lt;p&gt;　　如果抛开设计模式的范畴，“工厂方法”这个词也可以指作为“工厂”的方法，这个方法的主要目的就是创建对象，而这个方法不一定在单独的工厂类中。这些方法通常作为静态方法，定义在方法所实例化的类中。&lt;/p&gt;
+
+&lt;p&gt;　　每个工厂方法都有特定的名称。在许多面向对象的编程语言中，构造方法必须和它所在的类具有相同的名称，这样的话，如果有多种创建对象的方式（重载）就可能导致歧义。工厂方法没有这种限制，所以可以具有描述性的名称。举例来说，根据两个实数创建一个复数，而这两个实数表示直角坐标或极坐标，如果使用工厂方法，方法的含义就非常清晰了。当工厂方法起到这种消除歧义的作用时，构造方法常常被设置为私有方法，从而强制客户端代码使用工厂方法创建对象。&lt;/p&gt;
+
+&lt;h3&gt;2.1 Python 源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;https://github.com/faif/python-patterns/&quot;&gt;github:python-patterns&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/&quot;&quot;&quot;
+
+
+class GreekGetter:
+
+    &quot;&quot;&quot;A simple localizer a la gettext&quot;&quot;&quot;
+
+    def __init__(self):
+        self.trans = dict(dog=&quot;σκύλος&quot;, cat=&quot;γάτα&quot;)
+
+    def get(self, msgid):
+        &quot;&quot;&quot;We&#39;ll punt if we don&#39;t have a translation&quot;&quot;&quot;
+        try:
+            return self.trans[msgid]
+        except KeyError:
+            return str(msgid)
+
+
+class EnglishGetter:
+
+    &quot;&quot;&quot;Simply echoes the msg ids&quot;&quot;&quot;
+
+    def get(self, msgid):
+        return str(msgid)
+
+
+def get_localizer(language=&quot;English&quot;):
+    &quot;&quot;&quot;The factory method&quot;&quot;&quot;
+    languages = dict(English=EnglishGetter, Greek=GreekGetter)
+    return languages[language]()
+
+# Create our localizers
+e, g = get_localizer(language=&quot;English&quot;), get_localizer(language=&quot;Greek&quot;)
+# Localize some text
+for msgid in &quot;dog parrot cat bear&quot;.split():
+    print(e.get(msgid), g.get(msgid))
+
+### OUTPUT ###
+# dog σκύλος
+# parrot parrot
+# cat γάτα
+# bear bear
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 单例模式&lt;/h2&gt;
+
+&lt;p&gt;　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。&lt;/p&gt;
+
+&lt;p&gt;　　实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。&lt;/p&gt;
+
+&lt;p&gt;　　单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，有两个线程同时调用创建方法，那么它们同时没有检测到唯一实例的存在，从而同时各自创建了一个实例，这样就有两个实例被构造出来，从而违反了单例模式中实例唯一的原则。 解决这个问题的办法是为指示类是否已经实例化的变量提供一个互斥锁(虽然这样会降低效率)。&lt;/p&gt;
+
+&lt;h3&gt;3.1 Python源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/ghostfromheaven/article/details/7671853&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#-*- encoding=utf-8 -*-
+print &#39;----------------------方法1--------------------------&#39;
+#方法1,实现__new__方法
+#并在将一个类的实例绑定到类变量_instance上,
+#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回
+#如果cls._instance不为None,直接返回cls._instance
+class Singleton(object):
+    def __new__(cls, *args, **kw):
+        if not hasattr(cls, &#39;_instance&#39;):
+            orig = super(Singleton, cls)
+            cls._instance = orig.__new__(cls, *args, **kw)
+        return cls._instance
+
+class MyClass(Singleton):
+    a = 1
+
+one = MyClass()
+two = MyClass()
+
+two.a = 3
+print one.a
+#3
+#one和two完全相同,可以用id(), ==, is检测
+print id(one)
+#29097904
+print id(two)
+#29097904
+print one == two
+#True
+print one is two
+#True
+
+print &#39;----------------------方法2--------------------------&#39;
+#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)
+#同一个类的所有实例天然拥有相同的行为(方法),
+#只需要保证同一个类的所有实例具有相同的状态(属性)即可
+#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)
+#可参看:http://code.activestate.com/recipes/66531/
+class Borg(object):
+    _state = {}
+    def __new__(cls, *args, **kw):
+        ob = super(Borg, cls).__new__(cls, *args, **kw)
+        ob.__dict__ = cls._state
+        return ob
+
+class MyClass2(Borg):
+    a = 1
+
+one = MyClass2()
+two = MyClass2()
+
+#one和two是两个不同的对象,id, ==, is对比结果可看出
+two.a = 3
+print one.a
+#3
+print id(one)
+#28873680
+print id(two)
+#28873712
+print one == two
+#False
+print one is two
+#False
+#但是one和two具有相同的（同一个__dict__属性）,见:
+print id(one.__dict__)
+#30104000
+print id(two.__dict__)
+#30104000
+
+print &#39;----------------------方法3--------------------------&#39;
+#方法3:本质上是方法1的升级（或者说高级）版
+#使用__metaclass__（元类）的高级python用法
+class Singleton2(type):
+    def __init__(cls, name, bases, dict):
+        super(Singleton2, cls).__init__(name, bases, dict)
+        cls._instance = None
+    def __call__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = super(Singleton2, cls).__call__(*args, **kw)
+        return cls._instance
+
+class MyClass3(object):
+    __metaclass__ = Singleton2
+
+one = MyClass3()
+two = MyClass3()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#31495472
+print id(two)
+#31495472
+print one == two
+#True
+print one is two
+#True
+
+print &#39;----------------------方法4--------------------------&#39;
+#方法4:也是方法1的升级（高级）版本,
+#使用装饰器(decorator),
+#这是一种更pythonic,更elegant的方法,
+#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的
+def singleton(cls, *args, **kw):
+    instances = {}
+    def _singleton():
+        if cls not in instances:
+            instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return _singleton
+
+@singleton
+class MyClass4(object):
+    a = 1
+    def __init__(self, x=0):
+        self.x = x
+
+one = MyClass4()
+two = MyClass4()
+
+two.a = 3
+print one.a
+#3
+print id(one)
+#29660784
+print id(two)
+#29660784
+print one == two
+#True
+print one is two
+#True
+one.x = 1
+print one.x
+#1
+print two.x
+#1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg&quot; alt=&quot;2015-03-11-design-pattern-create-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
