@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-09-02T19:07:40+08:00</updated>
+   <updated>2015-09-02T19:10:41+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -669,175 +669,6 @@ command + k + j: 展开所有函数&lt;/p&gt;
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-26-sublime-key-shortcut.md.jpg&quot; alt=&quot;2015-01-26-sublime-key-shortcut.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>伴我一路走来的那些bug们，你们好</title>
-     <link href="/bugs-in-my-life"/>
-     <updated>2015-06-15T00:00:00+08:00</updated>
-     <id>/bugs-in-my-life</id>
-     <content type="html">&lt;h2&gt;1. failed to write data to stream&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：ipython, OSX&lt;/li&gt;
-&lt;li&gt;操作：在ipython里import 一个pure module&lt;/li&gt;
-&lt;li&gt;问题： Python - ERROR - failed to write data to stream: &lt;open file &#39;&lt;stdout&gt;&#39;, mode &#39;w&#39; at 0x104c8f150&gt;&lt;/li&gt;
-&lt;li&gt;办法：export PYTHONIOENCODING=UTF-8 will solve it.&lt;/li&gt;
-&lt;li&gt;相关：&lt;a href=&quot;http://stackoverflow.com/questions/28115375/python-error-failed-to-write-data-to-stream-open-file-stdout-mode-w&quot;&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;2. Git: fatal: Pathspec is in submodule&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Git&lt;/li&gt;
-&lt;li&gt;操作：git add *&lt;/li&gt;
-&lt;li&gt;问题：有一个github repo [暂且叫father]，其中这个repo里有子module [暂且叫 child]，且这个child也是作为一个独立的github repo存在，我更改了child下的一些文件，然后在father下执行git add，准备在father下直接commit和push，执行git add 的时候出错，提示 &lt;code&gt;Pathspec is in submodule&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;办法：现在child下add，commit和push，然后再到father下add，commit和push；&lt;/li&gt;
-&lt;li&gt;相关：最好的方式是：在child下git branch 一个新的分支，然后在这个分支上修改，然后add，commit，push；修改好child后，再到father下新建一个分支，执行add，commit，push。最后，要merge的时候，也是先merge掉child，然后再merge掉father。因为child作为一个独立的repo，所有的更改都要在child这个独立repo下面做更改，由于项目需要，child作为father的一个子module，不能直接在father里更改child然后再add，commit，push。因为father里的child，只是链接到了child这个独立repo。或者说，father里的child只是独立的child的一个只读镜像。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;3. DB: (2013, &#39;Lost connection to MySQL server during query&#39;), python decorator, gevent, greenlet, function life cycle&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, Gevent, MySQL&lt;/li&gt;
-&lt;li&gt;操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;(total request times)/(total time in seconds) = 
-10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
-180 * 10^8 / 7200 = 
-0.025 * 10^8 = 
-2.5 * 10^6 = 25 万次请求／每秒
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。&lt;/p&gt;
-
-&lt;p&gt;ok了，场景大概就是这样了。 详情见代码片段 ：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class Test(object):
-    @get_dbc
-    def assign_user_to_exp(self, dbc, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                dbc,
-                user_id,
-                cell_id,
-            )
-            return
-
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;问题：现在的问题是，每次执行 Test().assign_user_to_exp() 时，都会发生错误：(2013, &#39;Lost connection to MySQL server during query&#39;)。&lt;/li&gt;
-&lt;li&gt;办法：装饰器get_dbc换个位置， 如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;class Test(object):
-    def assign_user_to_exp(self, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                user_id,
-                cell_id,
-            )
-            return
-
-    @get_dbc
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&#39;&#39;&#39; there is a sql sentence that refering user_id and cell_id, just leave details here &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;相关：bug的原因是在执行 Test().assign_user_to_exp() 的时候，都先会通过装饰器 get_dbc 去取一个 db 的connection/cursor，然后作为参数传给 async_assign_user_to_exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign_user_to_exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async_assign_user_to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;4. fluentd 启动报错： unexpected error error_class=RuntimeError error=#&amp;lt;RuntimeError: can&#39;t call S3 API. Please check your aws_key_id / aws_sec_key or s3_region configuration. error = #&amp;lt;AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.&gt;&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, fluentd&lt;/li&gt;
-&lt;li&gt;操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;match *.group_ab_testing&amp;gt;
-  type s3
-  aws_key_id ***
-  aws_sec_key ***
-  s3_bucket dev-test-bucket-name
-  path storage_path/
-  time_slice_format %Y/%m/%d/dev/%H
-  buffer_path /mnt/td-agent/temp_file
-  buffer_chunk_limit 10m
-  utc
-&amp;lt;/match&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;问题表现得像是这个aws_key_id和aws_sec_key访问不到，或者访问s3超时，已经排除aws_key_id和aws_sec_key无效的可能性。fluentd配置文件也没有错，于是安装 &lt;code&gt;sudo pip install awscli&lt;/code&gt; awsci 客户端来调试，调试过程如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$aws configure
-AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
-AWS Secret Access Key [None]: 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
-Default region name [None]:
-Default output format [None]:
-aaron@dev-aaron:/etc/td-agent$aws s3 ls
-
-A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了：
-&lt;a href=&quot;http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed&quot;&gt;aws-s3-upload-fails-requesttimetooskewed&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
-* About to connect() to s3.amazonaws.com port 80 (#0)
-*   Trying 54.231.14.248... connected
-&amp;gt; GET / HTTP/1.1
-&amp;gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
-&amp;gt; Host: s3.amazonaws.com
-&amp;gt; Accept: */*
-&amp;gt;
-&amp;lt; HTTP/1.1 307 Temporary Redirect
-&amp;lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
-&amp;lt; x-amz-request-id: 90748BF8849F53E7
-&amp;lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
-&amp;lt; Location: http://aws.amazon.com/s3/
-&amp;lt; Content-Length: 0
-&amp;lt; Server: AmazonS3
-&amp;lt;
-* Connection #0 to host s3.amazonaws.com left intact
-* Closing connection #0
-aaron@dev-aaron:/etc/td-agent$date -u
-Tue Aug  4 04:23:27 UTC 2015
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;办法：重启机器或者同步utc时间即可；&lt;/li&gt;
-&lt;li&gt;相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;5. sublime 配置文件&lt;/h2&gt;
-
-&lt;h2&gt;6. 一次 A/B testing 中遇到的错误&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;场景
-
-&lt;ul&gt;
-&lt;li&gt;操作&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
 </content>
    </entry>
    
@@ -2961,6 +2792,273 @@ if __name__ == &#39;__main__&#39;:
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg&quot; alt=&quot;2015-03-13-design-pattern-structural-pattern.md&quot; /&gt;&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>book-3. 设计模式总结之行为型模式</title>
+     <link href="/design-pattern-behavior-pattern"/>
+     <updated>2015-03-12T00:00:00+08:00</updated>
+     <id>/design-pattern-behavior-pattern</id>
+     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 迭代器模式&lt;/h2&gt;
+
+&lt;p&gt;　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;抽象容器：一般是一个接口，提供一个iterator()方法，例如java中的Collection接口，List接口，Set接口等。&lt;/li&gt;
+&lt;li&gt;具体容器：就是抽象容器的具体实现类，比如List接口的有序列表实现ArrayList，List接口的链表实现LinkList，Set接口的哈希列表的实现HashSet等。&lt;/li&gt;
+&lt;li&gt;抽象迭代器：定义遍历元素所需要的方法，一般来说会有这么三个方法：取得第一个元素的方法first()，取得下一个元素的方法next()，判断是否遍历结束的方法isDone()（或者叫hasNext()），移出当前对象的方法remove(),&lt;/li&gt;
+&lt;li&gt;迭代器实现：实现迭代器接口中定义的方法，完成集合的迭代。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;1.1 Python源码实例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
+Implementation of the iterator pattern with a generator&quot;&quot;&quot;
+
+
+def count_to(count):
+    &quot;&quot;&quot;Counts by word numbers, up to a maximum of five&quot;&quot;&quot;
+    numbers = [&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]
+    # enumerate() returns a tuple containing a count (from start which
+    # defaults to 0) and the values obtained from iterating over sequence
+    for pos, number in zip(range(count), numbers):
+        yield number
+
+# Test the generator
+count_to_two = lambda: count_to(2)
+count_to_five = lambda: count_to(5)
+
+print(&#39;Counting to two...&#39;)
+for number in count_to_two():
+    print(number, end=&#39; &#39;)
+
+print()
+
+print(&#39;Counting to five...&#39;)
+for number in count_to_five():
+    print(number, end=&#39; &#39;)
+
+print()
+
+### OUTPUT ###
+# Counting to two...
+# one two
+# Counting to five...
+# one two three four five
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;2. 观察者模式&lt;/h2&gt;
+
+&lt;p&gt;　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。&lt;/p&gt;
+
+&lt;h3&gt;2.1 Python源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;
+Reference: http://www.slideshare.net/ishraqabd/publish-subscribe-model-overview-13368808
+Author: https://github.com/HanWenfang
+&quot;&quot;&quot;
+
+
+class Provider:
+
+    def __init__(self):
+        self.msg_queue = []
+        self.subscribers = {}
+
+    def notify(self, msg):
+        self.msg_queue.append(msg)
+
+    def subscribe(self, msg, subscriber):
+        if msg not in self.subscribers:
+            self.subscribers[msg] = []
+            self.subscribers[msg].append(subscriber)  # unfair
+        else:
+            self.subscribers[msg].append(subscriber)
+
+    def unsubscribe(self, msg, subscriber):
+        self.subscribers[msg].remove(subscriber)
+
+    def update(self):
+        for msg in self.msg_queue:
+            if msg in self.subscribers:
+                for sub in self.subscribers[msg]:
+                    sub.run(msg)
+        self.msg_queue = []
+
+
+class Publisher:
+
+    def __init__(self, msg_center):
+        self.provider = msg_center
+
+    def publish(self, msg):
+        self.provider.notify(msg)
+
+
+class Subscriber:
+
+    def __init__(self, name, msg_center):
+        self.name = name
+        self.provider = msg_center
+
+    def subscribe(self, msg):
+        self.provider.subscribe(msg, self)
+
+    def run(self, msg):
+        print(&quot;{} got {}&quot;.format(self.name, msg))
+
+
+def main():
+    message_center = Provider()
+
+    fftv = Publisher(message_center)
+
+    jim = Subscriber(&quot;jim&quot;, message_center)
+    jim.subscribe(&quot;cartoon&quot;)
+    jack = Subscriber(&quot;jack&quot;, message_center)
+    jack.subscribe(&quot;music&quot;)
+    gee = Subscriber(&quot;gee&quot;, message_center)
+    gee.subscribe(&quot;movie&quot;)
+
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;music&quot;)
+    fftv.publish(&quot;ads&quot;)
+    fftv.publish(&quot;movie&quot;)
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;cartoon&quot;)
+    fftv.publish(&quot;movie&quot;)
+    fftv.publish(&quot;blank&quot;)
+
+    message_center.update()
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+
+### OUTPUT ###
+# jim got cartoon
+# jack got music
+# gee got movie
+# jim got cartoon
+# jim got cartoon
+# gee got movie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 策略模式&lt;/h2&gt;
+
+&lt;p&gt;　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。&lt;/p&gt;
+
+&lt;h3&gt;3.1 Python 源码示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;class Duck(object):
+    # 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类
+    def __init__(self, strategy=None):
+        self.action = None
+        self.count = 0
+        if strategy:
+            # 指定策略，那么执行action就是用这个类的实例
+            self.action = strategy()
+
+    def fly(self, kind):
+        if self.action:
+            self.count += 1
+            # 这里的第二个参数self，算是炫技吧，就是为了让操作的方法获得这里计算好的count
+            return self.action.fly(kind, self)
+
+        else:
+            raise UnboundLocalError(&#39;Exception raised, no strategyClass supplied to Duck!&#39;)
+
+# 注意这里没有继承Duck，因为是以参数的方式传入类名
+class Duck1(object):
+
+    def fly(self, kind, instance):
+        return &#39;Duck1 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
+
+
+class Duck2(object):
+
+    def fly(self, kind, instance):
+        return &#39;Duck2 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
+
+
+if __name__ == &#39;__main__&#39;:
+    duckfly = Duck()
+    duck1fly = Duck(strategy=Duck1)
+    duck2fly = Duck(strategy=Duck2)
+
+    try:
+        print duckfly.fly(&#39;yes&#39;)
+    except Exception as e:
+        print &quot;The following exception was expected:&quot;
+        print e
+
+    print duck1fly.fly(&#39;yes&#39;)
+    print duck1fly.fly(&#39;no&#39;)
+    print duck1fly.fly(&#39;yes&#39;)
+    print duck2fly.fly(&#39;yes&#39;)
+    print duck2fly.fly(&#39;no&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;4. 模板方法模式&lt;/h2&gt;
+
+&lt;p&gt;　　模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。在软件工程中，它是一种软件设计模式，和C++模板没有关连。也可以理解为定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。因此模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定变量。优点是把不变行为搬移到超类，去除子类中的重复代码。&lt;/p&gt;
+
+&lt;h3&gt;4.1 Python源码示例&lt;/h3&gt;
+
+&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/five3/article/details/7564578&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python  
+#encoding: utf-8  
+
+class template:
+    def __init__(self):
+        pass
+
+    def logic(self):
+        print &#39;do something before ....&#39;
+        print self.do_something_now()
+        print &#39;do something after ....&#39;
+
+    def do_something_now(self):
+        return None      
+
+class apply_temp1(template):
+    def __init__(self):
+        pass
+
+    def do_something_now(self):
+        return &#39;apply 1&#39;  
+
+class apply_temp2(template):
+    def __init__(self):
+        pass
+
+    def do_something_now(self):
+        return &#39;apply 2&#39;  
+
+
+if &#39;__main__&#39; == __name__:  
+    obj1 = apply_temp1()
+    obj2 = apply_temp2()
+    obj1.logic()
+    obj2.logic()
+    print obj1.__class__
+    print obj2.__class__
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg&quot; alt=&quot;2015-03-12-design-pattern-behavior-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
