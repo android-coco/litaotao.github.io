@@ -25,13 +25,209 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-08-26T11:25:30+08:00</updated>
+   <updated>2015-09-02T19:07:40+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>［touch spark］8. 当Ipython Notebook遇见Spark 1， 安装配置篇</title>
+     <link href="/ipython-notebook-server-spark"/>
+     <updated>2015-08-27T00:00:00+08:00</updated>
+     <id>/ipython-notebook-server-spark</id>
+     <content type="html">&lt;p&gt;注：和本文相关的资料和文件都放到Github上了：&lt;a href=&quot;https://github.com/litaotao/ipython-notebook-spark&quot;&gt;ipython-notebook-spark&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
+
+&lt;h2&gt;1. 致谢&lt;/h2&gt;
+
+&lt;p&gt;　　首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.&lt;br/&gt;
+　　下面是这两个项目的github地址：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。 &lt;br/&gt;
+　　但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
+
+&lt;h2&gt;2. 路线规划&lt;/h2&gt;
+
+&lt;p&gt;　　基于 &lt;a href=&quot;http://www.databricks.com/&quot;&gt;Databricks&lt;/a&gt;，&lt;a href=&quot;zeppelin-project.org&quot;&gt;Zeppelin&lt;/a&gt; 和 &lt;a href=&quot;www.gethue.com&quot;&gt;Hue&lt;/a&gt; 的启发，我也想尝试搭建一个丰富可用的在线大数据REPL分析平台，正好用此机会好好实践一下spark，毕竟都学习spark几个月了呢。 &lt;br/&gt;
+　　不说废话，同&lt;a href=&quot;../weibo-api-in-action&quot;&gt;使用spark分析微博数据那篇博文一样&lt;/a&gt;，我们也要有一个路线规划：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;因为考虑到公司的data scientist很喜欢R，所以也在我们的ipython notebook环境里加入r kernel；&lt;/li&gt;
+&lt;li&gt;搭建一个可多用户使用的，并且各个用户互相独立的环境［至少让用户A不能读取到用户B的文件吧］；&lt;/li&gt;
+&lt;li&gt;结合丰富的开源包，能做到在线，实时的数据分析和共享分析报告；&lt;/li&gt;
+&lt;li&gt;底层接入了spark集群，支持在notebook做基于spark对大数据分析；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　Dream：在国庆前完成至少前3步，that&#39;s really full or chanllenge, but more funny. &lt;strong&gt;Anyway, we need dreams, and I can&#39;t wait to make this dream into reality.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/dreams.jpg&quot; alt=&quot;dreams&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;　　这篇主要记录我在实现第一步的过程中遇到的主要步骤，遇到的问题和解决方法：搭建一个可多用户隔离使用的，能做丰富的大数据在线分析和分享对，并且底层接入了spark集群的Ipython Notebook Server。&lt;/p&gt;
+
+&lt;h2&gt;3. 安装Ipython&lt;/h2&gt;
+
+&lt;p&gt;　　使用 &lt;code&gt;sudo pip install ipython==3.2.0&lt;/code&gt; 来安装ipython 3.2.0 版本，本来打算用和jupyter分离后的ipython 4.0.0的，但是一下子要配置ipython和jupyter，赶紧有点乱，而且ipython 4.0.0 似乎也仅仅是吧notebook分离到jupyter，并没有什么大的改动，所以就先用3.2.0了，短期内应该不会有升级的安排。&lt;/p&gt;
+
+&lt;p&gt;　　安装好之后试试运行下 ipython，看看似乎有错，如果出现下面的错误的话，把 &lt;code&gt;/usr/local/lib/python2.7/dist-packages/IPython/external/path/__init__.py&lt;/code&gt; 里的 &lt;code&gt;from path import *&lt;/code&gt; 改成 &lt;code&gt;from _path import *&lt;/code&gt; 即可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Traceback (most recent call last):
+  File &quot;/usr/local/bin/ipython&quot;, line 7, in &amp;lt;module&amp;gt;
+    from IPython import start_ipython
+  File &quot;/usr/local/lib/python2.7/dist-packages/IPython/__init__.py&quot;, line 45, in &amp;lt;module&amp;gt;
+    from .config.loader import Config
+  File &quot;/usr/local/lib/python2.7/dist-packages/IPython/config/__init__.py&quot;, line 6, in &amp;lt;module&amp;gt;
+    from .application import *
+  File &quot;/usr/local/lib/python2.7/dist-packages/IPython/config/application.py&quot;, line 19, in &amp;lt;module&amp;gt;
+    from IPython.config.configurable import SingletonConfigurable
+  File &quot;/usr/local/lib/python2.7/dist-packages/IPython/config/configurable.py&quot;, line 14, in &amp;lt;module&amp;gt;
+    from IPython.utils.text import indent, wrap_paragraphs
+  File &quot;/usr/local/lib/python2.7/dist-packages/IPython/utils/text.py&quot;, line 28, in &amp;lt;module&amp;gt;
+    from IPython.external.path import path
+ImportError: cannot import name path
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;3. 配置Ipython&lt;/h2&gt;
+
+&lt;h3&gt;3.1: ipython 配置名profile介绍&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;profile 命令说明&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　profile是ipython的一个子命令，其中profile又有三个子命令，分别是locate，create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aaron@dev-chad:~/ipython-notebook-spark$ipython profile
+Subcommands
+-----------
+
+Subcommands are launched as `ipython profile cmd [args]`. For information on
+using subcommand &#39;cmd&#39;, do: `ipython profile cmd -h`.
+
+locate
+    print the path to an IPython profile dir
+create
+    Create an IPython profile by name
+list
+    List available IPython profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;创建配置文件&lt;/p&gt;
+
+&lt;p&gt;  aaron@dev-chad:~/ipython-notebook-spark$ipython profile create bigdata
+  [ProfileCreate] Generating default config file: u&#39;/home/aaron/.ipython/profile_bigdata/ipython_console_config.py&#39;
+  [ProfileCreate] Generating default config file: u&#39;/home/aaron/.ipython/profile_bigdata/ipython_notebook_config.py&#39;
+  [ProfileCreate] Generating default config file: u&#39;/home/aaron/.ipython/profile_bigdata/ipython_nbconvert_config.py&#39;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;3.3 编辑配置文件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;编辑ipython_notebook_config.py&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;    c = get_config()
+
+    c.NotebookApp.ip = &#39;*&#39;
+
+    # 本想指定每次都在一个专有的目录启动notebook server的，可是这样设置还是不行，这样设置后每次打开启动notebook server 的路径是
+    # 当前路径 ＋ u&#39;home/aaron/notebooks&#39;，完全达不到我想要的效果，所以暂时注释啦。
+    # c.NotebookApp.notebook_dir = u&#39;home/aaron/notebooks&#39;
+
+    c.NotebookApp.open_browser = False
+
+    c.NotebookApp.port = 8880 # or whatever you want, make sure the port is available  
+
+    # 
+    # c.NotebookApp.pylab = &#39;inline&#39; 已经被弃用了，官方推荐在notebook中显示指定，不过下面的这个配置依然可以使用的，
+    # 我的建议是，先这样使用，然后在以后写到启动的配置文件里去，并且在每一个新建的 notebook 中都能有显式说明。
+    c.IPKernelApp.matplotlib = &#39;inline&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置访问密码&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　如果你的notebook server是需要访问控制的，简单的话可以设置一个访问密码。听说Ipython 2.x 版本有用户访问控制，这里我还没有接触过，晚点会看看是否有成熟的可用的用户控制方案。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+ 生成密码文件  
+这里我们用python自带的密码包生成一个密码，然后再把这个密码重定向到nvpasswd.txt文件里。注意这里重定向的路径哦。
++ 编辑配置文件，设置读取密码文件配置项
+这里有一个需要注意的，就是PWDFILE的设置，一开始我设置为 `~/.config/ipython/profile_pytest/nbpasswd.txt`，但是启动ipython notebook server的时候老师报错，说找不到密码文件nbpasswd.txt，很奇怪，明明文件就是在的，可就是提示找不到。无奈我到nbpasswd.txt路径下用 pwd 打印当前路径，显示为 `root/.config/ipython/profile_pytest/nbpasswd.txt`，可是这两个路径应该是一样的啊。无奈之下，死马当作活马医，我就把PWDFILE设置成为 `root/.config/ipython/profile_pytest/nbpasswd.txt`，没想到这样还成功了。关于这点为什么会有效，目前我还不是很清楚，等我请教了公司大神后再补上这一个tip吧。
+
+示例如下：  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;aaron@dev-chad:~/ipython-notebook-spark$python -c &#39;from IPython.lib import passwd; print passwd()&#39;
+Enter password:
+Verify password:
+sha1:eee72d659d34:bc7cf7fc26700b28eaa16bb8a8ce846fa35084de
+
+root@ubuntu2[09:49:09]:~/Desktop#vi /root/.config/ipython/profile_pytest/ipython_notebook_config.py 
+
+c.NotebookApp.password = u&#39;sha1:eee72d659d34:bc7cf7fc26700b28eaa16bb8a8ce846fa35084de&#39;  # copy your encoded password here 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置启动文件&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;　　这个设置非常好用，在每个ipython的配置路径下，都有一个startup的文件夹，里面你可以写一些脚本，这些脚本都是在启动ipython notebook server之前被执行的，并且是全局的。有两个好处：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;脚本的执行是有序的，具体可以参考下面的写法文档&lt;/li&gt;
+&lt;li&gt;影响是全局的，也就是说如果你在一个脚本里定义了一个变量a，那在所有新建的notebook中这个变量a都是已经创建了的；但这也许也是一个缺点吧，anyway，看你怎么用了；&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code&gt;This is the IPython startup directory
+
+.py and .ipy files in this directory will be run *prior* to any code or files specified
+via the exec_lines or exec_files configurables whenever you load this profile.
+Files will be run in lexicographical order, so you can control the execution order of files
+with a prefix, e.g.::
+    00-first.py
+    50-middle.py
+    99-last.ipy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　原本打算在启动文件里写入一些package import和设置相关的脚步的，但是我想这样的话会造成一些误解，特别是当你分享notebook的时候，别人都不知道你事先导入了哪些package，会让人感到很迷惑。而且，我认为在每一个notebook的第一个cell里把改notebook里所需要的package和package setting注明是一个非常好的习惯，所有启动脚本就先不用了。&lt;/p&gt;
+
+&lt;h2&gt;3. 安装R, 配置IRkernel&lt;/h2&gt;
+
+&lt;p&gt;　　关于如何安装R，请参考：&lt;a href=&quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&quot;&gt;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&lt;/a&gt;
+　　关于如何安装配置IRkernel，请参考：&lt;a href=&quot;https://github.com/IRkernel/IRkernel&quot;&gt;https://github.com/IRkernel/IRkernel&lt;/a&gt;
+　　好吧，我承认了，我现在这台服务器上之前就有人装过R和IRkernel了，具体怎么配置我也不想花时间去研究，因为实在不喜欢R，不要问我为什么不喜欢。“喜欢一个人不需要理由”，不喜欢一个东西有时候也不需要理由啊～&lt;/p&gt;
+
+&lt;h2&gt;4. 总结&lt;/h2&gt;
+
+&lt;p&gt;　　好了，环境算是基本搭建好了，github还没怎么更新，因为不能把公司相关的信息透露出来，所以commit的时候都需要谨慎一点。下一步，我们就来看看怎么让多个用户有个独立的 IPython 开发环境吧。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/a-good-start.jpg&quot; alt=&quot;a-good-start.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;扫一扫&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-27-ipython-notebook-server-spark.md.jpg&quot; alt=&quot;2015-01-27-ipython-notebook-server-spark.md&quot; /&gt;&lt;/p&gt;
+</content>
+   </entry>
    
    <entry>
      <title>我常用到的linux命令</title>
@@ -2765,273 +2961,6 @@ if __name__ == &#39;__main__&#39;:
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg&quot; alt=&quot;2015-03-13-design-pattern-structural-pattern.md&quot; /&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>book-3. 设计模式总结之行为型模式</title>
-     <link href="/design-pattern-behavior-pattern"/>
-     <updated>2015-03-12T00:00:00+08:00</updated>
-     <id>/design-pattern-behavior-pattern</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
-
-&lt;h2&gt;1. 迭代器模式&lt;/h2&gt;
-
-&lt;p&gt;　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;抽象容器：一般是一个接口，提供一个iterator()方法，例如java中的Collection接口，List接口，Set接口等。&lt;/li&gt;
-&lt;li&gt;具体容器：就是抽象容器的具体实现类，比如List接口的有序列表实现ArrayList，List接口的链表实现LinkList，Set接口的哈希列表的实现HashSet等。&lt;/li&gt;
-&lt;li&gt;抽象迭代器：定义遍历元素所需要的方法，一般来说会有这么三个方法：取得第一个元素的方法first()，取得下一个元素的方法next()，判断是否遍历结束的方法isDone()（或者叫hasNext()），移出当前对象的方法remove(),&lt;/li&gt;
-&lt;li&gt;迭代器实现：实现迭代器接口中定义的方法，完成集合的迭代。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h3&gt;1.1 Python源码实例&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-&quot;&quot;&quot;http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
-Implementation of the iterator pattern with a generator&quot;&quot;&quot;
-
-
-def count_to(count):
-    &quot;&quot;&quot;Counts by word numbers, up to a maximum of five&quot;&quot;&quot;
-    numbers = [&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]
-    # enumerate() returns a tuple containing a count (from start which
-    # defaults to 0) and the values obtained from iterating over sequence
-    for pos, number in zip(range(count), numbers):
-        yield number
-
-# Test the generator
-count_to_two = lambda: count_to(2)
-count_to_five = lambda: count_to(5)
-
-print(&#39;Counting to two...&#39;)
-for number in count_to_two():
-    print(number, end=&#39; &#39;)
-
-print()
-
-print(&#39;Counting to five...&#39;)
-for number in count_to_five():
-    print(number, end=&#39; &#39;)
-
-print()
-
-### OUTPUT ###
-# Counting to two...
-# one two
-# Counting to five...
-# one two three four five
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;2. 观察者模式&lt;/h2&gt;
-
-&lt;p&gt;　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。&lt;/p&gt;
-
-&lt;h3&gt;2.1 Python源码示例&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-&quot;&quot;&quot;
-Reference: http://www.slideshare.net/ishraqabd/publish-subscribe-model-overview-13368808
-Author: https://github.com/HanWenfang
-&quot;&quot;&quot;
-
-
-class Provider:
-
-    def __init__(self):
-        self.msg_queue = []
-        self.subscribers = {}
-
-    def notify(self, msg):
-        self.msg_queue.append(msg)
-
-    def subscribe(self, msg, subscriber):
-        if msg not in self.subscribers:
-            self.subscribers[msg] = []
-            self.subscribers[msg].append(subscriber)  # unfair
-        else:
-            self.subscribers[msg].append(subscriber)
-
-    def unsubscribe(self, msg, subscriber):
-        self.subscribers[msg].remove(subscriber)
-
-    def update(self):
-        for msg in self.msg_queue:
-            if msg in self.subscribers:
-                for sub in self.subscribers[msg]:
-                    sub.run(msg)
-        self.msg_queue = []
-
-
-class Publisher:
-
-    def __init__(self, msg_center):
-        self.provider = msg_center
-
-    def publish(self, msg):
-        self.provider.notify(msg)
-
-
-class Subscriber:
-
-    def __init__(self, name, msg_center):
-        self.name = name
-        self.provider = msg_center
-
-    def subscribe(self, msg):
-        self.provider.subscribe(msg, self)
-
-    def run(self, msg):
-        print(&quot;{} got {}&quot;.format(self.name, msg))
-
-
-def main():
-    message_center = Provider()
-
-    fftv = Publisher(message_center)
-
-    jim = Subscriber(&quot;jim&quot;, message_center)
-    jim.subscribe(&quot;cartoon&quot;)
-    jack = Subscriber(&quot;jack&quot;, message_center)
-    jack.subscribe(&quot;music&quot;)
-    gee = Subscriber(&quot;gee&quot;, message_center)
-    gee.subscribe(&quot;movie&quot;)
-
-    fftv.publish(&quot;cartoon&quot;)
-    fftv.publish(&quot;music&quot;)
-    fftv.publish(&quot;ads&quot;)
-    fftv.publish(&quot;movie&quot;)
-    fftv.publish(&quot;cartoon&quot;)
-    fftv.publish(&quot;cartoon&quot;)
-    fftv.publish(&quot;movie&quot;)
-    fftv.publish(&quot;blank&quot;)
-
-    message_center.update()
-
-
-if __name__ == &quot;__main__&quot;:
-    main()
-
-### OUTPUT ###
-# jim got cartoon
-# jack got music
-# gee got movie
-# jim got cartoon
-# jim got cartoon
-# gee got movie
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;3. 策略模式&lt;/h2&gt;
-
-&lt;p&gt;　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。&lt;/p&gt;
-
-&lt;h3&gt;3.1 Python 源码示例&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;class Duck(object):
-    # 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类
-    def __init__(self, strategy=None):
-        self.action = None
-        self.count = 0
-        if strategy:
-            # 指定策略，那么执行action就是用这个类的实例
-            self.action = strategy()
-
-    def fly(self, kind):
-        if self.action:
-            self.count += 1
-            # 这里的第二个参数self，算是炫技吧，就是为了让操作的方法获得这里计算好的count
-            return self.action.fly(kind, self)
-
-        else:
-            raise UnboundLocalError(&#39;Exception raised, no strategyClass supplied to Duck!&#39;)
-
-# 注意这里没有继承Duck，因为是以参数的方式传入类名
-class Duck1(object):
-
-    def fly(self, kind, instance):
-        return &#39;Duck1 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
-
-
-class Duck2(object):
-
-    def fly(self, kind, instance):
-        return &#39;Duck2 fly kind: &#39; + kind + &#39;#&#39; + str(instance.count)
-
-
-if __name__ == &#39;__main__&#39;:
-    duckfly = Duck()
-    duck1fly = Duck(strategy=Duck1)
-    duck2fly = Duck(strategy=Duck2)
-
-    try:
-        print duckfly.fly(&#39;yes&#39;)
-    except Exception as e:
-        print &quot;The following exception was expected:&quot;
-        print e
-
-    print duck1fly.fly(&#39;yes&#39;)
-    print duck1fly.fly(&#39;no&#39;)
-    print duck1fly.fly(&#39;yes&#39;)
-    print duck2fly.fly(&#39;yes&#39;)
-    print duck2fly.fly(&#39;no&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;4. 模板方法模式&lt;/h2&gt;
-
-&lt;p&gt;　　模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。在软件工程中，它是一种软件设计模式，和C++模板没有关连。也可以理解为定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。因此模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定变量。优点是把不变行为搬移到超类，去除子类中的重复代码。&lt;/p&gt;
-
-&lt;h3&gt;4.1 Python源码示例&lt;/h3&gt;
-
-&lt;p&gt;　　源码来自&lt;a href=&quot;http://blog.csdn.net/five3/article/details/7564578&quot;&gt;csdn.net&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python  
-#encoding: utf-8  
-
-class template:
-    def __init__(self):
-        pass
-
-    def logic(self):
-        print &#39;do something before ....&#39;
-        print self.do_something_now()
-        print &#39;do something after ....&#39;
-
-    def do_something_now(self):
-        return None      
-
-class apply_temp1(template):
-    def __init__(self):
-        pass
-
-    def do_something_now(self):
-        return &#39;apply 1&#39;  
-
-class apply_temp2(template):
-    def __init__(self):
-        pass
-
-    def do_something_now(self):
-        return &#39;apply 2&#39;  
-
-
-if &#39;__main__&#39; == __name__:  
-    obj1 = apply_temp1()
-    obj2 = apply_temp2()
-    obj1.logic()
-    obj2.logic()
-    print obj1.__class__
-    print obj2.__class__
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg&quot; alt=&quot;2015-03-12-design-pattern-behavior-pattern.md&quot; /&gt;&lt;/p&gt;
 </content>
    </entry>
    
