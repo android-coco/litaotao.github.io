@@ -71,11 +71,31 @@ select 数据的时候不仅仅可以写字段名，还可以进行一些简单�
 SELECT city, (temp_hi+temp_lo)/2 AS temp_avg, date FROM weather;
 ```
 
+select 后可以直接加数字，表示要查找多少条数据，这也是一种sql优化的方式哦。
+
+```
+// 没有效率的：
+$r = mysql_query("SELECT * FROM user WHERE country = 'China'");
+if (mysql_num_rows($r) > 0) {
+    // ...
+}
+ 
+// 有效率的：
+$r = mysql_query("SELECT 1 FROM user WHERE country = 'China' LIMIT 1");
+if (mysql_num_rows($r) > 0) {
+    // ...
+}
+```
+
 ### 2.1 表连接  
 
 查询可以一次访问多个表， 或者用某种方式访问一个表，而同时处理该表的多个行。一个同时访问同一个或 者不同表的多个行的查询叫连接查询。
 
 连接有单表内的自连接，多表间的外连接，全连接。
+
+关于表连接，我觉得W3C的这几篇基础教程很好: [w3c sql join](http://www.w3school.com.cn/sql/sql_join.asp)
+
+因为表连接是一件很耗资源的事情，所以在看这章的时候我也看了一篇讲mysql性能优化的文章，虽然不是针对表连接性能分析的，但我觉得也还是挺有用的，推荐一下。[MySQL性能优化的最佳20+条经验](http://coolshell.cn/articles/1846.html)
 
 ### 2.2 聚合函数
 
