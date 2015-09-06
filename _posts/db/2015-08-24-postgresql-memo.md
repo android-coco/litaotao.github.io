@@ -104,7 +104,7 @@ if (mysql_num_rows($r) > 0) {
 聚合函数不能用于WHERE子句中。存在这个限制是因为WHERE子句决定哪些行可以进入聚合阶段； 因此它必需在聚合函数之前计算。
 
 理解聚合和SQL的WHERE和HAVING 子句之间的关系非常重要。WHERE和HAVING的基本区别如下： WHERE在分组和聚合计算之前选取输入行(它控制哪些行进入聚合计算)， 而HAVING在分组和聚合之后选取输出行。因此，WHERE 子句不能包含聚合函数；因为试图用聚合函数判断那些行将要输入给聚合运算是没有意义的。 相反，HAVING子句总是包含聚合函数。当然，你可以写不使用聚合的HAVING 子句，但这样做没什么好处，因为同样的条件用在WHERE阶段会更有效。 如下：   
-
+这里有常见的几个聚合函数的说明：[SQL Aggregate Functions](http://www.w3schools.com/sql/sql_functions.asp)
 ```
 SELECT city, max(temp_lo)
     FROM weather
@@ -172,9 +172,12 @@ SELECT depname, empno, salary, avg(salary) OVER (PARTITION BY depname) FROM emps
 ```
 
 
+## 参考文档
 
-
-
+- [postgresql 9.3 中文文档](http://58.58.27.50:8079/doc/html/9.3.1_zh/index.html)
+- [MySQL性能优化的最佳20+条经验](http://coolshell.cn/articles/1846.html)
+- [w3c sql join](http://www.w3school.com.cn/sql/sql_join.asp)
+- [SQL Aggregate Functions](http://www.w3schools.com/sql/sql_functions.asp)
 
 
 
