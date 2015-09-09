@@ -172,7 +172,6 @@ CREATE TABLE weather (
 PostgreSQL 实际上把每个 SQL 语句当做在一个事务中执行来看待。 如果你没有发出BEGIN命令，那么每个独立的语句都被一个隐含的BEGIN 和(如果成功的话)COMMIT包围。一组包围在BEGIN和COMMIT 之间的语句有时候被称做事务块。
 
 
-
 ### 3.5 窗口函数  
 
 
@@ -197,6 +196,17 @@ SELECT depname, empno, salary, avg(salary) OVER (PARTITION BY depname) FROM emps
  sales     |     4 |   4800 | 4866.6666666666666667
 (10 rows)
 ```
+
+## 4. SQL 语法
+
+### 4.1 词法结构 
+
+- 关键字列表: [sql关键字](http://www.postgres.cn/docs/9.3/sql-keywords-appendix.html)
+- 一种好习惯是把关键字写成大写，而名字等用小写：
+
+
+## 5. 数据定义
+
 
 
 ## 参考文档

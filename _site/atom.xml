@@ -25,7 +25,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-09-06T23:16:29+08:00</updated>
+   <updated>2015-09-09T17:23:42+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -234,7 +234,9 @@ with a prefix, e.g.::
      <link href="/linux-commands"/>
      <updated>2015-08-12T00:00:00+08:00</updated>
      <id>/linux-commands</id>
-     <content type="html">&lt;h2&gt;&lt;/h2&gt;
+     <content type="html">&lt;p&gt;无意间发现这本在线书籍挺好的：&lt;a href=&quot;http://linuxtools-rst.readthedocs.org/zh_CN/latest/&quot;&gt;Linux工具快速教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
 
 &lt;h2&gt;1. ps&lt;/h2&gt;
 
@@ -457,6 +459,10 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 -i identity_file  从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh。  &lt;br/&gt;
 -l limit  限定用户所能使用的带宽，以Kbit/s为单位。   &lt;br/&gt;
 -P port  注意是大写的P, port是指定数据传输用到的端口号&lt;/p&gt;
+
+&lt;h2&gt;12. wc&lt;/h2&gt;
+
+&lt;p&gt;wc -- word, line, character, and byte count&lt;/p&gt;
 
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 

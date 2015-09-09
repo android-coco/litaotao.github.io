@@ -6,6 +6,10 @@ title: 我常用到的linux命令
 description: 记录我80%时间里用到的那些linux命令～
 ---  
 
+
+无意间发现这本在线书籍挺好的：[Linux工具快速教程](http://linuxtools-rst.readthedocs.org/zh_CN/latest/)
+
+
 ##  
 ## 1. ps
 　　Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。  
@@ -213,6 +217,10 @@ scp [参数] [原路径] [目标路径]
 -l limit  限定用户所能使用的带宽，以Kbit/s为单位。     
 -P port  注意是大写的P, port是指定数据传输用到的端口号   
 
+
+## 12. wc
+
+wc -- word, line, character, and byte count
 
 
 ## 扫一扫     
