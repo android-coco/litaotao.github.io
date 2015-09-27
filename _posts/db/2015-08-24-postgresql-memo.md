@@ -261,7 +261,9 @@ DELETE FROM products WHERE price = 10;
 
 
 
+## 相关经验总结
 
+### 1. 临时表的应用
 
 
 

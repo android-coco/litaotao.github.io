@@ -130,6 +130,10 @@ command + k + j: 展开所有函数
 
 如果不work，查看： edit -> code foldingcd 'dkaf'
 
+## 21. 复制粘贴整行  
+
+command + shift + d: 复制光标所在整行，并粘贴到下一行。
+
 
 ## 扫一扫     
 

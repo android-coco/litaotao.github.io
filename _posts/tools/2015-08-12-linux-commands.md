@@ -223,6 +223,12 @@ scp [参数] [原路径] [目标路径]
 wc -- word, line, character, and byte count
 
 
+## 13. mkdir
+
+## 14. tar
+
+
+
 ## 扫一扫     
 
 ![2014-12-12-linux-commands.md](../../images/share/2014-12-12-linux-commands.md.jpg)
