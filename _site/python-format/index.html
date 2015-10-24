@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Python format 笔记 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  body { background:transparent; }
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/python-format" title="Python format 笔记">Python format 笔记</a></h1>
+
+    <p class="entry-date">2015-10-24 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-24-python-format.md">最后更新时间: </span></p>
+
+    <h2>1. 位置参数</h2>
+
+<p>字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
+值得注意的是，<code>位置可以不按顺序，可以不用或者用多次</code>，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。   </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">In [1]: &#39;{0},{1}&#39;.format(&#39;kzc&#39;,18)  
+Out[1]: &#39;kzc,18&#39;  
+In [2]: &#39;{},{}&#39;.format(&#39;kzc&#39;,18)  
+Out[2]: &#39;kzc,18&#39;  
+In [3]: &#39;{1},{0},{1}&#39;.format(&#39;kzc&#39;,18)  
+Out[3]: &#39;18,kzc,18&#39;
+
+# more powerful
+
+In [7]: p=[&#39;kzc&#39;,18]
+In [8]: &#39;{0[0]},{0[1]}&#39;.format(p)
+Out[8]: &#39;kzc,18&#39;
+</code></pre></div>
+<h2>2. 通过关键字参数</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">In [5]: &#39;{name},{age}&#39;.format(age=18,name=&#39;kzc&#39;)  
+Out[5]: &#39;kzc,18&#39;
+</code></pre></div>
+<h2>3. 对象属性</h2>
+
+<p>这是很多对象的 <code>str</code>, <code>__str__</code>, <code>__repr__</code> 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：  </p>
+
+<ul>
+<li><code>str</code> 是 pyhton 的内置函数，<code>str(obj)</code> 实际是调用 <code>obj.__str__()</code>；</li>
+<li><code>obj.__str__()</code> 是简化版的 <code>obj.__repr__()</code>；</li>
+<li>need more details, check this on <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">SO</a><br></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class Person:  
+    def __init__(self,name,age):  
+        self.name,self.age = name,age  
+        def __str__(self):  
+            return &#39;This guy is {self.name},is {self.age} old&#39;.format(self=self)  
+</code></pre></div>
+<h2>4. 格式限定符 - 填充与对齐</h2>
+
+<p>不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。 </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 无需对齐，填充
+In [1]: &#39;{}&#39;.format(&#39;hello&#39;)
+Out[1]: &#39;hello&#39;
+
+In [2]: &#39;{:}&#39;.format(&#39;hello&#39;)
+Out[2]: &#39;hello&#39;
+
+# 居中对齐，构建 9 个长度的字符串
+In [5]: &#39;{:^9}&#39;.format(&#39;hello&#39;)
+Out[5]: &#39;  hello  &#39;
+
+# 右对齐，构建 9 个长度的字符串
+In [6]: &#39;{:&gt;9}&#39;.format(&#39;hello&#39;)
+Out[6]: &#39;    hello&#39;
+
+# 左对齐，构建 9 个长度的字符串
+In [7]: &#39;{:&lt;9}&#39;.format(&#39;hello&#39;)
+Out[7]: &#39;hello    &#39;
+
+# 右对齐，构建 9 个长度的字符串，用 0 填充空白位置
+In [10]: &#39;{:0&gt;9}&#39;.format(&#39;hello&#39;)
+Out[10]: &#39;0000hello&#39;
+
+# # 左对齐，构建 9 个长度的字符串，用 0 填充空白位置
+In [11]: &#39;{:0&lt;9}&#39;.format(&#39;hello&#39;)
+Out[11]: &#39;hello0000&#39;
+
+# 居中对齐，构建 9 个长度的字符串，用 0 填充空白位置
+In [12]: &#39;{:0^9}&#39;.format(&#39;hello&#39;)
+Out[12]: &#39;00hello00&#39;
+</code></pre></div>
+<h2>5. 精度与类型</h2>
+
+<ul>
+<li>f : float类型</li>
+<li>b : 二进制</li>
+<li>d : 十进制 </li>
+<li>o : 八进制</li>
+<li>x : 十六进制</li>
+<li>, : 逗号可以表示数字的千分位</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">In [44]: &#39;{:.2f}&#39;.format(321.33345)
+Out[44]: &#39;321.33&#39;
+
+In [54]: &#39;{:b}&#39;.format(17)
+Out[54]: &#39;10001&#39;
+In [55]: &#39;{:d}&#39;.format(17)
+Out[55]: &#39;17&#39;
+In [56]: &#39;{:o}&#39;.format(17)
+Out[56]: &#39;21&#39;
+In [57]: &#39;{:x}&#39;.format(17)
+Out[57]: &#39;11&#39;
+
+In [47]: &#39;{:,}&#39;.format(1234567890)
+Out[47]: &#39;1,234,567,890&#39;
+</code></pre></div>
+<h2>6. 完善的格式文档</h2>
+
+<p><img src="../images/python_str_format.jpg" alt="python_str_format.jpg"></p>
+
+<h2>7. % VS format</h2>
+
+<p>我一直都喜欢用 <code>format</code> ，不知道为什么，可能喜欢一种写法也是不需要原因的吧，哈哈。其它的，可以在这里找到一大堆说法。  </p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format">python-string-formatting-vs-format</a></li>
+</ul>
+
+<h2>参考文档</h2>
+
+<ul>
+<li><a href="http://blog.csdn.net/handsomekang/article/details/9183303">飘逸的python - 增强的格式化字符串format函数</a></li>
+<li><a href="https://pyformat.info/">官方文档</a></li>
+<li><a href="http://blog.xiayf.cn/2013/01/26/python-string-format/">Python格式字符串（译）</a></li>
+</ul>
+
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/python-format data-title=Python format 笔记 data-url=/python-format></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>
