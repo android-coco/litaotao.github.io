@@ -95,6 +95,8 @@
 </ul></li>
 </ul>
 
+<p>对了，还要注意一下，pypi 上只接受 <code>rst</code> 格式的 <code>readme</code>，不接受 <code>markdown</code> 格式的，所以想要高亮和排版的话，需要先把 <code>md</code> 格式的转换成 <code>rst</code> 格式的 <code>readme</code>。这点改天说。</p>
+
 <h2>3. 发布包元信息到pypi</h2>
 
 <p>在你的包目录下使用命令 <code>python setup.py register</code> 在 pypi 上注册你的包信息，所谓注册包信息就是在 pypi 上建立你的包元信息，包括作者，描述等等。但是要注意的是，注册完元信息别人还不能使用 <code>pip install package</code> 来安装你的包。注册完元信息只是在 pypi 上占个坑而已。</p>

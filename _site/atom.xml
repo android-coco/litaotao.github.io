@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-10-25T00:39:06+08:00</updated>
+   <updated>2015-10-25T00:43:40+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -87,6 +87,8 @@
 &lt;img src=&quot;../images/ld_3.jpg&quot; alt=&quot;ld_3.jpg&quot;&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;对了，还要注意一下，pypi 上只接受 &lt;code&gt;rst&lt;/code&gt; 格式的 &lt;code&gt;readme&lt;/code&gt;，不接受 &lt;code&gt;markdown&lt;/code&gt; 格式的，所以想要高亮和排版的话，需要先把 &lt;code&gt;md&lt;/code&gt; 格式的转换成 &lt;code&gt;rst&lt;/code&gt; 格式的 &lt;code&gt;readme&lt;/code&gt;。这点改天说。&lt;/p&gt;
 
 &lt;h2&gt;3. 发布包元信息到pypi&lt;/h2&gt;
 

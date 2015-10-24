@@ -57,6 +57,8 @@ setup(
     - ***long_description with highlight, but need to make it cleaner***
 ![ld_3.jpg](../images/ld_3.jpg)
 
+对了，还要注意一下，pypi 上只接受 `rst` 格式的 `readme`，不接受 `markdown` 格式的，所以想要高亮和排版的话，需要先把 `md` 格式的转换成 `rst` 格式的 `readme`。这点改天说。
+
 ## 3. 发布包元信息到pypi
 
 在你的包目录下使用命令 `python setup.py register` 在 pypi 上注册你的包信息，所谓注册包信息就是在 pypi 上建立你的包元信息，包括作者，描述等等。但是要注意的是，注册完元信息别人还不能使用 `pip install package` 来安装你的包。注册完元信息只是在 pypi 上占个坑而已。
