@@ -67,28 +67,31 @@ ImportError: cannot import name path
 
 　　profile是ipython的一个子命令，其中profile又有三个子命令，分别是locate，create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：  
 
-    aaron@dev-chad:~/ipython-notebook-spark$ipython profile
-    Subcommands
-    -----------
+```
+aaron@dev-chad:~/ipython-notebook-spark$ipython profile
+Subcommands
+-----------
 
-    Subcommands are launched as `ipython profile cmd [args]`. For information on
-    using subcommand 'cmd', do: `ipython profile cmd -h`.
+Subcommands are launched as `ipython profile cmd [args]`. For information on
+using subcommand 'cmd', do: `ipython profile cmd -h`.
 
-    locate
-        print the path to an IPython profile dir
-    create
-        Create an IPython profile by name
-    list
-        List available IPython profiles
-
+locate
+    print the path to an IPython profile dir
+create
+    Create an IPython profile by name
+list
+    List available IPython profiles
+```
 
 ### 3.2 创建新的Ipython配置文件    
 - 创建配置文件     
 
+```
     aaron@dev-chad:~/ipython-notebook-spark$ipython profile create bigdata
     [ProfileCreate] Generating default config file: u'/home/aaron/.ipython/profile_bigdata/ipython_console_config.py'
     [ProfileCreate] Generating default config file: u'/home/aaron/.ipython/profile_bigdata/ipython_notebook_config.py'
     [ProfileCreate] Generating default config file: u'/home/aaron/.ipython/profile_bigdata/ipython_nbconvert_config.py'
+```
 
 ### 3.3 编辑配置文件
 - 编辑ipython_notebook_config.py   

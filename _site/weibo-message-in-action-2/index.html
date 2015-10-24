@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
   <link rel="stylesheet" href="/css/default.css" type="text/css" />
   <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
@@ -45,23 +46,19 @@
 
     <p class="entry-date">2015-01-26 <span class="lastModified" style="display: none;" data-source="_posts/spark/2015-01-26-weibo-message-in-action-2.md">最后更新时间: </span></p>
 
-    <h2></h2>
+    <h2>1. 解决问题 --- 为神马只有一个worker接收到数据了</h2>
 
-<h2>1. 解决问题 --- 为神马只有一个worker接收到数据了</h2>
-
-<p>　　我勒个去，一看居然有一个多月没有更新这个项目的文章了，真是时间如流水啊。这个月我继续研究这块，同时也花时间来学习Zeppelin这个项目，也基于Ipython Notebook构建了一个底层接入spark集群的Ipython Notebook Server，可以直接在notebook里编写spark应用了。 <br/>
-　　先看看怎么解决上篇文章中最后提到的这个问题吧：为神马只有一个worker接收到数据？<br/>
-　　根据以下这些资料的说法，应该是需要我自己多定义几个receiver才行，至于为神马要这样做，这样做的优缺点，目前我还理解得不够透彻，我还是准备要再深入理解理解spark streaming的执行流程才行，anyway，问题是解决了，但有尚未了解更为本质的原因。革命尚未成功，大家还需努力啊：</p>
+<p>　　我勒个去，一看居然有一个多月没有更新这个项目的文章了，真是时间如流水啊。这个月我继续研究这块，同时也花时间来学习Zeppelin这个项目，也基于Ipython Notebook构建了一个底层接入spark集群的Ipython Notebook Server，可以直接在notebook里编写spark应用了。<br>
+　　先看看怎么解决上篇文章中最后提到的这个问题吧：为神马只有一个worker接收到数据？<br>
+　　根据以下这些资料的说法，应该是需要我自己多定义几个receiver才行，至于为神马要这样做，这样做的优缺点，目前我还理解得不够透彻，我还是准备要再深入理解理解spark streaming的执行流程才行，anyway，问题是解决了，但有尚未了解更为本质的原因。革命尚未成功，大家还需努力啊：  </p>
 
 <ul>
-<li><a href="http://apache-spark-user-list.1001560.n3.nabble.com/Which-is-the-best-way-to-get-a-connection-to-an-external-database-per-task-in-Spark-Streaming-td8937.html">mailing list</a></li>
-<li><a href="http://www.slideshare.net/spark-project/deep-divewithsparkstreaming-tathagatadassparkmeetup20130617">Deep Dive into Spark Streaming P21-P24</a></li>
+<li><a href="http://apache-spark-user-list.1001560.n3.nabble.com/Which-is-the-best-way-to-get-a-connection-to-an-external-database-per-task-in-Spark-Streaming-td8937.html">mailing list</a><br></li>
+<li><a href="http://www.slideshare.net/spark-project/deep-divewithsparkstreaming-tathagatadassparkmeetup20130617">Deep Dive into Spark Streaming P21-P24</a><br></li>
 </ul>
 
-
 <p>　　现在我的程序是这样子的，根据后台监控似乎也是正常的。</p>
-
-<pre><code># -*- coding: utf-8 -*-
+<div class="highlight"><pre><code class="language-text" data-lang="text"># -*- coding: utf-8 -*-
 import sys
 
 from pyspark import SparkContext
@@ -71,11 +68,11 @@ from pyspark.streaming import StreamingContext
 def change_nothing(lines):
     return lines
 
-if __name__ == "__main__":
+if __name__ == &quot;__main__&quot;:
     if len(sys.argv) != 3:
-        print &gt;&gt; sys.stderr, "Usage: weibo_message.py &lt;hostname&gt; &lt;port&gt;"
+        print &gt;&gt; sys.stderr, &quot;Usage: weibo_message.py &lt;hostname&gt; &lt;port&gt;&quot;
         exit(-1)
-    sc = SparkContext(appName="PythonStreamingWeiboMessage")
+    sc = SparkContext(appName=&quot;PythonStreamingWeiboMessage&quot;)
     ssc = StreamingContext(sc, 5)
 
     DStream = [ ssc.socketTextStream(sys.argv[1], int(sys.argv[2])) for i in range(9) ]
@@ -85,20 +82,19 @@ if __name__ == "__main__":
     lines.pprint()
     ssc.start()
     ssc.awaitTermination()
-</code></pre>
-
+</code></pre></div>
 <p>　　后台监控：
-<img src="../images/spark-streaming-seems-right.png" alt="spark-streaming" /></p>
+<img src="../images/spark-streaming-seems-right.png" alt="spark-streaming"></p>
 
 <p>　　这部分虽然目前能work了，但扪心自问，还是有很多地方没有高透彻、甚至是没有搞明白的。革命的路还很长啊~~~</p>
 
 <h2>2. 微博streaming的结构有所调整</h2>
 
-<p>　　weibostreaming的结构和用法都有所优化，引入了MongoDB来存储历史数据，同时在测试阶段也可以用历史数据来模拟实时数据了，这样用起来相对比较方便。详情可看项目主页：<a href="https://github.com/litaotao/weibostreaming">github</a></p>
+<p>　　weibostreaming的结构和用法都有所优化，引入了MongoDB来存储历史数据，同时在测试阶段也可以用历史数据来模拟实时数据了，这样用起来相对比较方便。详情可看项目主页：<a href="https://github.com/litaotao/weibostreaming">github</a>  </p>
 
-<h2>3. What's next</h2>
+<h2>3. What&#39;s next</h2>
 
-<p>　　理想很远大，但基础很重要，现阶段我会停下来，再次仔细地研读spark streaming的相关资料，文档和论文。争取再深入了解spark，streaming，为以后的高山打下基础。这就跟写代码一样，只要心中有料，不怕写不成，不怕写不好。不过，还是要在这里记录一下后期的规划：</p>
+<p>　　理想很远大，但基础很重要，现阶段我会停下来，再次仔细地研读spark streaming的相关资料，文档和论文。争取再深入了解spark，streaming，为以后的高山打下基础。这就跟写代码一样，只要心中有料，不怕写不成，不怕写不好。不过，还是要在这里记录一下后期的规划： </p>
 
 <ul>
 <li>结合Ipython Notebook和spark，使得可以再Ipython notebook里可以创建spark应用，这是在线大数据REPL的基石；</li>
@@ -106,10 +102,9 @@ if __name__ == "__main__":
 <li>自定义Zeppelin+Spark+Ipython，争取构建一个在线大数据REPL的MVP版；</li>
 </ul>
 
-
 <h2>扫一扫</h2>
 
-<p><img src="../../images/share/2015-01-26-weibo-message-in-action-2.md.jpg" alt="2015-01-26-weibo-message-in-action-2.md" /></p>
+<p><img src="../../images/share/2015-01-26-weibo-message-in-action-2.md.jpg" alt="2015-01-26-weibo-message-in-action-2.md"></p>
 
 
     <div id="disqus_container">

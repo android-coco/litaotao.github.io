@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
   <link rel="stylesheet" href="/css/default.css" type="text/css" />
   <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
@@ -45,118 +46,109 @@
 
     <p class="entry-date">2014-12-24 <span class="lastModified" style="display: none;" data-source="_posts/db/2014-12-24-mongodb-optimizing.md">最后更新时间: </span></p>
 
-    <h2></h2>
-
-<h2>1. 决定是否优化</h2>
+    <h2>1. 决定是否优化</h2>
 
 <h3>1.1 使用MongoDB自带的explain命令查看查询性能</h3>
 
-<p>　　下面是我在本地测试的一个例子。</p>
-
-<pre><code>&gt; db.user.find({'user':'taotao.li@datayes.com'}).explain()         
+<p>　　下面是我在本地测试的一个例子。    </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; db.user.find({&#39;user&#39;:&#39;taotao.li@datayes.com&#39;}).explain()         
 {             
         // 返回游标类型(BasicCursor | BtreeCursor | GeoSearchCursor | Complex Plan | multi)                                                         
-        "cursor" : "BasicCursor",
+        &quot;cursor&quot; : &quot;BasicCursor&quot;,
         // 是否使用多重索引(true | false)                                     
-        "isMultiKey" : false,    
+        &quot;isMultiKey&quot; : false,    
         // 返回的文档数量   (number)                                      
-        "n" : 1,    
+        &quot;n&quot; : 1,    
         // 被扫描的文档数量，这个值小于或等于nscanned   (number)                                                   
-        "nscannedObjects" : 9,
+        &quot;nscannedObjects&quot; : 9,
         // 被扫描的文档数量，我们应该尽量使这个值和上面提到的n的值相近    (number)                                          
-        "nscanned" : 9,    
+        &quot;nscanned&quot; : 9,    
         // 这个值表明在进行一次查询时，数据库计划扫描的文档数量 (number)                                            
-        "nscannedObjectsAllPlans" : 9,                                
-        "nscannedAllPlans" : 9,    
+        &quot;nscannedObjectsAllPlans&quot; : 9,                                
+        &quot;nscannedAllPlans&quot; : 9,    
         // 若为true，表示查询不能利用文档在索引里的排序来返回结果，用户需要手动对返回进行排序操作，反之(true | false)                                     
-        "scanAndOrder" : false,    
+        &quot;scanAndOrder&quot; : false,    
         // 若为true，表示查询是充分利用了现有的索引的，在设计索引的时候，应该尽量确保热点查询都利用到了已有的索引(true | false)                                     
-        "indexOnly" : false,   
+        &quot;indexOnly&quot; : false,   
         // 表示查询语句执行时写锁的等待时间  (ms)                                       
-        "nYields" : 0,          
+        &quot;nYields&quot; : 0,          
         // 在分片的时候可以通过这个字段看分片的效果 (number)                                       
-        "nChunkSkips" : 0, 
+        &quot;nChunkSkips&quot; : 0, 
         // 耗时 (ms)                                               
-        "millis" : 65,    
+        &quot;millis&quot; : 65,    
         // 所使用的索引 (dict of dict)                                             
-        "indexBounds" : {                                             
+        &quot;indexBounds&quot; : {                                             
 
         },        
         // mongo所在的服务器地址                                            
-        "server" : "SHN1408GPVG612:27017"                             
+        &quot;server&quot; : &quot;SHN1408GPVG612:27017&quot;                             
 }                                                                
-</code></pre>
-
+</code></pre></div>
 <h3>1.2 使用MongoDB自带的profile优化器查看查询性能</h3>
 
 <p>　　MongoDB Database Profiler是一种慢查询日志功能,可以作为我们优化数据库的依据.
-开启Profiling功能,有2种方式可以控制Profiling的开关盒级别。</p>
+开启Profiling功能,有2种方式可以控制Profiling的开关盒级别。  </p>
 
 <ul>
-<li>启动MonggoDB时加上 <code>-profile=级别</code> 即可</li>
-<li>在客户端调用db.setProfilingLevel(级别)命令来实时配置</li>
+<li>启动MonggoDB时加上 <code>-profile=级别</code> 即可<br></li>
+<li>在客户端调用db.setProfilingLevel(级别)命令来实时配置<br></li>
 </ul>
-
 
 <p>　　Profiler信息保存在system.profile中.我们可以通过db.getProfilingLevel()命令来获取当前的Profile级别。profile的级别有4个，分别是-1、0、1、2，默认没有开启。</p>
 
 <ul>
-<li>-1: 返回当前设置的级别</li>
-<li>0： 表示不开启</li>
-<li>1： 表示记录慢命令(默认为>100ms)</li>
+<li>-1: 返回当前设置的级别<br></li>
+<li>0： 表示不开启<br></li>
+<li>1： 表示记录慢命令(默认为&gt;100ms)</li>
 <li>2： 表示记录所有命令</li>
 </ul>
 
-
-<p>　　下面是我运行profile的一个示例及各个字段的解释：</p>
-
-<pre><code>&gt; db.system.profile.findOne()
+<p>　　下面是我运行profile的一个示例及各个字段的解释： </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; db.system.profile.findOne()
 {
     //操作类型：insert | query | update | remove | getmore | command
-    "op" : "query",
+    &quot;op&quot; : &quot;query&quot;,
     //进行op操作的地方，比如现在是说在community数据库的system集合的indexes中进行了一次查询操作
-    "ns" : "community.system.indexes",
-    "query" : {
-            "expireAfterSeconds" : {
-                    "$exists" : true
+    &quot;ns&quot; : &quot;community.system.indexes&quot;,
+    &quot;query&quot; : {
+            &quot;expireAfterSeconds&quot; : {
+                    &quot;$exists&quot; : true
             }
     },
-    "ntoreturn" : 0,
-    "ntoskip" : 0,
-    "nscanned" : 2,
-    "keyUpdates" : 0,
-    "numYield" : 0,
+    &quot;ntoreturn&quot; : 0,
+    &quot;ntoskip&quot; : 0,
+    &quot;nscanned&quot; : 2,
+    &quot;keyUpdates&quot; : 0,
+    &quot;numYield&quot; : 0,
     // 此次查询花在处理锁上的时间；其中R/W代表全局读/写锁，r/w代表数据库层面的读/写锁；
-    "lockStats" : {
-            "timeLockedMicros" : {
-                    "r" : NumberLong(79),
-                    "w" : NumberLong(0)
+    &quot;lockStats&quot; : {
+            &quot;timeLockedMicros&quot; : {
+                    &quot;r&quot; : NumberLong(79),
+                    &quot;w&quot; : NumberLong(0)
             },
-            "timeAcquiringMicros" : {
-                    "r" : NumberLong(1),
-                    "w" : NumberLong(2)
+            &quot;timeAcquiringMicros&quot; : {
+                    &quot;r&quot; : NumberLong(1),
+                    &quot;w&quot; : NumberLong(2)
             }
     },
     // 返回的文档数量
-    "nreturned" : 0,
+    &quot;nreturned&quot; : 0,
     // 返回字节长度，如果这个数字很大，考虑值返回所需字段
-    "responseLength" : 20,
+    &quot;responseLength&quot; : 20,
     // 查询所耗时间，这个时间是在mongo服务器端，从这个查询开始到查询结束；类似于一般程序执行的CPU时间；
-    "millis" : 0,
-    "ts" : ISODate("2014-11-19T09:33:58.965Z"),
+    &quot;millis&quot; : 0,
+    &quot;ts&quot; : ISODate(&quot;2014-11-19T09:33:58.965Z&quot;),
     // 发起此次查询的远程地址
-    "client" : "0.0.0.0",
-    "allUsers" : [ ],
+    &quot;client&quot; : &quot;0.0.0.0&quot;,
+    &quot;allUsers&quot; : [ ],
     // 执行此查询语句的用户，不知道这里为什么是空的
-    "user" : ""
+    &quot;user&quot; : &quot;&quot;
 }
-</code></pre>
-
+</code></pre></div>
 <h3>1.3 使用MongoDB自带的mongostat优化器查看查询性能</h3>
 
-<p>　　下面是我本地测试的一个mongostat示例即相关字段含义：</p>
-
-<pre><code>D:\mongodb-2.4.10\bin
+<p>　　下面是我本地测试的一个mongostat示例即相关字段含义：  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">D:\mongodb-2.4.10\bin
 λ mongostat.exe
 connected to: 127.0.0.1
 insert  query update delete getmore command flushes mapped  vsize    res faults  locked db idx miss %     qr|qw   ar|aw  netIn netOut  conn       time
@@ -167,142 +159,108 @@ insert  query update delete getmore command flushes mapped  vsize    res faults 
     *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0   174b     3k    60   10:42:48
     *0     *0     *0     *0       0     1|0       0   608m   1.4g    14m      0  test:0.0%          0       0|0     0|0    62b     3k    60   10:42:49
     *0     *0     *0     *0       0     3|0       0   608m   1.4g    14m      0 local:0.0%          0       0|0     0|0   178b     3k    60   10:42:50
-</code></pre>
-
-<p>　　mongostat各个字段解释：</p>
+</code></pre></div>
+<p>　　mongostat各个字段解释：    </p>
 
 <ul>
 <li>insert/query/update/delete/getmore：每秒执行这5个操作的次数；</li>
-<li>command：每秒执行指令的次数，在从数据库中，这个字段的值是一个以“|”分开的两个值，表示 local|replicated 数量；</li>
-<li>flushes：每秒fsync操作的次数；</li>
-<li>mapped：按照官方解释，这个字段表示上一次执行mongostat指令是所有数据的大小，应该是指所有数据占磁盘的大小，但似乎不是很对；</li>
-<li>vsize：mongod服务占用的虚拟内存大小；</li>
-<li>res：mongod所占用的物理内存；</li>
+<li>command：每秒执行指令的次数，在从数据库中，这个字段的值是一个以“|”分开的两个值，表示 local|replicated 数量；<br></li>
+<li>flushes：每秒fsync操作的次数；<br></li>
+<li>mapped：按照官方解释，这个字段表示上一次执行mongostat指令是所有数据的大小，应该是指所有数据占磁盘的大小，但似乎不是很对；<br></li>
+<li>vsize：mongod服务占用的虚拟内存大小；<br></li>
+<li>res：mongod所占用的物理内存；<br></li>
 <li>faluts：page faults次数；</li>
-<li>index miss：索引缺失的数量；</li>
-<li>qr/qw：表示在队列中等待的客户端，rw表示读写；</li>
-<li>ar/aw：表示正在进行请求的客户端；</li>
-<li>netIn/netOut表示网络流量，单位是字节；</li>
-<li>conn：表示连接数；</li>
-<li>repl：表示同步状态；</li>
+<li>index miss：索引缺失的数量； </li>
+<li>qr/qw：表示在队列中等待的客户端，rw表示读写；<br></li>
+<li>ar/aw：表示正在进行请求的客户端；<br></li>
+<li>netIn/netOut表示网络流量，单位是字节；<br></li>
+<li>conn：表示连接数；<br></li>
+<li>repl：表示同步状态；<br></li>
 </ul>
-
 
 <h3>1.4 使用MongoDB自带的db.serverStatus查看服务器状态</h3>
 
-<p>　　这里输出的信息太多了，看一个Robomongo的截图吧，里面有几个字段也是很重要的。 <img src="../../images/mongo-db-serverStats.jpg" alt="mongo-db-serverStatus" /></p>
+<p>　　这里输出的信息太多了，看一个Robomongo的截图吧，里面有几个字段也是很重要的。 <img src="../../images/mongo-db-serverStats.jpg" alt="mongo-db-serverStatus"></p>
 
 <h3>1.5 使用MongoDB自带的db.stats查看服务器状态</h3>
 
-<p>　　说到这里，我突然发现监控MongoDB performance的工具真的挺多的，完全可以自己给予这些命令和工具来开发后台管理的工具啊。比如说stats这个命令，也提供了挺多的信息：</p>
-
-<pre><code>&gt; db.stats()                                        
+<p>　　说到这里，我突然发现监控MongoDB performance的工具真的挺多的，完全可以自己给予这些命令和工具来开发后台管理的工具啊。比如说stats这个命令，也提供了挺多的信息：  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; db.stats()                                        
 {                                                   
-        "db" : "community",                         
-        "collections" : 7,   
+        &quot;db&quot; : &quot;community&quot;,                         
+        &quot;collections&quot; : 7,   
         // 记录在数据库中的所有文档总数                       
-        "objects" : 73,                
+        &quot;objects&quot; : 73,                
         // 数据库中所有文档的平均大小，等于 dataSize/objects             
-        "avgObjSize" : 24965.424657534248,          
+        &quot;avgObjSize&quot; : 24965.424657534248,          
         // 数据库所有文档的总大小，以字节为单位
-        "dataSize" : 1822476,                  
+        &quot;dataSize&quot; : 1822476,                  
         // 分配给每一个文档的磁盘空间，奇怪这里为什么不是16MB     
-        "storageSize" : 11943936,                   
-        "numExtents" : 12,                          
-        "indexes" : 4,                              
-        "indexSize" : 32704,                        
-        "fileSize" : 201326592,                     
-        "nsSizeMB" : 16,                            
-        "dataFileVersion" : {                       
-                "major" : 4,                        
-                "minor" : 5                         
+        &quot;storageSize&quot; : 11943936,                   
+        &quot;numExtents&quot; : 12,                          
+        &quot;indexes&quot; : 4,                              
+        &quot;indexSize&quot; : 32704,                        
+        &quot;fileSize&quot; : 201326592,                     
+        &quot;nsSizeMB&quot; : 16,                            
+        &quot;dataFileVersion&quot; : {                       
+                &quot;major&quot; : 4,                        
+                &quot;minor&quot; : 5                         
         },                                          
-        "ok" : 1                                    
+        &quot;ok&quot; : 1                                    
 }                                                   
-</code></pre>
-
+</code></pre></div>
 <h2>2. 优化Schema</h2>
 
-<p>　　解决一个问题永远都有多种方法，且在产品的不同时期也会有不同的解决办法。但核心观点都不变：</p>
+<p>　　解决一个问题永远都有多种方法，且在产品的不同时期也会有不同的解决办法。但核心观点都不变：      </p>
 
 <ul>
-<li>理解产品的核心应用；</li>
-<li>合理平衡数据库的读写，读写比例很大程度上决定你的Schema设计；</li>
-<li>避免随机性IO操作；</li>
+<li>理解产品的核心应用；<br></li>
+<li>合理平衡数据库的读写，读写比例很大程度上决定你的Schema设计；<br></li>
+<li>避免随机性IO操作；<br></li>
 </ul>
 
-
-<p>　　即使是NoSQL，也无法避免一些数据库字段在关系上的建立。所以在设计NoSQL Schema的时候不可避免地要进行一些关系的处理。在MongoDB方面，处理关系有以下三种方法：</p>
+<p>　　即使是NoSQL，也无法避免一些数据库字段在关系上的建立。所以在设计NoSQL Schema的时候不可避免地要进行一些关系的处理。在MongoDB方面，处理关系有以下三种方法： </p>
 
 <ul>
-<li>数据库引用</li>
-<li>集合间的应用</li>
-<li>文档嵌套</li>
+<li>数据库引用<br></li>
+<li>集合间的应用<br></li>
+<li>文档嵌套<br></li>
 </ul>
-
 
 <p>　　其中数据库引用很少用到，并且官方也不推荐这种用法。相对于集合间引用和文档嵌套，这个需要看具体设计。特别是在应用文档嵌套方式的时候，需要注意一个文档的最大容量是<a href="http://docs.mongodb.org/manual/core/document/">16MB</a>。文章末尾的<strong>6 Rules of Thumb for MongoDB Schema Design</strong>详细介绍、对比了一些集合引用和嵌套文档方面的案例，<strong>MongoDB Schema Design: Four Real-World Examples</strong>介绍了MongoDB 4个真实的应用设计案例，有比较大的参考价值。</p>
 
 <h2>2.1 MongoDB 和 RDBMS的一些概念联系</h2>
 
-<table>
-<thead>
-<tr>
-<th> RDBMS </th>
-<th> MongoDB </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td> Database </td>
-<td> Database </td>
-</tr>
-<tr>
-<td> Table </td>
-<td> Collection </td>
-</tr>
-<tr>
-<td> Row </td>
-<td> Document </td>
-</tr>
-<tr>
-<td> Index </td>
-<td> Index </td>
-</tr>
-<tr>
-<td> Join </td>
-<td> Embedded Document </td>
-</tr>
-<tr>
-<td> Foreign Key </td>
-<td> Reference </td>
-</tr>
-</tbody>
-</table>
-
+<p>| RDBMS | MongoDB |
+| ----- | ------- |
+| Database | Database |
+| Table | Collection |
+| Row | Document |
+| Index | Index |
+| Join | Embedded Document |
+| Foreign Key | Reference |</p>
 
 <h2>3. 查询优化</h2>
 
 <h3>3.1 建立索引</h3>
 
 <p>　　首先要明确的是，mongo里会自动根据<em>id来创建一个唯一性索引，所以如果你是以</em>id为key来进行查询的话都会很快的。比如下面这个截图，nscanned为1。
-<img src="../../images/mongo-index-id.jpg" alt="mongo-explain" /><br/>
-　　database.collection.ensureIndex( { key : 1 } , { background : true } ); <br/>
-　　说明：在数据库database里，对collection中的字段key建立索引，按照升序方式建立索引background参数设置为true时表示后台创建索引【建立索引略耗时】。  <br/>
-　　索引是一把双刃剑啊，用得好不好，全看也许需求和数据库设计了，在设计索引前最好参考参考<a href="http://docs.mongodb.org/manual/core/indexes-introduction/">官方文档</a>，而且最好要有一个建索引前后的performance的一些对比，talk is cheap, show me the data.  <br/>
-　　总而言之，当需要建立索引的时候，一定要仔细思考下面几个方面：</p>
+<img src="../../images/mongo-index-id.jpg" alt="mongo-explain"><br>
+　　database.collection.ensureIndex( { key : 1 } , { background : true } );<br>
+　　说明：在数据库database里，对collection中的字段key建立索引，按照升序方式建立索引background参数设置为true时表示后台创建索引【建立索引略耗时】。<br>
+　　索引是一把双刃剑啊，用得好不好，全看也许需求和数据库设计了，在设计索引前最好参考参考<a href="http://docs.mongodb.org/manual/core/indexes-introduction/">官方文档</a>，而且最好要有一个建索引前后的performance的一些对比，talk is cheap, show me the data.<br>
+　　总而言之，当需要建立索引的时候，一定要仔细思考下面几个方面：  </p>
 
 <ul>
-<li>热点查询的数据是什么，可否用缓存替代；</li>
-<li>建立索引的顺序也会影响查询速度，参考: 10gen工程师谈MongoDB组合索引的优化；</li>
-<li>索引的更新周期，更新索引是一件很tricky的事情；</li>
-<li>索引建立后，是否能跟上后期系统扩展的脚步；</li>
+<li>热点查询的数据是什么，可否用缓存替代；<br></li>
+<li>建立索引的顺序也会影响查询速度，参考: 10gen工程师谈MongoDB组合索引的优化；<br></li>
+<li>索引的更新周期，更新索引是一件很tricky的事情；<br></li>
+<li>索引建立后，是否能跟上后期系统扩展的脚步；<br></li>
 </ul>
-
 
 <h3>3.2 限制返回数据</h3>
 
-<p>　　使用limit，skip方式返回查询数据，只返回需要返回的数据。</p>
+<p>　　使用limit，skip方式返回查询数据，只返回需要返回的数据。   </p>
 
 <h2>4. 总结</h2>
 
@@ -311,19 +269,18 @@ insert  query update delete getmore command flushes mapped  vsize    res faults 
 <h2>5. 一些资料</h2>
 
 <ul>
-<li><a href="http://caizi.blog.51cto.com/5234706/1542480">mongodb性能优化</a></li>
-<li><a href="http://blog.mongodb.org/post/87200945828/6-rules-of-thumb-for-mongodb-schema-design-part-1">6 Rules of Thumb for MongoDB Schema Design</a></li>
-<li><a href="http://www.slideshare.net/friedo/data-modeling-examples">MongoDB Schema Design: Four Real-World Examples</a></li>
-<li><a href="http://docs.mongodb.org/v2.4/administration/optimization/">Optimization Strategies for MongoDB</a></li>
-<li><a href="http://docs.mongodb.org/v2.4/reference/database-profiler/">Database Profiler Output</a></li>
-<li><a href="http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound">10gen工程师谈MongoDB组合索引的优化</a></li>
-<li><a href="http://docs.mongodb.org/v2.4/reference/command/dbStats/">dbStats</a></li>
+<li><a href="http://caizi.blog.51cto.com/5234706/1542480">mongodb性能优化</a><br></li>
+<li><a href="http://blog.mongodb.org/post/87200945828/6-rules-of-thumb-for-mongodb-schema-design-part-1">6 Rules of Thumb for MongoDB Schema Design</a><br></li>
+<li><a href="http://www.slideshare.net/friedo/data-modeling-examples">MongoDB Schema Design: Four Real-World Examples</a><br></li>
+<li><a href="http://docs.mongodb.org/v2.4/administration/optimization/">Optimization Strategies for MongoDB</a><br></li>
+<li><a href="http://docs.mongodb.org/v2.4/reference/database-profiler/">Database Profiler Output</a><br></li>
+<li><a href="http://www.csdn.net/article/2012-11-09/2811690-optimizing-mongodb-compound">10gen工程师谈MongoDB组合索引的优化</a><br></li>
+<li><a href="http://docs.mongodb.org/v2.4/reference/command/dbStats/">dbStats</a><br></li>
 </ul>
-
 
 <h2>扫一扫</h2>
 
-<p><img src="../../images/share/2014-12-24-mongodb-optimizing.md.jpg" alt="2014-12-24-mongodb-optimizing.md" /></p>
+<p><img src="../../images/share/2014-12-24-mongodb-optimizing.md.jpg" alt="2014-12-24-mongodb-optimizing.md"></p>
 
 
     <div id="disqus_container">

@@ -1,7 +1,7 @@
 # auto: true
 
-markdown: rdiscount
-highlighter: rouge
+markdown: redcarpet
+highlighter: pygments
 paginate: 8
 permalink: /:title
 encoding: UTF-8
@@ -16,7 +16,7 @@ myblog:
   gpname: litaotao
   linkedin: http://www.linkedin.com/in/taotaoli
   github: https://github.com/litaotao
-  email: mailto:litaotao@vip.163.com
+  email: mailto:taotao.engineer@gmail.com
   coverimgs: []
   postbgimg: []
 

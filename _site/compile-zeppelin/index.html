@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
   <link rel="stylesheet" href="/css/default.css" type="text/css" />
   <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
@@ -45,15 +46,12 @@
 
     <p class="entry-date">2015-01-29 <span class="lastModified" style="display: none;" data-source="_posts/spark/2015-01-29-compile-zeppelin.md">最后更新时间: </span></p>
 
-    <h2></h2>
+    <h2>1. 写在前面</h2>
 
-<h2>1. 写在前面</h2>
-
-<p>　　这篇记录是我按照<a href="http://zeppelin-project.org/docs/install/install.html">官网</a>的步骤来写的，主要是记录在编译Zeppelin过程中的一些经验。<br/>
+<p>　　这篇记录是我按照<a href="http://zeppelin-project.org/docs/install/install.html">官网</a>的步骤来写的，主要是记录在编译Zeppelin过程中的一些经验。<br>
 　　对于这类没有发布特别稳定版本的项目，我倾向于这样一种实践方法，在本地建两个文件夹：project, project-build，把project文件夹作为一个本地的repo，可以随时update到最新的源码，然后在project-build里构建，就算失败了也可以保证不会污染项目源文件。
 　　再具体一点就是我在实践Zeppelin的时候使用的方法，如下所示，可以随时保证zeppelin文件夹里的源码最新，然后在zeppelin-build里用最新的源码构建。</p>
-
-<pre><code>root@kali:~/Desktop# mkdir zeppelin zeppelin-build
+<div class="highlight"><pre><code class="language-text" data-lang="text">root@kali:~/Desktop# mkdir zeppelin zeppelin-build
 root@kali:~/Desktop# cd zeppelin
 root@kali:~/Desktop/zeppelin# git init
 Initialized empty Git repository in /root/Desktop/zeppelin/.git/
@@ -62,13 +60,11 @@ root@kali:~/Desktop/zeppelin# git pull origin master
 root@kali:~/Desktop/zeppelin# cd ../zeppelin-build/
 root@kali:~/Desktop/zeppelin-build# cp -R ../zeppelin/* .
 root@kali:~/Desktop/zeppelin-build# mvn clean package -DskipTests
-</code></pre>
-
+</code></pre></div>
 <h2>2. 详细步骤及错误解决</h2>
 
 <h3>2.1 按照默认配置编译 : mvn clean package -DskipTests</h3>
-
-<pre><code>root@ubuntu2[15:30:17]:~/Desktop/zeppelin-build#mvn clean package -DskipTests
+<div class="highlight"><pre><code class="language-text" data-lang="text">root@ubuntu2[15:30:17]:~/Desktop/zeppelin-build#mvn clean package -DskipTests
 .
 .
 .
@@ -95,7 +91,7 @@ root@kali:~/Desktop/zeppelin-build# mvn clean package -DskipTests
 [INFO] Finished at: 2015-02-11T15:30:16+08:00
 [INFO] Final Memory: 61M/409M
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:0.0.20:npm (npm install) on project zeppelin-web: Failed to run task: 'npm install --color=false' failed. (error code 1) -&gt; [Help 1]
+[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:0.0.20:npm (npm install) on project zeppelin-web: Failed to run task: &#39;npm install --color=false&#39; failed. (error code 1) -&gt; [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
@@ -105,8 +101,7 @@ root@kali:~/Desktop/zeppelin-build# mvn clean package -DskipTests
 [ERROR] 
 [ERROR] After correcting the problems, you can resume the build with the command
 [ERROR]   mvn &lt;goals&gt; -rf :zeppelin-web
-</code></pre>
-
+</code></pre></div>
 <h3>2.1 出错: npm install --color=false</h3>
 
 <p>　　这个错误在<a href="https://groups.google.com/forum/#!searchin/zeppelin-developers/npm$20install">mailing list</a>里提到了，我们按照里面的解决方案来尝试一下。注意，以前的mailing list的维护在google groups里面的，但今年2月份之后groups就只读，不可以发帖了，新的mailing list移植到apache旗下，地址在<a href="http://mail-archives.apache.org/mod_mbox/incubator-zeppelin-users/">这里</a>。
@@ -114,16 +109,15 @@ root@kali:~/Desktop/zeppelin-build# mvn clean package -DskipTests
 
 <h3>2.2 启动zeppelin服务器错误，提示Unsupported major.minor</h3>
 
-<p>　　在运行 bin/zeppelin-daemon.sh start 的时候提示错误如下。一开始没有发现什么原因，后来google 关键字 <code>nsupported major.minor</code>后在<a href="http://www.oecp.cn/hi/yangtaoorange/blog/1168263">这里</a>知道问题应该和JAVA编译器的版本有问题，因为zeppelin需要java 1.7以上，我本机是java 1.6的，当时为了编译zeppelin我自己下了java 1.7和设置了一个java 1.7的环境变量文件，应该是没有source这个环境变量吧，测试一下发现$JAVA_HOME这个环境变量为空。这里再次source一下java_1.7_path.bashrc这个文件就可以了，这个文件是这样写的：
-<code>
-root@ubuntu2[10:59:24]:~/Desktop#cat java_1.7_path.bashrc
-export PATH=/usr/local/jdk1.7.0_71/bin:$PATH
-export CLASSPATH="/usr/local/jdk1.7.0_71/lib:."
-export JAVA_HOME="/usr/local/jdk1.7.0_71/"
-</code></p>
-
-<pre><code>root@ubuntu2[10:51:15]:~/Desktop/zeppelin-build#vi logs/zeppelin-root-ubuntu2.out 
-Exception in thread "main" java.lang.UnsupportedClassVersionError: com/nflabs/zeppelin/
+<p>　　在运行 bin/zeppelin-daemon.sh start 的时候提示错误如下。一开始没有发现什么原因，后来google 关键字 <code>nsupported major.minor</code>后在<a href="http://www.oecp.cn/hi/yangtaoorange/blog/1168263">这里</a>知道问题应该和JAVA编译器的版本有问题，因为zeppelin需要java 1.7以上，我本机是java 1.6的，当时为了编译zeppelin我自己下了java 1.7和设置了一个java 1.7的环境变量文件，应该是没有source这个环境变量吧，测试一下发现$JAVA<em>HOME这个环境变量为空。这里再次source一下java</em>1.7<em>path.bashrc这个文件就可以了，这个文件是这样写的：
+```
+root@ubuntu2[10:59:24]:~/Desktop#cat java</em>1.7<em>path.bashrc 
+export PATH=/usr/local/jdk1.7.0</em>71/bin:$PATH
+export CLASSPATH=&quot;/usr/local/jdk1.7.0<em>71/lib:.&quot;
+export JAVA</em>HOME=&quot;/usr/local/jdk1.7.0_71/&quot;
+```</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">root@ubuntu2[10:51:15]:~/Desktop/zeppelin-build#vi logs/zeppelin-root-ubuntu2.out 
+Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError: com/nflabs/zeppelin/
 server/ZeppelinServer : Unsupported major.minor version 51.0
         at java.lang.ClassLoader.defineClass1(Native Method)
         at java.lang.ClassLoader.defineClass(ClassLoader.java:643)
@@ -138,20 +132,19 @@ server/ZeppelinServer : Unsupported major.minor version 51.0
         at java.lang.ClassLoader.loadClass(ClassLoader.java:268)
 Could not find the main class: com.nflabs.zeppelin.server.ZeppelinServer. Program will
 exit.
-</code></pre>
-
+</code></pre></div>
 <h3>2.3 运行出错，日志提示：java.net.UnknownHostException: <em><your hostname></em>: nodename nor servname provided, or not known</h3>
 
-<p><img src="../images/zeppelin-run-error.jpg" alt="run-error" /></p>
+<p><img src="../images/zeppelin-run-error.jpg" alt="run-error"></p>
 
 <p>解决办法[我的机器host名叫mac007]，修改/etc/hosts，新增一项 127.0.0.1   mac007</p>
 
-<p><img src="../images/zeppelin-hosts.jpg" alt="revise-hosts" />
+<p><img src="../images/zeppelin-hosts.jpg" alt="revise-hosts">
 　　</p>
 
-<h3>2.4 RDD Action 出错，提示：java.io.IOException: Failed on local exception: com.google.protobuf.InvalidProtocolBufferException: Protocol message contained an invalid tag (zero).; Host Details : local host is: "ubuntu2/10.20.70.80"; destination host is: "sh-demo-hadoop-01":8020;</h3>
+<h3>2.4 RDD Action 出错，提示：java.io.IOException: Failed on local exception: com.google.protobuf.InvalidProtocolBufferException: Protocol message contained an invalid tag (zero).; Host Details : local host is: &quot;ubuntu2/10.20.70.80&quot;; destination host is: &quot;sh-demo-hadoop-01&quot;:8020;</h3>
 
-<p><img src="../images/zeppelin-error-1.jpg" alt="zeppelin-error-1.jpg" /></p>
+<p><img src="../images/zeppelin-error-1.jpg" alt="zeppelin-error-1.jpg"></p>
 
 <p>原因是我是连接到公司spark集群的，截图里可以看到，公司spark集群的hadoop版本和我当时编译zeppelin是定义的hadoop版本不一致。公司spark集群的hadoop版本是：Hadoop 2.0.0-cdh4.5.0，而我当时编译zeppelin时的命令是：mvn clean package -Pspark-1.2 -Dhadoop.version=2.2.0 -Phadoop-2.2 -DskipTests。</p>
 
@@ -159,7 +152,7 @@ exit.
 
 <h2>扫一扫</h2>
 
-<p><img src="../../images/share/2015-01-29-compile-zeppelin.md.jpg" alt="2015-01-29-compile-zeppelin.md" /></p>
+<p><img src="../../images/share/2015-01-29-compile-zeppelin.md.jpg" alt="2015-01-29-compile-zeppelin.md"></p>
 
 
     <div id="disqus_container">

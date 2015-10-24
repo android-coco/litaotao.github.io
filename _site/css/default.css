@@ -24,3 +24,9 @@ body .hide{display:none;}
 .left,.right{display:inline;}
 .left{float:left;}
 .right{float:right;}
+
+
+.language-text{
+    font-family: monospace;
+    word-wrap: break-word;
+}

@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
   <link rel="stylesheet" href="/css/default.css" type="text/css" />
   <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
@@ -45,50 +46,47 @@
 
     <p class="entry-date">2015-03-13 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-13-design-pattern-structural-pattern.md">最后更新时间: </span></p>
 
-    <h2></h2>
-
-<h2>1. 适配器模式</h2>
+    <h2>1. 适配器模式</h2>
 
 <p>　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
 
 <h3>1.1 Python源码示例</h3>
-
-<pre><code>#!/usr/bin/env python
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/"""
+&quot;&quot;&quot;http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/&quot;&quot;&quot;
 
 import os
 
 class Dog(object):
     def __init__(self):
-        self.name = "Dog"
+        self.name = &quot;Dog&quot;
     def bark(self):
-        return "woof!"
+        return &quot;woof!&quot;
 
 class Cat(object):
     def __init__(self):
-        self.name = "Cat"
+        self.name = &quot;Cat&quot;
     def meow(self):
-        return "meow!"
+        return &quot;meow!&quot;
 
 class Human(object):
     def __init__(self):
-        self.name = "Human"
+        self.name = &quot;Human&quot;
     def speak(self):
-        return "'hello'"
+        return &quot;&#39;hello&#39;&quot;
 
 
 class Car(object):
     def __init__(self):
-        self.name = "Car"
+        self.name = &quot;Car&quot;
     def make_noise(self, octane_level):
-        return "vroom{0}".format("!" * octane_level)
+        return &quot;vroom{0}&quot;.format(&quot;!&quot; * octane_level)
 
 
 class Adapter(object):
 
-    """
+    &quot;&quot;&quot;
     Adapts an object by replacing methods.
     Usage:
     dog = Dog
@@ -104,20 +102,20 @@ class Adapter(object):
     &gt;&gt;&gt; car_noise = lambda: car.make_noise(3)
     &gt;&gt;&gt; objects.append(Adapter(car, make_noise=car_noise))
     &gt;&gt;&gt; for obj in objects:
-    ...     print('A {} goes {}'.format(obj.name, obj.make_noise()))
+    ...     print(&#39;A {} goes {}&#39;.format(obj.name, obj.make_noise()))
     A Dog goes woof!
     A Cat goes meow!
-    A Human goes 'hello'
+    A Human goes &#39;hello&#39;
     A Car goes vroom!!!
-    """
+    &quot;&quot;&quot;
 
     def __init__(self, obj, **adapted_methods):
-        """We set the adapted methods in the object's dict"""
+        &quot;&quot;&quot;We set the adapted methods in the object&#39;s dict&quot;&quot;&quot;
         self.obj = obj
         self.__dict__.update(adapted_methods)
 
     def __getattr__(self, attr):
-        """All non-adapted calls are passed to the object"""
+        &quot;&quot;&quot;All non-adapted calls are passed to the object&quot;&quot;&quot;
         return getattr(self.obj, attr)
 
 
@@ -133,43 +131,41 @@ def main():
     objects.append(Adapter(car, make_noise=lambda: car.make_noise(3)))
 
     for obj in objects:
-        print("A {0} goes {1}".format(obj.name, obj.make_noise()))
+        print(&quot;A {0} goes {1}&quot;.format(obj.name, obj.make_noise()))
 
 
-if __name__ == "__main__":
+if __name__ == &quot;__main__&quot;:
     main()
 
 ### OUTPUT ###
 # A Dog goes woof!
 # A Cat goes meow!
-# A Human goes 'hello'
+# A Human goes &#39;hello&#39;
 # A Car goes vroom!!!
-</code></pre>
-
+</code></pre></div>
 <h2>2. 桥接模式</h2>
 
 <p>　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。</p>
 
 <h3>2.1 Python源码示例</h3>
-
-<pre><code>#!/usr/bin/env python
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python"""
+&quot;&quot;&quot;http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python&quot;&quot;&quot;
 
 
 # ConcreteImplementor 1/2
 class DrawingAPI1(object):
 
     def draw_circle(self, x, y, radius):
-        print('API1.circle at {}:{} radius {}'.format(x, y, radius))
+        print(&#39;API1.circle at {}:{} radius {}&#39;.format(x, y, radius))
 
 
 # ConcreteImplementor 2/2
 class DrawingAPI2(object):
 
     def draw_circle(self, x, y, radius):
-        print('API2.circle at {}:{} radius {}'.format(x, y, radius))
+        print(&#39;API2.circle at {}:{} radius {}&#39;.format(x, y, radius))
 
 
 # Refined Abstraction
@@ -201,59 +197,57 @@ def main():
         shape.draw()
 
 
-if __name__ == '__main__':
+if __name__ == &#39;__main__&#39;:
     main()
 
 ### OUTPUT ###
 # API1.circle at 1:2 radius 7.5
 # API2.circle at 5:7 radius 27.5
-</code></pre>
-
+</code></pre></div>
 <h2>3. 组合模式</h2>
 
 <p>　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
 
 <h3>3.1 Python源码示例</h3>
-
-<pre><code>#!/usr/bin/env python
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
+&quot;&quot;&quot;
 A class which defines a composite object which can store
 hieararchical dictionaries with names.
 This class is same as a hiearchical dictionary, but it
 provides methods to add/access/modify children by name,
 like a Composite.
 Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
-"""
-__author__ = "Anand B Pillai"
-__maintainer__ = "Anand B Pillai"
-__version__ = "0.2"
+&quot;&quot;&quot;
+__author__ = &quot;Anand B Pillai&quot;
+__maintainer__ = &quot;Anand B Pillai&quot;
+__version__ = &quot;0.2&quot;
 
 
 def normalize(val):
-    """ Normalize a string so that it can be used as an attribute
-    to a Python object """
+    &quot;&quot;&quot; Normalize a string so that it can be used as an attribute
+    to a Python object &quot;&quot;&quot;
 
-    if val.find('-') != -1:
-        val = val.replace('-', '_')
+    if val.find(&#39;-&#39;) != -1:
+        val = val.replace(&#39;-&#39;, &#39;_&#39;)
 
     return val
 
 
 def denormalize(val):
-    """ De-normalize a string """
+    &quot;&quot;&quot; De-normalize a string &quot;&quot;&quot;
 
-    if val.find('_') != -1:
-        val = val.replace('_', '-')
+    if val.find(&#39;_&#39;) != -1:
+        val = val.replace(&#39;_&#39;, &#39;-&#39;)
 
     return val
 
 
 class SpecialDict(dict):
 
-    """ A dictionary type which allows direct attribute
-    access to its keys """
+    &quot;&quot;&quot; A dictionary type which allows direct attribute
+    access to its keys &quot;&quot;&quot;
 
     def __getattr__(self, name):
 
@@ -267,7 +261,7 @@ class SpecialDict(dict):
             if name in self:
                 return self.get(name)
             else:
-                raise AttributeError('no attribute named %s' % name)
+                raise AttributeError(&#39;no attribute named %s&#39; % name)
 
     def __setattr__(self, name, value):
 
@@ -287,17 +281,17 @@ class SpecialDict(dict):
 
 class CompositeDict(SpecialDict):
 
-    """ A class which works like a hierarchical dictionary.
-    This class is based on the Composite design-pattern """
+    &quot;&quot;&quot; A class which works like a hierarchical dictionary.
+    This class is based on the Composite design-pattern &quot;&quot;&quot;
 
     ID = 0
 
-    def __init__(self, name=''):
+    def __init__(self, name=&#39;&#39;):
 
         if name:
             self._name = name
         else:
-            self._name = ''.join(('id#', str(self.__class__.ID)))
+            self._name = &#39;&#39;.join((&#39;id#&#39;, str(self.__class__.ID)))
             self.__class__.ID += 1
 
         self._children = []
@@ -326,27 +320,27 @@ class CompositeDict(SpecialDict):
                     if attr:
                         return attr
 
-                    raise AttributeError('no attribute named %s' % name)
+                    raise AttributeError(&#39;no attribute named %s&#39; % name)
 
     def isRoot(self):
-        """ Return whether I am a root component or not """
+        &quot;&quot;&quot; Return whether I am a root component or not &quot;&quot;&quot;
 
-        # If I don't have a parent, I am root
+        # If I don&#39;t have a parent, I am root
         return not self._father
 
     def isLeaf(self):
-        """ Return whether I am a leaf component or not """
+        &quot;&quot;&quot; Return whether I am a leaf component or not &quot;&quot;&quot;
 
         # I am a leaf if I have no children
         return not self._children
 
     def getName(self):
-        """ Return the name of this ConfigInfo object """
+        &quot;&quot;&quot; Return the name of this ConfigInfo object &quot;&quot;&quot;
 
         return self._name
 
     def getIndex(self, child):
-        """ Return the index of the child ConfigInfo object 'child' """
+        &quot;&quot;&quot; Return the index of the child ConfigInfo object &#39;child&#39; &quot;&quot;&quot;
 
         if child in self._children:
             return self._children.index(child)
@@ -354,35 +348,35 @@ class CompositeDict(SpecialDict):
             return -1
 
     def getDict(self):
-        """ Return the contained dictionary """
+        &quot;&quot;&quot; Return the contained dictionary &quot;&quot;&quot;
 
         return self[self._name]
 
     def getProperty(self, child, key):
-        """ Return the value for the property for child
-        'child' with key 'key' """
+        &quot;&quot;&quot; Return the value for the property for child
+        &#39;child&#39; with key &#39;key&#39; &quot;&quot;&quot;
 
-        # First get the child's dictionary
+        # First get the child&#39;s dictionary
         childDict = self.getInfoDict(child)
         if childDict:
             return childDict.get(key, None)
 
     def setProperty(self, child, key, value):
-        """ Set the value for the property 'key' for
-        the child 'child' to 'value' """
+        &quot;&quot;&quot; Set the value for the property &#39;key&#39; for
+        the child &#39;child&#39; to &#39;value&#39; &quot;&quot;&quot;
 
-        # First get the child's dictionary
+        # First get the child&#39;s dictionary
         childDict = self.getInfoDict(child)
         if childDict:
             childDict[key] = value
 
     def getChildren(self):
-        """ Return the list of immediate children of this object """
+        &quot;&quot;&quot; Return the list of immediate children of this object &quot;&quot;&quot;
 
         return self._children
 
     def getAllChildren(self):
-        """ Return the list of all children of this object """
+        &quot;&quot;&quot; Return the list of all children of this object &quot;&quot;&quot;
 
         l = []
         for child in self._children:
@@ -392,14 +386,14 @@ class CompositeDict(SpecialDict):
         return l
 
     def getChild(self, name):
-        """ Return the immediate child object with the given name """
+        &quot;&quot;&quot; Return the immediate child object with the given name &quot;&quot;&quot;
 
         for child in self._children:
             if child.getName() == name:
                 return child
 
     def findChild(self, name):
-        """ Return the child with the given name from the tree """
+        &quot;&quot;&quot; Return the child with the given name from the tree &quot;&quot;&quot;
 
         # Note - this returns the first child of the given name
         # any other children with similar names down the tree
@@ -410,7 +404,7 @@ class CompositeDict(SpecialDict):
                 return child
 
     def findChildren(self, name):
-        """ Return a list of children with the given name from the tree """
+        &quot;&quot;&quot; Return a list of children with the given name from the tree &quot;&quot;&quot;
 
         # Note: this returns a list of all the children of a given
         # name, irrespective of the depth of look-up.
@@ -424,28 +418,28 @@ class CompositeDict(SpecialDict):
         return children
 
     def getPropertyDict(self):
-        """ Return the property dictionary """
+        &quot;&quot;&quot; Return the property dictionary &quot;&quot;&quot;
 
-        d = self.getChild('__properties')
+        d = self.getChild(&#39;__properties&#39;)
         if d:
             return d.getDict()
         else:
             return {}
 
     def getParent(self):
-        """ Return the person who created me """
+        &quot;&quot;&quot; Return the person who created me &quot;&quot;&quot;
 
         return self._father
 
     def __setChildDict(self, child):
-        """ Private method to set the dictionary of the child
-        object 'child' in the internal dictionary """
+        &quot;&quot;&quot; Private method to set the dictionary of the child
+        object &#39;child&#39; in the internal dictionary &quot;&quot;&quot;
 
         d = self[self._name]
         d[child.getName()] = child.getDict()
 
     def setParent(self, father):
-        """ Set the parent object of myself """
+        &quot;&quot;&quot; Set the parent object of myself &quot;&quot;&quot;
 
         # This should be ideally called only once
         # by the father when creating the child :-)
@@ -457,38 +451,38 @@ class CompositeDict(SpecialDict):
         self._father = father
 
     def setName(self, name):
-        """ Set the name of this ConfigInfo object to 'name' """
+        &quot;&quot;&quot; Set the name of this ConfigInfo object to &#39;name&#39; &quot;&quot;&quot;
 
         self._name = name
 
     def setDict(self, d):
-        """ Set the contained dictionary """
+        &quot;&quot;&quot; Set the contained dictionary &quot;&quot;&quot;
 
         self[self._name] = d.copy()
 
     def setAttribute(self, name, value):
-        """ Set a name value pair in the contained dictionary """
+        &quot;&quot;&quot; Set a name value pair in the contained dictionary &quot;&quot;&quot;
 
         self[self._name][name] = value
 
     def getAttribute(self, name):
-        """ Return value of an attribute from the contained dictionary """
+        &quot;&quot;&quot; Return value of an attribute from the contained dictionary &quot;&quot;&quot;
 
         return self[self._name][name]
 
     def addChild(self, name, force=False):
-        """ Add a new child 'child' with the name 'name'.
-        If the optional flag 'force' is set to True, the
+        &quot;&quot;&quot; Add a new child &#39;child&#39; with the name &#39;name&#39;.
+        If the optional flag &#39;force&#39; is set to True, the
         child object is overwritten if it is already there.
         This function returns the child object, whether
-        new or existing """
+        new or existing &quot;&quot;&quot;
 
         if type(name) != str:
-            raise ValueError('Argument should be a string!')
+            raise ValueError(&#39;Argument should be a string!&#39;)
 
         child = self.getChild(name)
         if child:
-            # print('Child %s present!' % name)
+            # print(&#39;Child %s present!&#39; % name)
             # Replace it if force==True
             if force:
                 index = self.getIndex(child)
@@ -509,8 +503,8 @@ class CompositeDict(SpecialDict):
             return child
 
     def addChild2(self, child):
-        """ Add the child object 'child'. If it is already present,
-        it is overwritten by default """
+        &quot;&quot;&quot; Add the child object &#39;child&#39;. If it is already present,
+        it is overwritten by default &quot;&quot;&quot;
 
         currChild = self.getChild(child.getName())
         if currChild:
@@ -518,7 +512,7 @@ class CompositeDict(SpecialDict):
             if index != -1:
                 self._children[index] = child
                 child.setParent(self)
-                # Unset the existing child's parent
+                # Unset the existing child&#39;s parent
                 currChild.setParent(None)
                 del currChild
 
@@ -529,17 +523,17 @@ class CompositeDict(SpecialDict):
             self.__setChildDict(child)
 
 
-if __name__ == "__main__":
-    window = CompositeDict('Window')
-    frame = window.addChild('Frame')
-    tfield = frame.addChild('Text Field')
-    tfield.setAttribute('size', '20')
+if __name__ == &quot;__main__&quot;:
+    window = CompositeDict(&#39;Window&#39;)
+    frame = window.addChild(&#39;Frame&#39;)
+    tfield = frame.addChild(&#39;Text Field&#39;)
+    tfield.setAttribute(&#39;size&#39;, &#39;20&#39;)
 
-    btn = frame.addChild('Button1')
-    btn.setAttribute('label', 'Submit')
+    btn = frame.addChild(&#39;Button1&#39;)
+    btn.setAttribute(&#39;label&#39;, &#39;Submit&#39;)
 
-    btn = frame.addChild('Button2')
-    btn.setAttribute('label', 'Browse')
+    btn = frame.addChild(&#39;Button2&#39;)
+    btn.setAttribute(&#39;label&#39;, &#39;Browse&#39;)
 
     # print(window)
     # print(window.Frame)
@@ -551,16 +545,14 @@ if __name__ == "__main__":
 ### OUTPUT ###
 # Submit
 # Browse
-</code></pre>
-
+</code></pre></div>
 <h2>4. 修饰模式</h2>
 
 <p>　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。</p>
 
 <h3>4.1 Python源码示例</h3>
-
-<pre><code>"""https://docs.python.org/2/library/functools.html#functools.wraps"""
-"""https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;&quot;&quot;https://docs.python.org/2/library/functools.html#functools.wraps&quot;&quot;&quot;
+&quot;&quot;&quot;https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665&quot;&quot;&quot;
 
 from functools import wraps
 
@@ -568,37 +560,35 @@ from functools import wraps
 def makebold(fn):
     @wraps(fn)
     def wrapped():
-        return "&lt;b&gt;" + fn() + "&lt;/b&gt;"
+        return &quot;&lt;b&gt;&quot; + fn() + &quot;&lt;/b&gt;&quot;
     return wrapped
 
 
 def makeitalic(fn):
     @wraps(fn)
     def wrapped():
-        return "&lt;i&gt;" + fn() + "&lt;/i&gt;"
+        return &quot;&lt;i&gt;&quot; + fn() + &quot;&lt;/i&gt;&quot;
     return wrapped
 
 
 @makebold
 @makeitalic
 def hello():
-    """a decorated hello world"""
-    return "hello world"
+    &quot;&quot;&quot;a decorated hello world&quot;&quot;&quot;
+    return &quot;hello world&quot;
 
-if __name__ == '__main__':
-    print('result:{}   name:{}   doc:{}'.format(hello(), hello.__name__, hello.__doc__))
+if __name__ == &#39;__main__&#39;:
+    print(&#39;result:{}   name:{}   doc:{}&#39;.format(hello(), hello.__name__, hello.__doc__))
 
 ### OUTPUT ###
 # result:&lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;   name:hello   doc:a decorated hello world
-</code></pre>
-
+</code></pre></div>
 <h2>5. 外观模式</h2>
 
 <p>　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。</p>
 
 <h3>5.1 Python源码示例</h3>
-
-<pre><code>#!/usr/bin/env python
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import time
@@ -610,43 +600,43 @@ SLEEP = 0.5
 class TC1:
 
     def run(self):
-        print("###### In Test 1 ######")
+        print(&quot;###### In Test 1 ######&quot;)
         time.sleep(SLEEP)
-        print("Setting up")
+        print(&quot;Setting up&quot;)
         time.sleep(SLEEP)
-        print("Running test")
+        print(&quot;Running test&quot;)
         time.sleep(SLEEP)
-        print("Tearing down")
+        print(&quot;Tearing down&quot;)
         time.sleep(SLEEP)
-        print("Test Finished\n")
+        print(&quot;Test Finished\n&quot;)
 
 
 class TC2:
 
     def run(self):
-        print("###### In Test 2 ######")
+        print(&quot;###### In Test 2 ######&quot;)
         time.sleep(SLEEP)
-        print("Setting up")
+        print(&quot;Setting up&quot;)
         time.sleep(SLEEP)
-        print("Running test")
+        print(&quot;Running test&quot;)
         time.sleep(SLEEP)
-        print("Tearing down")
+        print(&quot;Tearing down&quot;)
         time.sleep(SLEEP)
-        print("Test Finished\n")
+        print(&quot;Test Finished\n&quot;)
 
 
 class TC3:
 
     def run(self):
-        print("###### In Test 3 ######")
+        print(&quot;###### In Test 3 ######&quot;)
         time.sleep(SLEEP)
-        print("Setting up")
+        print(&quot;Setting up&quot;)
         time.sleep(SLEEP)
-        print("Running test")
+        print(&quot;Running test&quot;)
         time.sleep(SLEEP)
-        print("Tearing down")
+        print(&quot;Tearing down&quot;)
         time.sleep(SLEEP)
-        print("Test Finished\n")
+        print(&quot;Test Finished\n&quot;)
 
 
 # Facade
@@ -663,7 +653,7 @@ class TestRunner:
 
 
 # Client
-if __name__ == '__main__':
+if __name__ == &#39;__main__&#39;:
     testrunner = TestRunner()
     testrunner.runAll()
 
@@ -686,11 +676,10 @@ if __name__ == '__main__':
 # Tearing down
 # Test Finished
 #
-</code></pre>
-
+</code></pre></div>
 <h2>扫一扫</h2>
 
-<p><img src="../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg" alt="2015-03-13-design-pattern-structural-pattern.md" /></p>
+<p><img src="../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg" alt="2015-03-13-design-pattern-structural-pattern.md"></p>
 
 
     <div id="disqus_container">
