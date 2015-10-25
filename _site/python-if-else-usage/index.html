@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>SVN 中的branches, tags和trunk | Taotao's Zone</title>
+  <title>python else 用法总结 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,44 +42,101 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/svn-branch-trunk-tags" title="SVN 中的branches, tags和trunk">SVN 中的branches, tags和trunk</a></h1>
+    <h1 class="entry-title"><a href="/python-if-else-usage" title="python else 用法总结">python else 用法总结</a></h1>
 
-    <p class="entry-date">2014-11-14 <span class="lastModified" style="display: none;" data-source="_posts/tools/2014-11-14-svn-branch-trunk-tags.md">最后更新时间: </span></p>
+    <p class="entry-date">2015-10-25 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-25-python-if-else-usage.md">最后更新时间: </span></p>
 
-    <h2>1. 直接上正文</h2>
+    <h2>1. 常规的 if else 用法</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">x = True
 
-<p>　　正文就是，关于这点，<a href="http://stackoverflow.com/questions/16142/what-do-branch-tag-and-trunk-mean-in-subversion-repositories">SO</a>已经有多答案了，下面我引用一下投票最多的答案。  </p>
+if x:
+    print &#39;x is true&#39;
+else:
+    print &#39;x is not true&#39;
+</code></pre></div>
+<h2>2. if else 快捷用法</h2>
+
+<p>这里的 <code>if else</code> 可以作为三元操作符使用。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mark = 40
+is_pass = True if mark &gt;= 50 else False
+print &quot;Pass? &quot; + str(is_pass)
+</code></pre></div>
+<h2>3. 与 <code>for</code> 关键字一起用</h2>
+
+<p>在满足以下情况的时候，<code>else</code> 下的代码块会被执行：</p>
 
 <ul>
-<li><strong>Trunk</strong>：would be the main body of development, originating from the start of the project until the present.</li>
-<li><strong>Branch</strong>： will be a copy of code derived from a certain point in the trunk that is used for applying major changes to the code while preserving the integrity of the code in the trunk. If the major changes work according to plan, they are usually merged back into the trunk.</li>
-<li><strong>Tag</strong>： will be a point in time on the trunk or a branch that you wish to preserve. The two main reasons for preservation would be that either this is a major release of the software, whether alpha, beta, RC or RTM, or this is the most stable point of the software before major revisions on the trunk were applied.</li>
+<li>for 循环里的语句执行完成</li>
+<li>for 循环里的语句没有被 <code>break</code> 语句打断</li>
 </ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 打印 `For loop completed the execution`
+for i in range(10):
+    print i
+else:
+    print &#39;For loop completed the execution&#39;
 
-<h2>2. 我是怎么理解的</h2>
+# 不打印 `For loop completed the execution`
+for i in range(10):
+    print i
+    if i == 5:
+        break
+else:
+    print &#39;For loop completed the execution&#39;
+</code></pre></div>
+<h2>4. 与 <code>while</code> 关键字一起用</h2>
+
+<p>和上面类似，在满足以下情况的时候，<code>else</code> 下的代码块会被执行：</p>
 
 <ul>
-<li><strong>Trunk</strong>: 你的现女友，你会付出很多东西在她身上，期待美好的结果，但时不时也会吵吵闹闹，出现一些意外情况；</li>
-<li><strong>Branches</strong>：你的前女友们，按时间排序，她们都有很多相似的东西，那就是隐藏在你最深处的东西，你的Kernel，可以说是你的爱情观、人生观、事业观等等啦；</li>
-<li><strong>Tags</strong>：让你记忆尤深的前女友们，她们可不像你这样善变，分手后依然爱你，甚至当你有一天被现女友携款潜逃将你抛弃后，你还能回去找她们，kiss她们的香唇。<br></li>
+<li>while 循环里的语句执行完成</li>
+<li>while 循环里的语句没有被 <code>break</code> 语句打断</li>
 </ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 打印 `While loop execution completed`
+a = 0
+loop = 0
+while a &lt;= 10:
+    print a
+    loop += 1
+    a += 1
+else:
+    print &quot;While loop execution completed&quot;
 
-<h2>3. 一些资源</h2>
+# 不打印 `While loop execution completed`
+a = 50
+loop = 0
+while a &gt; 10:
+    print a
+    if loop == 5:
+        break
+    a += 1
+    loop += 1
+else:
+    print &quot;While loop execution completed&quot;
+</code></pre></div>
+<h2>5. 与 <code>try except</code> 一起用</h2>
+
+<p>和 <code>try except</code> 一起使用时，如果不抛出异常，<code>else</code>里的语句就能被执行。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">file_name = &quot;result.txt&quot;
+try:
+    f = open(file_name, &#39;r&#39;)
+except IOError:
+    print &#39;cannot open&#39;, file_name
+else:
+    # Executes only if file opened properly
+    print file_name, &#39;has&#39;, len(f.readlines()), &#39;lines&#39;
+    f.close()
+</code></pre></div>
+<h2>参考文档</h2>
 
 <ul>
-<li><a href="http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html">TortoiseSVN 1.8 中文文档</a><br></li>
-<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html">图解git命令</a></li>
+<li><a href="http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python">5 different methods to use an else block in python</a></li>
 </ul>
-
-<h2>扫一扫</h2>
-
-<p><img src="../../images/share/2014-11-14-svn-branch-trunk-tags.md.jpg" alt="2014-11-14-svn-branch-trunk-tags.md"></p>
 
 
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/svn-branch-trunk-tags data-title=SVN 中的branches, tags和trunk data-url=/svn-branch-trunk-tags></div>
+        <div class="ds-thread" data-thread-key=/python-if-else-usage data-title=python else 用法总结 data-url=/python-if-else-usage></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">
