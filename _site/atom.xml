@@ -26,13 +26,52 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-10-26T15:37:57+08:00</updated>
+   <updated>2015-10-27T19:22:50+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>一行代码，打造在线编辑器</title>
+     <link href="/editor-in-one-line"/>
+     <updated>2015-10-27T00:00:00+08:00</updated>
+     <id>/editor-in-one-line</id>
+     <content type="html">&lt;h2&gt;``&lt;/h2&gt;
+
+&lt;h2&gt;1. 事情是这样的&lt;/h2&gt;
+
+&lt;p&gt;事情是这样的，有一天要开会，我准备把会议的 outline 写到个 &lt;strong&gt;&lt;em&gt;暂时&lt;/em&gt;&lt;/strong&gt; 的 notebook 里，在会议的时候参考。&lt;/p&gt;
+
+&lt;p&gt;然后，问题就来了：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;我不想打开 pages，excel，office 什么的；&lt;/li&gt;
+&lt;li&gt;我也不想打开 xcode 的 text editor，因为打开的窗口已经很多了，切换起来麻烦；&lt;/li&gt;
+&lt;li&gt;我也不想用正在写代码的 sublime 新建个文件，因为不想污染我写代码的环境，哈哈；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然后，想法就来了，要是能用浏览器来做编辑器就好了，然后突然想到很久之前看到的一篇文章，说如何用一行代码把 chrome 浏览器变成在线编辑器。哈哈，google 了下，果然找到解决方法了，果然是技术造福人类啊。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://36kr.com/p/201096.html&quot;&gt;# 极氪 # 仅一行代码，打造一个在线编辑器&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;可是还不够，这样每次都要拷贝，粘贴到浏览器里，多麻烦啊。要是能输入一个链接，直接就有这样一个在线编辑器，那多爽啊。哈哈。&lt;/p&gt;
+
+&lt;p&gt;想想它的原理，其实就是一个 html 文件嘛，更细致一点，就是一个很简单的，定制化的 textarea [我不确定是不是这个组件，但是这都不重要了，哈哈]，只要把这个 html 放到一个固定的，人人都能访问的地方不就行了？&lt;/p&gt;
+
+&lt;h2&gt;2. 感谢 github&lt;/h2&gt;
+
+&lt;p&gt;于是乎，解决方案就来了。首先得感谢 github 啊，让多少人零首付零还款就搭建了个博客，我也一样。既然博客都有了，那把上面的那个 html 文件放到博客上不就行了？&lt;/p&gt;
+
+&lt;p&gt;于是乎，我把上面的 html 保存到自己 github 博客的 &lt;code&gt;files/&lt;/code&gt; 目录下面，然后直接访问 &lt;a href=&quot;http://litaotao.github.io/files/editor.html&quot;&gt;litaotao.github.io/files/editor.html&lt;/a&gt; 就可以了。哈哈，爽爽的赶脚。&lt;/p&gt;
+
+&lt;p&gt;以后就方便多了，再要写什么临时文本的时候，直接打开浏览器，输入 &lt;a href=&quot;http://litaotao.github.io/files/editor.html&quot;&gt;litaotao.github.io/files/editor.html&lt;/a&gt; 就可以了。怎么有一种逼格满满的赶脚，哈哈。&lt;/p&gt;
+
+&lt;p&gt;当然了，你也可以自己搞一个，下载这个 &lt;a href=&quot;https://github.com/litaotao/litaotao.github.io/raw/master/files/editor.html&quot;&gt;html&lt;/a&gt; 文件，然后放到你的博客下面就可以了。&lt;/p&gt;
+</content>
+   </entry>
    
    <entry>
      <title>python else 用法总结</title>
@@ -931,6 +970,141 @@ command + k + j: 展开所有函数    &lt;/p&gt;
    </entry>
    
    <entry>
+     <title>伴我一路走来的那些bug们，你们好</title>
+     <link href="/bugs-in-my-life"/>
+     <updated>2015-06-15T00:00:00+08:00</updated>
+     <id>/bugs-in-my-life</id>
+     <content type="html">&lt;h2&gt;1. failed to write data to stream&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：ipython, OSX&lt;/li&gt;
+&lt;li&gt;操作：在ipython里import 一个pure module&lt;/li&gt;
+&lt;li&gt;问题： Python - ERROR - failed to write data to stream: &lt;open file &#39;&lt;stdout&gt;&amp;#39;, mode &amp;#39;w&amp;#39; at 0x104c8f150&amp;gt;&lt;/li&gt;
+&lt;li&gt;办法：export PYTHONIOENCODING=UTF-8 will solve it.&lt;/li&gt;
+&lt;li&gt;相关：&lt;a href=&quot;http://stackoverflow.com/questions/28115375/python-error-failed-to-write-data-to-stream-open-file-stdout-mode-w&quot;&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;2. Git: fatal: Pathspec is in submodule&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Git&lt;/li&gt;
+&lt;li&gt;操作：git add *&lt;/li&gt;
+&lt;li&gt;问题：有一个github repo [暂且叫father]，其中这个repo里有子module [暂且叫 child]，且这个child也是作为一个独立的github repo存在，我更改了child下的一些文件，然后在father下执行git add，准备在father下直接commit和push，执行git add 的时候出错，提示 &lt;code&gt;Pathspec is in submodule&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;办法：现在child下add，commit和push，然后再到father下add，commit和push；&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;相关：最好的方式是：在child下git branch 一个新的分支，然后在这个分支上修改，然后add，commit，push；修改好child后，再到father下新建一个分支，执行add，commit，push。最后，要merge的时候，也是先merge掉child，然后再merge掉father。因为child作为一个独立的repo，所有的更改都要在child这个独立repo下面做更改，由于项目需要，child作为father的一个子module，不能直接在father里更改child然后再add，commit，push。因为father里的child，只是链接到了child这个独立repo。或者说，father里的child只是独立的child的一个只读镜像。&lt;br&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;3. DB: (2013, &amp;#39;Lost connection to MySQL server during query&amp;#39;), python decorator, gevent, greenlet, function life cycle&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Python 2.7, Gevent, MySQL&lt;/li&gt;
+&lt;li&gt;操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;(total request times)/(total time in seconds) = 
+10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
+180 * 10^8 / 7200 = 
+0.025 * 10^8 = 
+2.5 * 10^6 = 25 万次请求／每秒
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。&lt;/p&gt;
+
+&lt;p&gt;ok了，场景大概就是这样了。 详情见代码片段 ：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Test(object):
+    @get_dbc
+    def assign_user_to_exp(self, dbc, user_id, cell_id):
+            self.g_pool.spawn(
+                self.async_assign_user_to_exp,
+                dbc,
+                user_id,
+                cell_id,
+            )
+            return
+
+    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
+        return dbc.execute(&amp;#39;&amp;#39;&amp;#39; there is a sql sentence that refering user_id and cell_id, just leave details here &amp;#39;&amp;#39;&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：现在的问题是，每次执行 Test().assign&lt;em&gt;user&lt;/em&gt;to_exp() 时，都会发生错误：(2013, &amp;#39;Lost connection to MySQL server during query&amp;#39;)。&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;办法：装饰器get_dbc换个位置， 如下：&lt;br&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Test(object):
+    def assign_user_to_exp(self, user_id, cell_id):
+            self.g_pool.spawn(
+                self.async_assign_user_to_exp,
+                user_id,
+                cell_id,
+            )
+            return
+
+    @get_dbc
+    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
+        return dbc.execute(&amp;#39;&amp;#39;&amp;#39; there is a sql sentence that refering user_id and cell_id, just leave details here &amp;#39;&amp;#39;&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;相关：bug的原因是在执行 Test().assign&lt;em&gt;user&lt;/em&gt;to&lt;em&gt;exp() 的时候，都先会通过装饰器 get&lt;/em&gt;dbc 去取一个 db 的connection/cursor，然后作为参数传给 async&lt;em&gt;assign&lt;/em&gt;user&lt;em&gt;to&lt;/em&gt;exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign&lt;em&gt;user&lt;/em&gt;to&lt;em&gt;exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async&lt;/em&gt;assign&lt;em&gt;user&lt;/em&gt;to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;4. fluentd 启动报错： unexpected error error&lt;em&gt;class=RuntimeError error=#&amp;lt;RuntimeError: can&amp;#39;t call S3 API. Please check your aws&lt;/em&gt;key&lt;em&gt;id / aws&lt;/em&gt;sec&lt;em&gt;key or s3&lt;/em&gt;region configuration. error = #&lt;AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.&gt;&amp;gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;环境：OSX, Python 2.7, fluentd&lt;/li&gt;
+&lt;li&gt;操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;match *.group_ab_testing&amp;gt;
+  type s3
+  aws_key_id ***
+  aws_sec_key ***
+  s3_bucket dev-test-bucket-name
+  path storage_path/
+  time_slice_format %Y/%m/%d/dev/%H
+  buffer_path /mnt/td-agent/temp_file
+  buffer_chunk_limit 10m
+  utc
+&amp;lt;/match&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;问题表现得像是这个aws&lt;em&gt;key&lt;/em&gt;id和aws&lt;em&gt;sec&lt;/em&gt;key访问不到，或者访问s3超时，已经排除aws&lt;em&gt;key&lt;/em&gt;id和aws&lt;em&gt;sec&lt;/em&gt;key无效的可能性。fluentd配置文件也没有错，于是安装 &lt;code&gt;sudo pip install awscli&lt;/code&gt; awsci 客户端来调试，调试过程如下：   &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-aaron:/etc/td-agent$aws configure
+AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
+AWS Secret Access Key [None]: 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
+Default region name [None]:
+Default output format [None]:
+aaron@dev-aaron:/etc/td-agent$aws s3 ls
+
+A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了： 
+&lt;a href=&quot;http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed&quot;&gt;aws-s3-upload-fails-requesttimetooskewed&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：   &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
+* About to connect() to s3.amazonaws.com port 80 (#0)
+*   Trying 54.231.14.248... connected
+&amp;gt; GET / HTTP/1.1
+&amp;gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+&amp;gt; Host: s3.amazonaws.com
+&amp;gt; Accept: */*
+&amp;gt;
+&amp;lt; HTTP/1.1 307 Temporary Redirect
+&amp;lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
+&amp;lt; x-amz-request-id: 90748BF8849F53E7
+&amp;lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
+&amp;lt; Location: http://aws.amazon.com/s3/
+&amp;lt; Content-Length: 0
+&amp;lt; Server: AmazonS3
+&amp;lt;
+* Connection #0 to host s3.amazonaws.com left intact
+* Closing connection #0
+aaron@dev-aaron:/etc/td-agent$date -u
+Tue Aug  4 04:23:27 UTC 2015
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;办法：重启机器或者同步utc时间即可；&lt;/li&gt;
+&lt;li&gt;相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
+   
+   <entry>
      <title>一次微信升级引发的思考</title>
      <link href="/thinking-of-wechat-design"/>
      <updated>2015-06-08T00:00:00+08:00</updated>
@@ -1021,186 +1195,6 @@ command + k + j: 展开所有函数    &lt;/p&gt;
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-06-08-thinking-of-wechat-design.md.jpg&quot; alt=&quot;2015-06-08-thinking-of-wechat-design.md&quot;&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>Python 并发编程之一：Gevent</title>
-     <link href="/python-gevent"/>
-     <updated>2015-05-28T00:00:00+08:00</updated>
-     <id>/python-gevent</id>
-     <content type="html">&lt;h2&gt;1. 什么是Gevent&lt;/h2&gt;
-
-&lt;p&gt;gevent是一个基于libev的python并发框架,以微线程greenlet为核心，使用了epoll事件监听机制以及诸多其他优化而变得高效.而且其中有个monkey类, 将现有基于Python线程直接转化为greenlet(类似于打patch).&lt;/p&gt;
-
-&lt;p&gt;greenlet 包是 Stackless 的副产品，其将微线程称为 “tasklet” 。tasklet运行在伪并发中，使用channel进行同步数据交换。&lt;/p&gt;
-
-&lt;p&gt;一个”greenlet”，是一个更加原始的微线程的概念，但是没有调度，或者叫做协程。这在你需要控制你的代码时很有用。你可以自己构造微线程的 调度器；也可以使用”greenlet”实现高级的控制流。例如可以重新创建构造器；不同于Python的构造器，我们的构造器可以嵌套的调用函数，而被嵌套的函数也可以 yield 一个值。(另外，你并不需要一个”yield”关键字，参考例子)。&lt;/p&gt;
-
-&lt;h2&gt;2. 什么是 Coroutine&lt;/h2&gt;
-
-&lt;p&gt;要理解Gevent，明白Gevent的执行机制，需要了解另外一个概念：Coroutine，中文叫做协程。第一次看见这个名词，确实很奇怪，进程、线程都了解了，突然冒出个协程，还真有点反应不过来。&lt;/p&gt;
-
-&lt;p&gt;按照 &lt;a href=&quot;http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html&quot;&gt;进程、线程和协程的理解&lt;/a&gt; 的说法：   &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。
-线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。
-协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;上面的说法不是很好理解，后来发现这篇文章 &lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt;, 里面对协程的解释是：  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;用简单的一句话来说Coroutine，就是可以暂时中断，之后再继续执行的程序，
-我们来看一个例子，事实上Python就有最基础的Coroutine，也就是generator
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;好了，通过上面两篇文章，理解协程已经对比协程、进程、线程的概念就清晰很多了：  &lt;/p&gt;
-
-&lt;p&gt;协程就是一种特殊的并发机制，其调度[就是指什么时候调用什么函数]完全由程序员指定，比如说这篇文章里的例子：  &lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt; ：    &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# -*- coding: utf8 -*-
-def foo():
-    for i in range(10):
-        # 丢资料并且把主控权交给呼叫者
-        yield i
-        print u&amp;#39;foo: 主控又回到我手上了，打我阿笨蛋&amp;#39;
-
-bar = foo()
-# 执行coroutine
-print bar.next()
-print u&amp;#39;main: 现在主控权在我们手上，做点杂事&amp;#39;
-print &amp;#39;main:hello baby!&amp;#39;
-# 回到刚才foo这个coroutine中断的地方继续执行
-print bar.next()
-print bar.next()
-
-
-###结果：
-
-0
-main: 现在主控权在我们手上，做点杂事
-main:hello baby!
-foo: 主控又回到我手上了，打我阿笨蛋
-1
-foo: 主控又回到我手上了，打我阿笨蛋
-2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3. Gevent适用场景&lt;/h2&gt;
-
-&lt;p&gt;说到Gevent的适用场景，不得不先理解Gevent的优缺点。按照上面我们的说法，还有那两篇文章的理解，Gevent是通过协程的机制来实现并行，即其并行机制并没有利用到多核CPU的优势，所以很明显了，Gevent的优缺如下：    &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;多进程能够利用多核优势，但是进程间通信比较麻烦，另外，进程数目的增加会使性能下降，进程切换的成本较高。程序流程复杂度相对I/O多路复用要低。&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;I/O多路复用是在一个进程内部处理多个逻辑流程，不用进行进程切换，性能较高，另外流程间共享信息简单。但是无法利用多核优势，另外，程序流程被事件处理切割成一个个小块，程序比较复杂，难于理解。&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;线程运行在一个进程内部，由操作系统调度，切换成本较低，另外，他们共享进程的虚拟地址空间，线程间共享信息简单。但是线程安全问题导致线程学习曲线陡峭，而且易出错。&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;协程有编程语言提供，由程序员控制进行切换，所以没有线程安全问题，可以用来处理状态机，并发请求等。但是无法利用多核优势。&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以，协程的适用场景，应该是一些I/O密集型的并行程序，而对应的计算密集型，应当采用传统的多线程、多进程方案。   &lt;/p&gt;
-
-&lt;h2&gt;4. Gevent编程模式和思维方法&lt;/h2&gt;
-
-&lt;p&gt;我想从两个例子来介绍Gevent的编程模式，第一个比较简单，可以直接去看这篇文章里的开篇例子，&lt;a href=&quot;http://xlambda.com/gevent-tutorial/#&quot;&gt;gevent程序员指南&lt;/a&gt;。不过这个例子只是简单的解释gevent的执行流程和编程模式，离现实应用还有一定的距离。当看完这篇文章后，可以参考Firefox的一个实例就行了，&lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt; 。&lt;/p&gt;
-
-&lt;p&gt;总结一下，按照我个人的理解，要想用好gevent，需要先思考下面几点：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;你的应用是否需要考虑Gevent；&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;如何把你的大任务slice成小任务，这些任务之间是否独立；&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;如果收集，处理小任务执行的结果；&lt;/li&gt;
-&lt;li&gt;理解如何真正利用gevent来实现并行，很多情况下，如果是网络I/O，需要打patch的；比说 &lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;这里接上一点，打patch要小心，比如说打了socket的patch，要先知道会不会影响到本应用中其他用了socket的服务，因为打patch是直接替换了当前运行时环境里的socket，所以在当前运行时环境里使用socket的服务都会受影响；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;5. Gevent In Action&lt;/h2&gt;
-
-&lt;p&gt;因为Gevent多用于I/O密集型并发程序，而网络请求又是很常见的一种I/O请求，所以在大规模网络并发请求的时候，可以使用Gevent。相信python程序员都应该用过 requests 这个包吧，都应该知道 requests 的作者，kennethreitz，一个货真价实的 python界的大牛。他在写了 requests 的同时，还写了一个包：&lt;a href=&quot;https://github.com/kennethreitz/grequests&quot;&gt;grequest ： gevent + requests &lt;/a&gt;，把requests用gevent包了一下，实现异步的网络请求，下次大家要是有网络方面的并发请求，需要用到gevent的话，就不用重复造轮子了，直接用 &lt;a href=&quot;https://github.com/kennethreitz/grequests&quot;&gt;grequests&lt;/a&gt; 就好了。&lt;/p&gt;
-
-&lt;h2&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.firefoxbug.com/index.php/archives/2750/&quot;&gt;Python Gevent应用&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html&quot;&gt;进程、线程和协程的理解&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/&quot;&gt;浅谈coroutine与gevent&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://xlambda.com/gevent-tutorial/#&quot;&gt;gevent程序员指南&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/77240/&quot;&gt;python greenlet背景介绍与实现机制&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.elias.cn/Python/PyConcurrency?from=Develop.PyConcurrency&quot;&gt;Python几种并发实现方案的性能比较&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-05-28-python-gevent.md.jpg&quot; alt=&quot;2015-05-28-python-gevent.md&quot;&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>book-4. Web 高性能开发参考资料</title>
-     <link href="/web-high-performance"/>
-     <updated>2015-05-02T00:00:00+08:00</updated>
-     <id>/web-high-performance</id>
-     <content type="html">&lt;h2&gt;0. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　工作一年多了，发现自己还是没什么长进。学技术这件事儿，还是得靠自己啊，所以我准备以专题的形式来提升自己的能力。这篇我总结了一些搜集的比较好的讲web高性能开发的文章和书籍，都是我自己看过的。以后再也不怕别人问到高性能web的经验和知识了，用老话说，就算没吃过猪肉也应该见过猪跑吧，咱就算没经历过高性能web开发实践，也至少了解一些这方面的知识吧。哈哈。&lt;/p&gt;
-
-&lt;h2&gt;1. 模式相关&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2014/09/05/design-pattern-cheatsheet/&quot;&gt;设计模式概览图&lt;/a&gt;&lt;br&gt;
-　　以图形的形式简单阐述了各种模式的概念，图画得不错，表述也清晰，可以有空翻开看看；
-&lt;img src=&quot;../images/design_pattern.png&quot; alt=&quot;design_pattern.png&quot;&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/08/software-architecture-patterns/&quot;&gt;软件架构模式&lt;/a&gt;&lt;br&gt;
-　　是作者对这本书的&lt;a href=&quot;http://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf&quot;&gt;Software Architecture Patterns&lt;/a&gt; 笔记和总结，写得很详细，可以时常参考，提升架构方面的基础和概念，同时，有时间也推荐读读原书，原书PDF链接在后面。&lt;br&gt;
-　　这里面提的架构有：分层架构，事件驱动架构，微内核架构，微服务架构，基于空间的架构。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/10/microservice-architecture-a-quick-guide/&quot;&gt;微服务架构快速指南&lt;/a&gt;&lt;br&gt;
-　　不常听说为服务架构，简单的理解，就是介于monolithic和SOA模式之间的一个架构模式，比monolithic灵活，轻便，比SOA有更强的组织性。不必过于在乎三者之间的差别，根据实际情况选择合适自己项目的架构模式。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/24/microservice-design-patterns/&quot;&gt;微服务架构的设计模式&lt;/a&gt;&lt;br&gt;
-　　是&lt;strong&gt;微服务架构快速指南&lt;/strong&gt;的细节篇，里面介绍了一些常用的微服务架构的设计模式，在设计项目架构的时候，如果没有什么思路，这篇文章是很好的参考资料。简单的说，里面提到了常用的微服务设计模式：聚合器，代理，链式服务，分支，数据共享，异步消息。   &lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://www.admin10000.com/document/5980.html&quot;&gt;大型网站系统架构的演化&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://www.admin10000.com/document/5981.html&quot;&gt;大型网站的灵魂——性能&lt;/a&gt;&lt;br&gt;
-　　非常好的介绍大型网站架构变化的文章，这个网站有一个专门讲大型网站性能的文章系列，都非常值得学习。我把这个系列也列在下面了，写得很细，算是最值得参考和学习的文章了。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5880.html&quot;&gt;关于大型网站技术演进的思考（一）--存储的瓶颈（1）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5881.html&quot;&gt;关于大型网站技术演进的思考（二）--存储的瓶颈（2）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5882.html&quot;&gt;关于大型网站技术演进的思考（三）--存储的瓶颈（3）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5909.html&quot;&gt;关于大型网站技术演进的思考（四）--存储的瓶颈（4）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5910.html&quot;&gt;关于大型网站技术演进的思考（五）--存储的瓶颈（5）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5911.html&quot;&gt;关于大型网站技术演进的思考（六）--存储的瓶颈（6）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5951.html&quot;&gt;关于大型网站技术演进的思考（七）--存储的瓶颈（7）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5952.html&quot;&gt;关于大型网站技术演进的思考（八）--存储的瓶颈终篇（8）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5966.html&quot;&gt;关于大型网站技术演进的思考（九）--网站静态化处理--总述（1）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5967.html&quot;&gt;关于大型网站技术演进的思考（十）--网站静态化处理—动静整合方案（2）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/5968.html&quot;&gt;关于大型网站技术演进的思考（十一）--网站静态化处理—动静分离策略（3）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6020.html&quot;&gt;关于大型网站技术演进的思考（十二）--网站静态化处理—缓存（4）&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6021.html&quot;&gt;关于大型网站技术演进的思考（十三）--网站静态化处理—CSI（5）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6022.html&quot;&gt;关于大型网站技术演进的思考（十四）--网站静态化处理—前后端分离—上（6）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6023.html&quot;&gt;关于大型网站技术演进的思考（十五）--网站静态化处理—前后端分离—中（7）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6024.html&quot;&gt;关于大型网站技术演进的思考（十六）--网站静态化处理—前后端分离—下（8）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6025.html&quot;&gt;关于大型网站技术演进的思考（十七）--网站静态化处理—满足静态化的前后端分离（9）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6026.html&quot;&gt;关于大型网站技术演进的思考（十八）--网站静态化处理—反向代理（10）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6027.html&quot;&gt;关于大型网站技术演进的思考（十九）--网站静态化处理—web前端优化—上（11）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6028.html&quot;&gt;关于大型网站技术演进的思考（二十）--网站静态化处理—web前端优化—中（12）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.admin10000.com/document/6029.html&quot;&gt;关于大型网站技术演进的思考（二十一）--网站静态化处理—web前端优化—下【终篇】（13）&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;2. 高性能网站相关&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2015/04/20/how-to-build-a-scalable-website/&quot;&gt;如何构建高扩展性网站&lt;/a&gt;&lt;br&gt;
-　　是一本小册子&lt;a href=&quot;http://book.douban.com/subject/10756899/&quot;&gt;《高扩展性网站的50条原则》&lt;/a&gt;的读书笔记。这本书不错，值得一看，在设计、改进项目架构时都可以拿来翻翻，不错的小册子。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://colobu.com/2014/09/26/best-free-website-speed-testing-tools/&quot;&gt;最佳免费的网站性能测试工具&lt;/a&gt;&lt;br&gt;
-　　这篇博文是我认为最有实际意义的一篇博文之一了，里面提到了12个免费的网站性能测试工具，比如大名鼎鼎的google pagespeed insights。我的建议是，在进行任何优化前，都先简单地用这些工具在线测试一下。不要盲目地进行后台的优化，更不要盲目的去设计一些高端的算法来做所谓的加速。比如说，一个请求后台返回的时间控制在100ms之内，但发起这个请求的js脚本被写在一个很大的js文件里面，导致下载这个js文件需要数百毫秒，那此时应该怎么优化呢？别跟我说你会让你的后台工程师去找一什么高大上的算法来解决这个问题。   &lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://www.blogjava.net/BearRui/archive/2010/04/26/web_performance.html&quot;&gt;web高性能开发系列随笔&lt;/a&gt;&lt;br&gt;
-　　算是一篇比较简单，但是完善的web性能优化博客了，里面涉及到前后端的各种优化方法，虽然我只是后台开发，但看这种文章能够让开发人员从全局的视角去设计和优化你的web系统。就跟上一篇 &lt;a href=&quot;http://colobu.com/2014/09/26/best-free-website-speed-testing-tools/&quot;&gt;最佳免费的网站性能测试工具&lt;/a&gt; 文章一样，在优化前，先全局、完整地了解你的web系统，再来说具体怎么优化吧。如果你在优化前，不知道怎么对web系统“全局”地了解，这篇博客可以入门用。  &lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;3. 参考书籍&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf&quot;&gt;Software Architecture Patterns&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://book.douban.com/subject/10756899/&quot;&gt;高扩展性网站的50条原则&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://book.douban.com/subject/3924175/&quot;&gt;构建高性能Web站点&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-05-02-web-high-performance.md.jpg&quot; alt=&quot;2015-05-02-web-high-performance.md&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    
