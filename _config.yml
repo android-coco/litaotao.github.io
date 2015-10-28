@@ -20,6 +20,8 @@ myblog:
   coverimgs: []
   postbgimg: []
 
+categories: [web, tools, spark, python, money, erlang, db, books]
+
 prose:
   rooturl: "_posts"
   siteurl: "http://litaotao.github.io/"

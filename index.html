@@ -10,6 +10,7 @@ layout: home
           <a href="{{ site.myblog.email }}"><i class="icon-envelope icon-large"></i><span> Mail</span></a>
           <a class="hide-phone" href="http://litaotao.github.io/resume/" target="_blank"><i class="icon-edit-sign icon-large"></i><span> Resume</span></a>
         </div>
+
         <ul class="artical-list">
         {% for post in site.posts %}
             <li><div class="title-date">{{ post.date | date:"%Y-%m-%d" }}</div>
@@ -31,6 +32,16 @@ layout: home
     <div class="aside">
       <div id="avatar" class="avatar circle" style="width: 150px; height: 150px; position: absolute; right: -75px; top: 75px; opacity: 0;">
         <div class="center circle" style="margin-top: 4px; height: 142px; width: 142px; background-image: url('images/2.jpg')"></div>
-      </div>
+      </div> 
+<!-- 
+        {% for category in site.categories %}
+        <h2>{{ category | first }}</h2>
+         <ul class="arc-list">
+            {% for post in category.last %}
+                <li>{{ post.date | date:"%d/%m/%Y"}}<a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %} -->
+
     </div>
 </div>

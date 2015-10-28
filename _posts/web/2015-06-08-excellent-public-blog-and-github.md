@@ -20,3 +20,8 @@ github: [airbnb](https://github.com/airbnb)
 - linkedin
 
 blog: [https://engineering.linkedin.com](https://engineering.linkedin.com)
+
+
+- quora
+
+blog: [https://engineering.quora.com/](https://engineering.quora.com/)
