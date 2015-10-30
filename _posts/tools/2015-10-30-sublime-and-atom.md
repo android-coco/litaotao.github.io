@@ -8,9 +8,26 @@ description: I still love sublime, but atom is much younger and sexy.
 
 
 ##
+## 写在前面  
+
+- 首先，这只是我个人的一个对比，也许很多功能在 sublime 里面也能实现，只是我不知道而已。
+- 其次，因为用了 sublime 真的已经很久了，所以对比的时候难免会有偏见，没办法。
+
+***I still love sublime, but atom is much younger and sexy.***
+
+![sublime-atom-lady-1.jpg](../images/sublime-atom-lady-1.jpg)
+
 ## 1. 配置
 
 ## 2. 主题
+
+## 2.1 目录树
+
+我不得不说，atom 的目录树显示比 sublime 的要方便多了，之前一直被 sublime 的目录书困扰。首先是颜色，因为我一直用 Monokai 的主题，
+但 sublime 的目录树是白色的啊，白色的啊，这对比度真的太强了。而且 sublime 的目录书感觉对比性不太好，可能是因为 indent 太少了吧。
+下面是一个简单的对比图。
+
+
 
 ## 3. 第三方集成
 
@@ -38,3 +55,13 @@ Note that it is a good style to always put the newline as a last character if it
 ```
 
 所以，以后还是用 atom 吧，光这点就吸引我了，details make success.
+
+
+### 3.2 markdown
+
+应该说，sublime 的 markdown 支持还是不错的，可以安装一些插件来实现预览。但是 atom 集成度更高。首先是 atom editor 本身对markdown的语法
+支持很好，看起来很舒服。其次是它不用安装其他什么包就可以通过 `control + shift + m` 来实时预览了。
+
+这里不知道为什么不能 render 图片，提了个 [issue](https://github.com/atom/markdown-preview/issues/323).
+
+![atom-markdown.jpg](../images/atom-markdown.jpg)
