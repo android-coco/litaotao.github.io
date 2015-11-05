@@ -2,19 +2,17 @@
 category: web
 published: false
 layout: post
-title: auto-complete / auto-suggest 之二，使用 es 实现能在生产环境使用的 auto-suggest
+title: auto-complete / auto-suggest 之三，auto-suggest 应用细节思考和优化
 description: 记录我在实现 auto-complete / auto-suggest 过程中的点点滴滴。
 ---
 
 
 ##
-## 1. ES 简单介绍
+## 写在前面
 
-## 2. ES 的 search 和 suggestion 介绍
+## 1. 思考 1，用户网络环境
 
-## 3. 实现 auto-suggest，代码分析
-
-## 4. 如何优化基于 ES 实现的 auto-suggest
+## 2. 思考 2，用户搜索历史
 
 
 ## 参考文章
