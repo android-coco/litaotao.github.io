@@ -4,11 +4,11 @@ published: true
 layout: post
 title: 打包 python package 到 pypi    
 description: 如何把 python package 打包到 pypi
---- 
+---
 
 
 
-## 
+##
 ## 1. 注册 pypi 账号  
 
 点击这张图片去注册吧。
@@ -16,7 +16,7 @@ description: 如何把 python package 打包到 pypi
 [![pypi_register.jpg](../images/pypi_register.jpg)](https://pypi.python.org/pypi)
 
 
-## 2. 编写 setup.py 必要信息 
+## 2. 编写 setup.py 必要信息
 
 
 ```
@@ -45,11 +45,11 @@ setup(
 - [项目文件](https://github.com/litaotao/IPython-Dashboard/blob/master/setup.py)
 - [pypi上的描述](https://pypi.python.org/pypi/IPython-Dashboard)
 
-我觉得关键的几 点是： 
+我觉得关键的几 点是：
 
 - keywords: 这点就不用说了吧
 - description: 这点很多人都会忽略，其实也很重要的，我相信pypi在检索的时候，也会检索里面的一些关键字的。
-- long_description: 这点也很重要，或者说不能更重要了。如果说上面的 `keywords` 和 `description` 能提高别人搜索到项目的概率的话，那 `long_description` 就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种 `long_description` 
+- long_description: 这点也很重要，或者说不能更重要了。如果说上面的 `keywords` 和 `description` 能提高别人搜索到项目的概率的话，那 `long_description` 就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种 `long_description`
     - ***No long_description***
 ![ld_1.jpg](../images/ld_1.jpg)
     - ***Ugly long_description***
@@ -57,7 +57,8 @@ setup(
     - ***long_description with highlight, but need to make it cleaner***
 ![ld_3.jpg](../images/ld_3.jpg)
 
-对了，还要注意一下，pypi 上只接受 `rst` 格式的 `readme`，不接受 `markdown` 格式的，所以想要高亮和排版的话，需要先把 `md` 格式的转换成 `rst` 格式的 `readme`。这点改天说。
+对了，还要注意一下，pypi 上只接受 `rst` 格式的 `readme`，不接受 `markdown` 格式的，所以想要高亮和排版的话，需要先把 `md` 格式的转换成 `rst` 格式的 `readme`。
+可以在你的项目目录下，使用 `pandoc --from=markdown --to=rst --output=README.rst README.md` 来转换。
 
 ## 3. 发布包元信息到pypi
 
@@ -77,5 +78,3 @@ setup(
 ## 参考文档
 
 - [How to submit a package to PyPI](http://peterdowns.com/posts/first-time-with-pypi.html)
-
-
