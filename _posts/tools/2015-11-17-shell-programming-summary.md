@@ -1,8 +1,8 @@
 ---
 category: tools
-published: false
+published: true
 layout: post
-title: shell 编程总结
+title: shell 编程总结一，概念，变量
 description: 再不总结一下就真的忘了。
 ---
 
@@ -122,17 +122,132 @@ your_name='qinjx'
 str="Hello, I know your are \"$your_name\"! \n"
 ```
 
-###
+- 拼接字符串
+
+```
+your_name="qinjx"
+greeting="hello, "$your_name" !"
+greeting_1="hello, ${your_name} !"
+echo $greeting $greeting_1
+```
+
+- 获取字符串长度
+
+```
+string="abcd"
+echo ${#string} #输出 4
+```
+
+- 提取子字符串
+
+```
+string="alibaba is a great company"
+echo ${string:1:4} #输出liba
+```
+
+- 查找子字符串
+
+```
+string="alibaba is a great company"
+echo `expr index "$string" is`
+```
 
 
+### 2.2 数组
 
+bash支持一维数组（不支持多维数组），并且没有限定数组的大小。
+类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于0。
 
+- 定义数组
 
+```
+# 在Shell中，用括号来表示数组，数组元素用"空格"符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
+array_name=(value0 value1 value2 value3)
+```
 
+- 读取数组
 
+```
+# 读取数组元素值的一般格式是：${数组名[下标]}
+valuen=${array_name[n]}
 
+# 使用@符号可以获取数组中的所有元素，例如：
+echo ${array_name[@]}
+```
+
+- 获取数组的长度
+
+```
+# 取得数组元素的个数
+length=${#array_name[@]}
+# 或者
+length=${#array_name[*]}
+# 取得数组单个元素的长度
+lengthn=${#array_name[n]}
+```
+
+## 3. echo 的用途
+
+- 显示普通字符串
+
+```
+echo "It is a test"
+
+# 这里的双引号完全可以省略，以下命令与上面实例效果一致
+echo It is a test
+```
+
+- 显示转义字符
+
+```
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo "\"It is a test\""
+"It is a test"
+
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo \"It is a test\"
+"It is a test"
+```
+
+- 输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量
+
+```
+#!/bin/sh
+read name
+echo "$name It is a test"
+```
+
+- 显示换行/不换行
+
+```
+# 换行
+echo -e "OK!\n" # -e 开启转义
+echo "It it a test"
+
+# 不换行
+#!/bin/sh
+echo -e "OK! \c" # -e 开启转义 \c 不换行
+echo "It is a test"
+```
+
+- 显示结果定向至文件
+
+```
+# 以重写文件的方式重定向
+echo "It is a test" > myfile
+
+# 以添加到文件尾的方式重定向
+echo "It is a test" >> myfile
+```
+
+- 显示命令执行结果
+
+```
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) '\n'  `date`
+Tue Nov 17 22:21:05 CST 2015
+ Tue Nov 17 22:21:05 CST 2015
+```
 
 
 ## 参考文档
 
 - [Shell 教程](http://www.runoob.com/linux/linux-shell.html)
+- [linux shell 字符串操作（长度，查找，替换）详解](http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html)

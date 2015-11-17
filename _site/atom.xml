@@ -26,13 +26,243 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-11-17T19:12:30+08:00</updated>
+   <updated>2015-11-17T22:32:23+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>shell 编程总结一，概念，变量</title>
+     <link href="/shell-programming-summary"/>
+     <updated>2015-11-17T00:00:00+08:00</updated>
+     <id>/shell-programming-summary</id>
+     <content type="html">&lt;h2&gt;1. 基本概念&lt;/h2&gt;
+
+&lt;h3&gt;1.1 什么是 shell&lt;/h3&gt;
+
+&lt;p&gt;业界所说的shell通常都是指shell脚本，但要知道，shell和shell script是两个不同的概念:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Shell 是一个用C语言编写的程序，它是用户使用Linux的桥梁, 这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。&lt;/li&gt;
+&lt;li&gt;Shell 也是一种命令语言和一种程序设计语言，Shell 脚本（shell script），是一种用shell编写的脚本程序。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;1.2 Shell 环境&lt;/h3&gt;
+
+&lt;p&gt;Shell 编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。Linux的Shell种类众多，常见的有：  &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bourne Shell（/usr/bin/sh或/bin/sh）&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;Bourne Again Shell（/bin/bash）&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;C Shell（/usr/bin/csh）&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;K Shell（/usr/bin/ksh）&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;Shell for Root（/sbin/sh）&lt;br&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;大多数情况下提到 shell 都是指 Bash，也就是 Bourne Again Shell，由于易用和免费，Bash在日常工作中被广泛使用。同时，
+Bash也是大多数Linux系统默认的Shell。
+在一般情况下，人们并不区分 Bourne Shell 和 Bourne Again Shell，所以，像 &lt;code&gt;#!/bin/sh&lt;/code&gt; ，它同样也可以改为 &lt;code&gt;#!/bin/bash&lt;/code&gt;。
+&lt;code&gt;#!&lt;/code&gt; 告诉系统其后路径所指定的程序即是解释此脚本文件的Shell程序。&lt;/p&gt;
+
+&lt;h3&gt;1.3 shell 脚本的执行&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;作为可执行程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chmod +x ./test.sh  #使脚本具有执行权限
+./test.sh  #执行脚本
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意，一定要写成&lt;code&gt;./test.sh&lt;/code&gt;，而不是&lt;code&gt;test.sh&lt;/code&gt;，运行其它二进制的程序也一样，直接写&lt;code&gt;test.sh&lt;/code&gt;，linux系统会去PATH里寻找有没有叫&lt;code&gt;test.sh&lt;/code&gt;的，
+而只有&lt;code&gt;/bin, /sbin, /usr/bin，/usr/sbin&lt;/code&gt;等在PATH里，你的当前目录通常不在PATH里，所以写成&lt;code&gt;test.sh&lt;/code&gt;是会找不到命令的，
+要用&lt;code&gt;./test.sh&lt;/code&gt;告诉系统说，就在当前目录找。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;作为 [shell] 解释器参数 : 直接运行解释器，其参数就是shell脚本的文件名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/bin/sh test.sh
+/bin/php test.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. shell 变量&lt;/h2&gt;
+
+&lt;p&gt;定义变量时，变量名不加美元符号:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;runoob.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意，变量名和等号之间不能有空格，同时，变量名的命名须遵循如下规则：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
+&lt;li&gt;中间不能有空格，可以使用下划线。&lt;/li&gt;
+&lt;li&gt;不能使用标点符号。&lt;/li&gt;
+&lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;除了显式地直接赋值，还可以用语句给变量赋值，如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for file in `ls /etc`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;使用一个定义过的变量，只要在变量名前面加美元符号即可，如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;qinjx&amp;quot;
+echo $your_name
+echo ${your_name}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for skill in Ada Coffe Action Java do
+    echo &amp;quot;I am good at ${skill}Script&amp;quot;
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果不给skill变量加花括号，写成 &lt;code&gt;echo &amp;quot;I am good at $skillScript&amp;quot;&lt;/code&gt;，解释器就会把$skillScript当成一个变量（其值为空），
+代码执行结果就不是我们期望的样子了。推荐给所有变量加上花括号，这是个好的编程习惯。
+已定义的变量，可以被重新定义，如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;tom&amp;quot;
+echo $your_name
+your_name=&amp;quot;alibaba&amp;quot;
+echo $your_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.1 字符串&lt;/h3&gt;
+
+&lt;p&gt;字符串可以用单引号，也可以用双引号，也可以不用引号。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;单引号
+
+&lt;ul&gt;
+&lt;li&gt;单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；&lt;/li&gt;
+&lt;li&gt;单引号字串中不能出现单引号（对单引号使用转义符后也不行）。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;str=&amp;#39;this is a string&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;双引号
+
+&lt;ul&gt;
+&lt;li&gt;双引号里可以有变量&lt;/li&gt;
+&lt;li&gt;双引号里可以出现转义字符&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;#39;qinjx&amp;#39;
+str=&amp;quot;Hello, I know your are \&amp;quot;$your_name\&amp;quot;! \n&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;拼接字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;qinjx&amp;quot;
+greeting=&amp;quot;hello, &amp;quot;$your_name&amp;quot; !&amp;quot;
+greeting_1=&amp;quot;hello, ${your_name} !&amp;quot;
+echo $greeting $greeting_1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;获取字符串长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;abcd&amp;quot;
+echo ${#string} #输出 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;提取子字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;alibaba is a great company&amp;quot;
+echo ${string:1:4} #输出liba
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;查找子字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;alibaba is a great company&amp;quot;
+echo `expr index &amp;quot;$string&amp;quot; is`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.2 数组&lt;/h3&gt;
+
+&lt;p&gt;bash支持一维数组（不支持多维数组），并且没有限定数组的大小。
+类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于0。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;定义数组&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 在Shell中，用括号来表示数组，数组元素用&amp;quot;空格&amp;quot;符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
+array_name=(value0 value1 value2 value3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;读取数组&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 读取数组元素值的一般格式是：${数组名[下标]}
+valuen=${array_name[n]}
+
+# 使用@符号可以获取数组中的所有元素，例如：
+echo ${array_name[@]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;获取数组的长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 取得数组元素的个数
+length=${#array_name[@]}
+# 或者
+length=${#array_name[*]}
+# 取得数组单个元素的长度
+lengthn=${#array_name[n]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3. echo 的用途&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;显示普通字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;quot;It is a test&amp;quot;
+
+# 这里的双引号完全可以省略，以下命令与上面实例效果一致
+echo It is a test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;显示转义字符&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo &amp;quot;\&amp;quot;It is a test\&amp;quot;&amp;quot;
+&amp;quot;It is a test&amp;quot;
+
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo \&amp;quot;It is a test\&amp;quot;
+&amp;quot;It is a test&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
+read name
+echo &amp;quot;$name It is a test&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;显示换行/不换行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 换行
+echo -e &amp;quot;OK!\n&amp;quot; # -e 开启转义
+echo &amp;quot;It it a test&amp;quot;
+
+# 不换行
+#!/bin/sh
+echo -e &amp;quot;OK! \c&amp;quot; # -e 开启转义 \c 不换行
+echo &amp;quot;It is a test&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;显示结果定向至文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 以重写文件的方式重定向
+echo &amp;quot;It is a test&amp;quot; &amp;gt; myfile
+
+# 以添加到文件尾的方式重定向
+echo &amp;quot;It is a test&amp;quot; &amp;gt;&amp;gt; myfile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;显示命令执行结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) &amp;#39;\n&amp;#39;  `date`
+Tue Nov 17 22:21:05 CST 2015
+ Tue Nov 17 22:21:05 CST 2015
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>python 循环引用</title>
@@ -1010,141 +1240,6 @@ command + k + j: 展开所有函数    &lt;/p&gt;
 &lt;h2&gt;扫一扫&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-26-sublime-key-shortcut.md.jpg&quot; alt=&quot;2015-01-26-sublime-key-shortcut.md&quot;&gt;&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>伴我一路走来的那些bug们，你们好</title>
-     <link href="/bugs-in-my-life"/>
-     <updated>2015-06-15T00:00:00+08:00</updated>
-     <id>/bugs-in-my-life</id>
-     <content type="html">&lt;h2&gt;1. failed to write data to stream&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：ipython, OSX&lt;/li&gt;
-&lt;li&gt;操作：在ipython里import 一个pure module&lt;/li&gt;
-&lt;li&gt;问题： Python - ERROR - failed to write data to stream: &lt;open file &#39;&lt;stdout&gt;&amp;#39;, mode &amp;#39;w&amp;#39; at 0x104c8f150&amp;gt;&lt;/li&gt;
-&lt;li&gt;办法：export PYTHONIOENCODING=UTF-8 will solve it.&lt;/li&gt;
-&lt;li&gt;相关：&lt;a href=&quot;http://stackoverflow.com/questions/28115375/python-error-failed-to-write-data-to-stream-open-file-stdout-mode-w&quot;&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;2. Git: fatal: Pathspec is in submodule&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Git&lt;/li&gt;
-&lt;li&gt;操作：git add *&lt;/li&gt;
-&lt;li&gt;问题：有一个github repo [暂且叫father]，其中这个repo里有子module [暂且叫 child]，且这个child也是作为一个独立的github repo存在，我更改了child下的一些文件，然后在father下执行git add，准备在father下直接commit和push，执行git add 的时候出错，提示 &lt;code&gt;Pathspec is in submodule&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;办法：现在child下add，commit和push，然后再到father下add，commit和push；&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;相关：最好的方式是：在child下git branch 一个新的分支，然后在这个分支上修改，然后add，commit，push；修改好child后，再到father下新建一个分支，执行add，commit，push。最后，要merge的时候，也是先merge掉child，然后再merge掉father。因为child作为一个独立的repo，所有的更改都要在child这个独立repo下面做更改，由于项目需要，child作为father的一个子module，不能直接在father里更改child然后再add，commit，push。因为father里的child，只是链接到了child这个独立repo。或者说，father里的child只是独立的child的一个只读镜像。&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;3. DB: (2013, &amp;#39;Lost connection to MySQL server during query&amp;#39;), python decorator, gevent, greenlet, function life cycle&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, Gevent, MySQL&lt;/li&gt;
-&lt;li&gt;操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;(total request times)/(total time in seconds) = 
-10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
-180 * 10^8 / 7200 = 
-0.025 * 10^8 = 
-2.5 * 10^6 = 25 万次请求／每秒
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。&lt;/p&gt;
-
-&lt;p&gt;ok了，场景大概就是这样了。 详情见代码片段 ：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Test(object):
-    @get_dbc
-    def assign_user_to_exp(self, dbc, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                dbc,
-                user_id,
-                cell_id,
-            )
-            return
-
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&amp;#39;&amp;#39;&amp;#39; there is a sql sentence that refering user_id and cell_id, just leave details here &amp;#39;&amp;#39;&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;问题：现在的问题是，每次执行 Test().assign&lt;em&gt;user&lt;/em&gt;to_exp() 时，都会发生错误：(2013, &amp;#39;Lost connection to MySQL server during query&amp;#39;)。&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;办法：装饰器get_dbc换个位置， 如下：&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Test(object):
-    def assign_user_to_exp(self, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                user_id,
-                cell_id,
-            )
-            return
-
-    @get_dbc
-    def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-        return dbc.execute(&amp;#39;&amp;#39;&amp;#39; there is a sql sentence that refering user_id and cell_id, just leave details here &amp;#39;&amp;#39;&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;相关：bug的原因是在执行 Test().assign&lt;em&gt;user&lt;/em&gt;to&lt;em&gt;exp() 的时候，都先会通过装饰器 get&lt;/em&gt;dbc 去取一个 db 的connection/cursor，然后作为参数传给 async&lt;em&gt;assign&lt;/em&gt;user&lt;em&gt;to&lt;/em&gt;exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign&lt;em&gt;user&lt;/em&gt;to&lt;em&gt;exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async&lt;/em&gt;assign&lt;em&gt;user&lt;/em&gt;to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;4. fluentd 启动报错： unexpected error error&lt;em&gt;class=RuntimeError error=#&amp;lt;RuntimeError: can&amp;#39;t call S3 API. Please check your aws&lt;/em&gt;key&lt;em&gt;id / aws&lt;/em&gt;sec&lt;em&gt;key or s3&lt;/em&gt;region configuration. error = #&lt;AWS::S3::Errors::RequestTimeTooSkewed: The difference between the request time and the current time is too large.&gt;&amp;gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;环境：OSX, Python 2.7, fluentd&lt;/li&gt;
-&lt;li&gt;操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;match *.group_ab_testing&amp;gt;
-  type s3
-  aws_key_id ***
-  aws_sec_key ***
-  s3_bucket dev-test-bucket-name
-  path storage_path/
-  time_slice_format %Y/%m/%d/dev/%H
-  buffer_path /mnt/td-agent/temp_file
-  buffer_chunk_limit 10m
-  utc
-&amp;lt;/match&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;问题表现得像是这个aws&lt;em&gt;key&lt;/em&gt;id和aws&lt;em&gt;sec&lt;/em&gt;key访问不到，或者访问s3超时，已经排除aws&lt;em&gt;key&lt;/em&gt;id和aws&lt;em&gt;sec&lt;/em&gt;key无效的可能性。fluentd配置文件也没有错，于是安装 &lt;code&gt;sudo pip install awscli&lt;/code&gt; awsci 客户端来调试，调试过程如下：   &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-aaron:/etc/td-agent$aws configure
-AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
-AWS Secret Access Key [None]: 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
-Default region name [None]:
-Default output format [None]:
-aaron@dev-aaron:/etc/td-agent$aws s3 ls
-
-A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了： 
-&lt;a href=&quot;http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed&quot;&gt;aws-s3-upload-fails-requesttimetooskewed&lt;/a&gt; &lt;/p&gt;
-
-&lt;p&gt;高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：   &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
-* About to connect() to s3.amazonaws.com port 80 (#0)
-*   Trying 54.231.14.248... connected
-&amp;gt; GET / HTTP/1.1
-&amp;gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
-&amp;gt; Host: s3.amazonaws.com
-&amp;gt; Accept: */*
-&amp;gt;
-&amp;lt; HTTP/1.1 307 Temporary Redirect
-&amp;lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
-&amp;lt; x-amz-request-id: 90748BF8849F53E7
-&amp;lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
-&amp;lt; Location: http://aws.amazon.com/s3/
-&amp;lt; Content-Length: 0
-&amp;lt; Server: AmazonS3
-&amp;lt;
-* Connection #0 to host s3.amazonaws.com left intact
-* Closing connection #0
-aaron@dev-aaron:/etc/td-agent$date -u
-Tue Aug  4 04:23:27 UTC 2015
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;办法：重启机器或者同步utc时间即可；&lt;/li&gt;
-&lt;li&gt;相关：fluentd 的配置文件的所有者和所在组都需要为td-agent这个进程；否则启动时候也会报错的；&lt;/li&gt;
-&lt;/ul&gt;
 </content>
    </entry>
    
