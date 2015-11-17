@@ -13,8 +13,8 @@ description: 循环引用的原因及一些避免方法。
 首先，明确一下 `import module_name` 和 `from module_name import module_element` 是两条可执行的语句。
 其次，`sys.modules` 里记录了当前 run time 下所有已经导出的 module。
 
-- 如果 module_name 不在 sys.modules 中，那 `import module_name` 将会执行:
-    + 1. `sys.modules[ module_name ] = [empty pyc file]``
+- 如果 module_name 不在 sys.modules 中，那 import module_name 将会执行:
+    + 1. `sys.modules[ module_name ] = [empty pyc file]`
     + 2. execute module_name to generate a module_name.pyc file
     + 3. `sys.modules[ module_name ] = module_name.pyc file path`
 - 如果 module_name 已经在 sys.moudles 中，那会去 load 对应的 pyc file，但关键就在这里的 pyc 文件，有两种情况:

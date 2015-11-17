@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-11-10T16:56:53+08:00</updated>
+   <updated>2015-11-17T19:12:30+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -45,10 +45,10 @@
 其次，&lt;code&gt;sys.modules&lt;/code&gt; 里记录了当前 run time 下所有已经导出的 module。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;如果 module&lt;em&gt;name 不在 sys.modules 中，那 `import module&lt;/em&gt;name` 将会执行:
+&lt;li&gt;如果 module&lt;em&gt;name 不在 sys.modules 中，那 import module&lt;/em&gt;name 将会执行:
 
 &lt;ul&gt;
-&lt;li&gt;1. &lt;code&gt;sys.modules[ module_name ] = [empty pyc file]&lt;/code&gt;`&lt;/li&gt;
+&lt;li&gt;1. &lt;code&gt;sys.modules[ module_name ] = [empty pyc file]&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;2. execute module&lt;em&gt;name to generate a module&lt;/em&gt;name.pyc file&lt;/li&gt;
 &lt;li&gt;3. &lt;code&gt;sys.modules[ module_name ] = module_name.pyc file path&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;

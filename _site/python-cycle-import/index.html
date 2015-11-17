@@ -62,10 +62,10 @@
 其次，<code>sys.modules</code> 里记录了当前 run time 下所有已经导出的 module。</p>
 
 <ul>
-<li>如果 module<em>name 不在 sys.modules 中，那 `import module</em>name` 将会执行:
+<li>如果 module<em>name 不在 sys.modules 中，那 import module</em>name 将会执行:
 
 <ul>
-<li>1. <code>sys.modules[ module_name ] = [empty pyc file]</code>`</li>
+<li>1. <code>sys.modules[ module_name ] = [empty pyc file]</code></li>
 <li>2. execute module<em>name to generate a module</em>name.pyc file</li>
 <li>3. <code>sys.modules[ module_name ] = module_name.pyc file path</code></li>
 </ul></li>
