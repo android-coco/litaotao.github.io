@@ -251,3 +251,4 @@ Tue Nov 17 22:21:05 CST 2015
 
 - [Shell 教程](http://www.runoob.com/linux/linux-shell.html)
 - [linux shell 字符串操作（长度，查找，替换）详解](http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html)
+- [Linux 之 shell 比较运算符](http://blog.csdn.net/ithomer/article/details/6836382)

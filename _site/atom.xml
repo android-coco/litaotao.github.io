@@ -26,13 +26,248 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-11-17T22:32:23+08:00</updated>
+   <updated>2015-11-18T18:32:23+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>shell 编程总结二，test 命令，流程控制</title>
+     <link href="/shell-programming-summary-2"/>
+     <updated>2015-11-18T00:00:00+08:00</updated>
+     <id>/shell-programming-summary-2</id>
+     <content type="html">&lt;h2&gt;1. test 命令&lt;/h2&gt;
+
+&lt;p&gt;Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。&lt;/p&gt;
+
+&lt;h3&gt;1.1 数值测试&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-eq : equal&lt;/code&gt;: 等于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-ne : non-equal&lt;/code&gt;: 不等于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-gt : great than&lt;/code&gt;: 大于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-ge : great or equal&lt;/code&gt;: 大于或等于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-lt : lower than&lt;/code&gt;: 小于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-le : lower or equal&lt;/code&gt;: 小于或等于&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=100
+num2=100
+if test $[num1] -eq $[num2]
+then
+    echo &amp;#39;The two numbers are equal!&amp;#39;
+else
+    echo &amp;#39;The two numbers are not equal!&amp;#39;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;1.2 字符串测试&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;=&lt;/code&gt;: 等于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!=&lt;/code&gt;: 不等于&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-z : zero&lt;/code&gt;: 字符串长度为零，则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-n : non-zero&lt;/code&gt;: 字符串长度不为零，则为真&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=100
+num2=100
+if test num1=num2
+then
+    echo &amp;#39;The two strings are equal!&amp;#39;
+else
+    echo &amp;#39;The two strings are not equal!&amp;#39;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;1.3 文件测试&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-e  : exist&lt;/code&gt;: 如果文件存在则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-r  : readable&lt;/code&gt;: 如果文件存在且可读则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-w  : writable&lt;/code&gt;: 如果文件存在且可写则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-x  : execute&lt;/code&gt;: 如果文件存在且可执行则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-s  :&lt;/code&gt;: 如果文件存在且至少有一个字符则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-d  : directory&lt;/code&gt;: 如果文件存在且为目录则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-f  : file&lt;/code&gt;: 如果文件存在且为普通文件则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-c  :&lt;/code&gt;: 如果文件存在且为字符型特殊文件则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-b  : block&lt;/code&gt;: 如果文件存在且为块特殊文件则为真&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /bin
+if test -e ./bash
+then
+    echo &amp;#39;The file already exists!&amp;#39;
+else
+    echo &amp;#39;The file does not exists!&amp;#39;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：&amp;quot;!&amp;quot;最高，&amp;quot;-a&amp;quot;次之，&amp;quot;-o&amp;quot;最低。例如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /bin
+if test -e ./notFile -o ./bash
+then
+    echo &amp;#39;One file exists at least!&amp;#39;
+else
+    echo &amp;#39;Both dose not exists!&amp;#39;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 流程控制&lt;/h2&gt;
+
+&lt;h3&gt;2.1 if elif else fi 控制符&lt;/h3&gt;
+
+&lt;p&gt;完整的格式如下，其中，&lt;code&gt;elif&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt; 可根据实际情况决定是否需要。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;if condition1
+then
+    command1
+elif condition2
+    command2
+else
+    commandN
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;实例：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=$[2*3]
+num2=$[1+5]
+if test $[num1] -eq $[num2]
+then
+    echo &amp;#39;两个数字相等!&amp;#39;
+else
+    echo &amp;#39;两个数字不相等!&amp;#39;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.2 for 循环&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for var in item1 item2 ... itemN
+do
+    command1
+    command2
+    ...
+    commandN
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.3 while 语句&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;while condition
+do
+    command
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
+int=1
+while(( $int&amp;lt;=5 ))
+do
+        echo $int
+        let &amp;quot;int++&amp;quot;
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按&lt;Ctrl-D&gt;结束循环。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&amp;#39;
+echo -n &amp;#39;输入你最喜欢的电影名: &amp;#39;
+while read FILM
+do
+    echo &amp;quot;是的！$FILM 是一部好电影&amp;quot;
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;无限循环语法格式：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;while :
+do
+    command
+done
+
+# 或者
+
+while true
+do
+    command
+done
+
+# 或者
+for (( ; ; ))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.4 until 循环&lt;/h3&gt;
+
+&lt;p&gt;until循环执行一系列命令直至条件为真时停止。
+until循环与while循环在处理方式上刚好相反。
+一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
+until 语法格式:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;until condition
+do
+    command
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.5 case 语句&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;case 值 in
+模式1)
+    command1
+    command2
+    ...
+    commandN
+    ;;
+模式2）
+    command1
+    command2
+    ...
+    commandN
+    ;;
+esac
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;#39;输入 1 到 4 之间的数字:&amp;#39;
+echo &amp;#39;你输入的数字为:&amp;#39;
+read aNum
+case $aNum in
+    1)  echo &amp;#39;你选择了 1&amp;#39;
+    ;;
+    2)  echo &amp;#39;你选择了 2&amp;#39;
+    ;;
+    3)  echo &amp;#39;你选择了 3&amp;#39;
+    ;;
+    4)  echo &amp;#39;你选择了 4&amp;#39;
+    ;;
+    *)  echo &amp;#39;你没有输入 1 到 4 之间的数字&amp;#39;
+    ;;
+esac
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2.6 break 和 continue 语句&lt;/h3&gt;
+
+&lt;p&gt;break命令允许跳出所有循环（终止执行后面的所有循环）。
+下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+while :
+do
+    echo -n &amp;quot;输入 1 到 5 之间的数字:&amp;quot;
+    read aNum
+    case $aNum in
+        1|2|3|4|5) echo &amp;quot;你输入的数字为 $aNum!&amp;quot;
+        ;;
+        *) echo &amp;quot;你输入的数字不是 1 到 5 之间的! 游戏结束&amp;quot;
+            break
+        ;;
+    esac
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+while :
+do
+    echo -n &amp;quot;输入 1 到 5 之间的数字: &amp;quot;
+    read aNum
+    case $aNum in
+        1|2|3|4|5) echo &amp;quot;你输入的数字为 $aNum!&amp;quot;
+        ;;
+        *) echo &amp;quot;你输入的数字不是 1 到 5 之间的!&amp;quot;
+            continue
+            echo &amp;quot;游戏结束&amp;quot;
+        ;;
+    esac
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>shell 编程总结一，概念，变量</title>
@@ -260,6 +495,7 @@ Tue Nov 17 22:21:05 CST 2015
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1110,136 +1346,6 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 &lt;li&gt;提示，一定要提示用户可以转为邮箱注册，并且告诉用户，即使转为邮箱注册，之前填过的信息都不会丢失；&lt;/li&gt;
 &lt;li&gt;因为手机验证码都有一个时间限制，大多都是30-60秒，那前端完全可以监控，看倒计时完成之前，用户是否有在验证码输入框中输入数据，如果说，一个验证码的有效时间是60秒，但直到50秒时用户还没有在验证码输入框中输入数据，那么前端就可以提示用户，也许手机验证码会延迟很久【一定要用“延迟”，把责任推到运营商】，然后弹出一个邮箱输入框，告知用户，可以输入邮箱，通过邮箱来接收验证码即可。&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>我常用的 sublime 快捷键</title>
-     <link href="/sublime-key-shortcut"/>
-     <updated>2015-06-26T00:00:00+08:00</updated>
-     <id>/sublime-key-shortcut</id>
-     <content type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　之所以要整理一下我常用的 sublime 快捷键，是源于一个 blog &lt;a href=&quot;http://tech.glowing.com/cn/advices-to-junior-developers/&quot;&gt;如何提升你的能力？给年轻程序员的几条建议&lt;/a&gt;。这个作者 &lt;a href=&quot;https://github.com/yejianye&quot;&gt;Ryan&lt;/a&gt; 是我的新boss，在当时第一次面试结束的时候，我问了他一个问题，像我这样子刚工作不久，基础不好的新人，应该怎么来提升自己。当时他简单的说了一下，内容和博文里面的差不多，没想到不到一个星期在公司的微信公众号上就出现了这样一篇文章。虽然不确定是不是因为我的那个问题而写的，但确实很感动。我想，在个人成长的过程中，如果有人能拉一把，那感觉就跟买股票时，有人突然给了一个内幕消息似的。无论如何，都要谢谢 Ryan，也要感谢他的这篇文章。  &lt;/p&gt;
-
-&lt;p&gt;　　我用sublime很久了，一些快捷用法也挺熟悉，不过似乎还没怎么整理过。估计以后都要和sublime同甘共苦了，还是很有必要好好总结一下的，所以就有了这篇博客。&lt;/p&gt;
-
-&lt;p&gt;　　需要注意的是，sublime的快捷键在 OSX 下和 Windows 下是不一样的，这里我就以 OSX 为标准吧。完整的快捷键可以在 sublime -&amp;gt; Preferences -&amp;gt; King Bindings [Default, User] 这里查看和更改设置。&lt;/p&gt;
-
-&lt;p&gt;　　先说明一下，如果快捷键不work的话，一般是因为和系统或其他快捷键有冲突，可以在 preference -&amp;gt; key binding 里更改一下。&lt;/p&gt;
-
-&lt;h2&gt;1. 功能查找：ctrl + p&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;直接输入，可以快速查找文件&lt;/li&gt;
-&lt;li&gt;输入@+函数名，查找函数，这个功能还有快捷键：ctrl + r，已经直接在查找栏里不全了一个 @ 了。&lt;/li&gt;
-&lt;li&gt;输入#+文本，文件内文本匹配&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;2. 多选：ctrl + d&lt;/h2&gt;
-
-&lt;p&gt;把光标放在一个单词上，按下ctrl + D,将选择这个单词。一直按住ctrl且按D多次，将选择当前选中项的下一个匹配项。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/ctrld.gif&quot; alt=&quot;ctrld.gif&quot;&gt;&lt;/p&gt;
-
-&lt;h2&gt;3. 打开关闭边栏： ctrl + k, ctrl + b&lt;/h2&gt;
-
-&lt;p&gt;这个功能个人觉得很实用，特别是有一个竖屏的时候，在竖屏上写代码时，ctrl + k, ctrl + b 把侧边栏关闭，那感觉叫一个酸爽啊，哈哈。&lt;/p&gt;
-
-&lt;h2&gt;4. 文本查找：ctrl + f, ctrl + shift + f&lt;/h2&gt;
-
-&lt;p&gt;ctrl + f：当前文件内查找
-ctrl + shift + f：在当前打开的folder中的所有文件内查找，还可以有替代功能【在windows下，sumblime 2，好像用搜狗輸入法的中文時，不能使用这个功能，需要切换成美式键盘才可以使用这个功能】&lt;/p&gt;
-
-&lt;h2&gt;5. 命令模式：ctrl + shift + p&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;minimap：隐藏或显示右侧的小地图&lt;/li&gt;
-&lt;li&gt;set syntax：设置当前文本语法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;6. 快速跳到某一行：ctrl + g&lt;/h2&gt;
-
-&lt;h2&gt;7. 完整拷贝，避免格式错乱：ctrl + shift + v&lt;/h2&gt;
-
-&lt;p&gt;我们发现，在从别的文件中拷贝一段代码过来的时候，多半只是第一行缩进，后面都乱了，这时可以使用Ctrl + Shift + V进行粘贴，可以在粘贴的过程中保持缩进，这时格式都是正确的。&lt;/p&gt;
-
-&lt;h2&gt;8. 重新打开关闭的标签：command + shift + t&lt;/h2&gt;
-
-&lt;p&gt;在Chrome里面，如果你不小心关闭了某个标签页并想恢复它，你可以按下Shift + Ctrl + T重新打开它。
-在ST3中也一样，如果你不小心关闭了某个文件，可以按下Shift + command + T快速恢复。连续重复该按键，ST将会按照关闭的先后顺序重新打开标签页。&lt;/p&gt;
-
-&lt;h2&gt;9. 左右标签切换：command + shift + {, }&lt;/h2&gt;
-
-&lt;p&gt;command + shift + {, 转向当前标签的左面一个标签，反之。&lt;/p&gt;
-
-&lt;h2&gt;10. 删除整行：ctrl + shift + k / ctrl + x&lt;/h2&gt;
-
-&lt;p&gt;同样的，在windows下，如果使用搜狗输入法的话，这样也会不能用，应该是被搜狗本身的快捷键覆盖了，需要切换到美式键盘才行。   &lt;/p&gt;
-
-&lt;h2&gt;11. 强力分屏，宽屏的福音：command + alt + 数字键&lt;/h2&gt;
-
-&lt;p&gt;同样也是我经常使用的一个快捷键，因为有3个屏幕，一个笔记本，一个23的宽屏，一个19的竖屏。在竖屏上写代码时基本都是 ctrl + k, ctrl + b 关闭左侧边栏，在宽屏上写代码时常常会用 command + alt + 2 切换成2屏，刷起来感觉刁刁的，爽爽的。&lt;/p&gt;
-
-&lt;h2&gt;12. 关闭当前文件：ctrl + w&lt;/h2&gt;
-
-&lt;h2&gt;13. 选择行：ctrl + l&lt;/h2&gt;
-
-&lt;p&gt;选择某行，重复可以依次增加选择下一行。&lt;/p&gt;
-
-&lt;h2&gt;14. 全屏：ctrl + command + f&lt;/h2&gt;
-
-&lt;h2&gt;15. 切换标签：command + 数字&lt;/h2&gt;
-
-&lt;p&gt;切换到第N个文件。&lt;/p&gt;
-
-&lt;h2&gt;16. 快速查找下一个、上一个&lt;/h2&gt;
-
-&lt;p&gt;选中单词，command + g，快速选中下一个，command + shift + g，快速选中上一个。&lt;/p&gt;
-
-&lt;h2&gt;17. 缩进中tab转为space&lt;/h2&gt;
-
-&lt;p&gt;command + , 打开用户设置，设置 &amp;quot;translateTabsToSpaces&amp;quot; 为 &amp;quot;ture&amp;quot;，然后保存一下就ok了。&lt;/p&gt;
-
-&lt;p&gt;顺便了解一下sublime加载配置文件的顺序：&lt;/p&gt;
-
-&lt;p&gt;Packages/Default/Preferences.sublime-settings
-Packages/Default/Preferences (&lt;platform&gt;).sublime-settings
-Packages/User/Preferences.sublime-settings
-Packages/&lt;syntax&gt;/&lt;syntax&gt;.sublime-settings
-Packages/User/&lt;syntax&gt;.sublime-settings&lt;/p&gt;
-
-&lt;p&gt;更多的配置详情可以查询这两个链接：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.sublimetext.com/docs/2/indentation.html&quot;&gt;config sublime 1&lt;/a&gt;
-&lt;a href=&quot;http://www.sublimetext.com/docs/indentation&quot;&gt;config sublime 2&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;18. 安装插件&lt;/h2&gt;
-
-&lt;p&gt;按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import urllib2,os;pf=&amp;#39;Package Control.sublime-package&amp;#39;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&amp;#39;wb&amp;#39;).write(urllib2.urlopen(&amp;#39;http://sublime.wbond.net/&amp;#39;+pf.replace(&amp;#39; &amp;#39;,&amp;#39;%20&amp;#39;)).read())
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。&lt;/p&gt;
-
-&lt;h2&gt;19. 大小写互换&lt;/h2&gt;
-
-&lt;p&gt;command + kl：将选中的单词转换为小写
-command + ku：将选中的单词转换为大写&lt;/p&gt;
-
-&lt;h2&gt;20. 折叠函数&lt;/h2&gt;
-
-&lt;p&gt;command + k + 1: 折叠所有函数&lt;br&gt;
-command + k + j: 展开所有函数    &lt;/p&gt;
-
-&lt;p&gt;如果不work，查看： edit -&amp;gt; code foldingcd &amp;#39;dkaf&amp;#39;&lt;/p&gt;
-
-&lt;h2&gt;21. 复制粘贴整行&lt;/h2&gt;
-
-&lt;p&gt;command + shift + d: 复制光标所在整行，并粘贴到下一行。&lt;/p&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-26-sublime-key-shortcut.md.jpg&quot; alt=&quot;2015-01-26-sublime-key-shortcut.md&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    
