@@ -26,13 +26,76 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2015-11-18T18:32:23+08:00</updated>
+   <updated>2015-11-22T17:19:20+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>shell 编程总结三，函数</title>
+     <link href="/shell-programming-summary-3"/>
+     <updated>2015-11-22T00:00:00+08:00</updated>
+     <id>/shell-programming-summary-3</id>
+     <content type="html">&lt;h2&gt;1. 定义&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。&lt;/li&gt;
+&lt;li&gt;2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;函数返回值在调用该函数后通过 &lt;code&gt;$?&lt;/code&gt; 来获得。
+注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[ function ] funcname [()]
+
+{
+
+    action;
+
+    [return int;]
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 函数参数&lt;/h2&gt;
+
+&lt;p&gt;在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数...
+带参数的函数示例：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+funWithParam(){
+    echo &amp;quot;The value of the first parameter is $1 !&amp;quot;
+    echo &amp;quot;The value of the second parameter is $2 !&amp;quot;
+    echo &amp;quot;The value of the tenth parameter is $10 !&amp;quot;
+    echo &amp;quot;The value of the tenth parameter is ${10} !&amp;quot;
+    echo &amp;quot;The value of the eleventh parameter is ${11} !&amp;quot;
+    echo &amp;quot;The amount of the parameters is $# !&amp;quot;
+    echo &amp;quot;The string of the parameters is $* !&amp;quot;
+}
+funWithParam 1 2 3 4 5 6 7 8 9 34 73
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意，$10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。
+另外，还有几个特殊字符用来处理参数：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$#&lt;/code&gt;  传递到脚本的参数个数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$*&lt;/code&gt;  以一个单字符串显示所有向脚本传递的参数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$$&lt;/code&gt;  脚本运行的当前进程ID号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$!&lt;/code&gt;  后台运行的最后一个进程的ID号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$@&lt;/code&gt;  与 &lt;code&gt;$*&lt;/code&gt; 相同，但是使用时加引号，并在引号中返回每个参数。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$-&lt;/code&gt;  显示Shell使用的当前选项，与set命令功能相同。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$?&lt;/code&gt;  显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>shell 编程总结二，test 命令，流程控制</title>
@@ -1279,72 +1342,6 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.ibm.com/developerworks/cn/linux/l-vimdiff/&quot;&gt;技巧：Vimdiff 使用&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>如何处理用户手机注册时收不到验证码的问题</title>
-     <link href="/verified-code-register-failed"/>
-     <updated>2015-07-16T00:00:00+08:00</updated>
-     <id>/verified-code-register-failed</id>
-     <content type="html">&lt;h2&gt;1. 写在前面&lt;/h2&gt;
-
-&lt;p&gt;　　本文提到的所有案例【实际上就两个案例】，都是自己亲身经历过的，但为了安全友好起见，文中出现的一些数字都是假设的，如果有截图，都会把一些不便透露的信息隐藏的，我想只要能说明问题就行了。   &lt;/p&gt;
-
-&lt;h2&gt;2. 一次新增用户骤减的经历&lt;/h2&gt;
-
-&lt;p&gt;　　那是之前做的一个项目【假设名字叫 Girl】，这个项目对外简单来说有两个访问等级【匿名和登陆】，然后如果需要登陆的话，需要经过一个统一的用户管理系统【假设名字叫 Boy】，boy ，girl 和 第三者【也就是用户 users】之间的关系可以用下面这张图一探一二。   &lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/girl-boy-and-user.jpg&quot; alt=&quot;girl-boy-and-user.jpg&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;　　然后我们定义一下新增用户，所谓新增用户，就是：那些对这个 girl 因为 permission limited 而不满的人，他们愿意通过 boy 注册或登陆之后，全方位地拥有 girl。&lt;/p&gt;
-
-&lt;p&gt;　　事件发生的时间我们假设在 1月1号 - 1月12号 这段时间，在1月9号之前的一段时间，我们发现 girl 项目每天的新增用户都稳定在 100 - 150 之间，然后1月10号，11号是周末，大家12号周一来上班，第一时间当然是看这个周末又新增了多少用户了，我勒个去，一看，才新增了20个不到，oh ~~ my ~~~ go~~~~d, what happened ?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/oh-my-god.gif&quot; alt=&quot;oh-my-god.gif&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;　　好吧，蛋定后，我们就开始找原因了，新增用户数据不可能一下子就跳崖了啊~&lt;/p&gt;
-
-&lt;p&gt;“此处省略各种场景~~~”     &lt;/p&gt;
-
-&lt;p&gt;　　最后原因定位了，是boy出问题了，关键时候掉链了。因为用户来注册的时候，很多都是通过手机注册的，手机注册需要输入那蛋疼的验证码，然后问题就出来了，11号，12号两天验证码发送出现了问题，选择用手机注册的新用户没法收到验证码，自然也就没法 wholly own that girl 了。当然最后修正好这个问题后，每日新增用户又稳定在 100 - 150 了。&lt;/p&gt;
-
-&lt;h2&gt;3. 最近的一次经历&lt;/h2&gt;
-
-&lt;p&gt;　　前几天一个师兄和我联系，他们做了一个创业公司。既然是师兄，当然要支持了，于是我就准备注册一下，但是同样的问题也发生了，同样也是收不到验证码，而且他们目前只支持手机注册，出现这个问题，比上面那个例子更严重，因为在问题解决之前，都不会有一个新增用户了。而且，聊下来，似乎都是我第一个发现这个问题的，不知道是不是他们后台没有做新增用户这块儿的监控。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/register-photo-2.jpg.jpg&quot; alt=&quot;register-photo-2.jpg.jpg&quot;&gt;&lt;/p&gt;
-
-&lt;h2&gt;4. 同一个坑，为毛还要掉两次&lt;/h2&gt;
-
-&lt;p&gt;　　就在这周，第一个例子中的那个问题再次出现了。还是同样项目，还是同样的人员，还是同样的问题。&lt;/p&gt;
-
-&lt;p&gt;　　看到这个问题，我的第一反应是，怎么之前出现过的问题现在依然还在。为什么同一个坑，还要掉进去两次呢？我们就先不深究到底是不是用户那边出问题了。我的态度是：即使产品这边发送手机验证码的module是work的，而是用户手机端本身有问题，收不到短信验证码，那我们也要尝试替用户解决这个问题。下面我将分析一下，就算接触不了用户的手机，怎么最大限度地替用户解决问题。【 其实图片中已经说到了我的解决方案，但是为了说得更清晰，我在下面一节仔细讲讲】&lt;/p&gt;
-
-&lt;h2&gt;5. 怎么避免掉进同一个坑&lt;/h2&gt;
-
-&lt;p&gt;　　事实上，上面关于 girl 和 boy 项目的那张图有一个重要的遗漏，更完整的应该是下面这样子的：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/girl-boy-and-user-1.jpg&quot; alt=&quot;girl-boy-and-user-1.jpg&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;　　我想这下子有经验的人应该一眼就能看出来，这个结构有一个很大的、并且也是很常见的问题了，就是传说中的单点故障。因为后面的很多菇凉【就是代号如 girl 的那些产品】，要想全部拥有它们，所有用户就都得先通过 boy 的这门关卡。如果说，哪天 boy 不高兴了，或者和 boy 相关的下游模块抽风了，那所有用户就都只能干瞪眼了。   &lt;/p&gt;
-
-&lt;p&gt;　　怎么避免掉进同一个坑，这个问题很宽泛了，都是要具体场景，具体需求实际分析了。今天我想记录一下，我对手机注册这个坑的一个解决办法。我先把案例一中的注册页面贴到下面： &lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/register-photos-1.jpg&quot; alt=&quot;register-photos-1.jpg&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;　　首先，注册的时候要提供至少两种注册方式：手机和邮箱，现在很多网站除了这两种方式，还有微信、qq登陆这种方式。比如说，上面提到的师兄的创业项目，在注册时只支持手机注册，他们在这个方面第一要改进的就应该是提供第二种注册方法。这是简单的第一步粒度很粗的解决方案。&lt;/p&gt;
-
-&lt;p&gt;　　两种注册方式真的就没有问题了吗？现在我们来看看案例一中的注册界面，如果这个时候，什么信息都填完整了，就等验证码的时候出问题了，那怎么办？首先，这个网站确实提供了邮箱注册方式，但尼玛这“邮箱注册”四个字也太小了吧，而且在图片里看起来还算容易找到，但是在整个网页里看，因为干扰元素太多，“邮箱注册”这四个字得花个吃奶的劲儿才能找到啊。也不知道是哪门子的交互设计砖家这样设计的，好了，言归正传。如果用户收不到手机验证码，那能有幸发现 “邮箱注册” 这四个小字的用户就很幸运了，可以转为邮箱注册。更值得幸运的是，这个网站，无论是手机注册还是邮箱注册，需要用户填写的信息都很少，即使手机注册失败，转到邮箱注册时，也不会再次花费用户的时间。&lt;/p&gt;
-
-&lt;p&gt;　　但是，很多情况下，用户注册时需要填写不少的信息，什么生日，性别，地址，验证问题等等，如果用户花了极大的耐心终于填完这些信息，然后突然发现尼玛验证码收不到了，而转为邮箱注册的话这些信息又得重新再写，这给用户留下的心理阴影，那得多大啊，反正我已经受伤很多次了。所以，即使在提供两种注册方式的情况下，在很多时候，还是会有细节上、体验上的问题。&lt;/p&gt;
-
-&lt;p&gt;　　Details make perfect。有了两种注册方式，再把细节处理好，我觉得那就足够好了。假设说，用户是以手机注册的，这个时候填完了很多附加信息，突然发现验证码收不到，有两种非常 nice 的解决方案：   &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;提示，一定要提示用户可以转为邮箱注册，并且告诉用户，即使转为邮箱注册，之前填过的信息都不会丢失；&lt;/li&gt;
-&lt;li&gt;因为手机验证码都有一个时间限制，大多都是30-60秒，那前端完全可以监控，看倒计时完成之前，用户是否有在验证码输入框中输入数据，如果说，一个验证码的有效时间是60秒，但直到50秒时用户还没有在验证码输入框中输入数据，那么前端就可以提示用户，也许手机验证码会延迟很久【一定要用“延迟”，把责任推到运营商】，然后弹出一个邮箱输入框，告知用户，可以输入邮箱，通过邮箱来接收验证码即可。&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
