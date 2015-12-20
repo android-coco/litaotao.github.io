@@ -106,11 +106,42 @@ and dispatching message to queues. two things should be taken in mind about exch
 
 
 
-## 3.
+## 3. install celery
+
+two possible ways to install celery.
+
+- install the latest stable celery and its dependences
+
+```
+chenshan@mac007:~/Desktop$sudo pip install -U celery
+...
+...
+...
+Installing collected packages: celery, kombu, billiard, amqp
+```
+the celery dependences info is listed here: [Does Celery have many dependencies](http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies)
+
+- install celery with bundles
+
+Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.
+
+You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command `pip install "celery[librabbitmq,redis,auth,msgpack]"` to install celery with librabbitmq, redis, auth, msgpack libriaries.
+
+all bundles command can be find here: [bundles](http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles)
 
 
 
-## celery in practice
+## 4. celery in practice
+
+
+
+
+
+
+
+
+
+
 
 
 ## 参考文档
@@ -119,6 +150,7 @@ and dispatching message to queues. two things should be taken in mind about exch
 - [http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies](http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies)
 - [Async Celery by Example: Why and How](https://zapier.com/blog/async-celery-example-why-and-how/)
 - [How Instagram Feeds Work: Celery and RabbitMQ](https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html)
+- [stackoverflow: Celery parallel distributed task with multiprocessing](http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing)
 
 
 
