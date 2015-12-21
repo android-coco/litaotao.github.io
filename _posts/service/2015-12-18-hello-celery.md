@@ -1,6 +1,6 @@
 ---
 category: service
-published: false
+published: true
 layout: post
 title: celery 笔记
 description: things should be known when talking about celery.
@@ -87,24 +87,9 @@ and dispatching message to queues. two things should be taken in mind about exch
 
 ![how_celery_works.jpg](../images/how_celery_works.jpg)
 
+### 2.3 the workflow deployment
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![celery-deploy.jpg](../images/celery-deploy.jpg)
 
 ## 3. install celery
 
@@ -131,18 +116,6 @@ all bundles command can be find here: [bundles](http://docs.celeryproject.org/en
 
 
 
-## 4. celery in practice
-
-
-
-
-
-
-
-
-
-
-
 
 ## 参考文档
 
@@ -151,8 +124,13 @@ all bundles command can be find here: [bundles](http://docs.celeryproject.org/en
 - [Async Celery by Example: Why and How](https://zapier.com/blog/async-celery-example-why-and-how/)
 - [How Instagram Feeds Work: Celery and RabbitMQ](https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html)
 - [stackoverflow: Celery parallel distributed task with multiprocessing](http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing)
-
-
-
+- [[Scaling Celery] Sending Tasks To Remote Machines!
+](http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html)
+- [Celery Messaging at Scale at Instagram](http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/)
+- [CELERY - BEST PRACTICES](https://denibertovic.com/posts/celery-best-practices/)
+- [CELERY - BEST PRACTICES slide](https://denibertovic.com/talks/celery-best-practices/#/)
+- [CELERY - BEST PRACTICES 中文](http://blog.csdn.net/siddontang/article/details/34447003)
+- [从一次celery踩坑中谈谈Queryset的懒加载](http://www.opscoder.info/queryset_lazy.html)
+- [stackoverflow: Send log messages from all celery tasks to a single file](http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file)
 
 #
