@@ -1,6 +1,6 @@
 ---
 layout: post
-published: true
+published: false
 title: ［touch spark］10. Spark 学习资源集锦  
 description: 我搜集、看过并认为是不错的 Spark 学习资源。
 ---  
@@ -28,7 +28,7 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
 
 >>**Apache Spark is：**    
     + A data analytics, cluster computing framework;     
-    + Fits into Hadoop open-source community, and builds on top of Hadoop     Distributed File System(HDFS);    
+    + Fits into Hadoop open-source community, and builds on top of Hadoop Distributed File System(HDFS);    
     + Not tied to two-stage MapReduce paradigm, it's performance up to 100 times faster than Hadoop MapReduce for certain applications;           
     + Provides primitives for in-memeory cluster computing;           
     + In-memory cluster computing allows user load data to cluster's memory and queried repeatedly;          
@@ -42,7 +42,7 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
 
 ## 3. Spark相关的第三方开源工具   
 
-- **Zeppelin**： 
+- **Zeppelin**：
     + 官网：[http://zeppelin-project.org/](http://zeppelin-project.org/)
 
 - **Hue**:  
@@ -51,7 +51,7 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
 - **IPyhon**:  
     + 官网：[http://ipython.org/](http://ipython.org/)
 
-- **ISpark**: 
+- **ISpark**:
     + Github：[https://github.com/tribbloid/ISpark](https://github.com/tribbloid/ISpark)
 
 - **scala-notebook**:  
@@ -75,6 +75,15 @@ description: 我搜集、看过并认为是不错的 Spark 学习资源。
 - **spark-packages**:
     + 官网：[http://spark-packages.org/](http://spark-packages.org/)
 
-## 扫一扫     
 
-![2015-03-01-spark-resources.md](../../images/share/2015-03-01-spark-resources.md.jpg)
+
+
+## 相关资源
+
+- [official site](http://spark.apache.org/)
+- [user mailing list](http://apache-spark-user-list.1001560.n3.nabble.com/)
+- [spark channel on youtube](https://www.youtube.com/user/TheApacheSpark)
+- [spark summit](https://spark-summit.org/)
+- [meetup](http://www.meetup.com/)
+- [spark third party packages](http://spark-packages.org/)
+- [databricks blog](https://databricks.com/blog)
