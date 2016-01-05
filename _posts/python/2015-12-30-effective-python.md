@@ -88,9 +88,98 @@ for index, item in enumerate(list):
 
 ### 1.13 take advantage of each block in try/except/else/finally
 
-- the `try/finally` statements let you run cleanup code regardless whether there is exceptions in your `try` block or not;
-- 
+```
+# to do
+```
 
+- the `try/finally` statements let you run cleanup code regardless whether there is exceptions in your `try` block or not;
+
+
+## 2. functions
+
+
+### 2.1 prefering exceptions to return none
+
+- functions that return `None` to indicate special meaning are error prone beacause `None` and other values (0, empty string, etc) are evaluated to `False` in the conditional expression;
+- Raise exceptions to indicate special situations instead of returning `None`, expect the calling code to handle the exceptions properly;
+
+### 2.2 know how closures interactive with variable scope
+
+```
+In [1]: def sort_priority(values, group):
+   ...:         def helper(x):
+   ...:                 if x in group:
+   ...:                         return (0, x)
+   ...:                 return (1, x)
+   ...:         values.sort(key=helper)
+   ...:
+
+In [2]: values = [8, 3, 1, 2, 5, 4, 7, 6]
+
+In [3]: group = [2, 3, 5, 7]
+
+In [4]: sort_priority(values, group)
+
+In [5]: values
+Out[5]: [2, 3, 5, 7, 1, 4, 6, 8]
+```
+
+- python supports closures: functions that refer to variables from the scope in which they were defined. this is why helper function is able to access the group argument to `sort_priority`;
+- functions are first-class objects in python, meaning you can refer to them directly, assign them to variables, pass them as arguments to other functions, compare them in expressions and if statements, etc. this is how the sort method can accept a closure function as the key argument;
+- python has specific rules for comparing tuples. it first compares items in index zero, then index one and so on. this is why the return value from the helper closure causes the sort order to have two distinct groups.
+- when you refer a variable in an expression, the python interpreter will traverse the scope to resolve the reference in this order:
+    + the current function's scope;
+    + any enclosing scope(like other containing functions)
+    + the scope of the module that contains the code(also called the global scope)
+    + the built-in scope
+
+### 2.3 consider generators instead of returning list
+
+- using generators can be clearer than the alternative of returning lists of accumulated results;
+- the iterator returned by a generator produces the set of values passed to yield expressions within the generator funtions' body;
+- generators can produce a sequence of outputs for arbitrarily large inputs because their working memory doesn't include all inputs and outputs;
+
+### 2.4 be defensive when iterating over arguments
+
+### 2.5 reduce visual noise with variable positional arguments
+
+- functions can accept a variable number of positional arguments by using `*args` in the def statement;
+- you can use the items from a sequence as the posistional arguments for a function with the `*` operator;
+- using the `*` operator with a generator may cause your program to ran out of memory and crash;
+- adding new positional parameters to functions that accept `*args` can introduce hard-to-find bugs;
+
+### 2.6 provide optional behavior with keyword argument
+
+- function arguments can be positional or keyword arguments;
+- keyword arguments will make it clear when it will be confusing only using positional arguments;
+- keyword arguments with default values make it easy to add new behaviors, especially there exists some callers;
+- optional keyword should always be passed using keyword argument other than positional argument;
+
+### 2.7 use none and docstrings to specify dynamic default arguments
+
+```
+# when the function is defined, default argument values are evaluated just once per module at the loading time.
+
+def log(msg, time=datetime.now()):
+    print 'msg: {}, time: {}'.format(msg, time)
+
+def log_version(msg, time=None):
+    msg_time = time if time else datetime.now()
+    print 'msg: {}, time: {}'.format(msg, msg_time)
+
+```
+
+- use None for default value is especially important when the argument is mutable;
+- default argument values are only evaluated once;
+
+### 2.8 enforce clarity with keyword only argument
+
+- keyword argument make the intention of the function more clear;
+- prefer to use keyword arguments if possible, especially when there are many boolean flag arguments;
+- python 3 supports explicit syntax for keyword only arguments in functions;
+- python 2 can emulate keyword only argument by using `**kwargs` and manually throw `TypeError` exception;
+
+## 3. Classes and Inheritance
 
 
 
