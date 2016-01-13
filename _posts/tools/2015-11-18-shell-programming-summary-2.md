@@ -38,6 +38,14 @@ fi
 - `!=`: 不等于
 - `-z : zero`: 字符串长度为零，则为真
 - `-n : non-zero`: 字符串长度不为零，则为真
+- `${var-DEFAULT}`:	如果var没有被声明, 那么就以$DEFAULT作为其值 *
+- `${var:-DEFAULT}`: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 * 	 
+- `${var=DEFAULT}`:	如果var没有被声明, 那么就以$DEFAULT作为其值 *
+- `${var:=DEFAULT}`: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *
+- `${var+OTHER}`:	如果var声明了, 那么其值就是$OTHER, 否则就为null字符串
+- `${var:+OTHER}`:	如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串	 
+- `${var?ERR_MSG}`:	如果var没被声明, 那么就打印$ERR_MSG *
+- `${var:?ERR_MSG}`:	如果var没被设置, 那么就打印$ERR_MSG *
 
 ```
 num1=100

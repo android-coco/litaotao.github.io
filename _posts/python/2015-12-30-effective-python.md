@@ -181,6 +181,106 @@ def log_version(msg, time=None):
 
 ## 3. Classes and Inheritance
 
+### 3.1 prefer helper classes over bookkeeping with dictionaries and tuples
+
+- avoid making dicts with values that are other dicts or long tuple;
+- use namedtuple for lightweight, immutable data containers before you need the flexibility of full class;
+- move your bookkeeping code to use multiple helper classes when your internal state dicts get complicated;
+
+### 3.2 accept functions for simple interfaces instead of classes
+
+- instead of defining classes, functions are often all you need for simple interfaces between components in python;
+- references to functions and methods in python are first class, meaning they can be used in expressions like any other type;
+- the `__call__` special method enables instances of a class to be called like plain python functions;
+- when you need a function to maintain state, consider defining a class that provides the `__call__` method instead of defining a stateful closure.
+
+
+### 3.3 use @classmethod polymorphism to construct objects generically
+
+- python only supports a single constructor per class, the `__init__` method;
+- use @classmethod to define alternative constructors for your classes;
+- use class method polymorphism to provide generic ways to build and connect concrete subclasses;
+
+### 3.4 initialized parent classes with super
+
+- python's standard method to resolution order (MRO) solves the problems of superclass init order and diamond inheritance;
+- always use the super built-in function to init parent classes;
+
+
+### 3.5 use multiple inheritance only for mix-in utility classes
+
+- avoid using multiple inheritance if mix-in classes can achieve the same outcome;
+- use pluggable behaviors at the instance level to provide per-class customization when mix-in classes may require it;
+- compose mix-ins to create complex functionality from simple behaviors;
+
+### 3.6 prefer public attributes over private ones
+
+- private attributes aren't rigorously enforced by the python compiler;
+- plan from the beginning to allow subclasses to do more with your internal APIs and attributes instead of locking them out by default;
+- use documentation of protected fields to guide subclasses instead of trying to force access control with private attributes;
+- only consider using private attributes to avoid naming conflicts with subclasses that are out of your control;
+
+
+### 3.7 inherit from collections.abc for custom container types
+
+- inherit directly from python's container types (list, dict) for simple use cases;
+- beaware of the large number of methods required to implement custom container types correctly;
+- have your custom container types inherit from the interfaces defined in collections.abc to ensure that your classes match required interfaces and behaviors;
+
+## 4. metaclasses and attributes
+
+### 4.1 use plain attributes instead of get and set methods
+
+- define new class interfaces using simple public attributes and avoid set and get methods;
+- use @property to define special behavior when attributes are accessed on your objects, if necessary;
+- follow the rule of least surprise and avoid weird side effects in your @property methods;
+- ensure that @property methods are fast, do slow or complex work using normal methods;
+
+### 4.2 consider @property instead of refactoring attributes
+
+- use @property to give existing instance attributes new functionality;
+- make incremental progress toward better data models by using @property;
+- consider refactoring a class and all call sites when you find yourself using @property too heavily;
+
+### 4.3 use descriptors for reusable @property methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

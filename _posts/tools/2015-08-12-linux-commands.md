@@ -25,11 +25,11 @@ description: 记录我80%时间里用到的那些linux命令～
 
 　　ps工具标识进程的5种状态码:   
 
-- D 不可中断 uninterruptible sleep (usually IO) 
-- R 运行 runnable (on run queue) 
-- S 中断 sleeping 
-- T 停止 traced or stopped 
-- Z 僵死 a defunct (”zombie”) process 
+- D 不可中断 uninterruptible sleep (usually IO)
+- R 运行 runnable (on run queue)
+- S 中断 sleeping
+- T 停止 traced or stopped
+- Z 僵死 a defunct (”zombie”) process
 
 - 命令格式：
 ps[参数]
@@ -50,7 +50,7 @@ ps[参数]
         T  显示当前终端的所有程序
         u  指定用户的所有进程
         -au 显示较详细的资讯
-        -aux 显示所有包含其他使用者的行程 
+        -aux 显示所有包含其他使用者的行程
         -C<命令> 列出指定命令的状况
         --lines<行数> 每页显示的行数
         --width<字符数> 每页显示的字符数
@@ -70,7 +70,7 @@ kill[参数][进程号]
         -a  当处理当前进程时，不限制命令名和进程号的对应关系
         -p  指定kill 命令只打印相关进程的进程号，而不发送任何信号
         -s  指定发送信号
-        -u  指定用户 
+        -u  指定用户
 
 注意：  
 
@@ -130,13 +130,13 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 
 备注：  
 这篇 [blog](linux命令五分钟系列之四十三) 说netstat命令似乎已经不再维护了，后续将被ip和ss命令取代。  
-![netstat-replaced](../images/netstat_subsititute.jpg) 
+![netstat-replaced](../images/netstat_subsititute.jpg)
 
 
 ## 6. vimdiff
 
 linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，可编辑保存，不同的地方会有高亮显示。非常实用，我常用来查看不同的配置文件区别。  
- 
+
 ![vimdiff.jpg](../images/vimdiff.jpg)
 
 有几种方法可以使用vimdiff：   
@@ -198,7 +198,7 @@ head 可以用来查看一个文件的前几行，我通常用来查看一个文
 tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 "-f" 参数后和grep一起使用。
 
 
-## 11. scp 
+## 11. scp
 
 scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。  
 
@@ -225,6 +225,7 @@ wc -- word, line, character, and byte count
 
 ## 13. mkdir
 
+
 ## 14. tar
 
 
@@ -238,4 +239,3 @@ wc -- word, line, character, and byte count
 ## 参考
 
 - [技巧：Vimdiff 使用](http://www.ibm.com/developerworks/cn/linux/l-vimdiff/)
-
