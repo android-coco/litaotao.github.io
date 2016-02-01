@@ -26,13 +26,92 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-01-03T19:32:45+08:00</updated>
+   <updated>2016-02-01T17:00:04+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』1. spark 简介</title>
+     <link href="/introduction-to-spark"/>
+     <updated>2016-02-01T00:00:00+08:00</updated>
+     <id>/introduction-to-spark</id>
+     <content type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。&lt;/p&gt;
+
+&lt;h2&gt;1. 如何向别人介绍 spark&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Apache Spark™ is a fast and general engine for large-scale data processing.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Apache Spark is a fast and general-purpose cluster computing system.&lt;br&gt;
+It provides high-level APIs in &lt;code&gt;Java, Scala, Python and R&lt;/code&gt;, and an optimized engine that supports general execution graphs.&lt;br&gt;
+It also supports a rich set of higher-level tools including :    &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;MLlib for machine learning&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;GraphX for graph processing&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;Spark Streaming for stream data processing&lt;br&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;2. spark 诞生的一些背景&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-1.jpg&quot; alt=&quot;introduction-to-spark-1.jpg&quot;&gt;
+&lt;img src=&quot;../images/introduction-to-spark-2.jpg&quot; alt=&quot;introduction-to-spark-2.jpg&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to : &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;generalize MapReduce to support new apps within same engine&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it&amp;#39;s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;speed up iteration computing over hadoop.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;use memory + disk instead of disk as data storage medium&lt;/li&gt;
+&lt;li&gt;design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, tasks and stages]&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-4.jpg&quot; alt=&quot;introduction-to-spark-4.jpg&quot;&gt;
+&lt;img src=&quot;../images/introduction-to-spark-5.jpg&quot; alt=&quot;introduction-to-spark-5.jpg&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;3. 如何决定是否选用 spark&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;designed, implemented and used as libs, instead of specialized systems;
+
+&lt;ul&gt;
+&lt;li&gt;much more useful and maintainable&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-3.jpg&quot; alt=&quot;introduction-to-spark-3.jpg&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;from history, it is designed and improved upon hadoop and storm, it has perfect genes;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;documents, community, products and trends;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://stanford.edu/%7Erezab/sparkclass/slides/itas_workshop.pdf&quot;&gt;Intro to Apache Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;本系列其他文章链接&lt;/h2&gt;
+</content>
+   </entry>
    
    <entry>
      <title>celery 笔记</title>
@@ -224,6 +303,7 @@ funWithParam 1 2 3 4 5 6 7 8 9 34 73
 &lt;li&gt;&lt;code&gt;$@&lt;/code&gt;  与 &lt;code&gt;$*&lt;/code&gt; 相同，但是使用时加引号，并在引号中返回每个参数。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;$-&lt;/code&gt;  显示Shell使用的当前选项，与set命令功能相同。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;$?&lt;/code&gt;  显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$0&lt;/code&gt;  Shell本身的文件名 &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2&gt;参考文档&lt;/h2&gt;
@@ -271,6 +351,14 @@ fi
 &lt;li&gt;&lt;code&gt;!=&lt;/code&gt;: 不等于&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-z : zero&lt;/code&gt;: 字符串长度为零，则为真&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-n : non-zero&lt;/code&gt;: 字符串长度不为零，则为真&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var:-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var:=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var+OTHER}&lt;/code&gt;:   如果var声明了, 那么其值就是$OTHER, 否则就为null字符串&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var:+OTHER}&lt;/code&gt;:  如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var?ERR_MSG}&lt;/code&gt;: 如果var没被声明, 那么就打印$ERR_MSG *&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${var:?ERR_MSG}&lt;/code&gt;:    如果var没被设置, 那么就打印$ERR_MSG *&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=100
 num2=100
@@ -1073,179 +1161,6 @@ Out[47]: &amp;#39;1,234,567,890&amp;#39;
 &lt;li&gt;&lt;a href=&quot;https://pyformat.info/&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.xiayf.cn/2013/01/26/python-string-format/&quot;&gt;Python格式字符串（译）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>［touch spark］8. 当Ipython Notebook遇见Spark 1， 安装配置篇</title>
-     <link href="/ipython-notebook-server-spark"/>
-     <updated>2015-08-27T00:00:00+08:00</updated>
-     <id>/ipython-notebook-server-spark</id>
-     <content type="html">&lt;p&gt;注：和本文相关的资料和文件都放到Github上了：&lt;a href=&quot;https://github.com/litaotao/ipython-notebook-spark&quot;&gt;ipython-notebook-spark&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;1. 致谢&lt;/h2&gt;
-
-&lt;p&gt;　　首先我忠心地感谢Ipython，Spark的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇Ipython Notebook的Spark客户端，真的感受到 The power of technology, the power of open source.&lt;br&gt;
-　　下面是这两个项目的github地址：  &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;　　同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。&lt;br&gt;
-　　但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
-
-&lt;h2&gt;2. 路线规划&lt;/h2&gt;
-
-&lt;p&gt;　　基于 &lt;a href=&quot;http://www.databricks.com/&quot;&gt;Databricks&lt;/a&gt;，&lt;a href=&quot;zeppelin-project.org&quot;&gt;Zeppelin&lt;/a&gt; 和 &lt;a href=&quot;www.gethue.com&quot;&gt;Hue&lt;/a&gt; 的启发，我也想尝试搭建一个丰富可用的在线大数据REPL分析平台，正好用此机会好好实践一下spark，毕竟都学习spark几个月了呢。&lt;br&gt;
-　　不说废话，同&lt;a href=&quot;../weibo-api-in-action&quot;&gt;使用spark分析微博数据那篇博文一样&lt;/a&gt;，我们也要有一个路线规划：  &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;因为考虑到公司的data scientist很喜欢R，所以也在我们的ipython notebook环境里加入r kernel；&lt;/li&gt;
-&lt;li&gt;搭建一个可多用户使用的，并且各个用户互相独立的环境［至少让用户A不能读取到用户B的文件吧］； &lt;/li&gt;
-&lt;li&gt;结合丰富的开源包，能做到在线，实时的数据分析和共享分析报告； &lt;/li&gt;
-&lt;li&gt;底层接入了spark集群，支持在notebook做基于spark对大数据分析；&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;　　Dream：在国庆前完成至少前3步，that&amp;#39;s really full or chanllenge, but more funny. &lt;strong&gt;Anyway, we need dreams, and I can&amp;#39;t wait to make this dream into reality.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/dreams.jpg&quot; alt=&quot;dreams&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;　　这篇主要记录我在实现第一步的过程中遇到的主要步骤，遇到的问题和解决方法：搭建一个可多用户隔离使用的，能做丰富的大数据在线分析和分享对，并且底层接入了spark集群的Ipython Notebook Server。&lt;/p&gt;
-
-&lt;h2&gt;3. 安装Ipython&lt;/h2&gt;
-
-&lt;p&gt;　　使用 &lt;code&gt;sudo pip install ipython==3.2.0&lt;/code&gt; 来安装ipython 3.2.0 版本，本来打算用和jupyter分离后的ipython 4.0.0的，但是一下子要配置ipython和jupyter，赶紧有点乱，而且ipython 4.0.0 似乎也仅仅是吧notebook分离到jupyter，并没有什么大的改动，所以就先用3.2.0了，短期内应该不会有升级的安排。&lt;/p&gt;
-
-&lt;p&gt;　　安装好之后试试运行下 ipython，看看似乎有错，如果出现下面的错误的话，把 &lt;code&gt;/usr/local/lib/python2.7/dist-packages/IPython/external/path/__init__.py&lt;/code&gt; 里的 &lt;code&gt;from path import *&lt;/code&gt; 改成 &lt;code&gt;from _path import *&lt;/code&gt; 即可。   &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Traceback (most recent call last):
-  File &amp;quot;/usr/local/bin/ipython&amp;quot;, line 7, in &amp;lt;module&amp;gt;
-    from IPython import start_ipython
-  File &amp;quot;/usr/local/lib/python2.7/dist-packages/IPython/__init__.py&amp;quot;, line 45, in &amp;lt;module&amp;gt;
-    from .config.loader import Config
-  File &amp;quot;/usr/local/lib/python2.7/dist-packages/IPython/config/__init__.py&amp;quot;, line 6, in &amp;lt;module&amp;gt;
-    from .application import *
-  File &amp;quot;/usr/local/lib/python2.7/dist-packages/IPython/config/application.py&amp;quot;, line 19, in &amp;lt;module&amp;gt;
-    from IPython.config.configurable import SingletonConfigurable
-  File &amp;quot;/usr/local/lib/python2.7/dist-packages/IPython/config/configurable.py&amp;quot;, line 14, in &amp;lt;module&amp;gt;
-    from IPython.utils.text import indent, wrap_paragraphs
-  File &amp;quot;/usr/local/lib/python2.7/dist-packages/IPython/utils/text.py&amp;quot;, line 28, in &amp;lt;module&amp;gt;
-    from IPython.external.path import path
-ImportError: cannot import name path
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3. 配置Ipython&lt;/h2&gt;
-
-&lt;h3&gt;3.1: ipython 配置名profile介绍&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;profile 命令说明&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;　　profile是ipython的一个子命令，其中profile又有三个子命令，分别是locate，create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-chad:~/ipython-notebook-spark$ipython profile
-Subcommands
------------
-
-Subcommands are launched as `ipython profile cmd [args]`. For information on
-using subcommand &amp;#39;cmd&amp;#39;, do: `ipython profile cmd -h`.
-
-locate
-    print the path to an IPython profile dir
-create
-    Create an IPython profile by name
-list
-    List available IPython profiles
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;创建配置文件&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    aaron@dev-chad:~/ipython-notebook-spark$ipython profile create bigdata
-    [ProfileCreate] Generating default config file: u&amp;#39;/home/aaron/.ipython/profile_bigdata/ipython_console_config.py&amp;#39;
-    [ProfileCreate] Generating default config file: u&amp;#39;/home/aaron/.ipython/profile_bigdata/ipython_notebook_config.py&amp;#39;
-    [ProfileCreate] Generating default config file: u&amp;#39;/home/aaron/.ipython/profile_bigdata/ipython_nbconvert_config.py&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;3.3 编辑配置文件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;编辑ipython&lt;em&gt;notebook&lt;/em&gt;config.py&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    c = get_config()
-
-    c.NotebookApp.ip = &amp;#39;*&amp;#39;
-
-    # 本想指定每次都在一个专有的目录启动notebook server的，可是这样设置还是不行，这样设置后每次打开启动notebook server 的路径是
-    # 当前路径 ＋ u&amp;#39;home/aaron/notebooks&amp;#39;，完全达不到我想要的效果，所以暂时注释啦。
-    # c.NotebookApp.notebook_dir = u&amp;#39;home/aaron/notebooks&amp;#39;
-
-    c.NotebookApp.open_browser = False
-
-    c.NotebookApp.port = 8880 # or whatever you want, make sure the port is available  
-
-    # 
-    # c.NotebookApp.pylab = &amp;#39;inline&amp;#39; 已经被弃用了，官方推荐在notebook中显示指定，不过下面的这个配置依然可以使用的，
-    # 我的建议是，先这样使用，然后在以后写到启动的配置文件里去，并且在每一个新建的 notebook 中都能有显式说明。
-    c.IPKernelApp.matplotlib = &amp;#39;inline&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;设置访问密码&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;　　如果你的notebook server是需要访问控制的，简单的话可以设置一个访问密码。听说Ipython 2.x 版本有用户访问控制，这里我还没有接触过，晚点会看看是否有成熟的可用的用户控制方案。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;+ 生成密码文件  
-这里我们用python自带的密码包生成一个密码，然后再把这个密码重定向到nvpasswd.txt文件里。注意这里重定向的路径哦。
-+ 编辑配置文件，设置读取密码文件配置项
-这里有一个需要注意的，就是PWDFILE的设置，一开始我设置为 `~/.config/ipython/profile_pytest/nbpasswd.txt`，但是启动ipython notebook server的时候老师报错，说找不到密码文件nbpasswd.txt，很奇怪，明明文件就是在的，可就是提示找不到。无奈我到nbpasswd.txt路径下用 pwd 打印当前路径，显示为 `root/.config/ipython/profile_pytest/nbpasswd.txt`，可是这两个路径应该是一样的啊。无奈之下，死马当作活马医，我就把PWDFILE设置成为 `root/.config/ipython/profile_pytest/nbpasswd.txt`，没想到这样还成功了。关于这点为什么会有效，目前我还不是很清楚，等我请教了公司大神后再补上这一个tip吧。
-
-示例如下：  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;aaron@dev-chad:~/ipython-notebook-spark$python -c &amp;#39;from IPython.lib import passwd; print passwd()&amp;#39;
-Enter password:
-Verify password:
-sha1:eee72d659d34:bc7cf7fc26700b28eaa16bb8a8ce846fa35084de
-
-root@ubuntu2[09:49:09]:~/Desktop#vi /root/.config/ipython/profile_pytest/ipython_notebook_config.py 
-
-c.NotebookApp.password = u&amp;#39;sha1:eee72d659d34:bc7cf7fc26700b28eaa16bb8a8ce846fa35084de&amp;#39;  # copy your encoded password here 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;设置启动文件&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;　　这个设置非常好用，在每个ipython的配置路径下，都有一个startup的文件夹，里面你可以写一些脚本，这些脚本都是在启动ipython notebook server之前被执行的，并且是全局的。有两个好处：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;脚本的执行是有序的，具体可以参考下面的写法文档&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;影响是全局的，也就是说如果你在一个脚本里定义了一个变量a，那在所有新建的notebook中这个变量a都是已经创建了的；但这也许也是一个缺点吧，anyway，看你怎么用了；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;This is the IPython startup directory
-
-.py and .ipy files in this directory will be run *prior* to any code or files specified
-via the exec_lines or exec_files configurables whenever you load this profile.
-Files will be run in lexicographical order, so you can control the execution order of files
-with a prefix, e.g.::
-    00-first.py
-    50-middle.py
-    99-last.ipy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;　　原本打算在启动文件里写入一些package import和设置相关的脚步的，但是我想这样的话会造成一些误解，特别是当你分享notebook的时候，别人都不知道你事先导入了哪些package，会让人感到很迷惑。而且，我认为在每一个notebook的第一个cell里把改notebook里所需要的package和package setting注明是一个非常好的习惯，所有启动脚本就先不用了。   &lt;/p&gt;
-
-&lt;h2&gt;3. 安装R, 配置IRkernel&lt;/h2&gt;
-
-&lt;p&gt;　　关于如何安装R，请参考：&lt;a href=&quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&quot;&gt;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&lt;/a&gt;
-　　关于如何安装配置IRkernel，请参考：&lt;a href=&quot;https://github.com/IRkernel/IRkernel&quot;&gt;https://github.com/IRkernel/IRkernel&lt;/a&gt;
-　　好吧，我承认了，我现在这台服务器上之前就有人装过R和IRkernel了，具体怎么配置我也不想花时间去研究，因为实在不喜欢R，不要问我为什么不喜欢。“喜欢一个人不需要理由”，不喜欢一个东西有时候也不需要理由啊～&lt;/p&gt;
-
-&lt;h2&gt;4. 总结&lt;/h2&gt;
-
-&lt;p&gt;　　好了，环境算是基本搭建好了，github还没怎么更新，因为不能把公司相关的信息透露出来，所以commit的时候都需要谨慎一点。下一步，我们就来看看怎么让多个用户有个独立的 IPython 开发环境吧。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/a-good-start.jpg&quot; alt=&quot;a-good-start.jpg&quot;&gt;&lt;/p&gt;
-
-&lt;h2&gt;扫一扫&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/share/2015-01-27-ipython-notebook-server-spark.md.jpg&quot; alt=&quot;2015-01-27-ipython-notebook-server-spark.md&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    

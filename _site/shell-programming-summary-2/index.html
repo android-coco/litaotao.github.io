@@ -77,6 +77,14 @@ fi
 <li><code>!=</code>: 不等于</li>
 <li><code>-z : zero</code>: 字符串长度为零，则为真</li>
 <li><code>-n : non-zero</code>: 字符串长度不为零，则为真</li>
+<li><code>${var-DEFAULT}</code>: 如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
+<li><code>${var:-DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *<br></li>
+<li><code>${var=DEFAULT}</code>: 如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
+<li><code>${var:=DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</li>
+<li><code>${var+OTHER}</code>:   如果var声明了, 那么其值就是$OTHER, 否则就为null字符串</li>
+<li><code>${var:+OTHER}</code>:  如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串<br></li>
+<li><code>${var?ERR_MSG}</code>: 如果var没被声明, 那么就打印$ERR_MSG *</li>
+<li><code>${var:?ERR_MSG}</code>:    如果var没被设置, 那么就打印$ERR_MSG *</li>
 </ul>
 <div class="highlight"><pre><code class="language-text" data-lang="text">num1=100
 num2=100

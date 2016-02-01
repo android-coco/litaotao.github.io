@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 Spark 』1. spark 简介 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/introduction-to-spark" title="『 Spark 』1. spark 简介">『 Spark 』1. spark 简介</a></h1>
+
+    <p class="entry-date">2016-02-01 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-02-01-introduction-to-spark.md">最后更新时间: </span></p>
+
+
+    <h2>写在前面</h2>
+
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
+
+<h2>1. 如何向别人介绍 spark</h2>
+
+<p><strong><em>Apache Spark™ is a fast and general engine for large-scale data processing.</em></strong></p>
+
+<p>Apache Spark is a fast and general-purpose cluster computing system.<br>
+It provides high-level APIs in <code>Java, Scala, Python and R</code>, and an optimized engine that supports general execution graphs.<br>
+It also supports a rich set of higher-level tools including :    </p>
+
+<ul>
+<li>Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets<br></li>
+<li>MLlib for machine learning<br></li>
+<li>GraphX for graph processing<br></li>
+<li>Spark Streaming for stream data processing<br></li>
+</ul>
+
+<h2>2. spark 诞生的一些背景</h2>
+
+<p><img src="../images/introduction-to-spark-1.jpg" alt="introduction-to-spark-1.jpg">
+<img src="../images/introduction-to-spark-2.jpg" alt="introduction-to-spark-2.jpg"></p>
+
+<p>Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to : </p>
+
+<ul>
+<li><p>generalize MapReduce to support new apps within same engine</p>
+
+<ul>
+<li>it&#39;s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</li>
+</ul></li>
+<li><p>speed up iteration computing over hadoop.</p>
+
+<ul>
+<li>use memory + disk instead of disk as data storage medium</li>
+<li>design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, tasks and stages]</li>
+</ul></li>
+</ul>
+
+<p><img src="../images/introduction-to-spark-4.jpg" alt="introduction-to-spark-4.jpg">
+<img src="../images/introduction-to-spark-5.jpg" alt="introduction-to-spark-5.jpg"></p>
+
+<h2>3. 如何决定是否选用 spark</h2>
+
+<ul>
+<li>designed, implemented and used as libs, instead of specialized systems;
+
+<ul>
+<li>much more useful and maintainable</li>
+</ul></li>
+</ul>
+
+<p><img src="../images/introduction-to-spark-3.jpg" alt="introduction-to-spark-3.jpg"></p>
+
+<ul>
+<li><p>from history, it is designed and improved upon hadoop and storm, it has perfect genes;</p></li>
+<li><p>documents, community, products and trends;</p></li>
+<li><p>it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;</p></li>
+<li><p>it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;</p></li>
+</ul>
+
+<h2>参考文章</h2>
+
+<ul>
+<li><a href="http://stanford.edu/%7Erezab/sparkclass/slides/itas_workshop.pdf">Intro to Apache Spark</a></li>
+</ul>
+
+<h2>本系列其他文章链接</h2>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/introduction-to-spark" data-title="『 Spark 』1. spark 简介"
+         data-content="content"
+         data-url="http://litaotao.github.io//introduction-to-spark">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/introduction-to-spark data-title=『 Spark 』1. spark 简介 data-url=/introduction-to-spark></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

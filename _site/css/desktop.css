@@ -16,6 +16,11 @@ a:hover {
 	text-decoration: underline
 }
 
+em {
+    font-style: italic;
+    color: lightseagreen;
+}
+
 h2 {
 	font-size: 22px;
 	font-weight: bold;

@@ -244,6 +244,200 @@ def log_version(msg, time=None):
 
 ### 4.3 use descriptors for reusable @property methods
 
+- reuse the behavior and validation of @property methods by defining your own descriptor classes;
+- use WeakKeyDict to ensure that your descriptor classes don't cause memory leaks;
+- don't get bogged down trying to understand exactly how `__getattribute__` uses the descriptor protocol for getting and setting attrbutes;
+
+### 4.4 use `__getattr__`, `__getattribute__`, and `__setattr__` for lazy attributes
+
+- use `__getattr__` and `__setattr__` to lazily load and save attributes for an object;
+- understand that `__getattr__` only gets called once when accessing a missing attribute, whereas `__getattribute__` gets called every time an attribute is accessed;
+- avoid infinite recursion in `__getattribute__` and `__setattr__` by using methods from super() to access instance attributes directly;
+
+
+### 4.5 validate subclass with metaclass
+
+- use metaclasses to ensure that subclasses are well formed at the time they are defined, before objects of their type are constructed;
+- metaclasses have slightly different syntax in python 2 and python 3;
+- the `__new__` method of metaclasses is run after the class statement's entire body has been processed;
+
+### 4.6 register class existence with metaclasses
+
+- class registeration is a helpful pattern for building modular python programs;
+- metaclasses let you run register code automatically each time your base class is subclassed in a program;
+- using metaclasses for class register avoids errors by ensuring that you never miss a register call;
+
+### 4.7 annotate class attributes with metaclasses
+
+- metaclasses enable you to modify a class's attributes before the class is fully defined;
+- descriptors and metaclasses make a powerful combination for declarative behavior and runtime introspection;
+- you can avoid both memory leaks and the weakref module by using metaclasses along with descriptors;
+
+## 5. concurrenc and parallelism
+
+### 5.1 use subprocess to manage child processes
+
+- use the subprocess module to run child processes and manage their input and output manually;
+- child processes run in parallel with the python interpreter, enabling you to maximize your cpu usage;
+- use the timeout parameter with communicate to avoid deadlocks and hanging child proceses;
+
+### 5.2 use threads for blocking i/o, avoid for parallelism
+
+- python threads can't run bytecode in parallel on multiple cpu cores because of the glow interpreter lock;
+- python threads are still useful despite the gil because they provide an easy way to do multiple things at seemingly the same time;
+- use python threads to make multiple system calls in parallel, this allows you to do blocking io at the same time as computation;
+
+### 5.3 use lock to prevent data races in threads
+
+- even though python has global interpreter lock, you're still responsible for protecting against data races between the threads in your programs;
+- your programs will corrupt their data structures if you allow multiple threads to modify the same objects without locks;
+- the lock class in the threading built-in module is python's standard mutual exclusion lock implementation;
+
+### 5.4 use queue to coordinate work between threads
+
+- pipelines are a great way to organize sequences of work that run concurrently using multiple python threads;
+- be aware of the many problems in building concurrent pipelines: busy waiting, stopping workers and memory explosion;
+- the queue class has all of the facilities you need to build robust pipelines: blocking operations, buffer sizes and joining;
+
+### 5.5 consider coroutines to run many functions concurrently
+
+- coroutines provie an efficient way to run tens of thousands of functions seemingly at the same time;
+- within a generator, the value of the yield expression will be whatever value was passed to the generator's send method from the exterior code;
+- coroutines give you a powerful tool for separating the core logic of your program from its interaction with the surrounding environment;
+- python 2 doesn't support yield from or returning values from generators;
+
+### 5.6 consider concurrent.futures for true parallelism
+
+- moving cpu bottlenecks to c-extension modules can be an effective way to improve performance while maximizing your investment in python code. however, the cost of doing so is high and may introduce bugs;
+- the multiprocessing module provides powerful tools that can parallelize certain types of python computation with minimal effort;
+- the power of multiprocessing is best accessed through the concurrent.futures built-in module and its simple processpollexecutor class;
+- the advanced parts of the multiprocessing module should be avoided because they are so complex;
+
+## 6. built-in modules
+
+### 6.1 define functions decorators with functools.wraps
+
+- decorators are python syntax for allowing one function to modify another function at runtime;
+- using decorators can cause strange behaviors in tools that do introspection, such as debuggers;
+- use the `wraps` decorator from the `functools` built-in modules when you define your own decorators to avoid any issues;
+
+### 6.2 consider contextlib and with statements for reusable try/finally behavior
+
+- the with statement allow you to reuse logic from try/finally blocks and reduce visual noise;
+- the contextlib built-in module provides a contextmanager decorator that makes it easy to use your own functions in with statements;
+- the value yielded by context managers is supplied to the as part of the with statement. it's useful for letting your code directly access the cause of the special context;
+
+### 6.3 make pickle reliable with copyreg
+
+```
+the pickle module's serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.
+```
+
+- the pickle module is only useful for serializing and deserializing objects between trusted programs;
+- the pickle module may break down when used for more than trivial use cases;
+- use the copyreg built-in module with pickle to add missing attribute values, allow versioning of classes, and provide stable import paths;
+
+### 6.4 use datetime instead of time for local clocks
+
+- avoid using the time module for translating between different time zones;
+- use the datetime built-in module along with the pytz module to reiliably convert between times in different time zones;
+- always represent time in utc and do conversions to local time as the final step before presentation;
+
+### 6.5 use built-in algorithms and data structures
+
+- use python's built-in modules for algorithms and data structures;
+- don't reimplement this functionality yourself;
+
+### 6.6 use decimal when precising is paramount
+
+- python has built-in types and classes in modules that can represent practically every type of numerical value;
+- the decimal class is ideal for situations that require high precision and exact rounding behavior, such as computations of monetary values;
+
+### 6.7 know where to find community-built modules
+
+## 7. collaboration
+
+### 7.1 write docstring for every function, class and module
+
+- write documentation for every module, class and function using docstrings. keep them up to date as your code changes;
+- for modules, introduce the contents of the module and any important classes or functions all users should know about;
+- for classes, document behavior, important attributes and subclass behavior in the docstring following the class statement;
+- for functions and methods, document every argument, returned value, raised exception and other behaviors in the docstring following the def statement;
+
+### 7.2 use packages to organize modules and provide stable apis
+
+- packages in python are modules that contain other modules, packages allow you to organize your code into separate, non-conflicting namespaces with unique absolute module names;
+- simple packages are defined by adding an `__init__.py` file to a directory that contains other source files. these files become the child modules of the directory's package, package directories may also contain other packages;
+- you can provide an explicit api for a module by listing its publicly visible names in its `__all__` special attribute;
+- you can hide a package's internal implementation by only importing public names in the package's `__init__.py` file or by naming internal-only members with a leading underscore;
+- when collaborating within a single team or on a single codebase, using `__call__` for explicit apis is probably unnecessary;
+
+### 7.3 define a root exception to insulate callers from apis
+
+- define root exceptions for your modules allows api consumers to insulate themselves from your api;
+- catching root exception can help your modules allows api consumers to insulate themselves from your api;
+- catching the python exception base class can help you find bugs in api implementation;
+- intermediate root exceptions let you add more specific types of exceptions in the future without breaking your api consumers;
+
+### 7.4 know how to break circular dependecies
+
+```
+# dialog.py
+import app
+
+class Dialog():
+    def __init__(self):
+        pass
+
+save_dialog = Dialog()
+
+def show():
+    pass
+
+# app.py
+import dialog
+
+class Prefs():
+    def get(self):
+        pass
+
+prefs = Prefs()
+dialog.show()
+```
+
+- python import machinery:
+    + searches for your module in locations from sys.path
+    + loads the code from the module and ensures that it compiles
+    + creates a corresponding empty module object
+    + inserts the module into sys.modules
+    + runs the code in the module object to define its contents
+
+the problem with a circular dependency is that the attributes of a module aren't defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it's inserted into sys.modules(after step 4)
+
+the first approach is to change the order of imports.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
