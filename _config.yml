@@ -1,6 +1,6 @@
 # auto: true
 
-markdown: redcarpet
+markdown: kramdown
 highlighter: pygments
 paginate: 8
 permalink: /:title

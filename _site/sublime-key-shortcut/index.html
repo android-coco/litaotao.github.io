@@ -47,7 +47,8 @@
     <p class="entry-date">2015-06-26 <span class="lastModified" style="display: none;" data-source="_posts/tools/2015-06-26-sublime-key-shortcut.md">最后更新时间: </span></p>
 
 
-    <h2>写在前面</h2>
+    <p>## 
+## 写在前面   </p>
 
 <p>　　之所以要整理一下我常用的 sublime 快捷键，是源于一个 blog <a href="http://tech.glowing.com/cn/advices-to-junior-developers/">如何提升你的能力？给年轻程序员的几条建议</a>。这个作者 <a href="https://github.com/yejianye">Ryan</a> 是我的新boss，在当时第一次面试结束的时候，我问了他一个问题，像我这样子刚工作不久，基础不好的新人，应该怎么来提升自己。当时他简单的说了一下，内容和博文里面的差不多，没想到不到一个星期在公司的微信公众号上就出现了这样一篇文章。虽然不确定是不是因为我的那个问题而写的，但确实很感动。我想，在个人成长的过程中，如果有人能拉一把，那感觉就跟买股票时，有人突然给了一个内幕消息似的。无论如何，都要谢谢 Ryan，也要感谢他的这篇文章。  </p>
 
@@ -57,78 +58,78 @@
 
 <p>　　先说明一下，如果快捷键不work的话，一般是因为和系统或其他快捷键有冲突，可以在 preference -&gt; key binding 里更改一下。</p>
 
-<h2>1. 功能查找：ctrl + p</h2>
+<h2 id="ctrl--p">1. 功能查找：ctrl + p</h2>
 
 <ul>
-<li>直接输入，可以快速查找文件</li>
-<li>输入@+函数名，查找函数，这个功能还有快捷键：ctrl + r，已经直接在查找栏里不全了一个 @ 了。</li>
-<li>输入#+文本，文件内文本匹配</li>
+  <li>直接输入，可以快速查找文件</li>
+  <li>输入@+函数名，查找函数，这个功能还有快捷键：ctrl + r，已经直接在查找栏里不全了一个 @ 了。</li>
+  <li>输入#+文本，文件内文本匹配</li>
 </ul>
 
-<h2>2. 多选：ctrl + d</h2>
+<h2 id="ctrl--d">2. 多选：ctrl + d</h2>
 
 <p>把光标放在一个单词上，按下ctrl + D,将选择这个单词。一直按住ctrl且按D多次，将选择当前选中项的下一个匹配项。</p>
 
-<p><img src="../../images/ctrld.gif" alt="ctrld.gif"></p>
+<p><img src="../../images/ctrld.gif" alt="ctrld.gif" /></p>
 
-<h2>3. 打开关闭边栏： ctrl + k, ctrl + b</h2>
+<h2 id="ctrl--k-ctrl--b">3. 打开关闭边栏： ctrl + k, ctrl + b</h2>
 
 <p>这个功能个人觉得很实用，特别是有一个竖屏的时候，在竖屏上写代码时，ctrl + k, ctrl + b 把侧边栏关闭，那感觉叫一个酸爽啊，哈哈。</p>
 
-<h2>4. 文本查找：ctrl + f, ctrl + shift + f</h2>
+<h2 id="ctrl--f-ctrl--shift--f">4. 文本查找：ctrl + f, ctrl + shift + f</h2>
 
 <p>ctrl + f：当前文件内查找
 ctrl + shift + f：在当前打开的folder中的所有文件内查找，还可以有替代功能【在windows下，sumblime 2，好像用搜狗輸入法的中文時，不能使用这个功能，需要切换成美式键盘才可以使用这个功能】</p>
 
-<h2>5. 命令模式：ctrl + shift + p</h2>
+<h2 id="ctrl--shift--p">5. 命令模式：ctrl + shift + p</h2>
 
 <ul>
-<li>minimap：隐藏或显示右侧的小地图</li>
-<li>set syntax：设置当前文本语法</li>
+  <li>minimap：隐藏或显示右侧的小地图</li>
+  <li>set syntax：设置当前文本语法</li>
 </ul>
 
-<h2>6. 快速跳到某一行：ctrl + g</h2>
+<h2 id="ctrl--g">6. 快速跳到某一行：ctrl + g</h2>
 
-<h2>7. 完整拷贝，避免格式错乱：ctrl + shift + v</h2>
+<h2 id="ctrl--shift--v">7. 完整拷贝，避免格式错乱：ctrl + shift + v</h2>
 
 <p>我们发现，在从别的文件中拷贝一段代码过来的时候，多半只是第一行缩进，后面都乱了，这时可以使用Ctrl + Shift + V进行粘贴，可以在粘贴的过程中保持缩进，这时格式都是正确的。</p>
 
-<h2>8. 重新打开关闭的标签：command + shift + t</h2>
+<h2 id="command--shift--t">8. 重新打开关闭的标签：command + shift + t</h2>
 
 <p>在Chrome里面，如果你不小心关闭了某个标签页并想恢复它，你可以按下Shift + Ctrl + T重新打开它。
 在ST3中也一样，如果你不小心关闭了某个文件，可以按下Shift + command + T快速恢复。连续重复该按键，ST将会按照关闭的先后顺序重新打开标签页。</p>
 
-<h2>9. 左右标签切换：command + shift + {, }</h2>
+<h2 id="command--shift---">9. 左右标签切换：command + shift + {, }</h2>
 
 <p>command + shift + {, 转向当前标签的左面一个标签，反之。</p>
 
-<h2>10. 删除整行：ctrl + shift + k / ctrl + x</h2>
+<h2 id="ctrl--shift--k--ctrl--x">10. 删除整行：ctrl + shift + k / ctrl + x</h2>
 
 <p>同样的，在windows下，如果使用搜狗输入法的话，这样也会不能用，应该是被搜狗本身的快捷键覆盖了，需要切换到美式键盘才行。   </p>
 
-<h2>11. 强力分屏，宽屏的福音：command + alt + 数字键</h2>
+<h2 id="command--alt--">11. 强力分屏，宽屏的福音：command + alt + 数字键</h2>
 
 <p>同样也是我经常使用的一个快捷键，因为有3个屏幕，一个笔记本，一个23的宽屏，一个19的竖屏。在竖屏上写代码时基本都是 ctrl + k, ctrl + b 关闭左侧边栏，在宽屏上写代码时常常会用 command + alt + 2 切换成2屏，刷起来感觉刁刁的，爽爽的。</p>
 
-<h2>12. 关闭当前文件：ctrl + w</h2>
+<h2 id="ctrl--w">12. 关闭当前文件：ctrl + w</h2>
 
-<h2>13. 选择行：ctrl + l</h2>
+<h2 id="ctrl--l">13. 选择行：ctrl + l</h2>
 
 <p>选择某行，重复可以依次增加选择下一行。</p>
 
-<h2>14. 全屏：ctrl + command + f</h2>
+<h2 id="ctrl--command--f">14. 全屏：ctrl + command + f</h2>
 
-<h2>15. 切换标签：command + 数字</h2>
+<h2 id="command--">15. 切换标签：command + 数字</h2>
 
 <p>切换到第N个文件。</p>
 
-<h2>16. 快速查找下一个、上一个</h2>
+<h2 id="section">16. 快速查找下一个、上一个</h2>
 
 <p>选中单词，command + g，快速选中下一个，command + shift + g，快速选中上一个。</p>
 
-<h2>17. 缩进中tab转为space</h2>
+<h2 id="tabspace">17. 缩进中tab转为space</h2>
 
-<p>command + , 打开用户设置，设置 &quot;translateTabsToSpaces&quot; 为 &quot;ture&quot;，然后保存一下就ok了。</p>
+<p>command + , 打开用户设置，设置 “translateTabsToSpaces” 为 “ture”，然后保存一下就ok了。</p>
 
 <p>顺便了解一下sublime加载配置文件的顺序：</p>
 
@@ -136,39 +137,42 @@ ctrl + shift + f：在当前打开的folder中的所有文件内查找，还可�
 Packages/Default/Preferences (<platform>).sublime-settings
 Packages/User/Preferences.sublime-settings
 Packages/<syntax>/<syntax>.sublime-settings
-Packages/User/<syntax>.sublime-settings</p>
+Packages/User/<syntax>.sublime-settings</syntax></syntax></syntax></platform></p>
 
 <p>更多的配置详情可以查询这两个链接：</p>
 
 <p><a href="https://www.sublimetext.com/docs/2/indentation.html">config sublime 1</a>
 <a href="http://www.sublimetext.com/docs/indentation">config sublime 2</a></p>
 
-<h2>18. 安装插件</h2>
+<h2 id="section-1">18. 安装插件</h2>
 
 <p>按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。  </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">import urllib2,os;pf=&#39;Package Control.sublime-package&#39;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&#39;wb&#39;).write(urllib2.urlopen(&#39;http://sublime.wbond.net/&#39;+pf.replace(&#39; &#39;,&#39;%20&#39;)).read())
-</code></pre></div>
+
+<p><code>
+import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
+</code></p>
+
 <p>安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。</p>
 
-<h2>19. 大小写互换</h2>
+<h2 id="section-2">19. 大小写互换</h2>
 
 <p>command + kl：将选中的单词转换为小写
 command + ku：将选中的单词转换为大写</p>
 
-<h2>20. 折叠函数</h2>
+<h2 id="section-3">20. 折叠函数</h2>
 
-<p>command + k + 1: 折叠所有函数<br>
+<p>command + k + 1: 折叠所有函数  <br />
 command + k + j: 展开所有函数    </p>
 
-<p>如果不work，查看： edit -&gt; code foldingcd &#39;dkaf&#39;</p>
+<p>如果不work，查看： edit -&gt; code foldingcd ‘dkaf’</p>
 
-<h2>21. 复制粘贴整行</h2>
+<h2 id="section-4">21. 复制粘贴整行</h2>
 
 <p>command + shift + d: 复制光标所在整行，并粘贴到下一行。</p>
 
-<h2>扫一扫</h2>
+<h2 id="section-5">扫一扫</h2>
 
-<p><img src="../../images/share/2015-01-26-sublime-key-shortcut.md.jpg" alt="2015-01-26-sublime-key-shortcut.md"></p>
+<p><img src="../../images/share/2015-01-26-sublime-key-shortcut.md.jpg" alt="2015-01-26-sublime-key-shortcut.md" /></p>
 
 
     <!-- share icon -->

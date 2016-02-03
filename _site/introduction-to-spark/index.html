@@ -47,81 +47,82 @@
     <p class="entry-date">2016-02-01 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-02-01-introduction-to-spark.md">最后更新时间: </span></p>
 
 
-    <h2>写在前面</h2>
+    <h2 id="section">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
 <p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
 
-<h2>1. 如何向别人介绍 spark</h2>
+<h2 id="spark">1. 如何向别人介绍 spark</h2>
 
 <p><strong><em>Apache Spark™ is a fast and general engine for large-scale data processing.</em></strong></p>
 
-<p>Apache Spark is a fast and general-purpose cluster computing system.<br>
-It provides high-level APIs in <code>Java, Scala, Python and R</code>, and an optimized engine that supports general execution graphs.<br>
+<p>Apache Spark is a fast and general-purpose cluster computing system.  <br />
+It provides high-level APIs in <code>Java, Scala, Python and R</code>, and an optimized engine that supports general execution graphs.  <br />
 It also supports a rich set of higher-level tools including :    </p>
 
 <ul>
-<li>Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets<br></li>
-<li>MLlib for machine learning<br></li>
-<li>GraphX for graph processing<br></li>
-<li>Spark Streaming for stream data processing<br></li>
+  <li>Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets    </li>
+  <li>MLlib for machine learning    </li>
+  <li>GraphX for graph processing    </li>
+  <li>Spark Streaming for stream data processing    </li>
 </ul>
 
-<h2>2. spark 诞生的一些背景</h2>
+<h2 id="spark-">2. spark 诞生的一些背景</h2>
 
-<p><img src="../images/introduction-to-spark-1.jpg" alt="introduction-to-spark-1.jpg">
-<img src="../images/introduction-to-spark-2.jpg" alt="introduction-to-spark-2.jpg"></p>
+<p><img src="../images/introduction-to-spark-1.jpg" alt="introduction-to-spark-1.jpg" />
+<img src="../images/introduction-to-spark-2.jpg" alt="introduction-to-spark-2.jpg" /></p>
 
 <p>Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to : </p>
 
 <ul>
-<li><p>generalize MapReduce to support new apps within same engine</p>
-
-<ul>
-<li>it&#39;s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</li>
-</ul></li>
-<li><p>speed up iteration computing over hadoop.</p>
-
-<ul>
-<li>use memory + disk instead of disk as data storage medium</li>
-<li>design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]</li>
-</ul></li>
+  <li>generalize MapReduce to support new apps within same engine
+    <ul>
+      <li>it’s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</li>
+    </ul>
+  </li>
+  <li>speed up iteration computing over hadoop.
+    <ul>
+      <li>use memory + disk instead of disk as data storage medium</li>
+      <li>design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]</li>
+    </ul>
+  </li>
 </ul>
 
-<p><img src="../images/introduction-to-spark-4.jpg" alt="introduction-to-spark-4.jpg">
-<img src="../images/introduction-to-spark-5.jpg" alt="introduction-to-spark-5.jpg"></p>
+<p><img src="../images/introduction-to-spark-4.jpg" alt="introduction-to-spark-4.jpg" />
+<img src="../images/introduction-to-spark-5.jpg" alt="introduction-to-spark-5.jpg" /></p>
 
-<h2>3. 为何选用 spark</h2>
-
-<ul>
-<li>designed, implemented and used as libs, instead of specialized systems;
+<h2 id="spark-1">3. 为何选用 spark</h2>
 
 <ul>
-<li>much more useful and maintainable</li>
-</ul></li>
+  <li>designed, implemented and used as libs, instead of specialized systems;
+    <ul>
+      <li>much more useful and maintainable</li>
+    </ul>
+  </li>
 </ul>
 
-<p><img src="../images/introduction-to-spark-3.jpg" alt="introduction-to-spark-3.jpg"></p>
+<p><img src="../images/introduction-to-spark-3.jpg" alt="introduction-to-spark-3.jpg" /></p>
 
 <ul>
-<li>from history, it is designed and improved upon hadoop and storm, it has perfect genes;</li>
-<li>documents, community, products and trends;</li>
-<li>it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;</li>
-<li>it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;</li>
+  <li>from history, it is designed and improved upon hadoop and storm, it has perfect genes;</li>
+  <li>documents, community, products and trends;</li>
+  <li>it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;</li>
+  <li>it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;</li>
 </ul>
 
-<h2>4. Next</h2>
+<h2 id="next">4. Next</h2>
 
 <p>下一篇，通过几个例子来介绍 spark 的基本编程模式。</p>
 
-<h2>参考文章</h2>
+<h2 id="section-1">参考文章</h2>
 
 <ul>
-<li><a href="http://stanford.edu/%7Erezab/sparkclass/slides/itas_workshop.pdf">Intro to Apache Spark</a></li>
+  <li><a href="http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf">Intro to Apache Spark</a></li>
 </ul>
 
-<h2>本系列其他文章链接</h2>
+<h2 id="section-2">本系列其他文章链接</h2>
+
 
 
     <!-- share icon -->

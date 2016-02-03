@@ -47,52 +47,64 @@
     <p class="entry-date">2015-10-25 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-25-python-if-else-usage.md">最后更新时间: </span></p>
 
 
-    <h2>1. 常规的 if else 用法</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">x = True
+    <p>## 
+## 1. 常规的 if else 用法</p>
 
-if x:
-    print &#39;x is true&#39;
+<p>```
+x = True</p>
+
+<p>if x:
+    print ‘x is true’
 else:
-    print &#39;x is not true&#39;
-</code></pre></div>
-<h2>2. if else 快捷用法</h2>
+    print ‘x is not true’
+```</p>
+
+<h2 id="if-else-">2. if else 快捷用法</h2>
 
 <p>这里的 <code>if else</code> 可以作为三元操作符使用。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">mark = 40
+
+<p><code>
+mark = 40
 is_pass = True if mark &gt;= 50 else False
-print &quot;Pass? &quot; + str(is_pass)
-</code></pre></div>
-<h2>3. 与 <code>for</code> 关键字一起用</h2>
+print "Pass? " + str(is_pass)
+</code></p>
+
+<h2 id="for-">3. 与 <code>for</code> 关键字一起用</h2>
 
 <p>在满足以下情况的时候，<code>else</code> 下的代码块会被执行：</p>
 
 <ul>
-<li>for 循环里的语句执行完成</li>
-<li>for 循环里的语句没有被 <code>break</code> 语句打断</li>
+  <li>for 循环里的语句执行完成</li>
+  <li>for 循环里的语句没有被 <code>break</code> 语句打断</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># 打印 `For loop completed the execution`
+
+<p>```
+# 打印 <code>For loop completed the execution</code>
 for i in range(10):
     print i
 else:
-    print &#39;For loop completed the execution&#39;
+    print ‘For loop completed the execution’</p>
 
-# 不打印 `For loop completed the execution`
-for i in range(10):
+<h1 id="for-loop-completed-the-execution">不打印 <code>For loop completed the execution</code></h1>
+<p>for i in range(10):
     print i
     if i == 5:
         break
 else:
-    print &#39;For loop completed the execution&#39;
-</code></pre></div>
-<h2>4. 与 <code>while</code> 关键字一起用</h2>
+    print ‘For loop completed the execution’
+```</p>
+
+<h2 id="while-">4. 与 <code>while</code> 关键字一起用</h2>
 
 <p>和上面类似，在满足以下情况的时候，<code>else</code> 下的代码块会被执行：</p>
 
 <ul>
-<li>while 循环里的语句执行完成</li>
-<li>while 循环里的语句没有被 <code>break</code> 语句打断</li>
+  <li>while 循环里的语句执行完成</li>
+  <li>while 循环里的语句没有被 <code>break</code> 语句打断</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># 打印 `While loop execution completed`
+
+<p>```
+# 打印 <code>While loop execution completed</code>
 a = 0
 loop = 0
 while a &lt;= 10:
@@ -100,10 +112,10 @@ while a &lt;= 10:
     loop += 1
     a += 1
 else:
-    print &quot;While loop execution completed&quot;
+    print “While loop execution completed”</p>
 
-# 不打印 `While loop execution completed`
-a = 50
+<h1 id="while-loop-execution-completed">不打印 <code>While loop execution completed</code></h1>
+<p>a = 50
 loop = 0
 while a &gt; 10:
     print a
@@ -112,26 +124,31 @@ while a &gt; 10:
     a += 1
     loop += 1
 else:
-    print &quot;While loop execution completed&quot;
-</code></pre></div>
-<h2>5. 与 <code>try except</code> 一起用</h2>
+    print “While loop execution completed”
+```</p>
+
+<h2 id="try-except-">5. 与 <code>try except</code> 一起用</h2>
 
 <p>和 <code>try except</code> 一起使用时，如果不抛出异常，<code>else</code>里的语句就能被执行。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">file_name = &quot;result.txt&quot;
+
+<p><code>
+file_name = "result.txt"
 try:
-    f = open(file_name, &#39;r&#39;)
+    f = open(file_name, 'r')
 except IOError:
-    print &#39;cannot open&#39;, file_name
+    print 'cannot open', file_name
 else:
     # Executes only if file opened properly
-    print file_name, &#39;has&#39;, len(f.readlines()), &#39;lines&#39;
+    print file_name, 'has', len(f.readlines()), 'lines'
     f.close()
-</code></pre></div>
-<h2>参考文档</h2>
+</code></p>
+
+<h2 id="section">参考文档</h2>
 
 <ul>
-<li><a href="http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python">5 different methods to use an else block in python</a></li>
+  <li><a href="http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python">5 different methods to use an else block in python</a></li>
 </ul>
+
 
 
     <!-- share icon -->

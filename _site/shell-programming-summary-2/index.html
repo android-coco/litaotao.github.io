@@ -47,90 +47,105 @@
     <p class="entry-date">2015-11-18 <span class="lastModified" style="display: none;" data-source="_posts/tools/2015-11-18-shell-programming-summary-2.md">最后更新时间: </span></p>
 
 
-    <h2>1. test 命令</h2>
+    <h1 id="section">#</h1>
+<p>## 1. test 命令</p>
 
 <p>Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。</p>
 
-<h3>1.1 数值测试</h3>
+<h3 id="section-1">1.1 数值测试</h3>
 
 <ul>
-<li><code>-eq : equal</code>: 等于</li>
-<li><code>-ne : non-equal</code>: 不等于</li>
-<li><code>-gt : great than</code>: 大于</li>
-<li><code>-ge : great or equal</code>: 大于或等于</li>
-<li><code>-lt : lower than</code>: 小于</li>
-<li><code>-le : lower or equal</code>: 小于或等于</li>
+  <li><code>-eq : equal</code>: 等于</li>
+  <li><code>-ne : non-equal</code>: 不等于</li>
+  <li><code>-gt : great than</code>: 大于</li>
+  <li><code>-ge : great or equal</code>: 大于或等于</li>
+  <li><code>-lt : lower than</code>: 小于</li>
+  <li><code>-le : lower or equal</code>: 小于或等于</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">num1=100
+
+<p><code>
+num1=100
 num2=100
 if test $[num1] -eq $[num2]
 then
-    echo &#39;The two numbers are equal!&#39;
+    echo 'The two numbers are equal!'
 else
-    echo &#39;The two numbers are not equal!&#39;
+    echo 'The two numbers are not equal!'
 fi
-</code></pre></div>
-<h3>1.2 字符串测试</h3>
+</code></p>
+
+<h3 id="section-2">1.2 字符串测试</h3>
 
 <ul>
-<li><code>=</code>: 等于</li>
-<li><code>!=</code>: 不等于</li>
-<li><code>-z : zero</code>: 字符串长度为零，则为真</li>
-<li><code>-n : non-zero</code>: 字符串长度不为零，则为真</li>
-<li><code>${var-DEFAULT}</code>: 如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
-<li><code>${var:-DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *<br></li>
-<li><code>${var=DEFAULT}</code>: 如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
-<li><code>${var:=DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</li>
-<li><code>${var+OTHER}</code>:   如果var声明了, 那么其值就是$OTHER, 否则就为null字符串</li>
-<li><code>${var:+OTHER}</code>:  如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串<br></li>
-<li><code>${var?ERR_MSG}</code>: 如果var没被声明, 那么就打印$ERR_MSG *</li>
-<li><code>${var:?ERR_MSG}</code>:    如果var没被设置, 那么就打印$ERR_MSG *</li>
+  <li><code>=</code>: 等于</li>
+  <li><code>!=</code>: 不等于</li>
+  <li><code>-z : zero</code>: 字符串长度为零，则为真</li>
+  <li><code>-n : non-zero</code>: 字符串长度不为零，则为真</li>
+  <li><code>${var-DEFAULT}</code>:	如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
+  <li><code>${var:-DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 * 	 </li>
+  <li><code>${var=DEFAULT}</code>:	如果var没有被声明, 那么就以$DEFAULT作为其值 *</li>
+  <li><code>${var:=DEFAULT}</code>: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</li>
+  <li><code>${var+OTHER}</code>:	如果var声明了, 那么其值就是$OTHER, 否则就为null字符串</li>
+  <li><code>${var:+OTHER}</code>:	如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串	 </li>
+  <li><code>${var?ERR_MSG}</code>:	如果var没被声明, 那么就打印$ERR_MSG *</li>
+  <li><code>${var:?ERR_MSG}</code>:	如果var没被设置, 那么就打印$ERR_MSG *</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">num1=100
+
+<p><code>
+num1=100
 num2=100
 if test num1=num2
 then
-    echo &#39;The two strings are equal!&#39;
+    echo 'The two strings are equal!'
 else
-    echo &#39;The two strings are not equal!&#39;
+    echo 'The two strings are not equal!'
 fi
-</code></pre></div>
-<h3>1.3 文件测试</h3>
+</code></p>
+
+<h3 id="section-3">1.3 文件测试</h3>
 
 <ul>
-<li><code>-e  : exist</code>: 如果文件存在则为真</li>
-<li><code>-r  : readable</code>: 如果文件存在且可读则为真</li>
-<li><code>-w  : writable</code>: 如果文件存在且可写则为真</li>
-<li><code>-x  : execute</code>: 如果文件存在且可执行则为真</li>
-<li><code>-s  :</code>: 如果文件存在且至少有一个字符则为真</li>
-<li><code>-d  : directory</code>: 如果文件存在且为目录则为真</li>
-<li><code>-f  : file</code>: 如果文件存在且为普通文件则为真</li>
-<li><code>-c  :</code>: 如果文件存在且为字符型特殊文件则为真</li>
-<li><code>-b  : block</code>: 如果文件存在且为块特殊文件则为真</li>
+  <li><code>-e  : exist</code>: 如果文件存在则为真</li>
+  <li><code>-r  : readable</code>: 如果文件存在且可读则为真</li>
+  <li><code>-w  : writable</code>: 如果文件存在且可写则为真</li>
+  <li><code>-x  : execute</code>: 如果文件存在且可执行则为真</li>
+  <li><code>-s  : </code>: 如果文件存在且至少有一个字符则为真</li>
+  <li><code>-d  : directory</code>: 如果文件存在且为目录则为真</li>
+  <li><code>-f  : file</code>: 如果文件存在且为普通文件则为真</li>
+  <li><code>-c  : </code>: 如果文件存在且为字符型特殊文件则为真</li>
+  <li><code>-b  : block</code>: 如果文件存在且为块特殊文件则为真</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cd /bin
+
+<p><code>
+cd /bin
 if test -e ./bash
 then
-    echo &#39;The file already exists!&#39;
+    echo 'The file already exists!'
 else
-    echo &#39;The file does not exists!&#39;
+    echo 'The file does not exists!'
 fi
-</code></pre></div>
-<p>另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：&quot;!&quot;最高，&quot;-a&quot;次之，&quot;-o&quot;最低。例如：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cd /bin
+</code></p>
+
+<p>另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：”!”最高，”-a”次之，”-o”最低。例如：</p>
+
+<p><code>
+cd /bin
 if test -e ./notFile -o ./bash
 then
-    echo &#39;One file exists at least!&#39;
+    echo 'One file exists at least!'
 else
-    echo &#39;Both dose not exists!&#39;
+    echo 'Both dose not exists!'
 fi
-</code></pre></div>
-<h2>2. 流程控制</h2>
+</code></p>
 
-<h3>2.1 if elif else fi 控制符</h3>
+<h2 id="section-4">2. 流程控制</h2>
+
+<h3 id="if-elif-else-fi-">2.1 if elif else fi 控制符</h3>
 
 <p>完整的格式如下，其中，<code>elif</code>, <code>else</code> 可根据实际情况决定是否需要。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">if condition1
+
+<p><code>
+if condition1
 then
     command1
 elif condition2
@@ -138,78 +153,102 @@ elif condition2
 else
     commandN
 fi
-</code></pre></div>
+</code></p>
+
 <p>实例：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">num1=$[2*3]
+
+<p><code>
+num1=$[2*3]
 num2=$[1+5]
 if test $[num1] -eq $[num2]
 then
-    echo &#39;两个数字相等!&#39;
+    echo '两个数字相等!'
 else
-    echo &#39;两个数字不相等!&#39;
+    echo '两个数字不相等!'
 fi
-</code></pre></div>
-<h3>2.2 for 循环</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text">for var in item1 item2 ... itemN
+</code></p>
+
+<h3 id="for-">2.2 for 循环</h3>
+
+<p><code>
+for var in item1 item2 ... itemN
 do
     command1
     command2
     ...
     commandN
 done
-</code></pre></div>
-<h3>2.3 while 语句</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text">while condition
+</code></p>
+
+<h3 id="while-">2.3 while 语句</h3>
+
+<p><code>
+while condition
 do
     command
 done
-</code></pre></div>
+</code></p>
+
 <p>示例：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/sh
+
+<p><code>
+#!/bin/sh
 int=1
 while(( $int&lt;=5 ))
 do
         echo $int
-        let &quot;int++&quot;
+        let "int++"
 done
-</code></pre></div>
-<p>while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按<Ctrl-D>结束循环。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">echo &#39;按下 &lt;CTRL-D&gt; 退出&#39;
-echo -n &#39;输入你最喜欢的电影名: &#39;
+</code></p>
+
+<p>while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按<ctrl-d>结束循环。</ctrl-d></p>
+
+<p><code>
+echo '按下 &lt;CTRL-D&gt; 退出'
+echo -n '输入你最喜欢的电影名: '
 while read FILM
 do
-    echo &quot;是的！$FILM 是一部好电影&quot;
+    echo "是的！$FILM 是一部好电影"
 done
-</code></pre></div>
+</code></p>
+
 <p>无限循环语法格式：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">while :
+
+<p>```
+while :
 do
     command
-done
+done</p>
 
-# 或者
+<h1 id="section-5">或者</h1>
 
-while true
+<p>while true
 do
     command
-done
+done</p>
 
-# 或者
-for (( ; ; ))
-</code></pre></div>
-<h3>2.4 until 循环</h3>
+<h1 id="section-6">或者</h1>
+<p>for (( ; ; ))
+```</p>
+
+<h3 id="until-">2.4 until 循环</h3>
 
 <p>until循环执行一系列命令直至条件为真时停止。
 until循环与while循环在处理方式上刚好相反。
 一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
 until 语法格式:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">until condition
+
+<p><code>
+until condition
 do
     command
 done
-</code></pre></div>
-<h3>2.5 case 语句</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text">case 值 in
+</code></p>
+
+<h3 id="case-">2.5 case 语句</h3>
+
+<p><code>
+case 值 in
 模式1)
     command1
     command2
@@ -223,64 +262,74 @@ done
     commandN
     ;;
 esac
-</code></pre></div>
+</code></p>
+
 <p>示例：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">echo &#39;输入 1 到 4 之间的数字:&#39;
-echo &#39;你输入的数字为:&#39;
+
+<p><code>
+echo '输入 1 到 4 之间的数字:'
+echo '你输入的数字为:'
 read aNum
 case $aNum in
-    1)  echo &#39;你选择了 1&#39;
+    1)  echo '你选择了 1'
     ;;
-    2)  echo &#39;你选择了 2&#39;
+    2)  echo '你选择了 2'
     ;;
-    3)  echo &#39;你选择了 3&#39;
+    3)  echo '你选择了 3'
     ;;
-    4)  echo &#39;你选择了 4&#39;
+    4)  echo '你选择了 4'
     ;;
-    *)  echo &#39;你没有输入 1 到 4 之间的数字&#39;
+    *)  echo '你没有输入 1 到 4 之间的数字'
     ;;
 esac
-</code></pre></div>
-<h3>2.6 break 和 continue 语句</h3>
+</code></p>
+
+<h3 id="break--continue-">2.6 break 和 continue 语句</h3>
 
 <p>break命令允许跳出所有循环（终止执行后面的所有循环）。
 下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
+
+<p><code>
+#!/bin/bash
 while :
 do
-    echo -n &quot;输入 1 到 5 之间的数字:&quot;
+    echo -n "输入 1 到 5 之间的数字:"
     read aNum
     case $aNum in
-        1|2|3|4|5) echo &quot;你输入的数字为 $aNum!&quot;
+        1|2|3|4|5) echo "你输入的数字为 $aNum!"
         ;;
-        *) echo &quot;你输入的数字不是 1 到 5 之间的! 游戏结束&quot;
+        *) echo "你输入的数字不是 1 到 5 之间的! 游戏结束"
             break
         ;;
     esac
 done
-</code></pre></div>
+</code></p>
+
 <p>continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
+
+<p><code>
+#!/bin/bash
 while :
 do
-    echo -n &quot;输入 1 到 5 之间的数字: &quot;
+    echo -n "输入 1 到 5 之间的数字: "
     read aNum
     case $aNum in
-        1|2|3|4|5) echo &quot;你输入的数字为 $aNum!&quot;
+        1|2|3|4|5) echo "你输入的数字为 $aNum!"
         ;;
-        *) echo &quot;你输入的数字不是 1 到 5 之间的!&quot;
+        *) echo "你输入的数字不是 1 到 5 之间的!"
             continue
-            echo &quot;游戏结束&quot;
+            echo "游戏结束"
         ;;
     esac
 done
-</code></pre></div>
-<h2>参考文档</h2>
+</code></p>
+
+<h2 id="section-7">参考文档</h2>
 
 <ul>
-<li><a href="http://www.runoob.com/linux/linux-shell.html">Shell 教程</a></li>
-<li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">linux shell 字符串操作（长度，查找，替换）详解</a></li>
-<li><a href="http://blog.csdn.net/ithomer/article/details/6836382">Linux 之 shell 比较运算符</a></li>
+  <li><a href="http://www.runoob.com/linux/linux-shell.html">Shell 教程</a></li>
+  <li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">linux shell 字符串操作（长度，查找，替换）详解</a></li>
+  <li><a href="http://blog.csdn.net/ithomer/article/details/6836382">Linux 之 shell 比较运算符</a></li>
 </ul>
 
 

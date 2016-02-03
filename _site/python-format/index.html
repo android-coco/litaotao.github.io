@@ -47,119 +47,137 @@
     <p class="entry-date">2015-10-24 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-24-python-format.md">最后更新时间: </span></p>
 
 
-    <h2>1. 位置参数</h2>
+    <p>## 
+## 1. 位置参数</p>
 
 <p>字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
 值得注意的是，<code>位置可以不按顺序，可以不用或者用多次</code>，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。   </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">In [1]: &#39;{0},{1}&#39;.format(&#39;kzc&#39;,18)  
-Out[1]: &#39;kzc,18&#39;  
-In [2]: &#39;{},{}&#39;.format(&#39;kzc&#39;,18)  
-Out[2]: &#39;kzc,18&#39;  
-In [3]: &#39;{1},{0},{1}&#39;.format(&#39;kzc&#39;,18)  
-Out[3]: &#39;18,kzc,18&#39;
 
-# more powerful
+<p>```</p>
 
-In [7]: p=[&#39;kzc&#39;,18]
-In [8]: &#39;{0[0]},{0[1]}&#39;.format(p)
-Out[8]: &#39;kzc,18&#39;
-</code></pre></div>
-<h2>2. 通过关键字参数</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">In [5]: &#39;{name},{age}&#39;.format(age=18,name=&#39;kzc&#39;)  
-Out[5]: &#39;kzc,18&#39;
-</code></pre></div>
-<h2>3. 对象属性</h2>
+<p>In [1]: ‘{0},{1}’.format(‘kzc’,18)<br />
+Out[1]: ‘kzc,18’<br />
+In [2]: ‘{},{}’.format(‘kzc’,18)<br />
+Out[2]: ‘kzc,18’<br />
+In [3]: ‘{1},{0},{1}’.format(‘kzc’,18)<br />
+Out[3]: ‘18,kzc,18’</p>
+
+<h1 id="more-powerful">more powerful</h1>
+
+<p>In [7]: p=[‘kzc’,18]
+In [8]: ‘{0[0]},{0[1]}’.format(p)
+Out[8]: ‘kzc,18’</p>
+
+<p>```</p>
+
+<h2 id="section">2. 通过关键字参数</h2>
+
+<p><code>
+In [5]: '{name},{age}'.format(age=18,name='kzc')  
+Out[5]: 'kzc,18'
+</code></p>
+
+<h2 id="section-1">3. 对象属性</h2>
 
 <p>这是很多对象的 <code>str</code>, <code>__str__</code>, <code>__repr__</code> 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：  </p>
 
 <ul>
-<li><code>str</code> 是 pyhton 的内置函数，<code>str(obj)</code> 实际是调用 <code>obj.__str__()</code>；</li>
-<li><code>obj.__str__()</code> 是简化版的 <code>obj.__repr__()</code>；</li>
-<li>need more details, check this on <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">SO</a><br></li>
+  <li><code>str</code> 是 pyhton 的内置函数，<code>str(obj)</code> 实际是调用 <code>obj.__str__()</code>；</li>
+  <li><code>obj.__str__()</code> 是简化版的 <code>obj.__repr__()</code>；</li>
+  <li>need more details, check this on <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">SO</a>     </li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class Person:  
+
+<p><code>
+class Person:  
     def __init__(self,name,age):  
         self.name,self.age = name,age  
         def __str__(self):  
-            return &#39;This guy is {self.name},is {self.age} old&#39;.format(self=self)  
-</code></pre></div>
-<h2>4. 格式限定符 - 填充与对齐</h2>
+            return 'This guy is {self.name},is {self.age} old'.format(self=self)  
+</code></p>
+
+<h2 id="section-2">4. 格式限定符 - 填充与对齐</h2>
 
 <p>不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。 </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># 无需对齐，填充
-In [1]: &#39;{}&#39;.format(&#39;hello&#39;)
-Out[1]: &#39;hello&#39;
 
-In [2]: &#39;{:}&#39;.format(&#39;hello&#39;)
-Out[2]: &#39;hello&#39;
+<p>```
+# 无需对齐，填充
+In [1]: ‘{}’.format(‘hello’)
+Out[1]: ‘hello’</p>
 
-# 居中对齐，构建 9 个长度的字符串
-In [5]: &#39;{:^9}&#39;.format(&#39;hello&#39;)
-Out[5]: &#39;  hello  &#39;
+<p>In [2]: ‘{:}’.format(‘hello’)
+Out[2]: ‘hello’</p>
 
-# 右对齐，构建 9 个长度的字符串
-In [6]: &#39;{:&gt;9}&#39;.format(&#39;hello&#39;)
-Out[6]: &#39;    hello&#39;
+<h1 id="section-3">居中对齐，构建 9 个长度的字符串</h1>
+<p>In [5]: ‘‘.format(‘hello’)
+Out[5]: ‘  hello  ‘</p>
 
-# 左对齐，构建 9 个长度的字符串
-In [7]: &#39;{:&lt;9}&#39;.format(&#39;hello&#39;)
-Out[7]: &#39;hello    &#39;
+<h1 id="section-4">右对齐，构建 9 个长度的字符串</h1>
+<p>In [6]: ‘‘.format(‘hello’)
+Out[6]: ‘    hello’</p>
 
-# 右对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [10]: &#39;{:0&gt;9}&#39;.format(&#39;hello&#39;)
-Out[10]: &#39;0000hello&#39;
+<h1 id="section-5">左对齐，构建 9 个长度的字符串</h1>
+<p>In [7]: ‘‘.format(‘hello’)
+Out[7]: ‘hello    ‘</p>
 
-# # 左对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [11]: &#39;{:0&lt;9}&#39;.format(&#39;hello&#39;)
-Out[11]: &#39;hello0000&#39;
+<h1 id="section-6">右对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
+<p>In [10]: ‘‘.format(‘hello’)
+Out[10]: ‘0000hello’</p>
 
-# 居中对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [12]: &#39;{:0^9}&#39;.format(&#39;hello&#39;)
-Out[12]: &#39;00hello00&#39;
-</code></pre></div>
-<h2>5. 精度与类型</h2>
+<h1 id="section-7"># 左对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
+<p>In [11]: ‘‘.format(‘hello’)
+Out[11]: ‘hello0000’</p>
+
+<h1 id="section-8">居中对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
+<p>In [12]: ‘‘.format(‘hello’)
+Out[12]: ‘00hello00’
+```</p>
+
+<h2 id="section-9">5. 精度与类型</h2>
 
 <ul>
-<li>f : float类型</li>
-<li>b : 二进制</li>
-<li>d : 十进制 </li>
-<li>o : 八进制</li>
-<li>x : 十六进制</li>
-<li>, : 逗号可以表示数字的千分位</li>
+  <li>f : float类型</li>
+  <li>b : 二进制</li>
+  <li>d : 十进制 </li>
+  <li>o : 八进制</li>
+  <li>x : 十六进制</li>
+  <li>, : 逗号可以表示数字的千分位</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">In [44]: &#39;{:.2f}&#39;.format(321.33345)
-Out[44]: &#39;321.33&#39;
 
-In [54]: &#39;{:b}&#39;.format(17)
-Out[54]: &#39;10001&#39;
-In [55]: &#39;{:d}&#39;.format(17)
-Out[55]: &#39;17&#39;
-In [56]: &#39;{:o}&#39;.format(17)
-Out[56]: &#39;21&#39;
-In [57]: &#39;{:x}&#39;.format(17)
-Out[57]: &#39;11&#39;
+<p>```
+In [44]: ‘‘.format(321.33345)
+Out[44]: ‘321.33’</p>
 
-In [47]: &#39;{:,}&#39;.format(1234567890)
-Out[47]: &#39;1,234,567,890&#39;
-</code></pre></div>
-<h2>6. 完善的格式文档</h2>
+<p>In [54]: ‘‘.format(17)
+Out[54]: ‘10001’
+In [55]: ‘‘.format(17)
+Out[55]: ‘17’
+In [56]: ‘‘.format(17)
+Out[56]: ‘21’
+In [57]: ‘‘.format(17)
+Out[57]: ‘11’</p>
 
-<p><img src="../images/python_str_format.jpg" alt="python_str_format.jpg"></p>
+<p>In [47]: ‘‘.format(1234567890)
+Out[47]: ‘1,234,567,890’
+```</p>
 
-<h2>7. % VS format</h2>
+<h2 id="section-10">6. 完善的格式文档</h2>
+
+<p><img src="../images/python_str_format.jpg" alt="python_str_format.jpg" /></p>
+
+<h2 id="vs-format">7. % VS format</h2>
 
 <p>我一直都喜欢用 <code>format</code> ，不知道为什么，可能喜欢一种写法也是不需要原因的吧，哈哈。其它的，可以在这里找到一大堆说法。  </p>
 
 <ul>
-<li><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format">python-string-formatting-vs-format</a></li>
+  <li><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format">python-string-formatting-vs-format</a></li>
 </ul>
 
-<h2>参考文档</h2>
+<h2 id="section-11">参考文档</h2>
 
 <ul>
-<li><a href="http://blog.csdn.net/handsomekang/article/details/9183303">飘逸的python - 增强的格式化字符串format函数</a></li>
-<li><a href="https://pyformat.info/">官方文档</a></li>
-<li><a href="http://blog.xiayf.cn/2013/01/26/python-string-format/">Python格式字符串（译）</a></li>
+  <li><a href="http://blog.csdn.net/handsomekang/article/details/9183303">飘逸的python - 增强的格式化字符串format函数</a></li>
+  <li><a href="https://pyformat.info/">官方文档</a></li>
+  <li><a href="http://blog.xiayf.cn/2013/01/26/python-string-format/">Python格式字符串（译）</a></li>
 </ul>
 
 

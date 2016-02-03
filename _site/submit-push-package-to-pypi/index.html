@@ -47,74 +47,78 @@
     <p class="entry-date">2015-10-24 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-24-submit-push-package-to-pypi.md">最后更新时间: </span></p>
 
 
-    <h2>1. 注册 pypi 账号</h2>
+    <h1 id="section">#</h1>
+<p>## 1. 注册 pypi 账号  </p>
 
 <p>点击这张图片去注册吧。</p>
 
-<p><a href="https://pypi.python.org/pypi"><img src="../images/pypi_register.jpg" alt="pypi_register.jpg"></a></p>
+<p><a href="https://pypi.python.org/pypi"><img src="../images/pypi_register.jpg" alt="pypi_register.jpg" /></a></p>
 
-<h2>2. 编写 setup.py 必要信息</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">setup(
-    name=&quot;IPython-Dashboard&quot;,
-    version=&#39;0.1.1&#39;,
-    author=&quot;Taotao Li&quot;,
-    author_email=&quot;taotao.engineer@gmail.com&quot;,
-    url=&quot;https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server&quot;,
-    keywords = (&quot;ipython&quot;, &quot;dashboard&quot;, &quot;interactive&quot;, &quot;visualization&quot;, &quot;data science&quot;, &quot;data analysis&quot;, &quot;streaming&quot;),
-    license=&quot;BSD&quot;,
+<h2 id="setuppy-">2. 编写 setup.py 必要信息</h2>
+
+<p><code>
+setup(
+    name="IPython-Dashboard",
+    version='0.1.1',
+    author="Taotao Li",
+    author_email="taotao.engineer@gmail.com",
+    url="https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server",
+    keywords = ("ipython", "dashboard", "interactive", "visualization", "data science", "data analysis", "streaming"),
+    license="BSD",
     packages=find_packages(),
-    package_dir={&quot;dashboard&quot;: &quot;dashboard&quot;},
+    package_dir={"dashboard": "dashboard"},
     include_package_data=True,
-    description=&quot;An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.&quot;,
-    long_description=io.open(&quot;README.md&quot;, encoding=&#39;utf8&#39;).read(),
-    install_requires=io.open(&quot;requirements.txt&quot;, encoding=&#39;utf8&#39;).read(),
+    description="An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.",
+    long_description=io.open("README.md", encoding='utf8').read(),
+    install_requires=io.open("requirements.txt", encoding='utf8').read(),
     ...
     ...
 )
-</code></pre></div>
+</code></p>
+
 <p>上面是我的一个项目的 <code>setup.py</code> 内容，可以对比源文件和在 pypi 上到描述。</p>
 
 <ul>
-<li><a href="https://github.com/litaotao/IPython-Dashboard/blob/master/setup.py">项目文件</a></li>
-<li><a href="https://pypi.python.org/pypi/IPython-Dashboard">pypi上的描述</a></li>
+  <li><a href="https://github.com/litaotao/IPython-Dashboard/blob/master/setup.py">项目文件</a></li>
+  <li><a href="https://pypi.python.org/pypi/IPython-Dashboard">pypi上的描述</a></li>
 </ul>
 
 <p>我觉得关键的几 点是：</p>
 
 <ul>
-<li>keywords: 这点就不用说了吧</li>
-<li>description: 这点很多人都会忽略，其实也很重要的，我相信pypi在检索的时候，也会检索里面的一些关键字的。</li>
-<li>long<em>description: 这点也很重要，或者说不能更重要了。如果说上面的 <code>keywords</code> 和 <code>description</code> 能提高别人搜索到项目的概率的话，那 `long</em>description<code>就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种</code>long_description`
-
-<ul>
-<li><strong><em>No long_description</em></strong>
-<img src="../images/ld_1.jpg" alt="ld_1.jpg"></li>
-<li><strong><em>Ugly long_description</em></strong>
-<img src="../images/ld_2.jpg" alt="ld_2.jpg"></li>
-<li><strong><em>long_description with highlight, but need to make it cleaner</em></strong>
-<img src="../images/ld_3.jpg" alt="ld_3.jpg"></li>
-</ul></li>
+  <li>keywords: 这点就不用说了吧</li>
+  <li>description: 这点很多人都会忽略，其实也很重要的，我相信pypi在检索的时候，也会检索里面的一些关键字的。</li>
+  <li>long_description: 这点也很重要，或者说不能更重要了。如果说上面的 <code>keywords</code> 和 <code>description</code> 能提高别人搜索到项目的概率的话，那 <code>long_description</code> 就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种 <code>long_description</code>
+    <ul>
+      <li><strong><em>No long_description</em></strong>
+<img src="../images/ld_1.jpg" alt="ld_1.jpg" /></li>
+      <li><strong><em>Ugly long_description</em></strong>
+<img src="../images/ld_2.jpg" alt="ld_2.jpg" /></li>
+      <li><strong><em>long_description with highlight, but need to make it cleaner</em></strong>
+<img src="../images/ld_3.jpg" alt="ld_3.jpg" /></li>
+    </ul>
+  </li>
 </ul>
 
 <p>对了，还要注意一下，pypi 上只接受 <code>rst</code> 格式的 <code>readme</code>，不接受 <code>markdown</code> 格式的，所以想要高亮和排版的话，需要先把 <code>md</code> 格式的转换成 <code>rst</code> 格式的 <code>readme</code>。
 可以在你的项目目录下，使用 <code>pandoc --from=markdown --to=rst --output=README.rst README.md</code> 来转换。</p>
 
-<h2>3. 发布包元信息到pypi</h2>
+<h2 id="pypi">3. 发布包元信息到pypi</h2>
 
 <p>在你的包目录下使用命令 <code>python setup.py register</code> 在 pypi 上注册你的包信息，所谓注册包信息就是在 pypi 上建立你的包元信息，包括作者，描述等等。但是要注意的是，注册完元信息别人还不能使用 <code>pip install package</code> 来安装你的包。注册完元信息只是在 pypi 上占个坑而已。</p>
 
 <p>就如截图所示，这个项目就是只注册了元信息，所以没有下载包的那个链接。</p>
 
-<p><img src="../images/ld_1.jpg" alt="ld_1.jpg"></p>
+<p><img src="../images/ld_1.jpg" alt="ld_1.jpg" /></p>
 
-<h2>4. 发布包到pypi</h2>
+<h2 id="pypi-1">4. 发布包到pypi</h2>
 
 <p>使用 <code>python setup.py sdist upload</code> 发布包，即先将包在本地打包，然后上传到pypi，然后就ok了。</p>
 
-<h2>参考文档</h2>
+<h2 id="section-1">参考文档</h2>
 
 <ul>
-<li><a href="http://peterdowns.com/posts/first-time-with-pypi.html">How to submit a package to PyPI</a></li>
+  <li><a href="http://peterdowns.com/posts/first-time-with-pypi.html">How to submit a package to PyPI</a></li>
 </ul>
 
 

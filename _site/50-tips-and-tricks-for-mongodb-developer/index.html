@@ -47,76 +47,76 @@
     <p class="entry-date">2014-11-09 <span class="lastModified" style="display: none;" data-source="_posts/books/2014-11-09-50-tips-and-tricks-for-mongodb-developer.md">最后更新时间: </span></p>
 
 
-    <h2>写在前面</h2>
-
-<p>　　book 开头的文章都是记录我个人的读书记录的，里面分情况会记录下面这些东西：目录，读书感想，技术分享和推荐等。如果只是写下目录，那大多是留给自己以后看的。我不会把书长篇大论地翻译成中文，只会写下能对我个人以后真正有用的东西。
+    <p>##<br />
+## 写在前面
+　　book 开头的文章都是记录我个人的读书记录的，里面分情况会记录下面这些东西：目录，读书感想，技术分享和推荐等。如果只是写下目录，那大多是留给自己以后看的。我不会把书长篇大论地翻译成中文，只会写下能对我个人以后真正有用的东西。
 　　这是一本讲mongodb实践的经验书籍，就66页，除去前面目录什么的，也就50来页，对我个人还是挺有用的，所以我写下其目录，供以后复习时用。没必要写什么读书笔记，毕竟大脑才是最好用的u盘。  </p>
 
-<h2>目录</h2>
-
+<h2 id="section">目录</h2>
 <blockquote>
-<ol>
-<li>Duplicate data for speed, reference data for integrity</li>
-<li>Normalize if you need to future-proof </li>
-<li>data</li>
-<li>Try to fetech data in a single query</li>
-<li>Embed dependent fields</li>
-<li>Embed &quot;point-in-time&quot; data</li>
-<li>Do not embed fields that have unbound growth</li>
-<li>Pre-populate anything you can</li>
-<li>Preallocate space, whenever possible</li>
-<li>Store embedded information in arrays for anonymous access</li>
-<li>Desigin documents to be self-sufficient</li>
-<li>Prefer $-operators to JavaScript</li>
-<li>Compute aggregations as you go</li>
-<li>Write code to handle data integrity issues</li>
-<li>Use the correct types</li>
-<li>Override _id when you have your own simple, unique id</li>
-<li>Avoid using a document for _id</li>
-<li>Do not use database references</li>
-<li>Don&#39;t use GridFS for small binary data</li>
-<li>Handle &quot;seamless&quot; failover</li>
-<li>Handle replica set failure and failover</li>
-<li>Minimize disk access</li>
-<li>Use indexes to do more with less memory</li>
-<li>Don&#39;t always use an index</li>
-<li>Create indexes that cover your queries</li>
-<li>Use compound indexes to make multiple queries fast</li>
-<li>Create hierarchical documents for faster scans</li>
-<li>AND-queries should match as little as possible as fast as possible</li>
-<li>OR-queries should match as much as possible as soon as possible</li>
-<li>Write to the journal for single server, replicas for multiserver</li>
-<li>Always use replication, journaling, or both</li>
-<li>Do not depend on repair to recover data</li>
-<li>Understand getlasterror</li>
-<li>Always use safe writes in development</li>
-<li>Use w with replication</li>
-<li>Always use wtimeout with w</li>
-<li>Don&#39;s use fsync on every write</li>
-<li>Start up normally after a crash</li>
-<li>Take instant-in-time backups of durable servers</li>
-<li>Manually clean up your chunks collections</li>
-<li>Compact database with repair</li>
-<li>Don&#39;t change the number of votes for members of a replic set</li>
-<li>Replica sets can be reconfigured without a master up</li>
-<li>--shardsvr and --configsvr aren&#39;t required</li>
-<li>Only use --notablescan in development</li>
-<li>Learn some JavaScript</li>
-<li>Manage all of your servers and databases from one shell</li>
-<li>Get &quot;help&quot; for any function</li>
-<li>Create startup files</li>
-<li>Add your own functions</li>
-<li>Use a single connection to read your own writes</li>
-</ol>
+
+  <ol>
+    <li>Duplicate data for speed, reference data for integrity</li>
+    <li>Normalize if you need to future-proof </li>
+    <li>data</li>
+    <li>Try to fetech data in a single query</li>
+    <li>Embed dependent fields</li>
+    <li>Embed “point-in-time” data</li>
+    <li>Do not embed fields that have unbound growth</li>
+    <li>Pre-populate anything you can</li>
+    <li>Preallocate space, whenever possible</li>
+    <li>Store embedded information in arrays for anonymous access</li>
+    <li>Desigin documents to be self-sufficient</li>
+    <li>Prefer $-operators to JavaScript</li>
+    <li>Compute aggregations as you go</li>
+    <li>Write code to handle data integrity issues</li>
+    <li>Use the correct types</li>
+    <li>Override _id when you have your own simple, unique id</li>
+    <li>Avoid using a document for _id</li>
+    <li>Do not use database references</li>
+    <li>Don’t use GridFS for small binary data</li>
+    <li>Handle “seamless” failover</li>
+    <li>Handle replica set failure and failover</li>
+    <li>Minimize disk access</li>
+    <li>Use indexes to do more with less memory</li>
+    <li>Don’t always use an index</li>
+    <li>Create indexes that cover your queries</li>
+    <li>Use compound indexes to make multiple queries fast</li>
+    <li>Create hierarchical documents for faster scans</li>
+    <li>AND-queries should match as little as possible as fast as possible</li>
+    <li>OR-queries should match as much as possible as soon as possible</li>
+    <li>Write to the journal for single server, replicas for multiserver</li>
+    <li>Always use replication, journaling, or both</li>
+    <li>Do not depend on repair to recover data</li>
+    <li>Understand getlasterror</li>
+    <li>Always use safe writes in development</li>
+    <li>Use w with replication</li>
+    <li>Always use wtimeout with w</li>
+    <li>Don’s use fsync on every write</li>
+    <li>Start up normally after a crash</li>
+    <li>Take instant-in-time backups of durable servers</li>
+    <li>Manually clean up your chunks collections</li>
+    <li>Compact database with repair</li>
+    <li>Don’t change the number of votes for members of a replic set</li>
+    <li>Replica sets can be reconfigured without a master up</li>
+    <li>–shardsvr and –configsvr aren’t required</li>
+    <li>Only use –notablescan in development</li>
+    <li>Learn some JavaScript</li>
+    <li>Manage all of your servers and databases from one shell</li>
+    <li>Get “help” for any function</li>
+    <li>Create startup files</li>
+    <li>Add your own functions</li>
+    <li>Use a single connection to read your own writes</li>
+  </ol>
 </blockquote>
 
-<h2>推荐资料</h2>
+<h2 id="section-1">推荐资料</h2>
 
 <p><a href="http://blog.51cto.com/zt/107">中文翻译</a></p>
 
-<h2>扫一扫</h2>
+<h2 id="section-2">扫一扫</h2>
 
-<p><img src="../../images/share/2014-11-09-50-tips-and-tricks-for-mongodb-developer.md.jpg" alt="2014-11-09-50-tips-and-tricks-for-mongodb-developer.md"></p>
+<p><img src="../../images/share/2014-11-09-50-tips-and-tricks-for-mongodb-developer.md.jpg" alt="2014-11-09-50-tips-and-tricks-for-mongodb-developer.md" /></p>
 
 
     <!-- share icon -->

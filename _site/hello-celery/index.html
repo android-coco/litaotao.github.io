@@ -47,137 +47,148 @@
     <p class="entry-date">2015-12-18 <span class="lastModified" style="display: none;" data-source="_posts/service/2015-12-18-hello-celery.md">最后更新时间: </span></p>
 
 
-    <h2>1. hello, celery</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">three questions:
+    <h1 id="section">#</h1>
+<p>## 1. hello, celery</p>
+
+<p><code>
+three questions:
 - what is celery?
 - why do we need celery?
 - what features does celery have?
-</code></pre></div>
-<h3>1.1 what is celery?</h3>
+</code></p>
+
+<h3 id="what-is-celery">1.1 what is celery?</h3>
 
 <ul>
-<li><code>First</code>, celery is a distributed task queue [ a distributed system to process messages].<br></li>
-<li><code>Second</code>, it provides operations with the tools required to maintain such a system.
-
-<ul>
-<li><a href="https://github.com/mher/flower">flower</a></li>
-<li><a href="http://policystat.github.io/jobtastic/">jobtastic</a><br></li>
-</ul></li>
-<li><code>Third</code>, it was built for Dijango Apps in the early, but scaled since version 0.8.<br></li>
-<li><code>Fourth</code>, it focus on real-time processing, while also supporting task scheduling.<br></li>
+  <li><code>First</code>, celery is a distributed task queue [ a distributed system to process messages].    </li>
+  <li><code>Second</code>, it provides operations with the tools required to maintain such a system.
+    <ul>
+      <li><a href="https://github.com/mher/flower">flower</a></li>
+      <li><a href="http://policystat.github.io/jobtastic/">jobtastic</a>    </li>
+    </ul>
+  </li>
+  <li><code>Third</code>, it was built for Dijango Apps in the early, but scaled since version 0.8.    </li>
+  <li><code>Fourth</code>, it focus on real-time processing, while also supporting task scheduling.    </li>
 </ul>
 
-<h3>1.2 why do we need celery?</h3>
+<h3 id="why-do-we-need-celery">1.2 why do we need celery?</h3>
 
 <ul>
-<li>run something in the background.</li>
-<li>run something after the web request is done.</li>
-<li>making something is done by executing it asynchronously and using retries.</li>
-<li>schedule periodic task.</li>
-<li>distributed computing.</li>
-<li>parallel executing.</li>
+  <li>run something in the background.</li>
+  <li>run something after the web request is done.</li>
+  <li>making something is done by executing it asynchronously and using retries.</li>
+  <li>schedule periodic task.</li>
+  <li>distributed computing.</li>
+  <li>parallel executing.</li>
 </ul>
 
-<h3>1.3 what features does celery have?</h3>
+<h3 id="what-features-does-celery-have">1.3 what features does celery have?</h3>
 
 <ul>
-<li><code>simple</code>:
+  <li><code>simple</code>:
 write in python, easily configure.</li>
-<li><code>high available</code>: retry mechanism, independent broker HA.<br></li>
-<li><code>fast</code>: process millions of tasks one minute.<br></li>
-<li><code>flexible</code>: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.</li>
-<li><code>monitoring</code>: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.<br></li>
-<li><code>auto reloading</code>: In development workers can be configured to automatically reload source code as it changes.<br></li>
-<li><code>workflows</code>:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.<br></li>
-<li><code>auto scaling</code>: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.<br></li>
-<li><code>Time &amp; Rate Limits</code>: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.<br></li>
-<li><code>Scheduling</code>: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.</li>
-<li><code>Resource leak protection</code>:</li>
-<li><code>User components</code>:</li>
+  <li><code>high available</code>: retry mechanism, independent broker HA.     </li>
+  <li><code>fast</code>: process millions of tasks one minute.    </li>
+  <li><code>flexible</code>: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.</li>
+  <li><code>monitoring</code>: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.     </li>
+  <li><code>auto reloading</code>: In development workers can be configured to automatically reload source code as it changes.   </li>
+  <li><code>workflows</code>:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.     </li>
+  <li><code>auto scaling</code>: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.   </li>
+  <li><code>Time &amp; Rate Limits</code>: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.    </li>
+  <li><code>Scheduling</code>: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.</li>
+  <li><code>Resource leak protection</code>:</li>
+  <li><code>User components</code>:</li>
 </ul>
 
-<h2>2 how does celery work?</h2>
+<h2 id="how-does-celery-work">2 how does celery work?</h2>
 
-<h3>2.1 some terms in message queue and celery</h3>
+<h3 id="some-terms-in-message-queue-and-celery">2.1 some terms in message queue and celery</h3>
 
 <ul>
-<li><code>celery task</code>: a serialized task info which will be scheduled to done by celery,
+  <li><code>celery task</code>: a serialized task info which will be scheduled to done by celery,
 generally it contains some meta data, like bellow:</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{&quot;id&quot;: &quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&quot;,
- &quot;task&quot;: &quot;celery.task.PingTask&quot;,
- &quot;args&quot;: [],
- &quot;kwargs&quot;: {},
- &quot;retries&quot;: 0,
- &quot;eta&quot;: &quot;2009-11-17T12:30:56.527191&quot;
+
+<p><code>
+{"id": "4cc7438e-afd4-4f8f-a2f3-f46567e7ca77",
+ "task": "celery.task.PingTask",
+ "args": [],
+ "kwargs": {},
+ "retries": 0,
+ "eta": "2009-11-17T12:30:56.527191"
 }
-</code></pre></div>
-<ul>
-<li><code>producer</code>: the one who send task messages to the broker,
-generally it is a celery client.</li>
-<li><code>consumer</code>: fetch task messages from queues and process them.</li>
-<li><code>broker</code>: the one who receives task messages from producer and route different
-messages to different queues.</li>
-<li><code>exchange</code>: exchange, or a router, the one who really do message receiving from producer
-and dispatching message to queues. two things should be taken in mind about exchange:
+</code>  </p>
 
 <ul>
-<li>one message from producer can be routed to zero or more queues;</li>
-<li>you can set route rules for the exchange, called <a href="">bindings</a>;</li>
-</ul></li>
-<li><code>queue</code>: buffer for store task messages.</li>
+  <li><code>producer</code>: the one who send task messages to the broker,
+generally it is a celery client.</li>
+  <li><code>consumer</code>: fetch task messages from queues and process them.</li>
+  <li><code>broker</code>: the one who receives task messages from producer and route different
+messages to different queues.</li>
+  <li><code>exchange</code>: exchange, or a router, the one who really do message receiving from producer
+and dispatching message to queues. two things should be taken in mind about exchange:
+    <ul>
+      <li>one message from producer can be routed to zero or more queues;</li>
+      <li>you can set route rules for the exchange, called <a href="">bindings</a>;</li>
+    </ul>
+  </li>
+  <li><code>queue</code>: buffer for store task messages.</li>
 </ul>
 
-<h3>2.2 the celery workflow</h3>
+<h3 id="the-celery-workflow">2.2 the celery workflow</h3>
 
-<p><img src="../images/how_celery_works.jpg" alt="how_celery_works.jpg"></p>
+<p><img src="../images/how_celery_works.jpg" alt="how_celery_works.jpg" /></p>
 
-<h3>2.3 the workflow deployment</h3>
+<h3 id="the-workflow-deployment">2.3 the workflow deployment</h3>
 
-<p><img src="../images/celery-deploy.jpg" alt="celery-deploy.jpg"></p>
+<p><img src="../images/celery-deploy.jpg" alt="celery-deploy.jpg" /></p>
 
-<h2>3. install celery</h2>
+<h2 id="install-celery">3. install celery</h2>
 
 <p>two possible ways to install celery.</p>
 
 <ul>
-<li>install the latest stable celery and its dependences</li>
+  <li>install the latest stable celery and its dependences</li>
 </ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">chenshan@mac007:~/Desktop$sudo pip install -U celery
+
+<p><code>
+chenshan@mac007:~/Desktop$sudo pip install -U celery
 ...
 ...
 ...
 Installing collected packages: celery, kombu, billiard, amqp
-</code></pre></div>
-<p>the celery dependences info is listed here: <a href="http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies">Does Celery have many dependencies</a></p>
+</code>
+the celery dependences info is listed here: <a href="http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies">Does Celery have many dependencies</a></p>
 
 <ul>
-<li>install celery with bundles</li>
+  <li>install celery with bundles</li>
 </ul>
 
 <p>Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.</p>
 
-<p>You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command <code>pip install &quot;celery[librabbitmq,redis,auth,msgpack]&quot;</code> to install celery with librabbitmq, redis, auth, msgpack libriaries.</p>
+<p>You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command <code>pip install "celery[librabbitmq,redis,auth,msgpack]"</code> to install celery with librabbitmq, redis, auth, msgpack libriaries.</p>
 
 <p>all bundles command can be find here: <a href="http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles">bundles</a></p>
 
-<h2>参考文档</h2>
+<h2 id="section-1">参考文档</h2>
 
 <ul>
-<li><a href="http://www.celeryproject.org/">celery official site</a></li>
-<li><a href="http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies">http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies</a></li>
-<li><a href="https://zapier.com/blog/async-celery-example-why-and-how/">Async Celery by Example: Why and How</a></li>
-<li><a href="https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html">How Instagram Feeds Work: Celery and RabbitMQ</a></li>
-<li><a href="http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing">stackoverflow: Celery parallel distributed task with multiprocessing</a></li>
-<li><a href="http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html">[Scaling Celery] Sending Tasks To Remote Machines!
+  <li><a href="http://www.celeryproject.org/">celery official site</a></li>
+  <li><a href="http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies">http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies</a></li>
+  <li><a href="https://zapier.com/blog/async-celery-example-why-and-how/">Async Celery by Example: Why and How</a></li>
+  <li><a href="https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html">How Instagram Feeds Work: Celery and RabbitMQ</a></li>
+  <li><a href="http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing">stackoverflow: Celery parallel distributed task with multiprocessing</a></li>
+  <li><a href="http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html">[Scaling Celery] Sending Tasks To Remote Machines!
 </a></li>
-<li><a href="http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/">Celery Messaging at Scale at Instagram</a></li>
-<li><a href="https://denibertovic.com/posts/celery-best-practices/">CELERY - BEST PRACTICES</a></li>
-<li><a href="https://denibertovic.com/talks/celery-best-practices/#/">CELERY - BEST PRACTICES slide</a></li>
-<li><a href="http://blog.csdn.net/siddontang/article/details/34447003">CELERY - BEST PRACTICES 中文</a></li>
-<li><a href="http://www.opscoder.info/queryset_lazy.html">从一次celery踩坑中谈谈Queryset的懒加载</a></li>
-<li><a href="http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file">stackoverflow: Send log messages from all celery tasks to a single file</a></li>
+  <li><a href="http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/">Celery Messaging at Scale at Instagram</a></li>
+  <li><a href="https://denibertovic.com/posts/celery-best-practices/">CELERY - BEST PRACTICES</a></li>
+  <li><a href="https://denibertovic.com/talks/celery-best-practices/#/">CELERY - BEST PRACTICES slide</a></li>
+  <li><a href="http://blog.csdn.net/siddontang/article/details/34447003">CELERY - BEST PRACTICES 中文</a></li>
+  <li><a href="http://www.opscoder.info/queryset_lazy.html">从一次celery踩坑中谈谈Queryset的懒加载</a></li>
+  <li><a href="http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file">stackoverflow: Send log messages from all celery tasks to a single file</a></li>
 </ul>
+
+<p>#</p>
 
 
     <!-- share icon -->

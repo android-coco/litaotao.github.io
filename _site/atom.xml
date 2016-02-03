@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-02-03T13:15:42+08:00</updated>
+   <updated>2016-02-03T13:45:00+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -39,81 +39,82 @@
      <link href="/introduction-to-spark"/>
      <updated>2016-02-01T00:00:00+08:00</updated>
      <id>/introduction-to-spark</id>
-     <content type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
 &lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。&lt;/p&gt;
 
-&lt;h2&gt;1. 如何向别人介绍 spark&lt;/h2&gt;
+&lt;h2 id=&quot;spark&quot;&gt;1. 如何向别人介绍 spark&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Apache Spark™ is a fast and general engine for large-scale data processing.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Apache Spark is a fast and general-purpose cluster computing system.&lt;br&gt;
-It provides high-level APIs in &lt;code&gt;Java, Scala, Python and R&lt;/code&gt;, and an optimized engine that supports general execution graphs.&lt;br&gt;
+&lt;p&gt;Apache Spark is a fast and general-purpose cluster computing system.  &lt;br /&gt;
+It provides high-level APIs in &lt;code&gt;Java, Scala, Python and R&lt;/code&gt;, and an optimized engine that supports general execution graphs.  &lt;br /&gt;
 It also supports a rich set of higher-level tools including :    &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;MLlib for machine learning&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;GraphX for graph processing&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Spark Streaming for stream data processing&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets    &lt;/li&gt;
+  &lt;li&gt;MLlib for machine learning    &lt;/li&gt;
+  &lt;li&gt;GraphX for graph processing    &lt;/li&gt;
+  &lt;li&gt;Spark Streaming for stream data processing    &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;2. spark 诞生的一些背景&lt;/h2&gt;
+&lt;h2 id=&quot;spark-&quot;&gt;2. spark 诞生的一些背景&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-1.jpg&quot; alt=&quot;introduction-to-spark-1.jpg&quot;&gt;
-&lt;img src=&quot;../images/introduction-to-spark-2.jpg&quot; alt=&quot;introduction-to-spark-2.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-1.jpg&quot; alt=&quot;introduction-to-spark-1.jpg&quot; /&gt;
+&lt;img src=&quot;../images/introduction-to-spark-2.jpg&quot; alt=&quot;introduction-to-spark-2.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to : &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;generalize MapReduce to support new apps within same engine&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;it&amp;#39;s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;speed up iteration computing over hadoop.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;use memory + disk instead of disk as data storage medium&lt;/li&gt;
-&lt;li&gt;design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;generalize MapReduce to support new apps within same engine
+    &lt;ul&gt;
+      &lt;li&gt;it’s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;speed up iteration computing over hadoop.
+    &lt;ul&gt;
+      &lt;li&gt;use memory + disk instead of disk as data storage medium&lt;/li&gt;
+      &lt;li&gt;design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-4.jpg&quot; alt=&quot;introduction-to-spark-4.jpg&quot;&gt;
-&lt;img src=&quot;../images/introduction-to-spark-5.jpg&quot; alt=&quot;introduction-to-spark-5.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-4.jpg&quot; alt=&quot;introduction-to-spark-4.jpg&quot; /&gt;
+&lt;img src=&quot;../images/introduction-to-spark-5.jpg&quot; alt=&quot;introduction-to-spark-5.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2&gt;3. 为何选用 spark&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;designed, implemented and used as libs, instead of specialized systems;
+&lt;h2 id=&quot;spark-1&quot;&gt;3. 为何选用 spark&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;much more useful and maintainable&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;designed, implemented and used as libs, instead of specialized systems;
+    &lt;ul&gt;
+      &lt;li&gt;much more useful and maintainable&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-3.jpg&quot; alt=&quot;introduction-to-spark-3.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-3.jpg&quot; alt=&quot;introduction-to-spark-3.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;from history, it is designed and improved upon hadoop and storm, it has perfect genes;&lt;/li&gt;
-&lt;li&gt;documents, community, products and trends;&lt;/li&gt;
-&lt;li&gt;it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;&lt;/li&gt;
-&lt;li&gt;it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;&lt;/li&gt;
+  &lt;li&gt;from history, it is designed and improved upon hadoop and storm, it has perfect genes;&lt;/li&gt;
+  &lt;li&gt;documents, community, products and trends;&lt;/li&gt;
+  &lt;li&gt;it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;&lt;/li&gt;
+  &lt;li&gt;it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;4. Next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
 
 &lt;p&gt;下一篇，通过几个例子来介绍 spark 的基本编程模式。&lt;/p&gt;
 
-&lt;h2&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://stanford.edu/%7Erezab/sparkclass/slides/itas_workshop.pdf&quot;&gt;Intro to Apache Spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf&quot;&gt;Intro to Apache Spark&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;本系列其他文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;本系列其他文章链接&lt;/h2&gt;
+
 </content>
    </entry>
    
@@ -122,137 +123,148 @@ It also supports a rich set of higher-level tools including :    &lt;/p&gt;
      <link href="/hello-celery"/>
      <updated>2015-12-18T00:00:00+08:00</updated>
      <id>/hello-celery</id>
-     <content type="html">&lt;h2&gt;1. hello, celery&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;three questions:
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. hello, celery&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+three questions:
 - what is celery?
 - why do we need celery?
 - what features does celery have?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;1.1 what is celery?&lt;/h3&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-celery&quot;&gt;1.1 what is celery?&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;First&lt;/code&gt;, celery is a distributed task queue [ a distributed system to process messages].&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Second&lt;/code&gt;, it provides operations with the tools required to maintain such a system.
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/mher/flower&quot;&gt;flower&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://policystat.github.io/jobtastic/&quot;&gt;jobtastic&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Third&lt;/code&gt;, it was built for Dijango Apps in the early, but scaled since version 0.8.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Fourth&lt;/code&gt;, it focus on real-time processing, while also supporting task scheduling.&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;First&lt;/code&gt;, celery is a distributed task queue [ a distributed system to process messages].    &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Second&lt;/code&gt;, it provides operations with the tools required to maintain such a system.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/mher/flower&quot;&gt;flower&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://policystat.github.io/jobtastic/&quot;&gt;jobtastic&lt;/a&gt;    &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Third&lt;/code&gt;, it was built for Dijango Apps in the early, but scaled since version 0.8.    &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Fourth&lt;/code&gt;, it focus on real-time processing, while also supporting task scheduling.    &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;1.2 why do we need celery?&lt;/h3&gt;
+&lt;h3 id=&quot;why-do-we-need-celery&quot;&gt;1.2 why do we need celery?&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;run something in the background.&lt;/li&gt;
-&lt;li&gt;run something after the web request is done.&lt;/li&gt;
-&lt;li&gt;making something is done by executing it asynchronously and using retries.&lt;/li&gt;
-&lt;li&gt;schedule periodic task.&lt;/li&gt;
-&lt;li&gt;distributed computing.&lt;/li&gt;
-&lt;li&gt;parallel executing.&lt;/li&gt;
+  &lt;li&gt;run something in the background.&lt;/li&gt;
+  &lt;li&gt;run something after the web request is done.&lt;/li&gt;
+  &lt;li&gt;making something is done by executing it asynchronously and using retries.&lt;/li&gt;
+  &lt;li&gt;schedule periodic task.&lt;/li&gt;
+  &lt;li&gt;distributed computing.&lt;/li&gt;
+  &lt;li&gt;parallel executing.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;1.3 what features does celery have?&lt;/h3&gt;
+&lt;h3 id=&quot;what-features-does-celery-have&quot;&gt;1.3 what features does celery have?&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;simple&lt;/code&gt;:
+  &lt;li&gt;&lt;code&gt;simple&lt;/code&gt;:
 write in python, easily configure.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;high available&lt;/code&gt;: retry mechanism, independent broker HA.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;fast&lt;/code&gt;: process millions of tasks one minute.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;flexible&lt;/code&gt;: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;monitoring&lt;/code&gt;: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;auto reloading&lt;/code&gt;: In development workers can be configured to automatically reload source code as it changes.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;workflows&lt;/code&gt;:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;auto scaling&lt;/code&gt;: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Time &amp;amp; Rate Limits&lt;/code&gt;: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Scheduling&lt;/code&gt;: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Resource leak protection&lt;/code&gt;:&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;User components&lt;/code&gt;:&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;high available&lt;/code&gt;: retry mechanism, independent broker HA.     &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;fast&lt;/code&gt;: process millions of tasks one minute.    &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;flexible&lt;/code&gt;: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;monitoring&lt;/code&gt;: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.     &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;auto reloading&lt;/code&gt;: In development workers can be configured to automatically reload source code as it changes.   &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;workflows&lt;/code&gt;:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.     &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;auto scaling&lt;/code&gt;: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.   &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Time &amp;amp; Rate Limits&lt;/code&gt;: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.    &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Scheduling&lt;/code&gt;: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;Resource leak protection&lt;/code&gt;:&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;User components&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;2 how does celery work?&lt;/h2&gt;
+&lt;h2 id=&quot;how-does-celery-work&quot;&gt;2 how does celery work?&lt;/h2&gt;
 
-&lt;h3&gt;2.1 some terms in message queue and celery&lt;/h3&gt;
+&lt;h3 id=&quot;some-terms-in-message-queue-and-celery&quot;&gt;2.1 some terms in message queue and celery&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;celery task&lt;/code&gt;: a serialized task info which will be scheduled to done by celery,
+  &lt;li&gt;&lt;code&gt;celery task&lt;/code&gt;: a serialized task info which will be scheduled to done by celery,
 generally it contains some meta data, like bellow:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{&amp;quot;id&amp;quot;: &amp;quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&amp;quot;,
- &amp;quot;task&amp;quot;: &amp;quot;celery.task.PingTask&amp;quot;,
- &amp;quot;args&amp;quot;: [],
- &amp;quot;kwargs&amp;quot;: {},
- &amp;quot;retries&amp;quot;: 0,
- &amp;quot;eta&amp;quot;: &amp;quot;2009-11-17T12:30:56.527191&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+{&quot;id&quot;: &quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&quot;,
+ &quot;task&quot;: &quot;celery.task.PingTask&quot;,
+ &quot;args&quot;: [],
+ &quot;kwargs&quot;: {},
+ &quot;retries&quot;: 0,
+ &quot;eta&quot;: &quot;2009-11-17T12:30:56.527191&quot;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;producer&lt;/code&gt;: the one who send task messages to the broker,
-generally it is a celery client.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;consumer&lt;/code&gt;: fetch task messages from queues and process them.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;broker&lt;/code&gt;: the one who receives task messages from producer and route different
-messages to different queues.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;exchange&lt;/code&gt;: exchange, or a router, the one who really do message receiving from producer
-and dispatching message to queues. two things should be taken in mind about exchange:
+&lt;/code&gt;  &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;one message from producer can be routed to zero or more queues;&lt;/li&gt;
-&lt;li&gt;you can set route rules for the exchange, called &lt;a href=&quot;&quot;&gt;bindings&lt;/a&gt;;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;queue&lt;/code&gt;: buffer for store task messages.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;producer&lt;/code&gt;: the one who send task messages to the broker,
+generally it is a celery client.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;consumer&lt;/code&gt;: fetch task messages from queues and process them.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;broker&lt;/code&gt;: the one who receives task messages from producer and route different
+messages to different queues.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;exchange&lt;/code&gt;: exchange, or a router, the one who really do message receiving from producer
+and dispatching message to queues. two things should be taken in mind about exchange:
+    &lt;ul&gt;
+      &lt;li&gt;one message from producer can be routed to zero or more queues;&lt;/li&gt;
+      &lt;li&gt;you can set route rules for the exchange, called &lt;a href=&quot;&quot;&gt;bindings&lt;/a&gt;;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;queue&lt;/code&gt;: buffer for store task messages.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;2.2 the celery workflow&lt;/h3&gt;
+&lt;h3 id=&quot;the-celery-workflow&quot;&gt;2.2 the celery workflow&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/how_celery_works.jpg&quot; alt=&quot;how_celery_works.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/how_celery_works.jpg&quot; alt=&quot;how_celery_works.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h3&gt;2.3 the workflow deployment&lt;/h3&gt;
+&lt;h3 id=&quot;the-workflow-deployment&quot;&gt;2.3 the workflow deployment&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/celery-deploy.jpg&quot; alt=&quot;celery-deploy.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/celery-deploy.jpg&quot; alt=&quot;celery-deploy.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2&gt;3. install celery&lt;/h2&gt;
+&lt;h2 id=&quot;install-celery&quot;&gt;3. install celery&lt;/h2&gt;
 
 &lt;p&gt;two possible ways to install celery.&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;install the latest stable celery and its dependences&lt;/li&gt;
+  &lt;li&gt;install the latest stable celery and its dependences&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chenshan@mac007:~/Desktop$sudo pip install -U celery
+
+&lt;p&gt;&lt;code&gt;
+chenshan@mac007:~/Desktop$sudo pip install -U celery
 ...
 ...
 ...
 Installing collected packages: celery, kombu, billiard, amqp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies&quot;&gt;Does Celery have many dependencies&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;
+the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies&quot;&gt;Does Celery have many dependencies&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;install celery with bundles&lt;/li&gt;
+  &lt;li&gt;install celery with bundles&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.&lt;/p&gt;
 
-&lt;p&gt;You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command &lt;code&gt;pip install &amp;quot;celery[librabbitmq,redis,auth,msgpack]&amp;quot;&lt;/code&gt; to install celery with librabbitmq, redis, auth, msgpack libriaries.&lt;/p&gt;
+&lt;p&gt;You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command &lt;code&gt;pip install &quot;celery[librabbitmq,redis,auth,msgpack]&quot;&lt;/code&gt; to install celery with librabbitmq, redis, auth, msgpack libriaries.&lt;/p&gt;
 
 &lt;p&gt;all bundles command can be find here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles&quot;&gt;bundles&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;celery official site&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&quot;&gt;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://zapier.com/blog/async-celery-example-why-and-how/&quot;&gt;Async Celery by Example: Why and How&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html&quot;&gt;How Instagram Feeds Work: Celery and RabbitMQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing&quot;&gt;stackoverflow: Celery parallel distributed task with multiprocessing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html&quot;&gt;[Scaling Celery] Sending Tasks To Remote Machines!
+  &lt;li&gt;&lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;celery official site&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&quot;&gt;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zapier.com/blog/async-celery-example-why-and-how/&quot;&gt;Async Celery by Example: Why and How&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html&quot;&gt;How Instagram Feeds Work: Celery and RabbitMQ&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing&quot;&gt;stackoverflow: Celery parallel distributed task with multiprocessing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html&quot;&gt;[Scaling Celery] Sending Tasks To Remote Machines!
 &lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/&quot;&gt;Celery Messaging at Scale at Instagram&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://denibertovic.com/posts/celery-best-practices/&quot;&gt;CELERY - BEST PRACTICES&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://denibertovic.com/talks/celery-best-practices/#/&quot;&gt;CELERY - BEST PRACTICES slide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/siddontang/article/details/34447003&quot;&gt;CELERY - BEST PRACTICES 中文&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.opscoder.info/queryset_lazy.html&quot;&gt;从一次celery踩坑中谈谈Queryset的懒加载&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file&quot;&gt;stackoverflow: Send log messages from all celery tasks to a single file&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/&quot;&gt;Celery Messaging at Scale at Instagram&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://denibertovic.com/posts/celery-best-practices/&quot;&gt;CELERY - BEST PRACTICES&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://denibertovic.com/talks/celery-best-practices/#/&quot;&gt;CELERY - BEST PRACTICES slide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/siddontang/article/details/34447003&quot;&gt;CELERY - BEST PRACTICES 中文&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.opscoder.info/queryset_lazy.html&quot;&gt;从一次celery踩坑中谈谈Queryset的懒加载&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file&quot;&gt;stackoverflow: Send log messages from all celery tasks to a single file&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;#&lt;/p&gt;
 </content>
    </entry>
    
@@ -261,61 +273,69 @@ Installing collected packages: celery, kombu, billiard, amqp
      <link href="/shell-programming-summary-3"/>
      <updated>2015-11-22T00:00:00+08:00</updated>
      <id>/shell-programming-summary-3</id>
-     <content type="html">&lt;h2&gt;1. 定义&lt;/h2&gt;
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. 定义&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。&lt;/li&gt;
-&lt;li&gt;2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)&lt;/li&gt;
+  &lt;li&gt;1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。&lt;/li&gt;
+  &lt;li&gt;2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;函数返回值在调用该函数后通过 &lt;code&gt;$?&lt;/code&gt; 来获得。
 注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[ function ] funcname [()]
 
-{
+&lt;p&gt;```
+[ function ] funcname [()]&lt;/p&gt;
 
-    action;
+&lt;p&gt;{&lt;/p&gt;
 
-    [return int;]
+&lt;pre&gt;&lt;code&gt;action;
 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. 函数参数&lt;/h2&gt;
+[return int;]
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数...
+&lt;p&gt;}
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;2. 函数参数&lt;/h2&gt;
+
+&lt;p&gt;在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数…
 带参数的函数示例：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+
+&lt;p&gt;&lt;code&gt;
+#!/bin/bash
 funWithParam(){
-    echo &amp;quot;The value of the first parameter is $1 !&amp;quot;
-    echo &amp;quot;The value of the second parameter is $2 !&amp;quot;
-    echo &amp;quot;The value of the tenth parameter is $10 !&amp;quot;
-    echo &amp;quot;The value of the tenth parameter is ${10} !&amp;quot;
-    echo &amp;quot;The value of the eleventh parameter is ${11} !&amp;quot;
-    echo &amp;quot;The amount of the parameters is $# !&amp;quot;
-    echo &amp;quot;The string of the parameters is $* !&amp;quot;
+    echo &quot;The value of the first parameter is $1 !&quot;
+    echo &quot;The value of the second parameter is $2 !&quot;
+    echo &quot;The value of the tenth parameter is $10 !&quot;
+    echo &quot;The value of the tenth parameter is ${10} !&quot;
+    echo &quot;The value of the eleventh parameter is ${11} !&quot;
+    echo &quot;The amount of the parameters is $# !&quot;
+    echo &quot;The string of the parameters is $* !&quot;
 }
 funWithParam 1 2 3 4 5 6 7 8 9 34 73
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;注意，$10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。
 另外，还有几个特殊字符用来处理参数：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;$#&lt;/code&gt;  传递到脚本的参数个数&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$*&lt;/code&gt;  以一个单字符串显示所有向脚本传递的参数&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$$&lt;/code&gt;  脚本运行的当前进程ID号&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$!&lt;/code&gt;  后台运行的最后一个进程的ID号&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$@&lt;/code&gt;  与 &lt;code&gt;$*&lt;/code&gt; 相同，但是使用时加引号，并在引号中返回每个参数。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$-&lt;/code&gt;  显示Shell使用的当前选项，与set命令功能相同。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$?&lt;/code&gt;  显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$0&lt;/code&gt;  Shell本身的文件名 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$#&lt;/code&gt;	传递到脚本的参数个数&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$*&lt;/code&gt;	以一个单字符串显示所有向脚本传递的参数&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$$&lt;/code&gt;	脚本运行的当前进程ID号&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$!&lt;/code&gt;	后台运行的最后一个进程的ID号&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$@&lt;/code&gt;	与 &lt;code&gt;$*&lt;/code&gt; 相同，但是使用时加引号，并在引号中返回每个参数。&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$-&lt;/code&gt;	显示Shell使用的当前选项，与set命令功能相同。&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$?&lt;/code&gt;	显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$0&lt;/code&gt;  Shell本身的文件名 &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -325,90 +345,105 @@ funWithParam 1 2 3 4 5 6 7 8 9 34 73
      <link href="/shell-programming-summary-2"/>
      <updated>2015-11-18T00:00:00+08:00</updated>
      <id>/shell-programming-summary-2</id>
-     <content type="html">&lt;h2&gt;1. test 命令&lt;/h2&gt;
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. test 命令&lt;/p&gt;
 
 &lt;p&gt;Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。&lt;/p&gt;
 
-&lt;h3&gt;1.1 数值测试&lt;/h3&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;1.1 数值测试&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-eq : equal&lt;/code&gt;: 等于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-ne : non-equal&lt;/code&gt;: 不等于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-gt : great than&lt;/code&gt;: 大于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-ge : great or equal&lt;/code&gt;: 大于或等于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-lt : lower than&lt;/code&gt;: 小于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-le : lower or equal&lt;/code&gt;: 小于或等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-eq : equal&lt;/code&gt;: 等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-ne : non-equal&lt;/code&gt;: 不等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-gt : great than&lt;/code&gt;: 大于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-ge : great or equal&lt;/code&gt;: 大于或等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-lt : lower than&lt;/code&gt;: 小于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-le : lower or equal&lt;/code&gt;: 小于或等于&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=100
+
+&lt;p&gt;&lt;code&gt;
+num1=100
 num2=100
 if test $[num1] -eq $[num2]
 then
-    echo &amp;#39;The two numbers are equal!&amp;#39;
+    echo &#39;The two numbers are equal!&#39;
 else
-    echo &amp;#39;The two numbers are not equal!&amp;#39;
+    echo &#39;The two numbers are not equal!&#39;
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;1.2 字符串测试&lt;/h3&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;1.2 字符串测试&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;=&lt;/code&gt;: 等于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;!=&lt;/code&gt;: 不等于&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-z : zero&lt;/code&gt;: 字符串长度为零，则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-n : non-zero&lt;/code&gt;: 字符串长度不为零，则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var:-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var:=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var+OTHER}&lt;/code&gt;:   如果var声明了, 那么其值就是$OTHER, 否则就为null字符串&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var:+OTHER}&lt;/code&gt;:  如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var?ERR_MSG}&lt;/code&gt;: 如果var没被声明, 那么就打印$ERR_MSG *&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;${var:?ERR_MSG}&lt;/code&gt;:    如果var没被设置, 那么就打印$ERR_MSG *&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;=&lt;/code&gt;: 等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;!=&lt;/code&gt;: 不等于&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-z : zero&lt;/code&gt;: 字符串长度为零，则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-n : non-zero&lt;/code&gt;: 字符串长度不为零，则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var-DEFAULT}&lt;/code&gt;:	如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var:-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 * 	 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var=DEFAULT}&lt;/code&gt;:	如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var:=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var+OTHER}&lt;/code&gt;:	如果var声明了, 那么其值就是$OTHER, 否则就为null字符串&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var:+OTHER}&lt;/code&gt;:	如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串	 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var?ERR_MSG}&lt;/code&gt;:	如果var没被声明, 那么就打印$ERR_MSG *&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;${var:?ERR_MSG}&lt;/code&gt;:	如果var没被设置, 那么就打印$ERR_MSG *&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=100
+
+&lt;p&gt;&lt;code&gt;
+num1=100
 num2=100
 if test num1=num2
 then
-    echo &amp;#39;The two strings are equal!&amp;#39;
+    echo &#39;The two strings are equal!&#39;
 else
-    echo &amp;#39;The two strings are not equal!&amp;#39;
+    echo &#39;The two strings are not equal!&#39;
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;1.3 文件测试&lt;/h3&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;1.3 文件测试&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-e  : exist&lt;/code&gt;: 如果文件存在则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-r  : readable&lt;/code&gt;: 如果文件存在且可读则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-w  : writable&lt;/code&gt;: 如果文件存在且可写则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-x  : execute&lt;/code&gt;: 如果文件存在且可执行则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-s  :&lt;/code&gt;: 如果文件存在且至少有一个字符则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-d  : directory&lt;/code&gt;: 如果文件存在且为目录则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-f  : file&lt;/code&gt;: 如果文件存在且为普通文件则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-c  :&lt;/code&gt;: 如果文件存在且为字符型特殊文件则为真&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-b  : block&lt;/code&gt;: 如果文件存在且为块特殊文件则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-e  : exist&lt;/code&gt;: 如果文件存在则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-r  : readable&lt;/code&gt;: 如果文件存在且可读则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-w  : writable&lt;/code&gt;: 如果文件存在且可写则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-x  : execute&lt;/code&gt;: 如果文件存在且可执行则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-s  : &lt;/code&gt;: 如果文件存在且至少有一个字符则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-d  : directory&lt;/code&gt;: 如果文件存在且为目录则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-f  : file&lt;/code&gt;: 如果文件存在且为普通文件则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-c  : &lt;/code&gt;: 如果文件存在且为字符型特殊文件则为真&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-b  : block&lt;/code&gt;: 如果文件存在且为块特殊文件则为真&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /bin
+
+&lt;p&gt;&lt;code&gt;
+cd /bin
 if test -e ./bash
 then
-    echo &amp;#39;The file already exists!&amp;#39;
+    echo &#39;The file already exists!&#39;
 else
-    echo &amp;#39;The file does not exists!&amp;#39;
+    echo &#39;The file does not exists!&#39;
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：&amp;quot;!&amp;quot;最高，&amp;quot;-a&amp;quot;次之，&amp;quot;-o&amp;quot;最低。例如：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /bin
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：”!”最高，”-a”次之，”-o”最低。例如：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+cd /bin
 if test -e ./notFile -o ./bash
 then
-    echo &amp;#39;One file exists at least!&amp;#39;
+    echo &#39;One file exists at least!&#39;
 else
-    echo &amp;#39;Both dose not exists!&amp;#39;
+    echo &#39;Both dose not exists!&#39;
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. 流程控制&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3&gt;2.1 if elif else fi 控制符&lt;/h3&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;2. 流程控制&lt;/h2&gt;
+
+&lt;h3 id=&quot;if-elif-else-fi-&quot;&gt;2.1 if elif else fi 控制符&lt;/h3&gt;
 
 &lt;p&gt;完整的格式如下，其中，&lt;code&gt;elif&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt; 可根据实际情况决定是否需要。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;if condition1
+
+&lt;p&gt;&lt;code&gt;
+if condition1
 then
     command1
 elif condition2
@@ -416,78 +451,102 @@ elif condition2
 else
     commandN
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;实例：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;num1=$[2*3]
+
+&lt;p&gt;&lt;code&gt;
+num1=$[2*3]
 num2=$[1+5]
 if test $[num1] -eq $[num2]
 then
-    echo &amp;#39;两个数字相等!&amp;#39;
+    echo &#39;两个数字相等!&#39;
 else
-    echo &amp;#39;两个数字不相等!&amp;#39;
+    echo &#39;两个数字不相等!&#39;
 fi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.2 for 循环&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for var in item1 item2 ... itemN
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;for-&quot;&gt;2.2 for 循环&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+for var in item1 item2 ... itemN
 do
     command1
     command2
     ...
     commandN
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.3 while 语句&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;while condition
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;while-&quot;&gt;2.3 while 语句&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+while condition
 do
     command
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;示例：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
+
+&lt;p&gt;&lt;code&gt;
+#!/bin/sh
 int=1
 while(( $int&amp;lt;=5 ))
 do
         echo $int
-        let &amp;quot;int++&amp;quot;
+        let &quot;int++&quot;
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按&lt;Ctrl-D&gt;结束循环。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&amp;#39;
-echo -n &amp;#39;输入你最喜欢的电影名: &amp;#39;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按&lt;ctrl-d&gt;结束循环。&lt;/ctrl-d&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+echo &#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&#39;
+echo -n &#39;输入你最喜欢的电影名: &#39;
 while read FILM
 do
-    echo &amp;quot;是的！$FILM 是一部好电影&amp;quot;
+    echo &quot;是的！$FILM 是一部好电影&quot;
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;无限循环语法格式：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;while :
+
+&lt;p&gt;```
+while :
 do
     command
-done
+done&lt;/p&gt;
 
-# 或者
+&lt;h1 id=&quot;section-5&quot;&gt;或者&lt;/h1&gt;
 
-while true
+&lt;p&gt;while true
 do
     command
-done
+done&lt;/p&gt;
 
-# 或者
-for (( ; ; ))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.4 until 循环&lt;/h3&gt;
+&lt;h1 id=&quot;section-6&quot;&gt;或者&lt;/h1&gt;
+&lt;p&gt;for (( ; ; ))
+```&lt;/p&gt;
+
+&lt;h3 id=&quot;until-&quot;&gt;2.4 until 循环&lt;/h3&gt;
 
 &lt;p&gt;until循环执行一系列命令直至条件为真时停止。
 until循环与while循环在处理方式上刚好相反。
 一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
 until 语法格式:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;until condition
+
+&lt;p&gt;&lt;code&gt;
+until condition
 do
     command
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.5 case 语句&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;case 值 in
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;case-&quot;&gt;2.5 case 语句&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+case 值 in
 模式1)
     command1
     command2
@@ -501,64 +560,74 @@ done
     commandN
     ;;
 esac
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;示例：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;#39;输入 1 到 4 之间的数字:&amp;#39;
-echo &amp;#39;你输入的数字为:&amp;#39;
+
+&lt;p&gt;&lt;code&gt;
+echo &#39;输入 1 到 4 之间的数字:&#39;
+echo &#39;你输入的数字为:&#39;
 read aNum
 case $aNum in
-    1)  echo &amp;#39;你选择了 1&amp;#39;
+    1)  echo &#39;你选择了 1&#39;
     ;;
-    2)  echo &amp;#39;你选择了 2&amp;#39;
+    2)  echo &#39;你选择了 2&#39;
     ;;
-    3)  echo &amp;#39;你选择了 3&amp;#39;
+    3)  echo &#39;你选择了 3&#39;
     ;;
-    4)  echo &amp;#39;你选择了 4&amp;#39;
+    4)  echo &#39;你选择了 4&#39;
     ;;
-    *)  echo &amp;#39;你没有输入 1 到 4 之间的数字&amp;#39;
+    *)  echo &#39;你没有输入 1 到 4 之间的数字&#39;
     ;;
 esac
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.6 break 和 continue 语句&lt;/h3&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;break--continue-&quot;&gt;2.6 break 和 continue 语句&lt;/h3&gt;
 
 &lt;p&gt;break命令允许跳出所有循环（终止执行后面的所有循环）。
 下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+
+&lt;p&gt;&lt;code&gt;
+#!/bin/bash
 while :
 do
-    echo -n &amp;quot;输入 1 到 5 之间的数字:&amp;quot;
+    echo -n &quot;输入 1 到 5 之间的数字:&quot;
     read aNum
     case $aNum in
-        1|2|3|4|5) echo &amp;quot;你输入的数字为 $aNum!&amp;quot;
+        1|2|3|4|5) echo &quot;你输入的数字为 $aNum!&quot;
         ;;
-        *) echo &amp;quot;你输入的数字不是 1 到 5 之间的! 游戏结束&amp;quot;
+        *) echo &quot;你输入的数字不是 1 到 5 之间的! 游戏结束&quot;
             break
         ;;
     esac
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/bash
+
+&lt;p&gt;&lt;code&gt;
+#!/bin/bash
 while :
 do
-    echo -n &amp;quot;输入 1 到 5 之间的数字: &amp;quot;
+    echo -n &quot;输入 1 到 5 之间的数字: &quot;
     read aNum
     case $aNum in
-        1|2|3|4|5) echo &amp;quot;你输入的数字为 $aNum!&amp;quot;
+        1|2|3|4|5) echo &quot;你输入的数字为 $aNum!&quot;
         ;;
-        *) echo &amp;quot;你输入的数字不是 1 到 5 之间的!&amp;quot;
+        *) echo &quot;你输入的数字不是 1 到 5 之间的!&quot;
             continue
-            echo &amp;quot;游戏结束&amp;quot;
+            echo &quot;游戏结束&quot;
         ;;
     esac
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -568,27 +637,28 @@ done
      <link href="/shell-programming-summary"/>
      <updated>2015-11-17T00:00:00+08:00</updated>
      <id>/shell-programming-summary</id>
-     <content type="html">&lt;h2&gt;1. 基本概念&lt;/h2&gt;
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. 基本概念&lt;/p&gt;
 
-&lt;h3&gt;1.1 什么是 shell&lt;/h3&gt;
+&lt;h3 id=&quot;shell&quot;&gt;1.1 什么是 shell&lt;/h3&gt;
 
 &lt;p&gt;业界所说的shell通常都是指shell脚本，但要知道，shell和shell script是两个不同的概念:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Shell 是一个用C语言编写的程序，它是用户使用Linux的桥梁, 这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。&lt;/li&gt;
-&lt;li&gt;Shell 也是一种命令语言和一种程序设计语言，Shell 脚本（shell script），是一种用shell编写的脚本程序。&lt;/li&gt;
+  &lt;li&gt;Shell 是一个用C语言编写的程序，它是用户使用Linux的桥梁, 这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。&lt;/li&gt;
+  &lt;li&gt;Shell 也是一种命令语言和一种程序设计语言，Shell 脚本（shell script），是一种用shell编写的脚本程序。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;1.2 Shell 环境&lt;/h3&gt;
+&lt;h3 id=&quot;shell-&quot;&gt;1.2 Shell 环境&lt;/h3&gt;
 
 &lt;p&gt;Shell 编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。Linux的Shell种类众多，常见的有：  &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Bourne Shell（/usr/bin/sh或/bin/sh）&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Bourne Again Shell（/bin/bash）&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;C Shell（/usr/bin/csh）&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;K Shell（/usr/bin/ksh）&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Shell for Root（/sbin/sh）&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;Bourne Shell（/usr/bin/sh或/bin/sh）  &lt;/li&gt;
+  &lt;li&gt;Bourne Again Shell（/bin/bash）  &lt;/li&gt;
+  &lt;li&gt;C Shell（/usr/bin/csh）  &lt;/li&gt;
+  &lt;li&gt;K Shell（/usr/bin/ksh）  &lt;/li&gt;
+  &lt;li&gt;Shell for Root（/sbin/sh）  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;大多数情况下提到 shell 都是指 Bash，也就是 Bourne Again Shell，由于易用和免费，Bash在日常工作中被广泛使用。同时，
@@ -596,200 +666,266 @@ Bash也是大多数Linux系统默认的Shell。
 在一般情况下，人们并不区分 Bourne Shell 和 Bourne Again Shell，所以，像 &lt;code&gt;#!/bin/sh&lt;/code&gt; ，它同样也可以改为 &lt;code&gt;#!/bin/bash&lt;/code&gt;。
 &lt;code&gt;#!&lt;/code&gt; 告诉系统其后路径所指定的程序即是解释此脚本文件的Shell程序。&lt;/p&gt;
 
-&lt;h3&gt;1.3 shell 脚本的执行&lt;/h3&gt;
+&lt;h3 id=&quot;shell--1&quot;&gt;1.3 shell 脚本的执行&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;作为可执行程序&lt;/li&gt;
+  &lt;li&gt;作为可执行程序&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chmod +x ./test.sh  #使脚本具有执行权限
+
+&lt;p&gt;&lt;code&gt;
+chmod +x ./test.sh  #使脚本具有执行权限
 ./test.sh  #执行脚本
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;注意，一定要写成&lt;code&gt;./test.sh&lt;/code&gt;，而不是&lt;code&gt;test.sh&lt;/code&gt;，运行其它二进制的程序也一样，直接写&lt;code&gt;test.sh&lt;/code&gt;，linux系统会去PATH里寻找有没有叫&lt;code&gt;test.sh&lt;/code&gt;的，
 而只有&lt;code&gt;/bin, /sbin, /usr/bin，/usr/sbin&lt;/code&gt;等在PATH里，你的当前目录通常不在PATH里，所以写成&lt;code&gt;test.sh&lt;/code&gt;是会找不到命令的，
 要用&lt;code&gt;./test.sh&lt;/code&gt;告诉系统说，就在当前目录找。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;作为 [shell] 解释器参数 : 直接运行解释器，其参数就是shell脚本的文件名&lt;/li&gt;
+  &lt;li&gt;作为 [shell] 解释器参数 : 直接运行解释器，其参数就是shell脚本的文件名&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/bin/sh test.sh
+
+&lt;p&gt;&lt;code&gt;
+/bin/sh test.sh
 /bin/php test.php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. shell 变量&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;shell--2&quot;&gt;2. shell 变量&lt;/h2&gt;
 
 &lt;p&gt;定义变量时，变量名不加美元符号:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;runoob.com&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;
+your_name=&quot;runoob.com&quot;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;注意，变量名和等号之间不能有空格，同时，变量名的命名须遵循如下规则：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
-&lt;li&gt;中间不能有空格，可以使用下划线。&lt;/li&gt;
-&lt;li&gt;不能使用标点符号。&lt;/li&gt;
-&lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
+  &lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
+  &lt;li&gt;中间不能有空格，可以使用下划线。&lt;/li&gt;
+  &lt;li&gt;不能使用标点符号。&lt;/li&gt;
+  &lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;除了显式地直接赋值，还可以用语句给变量赋值，如：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for file in `ls /etc`
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;
+for file in `ls /etc`
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;使用一个定义过的变量，只要在变量名前面加美元符号即可，如：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;qinjx&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+your_name=&quot;qinjx&quot;
 echo $your_name
 echo ${your_name}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for skill in Ada Coffe Action Java do
-    echo &amp;quot;I am good at ${skill}Script&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+for skill in Ada Coffe Action Java do
+    echo &quot;I am good at ${skill}Script&quot;
 done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;如果不给skill变量加花括号，写成 &lt;code&gt;echo &amp;quot;I am good at $skillScript&amp;quot;&lt;/code&gt;，解释器就会把$skillScript当成一个变量（其值为空），
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果不给skill变量加花括号，写成 &lt;code&gt;echo &quot;I am good at $skillScript&quot;&lt;/code&gt;，解释器就会把$skillScript当成一个变量（其值为空），
 代码执行结果就不是我们期望的样子了。推荐给所有变量加上花括号，这是个好的编程习惯。
 已定义的变量，可以被重新定义，如：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;tom&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+your_name=&quot;tom&quot;
 echo $your_name
-your_name=&amp;quot;alibaba&amp;quot;
+your_name=&quot;alibaba&quot;
 echo $your_name
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.1 字符串&lt;/h3&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;2.1 字符串&lt;/h3&gt;
 
 &lt;p&gt;字符串可以用单引号，也可以用双引号，也可以不用引号。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;单引号
+  &lt;li&gt;单引号
+    &lt;ul&gt;
+      &lt;li&gt;单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；&lt;/li&gt;
+      &lt;li&gt;单引号字串中不能出现单引号（对单引号使用转义符后也不行）。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
+str=&#39;this is a string&#39;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；&lt;/li&gt;
-&lt;li&gt;单引号字串中不能出现单引号（对单引号使用转义符后也不行）。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;双引号
+    &lt;ul&gt;
+      &lt;li&gt;双引号里可以有变量&lt;/li&gt;
+      &lt;li&gt;双引号里可以出现转义字符&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;str=&amp;#39;this is a string&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;双引号
+
+&lt;p&gt;&lt;code&gt;
+your_name=&#39;qinjx&#39;
+str=&quot;Hello, I know your are \&quot;$your_name\&quot;! \n&quot;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;双引号里可以有变量&lt;/li&gt;
-&lt;li&gt;双引号里可以出现转义字符&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;拼接字符串&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;#39;qinjx&amp;#39;
-str=&amp;quot;Hello, I know your are \&amp;quot;$your_name\&amp;quot;! \n&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;拼接字符串&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;your_name=&amp;quot;qinjx&amp;quot;
-greeting=&amp;quot;hello, &amp;quot;$your_name&amp;quot; !&amp;quot;
-greeting_1=&amp;quot;hello, ${your_name} !&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+your_name=&quot;qinjx&quot;
+greeting=&quot;hello, &quot;$your_name&quot; !&quot;
+greeting_1=&quot;hello, ${your_name} !&quot;
 echo $greeting $greeting_1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;获取字符串长度&lt;/li&gt;
+  &lt;li&gt;获取字符串长度&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;abcd&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+string=&quot;abcd&quot;
 echo ${#string} #输出 4
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;提取子字符串&lt;/li&gt;
+  &lt;li&gt;提取子字符串&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;alibaba is a great company&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+string=&quot;alibaba is a great company&quot;
 echo ${string:1:4} #输出liba
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;查找子字符串&lt;/li&gt;
+  &lt;li&gt;查找子字符串&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string=&amp;quot;alibaba is a great company&amp;quot;
-echo `expr index &amp;quot;$string&amp;quot; is`
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.2 数组&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+string=&quot;alibaba is a great company&quot;
+echo `expr index &quot;$string&quot; is`
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;2.2 数组&lt;/h3&gt;
 
 &lt;p&gt;bash支持一维数组（不支持多维数组），并且没有限定数组的大小。
 类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于0。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;定义数组&lt;/li&gt;
+  &lt;li&gt;定义数组&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 在Shell中，用括号来表示数组，数组元素用&amp;quot;空格&amp;quot;符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
-array_name=(value0 value1 value2 value3)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;读取数组&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 读取数组元素值的一般格式是：${数组名[下标]}
-valuen=${array_name[n]}
 
-# 使用@符号可以获取数组中的所有元素，例如：
-echo ${array_name[@]}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;
+# 在Shell中，用括号来表示数组，数组元素用&quot;空格&quot;符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
+array_name=(value0 value1 value2 value3)
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;获取数组的长度&lt;/li&gt;
+  &lt;li&gt;读取数组&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 取得数组元素的个数
+
+&lt;p&gt;```
+# 读取数组元素值的一般格式是：${数组名[下标]}
+valuen=${array_name[n]}&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;使用@符号可以获取数组中的所有元素，例如：&lt;/h1&gt;
+&lt;p&gt;echo ${array_name[@]}
+```&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;获取数组的长度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
+# 取得数组元素的个数
 length=${#array_name[@]}
 # 或者
 length=${#array_name[*]}
 # 取得数组单个元素的长度
 lengthn=${#array_name[n]}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3. echo 的用途&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;echo-&quot;&gt;3. echo 的用途&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;显示普通字符串&lt;/li&gt;
+  &lt;li&gt;显示普通字符串&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;quot;It is a test&amp;quot;
 
-# 这里的双引号完全可以省略，以下命令与上面实例效果一致
-echo It is a test
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;显示转义字符&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo &amp;quot;\&amp;quot;It is a test\&amp;quot;&amp;quot;
-&amp;quot;It is a test&amp;quot;
+&lt;p&gt;```
+echo “It is a test”&lt;/p&gt;
 
-chenshan@mac007:~/Desktop/github/litaotao.github.io$echo \&amp;quot;It is a test\&amp;quot;
-&amp;quot;It is a test&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
-read name
-echo &amp;quot;$name It is a test&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;显示换行/不换行&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 换行
-echo -e &amp;quot;OK!\n&amp;quot; # -e 开启转义
-echo &amp;quot;It it a test&amp;quot;
+&lt;h1 id=&quot;section-4&quot;&gt;这里的双引号完全可以省略，以下命令与上面实例效果一致&lt;/h1&gt;
+&lt;p&gt;echo It is a test
+```&lt;/p&gt;
 
-# 不换行
+&lt;ul&gt;
+  &lt;li&gt;显示转义字符&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;```
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo “&quot;It is a test&quot;”
+“It is a test”&lt;/p&gt;
+
+&lt;p&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo &quot;It is a test&quot;
+“It is a test”
+```&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
 #!/bin/sh
-echo -e &amp;quot;OK! \c&amp;quot; # -e 开启转义 \c 不换行
-echo &amp;quot;It is a test&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;显示结果定向至文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 以重写文件的方式重定向
-echo &amp;quot;It is a test&amp;quot; &amp;gt; myfile
+read name
+echo &quot;$name It is a test&quot;
+&lt;/code&gt;&lt;/p&gt;
 
-# 以添加到文件尾的方式重定向
-echo &amp;quot;It is a test&amp;quot; &amp;gt;&amp;gt; myfile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;显示命令执行结果&lt;/li&gt;
+  &lt;li&gt;显示换行/不换行&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) &amp;#39;\n&amp;#39;  `date`
+
+&lt;p&gt;```
+# 换行
+echo -e “OK!\n” # -e 开启转义
+echo “It it a test”&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;不换行&lt;/h1&gt;
+&lt;p&gt;#!/bin/sh
+echo -e “OK! \c” # -e 开启转义 \c 不换行
+echo “It is a test”
+```&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;显示结果定向至文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;```
+# 以重写文件的方式重定向
+echo “It is a test” &amp;gt; myfile&lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;以添加到文件尾的方式重定向&lt;/h1&gt;
+&lt;p&gt;echo “It is a test” » myfile
+```&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;显示命令执行结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
+chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) &#39;\n&#39;  `date`
 Tue Nov 17 22:21:05 CST 2015
  Tue Nov 17 22:21:05 CST 2015
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -799,40 +935,53 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/python-cycle-import"/>
      <updated>2015-11-09T00:00:00+08:00</updated>
      <id>/python-cycle-import</id>
-     <content type="html">&lt;h2&gt;1. import module 流程&lt;/h2&gt;
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. import module 流程&lt;/p&gt;
 
 &lt;p&gt;首先，明确一下 &lt;code&gt;import module_name&lt;/code&gt; 和 &lt;code&gt;from module_name import module_element&lt;/code&gt; 是两条可执行的语句。
 其次，&lt;code&gt;sys.modules&lt;/code&gt; 里记录了当前 run time 下所有已经导出的 module。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;如果 module&lt;em&gt;name 不在 sys.modules 中，那 import module&lt;/em&gt;name 将会执行:
-
-&lt;ul&gt;
-&lt;li&gt;1. &lt;code&gt;sys.modules[ module_name ] = [empty pyc file]&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;2. execute module&lt;em&gt;name to generate a module&lt;/em&gt;name.pyc file&lt;/li&gt;
-&lt;li&gt;3. &lt;code&gt;sys.modules[ module_name ] = module_name.pyc file path&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;如果 module_name 已经在 sys.moudles 中，那会去 load 对应的 pyc file，但关键就在这里的 pyc 文件，有两种情况:
-
-&lt;ul&gt;
-&lt;li&gt;上面第一步生成的 pyc 文件，大多数循环引用导致 AttributeError 错误的原因；&lt;/li&gt;
-&lt;li&gt;上面第三部生成的 pyc 文件，正常情况，不会出异常。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;如果 module_name 不在 sys.modules 中，那 import module_name 将会执行:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;ol&gt;
+          &lt;li&gt;&lt;code&gt;sys.modules[ module_name ] = [empty pyc file]&lt;/code&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;ol&gt;
+          &lt;li&gt;execute module_name to generate a module_name.pyc file&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;ol&gt;
+          &lt;li&gt;&lt;code&gt;sys.modules[ module_name ] = module_name.pyc file path&lt;/code&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;如果 module_name 已经在 sys.moudles 中，那会去 load 对应的 pyc file，但关键就在这里的 pyc 文件，有两种情况:
+    &lt;ul&gt;
+      &lt;li&gt;上面第一步生成的 pyc 文件，大多数循环引用导致 AttributeError 错误的原因；&lt;/li&gt;
+      &lt;li&gt;上面第三部生成的 pyc 文件，正常情况，不会出异常。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;2. 如何避免循环引用&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;2. 如何避免循环引用&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;延迟导入(lazy import)&lt;/li&gt;
-&lt;li&gt;将 &lt;code&gt;from xxx import yyy&lt;/code&gt; 改成 &lt;code&gt;import xxx;xxx.yyy&lt;/code&gt; 来访问的形式，这种办法并不能解决所有场景下的问题&lt;/li&gt;
-&lt;li&gt;合理组织代码&lt;/li&gt;
+  &lt;li&gt;延迟导入(lazy import)&lt;/li&gt;
+  &lt;li&gt;将 &lt;code&gt;from xxx import yyy&lt;/code&gt; 改成 &lt;code&gt;import xxx;xxx.yyy&lt;/code&gt; 来访问的形式，这种办法并不能解决所有场景下的问题&lt;/li&gt;
+  &lt;li&gt;合理组织代码&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/744373/circular-or-cyclic-imports-in-python&quot;&gt;Circular (or cyclic) imports in Python&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/19010407&quot;&gt;解决循环import的问题&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/744373/circular-or-cyclic-imports-in-python&quot;&gt;Circular (or cyclic) imports in Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/19010407&quot;&gt;解决循环import的问题&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -842,18 +991,17 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/editor-in-one-line"/>
      <updated>2015-10-27T00:00:00+08:00</updated>
      <id>/editor-in-one-line</id>
-     <content type="html">&lt;h2&gt;``&lt;/h2&gt;
-
-&lt;h2&gt;1. 事情是这样的&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;``&lt;/h2&gt;
+&lt;p&gt;## 1. 事情是这样的&lt;/p&gt;
 
 &lt;p&gt;事情是这样的，有一天要开会，我准备把会议的 outline 写到个 &lt;strong&gt;&lt;em&gt;暂时&lt;/em&gt;&lt;/strong&gt; 的 notebook 里，在会议的时候参考。&lt;/p&gt;
 
 &lt;p&gt;然后，问题就来了：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;我不想打开 pages，excel，office 什么的；&lt;/li&gt;
-&lt;li&gt;我也不想打开 xcode 的 text editor，因为打开的窗口已经很多了，切换起来麻烦；&lt;/li&gt;
-&lt;li&gt;我也不想用正在写代码的 sublime 新建个文件，因为不想污染我写代码的环境，哈哈；&lt;/li&gt;
+  &lt;li&gt;我不想打开 pages，excel，office 什么的；&lt;/li&gt;
+  &lt;li&gt;我也不想打开 xcode 的 text editor，因为打开的窗口已经很多了，切换起来麻烦；&lt;/li&gt;
+  &lt;li&gt;我也不想用正在写代码的 sublime 新建个文件，因为不想污染我写代码的环境，哈哈；&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;然后，想法就来了，要是能用浏览器来做编辑器就好了，然后突然想到很久之前看到的一篇文章，说如何用一行代码把 chrome 浏览器变成在线编辑器。哈哈，google 了下，果然找到解决方法了，果然是技术造福人类啊。&lt;/p&gt;
@@ -864,7 +1012,7 @@ Tue Nov 17 22:21:05 CST 2015
 
 &lt;p&gt;想想它的原理，其实就是一个 html 文件嘛，更细致一点，就是一个很简单的，定制化的 textarea [我不确定是不是这个组件，但是这都不重要了，哈哈]，只要把这个 html 放到一个固定的，人人都能访问的地方不就行了？&lt;/p&gt;
 
-&lt;h2&gt;2. 感谢 github&lt;/h2&gt;
+&lt;h2 id=&quot;github&quot;&gt;2. 感谢 github&lt;/h2&gt;
 
 &lt;p&gt;于是乎，解决方案就来了。首先得感谢 github 啊，让多少人零首付零还款就搭建了个博客，我也一样。既然博客都有了，那把上面的那个 html 文件放到博客上不就行了？&lt;/p&gt;
 
@@ -881,52 +1029,64 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/python-if-else-usage"/>
      <updated>2015-10-25T00:00:00+08:00</updated>
      <id>/python-if-else-usage</id>
-     <content type="html">&lt;h2&gt;1. 常规的 if else 用法&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;x = True
+     <content type="html">&lt;p&gt;## 
+## 1. 常规的 if else 用法&lt;/p&gt;
 
-if x:
-    print &amp;#39;x is true&amp;#39;
+&lt;p&gt;```
+x = True&lt;/p&gt;
+
+&lt;p&gt;if x:
+    print ‘x is true’
 else:
-    print &amp;#39;x is not true&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. if else 快捷用法&lt;/h2&gt;
+    print ‘x is not true’
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;if-else-&quot;&gt;2. if else 快捷用法&lt;/h2&gt;
 
 &lt;p&gt;这里的 &lt;code&gt;if else&lt;/code&gt; 可以作为三元操作符使用。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mark = 40
+
+&lt;p&gt;&lt;code&gt;
+mark = 40
 is_pass = True if mark &amp;gt;= 50 else False
-print &amp;quot;Pass? &amp;quot; + str(is_pass)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3. 与 &lt;code&gt;for&lt;/code&gt; 关键字一起用&lt;/h2&gt;
+print &quot;Pass? &quot; + str(is_pass)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;for-&quot;&gt;3. 与 &lt;code&gt;for&lt;/code&gt; 关键字一起用&lt;/h2&gt;
 
 &lt;p&gt;在满足以下情况的时候，&lt;code&gt;else&lt;/code&gt; 下的代码块会被执行：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;for 循环里的语句执行完成&lt;/li&gt;
-&lt;li&gt;for 循环里的语句没有被 &lt;code&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
+  &lt;li&gt;for 循环里的语句执行完成&lt;/li&gt;
+  &lt;li&gt;for 循环里的语句没有被 &lt;code&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 打印 `For loop completed the execution`
+
+&lt;p&gt;```
+# 打印 &lt;code&gt;For loop completed the execution&lt;/code&gt;
 for i in range(10):
     print i
 else:
-    print &amp;#39;For loop completed the execution&amp;#39;
+    print ‘For loop completed the execution’&lt;/p&gt;
 
-# 不打印 `For loop completed the execution`
-for i in range(10):
+&lt;h1 id=&quot;for-loop-completed-the-execution&quot;&gt;不打印 &lt;code&gt;For loop completed the execution&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;for i in range(10):
     print i
     if i == 5:
         break
 else:
-    print &amp;#39;For loop completed the execution&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;4. 与 &lt;code&gt;while&lt;/code&gt; 关键字一起用&lt;/h2&gt;
+    print ‘For loop completed the execution’
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;while-&quot;&gt;4. 与 &lt;code&gt;while&lt;/code&gt; 关键字一起用&lt;/h2&gt;
 
 &lt;p&gt;和上面类似，在满足以下情况的时候，&lt;code&gt;else&lt;/code&gt; 下的代码块会被执行：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;while 循环里的语句执行完成&lt;/li&gt;
-&lt;li&gt;while 循环里的语句没有被 &lt;code&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
+  &lt;li&gt;while 循环里的语句执行完成&lt;/li&gt;
+  &lt;li&gt;while 循环里的语句没有被 &lt;code&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 打印 `While loop execution completed`
+
+&lt;p&gt;```
+# 打印 &lt;code&gt;While loop execution completed&lt;/code&gt;
 a = 0
 loop = 0
 while a &amp;lt;= 10:
@@ -934,10 +1094,10 @@ while a &amp;lt;= 10:
     loop += 1
     a += 1
 else:
-    print &amp;quot;While loop execution completed&amp;quot;
+    print “While loop execution completed”&lt;/p&gt;
 
-# 不打印 `While loop execution completed`
-a = 50
+&lt;h1 id=&quot;while-loop-execution-completed&quot;&gt;不打印 &lt;code&gt;While loop execution completed&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;a = 50
 loop = 0
 while a &amp;gt; 10:
     print a
@@ -946,26 +1106,31 @@ while a &amp;gt; 10:
     a += 1
     loop += 1
 else:
-    print &amp;quot;While loop execution completed&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;5. 与 &lt;code&gt;try except&lt;/code&gt; 一起用&lt;/h2&gt;
+    print “While loop execution completed”
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;try-except-&quot;&gt;5. 与 &lt;code&gt;try except&lt;/code&gt; 一起用&lt;/h2&gt;
 
 &lt;p&gt;和 &lt;code&gt;try except&lt;/code&gt; 一起使用时，如果不抛出异常，&lt;code&gt;else&lt;/code&gt;里的语句就能被执行。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;file_name = &amp;quot;result.txt&amp;quot;
+
+&lt;p&gt;&lt;code&gt;
+file_name = &quot;result.txt&quot;
 try:
-    f = open(file_name, &amp;#39;r&amp;#39;)
+    f = open(file_name, &#39;r&#39;)
 except IOError:
-    print &amp;#39;cannot open&amp;#39;, file_name
+    print &#39;cannot open&#39;, file_name
 else:
     # Executes only if file opened properly
-    print file_name, &amp;#39;has&amp;#39;, len(f.readlines()), &amp;#39;lines&amp;#39;
+    print file_name, &#39;has&#39;, len(f.readlines()), &#39;lines&#39;
     f.close()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python&quot;&gt;5 different methods to use an else block in python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python&quot;&gt;5 different methods to use an else block in python&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -974,74 +1139,78 @@ else:
      <link href="/submit-push-package-to-pypi"/>
      <updated>2015-10-24T00:00:00+08:00</updated>
      <id>/submit-push-package-to-pypi</id>
-     <content type="html">&lt;h2&gt;1. 注册 pypi 账号&lt;/h2&gt;
+     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
+&lt;p&gt;## 1. 注册 pypi 账号  &lt;/p&gt;
 
 &lt;p&gt;点击这张图片去注册吧。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://pypi.python.org/pypi&quot;&gt;&lt;img src=&quot;../images/pypi_register.jpg&quot; alt=&quot;pypi_register.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://pypi.python.org/pypi&quot;&gt;&lt;img src=&quot;../images/pypi_register.jpg&quot; alt=&quot;pypi_register.jpg&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2&gt;2. 编写 setup.py 必要信息&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;setup(
-    name=&amp;quot;IPython-Dashboard&amp;quot;,
-    version=&amp;#39;0.1.1&amp;#39;,
-    author=&amp;quot;Taotao Li&amp;quot;,
-    author_email=&amp;quot;taotao.engineer@gmail.com&amp;quot;,
-    url=&amp;quot;https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server&amp;quot;,
-    keywords = (&amp;quot;ipython&amp;quot;, &amp;quot;dashboard&amp;quot;, &amp;quot;interactive&amp;quot;, &amp;quot;visualization&amp;quot;, &amp;quot;data science&amp;quot;, &amp;quot;data analysis&amp;quot;, &amp;quot;streaming&amp;quot;),
-    license=&amp;quot;BSD&amp;quot;,
+&lt;h2 id=&quot;setuppy-&quot;&gt;2. 编写 setup.py 必要信息&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;
+setup(
+    name=&quot;IPython-Dashboard&quot;,
+    version=&#39;0.1.1&#39;,
+    author=&quot;Taotao Li&quot;,
+    author_email=&quot;taotao.engineer@gmail.com&quot;,
+    url=&quot;https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server&quot;,
+    keywords = (&quot;ipython&quot;, &quot;dashboard&quot;, &quot;interactive&quot;, &quot;visualization&quot;, &quot;data science&quot;, &quot;data analysis&quot;, &quot;streaming&quot;),
+    license=&quot;BSD&quot;,
     packages=find_packages(),
-    package_dir={&amp;quot;dashboard&amp;quot;: &amp;quot;dashboard&amp;quot;},
+    package_dir={&quot;dashboard&quot;: &quot;dashboard&quot;},
     include_package_data=True,
-    description=&amp;quot;An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.&amp;quot;,
-    long_description=io.open(&amp;quot;README.md&amp;quot;, encoding=&amp;#39;utf8&amp;#39;).read(),
-    install_requires=io.open(&amp;quot;requirements.txt&amp;quot;, encoding=&amp;#39;utf8&amp;#39;).read(),
+    description=&quot;An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.&quot;,
+    long_description=io.open(&quot;README.md&quot;, encoding=&#39;utf8&#39;).read(),
+    install_requires=io.open(&quot;requirements.txt&quot;, encoding=&#39;utf8&#39;).read(),
     ...
     ...
 )
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;上面是我的一个项目的 &lt;code&gt;setup.py&lt;/code&gt; 内容，可以对比源文件和在 pypi 上到描述。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/litaotao/IPython-Dashboard/blob/master/setup.py&quot;&gt;项目文件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://pypi.python.org/pypi/IPython-Dashboard&quot;&gt;pypi上的描述&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/litaotao/IPython-Dashboard/blob/master/setup.py&quot;&gt;项目文件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pypi.python.org/pypi/IPython-Dashboard&quot;&gt;pypi上的描述&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;我觉得关键的几 点是：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;keywords: 这点就不用说了吧&lt;/li&gt;
-&lt;li&gt;description: 这点很多人都会忽略，其实也很重要的，我相信pypi在检索的时候，也会检索里面的一些关键字的。&lt;/li&gt;
-&lt;li&gt;long&lt;em&gt;description: 这点也很重要，或者说不能更重要了。如果说上面的 &lt;code&gt;keywords&lt;/code&gt; 和 &lt;code&gt;description&lt;/code&gt; 能提高别人搜索到项目的概率的话，那 `long&lt;/em&gt;description&lt;code&gt;就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种&lt;/code&gt;long_description`
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;No long_description&lt;/em&gt;&lt;/strong&gt;
-&lt;img src=&quot;../images/ld_1.jpg&quot; alt=&quot;ld_1.jpg&quot;&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;Ugly long_description&lt;/em&gt;&lt;/strong&gt;
-&lt;img src=&quot;../images/ld_2.jpg&quot; alt=&quot;ld_2.jpg&quot;&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;long_description with highlight, but need to make it cleaner&lt;/em&gt;&lt;/strong&gt;
-&lt;img src=&quot;../images/ld_3.jpg&quot; alt=&quot;ld_3.jpg&quot;&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;keywords: 这点就不用说了吧&lt;/li&gt;
+  &lt;li&gt;description: 这点很多人都会忽略，其实也很重要的，我相信pypi在检索的时候，也会检索里面的一些关键字的。&lt;/li&gt;
+  &lt;li&gt;long_description: 这点也很重要，或者说不能更重要了。如果说上面的 &lt;code&gt;keywords&lt;/code&gt; 和 &lt;code&gt;description&lt;/code&gt; 能提高别人搜索到项目的概率的话，那 &lt;code&gt;long_description&lt;/code&gt; 就在很大程度上决定别人对你对项目有没有进一步的想法了。对比一下这几种 &lt;code&gt;long_description&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;&lt;em&gt;No long_description&lt;/em&gt;&lt;/strong&gt;
+&lt;img src=&quot;../images/ld_1.jpg&quot; alt=&quot;ld_1.jpg&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Ugly long_description&lt;/em&gt;&lt;/strong&gt;
+&lt;img src=&quot;../images/ld_2.jpg&quot; alt=&quot;ld_2.jpg&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;&lt;em&gt;long_description with highlight, but need to make it cleaner&lt;/em&gt;&lt;/strong&gt;
+&lt;img src=&quot;../images/ld_3.jpg&quot; alt=&quot;ld_3.jpg&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;对了，还要注意一下，pypi 上只接受 &lt;code&gt;rst&lt;/code&gt; 格式的 &lt;code&gt;readme&lt;/code&gt;，不接受 &lt;code&gt;markdown&lt;/code&gt; 格式的，所以想要高亮和排版的话，需要先把 &lt;code&gt;md&lt;/code&gt; 格式的转换成 &lt;code&gt;rst&lt;/code&gt; 格式的 &lt;code&gt;readme&lt;/code&gt;。
 可以在你的项目目录下，使用 &lt;code&gt;pandoc --from=markdown --to=rst --output=README.rst README.md&lt;/code&gt; 来转换。&lt;/p&gt;
 
-&lt;h2&gt;3. 发布包元信息到pypi&lt;/h2&gt;
+&lt;h2 id=&quot;pypi&quot;&gt;3. 发布包元信息到pypi&lt;/h2&gt;
 
 &lt;p&gt;在你的包目录下使用命令 &lt;code&gt;python setup.py register&lt;/code&gt; 在 pypi 上注册你的包信息，所谓注册包信息就是在 pypi 上建立你的包元信息，包括作者，描述等等。但是要注意的是，注册完元信息别人还不能使用 &lt;code&gt;pip install package&lt;/code&gt; 来安装你的包。注册完元信息只是在 pypi 上占个坑而已。&lt;/p&gt;
 
 &lt;p&gt;就如截图所示，这个项目就是只注册了元信息，所以没有下载包的那个链接。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/ld_1.jpg&quot; alt=&quot;ld_1.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/ld_1.jpg&quot; alt=&quot;ld_1.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2&gt;4. 发布包到pypi&lt;/h2&gt;
+&lt;h2 id=&quot;pypi-1&quot;&gt;4. 发布包到pypi&lt;/h2&gt;
 
 &lt;p&gt;使用 &lt;code&gt;python setup.py sdist upload&lt;/code&gt; 发布包，即先将包在本地打包，然后上传到pypi，然后就ok了。&lt;/p&gt;
 
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://peterdowns.com/posts/first-time-with-pypi.html&quot;&gt;How to submit a package to PyPI&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://peterdowns.com/posts/first-time-with-pypi.html&quot;&gt;How to submit a package to PyPI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1051,119 +1220,137 @@ else:
      <link href="/python-format"/>
      <updated>2015-10-24T00:00:00+08:00</updated>
      <id>/python-format</id>
-     <content type="html">&lt;h2&gt;1. 位置参数&lt;/h2&gt;
+     <content type="html">&lt;p&gt;## 
+## 1. 位置参数&lt;/p&gt;
 
 &lt;p&gt;字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
 值得注意的是，&lt;code&gt;位置可以不按顺序，可以不用或者用多次&lt;/code&gt;，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。   &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;In [1]: &amp;#39;{0},{1}&amp;#39;.format(&amp;#39;kzc&amp;#39;,18)  
-Out[1]: &amp;#39;kzc,18&amp;#39;  
-In [2]: &amp;#39;{},{}&amp;#39;.format(&amp;#39;kzc&amp;#39;,18)  
-Out[2]: &amp;#39;kzc,18&amp;#39;  
-In [3]: &amp;#39;{1},{0},{1}&amp;#39;.format(&amp;#39;kzc&amp;#39;,18)  
-Out[3]: &amp;#39;18,kzc,18&amp;#39;
 
-# more powerful
+&lt;p&gt;```&lt;/p&gt;
 
-In [7]: p=[&amp;#39;kzc&amp;#39;,18]
-In [8]: &amp;#39;{0[0]},{0[1]}&amp;#39;.format(p)
-Out[8]: &amp;#39;kzc,18&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. 通过关键字参数&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;In [5]: &amp;#39;{name},{age}&amp;#39;.format(age=18,name=&amp;#39;kzc&amp;#39;)  
-Out[5]: &amp;#39;kzc,18&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3. 对象属性&lt;/h2&gt;
+&lt;p&gt;In [1]: ‘{0},{1}’.format(‘kzc’,18)&lt;br /&gt;
+Out[1]: ‘kzc,18’&lt;br /&gt;
+In [2]: ‘{},{}’.format(‘kzc’,18)&lt;br /&gt;
+Out[2]: ‘kzc,18’&lt;br /&gt;
+In [3]: ‘{1},{0},{1}’.format(‘kzc’,18)&lt;br /&gt;
+Out[3]: ‘18,kzc,18’&lt;/p&gt;
+
+&lt;h1 id=&quot;more-powerful&quot;&gt;more powerful&lt;/h1&gt;
+
+&lt;p&gt;In [7]: p=[‘kzc’,18]
+In [8]: ‘{0[0]},{0[1]}’.format(p)
+Out[8]: ‘kzc,18’&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;2. 通过关键字参数&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;
+In [5]: &#39;{name},{age}&#39;.format(age=18,name=&#39;kzc&#39;)  
+Out[5]: &#39;kzc,18&#39;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;3. 对象属性&lt;/h2&gt;
 
 &lt;p&gt;这是很多对象的 &lt;code&gt;str&lt;/code&gt;, &lt;code&gt;__str__&lt;/code&gt;, &lt;code&gt;__repr__&lt;/code&gt; 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：  &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;str&lt;/code&gt; 是 pyhton 的内置函数，&lt;code&gt;str(obj)&lt;/code&gt; 实际是调用 &lt;code&gt;obj.__str__()&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;obj.__str__()&lt;/code&gt; 是简化版的 &lt;code&gt;obj.__repr__()&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;need more details, check this on &lt;a href=&quot;http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python&quot;&gt;SO&lt;/a&gt;&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;str&lt;/code&gt; 是 pyhton 的内置函数，&lt;code&gt;str(obj)&lt;/code&gt; 实际是调用 &lt;code&gt;obj.__str__()&lt;/code&gt;；&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;obj.__str__()&lt;/code&gt; 是简化版的 &lt;code&gt;obj.__repr__()&lt;/code&gt;；&lt;/li&gt;
+  &lt;li&gt;need more details, check this on &lt;a href=&quot;http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python&quot;&gt;SO&lt;/a&gt;     &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Person:  
+
+&lt;p&gt;&lt;code&gt;
+class Person:  
     def __init__(self,name,age):  
         self.name,self.age = name,age  
         def __str__(self):  
-            return &amp;#39;This guy is {self.name},is {self.age} old&amp;#39;.format(self=self)  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;4. 格式限定符 - 填充与对齐&lt;/h2&gt;
+            return &#39;This guy is {self.name},is {self.age} old&#39;.format(self=self)  
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;4. 格式限定符 - 填充与对齐&lt;/h2&gt;
 
 &lt;p&gt;不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。 &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 无需对齐，填充
-In [1]: &amp;#39;{}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[1]: &amp;#39;hello&amp;#39;
 
-In [2]: &amp;#39;{:}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[2]: &amp;#39;hello&amp;#39;
+&lt;p&gt;```
+# 无需对齐，填充
+In [1]: ‘{}’.format(‘hello’)
+Out[1]: ‘hello’&lt;/p&gt;
 
-# 居中对齐，构建 9 个长度的字符串
-In [5]: &amp;#39;{:^9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[5]: &amp;#39;  hello  &amp;#39;
+&lt;p&gt;In [2]: ‘{:}’.format(‘hello’)
+Out[2]: ‘hello’&lt;/p&gt;
 
-# 右对齐，构建 9 个长度的字符串
-In [6]: &amp;#39;{:&amp;gt;9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[6]: &amp;#39;    hello&amp;#39;
+&lt;h1 id=&quot;section-3&quot;&gt;居中对齐，构建 9 个长度的字符串&lt;/h1&gt;
+&lt;p&gt;In [5]: ‘‘.format(‘hello’)
+Out[5]: ‘  hello  ‘&lt;/p&gt;
 
-# 左对齐，构建 9 个长度的字符串
-In [7]: &amp;#39;{:&amp;lt;9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[7]: &amp;#39;hello    &amp;#39;
+&lt;h1 id=&quot;section-4&quot;&gt;右对齐，构建 9 个长度的字符串&lt;/h1&gt;
+&lt;p&gt;In [6]: ‘‘.format(‘hello’)
+Out[6]: ‘    hello’&lt;/p&gt;
 
-# 右对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [10]: &amp;#39;{:0&amp;gt;9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[10]: &amp;#39;0000hello&amp;#39;
+&lt;h1 id=&quot;section-5&quot;&gt;左对齐，构建 9 个长度的字符串&lt;/h1&gt;
+&lt;p&gt;In [7]: ‘‘.format(‘hello’)
+Out[7]: ‘hello    ‘&lt;/p&gt;
 
-# # 左对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [11]: &amp;#39;{:0&amp;lt;9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[11]: &amp;#39;hello0000&amp;#39;
+&lt;h1 id=&quot;section-6&quot;&gt;右对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
+&lt;p&gt;In [10]: ‘‘.format(‘hello’)
+Out[10]: ‘0000hello’&lt;/p&gt;
 
-# 居中对齐，构建 9 个长度的字符串，用 0 填充空白位置
-In [12]: &amp;#39;{:0^9}&amp;#39;.format(&amp;#39;hello&amp;#39;)
-Out[12]: &amp;#39;00hello00&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;5. 精度与类型&lt;/h2&gt;
+&lt;h1 id=&quot;section-7&quot;&gt;# 左对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
+&lt;p&gt;In [11]: ‘‘.format(‘hello’)
+Out[11]: ‘hello0000’&lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;居中对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
+&lt;p&gt;In [12]: ‘‘.format(‘hello’)
+Out[12]: ‘00hello00’
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;5. 精度与类型&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;f : float类型&lt;/li&gt;
-&lt;li&gt;b : 二进制&lt;/li&gt;
-&lt;li&gt;d : 十进制 &lt;/li&gt;
-&lt;li&gt;o : 八进制&lt;/li&gt;
-&lt;li&gt;x : 十六进制&lt;/li&gt;
-&lt;li&gt;, : 逗号可以表示数字的千分位&lt;/li&gt;
+  &lt;li&gt;f : float类型&lt;/li&gt;
+  &lt;li&gt;b : 二进制&lt;/li&gt;
+  &lt;li&gt;d : 十进制 &lt;/li&gt;
+  &lt;li&gt;o : 八进制&lt;/li&gt;
+  &lt;li&gt;x : 十六进制&lt;/li&gt;
+  &lt;li&gt;, : 逗号可以表示数字的千分位&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;In [44]: &amp;#39;{:.2f}&amp;#39;.format(321.33345)
-Out[44]: &amp;#39;321.33&amp;#39;
 
-In [54]: &amp;#39;{:b}&amp;#39;.format(17)
-Out[54]: &amp;#39;10001&amp;#39;
-In [55]: &amp;#39;{:d}&amp;#39;.format(17)
-Out[55]: &amp;#39;17&amp;#39;
-In [56]: &amp;#39;{:o}&amp;#39;.format(17)
-Out[56]: &amp;#39;21&amp;#39;
-In [57]: &amp;#39;{:x}&amp;#39;.format(17)
-Out[57]: &amp;#39;11&amp;#39;
+&lt;p&gt;```
+In [44]: ‘‘.format(321.33345)
+Out[44]: ‘321.33’&lt;/p&gt;
 
-In [47]: &amp;#39;{:,}&amp;#39;.format(1234567890)
-Out[47]: &amp;#39;1,234,567,890&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;6. 完善的格式文档&lt;/h2&gt;
+&lt;p&gt;In [54]: ‘‘.format(17)
+Out[54]: ‘10001’
+In [55]: ‘‘.format(17)
+Out[55]: ‘17’
+In [56]: ‘‘.format(17)
+Out[56]: ‘21’
+In [57]: ‘‘.format(17)
+Out[57]: ‘11’&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/python_str_format.jpg&quot; alt=&quot;python_str_format.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;In [47]: ‘‘.format(1234567890)
+Out[47]: ‘1,234,567,890’
+```&lt;/p&gt;
 
-&lt;h2&gt;7. % VS format&lt;/h2&gt;
+&lt;h2 id=&quot;section-10&quot;&gt;6. 完善的格式文档&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/python_str_format.jpg&quot; alt=&quot;python_str_format.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;vs-format&quot;&gt;7. % VS format&lt;/h2&gt;
 
 &lt;p&gt;我一直都喜欢用 &lt;code&gt;format&lt;/code&gt; ，不知道为什么，可能喜欢一种写法也是不需要原因的吧，哈哈。其它的，可以在这里找到一大堆说法。  &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format&quot;&gt;python-string-formatting-vs-format&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format&quot;&gt;python-string-formatting-vs-format&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-11&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/9183303&quot;&gt;飘逸的python - 增强的格式化字符串format函数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://pyformat.info/&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.xiayf.cn/2013/01/26/python-string-format/&quot;&gt;Python格式字符串（译）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/9183303&quot;&gt;飘逸的python - 增强的格式化字符串format函数&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pyformat.info/&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.xiayf.cn/2013/01/26/python-string-format/&quot;&gt;Python格式字符串（译）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
