@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］2. Amazon AWS EC2 入门
 description: 准备在AWS上跑spark的看过来了~~~

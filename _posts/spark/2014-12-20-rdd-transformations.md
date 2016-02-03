@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］5. spark RDD 之：RDD Transformation
 description: 总结spark transformation，了解spark编程内涵～～～	

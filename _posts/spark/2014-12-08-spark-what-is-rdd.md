@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］4. spark RDD 之：什么是RDD
 description: 要想学好spark，怎么能不先搞清楚RDD的来龙去脉呢～～～	

@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］1. 准备和初次体验spark
 description: 总结了spark下载，安装，设置环境变量，以及如何运行python写的spark应用的一些基本点～～～	

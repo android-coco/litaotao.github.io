@@ -38,13 +38,13 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 
 - speed up iteration computing over hadoop.
     + use memory + disk instead of disk as data storage medium
-    + design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, tasks and stages]
+    + design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]
 
 ![introduction-to-spark-4.jpg](../images/introduction-to-spark-4.jpg)
 ![introduction-to-spark-5.jpg](../images/introduction-to-spark-5.jpg)
 
 
-## 3. 如何决定是否选用 spark
+## 3. 为何选用 spark
 
 
 - designed, implemented and used as libs, instead of specialized systems;
@@ -53,12 +53,13 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 ![introduction-to-spark-3.jpg](../images/introduction-to-spark-3.jpg)
 
 - from history, it is designed and improved upon hadoop and storm, it has perfect genes;
-
 - documents, community, products and trends;
-
 - it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;
-
 - it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;
+
+## 4. Next
+
+下一篇，通过几个例子来介绍 spark 的基本编程模式。
 
 ## 参考文章
 

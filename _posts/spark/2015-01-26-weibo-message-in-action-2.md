@@ -1,6 +1,6 @@
 ---
 layout: post
-published: true
+published: false
 title: ［touch spark］7. 终于等到你，spark streaming + 新浪微博数据 - 续
 description: 解决了上篇分享中出现的问题，更改微博数据流的获取方式，引入MongoDB来存储一些微博历史信息。
 ---  

@@ -1,6 +1,6 @@
 ---
 category: spark
-published: true
+published: false
 layout: post
 title: ［touch spark］3. 使用Spark分析wikipedia流量数据
 description: 哇，spark还真不是盖的~~~
