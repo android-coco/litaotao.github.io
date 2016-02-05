@@ -5,6 +5,7 @@ highlighter: rouge
 paginate: 8
 permalink: /:title
 encoding: UTF-8
+gems: [jekyll-paginate]
 
 title: Taotao's Zone
 url: http://litaotao.github.io

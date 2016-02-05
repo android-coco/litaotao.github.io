@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>celery 笔记 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/hello-celery" title="celery 笔记">celery 笔记</a></h1>
+
+    <p class="entry-date">2015-12-18 <span class="lastModified" style="display: none;" data-source="_posts/service/2015-12-18-hello-celery.md">最后更新时间: </span></p>
+
+
+    <h1 id="section">#</h1>
+<p>## 1. hello, celery</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">three</span> <span class="n">questions</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">celery</span><span class="err">?</span>
+<span class="o">-</span> <span class="n">why</span> <span class="n">do</span> <span class="n">we</span> <span class="n">need</span> <span class="n">celery</span><span class="err">?</span>
+<span class="o">-</span> <span class="n">what</span> <span class="n">features</span> <span class="n">does</span> <span class="n">celery</span> <span class="n">have</span><span class="err">?</span></code></pre></figure>
+
+<h3 id="what-is-celery">1.1 what is celery?</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">First</code>, celery is a distributed task queue [ a distributed system to process messages].</li>
+  <li><code class="highlighter-rouge">Second</code>, it provides operations with the tools required to maintain such a system.
+    <ul>
+      <li><a href="https://github.com/mher/flower">flower</a></li>
+      <li><a href="http://policystat.github.io/jobtastic/">jobtastic</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Third</code>, it was built for Dijango Apps in the early, but scaled since version 0.8.</li>
+  <li><code class="highlighter-rouge">Fourth</code>, it focus on real-time processing, while also supporting task scheduling.</li>
+</ul>
+
+<h3 id="why-do-we-need-celery">1.2 why do we need celery?</h3>
+
+<ul>
+  <li>run something in the background.</li>
+  <li>run something after the web request is done.</li>
+  <li>making something is done by executing it asynchronously and using retries.</li>
+  <li>schedule periodic task.</li>
+  <li>distributed computing.</li>
+  <li>parallel executing.</li>
+</ul>
+
+<h3 id="what-features-does-celery-have">1.3 what features does celery have?</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">simple</code>:
+write in python, easily configure.</li>
+  <li><code class="highlighter-rouge">high available</code>: retry mechanism, independent broker HA.</li>
+  <li><code class="highlighter-rouge">fast</code>: process millions of tasks one minute.</li>
+  <li><code class="highlighter-rouge">flexible</code>: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.</li>
+  <li><code class="highlighter-rouge">monitoring</code>: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.</li>
+  <li><code class="highlighter-rouge">auto reloading</code>: In development workers can be configured to automatically reload source code as it changes.</li>
+  <li><code class="highlighter-rouge">workflows</code>:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.</li>
+  <li><code class="highlighter-rouge">auto scaling</code>: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.</li>
+  <li><code class="highlighter-rouge">Time &amp; Rate Limits</code>: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.</li>
+  <li><code class="highlighter-rouge">Scheduling</code>: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.</li>
+  <li><code class="highlighter-rouge">Resource leak protection</code>:</li>
+  <li><code class="highlighter-rouge">User components</code>:</li>
+</ul>
+
+<h2 id="how-does-celery-work">2 how does celery work?</h2>
+
+<h3 id="some-terms-in-message-queue-and-celery">2.1 some terms in message queue and celery</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">celery task</code>: a serialized task info which will be scheduled to done by celery,
+generally it contains some meta data, like bellow:</li>
+</ul>
+
+<p><code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4cc7438e-afd4-4f8f-a2f3-f46567e7ca77"</span><span class="p">,</span><span class="w">
+ </span><span class="nt">"task"</span><span class="p">:</span><span class="w"> </span><span class="s2">"celery.task.PingTask"</span><span class="p">,</span><span class="w">
+ </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+ </span><span class="nt">"kwargs"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+ </span><span class="nt">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+ </span><span class="nt">"eta"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2009-11-17T12:30:56.527191"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></p>
+
+<ul>
+  <li><code class="highlighter-rouge">producer</code>: the one who send task messages to the broker,
+generally it is a celery client.</li>
+  <li><code class="highlighter-rouge">consumer</code>: fetch task messages from queues and process them.</li>
+  <li><code class="highlighter-rouge">broker</code>: the one who receives task messages from producer and route different
+messages to different queues.</li>
+  <li><code class="highlighter-rouge">exchange</code>: exchange, or a router, the one who really do message receiving from producer
+and dispatching message to queues. two things should be taken in mind about exchange:
+    <ul>
+      <li>one message from producer can be routed to zero or more queues;</li>
+      <li>you can set route rules for the exchange, called <a href="">bindings</a>;</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">queue</code>: buffer for store task messages.</li>
+</ul>
+
+<h3 id="the-celery-workflow">2.2 the celery workflow</h3>
+
+<p><img src="../images/how_celery_works.jpg" alt="how_celery_works.jpg" /></p>
+
+<h3 id="the-workflow-deployment">2.3 the workflow deployment</h3>
+
+<p><img src="../images/celery-deploy.jpg" alt="celery-deploy.jpg" /></p>
+
+<h2 id="install-celery">3. install celery</h2>
+
+<p>two possible ways to install celery.</p>
+
+<ul>
+  <li>install the latest stable celery and its dependences</li>
+</ul>
+
+<p><code class="highlighter-rouge">
+chenshan@mac007:~/Desktop$sudo pip install -U celery
+...
+...
+...
+Installing collected packages: celery, kombu, billiard, amqp
+</code>
+the celery dependences info is listed here: <a href="http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies">Does Celery have many dependencies</a></p>
+
+<ul>
+  <li>install celery with bundles</li>
+</ul>
+
+<p>Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.</p>
+
+<p>You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command <code class="highlighter-rouge">pip install "celery[librabbitmq,redis,auth,msgpack]"</code> to install celery with librabbitmq, redis, auth, msgpack libriaries.</p>
+
+<p>all bundles command can be find here: <a href="http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles">bundles</a></p>
+
+<h2 id="section-1">参考文档</h2>
+
+<ul>
+  <li><a href="http://www.celeryproject.org/">celery official site</a></li>
+  <li><a href="http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies">http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies</a></li>
+  <li><a href="https://zapier.com/blog/async-celery-example-why-and-how/">Async Celery by Example: Why and How</a></li>
+  <li><a href="https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html">How Instagram Feeds Work: Celery and RabbitMQ</a></li>
+  <li><a href="http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing">stackoverflow: Celery parallel distributed task with multiprocessing</a></li>
+  <li><a href="http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html">[Scaling Celery] Sending Tasks To Remote Machines!
+</a></li>
+  <li><a href="http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/">Celery Messaging at Scale at Instagram</a></li>
+  <li><a href="https://denibertovic.com/posts/celery-best-practices/">CELERY - BEST PRACTICES</a></li>
+  <li><a href="https://denibertovic.com/talks/celery-best-practices/#/">CELERY - BEST PRACTICES slide</a></li>
+  <li><a href="http://blog.csdn.net/siddontang/article/details/34447003">CELERY - BEST PRACTICES 中文</a></li>
+  <li><a href="http://www.opscoder.info/queryset_lazy.html">从一次celery踩坑中谈谈Queryset的懒加载</a></li>
+  <li><a href="http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file">stackoverflow: Send log messages from all celery tasks to a single file</a></li>
+</ul>
+
+<p>#</p>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/hello-celery" data-title="celery 笔记"
+         data-content="content"
+         data-url="http://litaotao.github.io//hello-celery">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/hello-celery data-title=celery 笔记 data-url=/hello-celery></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

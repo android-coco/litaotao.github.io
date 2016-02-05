@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Python 并发编程之一：Gevent | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/python-gevent" title="Python 并发编程之一：Gevent">Python 并发编程之一：Gevent</a></h1>
+
+    <p class="entry-date">2015-05-28 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-05-28-python-gevent.md">最后更新时间: </span></p>
+
+
+    <p>## 
+## 1. 什么是Gevent</p>
+
+<p>gevent是一个基于libev的python并发框架,以微线程greenlet为核心，使用了epoll事件监听机制以及诸多其他优化而变得高效.而且其中有个monkey类, 将现有基于Python线程直接转化为greenlet(类似于打patch).</p>
+
+<p>greenlet 包是 Stackless 的副产品，其将微线程称为 “tasklet” 。tasklet运行在伪并发中，使用channel进行同步数据交换。</p>
+
+<p>一个”greenlet”，是一个更加原始的微线程的概念，但是没有调度，或者叫做协程。这在你需要控制你的代码时很有用。你可以自己构造微线程的 调度器；也可以使用”greenlet”实现高级的控制流。例如可以重新创建构造器；不同于Python的构造器，我们的构造器可以嵌套的调用函数，而被嵌套的函数也可以 yield 一个值。(另外，你并不需要一个”yield”关键字，参考例子)。</p>
+
+<h2 id="coroutine">2. 什么是 Coroutine</h2>
+
+<p>要理解Gevent，明白Gevent的执行机制，需要了解另外一个概念：Coroutine，中文叫做协程。第一次看见这个名词，确实很奇怪，进程、线程都了解了，突然冒出个协程，还真有点反应不过来。</p>
+
+<p>按照 <a href="http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html">进程、线程和协程的理解</a> 的说法：</p>
+
+<p><code class="highlighter-rouge">
+进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。
+线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。
+协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。
+</code></p>
+
+<p>上面的说法不是很好理解，后来发现这篇文章 <a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">浅谈coroutine与gevent</a>, 里面对协程的解释是：</p>
+
+<p><code class="highlighter-rouge">
+用简单的一句话来说Coroutine，就是可以暂时中断，之后再继续执行的程序，
+我们来看一个例子，事实上Python就有最基础的Coroutine，也就是generator
+</code></p>
+
+<p>好了，通过上面两篇文章，理解协程已经对比协程、进程、线程的概念就清晰很多了：</p>
+
+<p>协程就是一种特殊的并发机制，其调度[就是指什么时候调用什么函数]完全由程序员指定，比如说这篇文章里的例子：  <a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">浅谈coroutine与gevent</a> ：</p>
+
+<p>```
+# -<em>- coding: utf8 -</em>-
+def foo():
+    for i in range(10):
+        # 丢资料并且把主控权交给呼叫者
+        yield i
+        print u’foo: 主控又回到我手上了，打我阿笨蛋’</p>
+
+<p>bar = foo()
+# 执行coroutine
+print bar.next()
+print u’main: 现在主控权在我们手上，做点杂事’
+print ‘main:hello baby!’
+# 回到刚才foo这个coroutine中断的地方继续执行
+print bar.next()
+print bar.next()</p>
+
+<h3 id="section">结果：</h3>
+
+<p>0
+main: 现在主控权在我们手上，做点杂事
+main:hello baby!
+foo: 主控又回到我手上了，打我阿笨蛋
+1
+foo: 主控又回到我手上了，打我阿笨蛋
+2
+```</p>
+
+<h2 id="gevent">3. Gevent适用场景</h2>
+
+<p>说到Gevent的适用场景，不得不先理解Gevent的优缺点。按照上面我们的说法，还有那两篇文章的理解，Gevent是通过协程的机制来实现并行，即其并行机制并没有利用到多核CPU的优势，所以很明显了，Gevent的优缺如下：</p>
+
+<ul>
+  <li>多进程能够利用多核优势，但是进程间通信比较麻烦，另外，进程数目的增加会使性能下降，进程切换的成本较高。程序流程复杂度相对I/O多路复用要低。</li>
+  <li>I/O多路复用是在一个进程内部处理多个逻辑流程，不用进行进程切换，性能较高，另外流程间共享信息简单。但是无法利用多核优势，另外，程序流程被事件处理切割成一个个小块，程序比较复杂，难于理解。</li>
+  <li>线程运行在一个进程内部，由操作系统调度，切换成本较低，另外，他们共享进程的虚拟地址空间，线程间共享信息简单。但是线程安全问题导致线程学习曲线陡峭，而且易出错。</li>
+  <li>协程有编程语言提供，由程序员控制进行切换，所以没有线程安全问题，可以用来处理状态机，并发请求等。但是无法利用多核优势。</li>
+</ul>
+
+<p>所以，协程的适用场景，应该是一些I/O密集型的并行程序，而对应的计算密集型，应当采用传统的多线程、多进程方案。</p>
+
+<h2 id="gevent-1">4. Gevent编程模式和思维方法</h2>
+
+<p>我想从两个例子来介绍Gevent的编程模式，第一个比较简单，可以直接去看这篇文章里的开篇例子，<a href="http://xlambda.com/gevent-tutorial/#">gevent程序员指南</a>。不过这个例子只是简单的解释gevent的执行流程和编程模式，离现实应用还有一定的距离。当看完这篇文章后，可以参考Firefox的一个实例就行了，<a href="http://www.firefoxbug.com/index.php/archives/2750/">Python Gevent应用</a> 。</p>
+
+<p>总结一下，按照我个人的理解，要想用好gevent，需要先思考下面几点：</p>
+
+<ul>
+  <li>你的应用是否需要考虑Gevent；</li>
+  <li>如何把你的大任务slice成小任务，这些任务之间是否独立；</li>
+  <li>如果收集，处理小任务执行的结果；</li>
+  <li>理解如何真正利用gevent来实现并行，很多情况下，如果是网络I/O，需要打patch的；比说 <a href="http://www.firefoxbug.com/index.php/archives/2750/">Python Gevent应用</a></li>
+  <li>这里接上一点，打patch要小心，比如说打了socket的patch，要先知道会不会影响到本应用中其他用了socket的服务，因为打patch是直接替换了当前运行时环境里的socket，所以在当前运行时环境里使用socket的服务都会受影响；</li>
+</ul>
+
+<h2 id="gevent-in-action">5. Gevent In Action</h2>
+
+<p>因为Gevent多用于I/O密集型并发程序，而网络请求又是很常见的一种I/O请求，所以在大规模网络并发请求的时候，可以使用Gevent。相信python程序员都应该用过 requests 这个包吧，都应该知道 requests 的作者，kennethreitz，一个货真价实的 python界的大牛。他在写了 requests 的同时，还写了一个包：<a href="https://github.com/kennethreitz/grequests">grequest ： gevent + requests </a>，把requests用gevent包了一下，实现异步的网络请求，下次大家要是有网络方面的并发请求，需要用到gevent的话，就不用重复造轮子了，直接用 <a href="https://github.com/kennethreitz/grequests">grequests</a> 就好了。</p>
+
+<h2 id="section-1">参考文章</h2>
+
+<ul>
+  <li><a href="http://www.firefoxbug.com/index.php/archives/2750/">Python Gevent应用</a></li>
+  <li><a href="http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html">进程、线程和协程的理解</a></li>
+  <li><a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">浅谈coroutine与gevent</a></li>
+  <li><a href="http://xlambda.com/gevent-tutorial/#">gevent程序员指南</a></li>
+  <li><a href="http://blog.jobbole.com/77240/">python greenlet背景介绍与实现机制</a></li>
+  <li><a href="http://www.elias.cn/Python/PyConcurrency?from=Develop.PyConcurrency">Python几种并发实现方案的性能比较</a></li>
+</ul>
+
+<h2 id="section-2">扫一扫</h2>
+
+<p><img src="../../images/share/2015-05-28-python-gevent.md.jpg" alt="2015-05-28-python-gevent.md" /></p>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/python-gevent" data-title="Python 并发编程之一：Gevent"
+         data-content="content"
+         data-url="http://litaotao.github.io//python-gevent">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/python-gevent data-title=Python 并发编程之一：Gevent data-url=/python-gevent></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

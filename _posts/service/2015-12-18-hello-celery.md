@@ -10,12 +10,14 @@ description: things should be known when talking about celery.
 ##
 ## 1. hello, celery
 
-```
+{% highlight python%}
+
 three questions:
 - what is celery?
 - why do we need celery?
 - what features does celery have?
-```
+
+{% endhighlight %}
 
 ### 1.1 what is celery?
 

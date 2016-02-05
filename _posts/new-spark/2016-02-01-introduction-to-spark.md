@@ -1,7 +1,7 @@
 ---
 layout: post
 published: true
-title: 『 Spark 』1. spark 简介 
+title: 『 Spark 』1. spark 简介
 description: things you need know before you touch Spark and before you decide to use spark in your next project.
 ---
 
@@ -67,4 +67,7 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 
 
 ## 本系列其他文章链接
+
+- [『 Spark 』2. spark 基本概念解析 ](../spark-questions)
+
 

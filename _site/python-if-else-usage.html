@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>python else 用法总结 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/python-if-else-usage" title="python else 用法总结">python else 用法总结</a></h1>
+
+    <p class="entry-date">2015-10-25 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-25-python-if-else-usage.md">最后更新时间: </span></p>
+
+
+    <p>## 
+## 1. 常规的 if else 用法</p>
+
+<p>```
+x = True</p>
+
+<p>if x:
+    print ‘x is true’
+else:
+    print ‘x is not true’
+```</p>
+
+<h2 id="if-else-">2. if else 快捷用法</h2>
+
+<p>这里的 <code class="highlighter-rouge">if else</code> 可以作为三元操作符使用。</p>
+
+<p><code class="highlighter-rouge">
+mark = 40
+is_pass = True if mark &gt;= 50 else False
+print "Pass? " + str(is_pass)
+</code></p>
+
+<h2 id="for-">3. 与 <code class="highlighter-rouge">for</code> 关键字一起用</h2>
+
+<p>在满足以下情况的时候，<code class="highlighter-rouge">else</code> 下的代码块会被执行：</p>
+
+<ul>
+  <li>for 循环里的语句执行完成</li>
+  <li>for 循环里的语句没有被 <code class="highlighter-rouge">break</code> 语句打断</li>
+</ul>
+
+<p>```
+# 打印 <code class="highlighter-rouge">For loop completed the execution</code>
+for i in range(10):
+    print i
+else:
+    print ‘For loop completed the execution’</p>
+
+<h1 id="for-loop-completed-the-execution">不打印 <code class="highlighter-rouge">For loop completed the execution</code></h1>
+<p>for i in range(10):
+    print i
+    if i == 5:
+        break
+else:
+    print ‘For loop completed the execution’
+```</p>
+
+<h2 id="while-">4. 与 <code class="highlighter-rouge">while</code> 关键字一起用</h2>
+
+<p>和上面类似，在满足以下情况的时候，<code class="highlighter-rouge">else</code> 下的代码块会被执行：</p>
+
+<ul>
+  <li>while 循环里的语句执行完成</li>
+  <li>while 循环里的语句没有被 <code class="highlighter-rouge">break</code> 语句打断</li>
+</ul>
+
+<p>```
+# 打印 <code class="highlighter-rouge">While loop execution completed</code>
+a = 0
+loop = 0
+while a &lt;= 10:
+    print a
+    loop += 1
+    a += 1
+else:
+    print “While loop execution completed”</p>
+
+<h1 id="while-loop-execution-completed">不打印 <code class="highlighter-rouge">While loop execution completed</code></h1>
+<p>a = 50
+loop = 0
+while a &gt; 10:
+    print a
+    if loop == 5:
+        break
+    a += 1
+    loop += 1
+else:
+    print “While loop execution completed”
+```</p>
+
+<h2 id="try-except-">5. 与 <code class="highlighter-rouge">try except</code> 一起用</h2>
+
+<p>和 <code class="highlighter-rouge">try except</code> 一起使用时，如果不抛出异常，<code class="highlighter-rouge">else</code>里的语句就能被执行。</p>
+
+<p><code class="highlighter-rouge">
+file_name = "result.txt"
+try:
+    f = open(file_name, 'r')
+except IOError:
+    print 'cannot open', file_name
+else:
+    # Executes only if file opened properly
+    print file_name, 'has', len(f.readlines()), 'lines'
+    f.close()
+</code></p>
+
+<h2 id="section">参考文档</h2>
+
+<ul>
+  <li><a href="http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python">5 different methods to use an else block in python</a></li>
+</ul>
+
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/python-if-else-usage" data-title="python else 用法总结"
+         data-content="content"
+         data-url="http://litaotao.github.io//python-if-else-usage">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/python-if-else-usage data-title=python else 用法总结 data-url=/python-if-else-usage></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

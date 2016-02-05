@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>book-3. 设计模式总结之结构型模式 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: url() no-repeat center center fixed;*/
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/design-pattern-structural-pattern" title="book-3. 设计模式总结之结构型模式">book-3. 设计模式总结之结构型模式</a></h1>
+
+    <p class="entry-date">2015-03-13 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-13-design-pattern-structural-pattern.md">最后更新时间: </span></p>
+
+
+    <p>## 
+## 1. 适配器模式
+　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
+
+<h3 id="python">1.1 Python源码示例</h3>
+
+<p>```
+#!/usr/bin/env python
+# -<em>- coding: utf-8 -</em>-</p>
+
+<p>”"”http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/”””</p>
+
+<p>import os</p>
+
+<p>class Dog(object):
+    def <strong>init</strong>(self):
+        self.name = “Dog”
+    def bark(self):
+        return “woof!”</p>
+
+<p>class Cat(object):
+    def <strong>init</strong>(self):
+        self.name = “Cat”
+    def meow(self):
+        return “meow!”</p>
+
+<p>class Human(object):
+    def <strong>init</strong>(self):
+        self.name = “Human”
+    def speak(self):
+        return “‘hello’”</p>
+
+<p>class Car(object):
+    def <strong>init</strong>(self):
+        self.name = “Car”
+    def make_noise(self, octane_level):
+        return “vroom{0}”.format(“!” * octane_level)</p>
+
+<p>class Adapter(object):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>"""
+Adapts an object by replacing methods.
+Usage:
+dog = Dog
+dog = Adapter(dog, dict(make_noise=dog.bark))
+&gt;&gt;&gt; objects = []
+&gt;&gt;&gt; dog = Dog()
+&gt;&gt;&gt; objects.append(Adapter(dog, make_noise=dog.bark))
+&gt;&gt;&gt; cat = Cat()
+&gt;&gt;&gt; objects.append(Adapter(cat, make_noise=cat.meow))
+&gt;&gt;&gt; human = Human()
+&gt;&gt;&gt; objects.append(Adapter(human, make_noise=human.speak))
+&gt;&gt;&gt; car = Car()
+&gt;&gt;&gt; car_noise = lambda: car.make_noise(3)
+&gt;&gt;&gt; objects.append(Adapter(car, make_noise=car_noise))
+&gt;&gt;&gt; for obj in objects:
+...     print('A {} goes {}'.format(obj.name, obj.make_noise()))
+A Dog goes woof!
+A Cat goes meow!
+A Human goes 'hello'
+A Car goes vroom!!!
+"""
+
+def __init__(self, obj, **adapted_methods):
+    """We set the adapted methods in the object's dict"""
+    self.obj = obj
+    self.__dict__.update(adapted_methods)
+
+def __getattr__(self, attr):
+    """All non-adapted calls are passed to the object"""
+    return getattr(self.obj, attr)
+</code></pre>
+</div>
+
+<p>def main():
+    objects = []
+    dog = Dog()
+    objects.append(Adapter(dog, make_noise=dog.bark))
+    cat = Cat()
+    objects.append(Adapter(cat, make_noise=cat.meow))
+    human = Human()
+    objects.append(Adapter(human, make_noise=human.speak))
+    car = Car()
+    objects.append(Adapter(car, make_noise=lambda: car.make_noise(3)))</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for obj in objects:
+    print("A {0} goes {1}".format(obj.name, obj.make_noise()))
+</code></pre>
+</div>
+
+<p>if <strong>name</strong> == “<strong>main</strong>”:
+    main()</p>
+
+<h3 id="output">OUTPUT</h3>
+<p># A Dog goes woof!
+# A Cat goes meow!
+# A Human goes ‘hello’
+# A Car goes vroom!!!
+```</p>
+
+<h2 id="section">2. 桥接模式</h2>
+<p>　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。</p>
+
+<h3 id="python-1">2.1 Python源码示例</h3>
+
+<p>```
+#!/usr/bin/env python
+# -<em>- coding: utf-8 -</em>-</p>
+
+<p>”"”http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python”””</p>
+
+<h1 id="concreteimplementor-12">ConcreteImplementor 1/2</h1>
+<p>class DrawingAPI1(object):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def draw_circle(self, x, y, radius):
+    print('API1.circle at {}:{} radius {}'.format(x, y, radius))
+</code></pre>
+</div>
+
+<h1 id="concreteimplementor-22">ConcreteImplementor 2/2</h1>
+<p>class DrawingAPI2(object):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def draw_circle(self, x, y, radius):
+    print('API2.circle at {}:{} radius {}'.format(x, y, radius))
+</code></pre>
+</div>
+
+<h1 id="refined-abstraction">Refined Abstraction</h1>
+<p>class CircleShape(object):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self, x, y, radius, drawing_api):
+    self._x = x
+    self._y = y
+    self._radius = radius
+    self._drawing_api = drawing_api
+
+# low-level i.e. Implementation specific
+def draw(self):
+    self._drawing_api.draw_circle(self._x, self._y, self._radius)
+
+# high-level i.e. Abstraction specific
+def scale(self, pct):
+    self._radius *= pct
+</code></pre>
+</div>
+
+<p>def main():
+    shapes = (
+        CircleShape(1, 2, 3, DrawingAPI1()),
+        CircleShape(5, 7, 11, DrawingAPI2())
+    )</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for shape in shapes:
+    shape.scale(2.5)
+    shape.draw()
+</code></pre>
+</div>
+
+<p>if <strong>name</strong> == ‘<strong>main</strong>’:
+    main()</p>
+
+<h3 id="output-1">OUTPUT</h3>
+<p># API1.circle at 1:2 radius 7.5
+# API2.circle at 5:7 radius 27.5
+```</p>
+
+<h2 id="section-1">3. 组合模式</h2>
+<p>　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
+
+<h3 id="python-2">3.1 Python源码示例</h3>
+
+<p>```
+#!/usr/bin/env python
+# -<em>- coding: utf-8 -</em>-</p>
+
+<p>”””
+A class which defines a composite object which can store
+hieararchical dictionaries with names.
+This class is same as a hiearchical dictionary, but it
+provides methods to add/access/modify children by name,
+like a Composite.
+Created Anand B Pillai     <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#097;&#098;&#112;&#105;&#108;&#108;&#097;&#105;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#097;&#098;&#112;&#105;&#108;&#108;&#097;&#105;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a>
+“””
+<strong>author</strong> = “Anand B Pillai”
+<strong>maintainer</strong> = “Anand B Pillai”
+<strong>version</strong> = “0.2”</p>
+
+<p>def normalize(val):
+    “”” Normalize a string so that it can be used as an attribute
+    to a Python object “””</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if val.find('-') != -1:
+    val = val.replace('-', '_')
+
+return val
+</code></pre>
+</div>
+
+<p>def denormalize(val):
+    “”” De-normalize a string “””</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if val.find('_') != -1:
+    val = val.replace('_', '-')
+
+return val
+</code></pre>
+</div>
+
+<p>class SpecialDict(dict):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>""" A dictionary type which allows direct attribute
+access to its keys """
+
+def __getattr__(self, name):
+
+    if name in self.__dict__:
+        return self.__dict__[name]
+    elif name in self:
+        return self.get(name)
+    else:
+        # Check for denormalized name
+        name = denormalize(name)
+        if name in self:
+            return self.get(name)
+        else:
+            raise AttributeError('no attribute named %s' % name)
+
+def __setattr__(self, name, value):
+
+    if name in self.__dict__:
+        self.__dict__[name] = value
+    elif name in self:
+        self[name] = value
+    else:
+        # Check for denormalized name
+        name2 = denormalize(name)
+        if name2 in self:
+            self[name2] = value
+        else:
+            # New attribute
+            self[name] = value
+</code></pre>
+</div>
+
+<p>class CompositeDict(SpecialDict):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>""" A class which works like a hierarchical dictionary.
+This class is based on the Composite design-pattern """
+
+ID = 0
+
+def __init__(self, name=''):
+
+    if name:
+        self._name = name
+    else:
+        self._name = ''.join(('id#', str(self.__class__.ID)))
+        self.__class__.ID += 1
+
+    self._children = []
+    # Link  back to father
+    self._father = None
+    self[self._name] = SpecialDict()
+
+def __getattr__(self, name):
+
+    if name in self.__dict__:
+        return self.__dict__[name]
+    elif name in self:
+        return self.get(name)
+    else:
+        # Check for denormalized name
+        name = denormalize(name)
+        if name in self:
+            return self.get(name)
+        else:
+            # Look in children list
+            child = self.findChild(name)
+            if child:
+                return child
+            else:
+                attr = getattr(self[self._name], name)
+                if attr:
+                    return attr
+
+                raise AttributeError('no attribute named %s' % name)
+
+def isRoot(self):
+    """ Return whether I am a root component or not """
+
+    # If I don't have a parent, I am root
+    return not self._father
+
+def isLeaf(self):
+    """ Return whether I am a leaf component or not """
+
+    # I am a leaf if I have no children
+    return not self._children
+
+def getName(self):
+    """ Return the name of this ConfigInfo object """
+
+    return self._name
+
+def getIndex(self, child):
+    """ Return the index of the child ConfigInfo object 'child' """
+
+    if child in self._children:
+        return self._children.index(child)
+    else:
+        return -1
+
+def getDict(self):
+    """ Return the contained dictionary """
+
+    return self[self._name]
+
+def getProperty(self, child, key):
+    """ Return the value for the property for child
+    'child' with key 'key' """
+
+    # First get the child's dictionary
+    childDict = self.getInfoDict(child)
+    if childDict:
+        return childDict.get(key, None)
+
+def setProperty(self, child, key, value):
+    """ Set the value for the property 'key' for
+    the child 'child' to 'value' """
+
+    # First get the child's dictionary
+    childDict = self.getInfoDict(child)
+    if childDict:
+        childDict[key] = value
+
+def getChildren(self):
+    """ Return the list of immediate children of this object """
+
+    return self._children
+
+def getAllChildren(self):
+    """ Return the list of all children of this object """
+
+    l = []
+    for child in self._children:
+        l.append(child)
+        l.extend(child.getAllChildren())
+
+    return l
+
+def getChild(self, name):
+    """ Return the immediate child object with the given name """
+
+    for child in self._children:
+        if child.getName() == name:
+            return child
+
+def findChild(self, name):
+    """ Return the child with the given name from the tree """
+
+    # Note - this returns the first child of the given name
+    # any other children with similar names down the tree
+    # is not considered.
+
+    for child in self.getAllChildren():
+        if child.getName() == name:
+            return child
+
+def findChildren(self, name):
+    """ Return a list of children with the given name from the tree """
+
+    # Note: this returns a list of all the children of a given
+    # name, irrespective of the depth of look-up.
+
+    children = []
+
+    for child in self.getAllChildren():
+        if child.getName() == name:
+            children.append(child)
+
+    return children
+
+def getPropertyDict(self):
+    """ Return the property dictionary """
+
+    d = self.getChild('__properties')
+    if d:
+        return d.getDict()
+    else:
+        return {}
+
+def getParent(self):
+    """ Return the person who created me """
+
+    return self._father
+
+def __setChildDict(self, child):
+    """ Private method to set the dictionary of the child
+    object 'child' in the internal dictionary """
+
+    d = self[self._name]
+    d[child.getName()] = child.getDict()
+
+def setParent(self, father):
+    """ Set the parent object of myself """
+
+    # This should be ideally called only once
+    # by the father when creating the child :-)
+    # though it is possible to change parenthood
+    # when a new child is adopted in the place
+    # of an existing one - in that case the existing
+    # child is orphaned - see addChild and addChild2
+    # methods !
+    self._father = father
+
+def setName(self, name):
+    """ Set the name of this ConfigInfo object to 'name' """
+
+    self._name = name
+
+def setDict(self, d):
+    """ Set the contained dictionary """
+
+    self[self._name] = d.copy()
+
+def setAttribute(self, name, value):
+    """ Set a name value pair in the contained dictionary """
+
+    self[self._name][name] = value
+
+def getAttribute(self, name):
+    """ Return value of an attribute from the contained dictionary """
+
+    return self[self._name][name]
+
+def addChild(self, name, force=False):
+    """ Add a new child 'child' with the name 'name'.
+    If the optional flag 'force' is set to True, the
+    child object is overwritten if it is already there.
+    This function returns the child object, whether
+    new or existing """
+
+    if type(name) != str:
+        raise ValueError('Argument should be a string!')
+
+    child = self.getChild(name)
+    if child:
+        # print('Child %s present!' % name)
+        # Replace it if force==True
+        if force:
+            index = self.getIndex(child)
+            if index != -1:
+                child = self.__class__(name)
+                self._children[index] = child
+                child.setParent(self)
+
+                self.__setChildDict(child)
+        return child
+    else:
+        child = self.__class__(name)
+        child.setParent(self)
+
+        self._children.append(child)
+        self.__setChildDict(child)
+
+        return child
+
+def addChild2(self, child):
+    """ Add the child object 'child'. If it is already present,
+    it is overwritten by default """
+
+    currChild = self.getChild(child.getName())
+    if currChild:
+        index = self.getIndex(currChild)
+        if index != -1:
+            self._children[index] = child
+            child.setParent(self)
+            # Unset the existing child's parent
+            currChild.setParent(None)
+            del currChild
+
+            self.__setChildDict(child)
+    else:
+        child.setParent(self)
+        self._children.append(child)
+        self.__setChildDict(child)
+</code></pre>
+</div>
+
+<p>if <strong>name</strong> == “<strong>main</strong>”:
+    window = CompositeDict(‘Window’)
+    frame = window.addChild(‘Frame’)
+    tfield = frame.addChild(‘Text Field’)
+    tfield.setAttribute(‘size’, ‘20’)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>btn = frame.addChild('Button1')
+btn.setAttribute('label', 'Submit')
+
+btn = frame.addChild('Button2')
+btn.setAttribute('label', 'Browse')
+
+# print(window)
+# print(window.Frame)
+# print(window.Frame.Button1)
+# print(window.Frame.Button2)
+print(window.Frame.Button1.label)
+print(window.Frame.Button2.label)
+</code></pre>
+</div>
+
+<h3 id="output-2">OUTPUT</h3>
+<p># Submit
+# Browse
+```</p>
+
+<h2 id="section-2">4. 修饰模式</h2>
+<p>　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。</p>
+
+<h3 id="python-3">4.1 Python源码示例</h3>
+
+<p>```
+“"”https://docs.python.org/2/library/functools.html#functools.wraps”””
+”"”https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665”””</p>
+
+<p>from functools import wraps</p>
+
+<p>def makebold(fn):
+    @wraps(fn)
+    def wrapped():
+        return “<b>” + fn() + “</b>”
+    return wrapped</p>
+
+<p>def makeitalic(fn):
+    @wraps(fn)
+    def wrapped():
+        return “<i>” + fn() + “</i>”
+    return wrapped</p>
+
+<p>@makebold
+@makeitalic
+def hello():
+    “"”a decorated hello world”””
+    return “hello world”</p>
+
+<p>if <strong>name</strong> == ‘<strong>main</strong>’:
+    print(‘result:{}   name:{}   doc:{}’.format(hello(), hello.<strong>name</strong>, hello.<strong>doc</strong>))</p>
+
+<h3 id="output-3">OUTPUT</h3>
+<p># result:<b><i>hello world</i></b>   name:hello   doc:a decorated hello world
+```</p>
+
+<h2 id="section-3">5. 外观模式</h2>
+<p>　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。</p>
+
+<h3 id="python-4">5.1 Python源码示例</h3>
+
+<p>```
+#!/usr/bin/env python
+# -<em>- coding: utf-8 -</em>-</p>
+
+<p>import time</p>
+
+<p>SLEEP = 0.5</p>
+
+<h1 id="complex-parts">Complex Parts</h1>
+<p>class TC1:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
+    print("###### In Test 1 ######")
+    time.sleep(SLEEP)
+    print("Setting up")
+    time.sleep(SLEEP)
+    print("Running test")
+    time.sleep(SLEEP)
+    print("Tearing down")
+    time.sleep(SLEEP)
+    print("Test Finished\n")
+</code></pre>
+</div>
+
+<p>class TC2:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
+    print("###### In Test 2 ######")
+    time.sleep(SLEEP)
+    print("Setting up")
+    time.sleep(SLEEP)
+    print("Running test")
+    time.sleep(SLEEP)
+    print("Tearing down")
+    time.sleep(SLEEP)
+    print("Test Finished\n")
+</code></pre>
+</div>
+
+<p>class TC3:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
+    print("###### In Test 3 ######")
+    time.sleep(SLEEP)
+    print("Setting up")
+    time.sleep(SLEEP)
+    print("Running test")
+    time.sleep(SLEEP)
+    print("Tearing down")
+    time.sleep(SLEEP)
+    print("Test Finished\n")
+</code></pre>
+</div>
+
+<h1 id="facade">Facade</h1>
+<p>class TestRunner:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self):
+    self.tc1 = TC1()
+    self.tc2 = TC2()
+    self.tc3 = TC3()
+    self.tests = [i for i in (self.tc1, self.tc2, self.tc3)]
+
+def runAll(self):
+    [i.run() for i in self.tests]
+</code></pre>
+</div>
+
+<h1 id="client">Client</h1>
+<p>if <strong>name</strong> == ‘<strong>main</strong>’:
+    testrunner = TestRunner()
+    testrunner.runAll()</p>
+
+<h3 id="output-4">OUTPUT</h3>
+<p># ###### In Test 1 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+# ###### In Test 2 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+# ###### In Test 3 ######
+# Setting up
+# Running test
+# Tearing down
+# Test Finished
+#
+```</p>
+
+<h2 id="section-4">扫一扫</h2>
+
+<p><img src="../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg" alt="2015-03-13-design-pattern-structural-pattern.md" /></p>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/design-pattern-structural-pattern" data-title="book-3. 设计模式总结之结构型模式"
+         data-content="content"
+         data-url="http://litaotao.github.io//design-pattern-structural-pattern">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/design-pattern-structural-pattern data-title=book-3. 设计模式总结之结构型模式 data-url=/design-pattern-structural-pattern></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>
