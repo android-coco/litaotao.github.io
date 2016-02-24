@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -74,55 +73,47 @@
   <li>操作：对每一个用户异步地向数据库写一条数据［实际上的逻辑要稍微复杂一点］，为了方便理解，我们现在构造这样一个场景。用户在网页上参赛高考，全是选择题，当用户选中答案并且准备开始下一题时，后台需要把用户的答案写到数据库里面。但是因为考生太多了，假设有1000万呢，一张2个小时的考卷有150到选择题，并且假设一个考生平均每道题会更改答案0.2次，那么我们先算算这个请求压力是多少：</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-(total request times)/(total time in seconds) = 
-10^8 * 150 * (1 + 0.2) / 2 / 60 / 60 = 
-180 * 10^8 / 7200 = 
-0.025 * 10^8 = 
-2.5 * 10^6 = 25 万次请求／每秒
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">total</span> <span class="n">request</span> <span class="n">times</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">total</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">seconds</span><span class="p">)</span> <span class="o">=</span> 
+<span class="mi">10</span><span class="o">^</span><span class="mi">8</span> <span class="o">*</span> <span class="mi">150</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">=</span> 
+<span class="mi">180</span> <span class="o">*</span> <span class="mi">10</span><span class="o">^</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">7200</span> <span class="o">=</span> 
+<span class="mf">0.025</span> <span class="o">*</span> <span class="mi">10</span><span class="o">^</span><span class="mi">8</span> <span class="o">=</span> 
+<span class="mf">2.5</span> <span class="o">*</span> <span class="mi">10</span><span class="o">^</span><span class="mi">6</span> <span class="o">=</span> <span class="mi">25</span> <span class="err">万次请求／每秒</span></code></pre></figure>
 
 <p>可见其实请求也不是特别大，但是这只是平均请求，天才知道峰值多少呢？其次，zf总不会也要模仿12306那样，请个大公司来做吧。于是，zf里的一个工程师决定，应该把写数据库这个操作异步执行，这样考生在网页上点了下一题之后，虽然立即跳转到下一题，但并不表示考生上一题的答案已经写入数据库了。</p>
 
 <p>ok了，场景大概就是这样了。 详情见代码片段 ：</p>
 
-<p>```
-class Test(object):
-    @get_dbc
-    def assign_user_to_exp(self, dbc, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                dbc,
-                user_id,
-                cell_id,
-            )
-            return</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@get_dbc</span>
+    <span class="k">def</span> <span class="nf">assign_user_to_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbc</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_pool</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">async_assign_user_to_exp</span><span class="p">,</span>
+                <span class="n">dbc</span><span class="p">,</span>
+                <span class="n">user_id</span><span class="p">,</span>
+                <span class="n">cell_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-    return dbc.execute(''' there is a sql sentence that refering user_id and cell_id, just leave details here ''') ```
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">async_assign_user_to_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbc</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dbc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">''' there is a sql sentence that refering user_id and cell_id, just leave details here '''</span><span class="p">)</span></code></pre></figure>
 
 <ul>
   <li>问题：现在的问题是，每次执行 Test().assign_user_to_exp() 时，都会发生错误：(2013, ‘Lost connection to MySQL server during query’)。</li>
   <li>办法：装饰器get_dbc换个位置， 如下：</li>
 </ul>
 
-<p>```
-class Test(object):
-    def assign_user_to_exp(self, user_id, cell_id):
-            self.g_pool.spawn(
-                self.async_assign_user_to_exp,
-                user_id,
-                cell_id,
-            )
-            return</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">assign_user_to_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_pool</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">async_assign_user_to_exp</span><span class="p">,</span>
+                <span class="n">user_id</span><span class="p">,</span>
+                <span class="n">cell_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@get_dbc
-def async_assign_user_to_exp(self, dbc, user_id, cell_id):
-    return dbc.execute(''' there is a sql sentence that refering user_id and cell_id, just leave details here ''') ```
-</code></pre>
-</div>
+    <span class="nd">@get_dbc</span>
+    <span class="k">def</span> <span class="nf">async_assign_user_to_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbc</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dbc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">''' there is a sql sentence that refering user_id and cell_id, just leave details here '''</span><span class="p">)</span></code></pre></figure>
 
 <ul>
   <li>相关：bug的原因是在执行 Test().assign_user_to_exp() 的时候，都先会通过装饰器 get_dbc 去取一个 db 的connection/cursor，然后作为参数传给 async_assign_user_to_exp 函数。可是这里有个问题，gevent 创建了一个greenlet后，也就是 Test().assign_user_to_exp() 的真实作用，这个时候 dbc 已经被释放了，然后过一会儿在greenlet里真正执行数据库操作时，即函数 async_assign_user_to_exp 开始执行时，才发现尼玛穿进来的 dbc 数据库连接已经被释放掉了，所以就会报一个 Lost connection to MySQL server during query 。真是很微妙的，很细节的问题。这个问题我和一个同事研究了好些时间都没有找到问题，后来 cto 过来一看，秒秒钟就解决来。突然间想起李开复的一句话 : 要想做技术型管理者，首先要在技术能力上让手下佩服。不说鸟，继续学习去～</li>
@@ -135,60 +126,54 @@ def async_assign_user_to_exp(self, dbc, user_id, cell_id):
   <li>操作：启动fluentd 服务的时候出错，错误信息说明连不上aws s3，配置文件如下：</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-&lt;match *.group_ab_testing&gt;
-  type s3
-  aws_key_id ***
-  aws_sec_key ***
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">&lt;match <span class="k">*</span>.group_ab_testing&gt;
+  <span class="nb">type </span>s3
+  aws_key_id <span class="k">***</span>
+  aws_sec_key <span class="k">***</span>
   s3_bucket dev-test-bucket-name
   path storage_path/
   time_slice_format %Y/%m/%d/dev/%H
   buffer_path /mnt/td-agent/temp_file
   buffer_chunk_limit 10m
   utc
-&lt;/match&gt;
-</code></p>
+&lt;/match&gt;</code></pre></figure>
 
 <p>问题表现得像是这个aws_key_id和aws_sec_key访问不到，或者访问s3超时，已经排除aws_key_id和aws_sec_key无效的可能性。fluentd配置文件也没有错，于是安装 <code class="highlighter-rouge">sudo pip install awscli</code> awsci 客户端来调试，调试过程如下：</p>
 
-<p>```
-aaron@dev-aaron:/etc/td-agent$aws configure
-AWS Access Key ID [None]: AKIAIZFF6PMYSYCU2Z7Q
-AWS Secret Access Key [None]: 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
-Default region name [None]:
-Default output format [None]:
-aaron@dev-aaron:/etc/td-agent$aws s3 ls</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">aaron@dev-aaron:/etc/td-agent<span class="nv">$aws</span> configure
+AWS Access Key ID <span class="o">[</span>None]: AKIAIZFF6PMYSYCU2Z7Q
+AWS Secret Access Key <span class="o">[</span>None]: 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
+Default region name <span class="o">[</span>None]:
+Default output format <span class="o">[</span>None]:
+aaron@dev-aaron:/etc/td-agent<span class="nv">$aws</span> s3 ls
 
-<p>A client error (RequestTimeTooSkewed) occurred when calling the ListBuckets operation: The difference between the request time and the current time is too large.
-```</p>
+A client error <span class="o">(</span>RequestTimeTooSkewed<span class="o">)</span> occurred when calling the ListBuckets operation: The difference between the request <span class="nb">time </span>and the current <span class="nb">time </span>is too large.</code></pre></figure>
 
 <p>看来问题依然存在，请求伟大的 google，感谢有人已经在伟大的 stackoverflow 上问过类似的问题了： 
 <a href="http://stackoverflow.com/questions/25964491/aws-s3-upload-fails-requesttimetooskewed">aws-s3-upload-fails-requesttimetooskewed</a></p>
 
 <p>高人说也许是本地时间和s3上点时间不一致的导致的，果然本地时间比s3时间晚了十几分钟：</p>
 
-<p><code class="highlighter-rouge">
-aaron@dev-aaron:/etc/td-agent$curl http://s3.amazonaws.com -v
-* About to connect() to s3.amazonaws.com port 80 (#0)
-*   Trying 54.231.14.248... connected
-&gt; GET / HTTP/1.1
-&gt; User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
-&gt; Host: s3.amazonaws.com
-&gt; Accept: */*
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">aaron@dev-aaron:/etc/td-agent<span class="nv">$curl</span> http://s3.amazonaws.com -v
+<span class="k">*</span> About to connect<span class="o">()</span> to s3.amazonaws.com port 80 <span class="o">(</span><span class="c">#0)</span>
+<span class="k">*</span>   Trying 54.231.14.248... connected
+<span class="gp">&gt; </span>GET / HTTP/1.1
+<span class="gp">&gt; </span>User-Agent: curl/7.22.0 <span class="o">(</span>x86_64-pc-linux-gnu<span class="o">)</span> libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+<span class="gp">&gt; </span>Host: s3.amazonaws.com
+<span class="gp">&gt; </span>Accept: <span class="k">*</span>/<span class="k">*</span>
 &gt;
 &lt; HTTP/1.1 307 Temporary Redirect
-&lt; x-amz-id-2: iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc=
+&lt; x-amz-id-2: <span class="nv">iR7WZjF4wccLoZCfGJeZ5SHM8AQP9SK3oCTNwsBwkW60u02JFI2OqTakcjsLYMv1TnsTZFXHkmc</span><span class="o">=</span>
 &lt; x-amz-request-id: 90748BF8849F53E7
 &lt; Date: Tue, 04 Aug 2015 04:41:44 GMT
 &lt; Location: http://aws.amazon.com/s3/
 &lt; Content-Length: 0
 &lt; Server: AmazonS3
 &lt;
-* Connection #0 to host s3.amazonaws.com left intact
-* Closing connection #0
-aaron@dev-aaron:/etc/td-agent$date -u
-Tue Aug  4 04:23:27 UTC 2015
-</code></p>
+<span class="k">*</span> Connection <span class="c">#0 to host s3.amazonaws.com left intact</span>
+<span class="k">*</span> Closing connection <span class="c">#0</span>
+aaron@dev-aaron:/etc/td-agent<span class="nv">$date</span> -u
+Tue Aug  4 04:23:27 UTC 2015</code></pre></figure>
 
 <ul>
   <li>办法：重启机器或者同步utc时间即可；</li>

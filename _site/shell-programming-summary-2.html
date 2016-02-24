@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,12 +46,11 @@
     <p class="entry-date">2015-11-18 <span class="lastModified" style="display: none;" data-source="_posts/tools/2015-11-18-shell-programming-summary-2.md">最后更新时间: </span></p>
 
 
-    <h1 id="section">#</h1>
-<p>## 1. test 命令</p>
+    <h2 id="test-">1. test 命令</h2>
 
 <p>Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。</p>
 
-<h3 id="section-1">1.1 数值测试</h3>
+<h3 id="section">1.1 数值测试</h3>
 
 <ul>
   <li><code class="highlighter-rouge">-eq : equal</code>: 等于</li>
@@ -63,18 +61,16 @@
   <li><code class="highlighter-rouge">-le : lower or equal</code>: 小于或等于</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-num1=100
-num2=100
-if test $[num1] -eq $[num2]
-then
-    echo 'The two numbers are equal!'
-else
-    echo 'The two numbers are not equal!'
-fi
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">num1</span><span class="o">=</span>100
+<span class="nv">num2</span><span class="o">=</span>100
+<span class="k">if </span><span class="nb">test</span> <span class="nv">$[</span>num1] -eq <span class="nv">$[</span>num2]
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'The two numbers are equal!'</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s1">'The two numbers are not equal!'</span>
+<span class="k">fi</span></code></pre></figure>
 
-<h3 id="section-2">1.2 字符串测试</h3>
+<h3 id="section-1">1.2 字符串测试</h3>
 
 <ul>
   <li><code class="highlighter-rouge">=</code>: 等于</li>
@@ -91,18 +87,16 @@ fi
   <li><code class="highlighter-rouge">${var:?ERR_MSG}</code>:	如果var没被设置, 那么就打印$ERR_MSG *</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-num1=100
-num2=100
-if test num1=num2
-then
-    echo 'The two strings are equal!'
-else
-    echo 'The two strings are not equal!'
-fi
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">num1</span><span class="o">=</span>100
+<span class="nv">num2</span><span class="o">=</span>100
+<span class="k">if </span><span class="nb">test </span><span class="nv">num1</span><span class="o">=</span>num2
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'The two strings are equal!'</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s1">'The two strings are not equal!'</span>
+<span class="k">fi</span></code></pre></figure>
 
-<h3 id="section-3">1.3 文件测试</h3>
+<h3 id="section-2">1.3 文件测试</h3>
 
 <ul>
   <li><code class="highlighter-rouge">-e  : exist</code>: 如果文件存在则为真</li>
@@ -116,120 +110,102 @@ fi
   <li><code class="highlighter-rouge">-b  : block</code>: 如果文件存在且为块特殊文件则为真</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-cd /bin
-if test -e ./bash
-then
-    echo 'The file already exists!'
-else
-    echo 'The file does not exists!'
-fi
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /bin
+<span class="k">if </span><span class="nb">test</span> -e ./bash
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'The file already exists!'</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s1">'The file does not exists!'</span>
+<span class="k">fi</span></code></pre></figure>
 
 <p>另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：”!”最高，”-a”次之，”-o”最低。例如：</p>
 
-<p><code class="highlighter-rouge">
-cd /bin
-if test -e ./notFile -o ./bash
-then
-    echo 'One file exists at least!'
-else
-    echo 'Both dose not exists!'
-fi
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /bin
+<span class="k">if </span><span class="nb">test</span> -e ./notFile -o ./bash
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'One file exists at least!'</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s1">'Both dose not exists!'</span>
+<span class="k">fi</span></code></pre></figure>
 
-<h2 id="section-4">2. 流程控制</h2>
+<h2 id="section-3">2. 流程控制</h2>
 
 <h3 id="if-elif-else-fi-">2.1 if elif else fi 控制符</h3>
 
 <p>完整的格式如下，其中，<code class="highlighter-rouge">elif</code>, <code class="highlighter-rouge">else</code> 可根据实际情况决定是否需要。</p>
 
-<p><code class="highlighter-rouge">
-if condition1
-then
-    command1
-elif condition2
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">if </span>condition1
+<span class="k">then
+    </span>command1
+<span class="k">elif </span>condition2
     command2
-else
-    commandN
-fi
-</code></p>
+<span class="k">else
+    </span>commandN
+<span class="k">fi</span></code></pre></figure>
 
 <p>实例：</p>
 
-<p><code class="highlighter-rouge">
-num1=$[2*3]
-num2=$[1+5]
-if test $[num1] -eq $[num2]
-then
-    echo '两个数字相等!'
-else
-    echo '两个数字不相等!'
-fi
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">num1</span><span class="o">=</span><span class="nv">$[</span>2<span class="k">*</span>3]
+<span class="nv">num2</span><span class="o">=</span><span class="nv">$[</span>1+5]
+<span class="k">if </span><span class="nb">test</span> <span class="nv">$[</span>num1] -eq <span class="nv">$[</span>num2]
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'两个数字相等!'</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s1">'两个数字不相等!'</span>
+<span class="k">fi</span></code></pre></figure>
 
 <h3 id="for-">2.2 for 循环</h3>
 
-<p><code class="highlighter-rouge">
-for var in item1 item2 ... itemN
-do
-    command1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">for </span>var <span class="k">in </span>item1 item2 ... itemN
+<span class="k">do
+    </span>command1
     command2
     ...
     commandN
-done
-</code></p>
+<span class="k">done</span></code></pre></figure>
 
 <h3 id="while-">2.3 while 语句</h3>
 
-<p><code class="highlighter-rouge">
-while condition
-do
-    command
-done
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">while </span>condition
+<span class="k">do
+    </span><span class="nb">command
+</span><span class="k">done</span></code></pre></figure>
 
 <p>示例：</p>
 
-<p><code class="highlighter-rouge">
-<span class="c">#!/bin/sh</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
 <span class="nv">int</span><span class="o">=</span>1
 <span class="k">while</span><span class="o">((</span> <span class="nv">$int</span>&lt;<span class="o">=</span>5 <span class="o">))</span>
 <span class="k">do
         </span><span class="nb">echo</span> <span class="nv">$int</span>
         <span class="nb">let</span> <span class="s2">"int++"</span>
-<span class="k">done</span>
-</code></p>
+<span class="k">done</span></code></pre></figure>
 
 <p>while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按<ctrl-d>结束循环。</ctrl-d></p>
 
-<p><code class="highlighter-rouge">
-echo '按下 &lt;CTRL-D&gt; 退出'
-echo -n '输入你最喜欢的电影名: '
-while read FILM
-do
-    echo "是的！$FILM 是一部好电影"
-done
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s1">'按下 &lt;CTRL-D&gt; 退出'</span>
+<span class="nb">echo</span> -n <span class="s1">'输入你最喜欢的电影名: '</span>
+<span class="k">while </span><span class="nb">read </span>FILM
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"是的！</span><span class="nv">$FILM</span><span class="s2"> 是一部好电影"</span>
+<span class="k">done</span></code></pre></figure>
 
 <p>无限循环语法格式：</p>
 
-<p>```
-while :
-do
-    command
-done</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">while</span> :
+<span class="k">do
+    </span><span class="nb">command
+</span><span class="k">done</span>
 
-<h1 id="section-5">或者</h1>
+<span class="c"># 或者</span>
 
-<p>while true
-do
-    command
-done</p>
+<span class="k">while </span><span class="nb">true
+</span><span class="k">do
+    </span><span class="nb">command
+</span><span class="k">done</span>
 
-<h1 id="section-6">或者</h1>
-<p>for (( ; ; ))
-```</p>
+<span class="c"># 或者</span>
+<span class="k">for</span> <span class="o">((</span> ; ; <span class="o">))</span></code></pre></figure>
 
 <h3 id="until-">2.4 until 循环</h3>
 
@@ -238,59 +214,52 @@ until循环与while循环在处理方式上刚好相反。
 一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
 until 语法格式:</p>
 
-<p><code class="highlighter-rouge">
-until condition
-do
-    command
-done
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">until </span>condition
+<span class="k">do
+    </span><span class="nb">command
+</span><span class="k">done</span></code></pre></figure>
 
 <h3 id="case-">2.5 case 语句</h3>
 
-<p><code class="highlighter-rouge">
-case 值 in
-模式1)
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">case</span> 值 <span class="k">in
+</span>模式1<span class="p">)</span>
     command1
     command2
     ...
     commandN
-    ;;
+    <span class="p">;;</span>
 模式2）
     command1
     command2
     ...
     commandN
     ;;
-esac
-</code></p>
+<span class="k">esac</span></code></pre></figure>
 
 <p>示例：</p>
 
-<p><code class="highlighter-rouge">
-echo '输入 1 到 4 之间的数字:'
-echo '你输入的数字为:'
-read aNum
-case $aNum in
-    1)  echo '你选择了 1'
-    ;;
-    2)  echo '你选择了 2'
-    ;;
-    3)  echo '你选择了 3'
-    ;;
-    4)  echo '你选择了 4'
-    ;;
-    *)  echo '你没有输入 1 到 4 之间的数字'
-    ;;
-esac
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s1">'输入 1 到 4 之间的数字:'</span>
+<span class="nb">echo</span> <span class="s1">'你输入的数字为:'</span>
+<span class="nb">read </span>aNum
+<span class="k">case</span> <span class="nv">$aNum</span> <span class="k">in
+    </span>1<span class="p">)</span>  <span class="nb">echo</span> <span class="s1">'你选择了 1'</span>
+    <span class="p">;;</span>
+    2<span class="p">)</span>  <span class="nb">echo</span> <span class="s1">'你选择了 2'</span>
+    <span class="p">;;</span>
+    3<span class="p">)</span>  <span class="nb">echo</span> <span class="s1">'你选择了 3'</span>
+    <span class="p">;;</span>
+    4<span class="p">)</span>  <span class="nb">echo</span> <span class="s1">'你选择了 4'</span>
+    <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>  <span class="nb">echo</span> <span class="s1">'你没有输入 1 到 4 之间的数字'</span>
+    <span class="p">;;</span>
+<span class="k">esac</span></code></pre></figure>
 
 <h3 id="break--continue-">2.6 break 和 continue 语句</h3>
 
 <p>break命令允许跳出所有循环（终止执行后面的所有循环）。
 下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。</p>
 
-<p><code class="highlighter-rouge">
-<span class="c">#!/bin/bash</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/bash</span>
 <span class="k">while</span> :
 <span class="k">do
     </span><span class="nb">echo</span> -n <span class="s2">"输入 1 到 5 之间的数字:"</span>
@@ -302,13 +271,11 @@ esac
             <span class="nb">break</span>
         <span class="p">;;</span>
     <span class="k">esac</span>
-<span class="k">done</span>
-</code></p>
+<span class="k">done</span></code></pre></figure>
 
 <p>continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。</p>
 
-<p><code class="highlighter-rouge">
-<span class="c">#!/bin/bash</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/bash</span>
 <span class="k">while</span> :
 <span class="k">do
     </span><span class="nb">echo</span> -n <span class="s2">"输入 1 到 5 之间的数字: "</span>
@@ -321,10 +288,9 @@ esac
             </span><span class="nb">echo</span> <span class="s2">"游戏结束"</span>
         <span class="p">;;</span>
     <span class="k">esac</span>
-<span class="k">done</span>
-</code></p>
+<span class="k">done</span></code></pre></figure>
 
-<h2 id="section-7">参考文档</h2>
+<h2 id="section-4">参考文档</h2>
 
 <ul>
   <li><a href="http://www.runoob.com/linux/linux-shell.html">Shell 教程</a></li>

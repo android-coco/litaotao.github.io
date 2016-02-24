@@ -42,19 +42,19 @@ p {
 	margin-bottom: 40px;
 	line-height: 1.8em;
 }
-/*code {background:#eee;border:1px solid #ccc;padding:0 5px;line-height:14px;font-size:14px;word-wrap:break-word; }*/
-code {
-	background: #eee;
-	border: 1px solid #ccc;
-	padding: 0 5px;
-	line-height: 14px;
-	font-size: 14px;
-	word-wrap: break-word;
-	border-radius: 5px;
-	color: maroon;
-	font-style: oblique;
-	font-family: monospace;
-}
+
+/*code {*/
+	/*background: #eee;*/
+	/*border: 1px solid #ccc;*/
+	/*padding: 0 5px;*/
+	/*line-height: 14px;*/
+	/*font-size: 14px;*/
+	/*word-wrap: break-word;*/
+	/*border-radius: 5px;*/
+	/*color: maroon;*/
+	/*font-style: oblique;*/
+	/*font-family: monospace;*/
+/*}*/
 
 pre {
 	background-color: #000;
@@ -74,17 +74,17 @@ h4+pre, h3+pre {
 	margin-top: 20px;
 }
 
-pre code {
+/*pre code {
 	background-color: transparent;
 	border: none;
 	padding: 0;
 	word-wrap: normal;
-}
-
+}*/
+/*
 pre ol {
 	margin-left: 25px;
 	list-style-type: decimal;
-}
+}*/
 
 body table {
 	margin: 45px;
@@ -485,4 +485,12 @@ a.external:after {
 
 .home-contact img {
 	width: 18px;
+}
+
+
+/* my style */
+.highlighter-rouge {
+    color: blue;
+    font-style: oblique;
+    font-weight: bolder;
 }

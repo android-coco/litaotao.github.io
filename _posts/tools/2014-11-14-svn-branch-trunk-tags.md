@@ -7,7 +7,6 @@ description: trunk是现女友，branches是前女友们，tags是让你记忆�
 ---  
 
 
-##  
 ##  1. 直接上正文  
 
 　　正文就是，关于这点，[SO](http://stackoverflow.com/questions/16142/what-do-branch-tag-and-trunk-mean-in-subversion-repositories)已经有多答案了，下面我引用一下投票最多的答案。  

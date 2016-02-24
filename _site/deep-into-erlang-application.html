@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -51,8 +50,7 @@
 <p>　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：</p>
 
-<p><code class="highlighter-rouge">
-chenshan@mac007 6-EOIA$tree
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007 6-EOIA<span class="nv">$tree</span>
 .
 ├── ebin
 │   ├── prim_consult.beam
@@ -69,8 +67,7 @@ chenshan@mac007 6-EOIA$tree
     ├── sc_element.erl
     ├── sc_store.erl
     ├── sc_sup.erl
-    └── simple_cache.erl
-</code></p>
+    └── simple_cache.erl</code></pre></figure>
 
 <p><strong>小提示：</strong> <br />
 &gt; 1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；<br />
@@ -78,57 +75,53 @@ chenshan@mac007 6-EOIA$tree
 
 <p>　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。</p>
 
-<p>```
-chenshan@mac007 6-EOIA$cd ebin/
-chenshan@mac007 ebin$erl
-Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007 6-EOIA<span class="nv">$cd</span> ebin/
+chenshan@mac007 ebin<span class="nv">$erl</span>
+Erlang/OTP 17 <span class="o">[</span>erts-6.1] <span class="o">[</span><span class="nb">source</span><span class="o">]</span> <span class="o">[</span>64-bit] <span class="o">[</span>smp:4:4] <span class="o">[</span>async-threads:10] <span class="o">[</span>hipe] <span class="o">[</span>kernel-poll:false]
 
-<p>Eshell V6.1  (abort with ^G)
-1&gt; application:start(simple_cache).<br />
-{error,
-    {bad_return,
-        {
-        {sc_app,start,[normal,[]]},
-         {‘EXIT’,
-             {undef,
-                 [{sr_store,init,[],[]},
-                  {sc_app,start,2,[{file,”../src/sc_app.erl”},{line,6}]},
-                  {application_master,start_supervisor,3,
-                      [{file,”application_master.erl”},{line,326}]},
-                  {application_master,start_the_app,5,
-                      [{file,”application_master.erl”},{line,308}]},
-                  {application_master,start_it_new,7,
-                      [{file,”application_master.erl”},{line,294}]}]}}}}}</p>
+Eshell V6.1  <span class="o">(</span>abort with ^G<span class="o">)</span>
+<span class="gp">1&gt; </span>application:start<span class="o">(</span>simple_cache<span class="o">)</span>.  
+<span class="o">{</span>error,
+    <span class="o">{</span>bad_return,
+        <span class="o">{</span>
+        <span class="o">{</span>sc_app,start,[normal,[]]<span class="o">}</span>,
+         <span class="o">{</span><span class="s1">'EXIT'</span>,
+             <span class="o">{</span>undef,
+                 <span class="o">[{</span>sr_store,init,[],[]<span class="o">}</span>,
+                  <span class="o">{</span>sc_app,start,2,[<span class="o">{</span>file,<span class="s2">"../src/sc_app.erl"</span><span class="o">}</span>,<span class="o">{</span>line,6<span class="o">}]}</span>,
+                  <span class="o">{</span>application_master,start_supervisor,3,
+                      <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,<span class="o">{</span>line,326<span class="o">}]}</span>,
+                  <span class="o">{</span>application_master,start_the_app,5,
+                      <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,<span class="o">{</span>line,308<span class="o">}]}</span>,
+                  <span class="o">{</span>application_master,start_it_new,7,
+                      <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,<span class="o">{</span>line,294<span class="o">}]}]}}}}}</span>
 
-<p>=INFO REPORT==== 22-Oct-2014::23:47:18 ===
+<span class="o">=</span>INFO <span class="nv">REPORT</span><span class="o">====</span> 22-Oct-2014::23:47:18 <span class="o">===</span>
     application: simple_cache
-    exited: {bad_return,
-                {
-                {sc_app,start,[normal,[]]},
-                 {‘EXIT’,
-                     {undef,
-                         [{sr_store,init,[],[]},
-                          {sc_app,start,2,
-                              [{file,”../src/sc_app.erl”},{line,6}]},
-                          {application_master,start_supervisor,3,
-                              [{file,”application_master.erl”},{line,326}]},
-                          {application_master,start_the_app,5,
-                              [{file,”application_master.erl”},{line,308}]},
-                          {application_master,start_it_new,7,
-                              [{file,”application_master.erl”},
-                               {line,294}]}]}}}}
-    type: temporary
-2&gt; 
-```</p>
+    exited: <span class="o">{</span>bad_return,
+                <span class="o">{</span>
+                <span class="o">{</span>sc_app,start,[normal,[]]<span class="o">}</span>,
+                 <span class="o">{</span><span class="s1">'EXIT'</span>,
+                     <span class="o">{</span>undef,
+                         <span class="o">[{</span>sr_store,init,[],[]<span class="o">}</span>,
+                          <span class="o">{</span>sc_app,start,2,
+                              <span class="o">[{</span>file,<span class="s2">"../src/sc_app.erl"</span><span class="o">}</span>,<span class="o">{</span>line,6<span class="o">}]}</span>,
+                          <span class="o">{</span>application_master,start_supervisor,3,
+                              <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,<span class="o">{</span>line,326<span class="o">}]}</span>,
+                          <span class="o">{</span>application_master,start_the_app,5,
+                              <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,<span class="o">{</span>line,308<span class="o">}]}</span>,
+                          <span class="o">{</span>application_master,start_it_new,7,
+                              <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,
+                               <span class="o">{</span>line,294<span class="o">}]}]}}}}</span>
+    <span class="nb">type</span>: temporary
+<span class="gp">2&gt; </span></code></pre></figure>
 
 <h2 id="applicationotp">2. 看看application行为在启动一个otp应用的简单流程</h2>
 <p>　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：</p>
 
-<p><code class="highlighter-rouge">
-Eshell V6.1  (abort with ^G)
-1&gt; code:which(application).
-"/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam"
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Eshell V6.1  <span class="o">(</span>abort with ^G<span class="o">)</span>
+<span class="gp">1&gt; </span>code:which<span class="o">(</span>application<span class="o">)</span>.
+<span class="s2">"/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam"</span></code></pre></figure>
 
 <p>　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：<br />
 &gt; 
@@ -140,41 +133,37 @@ Eshell V6.1  (abort with ^G)
 
 <p>　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：</p>
 
-<p><code class="highlighter-rouge">
-root@kali:~/Desktop/erl/6-EOIA/ebin# mkdir ~/Desktop/temp
-root@kali:~/Desktop/erl/6-EOIA/ebin# cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application*.erl ~/Desktop/ temp/
-root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/te
-temp/ test/
-root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/temp/
-application_controller.erl  application.erl  application_master.erl  application_starter.erl
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>mkdir ~/Desktop/temp
+<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application<span class="k">*</span>.erl ~/Desktop/ temp/
+<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>ls ~/Desktop/te
+temp/ <span class="nb">test</span>/
+<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>ls ~/Desktop/temp/
+application_controller.erl  application.erl  application_master.erl  application_starter.erl</code></pre></figure>
 
 <p>　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。</p>
 
-<p>```
--spec start(Application) -&gt; ‘ok’ | {‘error’, Reason} when
-      Application :: atom(),
-      Reason :: term().</p>
+<figure class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">spec</span> <span class="nf">start</span><span class="p">(</span><span class="nv">Application</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">'ok'</span> <span class="p">|</span> <span class="p">{</span><span class="n">'error'</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="k">when</span>
+      <span class="nv">Application</span> <span class="p">::</span> <span class="nf">atom</span><span class="p">(),</span>
+      <span class="nv">Reason</span> <span class="p">::</span> <span class="nf">term</span><span class="p">().</span>
 
-<p>start(Application) -&gt;
-    start(Application, temporary).</p>
+<span class="nf">start</span><span class="p">(</span><span class="nv">Application</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nf">start</span><span class="p">(</span><span class="nv">Application</span><span class="p">,</span> <span class="n">temporary</span><span class="p">).</span>
 
-<p>-spec start(Application, Type) -&gt; ‘ok’ | {‘error’, Reason} when
-      Application :: atom(),
-      Type :: restart_type(),
-      Reason :: term().</p>
+<span class="p">-</span><span class="ni">spec</span> <span class="nf">start</span><span class="p">(</span><span class="nv">Application</span><span class="p">,</span> <span class="nv">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">'ok'</span> <span class="p">|</span> <span class="p">{</span><span class="n">'error'</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="k">when</span>
+      <span class="nv">Application</span> <span class="p">::</span> <span class="nf">atom</span><span class="p">(),</span>
+      <span class="nv">Type</span> <span class="p">::</span> <span class="nf">restart_type</span><span class="p">(),</span>
+      <span class="nv">Reason</span> <span class="p">::</span> <span class="nf">term</span><span class="p">().</span>
 
-<p>start(Application, RestartType) -&gt;
-    case load(Application) of
-  ok -&gt;
-      Name = get_appl_name(Application),
-      application_controller:start_application(Name, RestartType);
-  {error, {already_loaded, Name}} -&gt;
-      application_controller:start_application(Name, RestartType);
-  Error -&gt;
-      Error
-    end.
-```</p>
+<span class="nf">start</span><span class="p">(</span><span class="nv">Application</span><span class="p">,</span> <span class="nv">RestartType</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="nf">load</span><span class="p">(</span><span class="nv">Application</span><span class="p">)</span> <span class="k">of</span>
+  <span class="n">ok</span> <span class="o">-&gt;</span>
+      <span class="nv">Name</span> <span class="o">=</span> <span class="nf">get_appl_name</span><span class="p">(</span><span class="nv">Application</span><span class="p">),</span>
+      <span class="nn">application_controller</span><span class="p">:</span><span class="nf">start_application</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">RestartType</span><span class="p">);</span>
+  <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="p">{</span><span class="n">already_loaded</span><span class="p">,</span> <span class="nv">Name</span><span class="p">}}</span> <span class="o">-&gt;</span>
+      <span class="nn">application_controller</span><span class="p">:</span><span class="nf">start_application</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">RestartType</span><span class="p">);</span>
+  <span class="nv">Error</span> <span class="o">-&gt;</span>
+      <span class="nv">Error</span>
+    <span class="k">end</span><span class="p">.</span></code></pre></figure>
 
 <p>　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：<br />
 &gt; 
@@ -201,42 +190,39 @@ application_controller.erl  application.erl  application_master.erl  application
   <li>do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-do_load_application(Application, S) -&gt;
-    case get_loaded(Application) of
-        {true, _} -&gt;
-            throw({error, {already_loaded, Application}});
-        false -&gt;
-            case make_appl(Application) of
-                {ok, Appl} -&gt; load(S, Appl);
-                Error -&gt; Error
-            end
-    end.
-</code></p>
+<figure class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">do_load_application</span><span class="p">(</span><span class="nv">Application</span><span class="p">,</span> <span class="nv">S</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="nf">get_loaded</span><span class="p">(</span><span class="nv">Application</span><span class="p">)</span> <span class="k">of</span>
+        <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="p">_}</span> <span class="o">-&gt;</span>
+            <span class="nf">throw</span><span class="p">({</span><span class="n">error</span><span class="p">,</span> <span class="p">{</span><span class="n">already_loaded</span><span class="p">,</span> <span class="nv">Application</span><span class="p">}});</span>
+        <span class="n">false</span> <span class="o">-&gt;</span>
+            <span class="k">case</span> <span class="nf">make_appl</span><span class="p">(</span><span class="nv">Application</span><span class="p">)</span> <span class="k">of</span>
+                <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Appl</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nf">load</span><span class="p">(</span><span class="nv">S</span><span class="p">,</span> <span class="nv">Appl</span><span class="p">);</span>
+                <span class="nv">Error</span> <span class="o">-&gt;</span> <span class="nv">Error</span>
+            <span class="k">end</span>
+    <span class="k">end</span><span class="p">.</span></code></pre></figure>
 
 <ul>
   <li>在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即<code class="highlighter-rouge"><span class="p">{</span><span class="err">reply,</span><span class="w"> </span><span class="err">ok,</span><span class="w"> </span><span class="err">NewS</span><span class="p">}</span></code>，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-handle_call({load_application, Application}, From, S) -&gt;
-    case catch do_load_application(Application, S) of
-        {ok, NewS} -&gt;
-            AppName = get_appl_name(Application),
-            case cntrl(AppName, S, {ac_load_application_req, AppName}) of
-                true -&gt;
-                    {noreply, S#state{loading = [{AppName, From} |
-                                                 S#state.loading]}};
-                false -&gt;
-                    {reply, ok, NewS}
-            end;
-        {error, _} = Error -&gt;
-            {reply, Error, S};
-        {'EXIT', R} -&gt;
-            {reply, {error, R}, S}
-    end;
-</code>
-　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句<code class="highlighter-rouge">[{file,"../src/sc_app.erl"},{line,6}]},</code>， 我在sc_app.erl的第六行写错了一个字母，so…，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。</p>
+<figure class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">handle_call</span><span class="p">({</span><span class="n">load_application</span><span class="p">,</span> <span class="nv">Application</span><span class="p">},</span> <span class="nv">From</span><span class="p">,</span> <span class="nv">S</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="k">catch</span> <span class="nf">do_load_application</span><span class="p">(</span><span class="nv">Application</span><span class="p">,</span> <span class="nv">S</span><span class="p">)</span> <span class="k">of</span>
+        <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">NewS</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nv">AppName</span> <span class="o">=</span> <span class="nf">get_appl_name</span><span class="p">(</span><span class="nv">Application</span><span class="p">),</span>
+            <span class="k">case</span> <span class="nf">cntrl</span><span class="p">(</span><span class="nv">AppName</span><span class="p">,</span> <span class="nv">S</span><span class="p">,</span> <span class="p">{</span><span class="n">ac_load_application_req</span><span class="p">,</span> <span class="nv">AppName</span><span class="p">})</span> <span class="k">of</span>
+                <span class="n">true</span> <span class="o">-&gt;</span>
+                    <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">S</span><span class="nl">#state</span><span class="p">{</span><span class="n">loading</span> <span class="o">=</span> <span class="p">[{</span><span class="nv">AppName</span><span class="p">,</span> <span class="nv">From</span><span class="p">}</span> <span class="p">|</span>
+                                                 <span class="nv">S</span><span class="nl">#state.loading</span><span class="p">]}};</span>
+                <span class="n">false</span> <span class="o">-&gt;</span>
+                    <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">NewS</span><span class="p">}</span>
+            <span class="k">end</span><span class="p">;</span>
+        <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="p">_}</span> <span class="o">=</span> <span class="nv">Error</span> <span class="o">-&gt;</span>
+            <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">Error</span><span class="p">,</span> <span class="nv">S</span><span class="p">};</span>
+        <span class="p">{</span><span class="n">'EXIT'</span><span class="p">,</span> <span class="nv">R</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="nv">R</span><span class="p">},</span> <span class="nv">S</span><span class="p">}</span>
+    <span class="k">end</span><span class="p">;</span></code></pre></figure>
+
+<p>　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句<code class="highlighter-rouge">[{file,"../src/sc_app.erl"},{line,6}]},</code>， 我在sc_app.erl的第六行写错了一个字母，so…，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。</p>
 
 <h2 id="section">扫一扫</h2>
 

@@ -1,19 +1,18 @@
 ---
 category: python
-published: false
+published: true
 layout: post
-title: ［读书笔记］effective Python
+title: 『 读书笔记 』effective Python
 description: Python 技巧总结~
 ---
 
 
-##
 ## 1. Pythonic Thinking
 
 ### 1.1 know which version of python you're using
 
 - two major python version;
-- multiple popular runtimes for python: cpython, jython, ironpython, pypy, etc;
+- multiple popular `runtimes` for python: cpython, jython, ironpython, pypy, etc;
 - be sure that the command line for running python on your system is the version you want;
 - prefer python 3 in your next project;
 
@@ -68,10 +67,12 @@ description: Python 技巧总结~
 
 ### 1.10 prefer enumerate over range
 
-```
+{% highlight python%}
+
 for index, item in enumerate(list):
     print 'index : {}, item : {}'.format(index, item)
-```
+
+{% endhighlight %}
 
 - enumerate provides a concise syntax for looping an iterator and getting the index for each item;
 - prefer enumerate instead looping over a range and indexing for each item;
@@ -88,10 +89,6 @@ for index, item in enumerate(list):
 
 ### 1.13 take advantage of each block in try/except/else/finally
 
-```
-# to do
-```
-
 - the `try/finally` statements let you run cleanup code regardless whether there is exceptions in your `try` block or not;
 
 
@@ -105,7 +102,8 @@ for index, item in enumerate(list):
 
 ### 2.2 know how closures interactive with variable scope
 
-```
+{% highlight python%}
+
 In [1]: def sort_priority(values, group):
    ...:         def helper(x):
    ...:                 if x in group:
@@ -122,7 +120,8 @@ In [4]: sort_priority(values, group)
 
 In [5]: values
 Out[5]: [2, 3, 5, 7, 1, 4, 6, 8]
-```
+
+{% endhighlight %}
 
 - python supports closures: functions that refer to variables from the scope in which they were defined. this is why helper function is able to access the group argument to `sort_priority`;
 - functions are first-class objects in python, meaning you can refer to them directly, assign them to variables, pass them as arguments to other functions, compare them in expressions and if statements, etc. this is how the sort method can accept a closure function as the key argument;
@@ -157,7 +156,8 @@ Out[5]: [2, 3, 5, 7, 1, 4, 6, 8]
 
 ### 2.7 use none and docstrings to specify dynamic default arguments
 
-```
+{% highlight python%}
+
 # when the function is defined, default argument values are evaluated just once per module at the loading time.
 
 def log(msg, time=datetime.now()):
@@ -167,7 +167,7 @@ def log_version(msg, time=None):
     msg_time = time if time else datetime.now()
     print 'msg: {}, time: {}'.format(msg, msg_time)
 
-```
+{% endhighlight%}
 
 - use None for default value is especially important when the argument is mutable;
 - default argument values are only evaluated once;
@@ -329,9 +329,11 @@ def log_version(msg, time=None):
 
 ### 6.3 make pickle reliable with copyreg
 
-```
+{% highlight python%}
+
 the pickle module's serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.
-```
+
+{% endhighlight %}
 
 - the pickle module is only useful for serializing and deserializing objects between trusted programs;
 - the pickle module may break down when used for more than trivial use cases;
@@ -381,7 +383,8 @@ the pickle module's serialization format is unsafe by design. the serialzed data
 
 ### 7.4 know how to break circular dependecies
 
-```
+{% highlight python%}
+
 # dialog.py
 import app
 
@@ -389,7 +392,7 @@ class Dialog():
     def __init__(self):
         pass
 
-save_dialog = Dialog()
+save_dialog = Dialog(app.prefs.get("hello"))
 
 def show():
     pass
@@ -398,12 +401,49 @@ def show():
 import dialog
 
 class Prefs():
-    def get(self):
+    def get(self, name):
         pass
 
 prefs = Prefs()
 dialog.show()
-```
+
+{% endhighlight %}
+
+then if you use app.py in your project, you'll absolutely get an error like bellow:
+
+{% highlight python %}
+
+In [1]: import app
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-1-f8537898a049> in <module>()
+----> 1 import app
+
+/Users/chenshan/Desktop/app.py in <module>()
+----> 1 import dialog
+      2
+      3 # import ipdb; ipdb.set_trace()
+      4
+      5 class Prefs():
+
+/Users/chenshan/Desktop/dialog.py in <module>()
+      8         pass
+      9
+---> 10 save_dialog = Dialog(app.prefs.get("hello"))
+     11
+     12 def show():
+
+AttributeError: 'module' object has no attribute 'prefs'
+{% endhighlight %}
+
+the problem with a circular dependency is that the attributes of a module aren't defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it's inserted into sys.modules(after step 4)
+
+in the example above, 
+
+1. the app.py import dialog before doing anything
+2. then, dialog.py import app firstly, currently the `imported app is just an empty module`
+3. then, in dailog.py, the `save_dialog = Dialog(app.prefs.get("hello"))`, at that time, we're sure that there are really a module named `app` exists in current runtime, but it's an empty module, so will raise an attribute error like this.
+
 
 - python import machinery:
     + searches for your module in locations from sys.path
@@ -412,101 +452,28 @@ dialog.show()
     + inserts the module into sys.modules
     + runs the code in the module object to define its contents
 
-the problem with a circular dependency is that the attributes of a module aren't defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it's inserted into sys.modules(after step 4)
+- [sever ways to break circular imports](http://localhost:4000/python-cycle-import/)
+    + reorder imports
+    + import first, config second, run last
+    + dynamic import
+    + re-strucuture or re-factory your code
 
-the first approach is to change the order of imports.
 
+### 7.5 use virtual env for isonated and reproducible dependences
 
+## 8. Production
 
+### 8.1 consider module-scoped code to configure deployment env
 
+### 8.2 use repr string for debugging output
 
+### 8.3 test everything with unittest
 
+### 8.4 consider interactive debugging with pdb
 
+### 8.5 profile before optimizing
 
+### 8.6 use tracemalloc to understand memory usage and leaks 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#

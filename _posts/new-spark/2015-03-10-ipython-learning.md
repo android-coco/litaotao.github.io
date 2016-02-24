@@ -5,7 +5,6 @@ title: IPython 学习
 description: 记录我学习、研究IPython的笔记。
 ---  
 
-## 
 ## 1. 写在前面
 　　最近一直在学习spark，延伸到学习IPython，发现IPython这东西还真是不一般啊，所以决定还是应该坐下了认真学习一下。下面都是我在官网上学习时的笔记了。
 
@@ -131,19 +130,24 @@ Extensions on PyPI can be installed using pip, like any other Python package. Ot
 
 Using extensions
 To load an extension while IPython is running, use the %load_ext magic:
-```
+
+`
 In [1]: %load_ext myextension
-```
+`
+
 To load it each time IPython starts, list it in your configuration file:
-```
+
+`
 c.InteractiveShellApp.extensions = [
     'myextension'
 ]
-```
+`
 
 Writing extensions
 An IPython extension is an importable Python module that has a couple of special functions to load and unload it. Here is a template:
-```
+
+{% highlight python %}
+
 # myextension.py
 
 def load_ipython_extension(ipython):
@@ -153,7 +157,9 @@ def load_ipython_extension(ipython):
 
 def unload_ipython_extension(ipython):
     # If you want your extension to be unloadable, put that logic here.
-```
+
+{% endhighlight %}
+
 This load_ipython_extension() function is called after your extension is imported, and the currently active InteractiveShell instance is passed as the only argument. You can do anything you want with IPython at that point.
 
 load_ipython_extension() will be called again if you load or reload the extension again. It is up to the extension author to add code to manage that.
@@ -168,7 +174,8 @@ There are two main ways to define your own magic functions: from standalone func
 
 First, let us see the simplest case. The following shows how to create a line magic, a cell one and one that works in both modes, using just plain functions:
 
-```
+{% highlight python %}
+
 from IPython.core.magic import (register_line_magic, register_cell_magic,
                                 register_line_cell_magic)
 
@@ -194,11 +201,14 @@ def lcmagic(line, cell=None):
 
 # We delete these to avoid name conflicts for automagic to work
 del lmagic, lcmagic
-```
+
+{% endhighlight %}
+
 
 You can also create magics of all three kinds by inheriting from the IPython.core.magic.Magics class. This lets you create magics that can potentially hold state in between calls, and that have full access to the main IPython object:
 
-```
+{% highlight python %}
+
 # This code can be put in any Python module, it does not require IPython
 # itself to be running already.  It only creates the magics subclass but
 # doesn't instantiate it yet.
@@ -240,11 +250,14 @@ ip = get_ipython()
 # You can register the class itself without instantiating it.  IPython will
 # call the default constructor on it.
 ip.register_magics(MyMagics)
-```
+
+{% endhighlight  %}
+
 
 If you want to create a class with a different constructor that holds additional state, then you should always call the parent constructor and instantiate the class yourself before registration:
 
-```
+{% highlight python %}
+
 @magics_class
 class StatefulMagics(Magics):
     "Magics that hold additional state"
@@ -261,11 +274,14 @@ class StatefulMagics(Magics):
 ip = get_ipython()
 magics = StatefulMagics(ip, some_data)
 ip.register_magics(magics)
-```
+
+{% endhighlight %}
+
 
 In earlier versions, IPython had an API for the creation of line magics (cell magics did not exist at the time) that required you to create functions with a method-looking signature and to manually pass both the function and the name. While this API is no longer recommended, it remains indefinitely supported for backwards compatibility purposes. With the old API, you’d create a magic as follows:
 
-```
+{% highlight python %}
+
 def func(self, line):
     print("Line magic called with line:", line)
     print("IPython object:", self.shell)
@@ -273,7 +289,9 @@ def func(self, line):
 ip = get_ipython()
 # Declare this function as the magic %mycommand
 ip.define_magic('mycommand', func)
-```
+
+{% endhighlight %}
+
 
 ## 9. IPython developer’s guide
 This are two categories of developer focused documentation:
@@ -362,7 +380,8 @@ The actual format of the messages allowed on each of these channels is specified
 
 A message is defined by the following four-dictionary structure:
 
-```
+{% highlight python %}
+
 {
   # The message header contains a pair of unique identifiers for the
   # originating session and the actual message id, in addition to the
@@ -391,7 +410,9 @@ A message is defined by the following four-dictionary structure:
   # depends on the message type.
   'content' : dict,
 }
-```
+
+{% endhighlight %}
+
 
 ## 12. Making kernels for IPython
 
@@ -406,11 +427,7 @@ There are two options for writing a kernel:
 
 
 
-
-
-
-
-# . 学习资源
+## 学习资源
 
 - [官网](http://ipython.org/)
 - [IPython Cookbook](https://github.com/ipython/ipython/wiki?path=Cookbook)

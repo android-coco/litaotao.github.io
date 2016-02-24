@@ -6,7 +6,7 @@ title: 一个完整的 OTP 应用
 description: 通过对一个简单、完整的OTP应用的学习和分析来进入OTP的世界~~ 
 ---  
 
-##  
+ 
 ## 1. 写在前面  
 　　在实践 *Erlang and OTP in Action* 的第六章的时候，确实遇到了不少问题，后来慢慢多看了几遍书，多阅读了几次源码，特别是阅读了 application 的源码后，才慢慢理解了这章所讲的这个应用。这个总结不会很长，原本就想简单记在书上的，但想到以后也许会有一些更新，还有一些流程图的绘制需要经过多次修改，就还是放到github上来了，说实话，真挺感谢github的，让我学习和管理代码如此方便。
 
@@ -48,7 +48,8 @@ description: 通过对一个简单、完整的OTP应用的学习和分析来进�
 　　[官方关于应用元数据描述文件的文档](http://www.erlang.org/doc/man/app.html)
 　　我们的应用元数据如下：  
 
-```
+{% highlight shell %}
+
 {application, simple_cache,
 	[{description, "A simple caching system"},
 	 {vsn, "0.1.0"},
@@ -57,7 +58,9 @@ description: 通过对一个简单、完整的OTP应用的学习和分析来进�
 	 {registered, [sc_sup]},
 	 {applications, [kernel, sasl, stdlib]},
 	 {mod, {sc_app, []}}}.
-```
+
+{% endhighlight %}
+
 　　应用元数据文件里其实是定义了一个Erlang项式，这里真想吐槽一下，感觉这样写好麻烦，Python 里的配置文件多方面啊，简单易用。而Erlang应用元数据里的这个Erlang项式，是一个三元组{application, ApplicationName, ApplicationConfigureList}. application表示用application来启动，ApplicationName代表这个应用的名字，应该和应用元数据文件的文件名是一样的，ApplicationConfigureList是应用描述应用配置的信息，是一个列表类型。下面我们看看这个配置列表里的一些信息说明：  
 
 - description：应用描述；  

@@ -7,7 +7,7 @@ description: 再不总结一下就真的忘了。
 ---
 
 
-##
+
 ## 1. test 命令
 
 Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。
@@ -21,7 +21,7 @@ Shell中的 test 命令用于检查某个条件是否成立，它可以进行数
 - `-lt : lower than`: 小于
 - `-le : lower or equal`: 小于或等于
 
-```
+{% highlight shell %}
 num1=100
 num2=100
 if test $[num1] -eq $[num2]
@@ -30,7 +30,7 @@ then
 else
     echo 'The two numbers are not equal!'
 fi
-```
+{% endhighlight %}
 
 ### 1.2 字符串测试
 
@@ -47,7 +47,7 @@ fi
 - `${var?ERR_MSG}`:	如果var没被声明, 那么就打印$ERR_MSG *
 - `${var:?ERR_MSG}`:	如果var没被设置, 那么就打印$ERR_MSG *
 
-```
+{% highlight shell %}
 num1=100
 num2=100
 if test num1=num2
@@ -56,7 +56,7 @@ then
 else
     echo 'The two strings are not equal!'
 fi
-```
+{% endhighlight %}
 
 ### 1.3 文件测试
 
@@ -70,7 +70,7 @@ fi
 - `-c  : `: 如果文件存在且为字符型特殊文件则为真
 - `-b  : block`: 如果文件存在且为块特殊文件则为真
 
-```
+{% highlight shell %}
 cd /bin
 if test -e ./bash
 then
@@ -78,11 +78,11 @@ then
 else
     echo 'The file does not exists!'
 fi
-```
+{% endhighlight %}
 
 另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为："!"最高，"-a"次之，"-o"最低。例如：
 
-```
+{% highlight shell %}
 cd /bin
 if test -e ./notFile -o ./bash
 then
@@ -90,7 +90,7 @@ then
 else
     echo 'Both dose not exists!'
 fi
-```
+{% endhighlight %}
 
 ## 2. 流程控制
 
@@ -98,7 +98,7 @@ fi
 
 完整的格式如下，其中，`elif`, `else` 可根据实际情况决定是否需要。
 
-```
+{% highlight shell %}
 if condition1
 then
     command1
@@ -107,11 +107,11 @@ elif condition2
 else
     commandN
 fi
-```
+{% endhighlight %}
 
 实例：
 
-```
+{% highlight shell %}
 num1=$[2*3]
 num2=$[1+5]
 if test $[num1] -eq $[num2]
@@ -120,11 +120,11 @@ then
 else
     echo '两个数字不相等!'
 fi
-```
+{% endhighlight %}
 
 ### 2.2 for 循环
 
-```
+{% highlight shell %}
 for var in item1 item2 ... itemN
 do
     command1
@@ -132,20 +132,20 @@ do
     ...
     commandN
 done
-```
+{% endhighlight %}
 
 ### 2.3 while 语句
 
-```
+{% highlight shell %}
 while condition
 do
     command
 done
-```
+{% endhighlight %}
 
 示例：
 
-```
+{% highlight shell %}
 #!/bin/sh
 int=1
 while(( $int<=5 ))
@@ -153,22 +153,22 @@ do
         echo $int
         let "int++"
 done
-```
+{% endhighlight %}
 
 while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按<Ctrl-D>结束循环。
 
-```
+{% highlight shell %}
 echo '按下 <CTRL-D> 退出'
 echo -n '输入你最喜欢的电影名: '
 while read FILM
 do
     echo "是的！$FILM 是一部好电影"
 done
-```
+{% endhighlight %}
 
 无限循环语法格式：
 
-```
+{% highlight shell %}
 while :
 do
     command
@@ -183,7 +183,7 @@ done
 
 # 或者
 for (( ; ; ))
-```
+{% endhighlight %}
 
 ### 2.4 until 循环
 
@@ -192,16 +192,16 @@ until循环与while循环在处理方式上刚好相反。
 一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
 until 语法格式:
 
-```
+{% highlight shell %}
 until condition
 do
     command
 done
-```
+{% endhighlight %}
 
 ### 2.5 case 语句
 
-```
+{% highlight shell %}
 case 值 in
 模式1)
     command1
@@ -216,11 +216,11 @@ case 值 in
     commandN
     ;;
 esac
-```
+{% endhighlight %}
 
 示例：
 
-```
+{% highlight shell %}
 echo '输入 1 到 4 之间的数字:'
 echo '你输入的数字为:'
 read aNum
@@ -236,14 +236,14 @@ case $aNum in
     *)  echo '你没有输入 1 到 4 之间的数字'
     ;;
 esac
-```
+{% endhighlight %}
 
 ### 2.6 break 和 continue 语句
 
 break命令允许跳出所有循环（终止执行后面的所有循环）。
 下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。
 
-```
+{% highlight shell %}
 #!/bin/bash
 while :
 do
@@ -257,11 +257,11 @@ do
         ;;
     esac
 done
-```
+{% endhighlight %}
 
 continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。
 
-```
+{% highlight shell %}
 #!/bin/bash
 while :
 do
@@ -276,8 +276,8 @@ do
         ;;
     esac
 done
-```
 
+{% endhighlight %}
 
 
 ## 参考文档

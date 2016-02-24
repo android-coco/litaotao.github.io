@@ -7,7 +7,6 @@ description: 再不总结一下就真的忘了。
 ---
 
 
-##
 ## 1. 定义
 
 - 1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。
@@ -17,7 +16,8 @@ description: 再不总结一下就真的忘了。
 注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。
 
 
-```
+{% highlight shell %}
+
 [ function ] funcname [()]
 
 {
@@ -27,7 +27,8 @@ description: 再不总结一下就真的忘了。
     [return int;]
 
 }
-```
+{% endhighlight %}
+
 
 
 ## 2. 函数参数
@@ -35,7 +36,8 @@ description: 再不总结一下就真的忘了。
 在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数...
 带参数的函数示例：
 
-```
+{% highlight shell %}
+
 #!/bin/bash
 funWithParam(){
     echo "The value of the first parameter is $1 !"
@@ -47,7 +49,7 @@ funWithParam(){
     echo "The string of the parameters is $* !"
 }
 funWithParam 1 2 3 4 5 6 7 8 9 34 73
-```
+{% endhighlight %}
 
 注意，$10 不能获取第十个参数，获取第十个参数需要${10}。当n>=10时，需要使用${n}来获取参数。
 另外，还有几个特殊字符用来处理参数：

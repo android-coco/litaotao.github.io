@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 读书笔记 』effective Python | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/effective-python" title="『 读书笔记 』effective Python">『 读书笔记 』effective Python</a></h1>
+
+    <p class="entry-date">2015-12-30 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-12-30-effective-python.md">最后更新时间: </span></p>
+
+
+    <h2 id="pythonic-thinking">1. Pythonic Thinking</h2>
+
+<h3 id="know-which-version-of-python-youre-using">1.1 know which version of python you’re using</h3>
+
+<ul>
+  <li>two major python version;</li>
+  <li>multiple popular <code class="highlighter-rouge">runtimes</code> for python: cpython, jython, ironpython, pypy, etc;</li>
+  <li>be sure that the command line for running python on your system is the version you want;</li>
+  <li>prefer python 3 in your next project;</li>
+</ul>
+
+<h3 id="follow-the-pep-8-style-guide">1.2 follow the pep 8 style guide</h3>
+
+<ul>
+  <li>always follow the pep 8 style guide;</li>
+  <li>sharing a common style with the larger community facilitates collaboration with others;</li>
+  <li>using a consistent style, making it easier to maintain your code later;</li>
+</ul>
+
+<h3 id="know-the-differences-between-bytes-str-and-unicode">1.3 know the differences between bytes, str and unicode</h3>
+
+<ul>
+  <li><a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html">PYTHON-进阶-编码处理小结</a></li>
+  <li><a href="http://www.cnblogs.com/evening/archive/2012/04/19/2457440.html">python encode和decode函数说明</a></li>
+  <li>in python 3, bytes contains sequences of 8-bit values, str contains sequences of unicode characters. bytes and str instances can’t be used together with operators.</li>
+  <li>in python 2, str contains sequences of 8-bit, unicode contains sequences of unicode characters. str and unicode can be used together with operators if the str only contains 7-bit ascii characters;</li>
+  <li>if you want to read or write binary data to/from a file, always open the file using a binary mode (like ‘rb’, ‘wb’);</li>
+</ul>
+
+<h3 id="wirte-helper-functions-instead-of-complex-expressions">1.4 wirte helper functions instead of complex expressions</h3>
+
+<ul>
+  <li>python’s syntax make it easy to write a single line expression that are overly difficult to read;</li>
+  <li>move complex single line expressions to helper functions;</li>
+  <li>the <code class="highlighter-rouge">if/else</code> expression make it more readable to alternative using bool operators like <code class="highlighter-rouge">and</code> and <code class="highlighter-rouge">or</code>;</li>
+</ul>
+
+<h3 id="know-how-to-slice-sequence">1.5 know how to slice sequence</h3>
+
+<ul>
+  <li>avoid being verbose, do not use [0] and [len(sequence)] to fetch the first or end element of a sequence;</li>
+  <li>assign to a list slice will replace the origin data in that slice part even if the new data’s length does not equal with the old one;</li>
+</ul>
+
+<h3 id="avoid-using-start-end-and-stride-in-a-single-slice">1.6 avoid using start, end and stride in a single slice</h3>
+
+<ul>
+  <li>specifying start, end and stride in a slice can be extremely confusing;</li>
+  <li>avoid negative stride if possible;</li>
+  <li>avoid using start, end and stride in a single slice, consider doing two assignments(one to slice, the other to stride) or using islice from the itertools module;</li>
+</ul>
+
+<h3 id="use-list-comprehension-instead-of-map-and-filter">1.7 use list comprehension instead of map and filter</h3>
+
+<ul>
+  <li>list comprehension is more clearer than map and filter because it does not need another <code class="highlighter-rouge">lambda</code> expression;</li>
+  <li>list comprehension allows to skip items from the input list, but map can not make that without using <code class="highlighter-rouge">filter</code>;</li>
+  <li>dict and set also support comprehension;</li>
+</ul>
+
+<h3 id="avoid-more-than-two-expressions-in-list-comprehension">1.8 avoid more than two expressions in list comprehension</h3>
+
+<ul>
+  <li>list comprehension support multiple levels of loops and multiple conditions per loop;</li>
+  <li>list comprehension with two expressions are difficult to read in some degree;</li>
+</ul>
+
+<h3 id="consider-generator-for-large-list-comprehension">1.9 consider generator for large list comprehension</h3>
+
+<ul>
+  <li>list comprehension can consume large memory for large input;</li>
+  <li>generator can avoid memory issues by produce one item each time;</li>
+  <li>generator can execute very quickly when chained together;</li>
+</ul>
+
+<h3 id="prefer-enumerate-over-range">1.10 prefer enumerate over range</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">'index : {}, item : {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>enumerate provides a concise syntax for looping an iterator and getting the index for each item;</li>
+  <li>prefer enumerate instead looping over a range and indexing for each item;</li>
+  <li>you can specify a number to the enumerate function, specifying the index you want to iterate with;</li>
+</ul>
+
+<h3 id="use-zip-to-process-iterators-in-parallel">1.11 use zip to process iterators in parallel</h3>
+
+<ul>
+  <li>the <code class="highlighter-rouge">zip</code> can be used to iterate over multiple iterators;</li>
+  <li>in python 3, <code class="highlighter-rouge">zip</code> is a lazy generator, in python 2, <code class="highlighter-rouge">zip</code> return all the results as a list, but you can use <code class="highlighter-rouge">izip</code> from <code class="highlighter-rouge">itertools</code> to make it a generator;</li>
+  <li><code class="highlighter-rouge">zip</code> truncates it’s output silently if you supply it with different length, if you cannot lose any data, use the <code class="highlighter-rouge">zip_longest</code> from <code class="highlighter-rouge">itertools</code>;</li>
+</ul>
+
+<h3 id="avoid-else-blocks-after-for-and-while-loops">1.12 avoid else blocks after for and while loops</h3>
+
+<h3 id="take-advantage-of-each-block-in-tryexceptelsefinally">1.13 take advantage of each block in try/except/else/finally</h3>
+
+<ul>
+  <li>the <code class="highlighter-rouge">try/finally</code> statements let you run cleanup code regardless whether there is exceptions in your <code class="highlighter-rouge">try</code> block or not;</li>
+</ul>
+
+<h2 id="functions">2. functions</h2>
+
+<h3 id="prefering-exceptions-to-return-none">2.1 prefering exceptions to return none</h3>
+
+<ul>
+  <li>functions that return <code class="highlighter-rouge">None</code> to indicate special meaning are error prone beacause <code class="highlighter-rouge">None</code> and other values (0, empty string, etc) are evaluated to <code class="highlighter-rouge">False</code> in the conditional expression;</li>
+  <li>Raise exceptions to indicate special situations instead of returning <code class="highlighter-rouge">None</code>, expect the calling code to handle the exceptions properly;</li>
+</ul>
+
+<h3 id="know-how-closures-interactive-with-variable-scope">2.2 know how closures interactive with variable scope</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">sort_priority</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>                 <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+   <span class="o">...</span><span class="p">:</span>                         <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>                 <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="n">values</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">helper</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">group</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">sort_priority</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">values</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
+
+<ul>
+  <li>python supports closures: functions that refer to variables from the scope in which they were defined. this is why helper function is able to access the group argument to <code class="highlighter-rouge">sort_priority</code>;</li>
+  <li>functions are first-class objects in python, meaning you can refer to them directly, assign them to variables, pass them as arguments to other functions, compare them in expressions and if statements, etc. this is how the sort method can accept a closure function as the key argument;</li>
+  <li>python has specific rules for comparing tuples. it first compares items in index zero, then index one and so on. this is why the return value from the helper closure causes the sort order to have two distinct groups.</li>
+  <li>when you refer a variable in an expression, the python interpreter will traverse the scope to resolve the reference in this order:
+    <ul>
+      <li>the current function’s scope;</li>
+      <li>any enclosing scope(like other containing functions)</li>
+      <li>the scope of the module that contains the code(also called the global scope)</li>
+      <li>the built-in scope</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="consider-generators-instead-of-returning-list">2.3 consider generators instead of returning list</h3>
+
+<ul>
+  <li>using generators can be clearer than the alternative of returning lists of accumulated results;</li>
+  <li>the iterator returned by a generator produces the set of values passed to yield expressions within the generator funtions’ body;</li>
+  <li>generators can produce a sequence of outputs for arbitrarily large inputs because their working memory doesn’t include all inputs and outputs;</li>
+</ul>
+
+<h3 id="be-defensive-when-iterating-over-arguments">2.4 be defensive when iterating over arguments</h3>
+
+<h3 id="reduce-visual-noise-with-variable-positional-arguments">2.5 reduce visual noise with variable positional arguments</h3>
+
+<ul>
+  <li>functions can accept a variable number of positional arguments by using <code class="highlighter-rouge">*args</code> in the def statement;</li>
+  <li>you can use the items from a sequence as the posistional arguments for a function with the <code class="highlighter-rouge">*</code> operator;</li>
+  <li>using the <code class="highlighter-rouge">*</code> operator with a generator may cause your program to ran out of memory and crash;</li>
+  <li>adding new positional parameters to functions that accept <code class="highlighter-rouge">*args</code> can introduce hard-to-find bugs;</li>
+</ul>
+
+<h3 id="provide-optional-behavior-with-keyword-argument">2.6 provide optional behavior with keyword argument</h3>
+
+<ul>
+  <li>function arguments can be positional or keyword arguments;</li>
+  <li>keyword arguments will make it clear when it will be confusing only using positional arguments;</li>
+  <li>keyword arguments with default values make it easy to add new behaviors, especially there exists some callers;</li>
+  <li>optional keyword should always be passed using keyword argument other than positional argument;</li>
+</ul>
+
+<h3 id="use-none-and-docstrings-to-specify-dynamic-default-arguments">2.7 use none and docstrings to specify dynamic default arguments</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># when the function is defined, default argument values are evaluated just once per module at the loading time.</span>
+
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()):</span>
+    <span class="k">print</span> <span class="s">'msg: {}, time: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_version</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span> <span class="k">if</span> <span class="n">time</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">'msg: {}, time: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_time</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>use None for default value is especially important when the argument is mutable;</li>
+  <li>default argument values are only evaluated once;</li>
+</ul>
+
+<h3 id="enforce-clarity-with-keyword-only-argument">2.8 enforce clarity with keyword only argument</h3>
+
+<ul>
+  <li>keyword argument make the intention of the function more clear;</li>
+  <li>prefer to use keyword arguments if possible, especially when there are many boolean flag arguments;</li>
+  <li>python 3 supports explicit syntax for keyword only arguments in functions;</li>
+  <li>python 2 can emulate keyword only argument by using <code class="highlighter-rouge">**kwargs</code> and manually throw <code class="highlighter-rouge">TypeError</code> exception;</li>
+</ul>
+
+<h2 id="classes-and-inheritance">3. Classes and Inheritance</h2>
+
+<h3 id="prefer-helper-classes-over-bookkeeping-with-dictionaries-and-tuples">3.1 prefer helper classes over bookkeeping with dictionaries and tuples</h3>
+
+<ul>
+  <li>avoid making dicts with values that are other dicts or long tuple;</li>
+  <li>use namedtuple for lightweight, immutable data containers before you need the flexibility of full class;</li>
+  <li>move your bookkeeping code to use multiple helper classes when your internal state dicts get complicated;</li>
+</ul>
+
+<h3 id="accept-functions-for-simple-interfaces-instead-of-classes">3.2 accept functions for simple interfaces instead of classes</h3>
+
+<ul>
+  <li>instead of defining classes, functions are often all you need for simple interfaces between components in python;</li>
+  <li>references to functions and methods in python are first class, meaning they can be used in expressions like any other type;</li>
+  <li>the <code class="highlighter-rouge">__call__</code> special method enables instances of a class to be called like plain python functions;</li>
+  <li>when you need a function to maintain state, consider defining a class that provides the <code class="highlighter-rouge">__call__</code> method instead of defining a stateful closure.</li>
+</ul>
+
+<h3 id="use-classmethod-polymorphism-to-construct-objects-generically">3.3 use @classmethod polymorphism to construct objects generically</h3>
+
+<ul>
+  <li>python only supports a single constructor per class, the <code class="highlighter-rouge">__init__</code> method;</li>
+  <li>use @classmethod to define alternative constructors for your classes;</li>
+  <li>use class method polymorphism to provide generic ways to build and connect concrete subclasses;</li>
+</ul>
+
+<h3 id="initialized-parent-classes-with-super">3.4 initialized parent classes with super</h3>
+
+<ul>
+  <li>python’s standard method to resolution order (MRO) solves the problems of superclass init order and diamond inheritance;</li>
+  <li>always use the super built-in function to init parent classes;</li>
+</ul>
+
+<h3 id="use-multiple-inheritance-only-for-mix-in-utility-classes">3.5 use multiple inheritance only for mix-in utility classes</h3>
+
+<ul>
+  <li>avoid using multiple inheritance if mix-in classes can achieve the same outcome;</li>
+  <li>use pluggable behaviors at the instance level to provide per-class customization when mix-in classes may require it;</li>
+  <li>compose mix-ins to create complex functionality from simple behaviors;</li>
+</ul>
+
+<h3 id="prefer-public-attributes-over-private-ones">3.6 prefer public attributes over private ones</h3>
+
+<ul>
+  <li>private attributes aren’t rigorously enforced by the python compiler;</li>
+  <li>plan from the beginning to allow subclasses to do more with your internal APIs and attributes instead of locking them out by default;</li>
+  <li>use documentation of protected fields to guide subclasses instead of trying to force access control with private attributes;</li>
+  <li>only consider using private attributes to avoid naming conflicts with subclasses that are out of your control;</li>
+</ul>
+
+<h3 id="inherit-from-collectionsabc-for-custom-container-types">3.7 inherit from collections.abc for custom container types</h3>
+
+<ul>
+  <li>inherit directly from python’s container types (list, dict) for simple use cases;</li>
+  <li>beaware of the large number of methods required to implement custom container types correctly;</li>
+  <li>have your custom container types inherit from the interfaces defined in collections.abc to ensure that your classes match required interfaces and behaviors;</li>
+</ul>
+
+<h2 id="metaclasses-and-attributes">4. metaclasses and attributes</h2>
+
+<h3 id="use-plain-attributes-instead-of-get-and-set-methods">4.1 use plain attributes instead of get and set methods</h3>
+
+<ul>
+  <li>define new class interfaces using simple public attributes and avoid set and get methods;</li>
+  <li>use @property to define special behavior when attributes are accessed on your objects, if necessary;</li>
+  <li>follow the rule of least surprise and avoid weird side effects in your @property methods;</li>
+  <li>ensure that @property methods are fast, do slow or complex work using normal methods;</li>
+</ul>
+
+<h3 id="consider-property-instead-of-refactoring-attributes">4.2 consider @property instead of refactoring attributes</h3>
+
+<ul>
+  <li>use @property to give existing instance attributes new functionality;</li>
+  <li>make incremental progress toward better data models by using @property;</li>
+  <li>consider refactoring a class and all call sites when you find yourself using @property too heavily;</li>
+</ul>
+
+<h3 id="use-descriptors-for-reusable-property-methods">4.3 use descriptors for reusable @property methods</h3>
+
+<ul>
+  <li>reuse the behavior and validation of @property methods by defining your own descriptor classes;</li>
+  <li>use WeakKeyDict to ensure that your descriptor classes don’t cause memory leaks;</li>
+  <li>don’t get bogged down trying to understand exactly how <code class="highlighter-rouge">__getattribute__</code> uses the descriptor protocol for getting and setting attrbutes;</li>
+</ul>
+
+<h3 id="use-getattr-getattribute-and-setattr-for-lazy-attributes">4.4 use <code class="highlighter-rouge">__getattr__</code>, <code class="highlighter-rouge">__getattribute__</code>, and <code class="highlighter-rouge">__setattr__</code> for lazy attributes</h3>
+
+<ul>
+  <li>use <code class="highlighter-rouge">__getattr__</code> and <code class="highlighter-rouge">__setattr__</code> to lazily load and save attributes for an object;</li>
+  <li>understand that <code class="highlighter-rouge">__getattr__</code> only gets called once when accessing a missing attribute, whereas <code class="highlighter-rouge">__getattribute__</code> gets called every time an attribute is accessed;</li>
+  <li>avoid infinite recursion in <code class="highlighter-rouge">__getattribute__</code> and <code class="highlighter-rouge">__setattr__</code> by using methods from super() to access instance attributes directly;</li>
+</ul>
+
+<h3 id="validate-subclass-with-metaclass">4.5 validate subclass with metaclass</h3>
+
+<ul>
+  <li>use metaclasses to ensure that subclasses are well formed at the time they are defined, before objects of their type are constructed;</li>
+  <li>metaclasses have slightly different syntax in python 2 and python 3;</li>
+  <li>the <code class="highlighter-rouge">__new__</code> method of metaclasses is run after the class statement’s entire body has been processed;</li>
+</ul>
+
+<h3 id="register-class-existence-with-metaclasses">4.6 register class existence with metaclasses</h3>
+
+<ul>
+  <li>class registeration is a helpful pattern for building modular python programs;</li>
+  <li>metaclasses let you run register code automatically each time your base class is subclassed in a program;</li>
+  <li>using metaclasses for class register avoids errors by ensuring that you never miss a register call;</li>
+</ul>
+
+<h3 id="annotate-class-attributes-with-metaclasses">4.7 annotate class attributes with metaclasses</h3>
+
+<ul>
+  <li>metaclasses enable you to modify a class’s attributes before the class is fully defined;</li>
+  <li>descriptors and metaclasses make a powerful combination for declarative behavior and runtime introspection;</li>
+  <li>you can avoid both memory leaks and the weakref module by using metaclasses along with descriptors;</li>
+</ul>
+
+<h2 id="concurrenc-and-parallelism">5. concurrenc and parallelism</h2>
+
+<h3 id="use-subprocess-to-manage-child-processes">5.1 use subprocess to manage child processes</h3>
+
+<ul>
+  <li>use the subprocess module to run child processes and manage their input and output manually;</li>
+  <li>child processes run in parallel with the python interpreter, enabling you to maximize your cpu usage;</li>
+  <li>use the timeout parameter with communicate to avoid deadlocks and hanging child proceses;</li>
+</ul>
+
+<h3 id="use-threads-for-blocking-io-avoid-for-parallelism">5.2 use threads for blocking i/o, avoid for parallelism</h3>
+
+<ul>
+  <li>python threads can’t run bytecode in parallel on multiple cpu cores because of the glow interpreter lock;</li>
+  <li>python threads are still useful despite the gil because they provide an easy way to do multiple things at seemingly the same time;</li>
+  <li>use python threads to make multiple system calls in parallel, this allows you to do blocking io at the same time as computation;</li>
+</ul>
+
+<h3 id="use-lock-to-prevent-data-races-in-threads">5.3 use lock to prevent data races in threads</h3>
+
+<ul>
+  <li>even though python has global interpreter lock, you’re still responsible for protecting against data races between the threads in your programs;</li>
+  <li>your programs will corrupt their data structures if you allow multiple threads to modify the same objects without locks;</li>
+  <li>the lock class in the threading built-in module is python’s standard mutual exclusion lock implementation;</li>
+</ul>
+
+<h3 id="use-queue-to-coordinate-work-between-threads">5.4 use queue to coordinate work between threads</h3>
+
+<ul>
+  <li>pipelines are a great way to organize sequences of work that run concurrently using multiple python threads;</li>
+  <li>be aware of the many problems in building concurrent pipelines: busy waiting, stopping workers and memory explosion;</li>
+  <li>the queue class has all of the facilities you need to build robust pipelines: blocking operations, buffer sizes and joining;</li>
+</ul>
+
+<h3 id="consider-coroutines-to-run-many-functions-concurrently">5.5 consider coroutines to run many functions concurrently</h3>
+
+<ul>
+  <li>coroutines provie an efficient way to run tens of thousands of functions seemingly at the same time;</li>
+  <li>within a generator, the value of the yield expression will be whatever value was passed to the generator’s send method from the exterior code;</li>
+  <li>coroutines give you a powerful tool for separating the core logic of your program from its interaction with the surrounding environment;</li>
+  <li>python 2 doesn’t support yield from or returning values from generators;</li>
+</ul>
+
+<h3 id="consider-concurrentfutures-for-true-parallelism">5.6 consider concurrent.futures for true parallelism</h3>
+
+<ul>
+  <li>moving cpu bottlenecks to c-extension modules can be an effective way to improve performance while maximizing your investment in python code. however, the cost of doing so is high and may introduce bugs;</li>
+  <li>the multiprocessing module provides powerful tools that can parallelize certain types of python computation with minimal effort;</li>
+  <li>the power of multiprocessing is best accessed through the concurrent.futures built-in module and its simple processpollexecutor class;</li>
+  <li>the advanced parts of the multiprocessing module should be avoided because they are so complex;</li>
+</ul>
+
+<h2 id="built-in-modules">6. built-in modules</h2>
+
+<h3 id="define-functions-decorators-with-functoolswraps">6.1 define functions decorators with functools.wraps</h3>
+
+<ul>
+  <li>decorators are python syntax for allowing one function to modify another function at runtime;</li>
+  <li>using decorators can cause strange behaviors in tools that do introspection, such as debuggers;</li>
+  <li>use the <code class="highlighter-rouge">wraps</code> decorator from the <code class="highlighter-rouge">functools</code> built-in modules when you define your own decorators to avoid any issues;</li>
+</ul>
+
+<h3 id="consider-contextlib-and-with-statements-for-reusable-tryfinally-behavior">6.2 consider contextlib and with statements for reusable try/finally behavior</h3>
+
+<ul>
+  <li>the with statement allow you to reuse logic from try/finally blocks and reduce visual noise;</li>
+  <li>the contextlib built-in module provides a contextmanager decorator that makes it easy to use your own functions in with statements;</li>
+  <li>the value yielded by context managers is supplied to the as part of the with statement. it’s useful for letting your code directly access the cause of the special context;</li>
+</ul>
+
+<h3 id="make-pickle-reliable-with-copyreg">6.3 make pickle reliable with copyreg</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">the</span> <span class="n">pickle</span> <span class="n">module</span><span class="s">'s serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.</span></code></pre></figure>
+
+<ul>
+  <li>the pickle module is only useful for serializing and deserializing objects between trusted programs;</li>
+  <li>the pickle module may break down when used for more than trivial use cases;</li>
+  <li>use the copyreg built-in module with pickle to add missing attribute values, allow versioning of classes, and provide stable import paths;</li>
+</ul>
+
+<h3 id="use-datetime-instead-of-time-for-local-clocks">6.4 use datetime instead of time for local clocks</h3>
+
+<ul>
+  <li>avoid using the time module for translating between different time zones;</li>
+  <li>use the datetime built-in module along with the pytz module to reiliably convert between times in different time zones;</li>
+  <li>always represent time in utc and do conversions to local time as the final step before presentation;</li>
+</ul>
+
+<h3 id="use-built-in-algorithms-and-data-structures">6.5 use built-in algorithms and data structures</h3>
+
+<ul>
+  <li>use python’s built-in modules for algorithms and data structures;</li>
+  <li>don’t reimplement this functionality yourself;</li>
+</ul>
+
+<h3 id="use-decimal-when-precising-is-paramount">6.6 use decimal when precising is paramount</h3>
+
+<ul>
+  <li>python has built-in types and classes in modules that can represent practically every type of numerical value;</li>
+  <li>the decimal class is ideal for situations that require high precision and exact rounding behavior, such as computations of monetary values;</li>
+</ul>
+
+<h3 id="know-where-to-find-community-built-modules">6.7 know where to find community-built modules</h3>
+
+<h2 id="collaboration">7. collaboration</h2>
+
+<h3 id="write-docstring-for-every-function-class-and-module">7.1 write docstring for every function, class and module</h3>
+
+<ul>
+  <li>write documentation for every module, class and function using docstrings. keep them up to date as your code changes;</li>
+  <li>for modules, introduce the contents of the module and any important classes or functions all users should know about;</li>
+  <li>for classes, document behavior, important attributes and subclass behavior in the docstring following the class statement;</li>
+  <li>for functions and methods, document every argument, returned value, raised exception and other behaviors in the docstring following the def statement;</li>
+</ul>
+
+<h3 id="use-packages-to-organize-modules-and-provide-stable-apis">7.2 use packages to organize modules and provide stable apis</h3>
+
+<ul>
+  <li>packages in python are modules that contain other modules, packages allow you to organize your code into separate, non-conflicting namespaces with unique absolute module names;</li>
+  <li>simple packages are defined by adding an <code class="highlighter-rouge">__init__.py</code> file to a directory that contains other source files. these files become the child modules of the directory’s package, package directories may also contain other packages;</li>
+  <li>you can provide an explicit api for a module by listing its publicly visible names in its <code class="highlighter-rouge">__all__</code> special attribute;</li>
+  <li>you can hide a package’s internal implementation by only importing public names in the package’s <code class="highlighter-rouge">__init__.py</code> file or by naming internal-only members with a leading underscore;</li>
+  <li>when collaborating within a single team or on a single codebase, using <code class="highlighter-rouge">__call__</code> for explicit apis is probably unnecessary;</li>
+</ul>
+
+<h3 id="define-a-root-exception-to-insulate-callers-from-apis">7.3 define a root exception to insulate callers from apis</h3>
+
+<ul>
+  <li>define root exceptions for your modules allows api consumers to insulate themselves from your api;</li>
+  <li>catching root exception can help your modules allows api consumers to insulate themselves from your api;</li>
+  <li>catching the python exception base class can help you find bugs in api implementation;</li>
+  <li>intermediate root exceptions let you add more specific types of exceptions in the future without breaking your api consumers;</li>
+</ul>
+
+<h3 id="know-how-to-break-circular-dependecies">7.4 know how to break circular dependecies</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># dialog.py</span>
+<span class="kn">import</span> <span class="nn">app</span>
+
+<span class="k">class</span> <span class="nc">Dialog</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="n">save_dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">prefs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"hello"</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="c"># app.py</span>
+<span class="kn">import</span> <span class="nn">dialog</span>
+
+<span class="k">class</span> <span class="nc">Prefs</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="n">prefs</span> <span class="o">=</span> <span class="n">Prefs</span><span class="p">()</span>
+<span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+<p>then if you use app.py in your project, you’ll absolutely get an error like bellow:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">app</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="nb">AttributeError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">f8537898a049</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="kn">import</span> <span class="nn">app</span>
+
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">chenshan</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="kn">import</span> <span class="nn">dialog</span>
+      <span class="mi">2</span>
+      <span class="mi">3</span> <span class="c"># import ipdb; ipdb.set_trace()</span>
+      <span class="mi">4</span>
+      <span class="mi">5</span> <span class="k">class</span> <span class="nc">Prefs</span><span class="p">():</span>
+
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">chenshan</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">dialog</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+      <span class="mi">8</span>         <span class="k">pass</span>
+      <span class="mi">9</span>
+<span class="o">---&gt;</span> <span class="mi">10</span> <span class="n">save_dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">prefs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"hello"</span><span class="p">))</span>
+     <span class="mi">11</span>
+     <span class="mi">12</span> <span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
+
+<span class="nb">AttributeError</span><span class="p">:</span> <span class="s">'module'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'prefs'</span></code></pre></figure>
+
+<p>the problem with a circular dependency is that the attributes of a module aren’t defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it’s inserted into sys.modules(after step 4)</p>
+
+<p>in the example above,</p>
+
+<ol>
+  <li>the app.py import dialog before doing anything</li>
+  <li>then, dialog.py import app firstly, currently the <code class="highlighter-rouge">imported app is just an empty module</code></li>
+  <li>then, in dailog.py, the <code class="highlighter-rouge">save_dialog = Dialog(app.prefs.get("hello"))</code>, at that time, we’re sure that there are really a module named <code class="highlighter-rouge">app</code> exists in current runtime, but it’s an empty module, so will raise an attribute error like this.</li>
+</ol>
+
+<ul>
+  <li>python import machinery:
+    <ul>
+      <li>searches for your module in locations from sys.path</li>
+      <li>loads the code from the module and ensures that it compiles</li>
+      <li>creates a corresponding empty module object</li>
+      <li>inserts the module into sys.modules</li>
+      <li>runs the code in the module object to define its contents</li>
+    </ul>
+  </li>
+  <li><a href="http://localhost:4000/python-cycle-import/">sever ways to break circular imports</a>
+    <ul>
+      <li>reorder imports</li>
+      <li>import first, config second, run last</li>
+      <li>dynamic import</li>
+      <li>re-strucuture or re-factory your code</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="use-virtual-env-for-isonated-and-reproducible-dependences">7.5 use virtual env for isonated and reproducible dependences</h3>
+
+<h2 id="production">8. Production</h2>
+
+<h3 id="consider-module-scoped-code-to-configure-deployment-env">8.1 consider module-scoped code to configure deployment env</h3>
+
+<h3 id="use-repr-string-for-debugging-output">8.2 use repr string for debugging output</h3>
+
+<h3 id="test-everything-with-unittest">8.3 test everything with unittest</h3>
+
+<h3 id="consider-interactive-debugging-with-pdb">8.4 consider interactive debugging with pdb</h3>
+
+<h3 id="profile-before-optimizing">8.5 profile before optimizing</h3>
+
+<h3 id="use-tracemalloc-to-understand-memory-usage-and-leaks">8.6 use tracemalloc to understand memory usage and leaks</h3>
+
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/effective-python" data-title="『 读书笔记 』effective Python"
+         data-content="content"
+         data-url="http://litaotao.github.io//effective-python">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/effective-python data-title=『 读书笔记 』effective Python data-url=/effective-python></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

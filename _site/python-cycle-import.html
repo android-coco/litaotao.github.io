@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,8 +46,7 @@
     <p class="entry-date">2015-11-09 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-11-09-python-cycle-import.md">最后更新时间: </span></p>
 
 
-    <h1 id="section">#</h1>
-<p>## 1. import module 流程</p>
+    <h2 id="import-module-">1. import module 流程</h2>
 
 <p>首先，明确一下 <code class="highlighter-rouge">import module_name</code> 和 <code class="highlighter-rouge">from module_name import module_element</code> 是两条可执行的语句。
 其次，<code class="highlighter-rouge">sys.modules</code> 里记录了当前 run time 下所有已经导出的 module。</p>
@@ -81,7 +79,7 @@
   </li>
 </ul>
 
-<h2 id="section-1">2. 如何避免循环引用</h2>
+<h2 id="section">2. 如何避免循环引用</h2>
 
 <ul>
   <li>延迟导入(lazy import)</li>
@@ -89,7 +87,7 @@
   <li>合理组织代码</li>
 </ul>
 
-<h2 id="section-2">参考文档</h2>
+<h2 id="section-1">参考文档</h2>
 
 <ul>
   <li><a href="http://stackoverflow.com/questions/744373/circular-or-cyclic-imports-in-python">Circular (or cyclic) imports in Python</a></li>

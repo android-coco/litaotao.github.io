@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,27 +46,22 @@
     <p class="entry-date">2015-10-25 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-25-python-if-else-usage.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 常规的 if else 用法</p>
+    <h2 id="if-else-">1. 常规的 if else 用法</h2>
 
-<p>```
-x = True</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="bp">True</span>
 
-<p>if x:
-    print ‘x is true’
-else:
-    print ‘x is not true’
-```</p>
+<span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'x is true'</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'x is not true'</span></code></pre></figure>
 
-<h2 id="if-else-">2. if else 快捷用法</h2>
+<h2 id="if-else--1">2. if else 快捷用法</h2>
 
 <p>这里的 <code class="highlighter-rouge">if else</code> 可以作为三元操作符使用。</p>
 
-<p><code class="highlighter-rouge">
-mark = 40
-is_pass = True if mark &gt;= 50 else False
-print "Pass? " + str(is_pass)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mark</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">is_pass</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="k">else</span> <span class="bp">False</span>
+<span class="k">print</span> <span class="s">"Pass? "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">is_pass</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="for-">3. 与 <code class="highlighter-rouge">for</code> 关键字一起用</h2>
 
@@ -78,21 +72,19 @@ print "Pass? " + str(is_pass)
   <li>for 循环里的语句没有被 <code class="highlighter-rouge">break</code> 语句打断</li>
 </ul>
 
-<p>```
-# 打印 <code class="highlighter-rouge">For loop completed the execution</code>
-for i in range(10):
-    print i
-else:
-    print ‘For loop completed the execution’</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># 打印 `For loop completed the execution`</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'For loop completed the execution'</span>
 
-<h1 id="for-loop-completed-the-execution">不打印 <code class="highlighter-rouge">For loop completed the execution</code></h1>
-<p>for i in range(10):
-    print i
-    if i == 5:
-        break
-else:
-    print ‘For loop completed the execution’
-```</p>
+<span class="c"># 不打印 `For loop completed the execution`</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'For loop completed the execution'</span></code></pre></figure>
 
 <h2 id="while-">4. 与 <code class="highlighter-rouge">while</code> 关键字一起用</h2>
 
@@ -103,45 +95,41 @@ else:
   <li>while 循环里的语句没有被 <code class="highlighter-rouge">break</code> 语句打断</li>
 </ul>
 
-<p>```
-# 打印 <code class="highlighter-rouge">While loop execution completed</code>
-a = 0
-loop = 0
-while a &lt;= 10:
-    print a
-    loop += 1
-    a += 1
-else:
-    print “While loop execution completed”</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># 打印 `While loop execution completed`</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">a</span>
+    <span class="n">loop</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"While loop execution completed"</span>
 
-<h1 id="while-loop-execution-completed">不打印 <code class="highlighter-rouge">While loop execution completed</code></h1>
-<p>a = 50
-loop = 0
-while a &gt; 10:
-    print a
-    if loop == 5:
-        break
-    a += 1
-    loop += 1
-else:
-    print “While loop execution completed”
-```</p>
+<span class="c"># 不打印 `While loop execution completed`</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">a</span>
+    <span class="k">if</span> <span class="n">loop</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">loop</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"While loop execution completed"</span></code></pre></figure>
 
 <h2 id="try-except-">5. 与 <code class="highlighter-rouge">try except</code> 一起用</h2>
 
 <p>和 <code class="highlighter-rouge">try except</code> 一起使用时，如果不抛出异常，<code class="highlighter-rouge">else</code>里的语句就能被执行。</p>
 
-<p><code class="highlighter-rouge">
-file_name = "result.txt"
-try:
-    f = open(file_name, 'r')
-except IOError:
-    print 'cannot open', file_name
-else:
-    # Executes only if file opened properly
-    print file_name, 'has', len(f.readlines()), 'lines'
-    f.close()
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">file_name</span> <span class="o">=</span> <span class="s">"result.txt"</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">IOError</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'cannot open'</span><span class="p">,</span> <span class="n">file_name</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c"># Executes only if file opened properly</span>
+    <span class="k">print</span> <span class="n">file_name</span><span class="p">,</span> <span class="s">'has'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()),</span> <span class="s">'lines'</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
 
 <h2 id="section">参考文档</h2>
 

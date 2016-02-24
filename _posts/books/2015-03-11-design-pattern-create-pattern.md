@@ -2,11 +2,10 @@
 category: books
 published: true
 layout: post
-title: book-3. 设计模式总结之创建型模式
+title: 『 读书笔记 』 设计模式总结之创建型模式
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---  
 
-## 
 ## 1. 抽象工厂模式
 　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。
 
@@ -20,7 +19,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 
 　　源码来自[github:python-patterns](https://github.com/faif/python-patterns/)
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -113,8 +113,8 @@ if __name__ == "__main__":
 # It says meow
 # We also have cat food
 # ====================
-```
 
+{% endhighlight %}
 
 ## 2.工厂方法模式
 　　工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”
@@ -131,7 +131,8 @@ if __name__ == "__main__":
 
 　　源码来自[github:python-patterns](https://github.com/faif/python-patterns/)
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -177,7 +178,9 @@ for msgid in "dog parrot cat bear".split():
 # parrot parrot
 # cat γάτα
 # bear bear
-```
+
+{% endhighlight %}
+
 
 ## 3. 单例模式
 　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。
@@ -189,7 +192,8 @@ for msgid in "dog parrot cat bear".split():
 ### 3.1 Python源码示例
 　　源码来自[csdn.net](http://blog.csdn.net/ghostfromheaven/article/details/7671853)
 
-```
+{% highlight python %}
+
 #-*- encoding=utf-8 -*-
 print '----------------------方法1--------------------------'
 #方法1,实现__new__方法
@@ -327,7 +331,9 @@ print one.x
 #1
 print two.x
 #1
-```
+
+{% endhighlight %}
+
 
 ## 扫一扫     
 

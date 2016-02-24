@@ -10,7 +10,8 @@ description: 通过仔细分析《Erlang and OTP in Action》中第六章的练�
 　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：
 
-```
+{% highlight shell%}
+
 chenshan@mac007 6-EOIA$tree
 .
 ├── ebin
@@ -29,7 +30,8 @@ chenshan@mac007 6-EOIA$tree
     ├── sc_store.erl
     ├── sc_sup.erl
     └── simple_cache.erl
-```
+
+{% endhighlight %}
 
 **小提示：**   
 > 1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；  
@@ -37,7 +39,8 @@ chenshan@mac007 6-EOIA$tree
 
 　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。   
 
-```
+{% highlight shell%}
+
 chenshan@mac007 6-EOIA$cd ebin/
 chenshan@mac007 ebin$erl
 Erlang/OTP 17 [erts-6.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
@@ -78,16 +81,18 @@ Eshell V6.1  (abort with ^G)
                                {line,294}]}]}}}}
     type: temporary
 2> 
-```
+{% endhighlight %}
 
 ## 2. 看看application行为在启动一个otp应用的简单流程
 　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：
 
-```
+{% highlight shell%}
+
 Eshell V6.1  (abort with ^G)
 1> code:which(application).
 "/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam"
-```
+
+{% endhighlight %}
 
 　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：  
 > 
@@ -99,18 +104,22 @@ Eshell V6.1  (abort with ^G)
 
 　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：  
 
-```
+{% highlight shell%}
+
 root@kali:~/Desktop/erl/6-EOIA/ebin# mkdir ~/Desktop/temp
 root@kali:~/Desktop/erl/6-EOIA/ebin# cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application*.erl ~/Desktop/ temp/
 root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/te
 temp/ test/
 root@kali:~/Desktop/erl/6-EOIA/ebin# ls ~/Desktop/temp/
 application_controller.erl  application.erl  application_master.erl  application_starter.erl
-```
+
+{% endhighlight%}
+
 
 　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。  
 
-```
+{% highlight erlang %}
+
 -spec start(Application) -> 'ok' | {'error', Reason} when
       Application :: atom(),
       Reason :: term().
@@ -133,7 +142,8 @@ start(Application, RestartType) ->
   Error ->
       Error
     end.
-```
+
+{% endhighlight %}
 
 　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：  
 > 
@@ -157,7 +167,8 @@ start(Application, RestartType) ->
 ### 3.1 load过程中容易发生错误的地方  
 - do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。
 
-```
+{% highlight erlang %}
+
 do_load_application(Application, S) ->
     case get_loaded(Application) of
         {true, _} ->
@@ -168,11 +179,12 @@ do_load_application(Application, S) ->
                 Error -> Error
             end
     end.
-```
+{% endhighlight %}
 
 - 在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即`{reply, ok, NewS}`，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。
 
-```
+{% highlight erlang %}
+
 handle_call({load_application, Application}, From, S) ->
     case catch do_load_application(Application, S) of
         {ok, NewS} ->
@@ -189,7 +201,8 @@ handle_call({load_application, Application}, From, S) ->
         {'EXIT', R} ->
             {reply, {error, R}, S}
     end;
-```
+{% endhighlight %}
+
 　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句`[{file,"../src/sc_app.erl"},{line,6}]},`， 我在sc_app.erl的第六行写错了一个字母，so...，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。
 
 

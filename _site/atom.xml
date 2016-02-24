@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-02-05T14:43:47+08:00</updated>
+   <updated>2016-02-24T17:55:26+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -123,17 +123,570 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
    </entry>
    
    <entry>
+     <title>『 读书笔记 』effective Python</title>
+     <link href="/effective-python"/>
+     <updated>2015-12-30T00:00:00+08:00</updated>
+     <id>/effective-python</id>
+     <content type="html">&lt;h2 id=&quot;pythonic-thinking&quot;&gt;1. Pythonic Thinking&lt;/h2&gt;
+
+&lt;h3 id=&quot;know-which-version-of-python-youre-using&quot;&gt;1.1 know which version of python you’re using&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;two major python version;&lt;/li&gt;
+  &lt;li&gt;multiple popular &lt;code class=&quot;highlighter-rouge&quot;&gt;runtimes&lt;/code&gt; for python: cpython, jython, ironpython, pypy, etc;&lt;/li&gt;
+  &lt;li&gt;be sure that the command line for running python on your system is the version you want;&lt;/li&gt;
+  &lt;li&gt;prefer python 3 in your next project;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;follow-the-pep-8-style-guide&quot;&gt;1.2 follow the pep 8 style guide&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;always follow the pep 8 style guide;&lt;/li&gt;
+  &lt;li&gt;sharing a common style with the larger community facilitates collaboration with others;&lt;/li&gt;
+  &lt;li&gt;using a consistent style, making it easier to maintain your code later;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;know-the-differences-between-bytes-str-and-unicode&quot;&gt;1.3 know the differences between bytes, str and unicode&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html&quot;&gt;PYTHON-进阶-编码处理小结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/evening/archive/2012/04/19/2457440.html&quot;&gt;python encode和decode函数说明&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;in python 3, bytes contains sequences of 8-bit values, str contains sequences of unicode characters. bytes and str instances can’t be used together with operators.&lt;/li&gt;
+  &lt;li&gt;in python 2, str contains sequences of 8-bit, unicode contains sequences of unicode characters. str and unicode can be used together with operators if the str only contains 7-bit ascii characters;&lt;/li&gt;
+  &lt;li&gt;if you want to read or write binary data to/from a file, always open the file using a binary mode (like ‘rb’, ‘wb’);&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;wirte-helper-functions-instead-of-complex-expressions&quot;&gt;1.4 wirte helper functions instead of complex expressions&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python’s syntax make it easy to write a single line expression that are overly difficult to read;&lt;/li&gt;
+  &lt;li&gt;move complex single line expressions to helper functions;&lt;/li&gt;
+  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;if/else&lt;/code&gt; expression make it more readable to alternative using bool operators like &lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;know-how-to-slice-sequence&quot;&gt;1.5 know how to slice sequence&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;avoid being verbose, do not use [0] and [len(sequence)] to fetch the first or end element of a sequence;&lt;/li&gt;
+  &lt;li&gt;assign to a list slice will replace the origin data in that slice part even if the new data’s length does not equal with the old one;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;avoid-using-start-end-and-stride-in-a-single-slice&quot;&gt;1.6 avoid using start, end and stride in a single slice&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;specifying start, end and stride in a slice can be extremely confusing;&lt;/li&gt;
+  &lt;li&gt;avoid negative stride if possible;&lt;/li&gt;
+  &lt;li&gt;avoid using start, end and stride in a single slice, consider doing two assignments(one to slice, the other to stride) or using islice from the itertools module;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-list-comprehension-instead-of-map-and-filter&quot;&gt;1.7 use list comprehension instead of map and filter&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;list comprehension is more clearer than map and filter because it does not need another &lt;code class=&quot;highlighter-rouge&quot;&gt;lambda&lt;/code&gt; expression;&lt;/li&gt;
+  &lt;li&gt;list comprehension allows to skip items from the input list, but map can not make that without using &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;dict and set also support comprehension;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;avoid-more-than-two-expressions-in-list-comprehension&quot;&gt;1.8 avoid more than two expressions in list comprehension&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;list comprehension support multiple levels of loops and multiple conditions per loop;&lt;/li&gt;
+  &lt;li&gt;list comprehension with two expressions are difficult to read in some degree;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-generator-for-large-list-comprehension&quot;&gt;1.9 consider generator for large list comprehension&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;list comprehension can consume large memory for large input;&lt;/li&gt;
+  &lt;li&gt;generator can avoid memory issues by produce one item each time;&lt;/li&gt;
+  &lt;li&gt;generator can execute very quickly when chained together;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;prefer-enumerate-over-range&quot;&gt;1.10 prefer enumerate over range&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;index : {}, item : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;enumerate provides a concise syntax for looping an iterator and getting the index for each item;&lt;/li&gt;
+  &lt;li&gt;prefer enumerate instead looping over a range and indexing for each item;&lt;/li&gt;
+  &lt;li&gt;you can specify a number to the enumerate function, specifying the index you want to iterate with;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-zip-to-process-iterators-in-parallel&quot;&gt;1.11 use zip to process iterators in parallel&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; can be used to iterate over multiple iterators;&lt;/li&gt;
+  &lt;li&gt;in python 3, &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; is a lazy generator, in python 2, &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; return all the results as a list, but you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;izip&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;itertools&lt;/code&gt; to make it a generator;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; truncates it’s output silently if you supply it with different length, if you cannot lose any data, use the &lt;code class=&quot;highlighter-rouge&quot;&gt;zip_longest&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;itertools&lt;/code&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;avoid-else-blocks-after-for-and-while-loops&quot;&gt;1.12 avoid else blocks after for and while loops&lt;/h3&gt;
+
+&lt;h3 id=&quot;take-advantage-of-each-block-in-tryexceptelsefinally&quot;&gt;1.13 take advantage of each block in try/except/else/finally&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;try/finally&lt;/code&gt; statements let you run cleanup code regardless whether there is exceptions in your &lt;code class=&quot;highlighter-rouge&quot;&gt;try&lt;/code&gt; block or not;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;functions&quot;&gt;2. functions&lt;/h2&gt;
+
+&lt;h3 id=&quot;prefering-exceptions-to-return-none&quot;&gt;2.1 prefering exceptions to return none&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;functions that return &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; to indicate special meaning are error prone beacause &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; and other values (0, empty string, etc) are evaluated to &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; in the conditional expression;&lt;/li&gt;
+  &lt;li&gt;Raise exceptions to indicate special situations instead of returning &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;, expect the calling code to handle the exceptions properly;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;know-how-closures-interactive-with-variable-scope&quot;&gt;2.2 know how closures interactive with variable scope&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sort_priority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;helper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_priority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python supports closures: functions that refer to variables from the scope in which they were defined. this is why helper function is able to access the group argument to &lt;code class=&quot;highlighter-rouge&quot;&gt;sort_priority&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;functions are first-class objects in python, meaning you can refer to them directly, assign them to variables, pass them as arguments to other functions, compare them in expressions and if statements, etc. this is how the sort method can accept a closure function as the key argument;&lt;/li&gt;
+  &lt;li&gt;python has specific rules for comparing tuples. it first compares items in index zero, then index one and so on. this is why the return value from the helper closure causes the sort order to have two distinct groups.&lt;/li&gt;
+  &lt;li&gt;when you refer a variable in an expression, the python interpreter will traverse the scope to resolve the reference in this order:
+    &lt;ul&gt;
+      &lt;li&gt;the current function’s scope;&lt;/li&gt;
+      &lt;li&gt;any enclosing scope(like other containing functions)&lt;/li&gt;
+      &lt;li&gt;the scope of the module that contains the code(also called the global scope)&lt;/li&gt;
+      &lt;li&gt;the built-in scope&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-generators-instead-of-returning-list&quot;&gt;2.3 consider generators instead of returning list&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;using generators can be clearer than the alternative of returning lists of accumulated results;&lt;/li&gt;
+  &lt;li&gt;the iterator returned by a generator produces the set of values passed to yield expressions within the generator funtions’ body;&lt;/li&gt;
+  &lt;li&gt;generators can produce a sequence of outputs for arbitrarily large inputs because their working memory doesn’t include all inputs and outputs;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;be-defensive-when-iterating-over-arguments&quot;&gt;2.4 be defensive when iterating over arguments&lt;/h3&gt;
+
+&lt;h3 id=&quot;reduce-visual-noise-with-variable-positional-arguments&quot;&gt;2.5 reduce visual noise with variable positional arguments&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;functions can accept a variable number of positional arguments by using &lt;code class=&quot;highlighter-rouge&quot;&gt;*args&lt;/code&gt; in the def statement;&lt;/li&gt;
+  &lt;li&gt;you can use the items from a sequence as the posistional arguments for a function with the &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; operator;&lt;/li&gt;
+  &lt;li&gt;using the &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; operator with a generator may cause your program to ran out of memory and crash;&lt;/li&gt;
+  &lt;li&gt;adding new positional parameters to functions that accept &lt;code class=&quot;highlighter-rouge&quot;&gt;*args&lt;/code&gt; can introduce hard-to-find bugs;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;provide-optional-behavior-with-keyword-argument&quot;&gt;2.6 provide optional behavior with keyword argument&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;function arguments can be positional or keyword arguments;&lt;/li&gt;
+  &lt;li&gt;keyword arguments will make it clear when it will be confusing only using positional arguments;&lt;/li&gt;
+  &lt;li&gt;keyword arguments with default values make it easy to add new behaviors, especially there exists some callers;&lt;/li&gt;
+  &lt;li&gt;optional keyword should always be passed using keyword argument other than positional argument;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-none-and-docstrings-to-specify-dynamic-default-arguments&quot;&gt;2.7 use none and docstrings to specify dynamic default arguments&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# when the function is defined, default argument values are evaluated just once per module at the loading time.&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;msg: {}, time: {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;msg_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;msg: {}, time: {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use None for default value is especially important when the argument is mutable;&lt;/li&gt;
+  &lt;li&gt;default argument values are only evaluated once;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;enforce-clarity-with-keyword-only-argument&quot;&gt;2.8 enforce clarity with keyword only argument&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;keyword argument make the intention of the function more clear;&lt;/li&gt;
+  &lt;li&gt;prefer to use keyword arguments if possible, especially when there are many boolean flag arguments;&lt;/li&gt;
+  &lt;li&gt;python 3 supports explicit syntax for keyword only arguments in functions;&lt;/li&gt;
+  &lt;li&gt;python 2 can emulate keyword only argument by using &lt;code class=&quot;highlighter-rouge&quot;&gt;**kwargs&lt;/code&gt; and manually throw &lt;code class=&quot;highlighter-rouge&quot;&gt;TypeError&lt;/code&gt; exception;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;classes-and-inheritance&quot;&gt;3. Classes and Inheritance&lt;/h2&gt;
+
+&lt;h3 id=&quot;prefer-helper-classes-over-bookkeeping-with-dictionaries-and-tuples&quot;&gt;3.1 prefer helper classes over bookkeeping with dictionaries and tuples&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;avoid making dicts with values that are other dicts or long tuple;&lt;/li&gt;
+  &lt;li&gt;use namedtuple for lightweight, immutable data containers before you need the flexibility of full class;&lt;/li&gt;
+  &lt;li&gt;move your bookkeeping code to use multiple helper classes when your internal state dicts get complicated;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;accept-functions-for-simple-interfaces-instead-of-classes&quot;&gt;3.2 accept functions for simple interfaces instead of classes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;instead of defining classes, functions are often all you need for simple interfaces between components in python;&lt;/li&gt;
+  &lt;li&gt;references to functions and methods in python are first class, meaning they can be used in expressions like any other type;&lt;/li&gt;
+  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; special method enables instances of a class to be called like plain python functions;&lt;/li&gt;
+  &lt;li&gt;when you need a function to maintain state, consider defining a class that provides the &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; method instead of defining a stateful closure.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-classmethod-polymorphism-to-construct-objects-generically&quot;&gt;3.3 use @classmethod polymorphism to construct objects generically&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python only supports a single constructor per class, the &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__&lt;/code&gt; method;&lt;/li&gt;
+  &lt;li&gt;use @classmethod to define alternative constructors for your classes;&lt;/li&gt;
+  &lt;li&gt;use class method polymorphism to provide generic ways to build and connect concrete subclasses;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;initialized-parent-classes-with-super&quot;&gt;3.4 initialized parent classes with super&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python’s standard method to resolution order (MRO) solves the problems of superclass init order and diamond inheritance;&lt;/li&gt;
+  &lt;li&gt;always use the super built-in function to init parent classes;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-multiple-inheritance-only-for-mix-in-utility-classes&quot;&gt;3.5 use multiple inheritance only for mix-in utility classes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;avoid using multiple inheritance if mix-in classes can achieve the same outcome;&lt;/li&gt;
+  &lt;li&gt;use pluggable behaviors at the instance level to provide per-class customization when mix-in classes may require it;&lt;/li&gt;
+  &lt;li&gt;compose mix-ins to create complex functionality from simple behaviors;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;prefer-public-attributes-over-private-ones&quot;&gt;3.6 prefer public attributes over private ones&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;private attributes aren’t rigorously enforced by the python compiler;&lt;/li&gt;
+  &lt;li&gt;plan from the beginning to allow subclasses to do more with your internal APIs and attributes instead of locking them out by default;&lt;/li&gt;
+  &lt;li&gt;use documentation of protected fields to guide subclasses instead of trying to force access control with private attributes;&lt;/li&gt;
+  &lt;li&gt;only consider using private attributes to avoid naming conflicts with subclasses that are out of your control;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;inherit-from-collectionsabc-for-custom-container-types&quot;&gt;3.7 inherit from collections.abc for custom container types&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;inherit directly from python’s container types (list, dict) for simple use cases;&lt;/li&gt;
+  &lt;li&gt;beaware of the large number of methods required to implement custom container types correctly;&lt;/li&gt;
+  &lt;li&gt;have your custom container types inherit from the interfaces defined in collections.abc to ensure that your classes match required interfaces and behaviors;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;metaclasses-and-attributes&quot;&gt;4. metaclasses and attributes&lt;/h2&gt;
+
+&lt;h3 id=&quot;use-plain-attributes-instead-of-get-and-set-methods&quot;&gt;4.1 use plain attributes instead of get and set methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;define new class interfaces using simple public attributes and avoid set and get methods;&lt;/li&gt;
+  &lt;li&gt;use @property to define special behavior when attributes are accessed on your objects, if necessary;&lt;/li&gt;
+  &lt;li&gt;follow the rule of least surprise and avoid weird side effects in your @property methods;&lt;/li&gt;
+  &lt;li&gt;ensure that @property methods are fast, do slow or complex work using normal methods;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-property-instead-of-refactoring-attributes&quot;&gt;4.2 consider @property instead of refactoring attributes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use @property to give existing instance attributes new functionality;&lt;/li&gt;
+  &lt;li&gt;make incremental progress toward better data models by using @property;&lt;/li&gt;
+  &lt;li&gt;consider refactoring a class and all call sites when you find yourself using @property too heavily;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-descriptors-for-reusable-property-methods&quot;&gt;4.3 use descriptors for reusable @property methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;reuse the behavior and validation of @property methods by defining your own descriptor classes;&lt;/li&gt;
+  &lt;li&gt;use WeakKeyDict to ensure that your descriptor classes don’t cause memory leaks;&lt;/li&gt;
+  &lt;li&gt;don’t get bogged down trying to understand exactly how &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; uses the descriptor protocol for getting and setting attrbutes;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-getattr-getattribute-and-setattr-for-lazy-attributes&quot;&gt;4.4 use &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; for lazy attributes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; to lazily load and save attributes for an object;&lt;/li&gt;
+  &lt;li&gt;understand that &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt; only gets called once when accessing a missing attribute, whereas &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; gets called every time an attribute is accessed;&lt;/li&gt;
+  &lt;li&gt;avoid infinite recursion in &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; by using methods from super() to access instance attributes directly;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;validate-subclass-with-metaclass&quot;&gt;4.5 validate subclass with metaclass&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use metaclasses to ensure that subclasses are well formed at the time they are defined, before objects of their type are constructed;&lt;/li&gt;
+  &lt;li&gt;metaclasses have slightly different syntax in python 2 and python 3;&lt;/li&gt;
+  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;__new__&lt;/code&gt; method of metaclasses is run after the class statement’s entire body has been processed;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;register-class-existence-with-metaclasses&quot;&gt;4.6 register class existence with metaclasses&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;class registeration is a helpful pattern for building modular python programs;&lt;/li&gt;
+  &lt;li&gt;metaclasses let you run register code automatically each time your base class is subclassed in a program;&lt;/li&gt;
+  &lt;li&gt;using metaclasses for class register avoids errors by ensuring that you never miss a register call;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;annotate-class-attributes-with-metaclasses&quot;&gt;4.7 annotate class attributes with metaclasses&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;metaclasses enable you to modify a class’s attributes before the class is fully defined;&lt;/li&gt;
+  &lt;li&gt;descriptors and metaclasses make a powerful combination for declarative behavior and runtime introspection;&lt;/li&gt;
+  &lt;li&gt;you can avoid both memory leaks and the weakref module by using metaclasses along with descriptors;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;concurrenc-and-parallelism&quot;&gt;5. concurrenc and parallelism&lt;/h2&gt;
+
+&lt;h3 id=&quot;use-subprocess-to-manage-child-processes&quot;&gt;5.1 use subprocess to manage child processes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use the subprocess module to run child processes and manage their input and output manually;&lt;/li&gt;
+  &lt;li&gt;child processes run in parallel with the python interpreter, enabling you to maximize your cpu usage;&lt;/li&gt;
+  &lt;li&gt;use the timeout parameter with communicate to avoid deadlocks and hanging child proceses;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-threads-for-blocking-io-avoid-for-parallelism&quot;&gt;5.2 use threads for blocking i/o, avoid for parallelism&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python threads can’t run bytecode in parallel on multiple cpu cores because of the glow interpreter lock;&lt;/li&gt;
+  &lt;li&gt;python threads are still useful despite the gil because they provide an easy way to do multiple things at seemingly the same time;&lt;/li&gt;
+  &lt;li&gt;use python threads to make multiple system calls in parallel, this allows you to do blocking io at the same time as computation;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-lock-to-prevent-data-races-in-threads&quot;&gt;5.3 use lock to prevent data races in threads&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;even though python has global interpreter lock, you’re still responsible for protecting against data races between the threads in your programs;&lt;/li&gt;
+  &lt;li&gt;your programs will corrupt their data structures if you allow multiple threads to modify the same objects without locks;&lt;/li&gt;
+  &lt;li&gt;the lock class in the threading built-in module is python’s standard mutual exclusion lock implementation;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-queue-to-coordinate-work-between-threads&quot;&gt;5.4 use queue to coordinate work between threads&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pipelines are a great way to organize sequences of work that run concurrently using multiple python threads;&lt;/li&gt;
+  &lt;li&gt;be aware of the many problems in building concurrent pipelines: busy waiting, stopping workers and memory explosion;&lt;/li&gt;
+  &lt;li&gt;the queue class has all of the facilities you need to build robust pipelines: blocking operations, buffer sizes and joining;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-coroutines-to-run-many-functions-concurrently&quot;&gt;5.5 consider coroutines to run many functions concurrently&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;coroutines provie an efficient way to run tens of thousands of functions seemingly at the same time;&lt;/li&gt;
+  &lt;li&gt;within a generator, the value of the yield expression will be whatever value was passed to the generator’s send method from the exterior code;&lt;/li&gt;
+  &lt;li&gt;coroutines give you a powerful tool for separating the core logic of your program from its interaction with the surrounding environment;&lt;/li&gt;
+  &lt;li&gt;python 2 doesn’t support yield from or returning values from generators;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-concurrentfutures-for-true-parallelism&quot;&gt;5.6 consider concurrent.futures for true parallelism&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;moving cpu bottlenecks to c-extension modules can be an effective way to improve performance while maximizing your investment in python code. however, the cost of doing so is high and may introduce bugs;&lt;/li&gt;
+  &lt;li&gt;the multiprocessing module provides powerful tools that can parallelize certain types of python computation with minimal effort;&lt;/li&gt;
+  &lt;li&gt;the power of multiprocessing is best accessed through the concurrent.futures built-in module and its simple processpollexecutor class;&lt;/li&gt;
+  &lt;li&gt;the advanced parts of the multiprocessing module should be avoided because they are so complex;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;built-in-modules&quot;&gt;6. built-in modules&lt;/h2&gt;
+
+&lt;h3 id=&quot;define-functions-decorators-with-functoolswraps&quot;&gt;6.1 define functions decorators with functools.wraps&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;decorators are python syntax for allowing one function to modify another function at runtime;&lt;/li&gt;
+  &lt;li&gt;using decorators can cause strange behaviors in tools that do introspection, such as debuggers;&lt;/li&gt;
+  &lt;li&gt;use the &lt;code class=&quot;highlighter-rouge&quot;&gt;wraps&lt;/code&gt; decorator from the &lt;code class=&quot;highlighter-rouge&quot;&gt;functools&lt;/code&gt; built-in modules when you define your own decorators to avoid any issues;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consider-contextlib-and-with-statements-for-reusable-tryfinally-behavior&quot;&gt;6.2 consider contextlib and with statements for reusable try/finally behavior&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the with statement allow you to reuse logic from try/finally blocks and reduce visual noise;&lt;/li&gt;
+  &lt;li&gt;the contextlib built-in module provides a contextmanager decorator that makes it easy to use your own functions in with statements;&lt;/li&gt;
+  &lt;li&gt;the value yielded by context managers is supplied to the as part of the with statement. it’s useful for letting your code directly access the cause of the special context;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;make-pickle-reliable-with-copyreg&quot;&gt;6.3 make pickle reliable with copyreg&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;s serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the pickle module is only useful for serializing and deserializing objects between trusted programs;&lt;/li&gt;
+  &lt;li&gt;the pickle module may break down when used for more than trivial use cases;&lt;/li&gt;
+  &lt;li&gt;use the copyreg built-in module with pickle to add missing attribute values, allow versioning of classes, and provide stable import paths;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-datetime-instead-of-time-for-local-clocks&quot;&gt;6.4 use datetime instead of time for local clocks&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;avoid using the time module for translating between different time zones;&lt;/li&gt;
+  &lt;li&gt;use the datetime built-in module along with the pytz module to reiliably convert between times in different time zones;&lt;/li&gt;
+  &lt;li&gt;always represent time in utc and do conversions to local time as the final step before presentation;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-built-in-algorithms-and-data-structures&quot;&gt;6.5 use built-in algorithms and data structures&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use python’s built-in modules for algorithms and data structures;&lt;/li&gt;
+  &lt;li&gt;don’t reimplement this functionality yourself;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-decimal-when-precising-is-paramount&quot;&gt;6.6 use decimal when precising is paramount&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python has built-in types and classes in modules that can represent practically every type of numerical value;&lt;/li&gt;
+  &lt;li&gt;the decimal class is ideal for situations that require high precision and exact rounding behavior, such as computations of monetary values;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;know-where-to-find-community-built-modules&quot;&gt;6.7 know where to find community-built modules&lt;/h3&gt;
+
+&lt;h2 id=&quot;collaboration&quot;&gt;7. collaboration&lt;/h2&gt;
+
+&lt;h3 id=&quot;write-docstring-for-every-function-class-and-module&quot;&gt;7.1 write docstring for every function, class and module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;write documentation for every module, class and function using docstrings. keep them up to date as your code changes;&lt;/li&gt;
+  &lt;li&gt;for modules, introduce the contents of the module and any important classes or functions all users should know about;&lt;/li&gt;
+  &lt;li&gt;for classes, document behavior, important attributes and subclass behavior in the docstring following the class statement;&lt;/li&gt;
+  &lt;li&gt;for functions and methods, document every argument, returned value, raised exception and other behaviors in the docstring following the def statement;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-packages-to-organize-modules-and-provide-stable-apis&quot;&gt;7.2 use packages to organize modules and provide stable apis&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;packages in python are modules that contain other modules, packages allow you to organize your code into separate, non-conflicting namespaces with unique absolute module names;&lt;/li&gt;
+  &lt;li&gt;simple packages are defined by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; file to a directory that contains other source files. these files become the child modules of the directory’s package, package directories may also contain other packages;&lt;/li&gt;
+  &lt;li&gt;you can provide an explicit api for a module by listing its publicly visible names in its &lt;code class=&quot;highlighter-rouge&quot;&gt;__all__&lt;/code&gt; special attribute;&lt;/li&gt;
+  &lt;li&gt;you can hide a package’s internal implementation by only importing public names in the package’s &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; file or by naming internal-only members with a leading underscore;&lt;/li&gt;
+  &lt;li&gt;when collaborating within a single team or on a single codebase, using &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; for explicit apis is probably unnecessary;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;define-a-root-exception-to-insulate-callers-from-apis&quot;&gt;7.3 define a root exception to insulate callers from apis&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;define root exceptions for your modules allows api consumers to insulate themselves from your api;&lt;/li&gt;
+  &lt;li&gt;catching root exception can help your modules allows api consumers to insulate themselves from your api;&lt;/li&gt;
+  &lt;li&gt;catching the python exception base class can help you find bugs in api implementation;&lt;/li&gt;
+  &lt;li&gt;intermediate root exceptions let you add more specific types of exceptions in the future without breaking your api consumers;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;know-how-to-break-circular-dependecies&quot;&gt;7.4 know how to break circular dependecies&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# dialog.py&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;save_dialog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# app.py&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dialog&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;then if you use app.py in your project, you’ll absolutely get an error like bellow:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;---------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;AttributeError&lt;/span&gt;                            &lt;span class=&quot;n&quot;&gt;Traceback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;recent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ipython&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f8537898a049&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;----&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chenshan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;----&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dialog&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# import ipdb; ipdb.set_trace()&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chenshan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+      &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;save_dialog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;AttributeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;module&#39;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;has&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;no&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attribute&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;prefs&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;the problem with a circular dependency is that the attributes of a module aren’t defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it’s inserted into sys.modules(after step 4)&lt;/p&gt;
+
+&lt;p&gt;in the example above,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;the app.py import dialog before doing anything&lt;/li&gt;
+  &lt;li&gt;then, dialog.py import app firstly, currently the &lt;code class=&quot;highlighter-rouge&quot;&gt;imported app is just an empty module&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;then, in dailog.py, the &lt;code class=&quot;highlighter-rouge&quot;&gt;save_dialog = Dialog(app.prefs.get(&quot;hello&quot;))&lt;/code&gt;, at that time, we’re sure that there are really a module named &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; exists in current runtime, but it’s an empty module, so will raise an attribute error like this.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python import machinery:
+    &lt;ul&gt;
+      &lt;li&gt;searches for your module in locations from sys.path&lt;/li&gt;
+      &lt;li&gt;loads the code from the module and ensures that it compiles&lt;/li&gt;
+      &lt;li&gt;creates a corresponding empty module object&lt;/li&gt;
+      &lt;li&gt;inserts the module into sys.modules&lt;/li&gt;
+      &lt;li&gt;runs the code in the module object to define its contents&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://localhost:4000/python-cycle-import/&quot;&gt;sever ways to break circular imports&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;reorder imports&lt;/li&gt;
+      &lt;li&gt;import first, config second, run last&lt;/li&gt;
+      &lt;li&gt;dynamic import&lt;/li&gt;
+      &lt;li&gt;re-strucuture or re-factory your code&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-virtual-env-for-isonated-and-reproducible-dependences&quot;&gt;7.5 use virtual env for isonated and reproducible dependences&lt;/h3&gt;
+
+&lt;h2 id=&quot;production&quot;&gt;8. Production&lt;/h2&gt;
+
+&lt;h3 id=&quot;consider-module-scoped-code-to-configure-deployment-env&quot;&gt;8.1 consider module-scoped code to configure deployment env&lt;/h3&gt;
+
+&lt;h3 id=&quot;use-repr-string-for-debugging-output&quot;&gt;8.2 use repr string for debugging output&lt;/h3&gt;
+
+&lt;h3 id=&quot;test-everything-with-unittest&quot;&gt;8.3 test everything with unittest&lt;/h3&gt;
+
+&lt;h3 id=&quot;consider-interactive-debugging-with-pdb&quot;&gt;8.4 consider interactive debugging with pdb&lt;/h3&gt;
+
+&lt;h3 id=&quot;profile-before-optimizing&quot;&gt;8.5 profile before optimizing&lt;/h3&gt;
+
+&lt;h3 id=&quot;use-tracemalloc-to-understand-memory-usage-and-leaks&quot;&gt;8.6 use tracemalloc to understand memory usage and leaks&lt;/h3&gt;
+
+</content>
+   </entry>
+   
+   <entry>
      <title>celery 笔记</title>
      <link href="/hello-celery"/>
      <updated>2015-12-18T00:00:00+08:00</updated>
      <id>/hello-celery</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. hello, celery&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;hello-celery&quot;&gt;1. hello, celery&lt;/h2&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;three&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;what&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;celery&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;why&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;we&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;need&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;celery&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;what&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;features&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;does&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;celery&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;three questions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;what is celery?&lt;/li&gt;
+  &lt;li&gt;why do we need celery?&lt;/li&gt;
+  &lt;li&gt;what features does celery have?&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;what-is-celery&quot;&gt;1.1 what is celery?&lt;/h3&gt;
 
@@ -187,15 +740,13 @@ write in python, easily configure.&lt;/li&gt;
 generally it contains some meta data, like bellow:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;task&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;celery.task.PingTask&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;args&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;kwargs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;retries&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;eta&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2009-11-17T12:30:56.527191&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;producer&lt;/code&gt;: the one who send task messages to the broker,
@@ -229,14 +780,13 @@ and dispatching message to queues. two things should be taken in mind about exch
   &lt;li&gt;install the latest stable celery and its dependences&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-chenshan@mac007:~/Desktop$sudo pip install -U celery
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;chenshan@mac007:~/Desktop&lt;span class=&quot;nv&quot;&gt;$sudo&lt;/span&gt; pip install -U celery
 ...
 ...
 ...
-Installing collected packages: celery, kombu, billiard, amqp
-&lt;/code&gt;
-the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies&quot;&gt;Does Celery have many dependencies&lt;/a&gt;&lt;/p&gt;
+Installing collected packages: celery, kombu, billiard, amqp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies&quot;&gt;Does Celery have many dependencies&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;install celery with bundles&lt;/li&gt;
@@ -248,7 +798,7 @@ the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryp
 
 &lt;p&gt;all bundles command can be find here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles&quot;&gt;bundles&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;celery official site&lt;/a&gt;&lt;/li&gt;
@@ -266,7 +816,6 @@ the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryp
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file&quot;&gt;stackoverflow: Send log messages from all celery tasks to a single file&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;#&lt;/p&gt;
 </content>
    </entry>
    
@@ -275,8 +824,7 @@ the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryp
      <link href="/shell-programming-summary-3"/>
      <updated>2015-11-22T00:00:00+08:00</updated>
      <id>/shell-programming-summary-3</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. 定义&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 定义&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。&lt;/li&gt;
@@ -286,27 +834,22 @@ the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryp
 &lt;p&gt;函数返回值在调用该函数后通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;$?&lt;/code&gt; 来获得。
 注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。&lt;/p&gt;
 
-&lt;p&gt;```
-[ function ] funcname [()]&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; funcname &lt;span class=&quot;o&quot;&gt;[()]&lt;/span&gt;
 
-&lt;p&gt;{&lt;/p&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;action;
+    action;
 
-[return int;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;int;]
 
-&lt;p&gt;}
-```&lt;/p&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;2. 函数参数&lt;/h2&gt;
 
 &lt;p&gt;在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数…
 带参数的函数示例：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 funWithParam&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the first parameter is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the second parameter is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
@@ -316,8 +859,7 @@ funWithParam&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The amount of the parameters is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$# &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!&quot;&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The string of the parameters is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$*&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-funWithParam 1 2 3 4 5 6 7 8 9 34 73
-&lt;/code&gt;&lt;/p&gt;
+funWithParam 1 2 3 4 5 6 7 8 9 34 73&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;注意，$10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。
 另外，还有几个特殊字符用来处理参数：&lt;/p&gt;
@@ -348,12 +890,11 @@ funWithParam 1 2 3 4 5 6 7 8 9 34 73
      <link href="/shell-programming-summary-2"/>
      <updated>2015-11-18T00:00:00+08:00</updated>
      <id>/shell-programming-summary-2</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. test 命令&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;test-&quot;&gt;1. test 命令&lt;/h2&gt;
 
 &lt;p&gt;Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;1.1 数值测试&lt;/h3&gt;
+&lt;h3 id=&quot;section&quot;&gt;1.1 数值测试&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-eq : equal&lt;/code&gt;: 等于&lt;/li&gt;
@@ -364,18 +905,16 @@ funWithParam 1 2 3 4 5 6 7 8 9 34 73
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-le : lower or equal&lt;/code&gt;: 小于或等于&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-num1=100
-num2=100
-if test $[num1] -eq $[num2]
-then
-    echo &#39;The two numbers are equal!&#39;
-else
-    echo &#39;The two numbers are not equal!&#39;
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num1] -eq &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num2]
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two numbers are equal!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two numbers are not equal!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;1.2 字符串测试&lt;/h3&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;1.2 字符串测试&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt;: 等于&lt;/li&gt;
@@ -392,18 +931,16 @@ fi
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var:?ERR_MSG}&lt;/code&gt;:	如果var没被设置, 那么就打印$ERR_MSG *&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-num1=100
-num2=100
-if test num1=num2
-then
-    echo &#39;The two strings are equal!&#39;
-else
-    echo &#39;The two strings are not equal!&#39;
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;num2
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two strings are equal!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two strings are not equal!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;1.3 文件测试&lt;/h3&gt;
+&lt;h3 id=&quot;section-2&quot;&gt;1.3 文件测试&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e  : exist&lt;/code&gt;: 如果文件存在则为真&lt;/li&gt;
@@ -417,120 +954,102 @@ fi
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-b  : block&lt;/code&gt;: 如果文件存在且为块特殊文件则为真&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-cd /bin
-if test -e ./bash
-then
-    echo &#39;The file already exists!&#39;
-else
-    echo &#39;The file does not exists!&#39;
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /bin
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; -e ./bash
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The file already exists!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The file does not exists!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：”!”最高，”-a”次之，”-o”最低。例如：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-cd /bin
-if test -e ./notFile -o ./bash
-then
-    echo &#39;One file exists at least!&#39;
-else
-    echo &#39;Both dose not exists!&#39;
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /bin
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; -e ./notFile -o ./bash
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;One file exists at least!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Both dose not exists!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;2. 流程控制&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;2. 流程控制&lt;/h2&gt;
 
 &lt;h3 id=&quot;if-elif-else-fi-&quot;&gt;2.1 if elif else fi 控制符&lt;/h3&gt;
 
 &lt;p&gt;完整的格式如下，其中，&lt;code class=&quot;highlighter-rouge&quot;&gt;elif&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; 可根据实际情况决定是否需要。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-if condition1
-then
-    command1
-elif condition2
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;condition1
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;command1
+&lt;span class=&quot;k&quot;&gt;elif &lt;/span&gt;condition2
     command2
-else
-    commandN
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;commandN
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;实例：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-num1=$[2*3]
-num2=$[1+5]
-if test $[num1] -eq $[num2]
-then
-    echo &#39;两个数字相等!&#39;
-else
-    echo &#39;两个数字不相等!&#39;
-fi
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;2&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;3]
+&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;1+5]
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num1] -eq &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num2]
+&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;两个数字相等!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;两个数字不相等!&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;for-&quot;&gt;2.2 for 循环&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-for var in item1 item2 ... itemN
-do
-    command1
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;var &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;item1 item2 ... itemN
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;command1
     command2
     ...
     commandN
-done
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;while-&quot;&gt;2.3 while 语句&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-while condition
-do
-    command
-done
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;condition
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;示例：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
 &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$int&lt;/span&gt;&amp;lt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5 &lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;do
         &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$int&lt;/span&gt;
         &lt;span class=&quot;nb&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;int++&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按&lt;ctrl-d&gt;结束循环。&lt;/ctrl-d&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-echo &#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&#39;
-echo -n &#39;输入你最喜欢的电影名: &#39;
-while read FILM
-do
-    echo &quot;是的！$FILM 是一部好电影&quot;
-done
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&#39;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s1&quot;&gt;&#39;输入你最喜欢的电影名: &#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;FILM
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;是的！&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILM&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; 是一部好电影&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;无限循环语法格式：&lt;/p&gt;
 
-&lt;p&gt;```
-while :
-do
-    command
-done&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
 
-&lt;h1 id=&quot;section-5&quot;&gt;或者&lt;/h1&gt;
+&lt;span class=&quot;c&quot;&gt;# 或者&lt;/span&gt;
 
-&lt;p&gt;while true
-do
-    command
-done&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
 
-&lt;h1 id=&quot;section-6&quot;&gt;或者&lt;/h1&gt;
-&lt;p&gt;for (( ; ; ))
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 或者&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt; ; ; &lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;until-&quot;&gt;2.4 until 循环&lt;/h3&gt;
 
@@ -539,59 +1058,52 @@ until循环与while循环在处理方式上刚好相反。
 一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
 until 语法格式:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-until condition
-do
-    command
-done
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;condition
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;case-&quot;&gt;2.5 case 语句&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-case 值 in
-模式1)
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; 值 &lt;span class=&quot;k&quot;&gt;in
+&lt;/span&gt;模式1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     command1
     command2
     ...
     commandN
-    ;;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
 模式2）
     command1
     command2
     ...
     commandN
     ;;
-esac
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;示例：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-echo &#39;输入 1 到 4 之间的数字:&#39;
-echo &#39;你输入的数字为:&#39;
-read aNum
-case $aNum in
-    1)  echo &#39;你选择了 1&#39;
-    ;;
-    2)  echo &#39;你选择了 2&#39;
-    ;;
-    3)  echo &#39;你选择了 3&#39;
-    ;;
-    4)  echo &#39;你选择了 4&#39;
-    ;;
-    *)  echo &#39;你没有输入 1 到 4 之间的数字&#39;
-    ;;
-esac
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;输入 1 到 4 之间的数字:&#39;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你输入的数字为:&#39;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;aNum
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+    &lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 1&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+    2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 2&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+    3&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 3&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+    4&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 4&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你没有输入 1 到 4 之间的数字&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;break--continue-&quot;&gt;2.6 break 和 continue 语句&lt;/h3&gt;
 
 &lt;p&gt;break命令允许跳出所有循环（终止执行后面的所有循环）。
 下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
 &lt;span class=&quot;k&quot;&gt;do
     &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;输入 1 到 5 之间的数字:&quot;&lt;/span&gt;
@@ -603,13 +1115,11 @@ esac
             &lt;span class=&quot;nb&quot;&gt;break&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
 &lt;span class=&quot;k&quot;&gt;do
     &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;输入 1 到 5 之间的数字: &quot;&lt;/span&gt;
@@ -622,10 +1132,9 @@ esac
             &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;游戏结束&quot;&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
@@ -640,8 +1149,7 @@ esac
      <link href="/shell-programming-summary"/>
      <updated>2015-11-17T00:00:00+08:00</updated>
      <id>/shell-programming-summary</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. 基本概念&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 基本概念&lt;/h2&gt;
 
 &lt;h3 id=&quot;shell&quot;&gt;1.1 什么是 shell&lt;/h3&gt;
 
@@ -675,10 +1183,8 @@ Bash也是大多数Linux系统默认的Shell。
   &lt;li&gt;作为可执行程序&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-chmod +x ./test.sh  #使脚本具有执行权限
-./test.sh  #执行脚本
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;chmod +x ./test.sh  &lt;span class=&quot;c&quot;&gt;#使脚本具有执行权限&lt;/span&gt;
+./test.sh  &lt;span class=&quot;c&quot;&gt;#执行脚本&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;注意，一定要写成&lt;code class=&quot;highlighter-rouge&quot;&gt;./test.sh&lt;/code&gt;，而不是&lt;code class=&quot;highlighter-rouge&quot;&gt;test.sh&lt;/code&gt;，运行其它二进制的程序也一样，直接写&lt;code class=&quot;highlighter-rouge&quot;&gt;test.sh&lt;/code&gt;，linux系统会去PATH里寻找有没有叫&lt;code class=&quot;highlighter-rouge&quot;&gt;test.sh&lt;/code&gt;的，
 而只有&lt;code class=&quot;highlighter-rouge&quot;&gt;/bin, /sbin, /usr/bin，/usr/sbin&lt;/code&gt;等在PATH里，你的当前目录通常不在PATH里，所以写成&lt;code class=&quot;highlighter-rouge&quot;&gt;test.sh&lt;/code&gt;是会找不到命令的，
@@ -688,18 +1194,14 @@ chmod +x ./test.sh  #使脚本具有执行权限
   &lt;li&gt;作为 [shell] 解释器参数 : 直接运行解释器，其参数就是shell脚本的文件名&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-/bin/sh test.sh
-/bin/php test.php
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;/bin/sh test.sh
+/bin/php test.php&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;shell--2&quot;&gt;2. shell 变量&lt;/h2&gt;
 
 &lt;p&gt;定义变量时，变量名不加美元符号:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-your_name=&quot;runoob.com&quot;
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;runoob.com&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;注意，变量名和等号之间不能有空格，同时，变量名的命名须遵循如下规则：&lt;/p&gt;
 
@@ -712,36 +1214,28 @@ your_name=&quot;runoob.com&quot;
 
 &lt;p&gt;除了显式地直接赋值，还可以用语句给变量赋值，如：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-for file in `ls /etc`
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;file &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ls /etc&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;使用一个定义过的变量，只要在变量名前面加美元符号即可，如：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-your_name=&quot;qinjx&quot;
-echo $your_name
-echo ${your_name}
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;qinjx&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-for skill in Ada Coffe Action Java do
-    echo &quot;I am good at ${skill}Script&quot;
-done
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;skill &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;Ada Coffe Action Java &lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I am good at &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;skill&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Script&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;如果不给skill变量加花括号，写成 &lt;code class=&quot;highlighter-rouge&quot;&gt;echo &quot;I am good at $skillScript&quot;&lt;/code&gt;，解释器就会把$skillScript当成一个变量（其值为空），
 代码执行结果就不是我们期望的样子了。推荐给所有变量加上花括号，这是个好的编程习惯。
 已定义的变量，可以被重新定义，如：&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-your_name=&quot;tom&quot;
-echo $your_name
-your_name=&quot;alibaba&quot;
-echo $your_name
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tom&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alibaba&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;section-1&quot;&gt;2.1 字符串&lt;/h3&gt;
 
@@ -756,9 +1250,7 @@ echo $your_name
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-str=&#39;this is a string&#39;
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;this is a string&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;双引号
@@ -769,48 +1261,38 @@ str=&#39;this is a string&#39;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-your_name=&#39;qinjx&#39;
-str=&quot;Hello, I know your are \&quot;$your_name\&quot;! \n&quot;
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;qinjx&#39;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, I know your are &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;! &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;拼接字符串&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-your_name=&quot;qinjx&quot;
-greeting=&quot;hello, &quot;$your_name&quot; !&quot;
-greeting_1=&quot;hello, ${your_name} !&quot;
-echo $greeting $greeting_1
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;qinjx&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello, &quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; !&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;greeting_1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello, &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$greeting&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$greeting_1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;获取字符串长度&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-string=&quot;abcd&quot;
-echo ${#string} #输出 4
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;abcd&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#输出 4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;提取子字符串&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-string=&quot;alibaba is a great company&quot;
-echo ${string:1:4} #输出liba
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alibaba is a great company&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;string&lt;/span&gt;:1:4&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#输出liba&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;查找子字符串&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-string=&quot;alibaba is a great company&quot;
-echo `expr index &quot;$string&quot; is`
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alibaba is a great company&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;expr index &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$string&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; is&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;section-2&quot;&gt;2.2 数组&lt;/h3&gt;
 
@@ -821,35 +1303,29 @@ echo `expr index &quot;$string&quot; is`
   &lt;li&gt;定义数组&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-# 在Shell中，用括号来表示数组，数组元素用&quot;空格&quot;符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
-array_name=(value0 value1 value2 value3)
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 在Shell中，用括号来表示数组，数组元素用&quot;空格&quot;符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;value0 value1 value2 value3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;读取数组&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-# 读取数组元素值的一般格式是：${数组名[下标]}
-valuen=${array_name[n]}&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 读取数组元素值的一般格式是：${数组名[下标]}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;valuen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[n]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 
-&lt;h1 id=&quot;section-3&quot;&gt;使用@符号可以获取数组中的所有元素，例如：&lt;/h1&gt;
-&lt;p&gt;echo ${array_name[@]}
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 使用@符号可以获取数组中的所有元素，例如：&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;获取数组的长度&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-# 取得数组元素的个数
-length=${#array_name[@]}
-# 或者
-length=${#array_name[*]}
-# 取得数组单个元素的长度
-lengthn=${#array_name[n]}
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 取得数组元素的个数&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 或者&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[*]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 取得数组单个元素的长度&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;lengthn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[n]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;echo-&quot;&gt;3. echo 的用途&lt;/h2&gt;
 
@@ -857,73 +1333,61 @@ lengthn=${#array_name[n]}
   &lt;li&gt;显示普通字符串&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-echo “It is a test”&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt;
 
-&lt;h1 id=&quot;section-4&quot;&gt;这里的双引号完全可以省略，以下命令与上面实例效果一致&lt;/h1&gt;
-&lt;p&gt;echo It is a test
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 这里的双引号完全可以省略，以下命令与上面实例效果一致&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;It is a &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;显示转义字符&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-chenshan@mac007:~/Desktop/github/litaotao.github.io$echo “&quot;It is a test&quot;”
-“It is a test”&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io&lt;span class=&quot;nv&quot;&gt;$echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;It is a test&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt;
 
-&lt;p&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io$echo &quot;It is a test&quot;
-“It is a test”
-```&lt;/p&gt;
+chenshan@mac007:~/Desktop/github/litaotao.github.io&lt;span class=&quot;nv&quot;&gt;$echo&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;It is a &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;name
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; It is a test&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; It is a test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;显示换行/不换行&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-# 换行
-echo -e “OK!\n” # -e 开启转义
-echo “It it a test”&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 换行&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;OK!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# -e 开启转义&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;It it a test&quot;&lt;/span&gt;
 
-&lt;h1 id=&quot;section-5&quot;&gt;不换行&lt;/h1&gt;
-&lt;p&gt;#!/bin/sh
-echo -e “OK! \c” # -e 开启转义 \c 不换行
-echo “It is a test”
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 不换行&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;OK! &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\c&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# -e 开启转义 \c 不换行&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;显示结果定向至文件&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-# 以重写文件的方式重定向
-echo “It is a test” &amp;gt; myfile&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 以重写文件的方式重定向&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt; &amp;gt; myfile
 
-&lt;h1 id=&quot;section-6&quot;&gt;以添加到文件尾的方式重定向&lt;/h1&gt;
-&lt;p&gt;echo “It is a test” » myfile
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 以添加到文件尾的方式重定向&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;It is a test&quot;&lt;/span&gt; &amp;gt;&amp;gt; myfile&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;显示命令执行结果&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) &#39;\n&#39;  `date`
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;chenshan@mac007:~/Desktop/github/litaotao.github.io&lt;span class=&quot;nv&quot;&gt;$echo&lt;/span&gt; -e &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;\n&#39;&lt;/span&gt;  &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;date&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
 Tue Nov 17 22:21:05 CST 2015
- Tue Nov 17 22:21:05 CST 2015
-&lt;/code&gt;&lt;/p&gt;
+ Tue Nov 17 22:21:05 CST 2015&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
@@ -938,8 +1402,7 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/python-cycle-import"/>
      <updated>2015-11-09T00:00:00+08:00</updated>
      <id>/python-cycle-import</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. import module 流程&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;import-module-&quot;&gt;1. import module 流程&lt;/h2&gt;
 
 &lt;p&gt;首先，明确一下 &lt;code class=&quot;highlighter-rouge&quot;&gt;import module_name&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;from module_name import module_element&lt;/code&gt; 是两条可执行的语句。
 其次，&lt;code class=&quot;highlighter-rouge&quot;&gt;sys.modules&lt;/code&gt; 里记录了当前 run time 下所有已经导出的 module。&lt;/p&gt;
@@ -972,7 +1435,7 @@ Tue Nov 17 22:21:05 CST 2015
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;2. 如何避免循环引用&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;2. 如何避免循环引用&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;延迟导入(lazy import)&lt;/li&gt;
@@ -980,7 +1443,7 @@ Tue Nov 17 22:21:05 CST 2015
   &lt;li&gt;合理组织代码&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/744373/circular-or-cyclic-imports-in-python&quot;&gt;Circular (or cyclic) imports in Python&lt;/a&gt;&lt;/li&gt;
@@ -994,8 +1457,7 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/editor-in-one-line"/>
      <updated>2015-10-27T00:00:00+08:00</updated>
      <id>/editor-in-one-line</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;``&lt;/h2&gt;
-&lt;p&gt;## 1. 事情是这样的&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 事情是这样的&lt;/h2&gt;
 
 &lt;p&gt;事情是这样的，有一天要开会，我准备把会议的 outline 写到个 &lt;strong&gt;&lt;em&gt;暂时&lt;/em&gt;&lt;/strong&gt; 的 notebook 里，在会议的时候参考。&lt;/p&gt;
 
@@ -1032,27 +1494,22 @@ Tue Nov 17 22:21:05 CST 2015
      <link href="/python-if-else-usage"/>
      <updated>2015-10-25T00:00:00+08:00</updated>
      <id>/python-if-else-usage</id>
-     <content type="html">&lt;p&gt;## 
-## 1. 常规的 if else 用法&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;if-else-&quot;&gt;1. 常规的 if else 用法&lt;/h2&gt;
 
-&lt;p&gt;```
-x = True&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
 
-&lt;p&gt;if x:
-    print ‘x is true’
-else:
-    print ‘x is not true’
-```&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;x is true&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;x is not true&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;if-else-&quot;&gt;2. if else 快捷用法&lt;/h2&gt;
+&lt;h2 id=&quot;if-else--1&quot;&gt;2. if else 快捷用法&lt;/h2&gt;
 
 &lt;p&gt;这里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;if else&lt;/code&gt; 可以作为三元操作符使用。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-mark = 40
-is_pass = True if mark &amp;gt;= 50 else False
-print &quot;Pass? &quot; + str(is_pass)
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;mark&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;is_pass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mark&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pass? &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;for-&quot;&gt;3. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; 关键字一起用&lt;/h2&gt;
 
@@ -1063,21 +1520,19 @@ print &quot;Pass? &quot; + str(is_pass)
   &lt;li&gt;for 循环里的语句没有被 &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-# 打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;For loop completed the execution&lt;/code&gt;
-for i in range(10):
-    print i
-else:
-    print ‘For loop completed the execution’&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 打印 `For loop completed the execution`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;For loop completed the execution&#39;&lt;/span&gt;
 
-&lt;h1 id=&quot;for-loop-completed-the-execution&quot;&gt;不打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;For loop completed the execution&lt;/code&gt;&lt;/h1&gt;
-&lt;p&gt;for i in range(10):
-    print i
-    if i == 5:
-        break
-else:
-    print ‘For loop completed the execution’
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 不打印 `For loop completed the execution`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;For loop completed the execution&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;while-&quot;&gt;4. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt; 关键字一起用&lt;/h2&gt;
 
@@ -1088,45 +1543,41 @@ else:
   &lt;li&gt;while 循环里的语句没有被 &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;```
-# 打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;While loop execution completed&lt;/code&gt;
-a = 0
-loop = 0
-while a &amp;lt;= 10:
-    print a
-    loop += 1
-    a += 1
-else:
-    print “While loop execution completed”&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 打印 `While loop execution completed`&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;While loop execution completed&quot;&lt;/span&gt;
 
-&lt;h1 id=&quot;while-loop-execution-completed&quot;&gt;不打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;While loop execution completed&lt;/code&gt;&lt;/h1&gt;
-&lt;p&gt;a = 50
-loop = 0
-while a &amp;gt; 10:
-    print a
-    if loop == 5:
-        break
-    a += 1
-    loop += 1
-else:
-    print “While loop execution completed”
-```&lt;/p&gt;
+&lt;span class=&quot;c&quot;&gt;# 不打印 `While loop execution completed`&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;While loop execution completed&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;try-except-&quot;&gt;5. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;try except&lt;/code&gt; 一起用&lt;/h2&gt;
 
 &lt;p&gt;和 &lt;code class=&quot;highlighter-rouge&quot;&gt;try except&lt;/code&gt; 一起使用时，如果不抛出异常，&lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt;里的语句就能被执行。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-file_name = &quot;result.txt&quot;
-try:
-    f = open(file_name, &#39;r&#39;)
-except IOError:
-    print &#39;cannot open&#39;, file_name
-else:
-    # Executes only if file opened properly
-    print file_name, &#39;has&#39;, len(f.readlines()), &#39;lines&#39;
-    f.close()
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;result.txt&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;IOError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;cannot open&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Executes only if file opened properly&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;has&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readlines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;lines&#39;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
 
@@ -1142,8 +1593,7 @@ else:
      <link href="/submit-push-package-to-pypi"/>
      <updated>2015-10-24T00:00:00+08:00</updated>
      <id>/submit-push-package-to-pypi</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
-&lt;p&gt;## 1. 注册 pypi 账号&lt;/p&gt;
+     <content type="html">&lt;h2 id=&quot;pypi-&quot;&gt;1. 注册 pypi 账号&lt;/h2&gt;
 
 &lt;p&gt;点击这张图片去注册吧。&lt;/p&gt;
 
@@ -1151,25 +1601,23 @@ else:
 
 &lt;h2 id=&quot;setuppy-&quot;&gt;2. 编写 setup.py 必要信息&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-setup(
-    name=&quot;IPython-Dashboard&quot;,
-    version=&#39;0.1.1&#39;,
-    author=&quot;Taotao Li&quot;,
-    author_email=&quot;taotao.engineer@gmail.com&quot;,
-    url=&quot;https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server&quot;,
-    keywords = (&quot;ipython&quot;, &quot;dashboard&quot;, &quot;interactive&quot;, &quot;visualization&quot;, &quot;data science&quot;, &quot;data analysis&quot;, &quot;streaming&quot;),
-    license=&quot;BSD&quot;,
-    packages=find_packages(),
-    package_dir={&quot;dashboard&quot;: &quot;dashboard&quot;},
-    include_package_data=True,
-    description=&quot;An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.&quot;,
-    long_description=io.open(&quot;README.md&quot;, encoding=&#39;utf8&#39;).read(),
-    install_requires=io.open(&quot;requirements.txt&quot;, encoding=&#39;utf8&#39;).read(),
-    ...
-    ...
-)
-&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IPython-Dashboard&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;0.1.1&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Taotao Li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;author_email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;taotao.engineer@gmail.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;keywords&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ipython&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dashboard&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;interactive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;visualization&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data science&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data analysis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;streaming&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;license&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;BSD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;package_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dashboard&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dashboard&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;include_package_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;long_description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;README.md&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;utf8&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;install_requires&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;requirements.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;utf8&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;上面是我的一个项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;setup.py&lt;/code&gt; 内容，可以对比源文件和在 pypi 上到描述。&lt;/p&gt;
 
@@ -1210,150 +1658,10 @@ setup(
 
 &lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;python setup.py sdist upload&lt;/code&gt; 发布包，即先将包在本地打包，然后上传到pypi，然后就ok了。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://peterdowns.com/posts/first-time-with-pypi.html&quot;&gt;How to submit a package to PyPI&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>Python format 笔记</title>
-     <link href="/python-format"/>
-     <updated>2015-10-24T00:00:00+08:00</updated>
-     <id>/python-format</id>
-     <content type="html">&lt;p&gt;## 
-## 1. 位置参数&lt;/p&gt;
-
-&lt;p&gt;字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
-值得注意的是，&lt;code class=&quot;highlighter-rouge&quot;&gt;位置可以不按顺序，可以不用或者用多次&lt;/code&gt;，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。&lt;/p&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;In [1]: ‘{0},{1}’.format(‘kzc’,18)&lt;br /&gt;
-Out[1]: ‘kzc,18’&lt;br /&gt;
-In [2]: ‘{},{}’.format(‘kzc’,18)&lt;br /&gt;
-Out[2]: ‘kzc,18’&lt;br /&gt;
-In [3]: ‘{1},{0},{1}’.format(‘kzc’,18)&lt;br /&gt;
-Out[3]: ‘18,kzc,18’&lt;/p&gt;
-
-&lt;h1 id=&quot;more-powerful&quot;&gt;more powerful&lt;/h1&gt;
-
-&lt;p&gt;In [7]: p=[‘kzc’,18]
-In [8]: ‘{0[0]},{0[1]}’.format(p)
-Out[8]: ‘kzc,18’&lt;/p&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;2. 通过关键字参数&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-In [5]: &#39;{name},{age}&#39;.format(age=18,name=&#39;kzc&#39;)  
-Out[5]: &#39;kzc,18&#39;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;3. 对象属性&lt;/h2&gt;
-
-&lt;p&gt;这是很多对象的 &lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;__str__&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;__repr__&lt;/code&gt; 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt; 是 pyhton 的内置函数，&lt;code class=&quot;highlighter-rouge&quot;&gt;str(obj)&lt;/code&gt; 实际是调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;obj.__str__()&lt;/code&gt;；&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;obj.__str__()&lt;/code&gt; 是简化版的 &lt;code class=&quot;highlighter-rouge&quot;&gt;obj.__repr__()&lt;/code&gt;；&lt;/li&gt;
-  &lt;li&gt;need more details, check this on &lt;a href=&quot;http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python&quot;&gt;SO&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-class Person:  
-    def __init__(self,name,age):  
-        self.name,self.age = name,age  
-        def __str__(self):  
-            return &#39;This guy is {self.name},is {self.age} old&#39;.format(self=self)  
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;4. 格式限定符 - 填充与对齐&lt;/h2&gt;
-
-&lt;p&gt;不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。&lt;/p&gt;
-
-&lt;p&gt;```
-# 无需对齐，填充
-In [1]: ‘{}’.format(‘hello’)
-Out[1]: ‘hello’&lt;/p&gt;
-
-&lt;p&gt;In [2]: ‘{:}’.format(‘hello’)
-Out[2]: ‘hello’&lt;/p&gt;
-
-&lt;h1 id=&quot;section-3&quot;&gt;居中对齐，构建 9 个长度的字符串&lt;/h1&gt;
-&lt;p&gt;In [5]: ‘‘.format(‘hello’)
-Out[5]: ‘  hello  ‘&lt;/p&gt;
-
-&lt;h1 id=&quot;section-4&quot;&gt;右对齐，构建 9 个长度的字符串&lt;/h1&gt;
-&lt;p&gt;In [6]: ‘‘.format(‘hello’)
-Out[6]: ‘    hello’&lt;/p&gt;
-
-&lt;h1 id=&quot;section-5&quot;&gt;左对齐，构建 9 个长度的字符串&lt;/h1&gt;
-&lt;p&gt;In [7]: ‘‘.format(‘hello’)
-Out[7]: ‘hello    ‘&lt;/p&gt;
-
-&lt;h1 id=&quot;section-6&quot;&gt;右对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
-&lt;p&gt;In [10]: ‘‘.format(‘hello’)
-Out[10]: ‘0000hello’&lt;/p&gt;
-
-&lt;h1 id=&quot;section-7&quot;&gt;# 左对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
-&lt;p&gt;In [11]: ‘‘.format(‘hello’)
-Out[11]: ‘hello0000’&lt;/p&gt;
-
-&lt;h1 id=&quot;section-8&quot;&gt;居中对齐，构建 9 个长度的字符串，用 0 填充空白位置&lt;/h1&gt;
-&lt;p&gt;In [12]: ‘‘.format(‘hello’)
-Out[12]: ‘00hello00’
-```&lt;/p&gt;
-
-&lt;h2 id=&quot;section-9&quot;&gt;5. 精度与类型&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;f : float类型&lt;/li&gt;
-  &lt;li&gt;b : 二进制&lt;/li&gt;
-  &lt;li&gt;d : 十进制&lt;/li&gt;
-  &lt;li&gt;o : 八进制&lt;/li&gt;
-  &lt;li&gt;x : 十六进制&lt;/li&gt;
-  &lt;li&gt;, : 逗号可以表示数字的千分位&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;```
-In [44]: ‘‘.format(321.33345)
-Out[44]: ‘321.33’&lt;/p&gt;
-
-&lt;p&gt;In [54]: ‘‘.format(17)
-Out[54]: ‘10001’
-In [55]: ‘‘.format(17)
-Out[55]: ‘17’
-In [56]: ‘‘.format(17)
-Out[56]: ‘21’
-In [57]: ‘‘.format(17)
-Out[57]: ‘11’&lt;/p&gt;
-
-&lt;p&gt;In [47]: ‘‘.format(1234567890)
-Out[47]: ‘1,234,567,890’
-```&lt;/p&gt;
-
-&lt;h2 id=&quot;section-10&quot;&gt;6. 完善的格式文档&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/python_str_format.jpg&quot; alt=&quot;python_str_format.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;vs-format&quot;&gt;7. % VS format&lt;/h2&gt;
-
-&lt;p&gt;我一直都喜欢用 &lt;code class=&quot;highlighter-rouge&quot;&gt;format&lt;/code&gt; ，不知道为什么，可能喜欢一种写法也是不需要原因的吧，哈哈。其它的，可以在这里找到一大堆说法。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format&quot;&gt;python-string-formatting-vs-format&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-11&quot;&gt;参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/9183303&quot;&gt;飘逸的python - 增强的格式化字符串format函数&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pyformat.info/&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.xiayf.cn/2013/01/26/python-string-format/&quot;&gt;Python格式字符串（译）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>

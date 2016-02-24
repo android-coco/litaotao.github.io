@@ -2,11 +2,11 @@
 category: books
 published: true
 layout: post
-title: book-1. 50 Tips and Tricks for MongoDB Developers
+title: 『 读书笔记 』 50 Tips and Tricks for MongoDB Developers
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---
   
-##  
+
 ## 写在前面
 　　book 开头的文章都是记录我个人的读书记录的，里面分情况会记录下面这些东西：目录，读书感想，技术分享和推荐等。如果只是写下目录，那大多是留给自己以后看的。我不会把书长篇大论地翻译成中文，只会写下能对我个人以后真正有用的东西。
 　　这是一本讲mongodb实践的经验书籍，就66页，除去前面目录什么的，也就50来页，对我个人还是挺有用的，所以我写下其目录，供以后复习时用。没必要写什么读书笔记，毕竟大脑才是最好用的u盘。  

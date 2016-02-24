@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -44,11 +43,10 @@
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="/thinking-of-wechat-design" title="一次微信升级引发的思考">一次微信升级引发的思考</a></h1>
 
-    <p class="entry-date">2015-06-08 <span class="lastModified" style="display: none;" data-source="_posts/web/2015-06-08-thinking-of-wechat-design.md">最后更新时间: </span></p>
+    <p class="entry-date">2015-06-08 <span class="lastModified" style="display: none;" data-source="_posts/product/2015-06-08-thinking-of-wechat-design.md">最后更新时间: </span></p>
 
 
-    <p>##<br />
-## 1. 先看看升级前[6.1]和升级后[6.2]的区别</p>
+    <h2 id="section">1. 先看看升级前[6.1]和升级后[6.2]的区别</h2>
 
 <p><strong>升级前：6.1</strong></p>
 
@@ -60,7 +58,7 @@
 <p><img src="../../images/wechat3.jpg" alt="6.2.1" />
 <img src="../../images/wechat4.jpg" alt="6.2.2" /></p>
 
-<h2 id="section">2. 我对这次升级的第一印象</h2>
+<h2 id="section-1">2. 我对这次升级的第一印象</h2>
 
 <p><img src="../../images/awesome.jpg" alt="awesome" /></p>
 
@@ -73,7 +71,7 @@
 <p><strong><em>问题 1. 如何决定一个功能是否需要改善？</em></strong><br />
 <strong><em>问题 2. 如何来预测用户的需求，或者说如何来预测用户对功能升级的反馈？</em></strong></p>
 
-<h2 id="section-1">3. 如何决定一个功能是否需要改善</h2>
+<h2 id="section-2">3. 如何决定一个功能是否需要改善</h2>
 
 <p>　　其实，在感谢这次升级之余，我想过一个问题：我假设有很多用户向我一样，也很喜欢 ”零钱“ 这个功能的改善。但我确实很好奇，微信是怎么决定来要改善 ”零钱“ 这个功能的？作为一个做技术出生的，我从技术角度想了想，发现这个问题其实做起来，那是easy enough的，而且是完全可以量化的。</p>
 
@@ -101,23 +99,22 @@
 
 <p><strong><em>问题 3. 用户的action，具体指的是什么</em></strong></p>
 
-<p><code class="highlighter-rouge">
-用户的action，简单的是指用户的点击数据；复杂的是指用户在每一个功能页面的停留时间。
+<div class="highlighter-rouge"><pre class="highlight"><code>用户的action，简单的是指用户的点击数据；复杂的是指用户在每一个功能页面的停留时间。
 至于怎么处理分析这些数据，方法就太多了。   
-</code></p>
+</code></pre>
+</div>
 
 <p><strong><em>问题 2. 如何来预测用户的需求，或者说如何来预测用户对功能升级的反馈？</em></strong></p>
 
-<p><code class="highlighter-rouge">
-可以根据用户对APP上每一个功能点的点击数据来做统计分析。功能点的划分可以有不同的维度，
+<div class="highlighter-rouge"><pre class="highlight"><code>可以根据用户对APP上每一个功能点的点击数据来做统计分析。功能点的划分可以有不同的维度，
 比如说微信6.1的钱包是可以是一个功能点，钱包里的零钱也可以作为一个功能点。也就是说，
 我们可以以不同的维度和粒度来区分功能点，对每一个功能点来做用户点击数据的统计分析。
-</code></p>
+</code></pre>
+</div>
 
 <p><strong><em>问题 1. 如何决定一个功能是否需要改善？</em></strong></p>
 
-<p><code class="highlighter-rouge">
-有了上面的各个功能点的统计数据，我想大概就能决定一个功能点是否有必要更改了。
+<div class="highlighter-rouge"><pre class="highlight"><code>有了上面的各个功能点的统计数据，我想大概就能决定一个功能点是否有必要更改了。
 当然，这只是其中一个因素，一个功能点的改善肯定不仅仅靠数据来决定的，
 也要看这个逻辑是否合理。比如说微信6.1的钱包，我要想看我自己的零钱的话，
 步骤是： 我 -&gt; 钱包 -&gt; 钱包 -&gt; 零钱，我会觉得很奇怪，为什么会有两个“钱包”的功能，
@@ -126,9 +123,10 @@
 第一，去重了“钱包”这个重复的功能点，
 第二，不用点击零钱即可预先知道自己的零钱余额有多少。
 当然，这个细节还有很多可以提的，大家可以自行发挥想象和交流。
-</code></p>
+</code></pre>
+</div>
 
-<h2 id="section-2">5. 如何做到真正的参与感</h2>
+<h2 id="section-3">5. 如何做到真正的参与感</h2>
 
 <p>　　所有的产品，都是服务于用户。熟话说得好，不以恋爱为目的的约会都是瞎折腾，不以用户为女神的产品都是瞎糊弄。既然产品的核心是用户，那我们关于产品所做的一切设计，优化甚至是改变都应该在改动之前与用户有过沟通，要确保用户对我们所做的改动有所认同。</p>
 
@@ -136,11 +134,11 @@
 
 <p>　　既然如此，既要和用户沟通，又要保证沟通成本，采用上面说的技术方案岂不是一个很不错的方法。而且上面说的技术方案，实现起来足够简单，而且可量化，可解释，甚至可跟踪。</p>
 
-<h2 id="section-3">6. 最后，我想说</h2>
+<h2 id="section-4">6. 最后，我想说</h2>
 
 <p>　　最后，我想说，以上所有，都只是自己对微信这次升级中，钱包功能的一个简单看法。小生是后端工程师一枚，不是的产品经理，只是简单的出于对这次升级的感谢，以及对产品的一点技术方面的简单思考而写的这篇文章。bug肯定很多，不过我享受调bug这个过程啊，哈哈。</p>
 
-<h2 id="section-4">扫一扫</h2>
+<h2 id="section-5">扫一扫</h2>
 
 <p><img src="../../images/share/2015-06-08-thinking-of-wechat-design.md.jpg" alt="2015-06-08-thinking-of-wechat-design.md" /></p>
 

@@ -2,11 +2,10 @@
 category: books
 published: true
 layout: post
-title: book-3. 设计模式总结之行为型模式
+title: 『 读书笔记 』 设计模式总结之行为型模式
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---  
 
-## 
 ## 1. 迭代器模式
 　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：
 
@@ -17,7 +16,8 @@ description: 仅仅是记录我个人的读书记录，看官不必在意～
 
 ### 1.1 Python源码实例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -54,14 +54,15 @@ print()
 # one two
 # Counting to five...
 # one two three four five
-```
+{% endhighlight %}
 
 ## 2. 观察者模式
 　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。
 
 ### 2.1 Python源码示例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -154,14 +155,17 @@ if __name__ == "__main__":
 # jim got cartoon
 # jim got cartoon
 # gee got movie
-```
+
+{% endhighlight %}
+
 
 ## 3. 策略模式
 　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。    
 
 ### 3.1 Python 源码示例
 
-```
+{% highlight python %}
+
 class Duck(object):
     # 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类
     def __init__(self, strategy=None):
@@ -209,7 +213,9 @@ if __name__ == '__main__':
     print duck1fly.fly('yes')
     print duck2fly.fly('yes')
     print duck2fly.fly('no')
-```
+
+{% endhighlight %}
+
 
 
 ## 4. 模板方法模式
@@ -218,7 +224,8 @@ if __name__ == '__main__':
 ### 4.1 Python源码示例
 　　源码来自[csdn.net](http://blog.csdn.net/five3/article/details/7564578)
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python  
 #encoding: utf-8  
 
@@ -256,7 +263,9 @@ if '__main__' == __name__:
     obj2.logic()
     print obj1.__class__
     print obj2.__class__
-```
+
+{% endhighlight %}
+
 
 ## 扫一扫     
 

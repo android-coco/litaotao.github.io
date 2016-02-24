@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,8 +46,7 @@
     <p class="entry-date">2015-11-17 <span class="lastModified" style="display: none;" data-source="_posts/tools/2015-11-17-shell-programming-summary.md">最后更新时间: </span></p>
 
 
-    <h1 id="section">#</h1>
-<p>## 1. 基本概念</p>
+    <h2 id="section">1. 基本概念</h2>
 
 <h3 id="shell">1.1 什么是 shell</h3>
 
@@ -82,10 +80,8 @@ Bash也是大多数Linux系统默认的Shell。
   <li>作为可执行程序</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-chmod +x ./test.sh  #使脚本具有执行权限
-./test.sh  #执行脚本
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chmod +x ./test.sh  <span class="c">#使脚本具有执行权限</span>
+./test.sh  <span class="c">#执行脚本</span></code></pre></figure>
 
 <p>注意，一定要写成<code class="highlighter-rouge">./test.sh</code>，而不是<code class="highlighter-rouge">test.sh</code>，运行其它二进制的程序也一样，直接写<code class="highlighter-rouge">test.sh</code>，linux系统会去PATH里寻找有没有叫<code class="highlighter-rouge">test.sh</code>的，
 而只有<code class="highlighter-rouge">/bin, /sbin, /usr/bin，/usr/sbin</code>等在PATH里，你的当前目录通常不在PATH里，所以写成<code class="highlighter-rouge">test.sh</code>是会找不到命令的，
@@ -95,18 +91,14 @@ chmod +x ./test.sh  #使脚本具有执行权限
   <li>作为 [shell] 解释器参数 : 直接运行解释器，其参数就是shell脚本的文件名</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-/bin/sh test.sh
-/bin/php test.php
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/bin/sh test.sh
+/bin/php test.php</code></pre></figure>
 
 <h2 id="shell--2">2. shell 变量</h2>
 
 <p>定义变量时，变量名不加美元符号:</p>
 
-<p><code class="highlighter-rouge">
-your_name="runoob.com"
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">your_name</span><span class="o">=</span><span class="s2">"runoob.com"</span></code></pre></figure>
 
 <p>注意，变量名和等号之间不能有空格，同时，变量名的命名须遵循如下规则：</p>
 
@@ -119,36 +111,28 @@ your_name="runoob.com"
 
 <p>除了显式地直接赋值，还可以用语句给变量赋值，如：</p>
 
-<p><code class="highlighter-rouge">
-for file in `ls /etc`
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">for </span>file <span class="k">in</span> <span class="sb">`</span>ls /etc<span class="sb">`</span></code></pre></figure>
 
 <p>使用一个定义过的变量，只要在变量名前面加美元符号即可，如：</p>
 
-<p><code class="highlighter-rouge">
-your_name="qinjx"
-echo $your_name
-echo ${your_name}
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">your_name</span><span class="o">=</span><span class="s2">"qinjx"</span>
+<span class="nb">echo</span> <span class="nv">$your_name</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">your_name</span><span class="k">}</span></code></pre></figure>
 
 <p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
 
-<p><code class="highlighter-rouge">
-for skill in Ada Coffe Action Java do
-    echo "I am good at ${skill}Script"
-done
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">for </span>skill <span class="k">in </span>Ada Coffe Action Java <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"I am good at </span><span class="k">${</span><span class="nv">skill</span><span class="k">}</span><span class="s2">Script"</span>
+<span class="k">done</span></code></pre></figure>
 
 <p>如果不给skill变量加花括号，写成 <code class="highlighter-rouge">echo "I am good at $skillScript"</code>，解释器就会把$skillScript当成一个变量（其值为空），
 代码执行结果就不是我们期望的样子了。推荐给所有变量加上花括号，这是个好的编程习惯。
 已定义的变量，可以被重新定义，如：</p>
 
-<p><code class="highlighter-rouge">
-your_name="tom"
-echo $your_name
-your_name="alibaba"
-echo $your_name
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">your_name</span><span class="o">=</span><span class="s2">"tom"</span>
+<span class="nb">echo</span> <span class="nv">$your_name</span>
+<span class="nv">your_name</span><span class="o">=</span><span class="s2">"alibaba"</span>
+<span class="nb">echo</span> <span class="nv">$your_name</span></code></pre></figure>
 
 <h3 id="section-1">2.1 字符串</h3>
 
@@ -163,9 +147,7 @@ echo $your_name
   </li>
 </ul>
 
-<p><code class="highlighter-rouge">
-str='this is a string'
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">str</span><span class="o">=</span><span class="s1">'this is a string'</span></code></pre></figure>
 
 <ul>
   <li>双引号
@@ -176,48 +158,38 @@ str='this is a string'
   </li>
 </ul>
 
-<p><code class="highlighter-rouge">
-your_name='qinjx'
-str="Hello, I know your are \"$your_name\"! \n"
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">your_name</span><span class="o">=</span><span class="s1">'qinjx'</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">"Hello, I know your are </span><span class="se">\"</span><span class="nv">$your_name</span><span class="se">\"</span><span class="s2">! </span><span class="se">\n</span><span class="s2">"</span></code></pre></figure>
 
 <ul>
   <li>拼接字符串</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-your_name="qinjx"
-greeting="hello, "$your_name" !"
-greeting_1="hello, ${your_name} !"
-echo $greeting $greeting_1
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">your_name</span><span class="o">=</span><span class="s2">"qinjx"</span>
+<span class="nv">greeting</span><span class="o">=</span><span class="s2">"hello, "</span><span class="nv">$your_name</span><span class="s2">" !"</span>
+<span class="nv">greeting_1</span><span class="o">=</span><span class="s2">"hello, </span><span class="k">${</span><span class="nv">your_name</span><span class="k">}</span><span class="s2"> !"</span>
+<span class="nb">echo</span> <span class="nv">$greeting</span> <span class="nv">$greeting_1</span></code></pre></figure>
 
 <ul>
   <li>获取字符串长度</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-string="abcd"
-echo ${#string} #输出 4
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">"abcd"</span>
+<span class="nb">echo</span> <span class="k">${#</span><span class="nv">string</span><span class="k">}</span> <span class="c">#输出 4</span></code></pre></figure>
 
 <ul>
   <li>提取子字符串</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-string="alibaba is a great company"
-echo ${string:1:4} #输出liba
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">"alibaba is a great company"</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">string</span>:1:4<span class="k">}</span> <span class="c">#输出liba</span></code></pre></figure>
 
 <ul>
   <li>查找子字符串</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-string="alibaba is a great company"
-echo `expr index "$string" is`
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">"alibaba is a great company"</span>
+<span class="nb">echo</span> <span class="sb">`</span>expr index <span class="s2">"</span><span class="nv">$string</span><span class="s2">"</span> is<span class="sb">`</span></code></pre></figure>
 
 <h3 id="section-2">2.2 数组</h3>
 
@@ -228,35 +200,29 @@ echo `expr index "$string" is`
   <li>定义数组</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-# 在Shell中，用括号来表示数组，数组元素用"空格"符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)
-array_name=(value0 value1 value2 value3)
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 在Shell中，用括号来表示数组，数组元素用"空格"符号分割开。定义数组的一般形式为：数组名=(值1 值2 ... 值n)</span>
+<span class="nv">array_name</span><span class="o">=(</span>value0 value1 value2 value3<span class="o">)</span></code></pre></figure>
 
 <ul>
   <li>读取数组</li>
 </ul>
 
-<p>```
-# 读取数组元素值的一般格式是：${数组名[下标]}
-valuen=${array_name[n]}</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 读取数组元素值的一般格式是：${数组名[下标]}</span>
+<span class="nv">valuen</span><span class="o">=</span><span class="k">${</span><span class="nv">array_name</span><span class="p">[n]</span><span class="k">}</span>
 
-<h1 id="section-3">使用@符号可以获取数组中的所有元素，例如：</h1>
-<p>echo ${array_name[@]}
-```</p>
+<span class="c"># 使用@符号可以获取数组中的所有元素，例如：</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">array_name</span><span class="p">[@]</span><span class="k">}</span></code></pre></figure>
 
 <ul>
   <li>获取数组的长度</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-# 取得数组元素的个数
-length=${#array_name[@]}
-# 或者
-length=${#array_name[*]}
-# 取得数组单个元素的长度
-lengthn=${#array_name[n]}
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 取得数组元素的个数</span>
+<span class="nv">length</span><span class="o">=</span><span class="k">${#</span><span class="nv">array_name</span><span class="p">[@]</span><span class="k">}</span>
+<span class="c"># 或者</span>
+<span class="nv">length</span><span class="o">=</span><span class="k">${#</span><span class="nv">array_name</span><span class="p">[*]</span><span class="k">}</span>
+<span class="c"># 取得数组单个元素的长度</span>
+<span class="nv">lengthn</span><span class="o">=</span><span class="k">${#</span><span class="nv">array_name</span><span class="p">[n]</span><span class="k">}</span></code></pre></figure>
 
 <h2 id="echo-">3. echo 的用途</h2>
 
@@ -264,73 +230,61 @@ lengthn=${#array_name[n]}
   <li>显示普通字符串</li>
 </ul>
 
-<p>```
-echo “It is a test”</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s2">"It is a test"</span>
 
-<h1 id="section-4">这里的双引号完全可以省略，以下命令与上面实例效果一致</h1>
-<p>echo It is a test
-```</p>
+<span class="c"># 这里的双引号完全可以省略，以下命令与上面实例效果一致</span>
+<span class="nb">echo </span>It is a <span class="nb">test</span></code></pre></figure>
 
 <ul>
   <li>显示转义字符</li>
 </ul>
 
-<p>```
-chenshan@mac007:~/Desktop/github/litaotao.github.io$echo “"It is a test"”
-“It is a test”</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">It is a test</span><span class="se">\"</span><span class="s2">"</span>
+<span class="s2">"It is a test"</span>
 
-<p>chenshan@mac007:~/Desktop/github/litaotao.github.io$echo "It is a test"
-“It is a test”
-```</p>
+chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span> <span class="se">\"</span>It is a <span class="nb">test</span><span class="se">\"</span>
+<span class="s2">"It is a test"</span></code></pre></figure>
 
 <ul>
   <li>输入变量：read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-<span class="c">#!/bin/sh</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
 <span class="nb">read </span>name
-<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2"> It is a test"</span>
-</code></p>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2"> It is a test"</span></code></pre></figure>
 
 <ul>
   <li>显示换行/不换行</li>
 </ul>
 
-<p>```
-# 换行
-echo -e “OK!\n” # -e 开启转义
-echo “It it a test”</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 换行</span>
+<span class="nb">echo</span> -e <span class="s2">"OK!</span><span class="se">\n</span><span class="s2">"</span> <span class="c"># -e 开启转义</span>
+<span class="nb">echo</span> <span class="s2">"It it a test"</span>
 
-<h1 id="section-5">不换行</h1>
-<p>#!/bin/sh
-echo -e “OK! \c” # -e 开启转义 \c 不换行
-echo “It is a test”
-```</p>
+<span class="c"># 不换行</span>
+<span class="c">#!/bin/sh</span>
+<span class="nb">echo</span> -e <span class="s2">"OK! </span><span class="se">\c</span><span class="s2">"</span> <span class="c"># -e 开启转义 \c 不换行</span>
+<span class="nb">echo</span> <span class="s2">"It is a test"</span></code></pre></figure>
 
 <ul>
   <li>显示结果定向至文件</li>
 </ul>
 
-<p>```
-# 以重写文件的方式重定向
-echo “It is a test” &gt; myfile</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 以重写文件的方式重定向</span>
+<span class="nb">echo</span> <span class="s2">"It is a test"</span> &gt; myfile
 
-<h1 id="section-6">以添加到文件尾的方式重定向</h1>
-<p>echo “It is a test” » myfile
-```</p>
+<span class="c"># 以添加到文件尾的方式重定向</span>
+<span class="nb">echo</span> <span class="s2">"It is a test"</span> &gt;&gt; myfile</code></pre></figure>
 
 <ul>
   <li>显示命令执行结果</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-chenshan@mac007:~/Desktop/github/litaotao.github.io$echo -e $(date) '\n'  `date`
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span> -e <span class="k">$(</span>date<span class="k">)</span> <span class="s1">'\n'</span>  <span class="sb">`</span>date<span class="sb">`</span>
 Tue Nov 17 22:21:05 CST 2015
- Tue Nov 17 22:21:05 CST 2015
-</code></p>
+ Tue Nov 17 22:21:05 CST 2015</code></pre></figure>
 
-<h2 id="section-7">参考文档</h2>
+<h2 id="section-3">参考文档</h2>
 
 <ul>
   <li><a href="http://www.runoob.com/linux/linux-shell.html">Shell 教程</a></li>

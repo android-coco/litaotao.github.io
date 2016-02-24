@@ -1,5 +1,5 @@
 ---
-category: service
+categories: service
 published: true
 layout: post
 title: celery 笔记
@@ -7,17 +7,15 @@ description: things should be known when talking about celery.
 ---
 
 
-##
 ## 1. hello, celery
 
-{% highlight python%}
 
-three questions:
+three questions:  
+
 - what is celery?
 - why do we need celery?
 - what features does celery have?
 
-{% endhighlight %}
 
 ### 1.1 what is celery?
 
@@ -63,7 +61,8 @@ write in python, easily configure.
 - `celery task`: a serialized task info which will be scheduled to done by celery,
 generally it contains some meta data, like bellow:
 
-```
+{% highlight json %}
+
 {"id": "4cc7438e-afd4-4f8f-a2f3-f46567e7ca77",
  "task": "celery.task.PingTask",
  "args": [],
@@ -71,7 +70,8 @@ generally it contains some meta data, like bellow:
  "retries": 0,
  "eta": "2009-11-17T12:30:56.527191"
 }
-```  
+
+{% endhighlight %}  
 
 - `producer`: the one who send task messages to the broker,
 generally it is a celery client.
@@ -99,13 +99,16 @@ two possible ways to install celery.
 
 - install the latest stable celery and its dependences
 
-```
+{% highlight shell %}
+
 chenshan@mac007:~/Desktop$sudo pip install -U celery
 ...
 ...
 ...
 Installing collected packages: celery, kombu, billiard, amqp
-```
+
+{% endhighlight %}
+
 the celery dependences info is listed here: [Does Celery have many dependencies](http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies)
 
 - install celery with bundles
@@ -135,4 +138,3 @@ all bundles command can be find here: [bundles](http://docs.celeryproject.org/en
 - [从一次celery踩坑中谈谈Queryset的懒加载](http://www.opscoder.info/queryset_lazy.html)
 - [stackoverflow: Send log messages from all celery tasks to a single file](http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file)
 
-#

@@ -7,7 +7,6 @@ description: Gevent，用过都说好~
 ---    
 
 
-## 
 ## 1. 什么是Gevent
 
 gevent是一个基于libev的python并发框架,以微线程greenlet为核心，使用了epoll事件监听机制以及诸多其他优化而变得高效.而且其中有个monkey类, 将现有基于Python线程直接转化为greenlet(类似于打patch).
@@ -23,24 +22,24 @@ greenlet 包是 Stackless 的副产品，其将微线程称为 “tasklet” 。
 
 按照 [进程、线程和协程的理解](http://blog.leiqin.info/2012/12/02/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3.html) 的说法：   
 
-```
-进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。
-线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。
-协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。
-```
+
+- 进程拥有自己独立的堆和栈，既不共享堆，亦不共享栈，进程由操作系统调度。
+- 线程拥有自己独立的栈和共享的堆，共享堆，不共享栈，线程亦由操作系统调度(标准线程是的)。
+- 协程和线程一样共享堆，不共享栈，协程由程序员在协程的代码里显示调度。
+
 
 上面的说法不是很好理解，后来发现这篇文章 [浅谈coroutine与gevent](http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/), 里面对协程的解释是：  
 
-```
-用简单的一句话来说Coroutine，就是可以暂时中断，之后再继续执行的程序，
-我们来看一个例子，事实上Python就有最基础的Coroutine，也就是generator
-``` 
+
+    用简单的一句话来说Coroutine，就是可以暂时中断，之后再继续执行的程序， 
+    我们来看一个例子，事实上Python就有最基础的Coroutine，也就是generator
 
 好了，通过上面两篇文章，理解协程已经对比协程、进程、线程的概念就清晰很多了：  
 
 协程就是一种特殊的并发机制，其调度[就是指什么时候调用什么函数]完全由程序员指定，比如说这篇文章里的例子：  [浅谈coroutine与gevent](http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/) ：    
 
-```
+{% highlight python %}
+
 # -*- coding: utf8 -*-
 def foo():
     for i in range(10):
@@ -67,7 +66,8 @@ foo: 主控又回到我手上了，打我阿笨蛋
 1
 foo: 主控又回到我手上了，打我阿笨蛋
 2
-```   
+ 
+{% endhighlight %}
 
 ## 3. Gevent适用场景  
 

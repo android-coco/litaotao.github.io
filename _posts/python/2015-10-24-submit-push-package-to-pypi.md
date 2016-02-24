@@ -8,7 +8,6 @@ description: 如何把 python package 打包到 pypi
 
 
 
-##
 ## 1. 注册 pypi 账号  
 
 点击这张图片去注册吧。
@@ -19,7 +18,8 @@ description: 如何把 python package 打包到 pypi
 ## 2. 编写 setup.py 必要信息
 
 
-```
+{% highlight python %}
+
 setup(
     name="IPython-Dashboard",
     version='0.1.1',
@@ -37,7 +37,9 @@ setup(
     ...
     ...
 )
-```
+
+{% endhighlight %}
+
 
 
 上面是我的一个项目的 `setup.py` 内容，可以对比源文件和在 pypi 上到描述。

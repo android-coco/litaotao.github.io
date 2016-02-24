@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,8 +46,7 @@
     <p class="entry-date">2015-10-24 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-24-submit-push-package-to-pypi.md">最后更新时间: </span></p>
 
 
-    <h1 id="section">#</h1>
-<p>## 1. 注册 pypi 账号</p>
+    <h2 id="pypi-">1. 注册 pypi 账号</h2>
 
 <p>点击这张图片去注册吧。</p>
 
@@ -56,25 +54,23 @@
 
 <h2 id="setuppy-">2. 编写 setup.py 必要信息</h2>
 
-<p><code class="highlighter-rouge">
-setup(
-    name="IPython-Dashboard",
-    version='0.1.1',
-    author="Taotao Li",
-    author_email="taotao.engineer@gmail.com",
-    url="https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server",
-    keywords = ("ipython", "dashboard", "interactive", "visualization", "data science", "data analysis", "streaming"),
-    license="BSD",
-    packages=find_packages(),
-    package_dir={"dashboard": "dashboard"},
-    include_package_data=True,
-    description="An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards.",
-    long_description=io.open("README.md", encoding='utf8').read(),
-    install_requires=io.open("requirements.txt", encoding='utf8').read(),
-    ...
-    ...
-)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"IPython-Dashboard"</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s">'0.1.1'</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="s">"Taotao Li"</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s">"taotao.engineer@gmail.com"</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s">"https://github.com/litaotao/IPython-Dashboard/tree/v-0.2-dashboard-server"</span><span class="p">,</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s">"ipython"</span><span class="p">,</span> <span class="s">"dashboard"</span><span class="p">,</span> <span class="s">"interactive"</span><span class="p">,</span> <span class="s">"visualization"</span><span class="p">,</span> <span class="s">"data science"</span><span class="p">,</span> <span class="s">"data analysis"</span><span class="p">,</span> <span class="s">"streaming"</span><span class="p">),</span>
+    <span class="n">license</span><span class="o">=</span><span class="s">"BSD"</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">package_dir</span><span class="o">=</span><span class="p">{</span><span class="s">"dashboard"</span><span class="p">:</span> <span class="s">"dashboard"</span><span class="p">},</span>
+    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">"An stand alone, light-weight web server for building, sharing graphs in created in ipython. Let ipython do what it focus, let this do what everyone needs for building a interactive, collaborated and real-time streaming dashboards."</span><span class="p">,</span>
+    <span class="n">long_description</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"README.md"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+    <span class="n">install_requires</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"requirements.txt"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+<span class="p">)</span></code></pre></figure>
 
 <p>上面是我的一个项目的 <code class="highlighter-rouge">setup.py</code> 内容，可以对比源文件和在 pypi 上到描述。</p>
 
@@ -115,7 +111,7 @@ setup(
 
 <p>使用 <code class="highlighter-rouge">python setup.py sdist upload</code> 发布包，即先将包在本地打包，然后上传到pypi，然后就ok了。</p>
 
-<h2 id="section-1">参考文档</h2>
+<h2 id="section">参考文档</h2>
 
 <ul>
   <li><a href="http://peterdowns.com/posts/first-time-with-pypi.html">How to submit a package to PyPI</a></li>

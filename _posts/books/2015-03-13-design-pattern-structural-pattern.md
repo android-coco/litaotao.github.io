@@ -2,17 +2,18 @@
 category: books
 published: true
 layout: post
-title: book-3. 设计模式总结之结构型模式
+title: 『 读书笔记 』 设计模式总结之结构型模式
 description: 仅仅是记录我个人的读书记录，看官不必在意～
 ---  
 
-## 
+
 ## 1. 适配器模式
 　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。
 
 ### 1.1 Python源码示例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -104,7 +105,8 @@ if __name__ == "__main__":
 # A Cat goes meow!
 # A Human goes 'hello'
 # A Car goes vroom!!!
-```
+
+{% endhighlight %}
 
 
 ## 2. 桥接模式
@@ -112,7 +114,8 @@ if __name__ == "__main__":
 
 ### 2.1 Python源码示例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -168,14 +171,16 @@ if __name__ == '__main__':
 ### OUTPUT ###
 # API1.circle at 1:2 radius 7.5
 # API2.circle at 5:7 radius 27.5
-```
+
+{% endhighlight %}
 
 ## 3. 组合模式
 　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。
 
 ### 3.1 Python源码示例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -512,14 +517,16 @@ if __name__ == "__main__":
 ### OUTPUT ###
 # Submit
 # Browse
-```
+
+{% endhighlight %}
 
 ## 4. 修饰模式
 　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。
 
 ### 4.1 Python源码示例
 
-```
+{% highlight python %}
+
 """https://docs.python.org/2/library/functools.html#functools.wraps"""
 """https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""
 
@@ -551,14 +558,16 @@ if __name__ == '__main__':
 
 ### OUTPUT ###
 # result:<b><i>hello world</i></b>   name:hello   doc:a decorated hello world
-```
+
+{% endhighlight %}
 
 ## 5. 外观模式
 　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。
 
 ### 5.1 Python源码示例
 
-```
+{% highlight python %}
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -647,23 +656,8 @@ if __name__ == '__main__':
 # Tearing down
 # Test Finished
 #
-```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% endhighlight %}
 
 
 

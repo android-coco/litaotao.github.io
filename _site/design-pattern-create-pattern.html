@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>book-3. 设计模式总结之创建型模式 | Taotao's Zone</title>
+  <title>『 读书笔记 』 设计模式总结之创建型模式 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -42,14 +41,13 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/design-pattern-create-pattern" title="book-3. 设计模式总结之创建型模式">book-3. 设计模式总结之创建型模式</a></h1>
+    <h1 class="entry-title"><a href="/design-pattern-create-pattern" title="『 读书笔记 』 设计模式总结之创建型模式">『 读书笔记 』 设计模式总结之创建型模式</a></h1>
 
     <p class="entry-date">2015-03-11 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-11-design-pattern-create-pattern.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 抽象工厂模式
-　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。</p>
+    <h2 id="section">1. 抽象工厂模式</h2>
+<p>　　抽象工厂模式（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。</p>
 
 <p>　　举个例子来说，比如一个抽象工厂类叫做DocumentCreator（文档创建器），此类提供创建若干种产品的接口，包括createLetter()（创建邮件）和createResume()（创建简历）。其中，createLetter()返回一个Letter（邮件），createResume()返回一个Resume（简历）。系统中还有一些DocumentCreator的具体实现类，包括FancyDocumentCreator和ModernDocumentCreator。这两个类对DocumentCreator的两个方法分别有不同的实现，用来创建不同的“邮件”和“简历”（用FancyDocumentCreator的实例可以创建FancyLetter和FancyResume，用ModernDocumentCreator的实例可以创建ModernLetter和ModernResume）。这些具体的“邮件”和“简历”类均继承自抽象类，即Letter和Resume类。客户端需要创建“邮件”或“简历”时，先要得到一个合适的DocumentCreator实例，然后调用它的方法。一个工厂中创建的每个对象都是同一个主题的（“fancy”或者“modern”）。客户端程序只需要知道得到的对象是“邮件”或者“简历”，而不需要知道具体的主题，因此客户端程序从抽象工厂DocumentCreator中得到了Letter或Resume类的引用，而不是具体类的对象引用。</p>
 
@@ -61,107 +59,100 @@
 
 <p>　　源码来自<a href="https://github.com/faif/python-patterns/">github:python-patterns</a></p>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<h1 id="httpginstromcomscribbles20071008design-patterns-python-style">http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/</h1>
+<span class="c"># http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/</span>
 
-<p>”"”Implementation of the abstract factory pattern”””</p>
+<span class="s">"""Implementation of the abstract factory pattern"""</span>
 
-<p>import random</p>
+<span class="kn">import</span> <span class="nn">random</span>
 
-<p>class PetShop:</p>
+<span class="k">class</span> <span class="nc">PetShop</span><span class="p">:</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"""A pet shop"""
+    <span class="s">"""A pet shop"""</span>
 
-def __init__(self, animal_factory=None):
-    """pet_factory is our abstract factory.  We can set it at will."""
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_factory</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""pet_factory is our abstract factory.  We can set it at will."""</span>
 
-    self.pet_factory = animal_factory
+        <span class="bp">self</span><span class="o">.</span><span class="n">pet_factory</span> <span class="o">=</span> <span class="n">animal_factory</span>
 
-def show_pet(self):
-    """Creates and shows a pet using the abstract factory"""
+    <span class="k">def</span> <span class="nf">show_pet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Creates and shows a pet using the abstract factory"""</span>
 
-    pet = self.pet_factory.get_pet()
-    print("We have a lovely {}".format(pet))
-    print("It says {}".format(pet.speak()))
-    print("We also have {}".format(self.pet_factory.get_food()))
-</code></pre>
-</div>
+        <span class="n">pet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pet_factory</span><span class="o">.</span><span class="n">get_pet</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"We have a lovely {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pet</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"It says {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pet</span><span class="o">.</span><span class="n">speak</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"We also have {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pet_factory</span><span class="o">.</span><span class="n">get_food</span><span class="p">()))</span>
 
-<h1 id="stuff-that-our-factory-makes">Stuff that our factory makes</h1>
 
-<p>class Dog:</p>
+<span class="c"># Stuff that our factory makes</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def speak(self):
-    return "woof"
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
 
-def __str__(self):
-    return "Dog"
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"woof"</span>
 
-<p>class Cat:</p>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"Dog"</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def speak(self):
-    return "meow"
 
-def __str__(self):
-    return "Cat"
-</code></pre>
-</div>
+<span class="k">class</span> <span class="nc">Cat</span><span class="p">:</span>
 
-<h1 id="factory-classes">Factory classes</h1>
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"meow"</span>
 
-<p>class DogFactory:</p>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"Cat"</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def get_pet(self):
-    return Dog()
 
-def get_food(self):
-    return "dog food"
-</code></pre>
-</div>
+<span class="c"># Factory classes</span>
 
-<p>class CatFactory:</p>
+<span class="k">class</span> <span class="nc">DogFactory</span><span class="p">:</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def get_pet(self):
-    return Cat()
+    <span class="k">def</span> <span class="nf">get_pet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Dog</span><span class="p">()</span>
 
-def get_food(self):
-    return "cat food"
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">get_food</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"dog food"</span>
 
-<h1 id="create-the-proper-family">Create the proper family</h1>
-<p>def get_factory():
-    “"”Let’s be dynamic!”””
-    return random.choice([DogFactory, CatFactory])()</p>
 
-<h1 id="show-pets-with-various-factories">Show pets with various factories</h1>
-<p>if <strong>name</strong> == “<strong>main</strong>”:
-    for i in range(3):
-        shop = PetShop(get_factory())
-        shop.show_pet()
-        print(“=” * 20)</p>
+<span class="k">class</span> <span class="nc">CatFactory</span><span class="p">:</span>
 
-<h3 id="output">OUTPUT</h3>
-<p># We have a lovely Dog
-# It says woof
-# We also have dog food
-# ====================
-# We have a lovely Dog
-# It says woof
-# We also have dog food
-# ====================
-# We have a lovely Cat
-# It says meow
-# We also have cat food
-# ====================
-```</p>
+    <span class="k">def</span> <span class="nf">get_pet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Cat</span><span class="p">()</span>
 
-<h2 id="section">2.工厂方法模式</h2>
+    <span class="k">def</span> <span class="nf">get_food</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"cat food"</span>
+
+<span class="c"># Create the proper family</span>
+<span class="k">def</span> <span class="nf">get_factory</span><span class="p">():</span>
+    <span class="s">"""Let's be dynamic!"""</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">DogFactory</span><span class="p">,</span> <span class="n">CatFactory</span><span class="p">])()</span>
+
+
+<span class="c"># Show pets with various factories</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">shop</span> <span class="o">=</span> <span class="n">PetShop</span><span class="p">(</span><span class="n">get_factory</span><span class="p">())</span>
+        <span class="n">shop</span><span class="o">.</span><span class="n">show_pet</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"="</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># We have a lovely Dog</span>
+<span class="c"># It says woof</span>
+<span class="c"># We also have dog food</span>
+<span class="c"># ====================</span>
+<span class="c"># We have a lovely Dog</span>
+<span class="c"># It says woof</span>
+<span class="c"># We also have dog food</span>
+<span class="c"># ====================</span>
+<span class="c"># We have a lovely Cat</span>
+<span class="c"># It says meow</span>
+<span class="c"># We also have cat food</span>
+<span class="c"># ====================</span></code></pre></figure>
+
+<h2 id="section-1">2.工厂方法模式</h2>
 <p>　　工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”</p>
 
 <p>　　创建一个对象常常需要复杂的过程，所以不适合包含在一个复合对象中。创建对象可能会导致大量的重复代码，可能会需要复合对象访问不到的信息，也可能提供不了足够级别的抽象，还可能并不是复合对象概念的一部分。工厂方法模式通过定义一个单独的创建对象的方法来解决这些问题。由子类实现这个方法来创建具体类型的对象。</p>
@@ -176,56 +167,53 @@ def get_food(self):
 
 <p>　　源码来自<a href="https://github.com/faif/python-patterns/">github:python-patterns</a></p>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”"”http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/”””</p>
+<span class="s">"""http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/"""</span>
 
-<p>class GreekGetter:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"""A simple localizer a la gettext"""
+<span class="k">class</span> <span class="nc">GreekGetter</span><span class="p">:</span>
 
-def __init__(self):
-    self.trans = dict(dog="σκύλος", cat="γάτα")
+    <span class="s">"""A simple localizer a la gettext"""</span>
 
-def get(self, msgid):
-    """We'll punt if we don't have a translation"""
-    try:
-        return self.trans[msgid]
-    except KeyError:
-        return str(msgid)
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trans</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dog</span><span class="o">=</span><span class="s">"σκύλος"</span><span class="p">,</span> <span class="n">cat</span><span class="o">=</span><span class="s">"γάτα"</span><span class="p">)</span>
 
-<p>class EnglishGetter:</p>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">):</span>
+        <span class="s">"""We'll punt if we don't have a translation"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans</span><span class="p">[</span><span class="n">msgid</span><span class="p">]</span>
+        <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">msgid</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"""Simply echoes the msg ids"""
 
-def get(self, msgid):
-    return str(msgid)
-</code></pre>
-</div>
+<span class="k">class</span> <span class="nc">EnglishGetter</span><span class="p">:</span>
 
-<p>def get_localizer(language=”English”):
-    “"”The factory method”””
-    languages = dict(English=EnglishGetter, Greek=GreekGetter)
-    return languages<a href="">language</a></p>
+    <span class="s">"""Simply echoes the msg ids"""</span>
 
-<h1 id="create-our-localizers">Create our localizers</h1>
-<p>e, g = get_localizer(language=”English”), get_localizer(language=”Greek”)
-# Localize some text
-for msgid in “dog parrot cat bear”.split():
-    print(e.get(msgid), g.get(msgid))</p>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgid</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">msgid</span><span class="p">)</span>
 
-<h3 id="output-1">OUTPUT</h3>
-<p># dog σκύλος
-# parrot parrot
-# cat γάτα
-# bear bear
-```</p>
 
-<h2 id="section-1">3. 单例模式</h2>
+<span class="k">def</span> <span class="nf">get_localizer</span><span class="p">(</span><span class="n">language</span><span class="o">=</span><span class="s">"English"</span><span class="p">):</span>
+    <span class="s">"""The factory method"""</span>
+    <span class="n">languages</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">English</span><span class="o">=</span><span class="n">EnglishGetter</span><span class="p">,</span> <span class="n">Greek</span><span class="o">=</span><span class="n">GreekGetter</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">languages</span><span class="p">[</span><span class="n">language</span><span class="p">]()</span>
+
+<span class="c"># Create our localizers</span>
+<span class="n">e</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">get_localizer</span><span class="p">(</span><span class="n">language</span><span class="o">=</span><span class="s">"English"</span><span class="p">),</span> <span class="n">get_localizer</span><span class="p">(</span><span class="n">language</span><span class="o">=</span><span class="s">"Greek"</span><span class="p">)</span>
+<span class="c"># Localize some text</span>
+<span class="k">for</span> <span class="n">msgid</span> <span class="ow">in</span> <span class="s">"dog parrot cat bear"</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msgid</span><span class="p">))</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># dog σκύλος</span>
+<span class="c"># parrot parrot</span>
+<span class="c"># cat γάτα</span>
+<span class="c"># bear bear</span></code></pre></figure>
+
+<h2 id="section-2">3. 单例模式</h2>
 <p>　　单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。</p>
 
 <p>　　实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。</p>
@@ -235,153 +223,151 @@ for msgid in “dog parrot cat bear”.split():
 <h3 id="python">3.1 Python源码示例</h3>
 <p>　　源码来自<a href="http://blog.csdn.net/ghostfromheaven/article/details/7671853">csdn.net</a></p>
 
-<p>```
-#-<em>- encoding=utf-8 -</em>-
-print ‘———————-方法1————————–’
-#方法1,实现__new__方法
-#并在将一个类的实例绑定到类变量_instance上,
-#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回
-#如果cls._instance不为None,直接返回cls._instance
-class Singleton(object):
-    def <strong>new</strong>(cls, *args, **kw):
-        if not hasattr(cls, ‘_instance’):
-            orig = super(Singleton, cls)
-            cls._instance = orig.<strong>new</strong>(cls, *args, **kw)
-        return cls._instance</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#-*- encoding=utf-8 -*-</span>
+<span class="k">print</span> <span class="s">'----------------------方法1--------------------------'</span>
+<span class="c">#方法1,实现__new__方法</span>
+<span class="c">#并在将一个类的实例绑定到类变量_instance上,</span>
+<span class="c">#如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回</span>
+<span class="c">#如果cls._instance不为None,直接返回cls._instance</span>
+<span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">'_instance'</span><span class="p">):</span>
+            <span class="n">orig</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="n">orig</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span>
 
-<p>class MyClass(Singleton):
-    a = 1</p>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
 
-<p>one = MyClass()
-two = MyClass()</p>
+<span class="n">one</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="n">two</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
 
-<p>two.a = 3
-print one.a
-#3
-#one和two完全相同,可以用id(), ==, is检测
-print id(one)
-#29097904
-print id(two)
-#29097904
-print one == two
-#True
-print one is two
-#True</p>
+<span class="n">two</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">one</span><span class="o">.</span><span class="n">a</span>
+<span class="c">#3</span>
+<span class="c">#one和two完全相同,可以用id(), ==, is检测</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">one</span><span class="p">)</span>
+<span class="c">#29097904</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">two</span><span class="p">)</span>
+<span class="c">#29097904</span>
+<span class="k">print</span> <span class="n">one</span> <span class="o">==</span> <span class="n">two</span>
+<span class="c">#True</span>
+<span class="k">print</span> <span class="n">one</span> <span class="ow">is</span> <span class="n">two</span>
+<span class="c">#True</span>
 
-<p>print ‘———————-方法2————————–’
-#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)
-#同一个类的所有实例天然拥有相同的行为(方法),
-#只需要保证同一个类的所有实例具有相同的状态(属性)即可
-#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)
-#可参看:http://code.activestate.com/recipes/66531/
-class Borg(object):
-    _state = {}
-    def <strong>new</strong>(cls, *args, **kw):
-        ob = super(Borg, cls).<strong>new</strong>(cls, *args, **kw)
-        ob.<strong>dict</strong> = cls._state
-        return ob</p>
+<span class="k">print</span> <span class="s">'----------------------方法2--------------------------'</span>
+<span class="c">#方法2,共享属性;所谓单例就是所有引用(实例、对象)拥有相同的状态(属性)和行为(方法)</span>
+<span class="c">#同一个类的所有实例天然拥有相同的行为(方法),</span>
+<span class="c">#只需要保证同一个类的所有实例具有相同的状态(属性)即可</span>
+<span class="c">#所有实例共享属性的最简单最直接的方法就是__dict__属性指向(引用)同一个字典(dict)</span>
+<span class="c">#可参看:http://code.activestate.com/recipes/66531/</span>
+<span class="k">class</span> <span class="nc">Borg</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">_state</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="n">ob</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Borg</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="n">ob</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_state</span>
+        <span class="k">return</span> <span class="n">ob</span>
 
-<p>class MyClass2(Borg):
-    a = 1</p>
+<span class="k">class</span> <span class="nc">MyClass2</span><span class="p">(</span><span class="n">Borg</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
 
-<p>one = MyClass2()
-two = MyClass2()</p>
+<span class="n">one</span> <span class="o">=</span> <span class="n">MyClass2</span><span class="p">()</span>
+<span class="n">two</span> <span class="o">=</span> <span class="n">MyClass2</span><span class="p">()</span>
 
-<h1 id="onetwoid--is">one和two是两个不同的对象,id, ==, is对比结果可看出</h1>
-<p>two.a = 3
-print one.a
-#3
-print id(one)
-#28873680
-print id(two)
-#28873712
-print one == two
-#False
-print one is two
-#False
-#但是one和two具有相同的（同一个__dict__属性）,见:
-print id(one.<strong>dict</strong>)
-#30104000
-print id(two.<strong>dict</strong>)
-#30104000</p>
+<span class="c">#one和two是两个不同的对象,id, ==, is对比结果可看出</span>
+<span class="n">two</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">one</span><span class="o">.</span><span class="n">a</span>
+<span class="c">#3</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">one</span><span class="p">)</span>
+<span class="c">#28873680</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">two</span><span class="p">)</span>
+<span class="c">#28873712</span>
+<span class="k">print</span> <span class="n">one</span> <span class="o">==</span> <span class="n">two</span>
+<span class="c">#False</span>
+<span class="k">print</span> <span class="n">one</span> <span class="ow">is</span> <span class="n">two</span>
+<span class="c">#False</span>
+<span class="c">#但是one和two具有相同的（同一个__dict__属性）,见:</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">one</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+<span class="c">#30104000</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">two</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+<span class="c">#30104000</span>
 
-<p>print ‘———————-方法3————————–’
-#方法3:本质上是方法1的升级（或者说高级）版
-#使用__metaclass__（元类）的高级python用法
-class Singleton2(type):
-    def <strong>init</strong>(cls, name, bases, dict):
-        super(Singleton2, cls).<strong>init</strong>(name, bases, dict)
-        cls._instance = None
-    def <strong>call</strong>(cls, <em>args, **kw):
-        if cls._instance is None:
-            cls._instance = super(Singleton2, cls).<strong>call</strong>(</em>args, **kw)
-        return cls._instance</p>
+<span class="k">print</span> <span class="s">'----------------------方法3--------------------------'</span>
+<span class="c">#方法3:本质上是方法1的升级（或者说高级）版</span>
+<span class="c">#使用__metaclass__（元类）的高级python用法</span>
+<span class="k">class</span> <span class="nc">Singleton2</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Singleton2</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton2</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span>
 
-<p>class MyClass3(object):
-    <strong>metaclass</strong> = Singleton2</p>
+<span class="k">class</span> <span class="nc">MyClass3</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Singleton2</span>
 
-<p>one = MyClass3()
-two = MyClass3()</p>
+<span class="n">one</span> <span class="o">=</span> <span class="n">MyClass3</span><span class="p">()</span>
+<span class="n">two</span> <span class="o">=</span> <span class="n">MyClass3</span><span class="p">()</span>
 
-<p>two.a = 3
-print one.a
-#3
-print id(one)
-#31495472
-print id(two)
-#31495472
-print one == two
-#True
-print one is two
-#True</p>
+<span class="n">two</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">one</span><span class="o">.</span><span class="n">a</span>
+<span class="c">#3</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">one</span><span class="p">)</span>
+<span class="c">#31495472</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">two</span><span class="p">)</span>
+<span class="c">#31495472</span>
+<span class="k">print</span> <span class="n">one</span> <span class="o">==</span> <span class="n">two</span>
+<span class="c">#True</span>
+<span class="k">print</span> <span class="n">one</span> <span class="ow">is</span> <span class="n">two</span>
+<span class="c">#True</span>
 
-<p>print ‘———————-方法4————————–’
-#方法4:也是方法1的升级（高级）版本,
-#使用装饰器(decorator),
-#这是一种更pythonic,更elegant的方法,
-#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的
-def singleton(cls, <em>args, **kw):
-    instances = {}
-    def _singleton():
-        if cls not in instances:
-            instances[cls] = cls(</em>args, **kw)
-        return instances[cls]
-    return _singleton</p>
+<span class="k">print</span> <span class="s">'----------------------方法4--------------------------'</span>
+<span class="c">#方法4:也是方法1的升级（高级）版本,</span>
+<span class="c">#使用装饰器(decorator),</span>
+<span class="c">#这是一种更pythonic,更elegant的方法,</span>
+<span class="c">#单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的</span>
+<span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">_singleton</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
+            <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_singleton</span>
 
-<p>@singleton
-class MyClass4(object):
-    a = 1
-    def <strong>init</strong>(self, x=0):
-        self.x = x</p>
+<span class="nd">@singleton</span>
+<span class="k">class</span> <span class="nc">MyClass4</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
 
-<p>one = MyClass4()
-two = MyClass4()</p>
+<span class="n">one</span> <span class="o">=</span> <span class="n">MyClass4</span><span class="p">()</span>
+<span class="n">two</span> <span class="o">=</span> <span class="n">MyClass4</span><span class="p">()</span>
 
-<p>two.a = 3
-print one.a
-#3
-print id(one)
-#29660784
-print id(two)
-#29660784
-print one == two
-#True
-print one is two
-#True
-one.x = 1
-print one.x
-#1
-print two.x
-#1
-```</p>
+<span class="n">two</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">one</span><span class="o">.</span><span class="n">a</span>
+<span class="c">#3</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">one</span><span class="p">)</span>
+<span class="c">#29660784</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="n">two</span><span class="p">)</span>
+<span class="c">#29660784</span>
+<span class="k">print</span> <span class="n">one</span> <span class="o">==</span> <span class="n">two</span>
+<span class="c">#True</span>
+<span class="k">print</span> <span class="n">one</span> <span class="ow">is</span> <span class="n">two</span>
+<span class="c">#True</span>
+<span class="n">one</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">print</span> <span class="n">one</span><span class="o">.</span><span class="n">x</span>
+<span class="c">#1</span>
+<span class="k">print</span> <span class="n">two</span><span class="o">.</span><span class="n">x</span>
+<span class="c">#1</span></code></pre></figure>
 
-<h2 id="section-2">扫一扫</h2>
+<h2 id="section-3">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-11-design-pattern-create-pattern.md.jpg" alt="2015-03-11-design-pattern-create-pattern.md" /></p>
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/design-pattern-create-pattern" data-title="book-3. 设计模式总结之创建型模式"
+    <div class="ds-share" data-thread-key="/design-pattern-create-pattern" data-title="『 读书笔记 』 设计模式总结之创建型模式"
          data-content="content"
          data-url="http://litaotao.github.io//design-pattern-create-pattern">
         <div class="ds-share-aside-left">
@@ -394,7 +380,7 @@ print two.x
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/design-pattern-create-pattern data-title=book-3. 设计模式总结之创建型模式 data-url=/design-pattern-create-pattern></div>
+        <div class="ds-thread" data-thread-key=/design-pattern-create-pattern data-title=『 读书笔记 』 设计模式总结之创建型模式 data-url=/design-pattern-create-pattern></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">

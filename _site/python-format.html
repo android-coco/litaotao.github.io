@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,37 +46,30 @@
     <p class="entry-date">2015-10-24 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-10-24-python-format.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 位置参数</p>
+    <h2 id="section">1. 位置参数</h2>
 
 <p>字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
 值得注意的是，<code class="highlighter-rouge">位置可以不按顺序，可以不用或者用多次</code>，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。</p>
 
-<p>```</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="s">'{0},{1}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'kzc'</span><span class="p">,</span><span class="mi">18</span><span class="p">)</span>  
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="s">'kzc,18'</span>  
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="s">'{},{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'kzc'</span><span class="p">,</span><span class="mi">18</span><span class="p">)</span>  
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="s">'kzc,18'</span>  
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="s">'{1},{0},{1}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'kzc'</span><span class="p">,</span><span class="mi">18</span><span class="p">)</span>  
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="s">'18,kzc,18'</span>
 
-<p>In [1]: ‘{0},{1}’.format(‘kzc’,18)<br />
-Out[1]: ‘kzc,18’<br />
-In [2]: ‘{},{}’.format(‘kzc’,18)<br />
-Out[2]: ‘kzc,18’<br />
-In [3]: ‘{1},{0},{1}’.format(‘kzc’,18)<br />
-Out[3]: ‘18,kzc,18’</p>
+<span class="c"># more powerful</span>
 
-<h1 id="more-powerful">more powerful</h1>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="s">'kzc'</span><span class="p">,</span><span class="mi">18</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="s">'{0[0]},{0[1]}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="s">'kzc,18'</span></code></pre></figure>
 
-<p>In [7]: p=[‘kzc’,18]
-In [8]: ‘{0[0]},{0[1]}’.format(p)
-Out[8]: ‘kzc,18’</p>
+<h2 id="section-1">2. 通过关键字参数</h2>
 
-<p>```</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'{name},{age}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">'kzc'</span><span class="p">)</span>  
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'kzc,18'</span></code></pre></figure>
 
-<h2 id="section">2. 通过关键字参数</h2>
-
-<p><code class="highlighter-rouge">
-In [5]: '{name},{age}'.format(age=18,name='kzc')  
-Out[5]: 'kzc,18'
-</code></p>
-
-<h2 id="section-1">3. 对象属性</h2>
+<h2 id="section-2">3. 对象属性</h2>
 
 <p>这是很多对象的 <code class="highlighter-rouge">str</code>, <code class="highlighter-rouge">__str__</code>, <code class="highlighter-rouge">__repr__</code> 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：</p>
 
@@ -87,52 +79,48 @@ Out[5]: 'kzc,18'
   <li>need more details, check this on <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">SO</a></li>
 </ul>
 
-<p><code class="highlighter-rouge">
-class Person:  
-    def __init__(self,name,age):  
-        self.name,self.age = name,age  
-        def __str__(self):  
-            return 'This guy is {self.name},is {self.age} old'.format(self=self)  
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span><span class="n">age</span>  
+        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+            <span class="k">return</span> <span class="s">'This guy is {self.name},is {self.age} old'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>  </code></pre></figure>
 
-<h2 id="section-2">4. 格式限定符 - 填充与对齐</h2>
+<h2 id="section-3">4. 格式限定符 - 填充与对齐</h2>
 
 <p>不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。</p>
 
-<p>```
-# 无需对齐，填充
-In [1]: ‘{}’.format(‘hello’)
-Out[1]: ‘hello’</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># 无需对齐，填充</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="s">'{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="s">'hello'</span>
 
-<p>In [2]: ‘{:}’.format(‘hello’)
-Out[2]: ‘hello’</p>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="s">'{:}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="s">'hello'</span>
 
-<h1 id="section-3">居中对齐，构建 9 个长度的字符串</h1>
-<p>In [5]: ‘‘.format(‘hello’)
-Out[5]: ‘  hello  ‘</p>
+<span class="c"># 居中对齐，构建 9 个长度的字符串</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'{:^9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'  hello  '</span>
 
-<h1 id="section-4">右对齐，构建 9 个长度的字符串</h1>
-<p>In [6]: ‘‘.format(‘hello’)
-Out[6]: ‘    hello’</p>
+<span class="c"># 右对齐，构建 9 个长度的字符串</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="s">'{:&gt;9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="s">'    hello'</span>
 
-<h1 id="section-5">左对齐，构建 9 个长度的字符串</h1>
-<p>In [7]: ‘‘.format(‘hello’)
-Out[7]: ‘hello    ‘</p>
+<span class="c"># 左对齐，构建 9 个长度的字符串</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="s">'{:&lt;9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="s">'hello    '</span>
 
-<h1 id="section-6">右对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
-<p>In [10]: ‘‘.format(‘hello’)
-Out[10]: ‘0000hello’</p>
+<span class="c"># 右对齐，构建 9 个长度的字符串，用 0 填充空白位置</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="s">'{:0&gt;9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="s">'0000hello'</span>
 
-<h1 id="section-7"># 左对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
-<p>In [11]: ‘‘.format(‘hello’)
-Out[11]: ‘hello0000’</p>
+<span class="c"># # 左对齐，构建 9 个长度的字符串，用 0 填充空白位置</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="s">'{:0&lt;9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="s">'hello0000'</span>
 
-<h1 id="section-8">居中对齐，构建 9 个长度的字符串，用 0 填充空白位置</h1>
-<p>In [12]: ‘‘.format(‘hello’)
-Out[12]: ‘00hello00’
-```</p>
+<span class="c"># 居中对齐，构建 9 个长度的字符串，用 0 填充空白位置</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="s">'{:0^9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="s">'00hello00'</span></code></pre></figure>
 
-<h2 id="section-9">5. 精度与类型</h2>
+<h2 id="section-4">5. 精度与类型</h2>
 
 <ul>
   <li>f : float类型</li>
@@ -143,24 +131,22 @@ Out[12]: ‘00hello00’
   <li>, : 逗号可以表示数字的千分位</li>
 </ul>
 
-<p>```
-In [44]: ‘‘.format(321.33345)
-Out[44]: ‘321.33’</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">44</span><span class="p">]:</span> <span class="s">'{:.2f}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">321.33345</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">44</span><span class="p">]:</span> <span class="s">'321.33'</span>
 
-<p>In [54]: ‘‘.format(17)
-Out[54]: ‘10001’
-In [55]: ‘‘.format(17)
-Out[55]: ‘17’
-In [56]: ‘‘.format(17)
-Out[56]: ‘21’
-In [57]: ‘‘.format(17)
-Out[57]: ‘11’</p>
+<span class="n">In</span> <span class="p">[</span><span class="mi">54</span><span class="p">]:</span> <span class="s">'{:b}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">54</span><span class="p">]:</span> <span class="s">'10001'</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">55</span><span class="p">]:</span> <span class="s">'{:d}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">55</span><span class="p">]:</span> <span class="s">'17'</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">56</span><span class="p">]:</span> <span class="s">'{:o}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">56</span><span class="p">]:</span> <span class="s">'21'</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">57</span><span class="p">]:</span> <span class="s">'{:x}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">57</span><span class="p">]:</span> <span class="s">'11'</span>
 
-<p>In [47]: ‘‘.format(1234567890)
-Out[47]: ‘1,234,567,890’
-```</p>
+<span class="n">In</span> <span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="s">'{:,}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="s">'1,234,567,890'</span></code></pre></figure>
 
-<h2 id="section-10">6. 完善的格式文档</h2>
+<h2 id="section-5">6. 完善的格式文档</h2>
 
 <p><img src="../images/python_str_format.jpg" alt="python_str_format.jpg" /></p>
 
@@ -172,7 +158,7 @@ Out[47]: ‘1,234,567,890’
   <li><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format">python-string-formatting-vs-format</a></li>
 </ul>
 
-<h2 id="section-11">参考文档</h2>
+<h2 id="section-6">参考文档</h2>
 
 <ul>
   <li><a href="http://blog.csdn.net/handsomekang/article/details/9183303">飘逸的python - 增强的格式化字符串format函数</a></li>

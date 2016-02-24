@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,13 +46,15 @@
     <p class="entry-date">2015-12-18 <span class="lastModified" style="display: none;" data-source="_posts/service/2015-12-18-hello-celery.md">最后更新时间: </span></p>
 
 
-    <h1 id="section">#</h1>
-<p>## 1. hello, celery</p>
+    <h2 id="hello-celery">1. hello, celery</h2>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">three</span> <span class="n">questions</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">celery</span><span class="err">?</span>
-<span class="o">-</span> <span class="n">why</span> <span class="n">do</span> <span class="n">we</span> <span class="n">need</span> <span class="n">celery</span><span class="err">?</span>
-<span class="o">-</span> <span class="n">what</span> <span class="n">features</span> <span class="n">does</span> <span class="n">celery</span> <span class="n">have</span><span class="err">?</span></code></pre></figure>
+<p>three questions:</p>
+
+<ul>
+  <li>what is celery?</li>
+  <li>why do we need celery?</li>
+  <li>what features does celery have?</li>
+</ul>
 
 <h3 id="what-is-celery">1.1 what is celery?</h3>
 
@@ -107,15 +108,13 @@ write in python, easily configure.</li>
 generally it contains some meta data, like bellow:</li>
 </ul>
 
-<p><code class="highlighter-rouge"><span class="w">
-</span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4cc7438e-afd4-4f8f-a2f3-f46567e7ca77"</span><span class="p">,</span><span class="w">
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4cc7438e-afd4-4f8f-a2f3-f46567e7ca77"</span><span class="p">,</span><span class="w">
  </span><span class="nt">"task"</span><span class="p">:</span><span class="w"> </span><span class="s2">"celery.task.PingTask"</span><span class="p">,</span><span class="w">
  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
  </span><span class="nt">"kwargs"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
  </span><span class="nt">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
  </span><span class="nt">"eta"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2009-11-17T12:30:56.527191"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></p>
+</span><span class="p">}</span></code></pre></figure>
 
 <ul>
   <li><code class="highlighter-rouge">producer</code>: the one who send task messages to the broker,
@@ -149,14 +148,13 @@ and dispatching message to queues. two things should be taken in mind about exch
   <li>install the latest stable celery and its dependences</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-chenshan@mac007:~/Desktop$sudo pip install -U celery
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007:~/Desktop<span class="nv">$sudo</span> pip install -U celery
 ...
 ...
 ...
-Installing collected packages: celery, kombu, billiard, amqp
-</code>
-the celery dependences info is listed here: <a href="http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies">Does Celery have many dependencies</a></p>
+Installing collected packages: celery, kombu, billiard, amqp</code></pre></figure>
+
+<p>the celery dependences info is listed here: <a href="http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies">Does Celery have many dependencies</a></p>
 
 <ul>
   <li>install celery with bundles</li>
@@ -168,7 +166,7 @@ the celery dependences info is listed here: <a href="http://docs.celeryproject.o
 
 <p>all bundles command can be find here: <a href="http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles">bundles</a></p>
 
-<h2 id="section-1">参考文档</h2>
+<h2 id="section">参考文档</h2>
 
 <ul>
   <li><a href="http://www.celeryproject.org/">celery official site</a></li>
@@ -186,7 +184,6 @@ the celery dependences info is listed here: <a href="http://docs.celeryproject.o
   <li><a href="http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file">stackoverflow: Send log messages from all celery tasks to a single file</a></li>
 </ul>
 
-<p>#</p>
 
 
     <!-- share icon -->

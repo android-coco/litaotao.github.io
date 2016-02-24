@@ -8,7 +8,6 @@ description: 我常用的 sublime 快捷键
 
 
 
-## 
 ## 写在前面   
 
 　　之所以要整理一下我常用的 sublime 快捷键，是源于一个 blog [如何提升你的能力？给年轻程序员的几条建议](http://tech.glowing.com/cn/advices-to-junior-developers/)。这个作者 [Ryan](https://github.com/yejianye) 是我的新boss，在当时第一次面试结束的时候，我问了他一个问题，像我这样子刚工作不久，基础不好的新人，应该怎么来提升自己。当时他简单的说了一下，内容和博文里面的差不多，没想到不到一个星期在公司的微信公众号上就出现了这样一篇文章。虽然不确定是不是因为我的那个问题而写的，但确实很感动。我想，在个人成长的过程中，如果有人能拉一把，那感觉就跟买股票时，有人突然给了一个内幕消息似的。无论如何，都要谢谢 Ryan，也要感谢他的这篇文章。  
@@ -111,9 +110,11 @@ Packages/User/<syntax>.sublime-settings
 
 按Ctrl+`调出console，如果这个快捷键不管用，肯定是有其他工具占用了这个快捷键。如果成功调出console，粘贴下面的代码，安装package control组件。  
 
-```
+{% highlight python %}
+
 import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
-```
+
+{% endhighlight %}
 
 安装成功后重启sublime，command + shift + p调出命令面版，输入install，应该能找到install package的选项。
 

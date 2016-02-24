@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>book-3. 设计模式总结之结构型模式 | Taotao's Zone</title>
+  <title>『 读书笔记 』 设计模式总结之结构型模式 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -42,668 +41,649 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/design-pattern-structural-pattern" title="book-3. 设计模式总结之结构型模式">book-3. 设计模式总结之结构型模式</a></h1>
+    <h1 class="entry-title"><a href="/design-pattern-structural-pattern" title="『 读书笔记 』 设计模式总结之结构型模式">『 读书笔记 』 设计模式总结之结构型模式</a></h1>
 
     <p class="entry-date">2015-03-13 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-13-design-pattern-structural-pattern.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 适配器模式
-　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
+    <h2 id="section">1. 适配器模式</h2>
+<p>　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
 
 <h3 id="python">1.1 Python源码示例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”"”http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/”””</p>
+<span class="s">"""http://ginstrom.com/scribbles/2008/11/06/generic-adapter-class-in-python/"""</span>
 
-<p>import os</p>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<p>class Dog(object):
-    def <strong>init</strong>(self):
-        self.name = “Dog”
-    def bark(self):
-        return “woof!”</p>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Dog"</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"woof!"</span>
 
-<p>class Cat(object):
-    def <strong>init</strong>(self):
-        self.name = “Cat”
-    def meow(self):
-        return “meow!”</p>
+<span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Cat"</span>
+    <span class="k">def</span> <span class="nf">meow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"meow!"</span>
 
-<p>class Human(object):
-    def <strong>init</strong>(self):
-        self.name = “Human”
-    def speak(self):
-        return “‘hello’”</p>
+<span class="k">class</span> <span class="nc">Human</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Human"</span>
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"'hello'"</span>
 
-<p>class Car(object):
-    def <strong>init</strong>(self):
-        self.name = “Car”
-    def make_noise(self, octane_level):
-        return “vroom{0}”.format(“!” * octane_level)</p>
 
-<p>class Adapter(object):</p>
+<span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Car"</span>
+    <span class="k">def</span> <span class="nf">make_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">octane_level</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"vroom{0}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">"!"</span> <span class="o">*</span> <span class="n">octane_level</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"""
-Adapts an object by replacing methods.
-Usage:
-dog = Dog
-dog = Adapter(dog, dict(make_noise=dog.bark))
-&gt;&gt;&gt; objects = []
-&gt;&gt;&gt; dog = Dog()
-&gt;&gt;&gt; objects.append(Adapter(dog, make_noise=dog.bark))
-&gt;&gt;&gt; cat = Cat()
-&gt;&gt;&gt; objects.append(Adapter(cat, make_noise=cat.meow))
-&gt;&gt;&gt; human = Human()
-&gt;&gt;&gt; objects.append(Adapter(human, make_noise=human.speak))
-&gt;&gt;&gt; car = Car()
-&gt;&gt;&gt; car_noise = lambda: car.make_noise(3)
-&gt;&gt;&gt; objects.append(Adapter(car, make_noise=car_noise))
-&gt;&gt;&gt; for obj in objects:
-...     print('A {} goes {}'.format(obj.name, obj.make_noise()))
-A Dog goes woof!
-A Cat goes meow!
-A Human goes 'hello'
-A Car goes vroom!!!
-"""
 
-def __init__(self, obj, **adapted_methods):
-    """We set the adapted methods in the object's dict"""
-    self.obj = obj
-    self.__dict__.update(adapted_methods)
+<span class="k">class</span> <span class="nc">Adapter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-def __getattr__(self, attr):
-    """All non-adapted calls are passed to the object"""
-    return getattr(self.obj, attr)
-</code></pre>
-</div>
+    <span class="s">"""
+    Adapts an object by replacing methods.
+    Usage:
+    dog = Dog
+    dog = Adapter(dog, dict(make_noise=dog.bark))
+    &gt;&gt;&gt; objects = []
+    &gt;&gt;&gt; dog = Dog()
+    &gt;&gt;&gt; objects.append(Adapter(dog, make_noise=dog.bark))
+    &gt;&gt;&gt; cat = Cat()
+    &gt;&gt;&gt; objects.append(Adapter(cat, make_noise=cat.meow))
+    &gt;&gt;&gt; human = Human()
+    &gt;&gt;&gt; objects.append(Adapter(human, make_noise=human.speak))
+    &gt;&gt;&gt; car = Car()
+    &gt;&gt;&gt; car_noise = lambda: car.make_noise(3)
+    &gt;&gt;&gt; objects.append(Adapter(car, make_noise=car_noise))
+    &gt;&gt;&gt; for obj in objects:
+    ...     print('A {} goes {}'.format(obj.name, obj.make_noise()))
+    A Dog goes woof!
+    A Cat goes meow!
+    A Human goes 'hello'
+    A Car goes vroom!!!
+    """</span>
 
-<p>def main():
-    objects = []
-    dog = Dog()
-    objects.append(Adapter(dog, make_noise=dog.bark))
-    cat = Cat()
-    objects.append(Adapter(cat, make_noise=cat.meow))
-    human = Human()
-    objects.append(Adapter(human, make_noise=human.speak))
-    car = Car()
-    objects.append(Adapter(car, make_noise=lambda: car.make_noise(3)))</p>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">adapted_methods</span><span class="p">):</span>
+        <span class="s">"""We set the adapted methods in the object's dict"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">adapted_methods</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>for obj in objects:
-    print("A {0} goes {1}".format(obj.name, obj.make_noise()))
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="s">"""All non-adapted calls are passed to the object"""</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
 
-<p>if <strong>name</strong> == “<strong>main</strong>”:
-    main()</p>
 
-<h3 id="output">OUTPUT</h3>
-<p># A Dog goes woof!
-# A Cat goes meow!
-# A Human goes ‘hello’
-# A Car goes vroom!!!
-```</p>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+    <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Adapter</span><span class="p">(</span><span class="n">dog</span><span class="p">,</span> <span class="n">make_noise</span><span class="o">=</span><span class="n">dog</span><span class="o">.</span><span class="n">bark</span><span class="p">))</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
+    <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Adapter</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">make_noise</span><span class="o">=</span><span class="n">cat</span><span class="o">.</span><span class="n">meow</span><span class="p">))</span>
+    <span class="n">human</span> <span class="o">=</span> <span class="n">Human</span><span class="p">()</span>
+    <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Adapter</span><span class="p">(</span><span class="n">human</span><span class="p">,</span> <span class="n">make_noise</span><span class="o">=</span><span class="n">human</span><span class="o">.</span><span class="n">speak</span><span class="p">))</span>
+    <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+    <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Adapter</span><span class="p">(</span><span class="n">car</span><span class="p">,</span> <span class="n">make_noise</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">car</span><span class="o">.</span><span class="n">make_noise</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
 
-<h2 id="section">2. 桥接模式</h2>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"A {0} goes {1}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">make_noise</span><span class="p">()))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># A Dog goes woof!</span>
+<span class="c"># A Cat goes meow!</span>
+<span class="c"># A Human goes 'hello'</span>
+<span class="c"># A Car goes vroom!!!</span></code></pre></figure>
+
+<h2 id="section-1">2. 桥接模式</h2>
 <p>　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。</p>
 
 <h3 id="python-1">2.1 Python源码示例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”"”http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python”””</p>
+<span class="s">"""http://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge_Pattern#Python"""</span>
 
-<h1 id="concreteimplementor-12">ConcreteImplementor 1/2</h1>
-<p>class DrawingAPI1(object):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def draw_circle(self, x, y, radius):
-    print('API1.circle at {}:{} radius {}'.format(x, y, radius))
-</code></pre>
-</div>
+<span class="c"># ConcreteImplementor 1/2</span>
+<span class="k">class</span> <span class="nc">DrawingAPI1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<h1 id="concreteimplementor-22">ConcreteImplementor 2/2</h1>
-<p>class DrawingAPI2(object):</p>
+    <span class="k">def</span> <span class="nf">draw_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'API1.circle at {}:{} radius {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">))</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def draw_circle(self, x, y, radius):
-    print('API2.circle at {}:{} radius {}'.format(x, y, radius))
-</code></pre>
-</div>
 
-<h1 id="refined-abstraction">Refined Abstraction</h1>
-<p>class CircleShape(object):</p>
+<span class="c"># ConcreteImplementor 2/2</span>
+<span class="k">class</span> <span class="nc">DrawingAPI2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self, x, y, radius, drawing_api):
-    self._x = x
-    self._y = y
-    self._radius = radius
-    self._drawing_api = drawing_api
+    <span class="k">def</span> <span class="nf">draw_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'API2.circle at {}:{} radius {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">))</span>
 
-# low-level i.e. Implementation specific
-def draw(self):
-    self._drawing_api.draw_circle(self._x, self._y, self._radius)
 
-# high-level i.e. Abstraction specific
-def scale(self, pct):
-    self._radius *= pct
-</code></pre>
-</div>
+<span class="c"># Refined Abstraction</span>
+<span class="k">class</span> <span class="nc">CircleShape</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<p>def main():
-    shapes = (
-        CircleShape(1, 2, 3, DrawingAPI1()),
-        CircleShape(5, 7, 11, DrawingAPI2())
-    )</p>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">drawing_api</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drawing_api</span> <span class="o">=</span> <span class="n">drawing_api</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>for shape in shapes:
-    shape.scale(2.5)
-    shape.draw()
-</code></pre>
-</div>
+    <span class="c"># low-level i.e. Implementation specific</span>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drawing_api</span><span class="o">.</span><span class="n">draw_circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span><span class="p">)</span>
 
-<p>if <strong>name</strong> == ‘<strong>main</strong>’:
-    main()</p>
+    <span class="c"># high-level i.e. Abstraction specific</span>
+    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pct</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">*=</span> <span class="n">pct</span>
 
-<h3 id="output-1">OUTPUT</h3>
-<p># API1.circle at 1:2 radius 7.5
-# API2.circle at 5:7 radius 27.5
-```</p>
 
-<h2 id="section-1">3. 组合模式</h2>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">CircleShape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">DrawingAPI1</span><span class="p">()),</span>
+        <span class="n">CircleShape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">DrawingAPI2</span><span class="p">())</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+        <span class="n">shape</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+        <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># API1.circle at 1:2 radius 7.5</span>
+<span class="c"># API2.circle at 5:7 radius 27.5</span></code></pre></figure>
+
+<h2 id="section-2">3. 组合模式</h2>
 <p>　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
 
 <h3 id="python-2">3.1 Python源码示例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”””
+<span class="s">"""
 A class which defines a composite object which can store
 hieararchical dictionaries with names.
 This class is same as a hiearchical dictionary, but it
 provides methods to add/access/modify children by name,
 like a Composite.
-Created Anand B Pillai     <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#097;&#098;&#112;&#105;&#108;&#108;&#097;&#105;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#097;&#098;&#112;&#105;&#108;&#108;&#097;&#105;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a>
-“””
-<strong>author</strong> = “Anand B Pillai”
-<strong>maintainer</strong> = “Anand B Pillai”
-<strong>version</strong> = “0.2”</p>
-
-<p>def normalize(val):
-    “”” Normalize a string so that it can be used as an attribute
-    to a Python object “””</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>if val.find('-') != -1:
-    val = val.replace('-', '_')
-
-return val
-</code></pre>
-</div>
-
-<p>def denormalize(val):
-    “”” De-normalize a string “””</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>if val.find('_') != -1:
-    val = val.replace('_', '-')
-
-return val
-</code></pre>
-</div>
-
-<p>class SpecialDict(dict):</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>""" A dictionary type which allows direct attribute
-access to its keys """
-
-def __getattr__(self, name):
-
-    if name in self.__dict__:
-        return self.__dict__[name]
-    elif name in self:
-        return self.get(name)
-    else:
-        # Check for denormalized name
-        name = denormalize(name)
-        if name in self:
-            return self.get(name)
-        else:
-            raise AttributeError('no attribute named %s' % name)
-
-def __setattr__(self, name, value):
-
-    if name in self.__dict__:
-        self.__dict__[name] = value
-    elif name in self:
-        self[name] = value
-    else:
-        # Check for denormalized name
-        name2 = denormalize(name)
-        if name2 in self:
-            self[name2] = value
-        else:
-            # New attribute
-            self[name] = value
-</code></pre>
-</div>
-
-<p>class CompositeDict(SpecialDict):</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>""" A class which works like a hierarchical dictionary.
-This class is based on the Composite design-pattern """
-
-ID = 0
-
-def __init__(self, name=''):
-
-    if name:
-        self._name = name
-    else:
-        self._name = ''.join(('id#', str(self.__class__.ID)))
-        self.__class__.ID += 1
-
-    self._children = []
-    # Link  back to father
-    self._father = None
-    self[self._name] = SpecialDict()
-
-def __getattr__(self, name):
-
-    if name in self.__dict__:
-        return self.__dict__[name]
-    elif name in self:
-        return self.get(name)
-    else:
-        # Check for denormalized name
-        name = denormalize(name)
-        if name in self:
-            return self.get(name)
-        else:
-            # Look in children list
-            child = self.findChild(name)
-            if child:
-                return child
-            else:
-                attr = getattr(self[self._name], name)
-                if attr:
-                    return attr
+Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
+"""</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">"Anand B Pillai"</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s">"Anand B Pillai"</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">"0.2"</span>
+
+
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="s">""" Normalize a string so that it can be used as an attribute
+    to a Python object """</span>
 
-                raise AttributeError('no attribute named %s' % name)
+    <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'-'</span><span class="p">,</span> <span class="s">'_'</span><span class="p">)</span>
 
-def isRoot(self):
-    """ Return whether I am a root component or not """
+    <span class="k">return</span> <span class="n">val</span>
 
-    # If I don't have a parent, I am root
-    return not self._father
 
-def isLeaf(self):
-    """ Return whether I am a leaf component or not """
+<span class="k">def</span> <span class="nf">denormalize</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="s">""" De-normalize a string """</span>
 
-    # I am a leaf if I have no children
-    return not self._children
+    <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">'_'</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'_'</span><span class="p">,</span> <span class="s">'-'</span><span class="p">)</span>
 
-def getName(self):
-    """ Return the name of this ConfigInfo object """
+    <span class="k">return</span> <span class="n">val</span>
 
-    return self._name
 
-def getIndex(self, child):
-    """ Return the index of the child ConfigInfo object 'child' """
+<span class="k">class</span> <span class="nc">SpecialDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 
-    if child in self._children:
-        return self._children.index(child)
-    else:
-        return -1
+    <span class="s">""" A dictionary type which allows direct attribute
+    access to its keys """</span>
 
-def getDict(self):
-    """ Return the contained dictionary """
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 
-    return self[self._name]
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Check for denormalized name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="s">'no attribute named </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
 
-def getProperty(self, child, key):
-    """ Return the value for the property for child
-    'child' with key 'key' """
+    <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
-    # First get the child's dictionary
-    childDict = self.getInfoDict(child)
-    if childDict:
-        return childDict.get(key, None)
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Check for denormalized name</span>
+            <span class="n">name2</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name2</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">name2</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c"># New attribute</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-def setProperty(self, child, key, value):
-    """ Set the value for the property 'key' for
-    the child 'child' to 'value' """
 
-    # First get the child's dictionary
-    childDict = self.getInfoDict(child)
-    if childDict:
-        childDict[key] = value
+<span class="k">class</span> <span class="nc">CompositeDict</span><span class="p">(</span><span class="n">SpecialDict</span><span class="p">):</span>
 
-def getChildren(self):
-    """ Return the list of immediate children of this object """
+    <span class="s">""" A class which works like a hierarchical dictionary.
+    This class is based on the Composite design-pattern """</span>
 
-    return self._children
+    <span class="n">ID</span> <span class="o">=</span> <span class="mi">0</span>
 
-def getAllChildren(self):
-    """ Return the list of all children of this object """
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
 
-    l = []
-    for child in self._children:
-        l.append(child)
-        l.extend(child.getAllChildren())
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s">'id#'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">ID</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">ID</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    return l
+        <span class="bp">self</span><span class="o">.</span><span class="n">_children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c"># Link  back to father</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_father</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">SpecialDict</span><span class="p">()</span>
 
-def getChild(self, name):
-    """ Return the immediate child object with the given name """
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 
-    for child in self._children:
-        if child.getName() == name:
-            return child
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Check for denormalized name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c"># Look in children list</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">child</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">child</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">attr</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">attr</span>
 
-def findChild(self, name):
-    """ Return the child with the given name from the tree """
+                    <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="s">'no attribute named </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
 
-    # Note - this returns the first child of the given name
-    # any other children with similar names down the tree
-    # is not considered.
+    <span class="k">def</span> <span class="nf">isRoot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return whether I am a root component or not """</span>
 
-    for child in self.getAllChildren():
-        if child.getName() == name:
-            return child
+        <span class="c"># If I don't have a parent, I am root</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_father</span>
 
-def findChildren(self, name):
-    """ Return a list of children with the given name from the tree """
+    <span class="k">def</span> <span class="nf">isLeaf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return whether I am a leaf component or not """</span>
 
-    # Note: this returns a list of all the children of a given
-    # name, irrespective of the depth of look-up.
+        <span class="c"># I am a leaf if I have no children</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span>
 
-    children = []
+    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the name of this ConfigInfo object """</span>
 
-    for child in self.getAllChildren():
-        if child.getName() == name:
-            children.append(child)
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
-    return children
+    <span class="k">def</span> <span class="nf">getIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+        <span class="s">""" Return the index of the child ConfigInfo object 'child' """</span>
 
-def getPropertyDict(self):
-    """ Return the property dictionary """
+        <span class="k">if</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
-    d = self.getChild('__properties')
-    if d:
-        return d.getDict()
-    else:
-        return {}
+    <span class="k">def</span> <span class="nf">getDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the contained dictionary """</span>
 
-def getParent(self):
-    """ Return the person who created me """
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">]</span>
 
-    return self._father
+    <span class="k">def</span> <span class="nf">getProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="s">""" Return the value for the property for child
+        'child' with key 'key' """</span>
 
-def __setChildDict(self, child):
-    """ Private method to set the dictionary of the child
-    object 'child' in the internal dictionary """
+        <span class="c"># First get the child's dictionary</span>
+        <span class="n">childDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getInfoDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">childDict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">childDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    d = self[self._name]
-    d[child.getName()] = child.getDict()
+    <span class="k">def</span> <span class="nf">setProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="s">""" Set the value for the property 'key' for
+        the child 'child' to 'value' """</span>
 
-def setParent(self, father):
-    """ Set the parent object of myself """
+        <span class="c"># First get the child's dictionary</span>
+        <span class="n">childDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getInfoDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">childDict</span><span class="p">:</span>
+            <span class="n">childDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-    # This should be ideally called only once
-    # by the father when creating the child :-)
-    # though it is possible to change parenthood
-    # when a new child is adopted in the place
-    # of an existing one - in that case the existing
-    # child is orphaned - see addChild and addChild2
-    # methods !
-    self._father = father
+    <span class="k">def</span> <span class="nf">getChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the list of immediate children of this object """</span>
 
-def setName(self, name):
-    """ Set the name of this ConfigInfo object to 'name' """
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span>
 
-    self._name = name
+    <span class="k">def</span> <span class="nf">getAllChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the list of all children of this object """</span>
 
-def setDict(self, d):
-    """ Set the contained dictionary """
+        <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+            <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="n">l</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">getAllChildren</span><span class="p">())</span>
 
-    self[self._name] = d.copy()
+        <span class="k">return</span> <span class="n">l</span>
 
-def setAttribute(self, name, value):
-    """ Set a name value pair in the contained dictionary """
+    <span class="k">def</span> <span class="nf">getChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="s">""" Return the immediate child object with the given name """</span>
 
-    self[self._name][name] = value
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">child</span>
 
-def getAttribute(self, name):
-    """ Return value of an attribute from the contained dictionary """
+    <span class="k">def</span> <span class="nf">findChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="s">""" Return the child with the given name from the tree """</span>
 
-    return self[self._name][name]
+        <span class="c"># Note - this returns the first child of the given name</span>
+        <span class="c"># any other children with similar names down the tree</span>
+        <span class="c"># is not considered.</span>
 
-def addChild(self, name, force=False):
-    """ Add a new child 'child' with the name 'name'.
-    If the optional flag 'force' is set to True, the
-    child object is overwritten if it is already there.
-    This function returns the child object, whether
-    new or existing """
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAllChildren</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">child</span>
 
-    if type(name) != str:
-        raise ValueError('Argument should be a string!')
+    <span class="k">def</span> <span class="nf">findChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="s">""" Return a list of children with the given name from the tree """</span>
 
-    child = self.getChild(name)
-    if child:
-        # print('Child %s present!' % name)
-        # Replace it if force==True
-        if force:
-            index = self.getIndex(child)
-            if index != -1:
-                child = self.__class__(name)
-                self._children[index] = child
-                child.setParent(self)
+        <span class="c"># Note: this returns a list of all the children of a given</span>
+        <span class="c"># name, irrespective of the depth of look-up.</span>
 
-                self.__setChildDict(child)
-        return child
-    else:
-        child = self.__class__(name)
-        child.setParent(self)
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
 
-        self._children.append(child)
-        self.__setChildDict(child)
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAllChildren</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
 
-        return child
+        <span class="k">return</span> <span class="n">children</span>
 
-def addChild2(self, child):
-    """ Add the child object 'child'. If it is already present,
-    it is overwritten by default """
+    <span class="k">def</span> <span class="nf">getPropertyDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the property dictionary """</span>
 
-    currChild = self.getChild(child.getName())
-    if currChild:
-        index = self.getIndex(currChild)
-        if index != -1:
-            self._children[index] = child
-            child.setParent(self)
-            # Unset the existing child's parent
-            currChild.setParent(None)
-            del currChild
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s">'__properties'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">getDict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
 
-            self.__setChildDict(child)
-    else:
-        child.setParent(self)
-        self._children.append(child)
-        self.__setChildDict(child)
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">getParent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Return the person who created me """</span>
 
-<p>if <strong>name</strong> == “<strong>main</strong>”:
-    window = CompositeDict(‘Window’)
-    frame = window.addChild(‘Frame’)
-    tfield = frame.addChild(‘Text Field’)
-    tfield.setAttribute(‘size’, ‘20’)</p>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_father</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>btn = frame.addChild('Button1')
-btn.setAttribute('label', 'Submit')
+    <span class="k">def</span> <span class="nf">__setChildDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+        <span class="s">""" Private method to set the dictionary of the child
+        object 'child' in the internal dictionary """</span>
 
-btn = frame.addChild('Button2')
-btn.setAttribute('label', 'Browse')
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">]</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">getName</span><span class="p">()]</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">getDict</span><span class="p">()</span>
 
-# print(window)
-# print(window.Frame)
-# print(window.Frame.Button1)
-# print(window.Frame.Button2)
-print(window.Frame.Button1.label)
-print(window.Frame.Button2.label)
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">father</span><span class="p">):</span>
+        <span class="s">""" Set the parent object of myself """</span>
 
-<h3 id="output-2">OUTPUT</h3>
-<p># Submit
-# Browse
-```</p>
+        <span class="c"># This should be ideally called only once</span>
+        <span class="c"># by the father when creating the child :-)</span>
+        <span class="c"># though it is possible to change parenthood</span>
+        <span class="c"># when a new child is adopted in the place</span>
+        <span class="c"># of an existing one - in that case the existing</span>
+        <span class="c"># child is orphaned - see addChild and addChild2</span>
+        <span class="c"># methods !</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_father</span> <span class="o">=</span> <span class="n">father</span>
 
-<h2 id="section-2">4. 修饰模式</h2>
+    <span class="k">def</span> <span class="nf">setName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="s">""" Set the name of this ConfigInfo object to 'name' """</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">setDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="s">""" Set the contained dictionary """</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="s">""" Set a name value pair in the contained dictionary """</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">getAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="s">""" Return value of an attribute from the contained dictionary """</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="s">""" Add a new child 'child' with the name 'name'.
+        If the optional flag 'force' is set to True, the
+        child object is overwritten if it is already there.
+        This function returns the child object, whether
+        new or existing """</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">'Argument should be a string!'</span><span class="p">)</span>
+
+        <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">child</span><span class="p">:</span>
+            <span class="c"># print('Child %s present!' % name)</span>
+            <span class="c"># Replace it if force==True</span>
+            <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getIndex</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__setChildDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">child</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__setChildDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">child</span>
+
+    <span class="k">def</span> <span class="nf">addChild2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+        <span class="s">""" Add the child object 'child'. If it is already present,
+        it is overwritten by default """</span>
+
+        <span class="n">currChild</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">currChild</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getIndex</span><span class="p">(</span><span class="n">currChild</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="c"># Unset the existing child's parent</span>
+                <span class="n">currChild</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">currChild</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">__setChildDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__setChildDict</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">CompositeDict</span><span class="p">(</span><span class="s">'Window'</span><span class="p">)</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="s">'Frame'</span><span class="p">)</span>
+    <span class="n">tfield</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="s">'Text Field'</span><span class="p">)</span>
+    <span class="n">tfield</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">'size'</span><span class="p">,</span> <span class="s">'20'</span><span class="p">)</span>
+
+    <span class="n">btn</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="s">'Button1'</span><span class="p">)</span>
+    <span class="n">btn</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">'label'</span><span class="p">,</span> <span class="s">'Submit'</span><span class="p">)</span>
+
+    <span class="n">btn</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="s">'Button2'</span><span class="p">)</span>
+    <span class="n">btn</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">'label'</span><span class="p">,</span> <span class="s">'Browse'</span><span class="p">)</span>
+
+    <span class="c"># print(window)</span>
+    <span class="c"># print(window.Frame)</span>
+    <span class="c"># print(window.Frame.Button1)</span>
+    <span class="c"># print(window.Frame.Button2)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># Submit</span>
+<span class="c"># Browse</span></code></pre></figure>
+
+<h2 id="section-3">4. 修饰模式</h2>
 <p>　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。</p>
 
 <h3 id="python-3">4.1 Python源码示例</h3>
 
-<p>```
-“"”https://docs.python.org/2/library/functools.html#functools.wraps”””
-”"”https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665”””</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""https://docs.python.org/2/library/functools.html#functools.wraps"""</span>
+<span class="s">"""https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""</span>
 
-<p>from functools import wraps</p>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
-<p>def makebold(fn):
-    @wraps(fn)
-    def wrapped():
-        return “<b>” + fn() + “</b>”
-    return wrapped</p>
 
-<p>def makeitalic(fn):
-    @wraps(fn)
-    def wrapped():
-        return “<i>” + fn() + “</i>”
-    return wrapped</p>
+<span class="k">def</span> <span class="nf">makebold</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">"&lt;b&gt;"</span> <span class="o">+</span> <span class="n">fn</span><span class="p">()</span> <span class="o">+</span> <span class="s">"&lt;/b&gt;"</span>
+    <span class="k">return</span> <span class="n">wrapped</span>
 
-<p>@makebold
-@makeitalic
-def hello():
-    “"”a decorated hello world”””
-    return “hello world”</p>
 
-<p>if <strong>name</strong> == ‘<strong>main</strong>’:
-    print(‘result:{}   name:{}   doc:{}’.format(hello(), hello.<strong>name</strong>, hello.<strong>doc</strong>))</p>
+<span class="k">def</span> <span class="nf">makeitalic</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">"&lt;i&gt;"</span> <span class="o">+</span> <span class="n">fn</span><span class="p">()</span> <span class="o">+</span> <span class="s">"&lt;/i&gt;"</span>
+    <span class="k">return</span> <span class="n">wrapped</span>
 
-<h3 id="output-3">OUTPUT</h3>
-<p># result:<b><i>hello world</i></b>   name:hello   doc:a decorated hello world
-```</p>
 
-<h2 id="section-3">5. 外观模式</h2>
+<span class="nd">@makebold</span>
+<span class="nd">@makeitalic</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="s">"""a decorated hello world"""</span>
+    <span class="k">return</span> <span class="s">"hello world"</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'result:{}   name:{}   doc:{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hello</span><span class="p">(),</span> <span class="n">hello</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">hello</span><span class="o">.</span><span class="n">__doc__</span><span class="p">))</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># result:&lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;   name:hello   doc:a decorated hello world</span></code></pre></figure>
+
+<h2 id="section-4">5. 外观模式</h2>
 <p>　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。</p>
 
 <h3 id="python-4">5.1 Python源码示例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>import time</p>
+<span class="kn">import</span> <span class="nn">time</span>
 
-<p>SLEEP = 0.5</p>
+<span class="n">SLEEP</span> <span class="o">=</span> <span class="mf">0.5</span>
 
-<h1 id="complex-parts">Complex Parts</h1>
-<p>class TC1:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
-    print("###### In Test 1 ######")
-    time.sleep(SLEEP)
-    print("Setting up")
-    time.sleep(SLEEP)
-    print("Running test")
-    time.sleep(SLEEP)
-    print("Tearing down")
-    time.sleep(SLEEP)
-    print("Test Finished\n")
-</code></pre>
-</div>
+<span class="c"># Complex Parts</span>
+<span class="k">class</span> <span class="nc">TC1</span><span class="p">:</span>
 
-<p>class TC2:</p>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"###### In Test 1 ######"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Setting up"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Running test"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Tearing down"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Test Finished</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
-    print("###### In Test 2 ######")
-    time.sleep(SLEEP)
-    print("Setting up")
-    time.sleep(SLEEP)
-    print("Running test")
-    time.sleep(SLEEP)
-    print("Tearing down")
-    time.sleep(SLEEP)
-    print("Test Finished\n")
-</code></pre>
-</div>
 
-<p>class TC3:</p>
+<span class="k">class</span> <span class="nc">TC2</span><span class="p">:</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def run(self):
-    print("###### In Test 3 ######")
-    time.sleep(SLEEP)
-    print("Setting up")
-    time.sleep(SLEEP)
-    print("Running test")
-    time.sleep(SLEEP)
-    print("Tearing down")
-    time.sleep(SLEEP)
-    print("Test Finished\n")
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"###### In Test 2 ######"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Setting up"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Running test"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Tearing down"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Test Finished</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
-<h1 id="facade">Facade</h1>
-<p>class TestRunner:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self):
-    self.tc1 = TC1()
-    self.tc2 = TC2()
-    self.tc3 = TC3()
-    self.tests = [i for i in (self.tc1, self.tc2, self.tc3)]
+<span class="k">class</span> <span class="nc">TC3</span><span class="p">:</span>
 
-def runAll(self):
-    [i.run() for i in self.tests]
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"###### In Test 3 ######"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Setting up"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Running test"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Tearing down"</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SLEEP</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Test Finished</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
-<h1 id="client">Client</h1>
-<p>if <strong>name</strong> == ‘<strong>main</strong>’:
-    testrunner = TestRunner()
-    testrunner.runAll()</p>
 
-<h3 id="output-4">OUTPUT</h3>
-<p># ###### In Test 1 ######
-# Setting up
-# Running test
-# Tearing down
-# Test Finished
-#
-# ###### In Test 2 ######
-# Setting up
-# Running test
-# Tearing down
-# Test Finished
-#
-# ###### In Test 3 ######
-# Setting up
-# Running test
-# Tearing down
-# Test Finished
-#
-```</p>
+<span class="c"># Facade</span>
+<span class="k">class</span> <span class="nc">TestRunner</span><span class="p">:</span>
 
-<h2 id="section-4">扫一扫</h2>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc1</span> <span class="o">=</span> <span class="n">TC1</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc2</span> <span class="o">=</span> <span class="n">TC2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc3</span> <span class="o">=</span> <span class="n">TC3</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc3</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">runAll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tests</span><span class="p">]</span>
+
+
+<span class="c"># Client</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">testrunner</span> <span class="o">=</span> <span class="n">TestRunner</span><span class="p">()</span>
+    <span class="n">testrunner</span><span class="o">.</span><span class="n">runAll</span><span class="p">()</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># ###### In Test 1 ######</span>
+<span class="c"># Setting up</span>
+<span class="c"># Running test</span>
+<span class="c"># Tearing down</span>
+<span class="c"># Test Finished</span>
+<span class="c">#</span>
+<span class="c"># ###### In Test 2 ######</span>
+<span class="c"># Setting up</span>
+<span class="c"># Running test</span>
+<span class="c"># Tearing down</span>
+<span class="c"># Test Finished</span>
+<span class="c">#</span>
+<span class="c"># ###### In Test 3 ######</span>
+<span class="c"># Setting up</span>
+<span class="c"># Running test</span>
+<span class="c"># Tearing down</span>
+<span class="c"># Test Finished</span>
+<span class="c">#</span></code></pre></figure>
+
+<h2 id="section-5">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg" alt="2015-03-13-design-pattern-structural-pattern.md" /></p>
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/design-pattern-structural-pattern" data-title="book-3. 设计模式总结之结构型模式"
+    <div class="ds-share" data-thread-key="/design-pattern-structural-pattern" data-title="『 读书笔记 』 设计模式总结之结构型模式"
          data-content="content"
          data-url="http://litaotao.github.io//design-pattern-structural-pattern">
         <div class="ds-share-aside-left">
@@ -716,7 +696,7 @@ def runAll(self):
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/design-pattern-structural-pattern data-title=book-3. 设计模式总结之结构型模式 data-url=/design-pattern-structural-pattern></div>
+        <div class="ds-thread" data-thread-key=/design-pattern-structural-pattern data-title=『 读书笔记 』 设计模式总结之结构型模式 data-url=/design-pattern-structural-pattern></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">

@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,11 +46,10 @@
     <p class="entry-date">2014-11-10 <span class="lastModified" style="display: none;" data-source="_posts/erlang/2014-11-10-an-integrated-otp-application.md">最后更新时间: </span></p>
 
 
-    <p>##<br />
-## 1. 写在前面<br />
-　　在实践 <em>Erlang and OTP in Action</em> 的第六章的时候，确实遇到了不少问题，后来慢慢多看了几遍书，多阅读了几次源码，特别是阅读了 application 的源码后，才慢慢理解了这章所讲的这个应用。这个总结不会很长，原本就想简单记在书上的，但想到以后也许会有一些更新，还有一些流程图的绘制需要经过多次修改，就还是放到github上来了，说实话，真挺感谢github的，让我学习和管理代码如此方便。</p>
+    <h2 id="section">1. 写在前面</h2>
+<p>　　在实践 <em>Erlang and OTP in Action</em> 的第六章的时候，确实遇到了不少问题，后来慢慢多看了几遍书，多阅读了几次源码，特别是阅读了 application 的源码后，才慢慢理解了这章所讲的这个应用。这个总结不会很长，原本就想简单记在书上的，但想到以后也许会有一些更新，还有一些流程图的绘制需要经过多次修改，就还是放到github上来了，说实话，真挺感谢github的，让我学习和管理代码如此方便。</p>
 
-<h2 id="section">2. 程序运行流程</h2>
+<h2 id="section-1">2. 程序运行流程</h2>
 <p>　　下图是整个simple_cache应用运行的流程，我们先上图，然后在后面再说说重要的地方。
 <img src="../../images/simple_cache.jpg" alt="simple_cache运行流程图" />
 　　
@@ -88,21 +86,20 @@
   <li>src  存放应用源代码；</li>
 </ul>
 
-<h2 id="section-1">4. 应用元数据描述文件说明</h2>
+<h2 id="section-2">4. 应用元数据描述文件说明</h2>
 <p>　　<a href="http://www.erlang.org/doc/man/app.html">官方关于应用元数据描述文件的文档</a>
 　　我们的应用元数据如下：</p>
 
-<p><code class="highlighter-rouge"><span class="w">
-</span><span class="p">{</span><span class="err">application,</span><span class="w"> </span><span class="err">simple_cache,</span><span class="w">
-	</span><span class="err">[{description,</span><span class="w"> </span><span class="nt">"A simple caching system"</span><span class="err">},</span><span class="w">
-	 </span><span class="p">{</span><span class="err">vsn,</span><span class="w"> </span><span class="nt">"0.1.0"</span><span class="err">},</span><span class="w">
-	 </span><span class="p">{</span><span class="err">modules,</span><span class="w"> </span><span class="err">[sc_app,</span><span class="w">
-	 			</span><span class="err">sc_sup]</span><span class="p">}</span><span class="err">,</span><span class="w">
-	 </span><span class="p">{</span><span class="err">registered,</span><span class="w"> </span><span class="err">[sc_sup]</span><span class="p">}</span><span class="err">,</span><span class="w">
-	 </span><span class="p">{</span><span class="err">applications,</span><span class="w"> </span><span class="err">[kernel,</span><span class="w"> </span><span class="err">sasl,</span><span class="w"> </span><span class="err">stdlib]</span><span class="p">}</span><span class="err">,</span><span class="w">
-	 </span><span class="p">{</span><span class="err">mod,</span><span class="w"> </span><span class="err">{sc_app,</span><span class="w"> </span><span class="err">[]</span><span class="p">}</span><span class="err">}}.</span><span class="w">
-</span></code>
-　　应用元数据文件里其实是定义了一个Erlang项式，这里真想吐槽一下，感觉这样写好麻烦，Python 里的配置文件多方面啊，简单易用。而Erlang应用元数据里的这个Erlang项式，是一个三元组{application, ApplicationName, ApplicationConfigureList}. application表示用application来启动，ApplicationName代表这个应用的名字，应该和应用元数据文件的文件名是一样的，ApplicationConfigureList是应用描述应用配置的信息，是一个列表类型。下面我们看看这个配置列表里的一些信息说明：</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="o">{</span>application, simple_cache,
+	<span class="o">[{</span>description, <span class="s2">"A simple caching system"</span><span class="o">}</span>,
+	 <span class="o">{</span>vsn, <span class="s2">"0.1.0"</span><span class="o">}</span>,
+	 <span class="o">{</span>modules, <span class="o">[</span>sc_app,
+	 			sc_sup]<span class="o">}</span>,
+	 <span class="o">{</span>registered, <span class="o">[</span>sc_sup]<span class="o">}</span>,
+	 <span class="o">{</span>applications, <span class="o">[</span>kernel, sasl, stdlib]<span class="o">}</span>,
+	 <span class="o">{</span>mod, <span class="o">{</span>sc_app, <span class="o">[]}}}</span>.</code></pre></figure>
+
+<p>　　应用元数据文件里其实是定义了一个Erlang项式，这里真想吐槽一下，感觉这样写好麻烦，Python 里的配置文件多方面啊，简单易用。而Erlang应用元数据里的这个Erlang项式，是一个三元组{application, ApplicationName, ApplicationConfigureList}. application表示用application来启动，ApplicationName代表这个应用的名字，应该和应用元数据文件的文件名是一样的，ApplicationConfigureList是应用描述应用配置的信息，是一个列表类型。下面我们看看这个配置列表里的一些信息说明：</p>
 
 <ul>
   <li>description：应用描述；</li>
@@ -115,7 +112,7 @@
 
 <p>　　还有其他很多东西，今天就先不讲了，过几天再补上。</p>
 
-<h2 id="section-2">5. 感想</h2>
+<h2 id="section-3">5. 感想</h2>
 <p>　　理解这个OTP应用的关键是监督树的建立和sc_element作为模块来调用的方式。最近看了一些公司在实践erlang后又转向其他语言来实施项目的文章分享，心里确实对Erlang对前途不是很明确，但凡事都得多面对待，不能别人说不行你也说不行，不能过去说不行现在，将来也说不行。<br />
 　　下面附上最近了解的小米和Facebook在Erlang的实践中的一些探索，仅供参考：</p>
 
@@ -127,7 +124,7 @@
 
 <p><a href="http://www.quora.com/When-did-Facebook-switch-away-from-using-Erlang-for-Facebook-Chat">3. 介绍FB聊天服务从Erlang转向C++的原因</a></p>
 
-<h2 id="section-3">扫一扫</h2>
+<h2 id="section-4">扫一扫</h2>
 
 <p><img src="../../images/share/2014-11-10-an-integrated-otp-application.md.jpg" alt="2014-11-10-an-integrated-otp-application.md" /></p>
 

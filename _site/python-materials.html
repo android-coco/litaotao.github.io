@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -47,135 +46,108 @@
     <p class="entry-date">2015-03-17 <span class="lastModified" style="display: none;" data-source="_posts/python/2015-03-17-python-materials.md">最后更新时间: </span></p>
 
 
-    <p>##<br />
-## 1. 枚举 - enumerate 可以有参数哦</p>
+    <h2 id="enumerate-">1. 枚举 - enumerate 可以有参数哦</h2>
 
 <p>之前我们这样操作：</p>
 
-<p><code class="highlighter-rouge">
-i = 0
-for item in iterable:
-    print i, item
-    i += 1
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></code></pre></figure>
 
 <p>现在我们这样操作：</p>
 
-<p><code class="highlighter-rouge">
-for i, item in enumerate(iterable):
-    print i, item
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span></code></pre></figure>
 
 <p>enumerate函数还可以接收第二个参数。就像下面这样：</p>
 
-<p>```
-»&gt; list(enumerate(‘abc’)) 
-[(0, ‘a’), (1, ‘b’), (2, ‘c’)]</p>
-
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>list(enumerate(‘abc’, 1)) 
-[(1, ‘a’), (2, ‘b’), (3, ‘c’)]
-```</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="s">'abc'</span><span class="p">))</span> 
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span> 
+ 
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="s">'abc'</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> 
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
 <h2 id="section">2. 字典/集合 解析</h2>
 
 <p>你也许知道如何进行列表解析，但是可能不知道字典/集合解析。它们简单易用且高效。就像下面这个例子：</p>
 
-<p>```
-my_dict = {i: i * i for i in xrange(100)} 
-my_set = {i * 15 for i in xrange(100)}</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">)}</span> 
+<span class="n">my_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="o">*</span> <span class="mi">15</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">)}</span>
+ 
+<span class="c"># There is only a difference of ':' in both
+</span>
+ 
+<span class="c"># 两者的区别在于字典推导中有冒号</span></code></pre></figure>
 
-<h1 id="there-is-only-a-difference-of--in-both">There is only a difference of ‘:’ in both</h1>
+<h2 id="section-1">3. 强制浮点除法</h2>
 
-<h1 id="section-1">两者的区别在于字典推导中有冒号</h1>
-<p>```</p>
-
-<h2 id="section-2">3. 强制浮点除法</h2>
-
-<p><code class="highlighter-rouge">
-from __future__ import division 
-result = 1/2
-# print(result)
-# 0.5
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span> 
+<span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="c"># print(result)
+</span>
+<span class="c"># 0.5</span></code></pre></figure>
 
 <h2 id="python">4. 对Python表达式求值</h2>
 
 <p>我们都知道eval函数，但是我们知道literal_eval函数么？也许很多人都不知道吧。可以用这种操作：</p>
 
-<p><code class="highlighter-rouge">
-import ast 
-my_list = ast.literal_eval(expr)  
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">ast</span> 
+<span class="n">my_list</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>  </code></pre></figure>
 
 <p>来代替以下这种操作：</p>
 
-<p><code class="highlighter-rouge">
-expr = "[1, 2, 3]"
-my_list = eval(expr)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">expr</span> <span class="o">=</span> <span class="s">"[1, 2, 3]"</span>
+<span class="n">my_list</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span></code></pre></figure>
 
 <p>我相信对于大多数人来说这种形式是第一次看见，但是实际上这个在Python中已经存在很长时间了。</p>
 
-<h2 id="section-3">5. 字符串/数列 逆序</h2>
+<h2 id="section-2">5. 字符串/数列 逆序</h2>
 
 <p>你可以用以下方法快速逆序排列数列：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; a = [1,2,3,4]
-&gt;&gt;&gt; a[::-1]
-[4, 3, 2, 1]
- 
-# This creates a new reversed list. 
-# If you want to reverse a list in place you can do:
- 
-a.reverse()
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="err"> </span>
+<span class="c"># This creates a new reversed list. 
+</span>
+<span class="c"># If you want to reverse a list in place you can do:
+</span>
+<span class="err"> </span>
+<span class="n">a</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span></code></pre></figure>
 
 <p>这总方式也同样适用于字符串的逆序：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; foo = "yasoob"
-&gt;&gt;&gt; foo[::-1]
-'boosay'
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="s">"yasoob"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="s">'boosay'</span></code></pre></figure>
 
-<h2 id="section-4">6. 三元运算</h2>
+<h2 id="section-3">6. 三元运算</h2>
 
 <p>三元运算是if-else 语句的快捷操作，也被称为条件运算。这里有几个例子可以供你参考，它们可以让你的代码更加紧凑，更加美观。</p>
 
-<p><code class="highlighter-rouge">
-[on_true] if [expression] else [on_false]
-x, y = 50, 25
-small = x if x &lt; y else y
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="n">on_true</span><span class="p">]</span> <span class="k">if</span> <span class="p">[</span><span class="n">expression</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="n">on_false</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span>
+<span class="n">small</span> <span class="o">=</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span></code></pre></figure>
 
 <h2 id="python-1">7. Python里面如何拷贝一个对象</h2>
 
 <p>标准库中的copy模块提供了两个方法来实现拷贝.一个方法是copy,它返回和参数包含内容一样的对象.</p>
 
-<p><code class="highlighter-rouge">
-import copy
-new_list = copy.copy(existing_list)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">copy</span>
+<span class="n">new_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">existing_list</span><span class="p">)</span></code></pre></figure>
 
 <p>有些时候,你希望对象中的属性也被复制,可以使用deepcopy方法:</p>
 
-<p>```
-import copy
-new_list_of_dicts = copy.deepcopy(existing_list_of_dicts)</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">copy</span>
+<span class="n">new_list_of_dicts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">existing_list_of_dicts</span><span class="p">)</span>
 
-<p>copy(x)
-Shallow copy operation on arbitrary Python objects.
- 
-deepcopy(x, memo=None, _nil=[])
-Deep copy operation on arbitrary Python objects.
-```</p>
+<span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">Shallow</span> <span class="n">copy</span> <span class="n">operation</span> <span class="n">on</span> <span class="n">arbitrary</span> <span class="n">Python</span> <span class="n">objects</span><span class="o">.</span>
+<span class="err"> </span>
+<span class="n">deepcopy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">_nil</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">Deep</span> <span class="n">copy</span> <span class="n">operation</span> <span class="n">on</span> <span class="n">arbitrary</span> <span class="n">Python</span> <span class="n">objects</span><span class="o">.</span></code></pre></figure>
 
 <h2 id="python-2">8. python中如何判断对象相等</h2>
 
@@ -200,17 +172,15 @@ is 判断是否是一个对象，使用id来判断的。
 </code></pre>
 </div>
 
-<h2 id="section-5">9. 命名技巧</h2>
+<h2 id="section-4">9. 命名技巧</h2>
 
 <p>今天阅读代码，发现一个不错的函数命名方式:</p>
 
-<p><code class="highlighter-rouge">
-def request(_argv):  
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">_argv</span><span class="p">):</span>  </code></pre></figure>
 
 <p>就是把所有的参数前面都加上_下划线，这样你在函数体中，一眼就可以看出那些是局部变量，那些是作为参数传入的，类似把全局变量前面加上g。</p>
 
-<h2 id="section-6">10. 开发者工具集锦</h2>
+<h2 id="section-5">10. 开发者工具集锦</h2>
 
 <ul>
   <li>pydoc： 模块可以根据源代码中的docstrings为任何可导入模块生成格式良好的文档。</li>
@@ -232,103 +202,87 @@ def request(_argv):
 
 <p>collections.OrderedDict类：</p>
 
-<p><code class="highlighter-rouge">
-def __setitem__(self, key, value, dict_setitem=dict.__setitem__):
-    if key not in self:
-        root = self.__root
-        last = root[0]
-        last[1] = root[0] = self.__map[key] = [last, root, key]
-    return dict_setitem(self, key, value)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">dict_setitem</span><span class="o">=</span><span class="nb">dict</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">):</span>
+<span class="err">    </span><span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+<span class="err">        </span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root</span>
+<span class="err">        </span><span class="n">last</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="err">        </span><span class="n">last</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">last</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">key</span><span class="p">]</span>
+<span class="err">    </span><span class="k">return</span> <span class="n">dict_setitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code></pre></figure>
 
 <p>注意最后一个参数：dict_setitem=dict.<strong>setitem</strong>。如果你仔细想就会感觉有道理。将值关联到键上，你只需要给__setitem__传递三个参数：要设置的键，与键关联的值，传递给内建dict类的__setitem__类方法。等会，好吧，也许最后一个参数没什么意义。
 最后一个参数其实是将一个函数绑定到局部作用域中的一个函数上。具体是通过将dict.__setitem__赋值为参数的默认值。这里还有另一个例子：</p>
 
-<p><code class="highlighter-rouge">
-def not_list_or_dict(value):
-  return not (isinstance(value, dict) or isinstance(value, list))
- 
-def not_list_or_dict(value, _isinstance=isinstance, _dict=dict, _list=list):
-  return not (_isinstance(value, _dict) or _isinstance(value, _list))
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">not_list_or_dict</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="err">  </span><span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
+<span class="err"> </span>
+<span class="k">def</span> <span class="nf">not_list_or_dict</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_isinstance</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">,</span> <span class="n">_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">_list</span><span class="o">=</span><span class="nb">list</span><span class="p">):</span>
+<span class="err">  </span><span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_dict</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_list</span><span class="p">))</span></code></pre></figure>
 
 <p>这里我们做同样的事情，把本来将会在内建命名空间中的对象绑定到局部作用域中去。因此，python将会使用LOCAL_FAST而不是LOAD_GLOBAL（全局查找）。那么这到底有多快呢？我们做个简单的测试：</p>
 
-<p><code class="highlighter-rouge">
-$ python -m timeit -s 'def not_list_or_dict(value): return not (isinstance(value, dict) or isinstance(value, list))' 'not_list_or_dict(50)'
-1000000 loops, best of 3: 0.48 usec per loop
-$ python -m timeit -s 'def not_list_or_dict(value, _isinstance=isinstance, _dict=dict, _list=list): return not (_isinstance(value, _dict) or _isinstance(value, _list))' 'not_list_or_dict(50)'
-1000000 loops, best of 3: 0.423 usec per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="o">-</span><span class="n">s</span> <span class="s">'def not_list_or_dict(value): return not (isinstance(value, dict) or isinstance(value, list))'</span> <span class="s">'not_list_or_dict(50)'</span>
+<span class="mi">1000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.48</span> <span class="n">usec</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="o">-</span><span class="n">s</span> <span class="s">'def not_list_or_dict(value, _isinstance=isinstance, _dict=dict, _list=list): return not (_isinstance(value, _dict) or _isinstance(value, _list))'</span> <span class="s">'not_list_or_dict(50)'</span>
+<span class="mi">1000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.423</span> <span class="n">usec</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <p>换句话说，大概有11.9%的提升 [2]。比我在文章开始处承诺的5%还多！</p>
 
-<h2 id="section-7">12. 包管理</h2>
+<h2 id="section-6">12. 包管理</h2>
 
 <p>Python世界最棒的地方之一，就是大量的第三方程序包。同样，管理这些包也非常容易。按照惯例，会在 requirements.txt 文件中列出项目所需要的包。每个包占一行，通常还包含版本号。</p>
 
-<p><code class="highlighter-rouge">
-pelican==3.3
-Markdown
-pelican-extended-sitemap==1.0.0
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pelican</span><span class="o">==</span><span class="mf">3.3</span>
+<span class="n">Markdown</span>
+<span class="n">pelican</span><span class="o">-</span><span class="n">extended</span><span class="o">-</span><span class="n">sitemap</span><span class="o">==</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span></code></pre></figure>
 
 <h2 id="python-4">13. Python函数参数默认值的陷阱和原理深究</h2>
 
-<p><code class="highlighter-rouge">
-Python 2.7.9 (default, Dec 19 2014, 06:05:48)
-[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.56)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; def generate_new_list_with(my_list=[], element=None):
-...     my_list.append(element)
-...     return my_list
-...
-&gt;&gt;&gt; list_1 = generate_new_list_with(element=1)
-&gt;&gt;&gt; list_1
-[1]
-&gt;&gt;&gt; list_2 = generate_new_list_with(element=2)
-&gt;&gt;&gt; list_2
-[1, 2]
-&gt;&gt;&gt;
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">9</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Dec</span> <span class="mi">19</span> <span class="mi">2014</span><span class="p">,</span> <span class="mo">06</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">48</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">6.0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">600.0</span><span class="o">.</span><span class="mi">56</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
+<span class="n">Type</span> <span class="s">"help"</span><span class="p">,</span> <span class="s">"copyright"</span><span class="p">,</span> <span class="s">"credits"</span> <span class="ow">or</span> <span class="s">"license"</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">generate_new_list_with</span><span class="p">(</span><span class="n">my_list</span><span class="o">=</span><span class="p">[],</span> <span class="n">element</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">my_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">my_list</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">list_1</span> <span class="o">=</span> <span class="n">generate_new_list_with</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">list_1</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">list_2</span> <span class="o">=</span> <span class="n">generate_new_list_with</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">list_2</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span></code></pre></figure>
 
 <p>可见代码运行结果并不和我们预期的一样。list_2在函数的第二次调用时并没有得到一个新的list并填入2，而是在第一次调用结果的基础上append了一个2。为什么会发生这样在其他编程语言中简直就是设计bug一样的问题呢？ <br />
 可见如果参数默认值是在函数编译compile阶段就已经被确定。之后所有的函数调用时，如果参数不显示的给予赋值，那么所谓的参数默认值不过是一个指向那个在compile阶段就已经存在的对象的指针。如果调用函数时，没有显示指定传入参数值得话。那么所有这种情况下的该参数都会作为编译时创建的那个对象的一种别名存在。如果参数的默认值是一个不可变(Imuttable)数值，那么在函数体内如果修改了该参数，那么参数就会重新指向另一个新的不可变值。而如果参数默认值是和本文最开始的举例一样，是一个可变对象(Muttable)，那么情况就比较糟糕了。所有函数体内对于该参数的修改，实际上都是对compile阶段就已经确定的那个对象的修改。</p>
 
-<h2 id="section-8">14. 单下划线（_）</h2>
+<h2 id="section-7">14. 单下划线（_）</h2>
 
 <p>1、在解释器中：在这种情况下，“_”代表交互式解释器会话中上一条执行的语句的结果。这种用法首先被标准CPython解释器采用，然后其他类型的解释器也先后采用。</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; _ Traceback (most recent call last): 
-File "&lt;stdin&gt;", line 1, in &lt;module&gt; 
-NameError: name '_' is not defined 
-&gt;&gt;&gt; 42
-&gt;&gt;&gt; _ 
-42
-&gt;&gt;&gt; 'alright!' if _ else ':('
-'alright!'
-&gt;&gt;&gt; _ 
-'alright!'
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">_</span> <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span> 
+<span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span> 
+<span class="nb">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s">'_'</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span> 
+<span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s">'alright!'</span> <span class="k">if</span> <span class="n">_</span> <span class="k">else</span> <span class="s">':('</span>
+<span class="s">'alright!'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span> 
+<span class="s">'alright!'</span></code></pre></figure>
 
 <p>2、作为一个名称：这与上面一点稍微有些联系，此时“<em>”作为临时性的名称使用。这样，当其他人阅读你的代码时将会知道，你分配了一个特定的名称，但是并不会在后面再次用到该名称。例如，下面的例子中，你可能对循环计数中的实际值并不感兴趣，此时就可以使用“</em>”。</p>
 
-<p><code class="highlighter-rouge">
-n = 42
-for _ in range(n): 
-    do_something()
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> 
+<span class="err">    </span><span class="n">do_something</span><span class="p">()</span></code></pre></figure>
 
 <p>3、国际化：也许你也曾看到”_“会被作为一个函数来使用。这种情况下，它通常用于实现国际化和本地化字符串之间翻译查找的函数名称，这似乎源自并遵循相应的C约定。例如，在Django文档“转换”章节中，你将能看到如下代码：</p>
 
-<p><code class="highlighter-rouge">
-from django.utils.translation import ugettext as _ 
-from django.http import HttpResponse 
-def my_view(request): 
-    output = _("Welcome to my site.") 
-    return HttpResponse(output)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext</span> <span class="k">as</span> <span class="n">_</span> 
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span> 
+<span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span> 
+<span class="err">    </span><span class="n">output</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">"Welcome to my site."</span><span class="p">)</span> 
+<span class="err">    </span><span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></code></pre></figure>
 
 <p>可以发现，场景二和场景三中的使用方法可能会相互冲突，所以我们需要避免在使用“<em>”作为国际化查找转换功能的代码块中同时使用“</em>”作为临时名称。</p>
 
@@ -338,22 +292,21 @@ def my_view(request):
 
 <p>以下划线 __ 为前缀的名称（如_pam）应该被视为API中非公开的部分（不管是函数、方法还是数据成员）。此时，应该将它们看作是一种实现细节，在修改它们时无需对外部通知。</p>
 
-<p>正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码 <code class="highlighter-rouge">from &lt;模块/包名&gt; import *</code>，那么以 _ 开头的名称都不会被导入，除非模块或包中的 <code class="highlighter-rouge">__all__</code> 列表显式地包含了它们。了解更多请查看 <code class="highlighter-rouge">Importing * in Python</code></p>
+<p>正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码 : <code class="highlighter-rouge">from &lt;模块/包名&gt; import *</code>
+，那么以 _ 开头的名称都不会被导入，除非模块或包中的 <code class="highlighter-rouge">__all__</code> 列表显式地包含了它们。了解更多请查看 <code class="highlighter-rouge">Importing * in Python</code></p>
 
 <h2 id="shahriar-1">16. 名称前的双下划线（如：__shahriar）</h2>
 
 <p>名称（具体为一个方法名）前双下划线 _ 的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，__spam 这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被 正如所预料的，“_internal_use”并未改变，而“__method_name”却被变成了“_ClassName__method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。spam 这种形式原文取代，在这里 classname 是去掉前导下划线的当前类名。例如下面的例子：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; class A(object): 
-... def _internal_use(self): 
-... pass
-... def __method_name(self): 
-... pass
-... 
-&gt;&gt;&gt; dir(A()) 
-['_A__method_name', ..., '_internal_use']
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> 
+<span class="o">...</span> <span class="k">def</span> <span class="nf">_internal_use</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+<span class="o">...</span> <span class="k">pass</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">__method_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+<span class="o">...</span> <span class="k">pass</span>
+<span class="o">...</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">A</span><span class="p">())</span> 
+<span class="p">[</span><span class="s">'_A__method_name'</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s">'_internal_use'</span><span class="p">]</span></code></pre></figure>
 
 <p>正如所预料的，“_internal_use”并未改变，而“__method_name”却被变成了“_ClassName__method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。</p>
 
@@ -365,227 +318,188 @@ def my_view(request):
 
 <h2 id="unpack">17. 隐藏特性 1，函数unpack</h2>
 
-<p>```
-def foo(x, y):
-    print x, y</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
-<p>alist = [1, 2]
-adict = {‘x’: 1, ‘y’: 2}</p>
+<span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">adict</span> <span class="o">=</span> <span class="p">{</span><span class="s">'x'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'y'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 
-<p>foo(*alist)  # 1, 2
-foo(**adict)  # 1, 2
-```</p>
+<span class="n">foo</span><span class="p">(</span><span class="o">*</span><span class="n">alist</span><span class="p">)</span>  <span class="c"># 1, 2
+</span>
+<span class="n">foo</span><span class="p">(</span><span class="o">**</span><span class="n">adict</span><span class="p">)</span>  <span class="c"># 1, 2</span></code></pre></figure>
 
-<h2 id="section-9">18. 隐藏特性 2， 链式比较操作符</h2>
+<h2 id="section-8">18. 隐藏特性 2， 链式比较操作符</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; x = 3
-&gt;&gt;&gt; 1 &lt; x &lt; 5
-True
-&gt;&gt;&gt; 4 &gt; x &gt;=3
-True
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span> <span class="o">&gt;</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">3</span>
+<span class="bp">True</span></code></pre></figure>
 
-<h2 id="section-10">19. 隐藏特性 3，函数的默认参数</h2>
+<h2 id="section-9">19. 隐藏特性 3，函数的默认参数</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; def foo(x=[]):
-...     x.append(1)
-...     print x
-...
-&gt;&gt;&gt; foo()
-[1]
-&gt;&gt;&gt; foo()
-[1, 1]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[]):</span>
+<span class="o">...</span>     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="n">x</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span></code></pre></figure>
 
 <p>更安全的做法是：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; def foo(x=None):
-...     if x is None:
-...         x = []
-...     x.append(1)
-...     print x
-...
-&gt;&gt;&gt; foo()
-[1]
-&gt;&gt;&gt; foo()
-[1]
-&gt;&gt;&gt;
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+<span class="o">...</span>         <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">...</span>     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="n">x</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span></code></pre></figure>
 
 <h2 id="get">20. 隐藏特性 4，字典的get方法</h2>
 
-<h2 id="section-11">21. 隐藏特性 5，带关键字的格式化</h2>
+<h2 id="section-10">21. 隐藏特性 5，带关键字的格式化</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; print "Hello %(name)s !" % {'name': 'James'}
-Hello James !
-&gt;&gt;&gt; print "I am years %(age)i years old" % {'age': 18}
-I am years 18 years old
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="s">"Hello </span><span class="si">%(name)</span><span class="s">s !"</span> <span class="o">%</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'James'</span><span class="p">}</span>
+<span class="n">Hello</span> <span class="n">James</span> <span class="err">!</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="s">"I am years </span><span class="si">%(age)</span><span class="s">i years old"</span> <span class="o">%</span> <span class="p">{</span><span class="s">'age'</span><span class="p">:</span> <span class="mi">18</span><span class="p">}</span>
+<span class="n">I</span> <span class="n">am</span> <span class="n">years</span> <span class="mi">18</span> <span class="n">years</span> <span class="n">old</span></code></pre></figure>
 
 <p>更新些的格式化:</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; print "Hello {name} !".format(name="James")
-Hello James !
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="s">"Hello {name} !"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"James"</span><span class="p">)</span>
+<span class="n">Hello</span> <span class="n">James</span> <span class="err">!</span></code></pre></figure>
 
-<h2 id="section-12">22. 隐藏特性 6，切片操作的步长参数</h2>
+<h2 id="section-11">22. 隐藏特性 6，切片操作的步长参数</h2>
 
 <p>可以用步长 -1 来反转链表：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; a = [1, 2, 3, 4, 5]
-&gt;&gt;&gt; a[::2]
-[1, 3, 5]
-&gt;&gt;&gt; a[::-1]
-[5, 4, 3, 2, 1]
-&gt;&gt;&gt;
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span></code></pre></figure>
 
-<h2 id="section-13">23. 隐藏特性 7，嵌套列表推导式</h2>
+<h2 id="section-12">23. 隐藏特性 7，嵌套列表推导式</h2>
 
-<p><code class="highlighter-rouge">
-[(i, j) for i in range(3) for j in range(i)]
-[(1, 0), (2, 0), (2, 1)]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span></code></pre></figure>
 
 <p>列表推导构造permutation：<br />
 可以用 itertools.permutations 来实现。</p>
 
-<p>```
-In[47]: a = ‘abcd’</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span><span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="n">a</span> <span class="o">=</span> <span class="s">'abcd'</span>
 
-<p>In[48]: [i+j+k for i in a for j in a.replace(i,’’) for k in a.replace(i,’’).replace(j,’’)]
-Out[48]: 
-[‘abc’,
- ‘abd’,
- ‘acb’,
- ‘acd’,
- ‘adb’,
- ‘adc’,
- ‘bac’,
- ‘bad’,
- ‘bca’,
- ‘bcd’,
- ‘bda’,
- ‘bdc’,
- ‘cab’,
- ‘cad’,
- ‘cba’,
- ‘cbd’,
- ‘cda’,
- ‘cdb’,
- ‘dab’,
- ‘dac’,
- ‘dba’,
- ‘dbc’,
- ‘dca’,
- ‘dcb’]
-```</p>
+<span class="n">In</span><span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="n">k</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="s">''</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="s">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="s">''</span><span class="p">)]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">48</span><span class="p">]:</span> 
+<span class="p">[</span><span class="s">'abc'</span><span class="p">,</span>
+ <span class="s">'abd'</span><span class="p">,</span>
+ <span class="s">'acb'</span><span class="p">,</span>
+ <span class="s">'acd'</span><span class="p">,</span>
+ <span class="s">'adb'</span><span class="p">,</span>
+ <span class="s">'adc'</span><span class="p">,</span>
+ <span class="s">'bac'</span><span class="p">,</span>
+ <span class="s">'bad'</span><span class="p">,</span>
+ <span class="s">'bca'</span><span class="p">,</span>
+ <span class="s">'bcd'</span><span class="p">,</span>
+ <span class="s">'bda'</span><span class="p">,</span>
+ <span class="s">'bdc'</span><span class="p">,</span>
+ <span class="s">'cab'</span><span class="p">,</span>
+ <span class="s">'cad'</span><span class="p">,</span>
+ <span class="s">'cba'</span><span class="p">,</span>
+ <span class="s">'cbd'</span><span class="p">,</span>
+ <span class="s">'cda'</span><span class="p">,</span>
+ <span class="s">'cdb'</span><span class="p">,</span>
+ <span class="s">'dab'</span><span class="p">,</span>
+ <span class="s">'dac'</span><span class="p">,</span>
+ <span class="s">'dba'</span><span class="p">,</span>
+ <span class="s">'dbc'</span><span class="p">,</span>
+ <span class="s">'dca'</span><span class="p">,</span>
+ <span class="s">'dcb'</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="print-">24. 隐藏特性 8，print 重定向输出到文件</h2>
 
 <p>注意打开的模式: “w+” 而不能 “w” , 当然 “a” 是可以的</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; print &gt;&gt; open("somefile", "w+"), "Hello World"
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="o">&gt;&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s">"somefile"</span><span class="p">,</span> <span class="s">"w+"</span><span class="p">),</span> <span class="s">"Hello World"</span></code></pre></figure>
 
 <h2 id="python3unpack">25. 隐藏特性 9， Python3中的元组unpack</h2>
 
-<p>```
-»&gt; a, b, *rest = range(10)
-»&gt; a
-0
-»&gt; b
-1
-»&gt; rest
-[2, 3, 4, 5, 6, 7, 8, 9]
-»&gt;</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rest</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>first, second, *rest, last = range(10)
-first
-0
-second
-1
-last
-9
-rest
-[2, 3, 4, 5, 6, 7, 8]
-```</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">first</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">second</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">last</span>
+<span class="mi">9</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rest</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="pow">26. 隐藏特性 10，pow的第三个参数</h2>
 
 <p>其实第三个参数是来求模的: pow(x, y, z) == (x ** y) % z，注意，内置的 pow 和 math.pow 并不是一个函数，后者只接受2个参数。</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; pow(4, 2, 2)
-0
-&gt;&gt;&gt; pow(4, 2, 3)
-1
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">1</span></code></pre></figure>
 
 <h2 id="enumerate">27. 隐藏特性 11，enumerate还有第二个参数¶</h2>
 
 <p>enumerate 很赞，可以给我们索引和序列值的对, 但是它还有第二个参数，这个参数用来: 指明索引的起始值。</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; lst = ["a", "b", "c"]
-&gt;&gt;&gt; list(enumerate(lst, 1))
-[(1, 'a'), (2, 'b'), (3, 'c')]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="section-14">28. 隐藏特性 12，显式的声明一个集合</h2>
+<h2 id="section-13">28. 隐藏特性 12，显式的声明一个集合</h2>
 
 <p>在Python 2.7 之后可以这么声明一个集合。</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; {1,2,3}
-set([1, 2, 3])
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+<span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span></code></pre></figure>
 
-<h2 id="section-15">29. 隐藏特性 13，用切片来删除序列的某一段</h2>
+<h2 id="section-14">29. 隐藏特性 13，用切片来删除序列的某一段</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; a = [1, 2, 3, 4, 5, 6, 7]
-&gt;&gt;&gt; a[1:4] = []
-&gt;&gt;&gt; a
-[1, 5, 6, 7]  
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>  </code></pre></figure>
 
 <p>当然用 del a[1:4] 也是可以的，去除偶数项(偶数索引的):</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; a = [0, 1, 2, 3, 4, 5, 6, 7]
-&gt;&gt;&gt; del a[::2]
-&gt;&gt;&gt; a
-[1, 3, 5, 7]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">a</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="isinstance">30. 隐藏特性 14，isinstance可以接收一个元组</h2>
 
 <p>这个真的鲜为人知, 我们可以用 isinstance(x, (float, int)) 来判断 x 是不是数，也就是那个元组里面是 或 的关系，只要是其中一个的实例就返回 True。</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; isinstance(1, (float, int))
-True
-&gt;&gt;&gt; isinstance(1.3, (float, int))
-True
-&gt;&gt;&gt; isinstance("1.3", (float, int))
-False
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">"1.3"</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+<span class="bp">False</span></code></pre></figure>
 
-<h2 id="section-16">31. 让关键代码依赖于外部包</h2>
+<h2 id="section-15">31. 让关键代码依赖于外部包</h2>
 
 <p>虽然Python让许多编程任务变得容易，但它可能并不总能为紧急的任务提供最佳性能。你可以为紧急的任务使用C、C++或机器语言编写的外部包，这样可以提高应用程序的性能。这些包都是不能跨平台的，这意味着你需要根据你正在使用的平台，寻找合适的包。简而言之，这个方案放弃了一些应用程序的可移植性，以换取只有在特定主机上直接编程才能获得的程序性能。这里有一些你应该考虑加入到你的“性能兵工厂”的包：</p>
 
@@ -602,72 +516,66 @@ False
 
 <p>有很多老的Python排序代码，它们在你创建一个自定义的排序时花费你的时间，但在运行时确实能加速执行排序过程。元素排序的最好方法是尽可能使用键（key）和默认的sort()排序方法。例如，考虑下面的代码：</p>
 
-<p><code class="highlighter-rouge">
-import operator
-somelist = [(1, 5, 8), (6, 2, 4), (9, 7, 5)]
-somelist.sort(key=operator.itemgetter(0))
-somelist
-#Output = [(1, 5, 8), (6, 2, 4), (9, 7, 5)]
-somelist.sort(key=operator.itemgetter(1))
-somelist
-#Output = [(6, 2, 4), (1, 5, 8), (9, 7, 5)]
-somelist.sort(key=operator.itemgetter(2))
-somelist
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">operator</span>
+<span class="n">somelist</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="n">somelist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">somelist</span>
+<span class="c">#Output = [(1, 5, 8), (6, 2, 4), (9, 7, 5)]
+</span>
+<span class="n">somelist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">somelist</span>
+<span class="c">#Output = [(6, 2, 4), (1, 5, 8), (9, 7, 5)]
+</span>
+<span class="n">somelist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">somelist</span></code></pre></figure>
 
 <p>每一个实例中，根据你选择的作为key参数部分的索引，数组进行了排序。类似于利用数字进行排序，这种方法同样适用于利用字符串排序。</p>
 
-<h2 id="section-17">33. 优化循环</h2>
+<h2 id="section-16">33. 优化循环</h2>
 
 <p>每种编程语言都会强调需要优化循环。当使用Python的时候，你可以依靠大量的技巧使得循环运行得更快。然而，开发者经常漏掉的一个方法是：避免在一个循环中使用点操作。例如，考虑下面的代码：</p>
 
-<p><code class="highlighter-rouge">
-lowerlist = ['this', 'is', 'lowercase']
-upper = str.upper
-upperlist = []
-append = upperlist.append
-for word in lowerlist:
-    append(upper(word))
-    print(upperlist)
-    #Output = ['THIS', 'IS', 'LOWERCASE']
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lowerlist</span> <span class="o">=</span> <span class="p">[</span><span class="s">'this'</span><span class="p">,</span> <span class="s">'is'</span><span class="p">,</span> <span class="s">'lowercase'</span><span class="p">]</span>
+<span class="n">upper</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">upper</span>
+<span class="n">upperlist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">append</span> <span class="o">=</span> <span class="n">upperlist</span><span class="o">.</span><span class="n">append</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">lowerlist</span><span class="p">:</span>
+    <span class="n">append</span><span class="p">(</span><span class="n">upper</span><span class="p">(</span><span class="n">word</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">upperlist</span><span class="p">)</span>
+    <span class="c">#Output = ['THIS', 'IS', 'LOWERCASE']</span></code></pre></figure>
 
 <p>每一次你调用方法str.upper，Python都会求该方法的值。然而，如果你用一个变量代替求得的值，值就变成了已知的，Python就可以更快地执行任务。优化循环的关键，是要减少Python在循环内部执行的工作量，因为Python原生的解释器在那种情况下，真的会减缓执行的速度。</p>
 
 <p>（注意：优化循环的方法有很多，这只是其中的一个。例如，许多程序员都会说，列表推导是在循环中提高执行速度的最好方式。这里的关键是，优化循环是程序取得更高的执行速度的更好方式之一。）</p>
 
-<h2 id="section-18">34. 尝试多种编码方法</h2>
+<h2 id="section-17">34. 尝试多种编码方法</h2>
 
 <p>如果每次你创建一个应用程序都是用相同的编码方法，几乎肯定会导致一些你的应用程序比它能够达到的运行效率慢的情况。作为分析过程的一部分，你可以尝试一些实验。例如，在一个字典中管理一些元素，你可以采用安全的方法确定元素是否已经存在并更新，或者你可以直接添加元素，然后作为异常处理该元素不存在情况。考虑第一个编码的例子：</p>
 
-<p><code class="highlighter-rouge">
-n = 16
-myDict = {}
-for i in range(0, n):
-    char = 'abcd'[i%4]
-    if char not in myDict:
-        myDict[char] = 0
-        myDict[char] += 1
-        print(myDict)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">myDict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">char</span> <span class="o">=</span> <span class="s">'abcd'</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">char</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">myDict</span><span class="p">:</span>
+        <span class="n">myDict</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">myDict</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">myDict</span><span class="p">)</span></code></pre></figure>
 
 <p>这段代码通常会在myDict开始为空时运行得更快。然而，当mydict通常被数据填充（或者至少大部分被充填）时，另一种方法效果更好。</p>
 
-<p><code class="highlighter-rouge">
-n = 16
-myDict = {}
-for i in range(0, n):
-    char = 'abcd'[i%4]
-    try:
-        myDict[char] += 1
-    except KeyError:
-        myDict[char] = 1
-    print(myDict)
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">myDict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">char</span> <span class="o">=</span> <span class="s">'abcd'</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">myDict</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+        <span class="n">myDict</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">myDict</span><span class="p">)</span></code></pre></figure>
 
 <p>两种情况下具有相同的输出：{‘d’: 4, ‘c’: 4, ‘b’: 4, ‘a’: 4}。唯一的不同是这个输出是如何得到的。跳出固定的思维模式，创造新的编码技巧，能够帮助你利用你的应用程序获得更快的结果。</p>
 
-<h2 id="section-19">35. 使用列表推导式</h2>
+<h2 id="section-18">35. 使用列表推导式</h2>
 
 <p>一个列表推导式包含以下几个部分：</p>
 
@@ -678,34 +586,32 @@ for i in range(0, n):
   <li>一个将输入序列中满足断言表达式的成员变换成输出列表成员的输出表达式</li>
 </ul>
 
-<p><code class="highlighter-rouge">
-num = [1, 4, -5, 10, -7, 2, 3, -1]
-filtered_and_squared = []
- 
-for number in num:
-    if number &gt; 0:
-        filtered_and_squared.append(number ** 2)
-print filtered_and_squared
- 
-# [1, 16, 100, 4, 9]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">filtered_and_squared</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="err"> </span>
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">num</span><span class="p">:</span>
+<span class="err">    </span><span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="err">        </span><span class="n">filtered_and_squared</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">filtered_and_squared</span>
+<span class="err"> </span>
+<span class="c"># [1, 16, 100, 4, 9]</span></code></pre></figure>
 
 <p>而如果使用filter、lambda和map函数，则能够将代码大大简化：</p>
 
-<p>```
-num = [1, 4, -5, 10, -7, 2, 3, -1]
-filtered_and_squared = map(lambda x: x ** 2, filter(lambda x: x &gt; 0, num))
-print filtered_and_squared
- 
-# [1, 16, 100, 4, 9]</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">filtered_and_squared</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">filtered_and_squared</span>
+<span class="err"> </span>
+<span class="c"># [1, 16, 100, 4, 9]
+</span>
 
-<h2 id="section-20">更简化的一种写法</h2>
-<p>num = [1, 4, -5, 10, -7, 2, 3, -1]
-filtered_and_squared = [ x**2 for x in num if x &gt; 0]
-print filtered_and_squared
- 
-# [1, 16, 100, 4, 9]
-```</p>
+<span class="c">## 更简化的一种写法    
+</span>
+<span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">filtered_and_squared</span> <span class="o">=</span> <span class="p">[</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">num</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">filtered_and_squared</span>
+<span class="err"> </span>
+<span class="c"># [1, 16, 100, 4, 9]</span></code></pre></figure>
 
 <p><img src="../images/comprehension.jpg" alt="comprehension.jpg" /></p>
 
@@ -715,54 +621,53 @@ print filtered_and_squared
 
 <p>生成器表达式同列表推导式有着几乎相同的语法结构，区别在于生成器表达式是被圆括号包围，而不是方括号：</p>
 
-<p><code class="highlighter-rouge">
-num = [1, 4, -5, 10, -7, 2, 3, -1]
-filtered_and_squared = ( x**2 for x in num if x &gt; 0 )
-print filtered_and_squared
- 
-# &lt;generator object &lt;genexpr&gt; at 0x00583E18&gt;
- 
-for item in filtered_and_squared:
-    print item
- 
-# 1, 16, 100 4,9
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">filtered_and_squared</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">num</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="k">print</span> <span class="n">filtered_and_squared</span>
+<span class="err"> </span>
+<span class="c"># &lt;generator object &lt;genexpr&gt; at 0x00583E18&gt;
+</span>
+<span class="err"> </span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">filtered_and_squared</span><span class="p">:</span>
+<span class="err">    </span><span class="k">print</span> <span class="n">item</span>
+<span class="err"> </span>
+<span class="c"># 1, 16, 100 4,9</span></code></pre></figure>
 
 <p>这比列表推导效率稍微提高一些，让我们再一次改造一下代码：</p>
 
-<p><code class="highlighter-rouge">
-num = [1, 4, -5, 10, -7, 2, 3, -1]
- 
-def square_generator(optional_parameter):
-    return (x ** 2 for x in num if x &gt; optional_parameter)
- 
-print square_generator(0)
-# &lt;generator object &lt;genexpr&gt; at 0x004E6418&gt;
- 
-# Option I
-for k in square_generator(0):
-    print k
-# 1, 16, 100, 4, 9
- 
-# Option II
-g = list(square_generator(0))
-print g
-# [1, 16, 100, 4, 9]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="err"> </span>
+<span class="k">def</span> <span class="nf">square_generator</span><span class="p">(</span><span class="n">optional_parameter</span><span class="p">):</span>
+<span class="err">    </span><span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">num</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">optional_parameter</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="k">print</span> <span class="n">square_generator</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c"># &lt;generator object &lt;genexpr&gt; at 0x004E6418&gt;
+</span>
+<span class="err"> </span>
+<span class="c"># Option I
+</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">square_generator</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+<span class="err">    </span><span class="k">print</span> <span class="n">k</span>
+<span class="c"># 1, 16, 100, 4, 9
+</span>
+<span class="err"> </span>
+<span class="c"># Option II
+</span>
+<span class="n">g</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">square_generator</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">g</span>
+<span class="c"># [1, 16, 100, 4, 9]</span></code></pre></figure>
 
 <p>除非特殊的原因，应该经常在代码中使用生成器表达式。但除非是面对非常大的列表，否则是不会看出明显区别的。
 再来看一个通过两阶列表推导式遍历目录的例子：</p>
 
-<p><code class="highlighter-rouge">
-import os
-def tree(top):
-    for path, names, fnames in os.walk(top):
-        for fname in fnames:
-            yield os.path.join(path, fname)
- 
-for name in tree('C:\Users\XXX\Downloads\Test'):
-    print name
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="n">top</span><span class="p">):</span>
+<span class="err">    </span><span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">fnames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">top</span><span class="p">):</span>
+<span class="err">        </span><span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">:</span>
+<span class="err">            </span><span class="k">yield</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">tree</span><span class="p">(</span><span class="s">'C:</span><span class="err">\</span><span class="s">Users</span><span class="err">\</span><span class="s">XXX</span><span class="err">\</span><span class="s">Downloads</span><span class="err">\</span><span class="s">Test'</span><span class="p">):</span>
+<span class="err">    </span><span class="k">print</span> <span class="n">name</span></code></pre></figure>
 
 <h2 id="decorators">36. 装饰器(Decorators)</h2>
 
@@ -770,74 +675,68 @@ for name in tree('C:\Users\XXX\Downloads\Test'):
 
 <p>装饰器是一个包装了另一个函数的特殊函数：主函数被调用，并且其返回值将会被传给装饰器，接下来装饰器将返回一个包装了主函数的替代函数，程序的其他部分看到的将是这个包装函数。</p>
 
-<p><code class="highlighter-rouge">
-import time
-from functools import wraps
- 
-def timethis(func):
-    '''
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="err"> </span>
+<span class="k">def</span> <span class="nf">timethis</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="err">    </span><span class="s">'''
     Decorator that reports the execution time.
-    '''
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = func(*args, **kwargs)
-        end = time.time()
-        print(func.__name__, end-start)
-        return result
-    return wrapper
- 
-@timethis
-def countdown(n):
-    while n &gt; 0:
-        n -= 1
- 
-countdown(100000)
- 
-# ('countdown', 0.006999969482421875)
-</code></p>
+    '''</span>
+<span class="err">    </span><span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="err">        </span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">        </span><span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="err">        </span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">        </span><span class="k">print</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span>
+<span class="err">        </span><span class="k">return</span> <span class="n">result</span>
+<span class="err">    </span><span class="k">return</span> <span class="n">wrapper</span>
+<span class="err"> </span>
+<span class="nd">@timethis</span>
+<span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="err">    </span><span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="err">        </span><span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="err"> </span>
+<span class="n">countdown</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="c"># ('countdown', 0.006999969482421875)</span></code></pre></figure>
 
 <h2 id="contextlib">37. 上下文管理库(ContextLib)</h2>
 
 <p>contextlib模块包含了与上下文管理器和with声明相关的工具。通常如果你想写一个上下文管理器，则你需要定义一个类包含__enter__方法以及__exit__方法，例如：</p>
 
-<p><code class="highlighter-rouge">
-import time
-class demo:
-    def __init__(self, label):
-        self.label = label
- 
-    def __enter__(self):
-        self.start = time.time()
- 
-    def __exit__(self, exc_ty, exc_val, exc_tb):
-        end = time.time()
-        print('{}: {}'.format(self.label, end - self.start))
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="k">class</span> <span class="nc">demo</span><span class="p">:</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+<span class="err"> </span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err"> </span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_ty</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+<span class="err">        </span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">        </span><span class="k">print</span><span class="p">(</span><span class="s">'{}: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">))</span></code></pre></figure>
 
 <p>完整的例子在此：</p>
 
-<p><code class="highlighter-rouge">
-import time
- 
-class demo:
-    def __init__(self, label):
-        self.label = label
- 
-    def __enter__(self):
-        self.start = time.time()
- 
-    def __exit__(self, exc_ty, exc_val, exc_tb):
-        end = time.time()
-        print('{}: {}'.format(self.label, end - self.start))
- 
-with demo('counting'):
-    n = 10000000
-    while n &gt; 0:
-        n -= 1
- 
-# counting: 1.36000013351
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="err"> </span>
+<span class="k">class</span> <span class="nc">demo</span><span class="p">:</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+<span class="err"> </span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err"> </span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_ty</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+<span class="err">        </span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">        </span><span class="k">print</span><span class="p">(</span><span class="s">'{}: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">))</span>
+<span class="err"> </span>
+<span class="k">with</span> <span class="n">demo</span><span class="p">(</span><span class="s">'counting'</span><span class="p">):</span>
+<span class="err">    </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="err">    </span><span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="err">        </span><span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="err"> </span>
+<span class="c"># counting: 1.36000013351</span></code></pre></figure>
 
 <p>上下文管理器被with声明所激活，这个API涉及到两个方法。
 1. __enter__方法，当执行流进入with代码块时，__enter__方法将执行。并且它将返回一个可供上下文使用的对象。
@@ -845,26 +744,24 @@ with demo('counting'):
 
 <p>利用@contextmanager装饰器改写上面那个例子：</p>
 
-<p><code class="highlighter-rouge">
-from contextlib import contextmanager
-import time
- 
-@contextmanager
-def demo(label):
-    start = time.time()
-    try:
-        yield
-    finally:
-        end = time.time()
-        print('{}: {}'.format(label, end - start))
- 
-with demo('counting'):
-    n = 10000000
-    while n &gt; 0:
-        n -= 1
- 
-# counting: 1.32399988174
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="err"> </span>
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">demo</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+<span class="err">    </span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">    </span><span class="k">try</span><span class="p">:</span>
+<span class="err">        </span><span class="k">yield</span>
+<span class="err">    </span><span class="k">finally</span><span class="p">:</span>
+<span class="err">        </span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="err">        </span><span class="k">print</span><span class="p">(</span><span class="s">'{}: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<span class="err"> </span>
+<span class="k">with</span> <span class="n">demo</span><span class="p">(</span><span class="s">'counting'</span><span class="p">):</span>
+<span class="err">    </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="err">    </span><span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="err">        </span><span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="err"> </span>
+<span class="c"># counting: 1.32399988174</span></code></pre></figure>
 
 <p>看上面这个例子，函数中yield之前的所有代码都类似于上下文管理器中__enter__方法的内容。而yield之后的所有代码都如__exit__方法的内容。如果执行过程中发生了异常，则会在yield语句触发。</p>
 
@@ -879,277 +776,211 @@ with demo('counting'):
 <strong>delete</strong>(self, instance) – 当从一个对象中删除一个属性时(del obj.attr)，调用此方法。
 译者注：对于instance和owner的理解，考虑以下代码：</p>
 
-<p><code class="highlighter-rouge">
-class Celsius(object):
-    def __init__(self, value=0.0):
-        self.value = float(value)
-    def __get__(self, instance, owner):
-        return self.value
-    def __set__(self, instance, value):
-        self.value = float(value)
- 
-class Temperature(object):
-    celsius = Celsius()
- 
-temp=Temperature()
-temp.celsius #calls Celsius.__get__
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Celsius</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+<span class="err">        </span><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+<span class="err">    </span><span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="err">        </span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="k">class</span> <span class="nc">Temperature</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="err">    </span><span class="n">celsius</span> <span class="o">=</span> <span class="n">Celsius</span><span class="p">()</span>
+<span class="err"> </span>
+<span class="n">temp</span><span class="o">=</span><span class="n">Temperature</span><span class="p">()</span>
+<span class="n">temp</span><span class="o">.</span><span class="n">celsius</span> <span class="c">#calls Celsius.__get__</span></code></pre></figure>
 
 <h2 id="zipping-and-unzipping-lists-and-iterables">39. Zipping and unzipping lists and iterables</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; a = [1, 2, 3]
-&gt;&gt;&gt; b = ['a', 'b', 'c']
-&gt;&gt;&gt; z = zip(a, b)
-&gt;&gt;&gt; z
-[(1, 'a'), (2, 'b'), (3, 'c')]
-&gt;&gt;&gt; zip(*z)
-[(1, 2, 3), ('a', 'b', 'c')]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">z</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">z</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
 <h2 id="grouping-adjacent-list-items-using-zip">40. Grouping adjacent list items using zip</h2>
 
-<p>```
-»&gt; a = [1, 2, 3, 4, 5, 6]</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <h1 id="using-iterators">Using iterators</h1>
-      <p>group_adjacent = lambda a, k: zip(*([iter(a)] * k))
-group_adjacent(a, 3)
-[(1, 2, 3), (4, 5, 6)]
-group_adjacent(a, 2)
-[(1, 2), (3, 4), (5, 6)]
-group_adjacent(a, 1)
-[(1,), (2,), (3,), (4,), (5,), (6,)]</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># Using iterators
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">([</span><span class="nb">iter</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,)]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <h1 id="using-slices">Using slices</h1>
-      <p>from itertools import islice
-group_adjacent = lambda a, k: zip(*(islice(a, i, None, k) for i in range(k)))
-group_adjacent(a, 3)
-[(1, 2, 3), (4, 5, 6)]
-group_adjacent(a, 2)
-[(1, 2), (3, 4), (5, 6)]
-group_adjacent(a, 1)
-[(1,), (2,), (3,), (4,), (5,), (6,)]
-```</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># Using slices
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,)]</span></code></pre></figure>
 
 <h2 id="sliding-windows-n-grams-using-zip-and-iterators">41. Sliding windows (n-grams) using zip and iterators</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; from itertools import islice
-&gt;&gt;&gt; def n_grams(a, n):
-...     z = (islice(a, i, None) for i in range(n))
-...     return zip(*z)
-...
-&gt;&gt;&gt; a = [1, 2, 3, 4, 5, 6]
-&gt;&gt;&gt; n_grams(a, 3)
-[(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)]
-&gt;&gt;&gt; n_grams(a, 2)
-[(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
-&gt;&gt;&gt; n_grams(a, 4)
-[(1, 2, 3, 4), (2, 3, 4, 5), (3, 4, 5, 6)]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span></code></pre></figure>
 
 <h2 id="inverting-a-dictionary-using-zip">42. Inverting a dictionary using zip</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; m = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-&gt;&gt;&gt; m.items()
-[('a', 1), ('c', 3), ('b', 2), ('d', 4)]
-&gt;&gt;&gt; zip(m.values(), m.keys())
-[(1, 'a'), (3, 'c'), (2, 'b'), (4, 'd')]
-&gt;&gt;&gt; mi = dict(zip(m.values(), m.keys()))
-&gt;&gt;&gt; mi
-{1: 'a', 2: 'b', 3: 'c', 4: 'd'}
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'d'</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="p">[(</span><span class="s">'a'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">'c'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s">'b'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">'d'</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">'d'</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mi</span>
+<span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s">'a'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'b'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s">'c'</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s">'d'</span><span class="p">}</span></code></pre></figure>
 
 <h2 id="flattening-lists">43. Flattening lists</h2>
 
-<p>```
-»&gt; a = [[1, 2], [3, 4], [5, 6]]
-»&gt; list(itertools.chain.from_iterable(a))
-[1, 2, 3, 4, 5, 6]</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sum(a, [])
-[1, 2, 3, 4, 5, 6]</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>[x for l in a for x in l]
-[1, 2, 3, 4, 5, 6]</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>a = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
-[x for l1 in a for l2 in l1 for x in l2]
-[1, 2, 3, 4, 5, 6, 7, 8]</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">for</span> <span class="n">l2</span> <span class="ow">in</span> <span class="n">l1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>a = [1, 2, [3, 4], [[5, 6], [7, 8]]]
-flatten = lambda x: [y for l in x for y in flatten(l)] if type(x) is list else [x]
-flatten(a)
-[1, 2, 3, 4, 5, 6, 7, 8]
-```</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">flatten</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span> <span class="k">else</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">flatten</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="dictionary-comprehensions">44. Dictionary comprehensions</h2>
 
-<p>```
-»&gt; m = {x: x ** 2 for x in range(5)}
-»&gt; m
-{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">16</span><span class="p">}</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>m = {x: ‘A’ + str(x) for x in range(10)}
-m
-{0: ‘A0’, 1: ‘A1’, 2: ‘A2’, 3: ‘A3’, 4: ‘A4’, 5: ‘A5’, 6: ‘A6’, 7: ‘A7’, 8: ‘A8’, 9: ‘A9’}
-```</p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="s">'A'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">'A0'</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s">'A1'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'A2'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s">'A3'</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s">'A4'</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s">'A5'</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s">'A6'</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="s">'A7'</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="s">'A8'</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span> <span class="s">'A9'</span><span class="p">}</span></code></pre></figure>
 
-<h2 id="section-21">45. 常犯错误，滥用表达式作为函数参数默认值</h2>
+<h2 id="section-19">45. 常犯错误，滥用表达式作为函数参数默认值</h2>
 
 <p>Python允许开发者指定一个默认值给函数参数，虽然这是该语言的一个特征，但当参数可变时，很容易导致混乱，例如，下面这段函数定义：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; def foo(bar=[]):        # bar is optional and defaults to [] if not specified
-...    bar.append("baz")    # but this line could be problematic, as we'll see...
-...    return bar
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">bar</span><span class="o">=</span><span class="p">[]):</span>        <span class="c"># bar is optional and defaults to [] if not specified
+</span>
+<span class="o">...</span>    <span class="n">bar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>    <span class="c"># but this line could be problematic, as we'll see...
+</span>
+<span class="o">...</span>    <span class="k">return</span> <span class="n">bar</span></code></pre></figure>
 
 <p>在上面这段代码里，一旦重复调用foo()函数（没有指定一个bar参数），那么将一直返回’bar’，因为没有指定参数，那么foo()每次被调用的时候，都会赋予[]。下面来看看，这样做的结果：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; foo()
-["baz"]
-&gt;&gt;&gt; foo()
-["baz", "baz"]
-&gt;&gt;&gt; foo()
-["baz", "baz", "baz"]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">]</span></code></pre></figure>
 
 <p>解决方案：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; def foo(bar=None):
-...    if bar is None:		# or if not bar:
-...        bar = []
-...    bar.append("baz")
-...    return bar
-...
-&gt;&gt;&gt; foo()
-["baz"]
-&gt;&gt;&gt; foo()
-["baz"]
-&gt;&gt;&gt; foo()
-["baz"]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="o">...</span>    <span class="k">if</span> <span class="n">bar</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>      <span class="c"># or if not bar:
+</span>
+<span class="o">...</span>        <span class="n">bar</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">...</span>    <span class="n">bar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
+<span class="o">...</span>    <span class="k">return</span> <span class="n">bar</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">[</span><span class="s">"baz"</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="python-5">46. 误解Python规则范围</h2>
 
 <p>Python的作用域解析是基于LEGB规则，分别是Local、Enclosing、Global、Built-in。实际上，这种解析方法也有一些玄机，看下面这个例子：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; x = 10
-&gt;&gt;&gt; def foo():
-...     x += 1
-...     print x
-...
-&gt;&gt;&gt; foo()
-Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-  File "&lt;stdin&gt;", line 2, in foo
-UnboundLocalError: local variable 'x' referenced before assignment
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+<span class="o">...</span>     <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="n">x</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">foo</span>
+<span class="nb">UnboundLocalError</span><span class="p">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s">'x'</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span></code></pre></figure>
 
 <p>许多人会感动惊讶，当他们在工作的函数体里添加一个参数语句，会在先前工作的代码里报UnboundLocalError错误（ 点击这里查看更详细描述）。 
 在使用列表时，开发者是很容易犯这种错误的，看看下面这个例子：</p>
 
-<p>```
-»&gt; lst = [1, 2, 3]
-»&gt; def foo1():
-…     lst.append(5)   # This works ok…
-…
-»&gt; foo1()
-»&gt; lst
-[1, 2, 3, 5]</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo1</span><span class="p">():</span>
+<span class="o">...</span>     <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>   <span class="c"># This works ok...
+</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo1</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 
-<blockquote>
-  <blockquote>
-    <blockquote>
-      <p>lst = [1, 2, 3]
-def foo2():
-…     lst += [5]      # … but this bombs!
-…
-foo2()
-Traceback (most recent call last):
-  File “<stdin>", line 1, in <module>
-  File "<stdin>", line 2, in foo
-UnboundLocalError: local variable 'lst' referenced before assignment
-```</stdin></module></stdin></p>
-    </blockquote>
-  </blockquote>
-</blockquote>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo2</span><span class="p">():</span>
+<span class="o">...</span>     <span class="n">lst</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span>      <span class="c"># ... but this bombs!
+</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo2</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">foo</span>
+<span class="nb">UnboundLocalError</span><span class="p">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s">'lst'</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span></code></pre></figure>
 
 <p>为什么foo2失败而foo1运行正常？ 
 答案与前面那个例子是一样的，但又有一些微妙之处。foo1没有赋值给lst，而foo2赋值了。lst += [5]实际上就是lst = lst + [5]，试图给lst赋值（因此，假设Python是在局部作用域里）。然而，我们正在寻找指定给lst的值是基于lst本身，其实尚未确定。</p>
 
-<h2 id="section-22">47. 修改遍历列表</h2>
+<h2 id="section-20">47. 修改遍历列表</h2>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; odd = lambda x : bool(x % 2)
-&gt;&gt;&gt; numbers = [n for n in range(10)]
-&gt;&gt;&gt; for i in range(len(numbers)):
-...     if odd(numbers[i]):
-...         del numbers[i]  # BAD: Deleting item from a list while iterating over it
-...
-Traceback (most recent call last):
-  	  File "&lt;stdin&gt;", line 2, in &lt;module&gt;
-IndexError: list index out of range
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">odd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">odd</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+<span class="o">...</span>         <span class="k">del</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c"># BAD: Deleting item from a list while iterating over it
+</span>
+<span class="o">...</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+      <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nb">IndexError</span><span class="p">:</span> <span class="nb">list</span> <span class="n">index</span> <span class="n">out</span> <span class="n">of</span> <span class="nb">range</span></code></pre></figure>
 
 <p>在遍历的时候，对列表进行删除操作，这是很低级的错误。稍微有点经验的人都不会犯。
 对上面的代码进行修改，正确地执行：</p>
 
-<p><code class="highlighter-rouge">
-&gt;&gt;&gt; odd = lambda x : bool(x % 2)
-&gt;&gt;&gt; numbers = [n for n in range(10)]
-&gt;&gt;&gt; numbers[:] = [n for n in numbers if not odd(n)]  # ahh, the beauty of it all
-&gt;&gt;&gt; numbers
-[0, 2, 4, 6, 8]
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">odd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">odd</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>  <span class="c"># ahh, the beauty of it all
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="copydeepcopy">48. 合理使用copy与deepcopy</h2>
 
@@ -1157,112 +988,98 @@ IndexError: list index out of range
 
 <p>timeit后面的-n表示运行的次数，后两行对应的是两个timeit的输出，下同。由此可见后者慢一个数量级。</p>
 
-<p><code class="highlighter-rouge">
-import copy
-a = range(100000)
-%timeit -n 10 copy.copy(a) # 运行10次 copy.copy(a)
-%timeit -n 10 copy.deepcopy(a)
-10 loops, best of 3: 1.55 ms per loop
-10 loops, best of 3: 151 ms per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">copy</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c"># 运行10次 copy.copy(a)
+</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.55</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">151</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <h2 id="generatoryield">49. 合理使用生成器（generator）和yield</h2>
 
-<p><code class="highlighter-rouge">
-%timeit -n 100 a = (i for i in range(100000))
-%timeit -n 100 b = [i for i in range(100000)]
-100 loops, best of 3: 1.54 ms per loop
-100 loops, best of 3: 4.56 ms per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">))</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)]</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.54</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">4.56</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <p>使用()得到的是一个generator对象，所需要的内存空间与列表的大小无关，所以效率会高一些。在具体应用上，比如set(i for i in range(100000))会比set([i for i in range(100000)])快。</p>
 
 <p>但是对于需要循环遍历的情况：</p>
 
-<p><code class="highlighter-rouge">
-%timeit -n 10 for x in (i for i in range(100000)): pass
-%timeit -n 10 for x in [i for i in range(100000)]: pass
-10 loops, best of 3: 6.51 ms per loop
-10 loops, best of 3: 5.54 ms per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)):</span> <span class="k">pass</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)]:</span> <span class="k">pass</span>
+<span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">6.51</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">5.54</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <p>后者的效率反而更高，但是如果循环里有break,用generator的好处是显而易见的。yield也是用于创建generator：</p>
 
 <h2 id="x--y--z">50. 使用级联比较x &lt; y &lt; z</h2>
 
-<p><code class="highlighter-rouge">
-x, y, z = 1,2,3
-%timeit -n 1000000 if x &lt; y &lt; z:pass
-%timeit -n 1000000 if x &lt; y and y &lt; z:pass
-1000000 loops, best of 3: 101 ns per loop
-1000000 loops, best of 3: 121 ns per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000000</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">z</span><span class="p">:</span><span class="k">pass</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000000</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">z</span><span class="p">:</span><span class="k">pass</span>
+<span class="mi">1000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">101</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">1000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">121</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <p>x &lt; y &lt; z效率略高，而且可读性更好。</p>
 
 <h2 id="while-1--while-true-">51. while 1 比 while True 更快</h2>
 
-<p>```
-def while_1():
-    n = 100000
-    while 1:
-        n -= 1
-        if n &lt;= 0: break
-def while_true():
-    n = 100000
-    while True:
-        n -= 1
-        if n &lt;= 0: break</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">while_1</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">100000</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
+<span class="k">def</span> <span class="nf">while_true</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">100000</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>    
 
-<p>m, n = 1000000, 1000000 
-%timeit -n 100 while_1()
-%timeit -n 100 while_true()
-100 loops, best of 3: 3.69 ms per loop
-100 loops, best of 3: 5.61 ms per loop
-```</p>
+<span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">1000000</span> 
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">while_1</span><span class="p">()</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">while_true</span><span class="p">()</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">3.69</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">5.61</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <p>while 1 比 while true快很多，原因是在python2.x中，True是一个全局变量，而非关键字。</p>
 
 <h2 id="pow-1">52. 使用**而不是pow</h2>
 
-<p><code class="highlighter-rouge">
-%timeit -n 10000 c = pow(2,20)
-%timeit -n 10000 c = 2**20
-10000 loops, best of 3: 284 ns per loop
-10000 loops, best of 3: 16.9 ns per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">20</span>
+<span class="mi">10000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">284</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">10000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">16.9</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <h2 id="cprofile-cstringio--cpicklecprofile-stringio-pickle">53. 使用 cProfile, cStringIO 和 cPickle等用c实现相同功能（分别对应profile, StringIO, pickle）的包</h2>
 
-<p><code class="highlighter-rouge">
-import cPickle
-import pickle
-a = range(10000)
-%timeit -n 100 x = cPickle.dumps(a)
-%timeit -n 100 x = pickle.dumps(a)
-100 loops, best of 3: 1.58 ms per loop
-100 loops, best of 3: 17 ms per loop
-</code>
-由c实现的包，速度快10倍以上！</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">cPickle</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">x</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">x</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.58</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">17</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
-<h2 id="section-23">54. 使用最佳的反序列化方式</h2>
+<p>由c实现的包，速度快10倍以上！</p>
+
+<h2 id="section-21">54. 使用最佳的反序列化方式</h2>
 
 <p>下面比较了eval, cPickle, json方式三种对相应字符串反序列化的效率，可见json比cPickle快近3倍，比eval快20多倍。</p>
 
-<p><code class="highlighter-rouge">
-import json
-import cPickle
-a = range(10000)
-s1 = str(a)
-s2 = cPickle.dumps(a)
-s3 = json.dumps(a)
-%timeit -n 100 x = eval(s1)
-%timeit -n 100 x = cPickle.loads(s2)
-%timeit -n 100 x = json.loads(s3)
-100 loops, best of 3: 16.8 ms per loop
-100 loops, best of 3: 2.02 ms per loop
-100 loops, best of 3: 798 µs per loop
-</code></p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">cPickle</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">x</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">x</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s3</span><span class="p">)</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">16.8</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">2.02</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">798</span> <span class="err">µ</span><span class="n">s</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
 <h2 id="python-6">55. 怎么才算精通python</h2>
 
@@ -1290,7 +1107,7 @@ s3 = json.dumps(a)
 
 <p>先参考 <a href="http://blog.csdn.net/handsomekang/article/details/9712125">飘逸的python - 偏函数functools.partial</a></p>
 
-<h2 id="section-24">参考文章</h2>
+<h2 id="section-22">参考文章</h2>
 
 <ul>
   <li><a href="http://python.jobbole.com/81393/">初学者必知的Python中优雅的用法</a></li>
@@ -1324,7 +1141,7 @@ s3 = json.dumps(a)
   <li><a href="http://wklken.me/posts/2013/08/20/python-extra-itertools.html">PYTHON-进阶-ITERTOOLS模块小结</a></li>
 </ul>
 
-<h2 id="section-25">参考网站</h2>
+<h2 id="section-23">参考网站</h2>
 
 <ul>
   <li><a href="http://py.memect.com/">python 日报</a></li>
@@ -1332,7 +1149,7 @@ s3 = json.dumps(a)
   <li><a href="http://www.freebuf.com/">黑客与极客的python文章集锦</a></li>
 </ul>
 
-<h2 id="section-26">扫一扫</h2>
+<h2 id="section-24">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-17-python-materials.md.jpg" alt="2015-03-17-python-materials.md" /></p>
 

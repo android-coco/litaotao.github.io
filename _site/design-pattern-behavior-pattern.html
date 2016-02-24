@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>book-3. 设计模式总结之行为型模式 | Taotao's Zone</title>
+  <title>『 读书笔记 』 设计模式总结之行为型模式 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -42,14 +41,13 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/design-pattern-behavior-pattern" title="book-3. 设计模式总结之行为型模式">book-3. 设计模式总结之行为型模式</a></h1>
+    <h1 class="entry-title"><a href="/design-pattern-behavior-pattern" title="『 读书笔记 』 设计模式总结之行为型模式">『 读书笔记 』 设计模式总结之行为型模式</a></h1>
 
     <p class="entry-date">2015-03-12 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-03-12-design-pattern-behavior-pattern.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 迭代器模式
-　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：</p>
+    <h2 id="section">1. 迭代器模式</h2>
+<p>　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：</p>
 
 <ul>
   <li>抽象容器：一般是一个接口，提供一个iterator()方法，例如java中的Collection接口，List接口，Set接口等。</li>
@@ -60,265 +58,245 @@
 
 <h3 id="python">1.1 Python源码实例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”"”http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
-Implementation of the iterator pattern with a generator”””</p>
+<span class="s">"""http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
+Implementation of the iterator pattern with a generator"""</span>
 
-<p>def count_to(count):
-    “"”Counts by word numbers, up to a maximum of five”””
-    numbers = [“one”, “two”, “three”, “four”, “five”]
-    # enumerate() returns a tuple containing a count (from start which
-    # defaults to 0) and the values obtained from iterating over sequence
-    for pos, number in zip(range(count), numbers):
-        yield number</p>
 
-<h1 id="test-the-generator">Test the generator</h1>
-<p>count_to_two = lambda: count_to(2)
-count_to_five = lambda: count_to(5)</p>
+<span class="k">def</span> <span class="nf">count_to</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+    <span class="s">"""Counts by word numbers, up to a maximum of five"""</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="s">"one"</span><span class="p">,</span> <span class="s">"two"</span><span class="p">,</span> <span class="s">"three"</span><span class="p">,</span> <span class="s">"four"</span><span class="p">,</span> <span class="s">"five"</span><span class="p">]</span>
+    <span class="c"># enumerate() returns a tuple containing a count (from start which</span>
+    <span class="c"># defaults to 0) and the values obtained from iterating over sequence</span>
+    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">),</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">number</span>
 
-<p>print(‘Counting to two…’)
-for number in count_to_two():
-    print(number, end=’ ‘)</p>
+<span class="c"># Test the generator</span>
+<span class="n">count_to_two</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">count_to</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">count_to_five</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">count_to</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-<p>print()</p>
+<span class="k">print</span><span class="p">(</span><span class="s">'Counting to two...'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">count_to_two</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
 
-<p>print(‘Counting to five…’)
-for number in count_to_five():
-    print(number, end=’ ‘)</p>
+<span class="k">print</span><span class="p">()</span>
 
-<p>print()</p>
+<span class="k">print</span><span class="p">(</span><span class="s">'Counting to five...'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">count_to_five</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
 
-<h3 id="output">OUTPUT</h3>
-<p># Counting to two…
-# one two
-# Counting to five…
-# one two three four five
-```</p>
+<span class="k">print</span><span class="p">()</span>
 
-<h2 id="section">2. 观察者模式</h2>
+<span class="c">### OUTPUT ###</span>
+<span class="c"># Counting to two...</span>
+<span class="c"># one two</span>
+<span class="c"># Counting to five...</span>
+<span class="c"># one two three four five</span></code></pre></figure>
+
+<h2 id="section-1">2. 观察者模式</h2>
 <p>　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。</p>
 
 <h3 id="python-1">2.1 Python源码示例</h3>
 
-<p>```
-#!/usr/bin/env python
-# -<em>- coding: utf-8 -</em>-</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 
-<p>”””
+<span class="s">"""
 Reference: http://www.slideshare.net/ishraqabd/publish-subscribe-model-overview-13368808
 Author: https://github.com/HanWenfang
-“””</p>
+"""</span>
 
-<p>class Provider:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self):
-    self.msg_queue = []
-    self.subscribers = {}
+<span class="k">class</span> <span class="nc">Provider</span><span class="p">:</span>
 
-def notify(self, msg):
-    self.msg_queue.append(msg)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_queue</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span> <span class="o">=</span> <span class="p">{}</span>
 
-def subscribe(self, msg, subscriber):
-    if msg not in self.subscribers:
-        self.subscribers[msg] = []
-        self.subscribers[msg].append(subscriber)  # unfair
-    else:
-        self.subscribers[msg].append(subscriber)
+    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-def unsubscribe(self, msg, subscriber):
-    self.subscribers[msg].remove(subscriber)
+    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">subscriber</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">msg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span>  <span class="c"># unfair</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span>
 
-def update(self):
-    for msg in self.msg_queue:
-        if msg in self.subscribers:
-            for sub in self.subscribers[msg]:
-                sub.run(msg)
-    self.msg_queue = []
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">subscriber</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span>
 
-<p>class Publisher:</p>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg_queue</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">msg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">msg</span><span class="p">]:</span>
+                    <span class="n">sub</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_queue</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self, msg_center):
-    self.provider = msg_center
 
-def publish(self, msg):
-    self.provider.notify(msg)
-</code></pre>
-</div>
+<span class="k">class</span> <span class="nc">Publisher</span><span class="p">:</span>
 
-<p>class Subscriber:</p>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_center</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">msg_center</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self, name, msg_center):
-    self.name = name
-    self.provider = msg_center
+    <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-def subscribe(self, msg):
-    self.provider.subscribe(msg, self)
 
-def run(self, msg):
-    print("{} got {}".format(self.name, msg))
-</code></pre>
-</div>
+<span class="k">class</span> <span class="nc">Subscriber</span><span class="p">:</span>
 
-<p>def main():
-    message_center = Provider()</p>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">msg_center</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">msg_center</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>fftv = Publisher(message_center)
+    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-jim = Subscriber("jim", message_center)
-jim.subscribe("cartoon")
-jack = Subscriber("jack", message_center)
-jack.subscribe("music")
-gee = Subscriber("gee", message_center)
-gee.subscribe("movie")
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"{} got {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
 
-fftv.publish("cartoon")
-fftv.publish("music")
-fftv.publish("ads")
-fftv.publish("movie")
-fftv.publish("cartoon")
-fftv.publish("cartoon")
-fftv.publish("movie")
-fftv.publish("blank")
 
-message_center.update()
-</code></pre>
-</div>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">message_center</span> <span class="o">=</span> <span class="n">Provider</span><span class="p">()</span>
 
-<p>if <strong>name</strong> == “<strong>main</strong>”:
-    main()</p>
+    <span class="n">fftv</span> <span class="o">=</span> <span class="n">Publisher</span><span class="p">(</span><span class="n">message_center</span><span class="p">)</span>
 
-<h3 id="output-1">OUTPUT</h3>
-<p># jim got cartoon
-# jack got music
-# gee got movie
-# jim got cartoon
-# jim got cartoon
-# gee got movie
-```</p>
+    <span class="n">jim</span> <span class="o">=</span> <span class="n">Subscriber</span><span class="p">(</span><span class="s">"jim"</span><span class="p">,</span> <span class="n">message_center</span><span class="p">)</span>
+    <span class="n">jim</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s">"cartoon"</span><span class="p">)</span>
+    <span class="n">jack</span> <span class="o">=</span> <span class="n">Subscriber</span><span class="p">(</span><span class="s">"jack"</span><span class="p">,</span> <span class="n">message_center</span><span class="p">)</span>
+    <span class="n">jack</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s">"music"</span><span class="p">)</span>
+    <span class="n">gee</span> <span class="o">=</span> <span class="n">Subscriber</span><span class="p">(</span><span class="s">"gee"</span><span class="p">,</span> <span class="n">message_center</span><span class="p">)</span>
+    <span class="n">gee</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s">"movie"</span><span class="p">)</span>
 
-<h2 id="section-1">3. 策略模式</h2>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"cartoon"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"music"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"ads"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"movie"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"cartoon"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"cartoon"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"movie"</span><span class="p">)</span>
+    <span class="n">fftv</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">"blank"</span><span class="p">)</span>
+
+    <span class="n">message_center</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+<span class="c">### OUTPUT ###</span>
+<span class="c"># jim got cartoon</span>
+<span class="c"># jack got music</span>
+<span class="c"># gee got movie</span>
+<span class="c"># jim got cartoon</span>
+<span class="c"># jim got cartoon</span>
+<span class="c"># gee got movie</span></code></pre></figure>
+
+<h2 id="section-2">3. 策略模式</h2>
 <p>　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。</p>
 
 <h3 id="python-">3.1 Python 源码示例</h3>
 
-<p>```
-class Duck(object):
-    # 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类
-    def <strong>init</strong>(self, strategy=None):
-        self.action = None
-        self.count = 0
-        if strategy:
-            # 指定策略，那么执行action就是用这个类的实例
-            self.action = strategy()</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Duck</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c"># 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">strategy</span><span class="p">:</span>
+            <span class="c"># 指定策略，那么执行action就是用这个类的实例</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">()</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def fly(self, kind):
-    if self.action:
-        self.count += 1
-        # 这里的第二个参数self，算是炫技吧，就是为了让操作的方法获得这里计算好的count
-        return self.action.fly(kind, self)
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c"># 这里的第二个参数self，算是炫技吧，就是为了让操作的方法获得这里计算好的count</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-    else:
-        raise UnboundLocalError('Exception raised, no strategyClass supplied to Duck!')
-</code></pre>
-</div>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">UnboundLocalError</span><span class="p">(</span><span class="s">'Exception raised, no strategyClass supplied to Duck!'</span><span class="p">)</span>
 
-<h1 id="duck">注意这里没有继承Duck，因为是以参数的方式传入类名</h1>
-<p>class Duck1(object):</p>
+<span class="c"># 注意这里没有继承Duck，因为是以参数的方式传入类名</span>
+<span class="k">class</span> <span class="nc">Duck1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def fly(self, kind, instance):
-    return 'Duck1 fly kind: ' + kind + '#' + str(instance.count)
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'Duck1 fly kind: '</span> <span class="o">+</span> <span class="n">kind</span> <span class="o">+</span> <span class="s">'#'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
 
-<p>class Duck2(object):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def fly(self, kind, instance):
-    return 'Duck2 fly kind: ' + kind + '#' + str(instance.count)
-</code></pre>
-</div>
+<span class="k">class</span> <span class="nc">Duck2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<p>if <strong>name</strong> == ‘<strong>main</strong>’:
-    duckfly = Duck()
-    duck1fly = Duck(strategy=Duck1)
-    duck2fly = Duck(strategy=Duck2)</p>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'Duck2 fly kind: '</span> <span class="o">+</span> <span class="n">kind</span> <span class="o">+</span> <span class="s">'#'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>try:
-    print duckfly.fly('yes')
-except Exception as e:
-    print "The following exception was expected:"
-    print e
 
-print duck1fly.fly('yes')
-print duck1fly.fly('no')
-print duck1fly.fly('yes')
-print duck2fly.fly('yes')
-print duck2fly.fly('no') ```
-</code></pre>
-</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">duckfly</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">()</span>
+    <span class="n">duck1fly</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">Duck1</span><span class="p">)</span>
+    <span class="n">duck2fly</span> <span class="o">=</span> <span class="n">Duck</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">Duck2</span><span class="p">)</span>
 
-<h2 id="section-2">4. 模板方法模式</h2>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">duckfly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'yes'</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"The following exception was expected:"</span>
+        <span class="k">print</span> <span class="n">e</span>
+
+    <span class="k">print</span> <span class="n">duck1fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'yes'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">duck1fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'no'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">duck1fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'yes'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">duck2fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'yes'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">duck2fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'no'</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="section-3">4. 模板方法模式</h2>
 <p>　　模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。在软件工程中，它是一种软件设计模式，和C++模板没有关连。也可以理解为定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。因此模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定变量。优点是把不变行为搬移到超类，去除子类中的重复代码。</p>
 
 <h3 id="python-2">4.1 Python源码示例</h3>
 <p>　　源码来自<a href="http://blog.csdn.net/five3/article/details/7564578">csdn.net</a></p>
 
-<p>```
-#!/usr/bin/env python<br />
-#encoding: utf-8</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python  </span>
+<span class="c">#encoding: utf-8  </span>
 
-<p>class template:
-    def <strong>init</strong>(self):
-        pass</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>def logic(self):
-    print 'do something before ....'
-    print self.do_something_now()
-    print 'do something after ....'
+<span class="k">class</span> <span class="nc">template</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
     
-def do_something_now(self):
-    return None      
-</code></pre>
-</div>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">'do something before ....'</span>
+        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something_now</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'do something after ....'</span>
+        
+    <span class="k">def</span> <span class="nf">do_something_now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span>      
+        
+<span class="k">class</span> <span class="nc">apply_temp1</span><span class="p">(</span><span class="n">template</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">do_something_now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'apply 1'</span>  
+    
+<span class="k">class</span> <span class="nc">apply_temp2</span><span class="p">(</span><span class="n">template</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">do_something_now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'apply 2'</span>  
 
-<p>class apply_temp1(template):
-    def <strong>init</strong>(self):
-        pass</p>
+          
+<span class="k">if</span> <span class="s">'__main__'</span> <span class="o">==</span> <span class="n">__name__</span><span class="p">:</span>  
+    <span class="n">obj1</span> <span class="o">=</span> <span class="n">apply_temp1</span><span class="p">()</span>
+    <span class="n">obj2</span> <span class="o">=</span> <span class="n">apply_temp2</span><span class="p">()</span>
+    <span class="n">obj1</span><span class="o">.</span><span class="n">logic</span><span class="p">()</span>
+    <span class="n">obj2</span><span class="o">.</span><span class="n">logic</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">obj1</span><span class="o">.</span><span class="n">__class__</span>
+    <span class="k">print</span> <span class="n">obj2</span><span class="o">.</span><span class="n">__class__</span></code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def do_something_now(self):
-    return 'apply 1'  
-</code></pre>
-</div>
-
-<p>class apply_temp2(template):
-    def <strong>init</strong>(self):
-        pass</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>def do_something_now(self):
-    return 'apply 2'  
-</code></pre>
-</div>
-
-<p>if ‘<strong>main</strong>’ == <strong>name</strong>:<br />
-    obj1 = apply_temp1()
-    obj2 = apply_temp2()
-    obj1.logic()
-    obj2.logic()
-    print obj1.<strong>class</strong>
-    print obj2.<strong>class</strong>
-```</p>
-
-<h2 id="section-3">扫一扫</h2>
+<h2 id="section-4">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg" alt="2015-03-12-design-pattern-behavior-pattern.md" /></p>
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/design-pattern-behavior-pattern" data-title="book-3. 设计模式总结之行为型模式"
+    <div class="ds-share" data-thread-key="/design-pattern-behavior-pattern" data-title="『 读书笔记 』 设计模式总结之行为型模式"
          data-content="content"
          data-url="http://litaotao.github.io//design-pattern-behavior-pattern">
         <div class="ds-share-aside-left">
@@ -331,7 +309,7 @@ def do_something_now(self):
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/design-pattern-behavior-pattern data-title=book-3. 设计模式总结之行为型模式 data-url=/design-pattern-behavior-pattern></div>
+        <div class="ds-thread" data-thread-key=/design-pattern-behavior-pattern data-title=『 读书笔记 』 设计模式总结之行为型模式 data-url=/design-pattern-behavior-pattern></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">

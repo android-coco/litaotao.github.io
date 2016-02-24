@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -44,15 +43,14 @@
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="/the-badest-thing-in-my-life" title="今天发生了一件坏事，也发生了一件好事">今天发生了一件坏事，也发生了一件好事</a></h1>
 
-    <p class="entry-date">2015-02-06 <span class="lastModified" style="display: none;" data-source="_posts/books/2015-02-06-the-badest-thing-in-my-life.md">最后更新时间: </span></p>
+    <p class="entry-date">2015-02-06 <span class="lastModified" style="display: none;" data-source="_posts/work/2015-02-06-the-badest-thing-in-my-life.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 写在前面<br />
-　　以前读过两篇文章，一片叫《为什么从现在起你应该写博客》，第二篇记不得了，但其中有一个中心思想，说的是你写的东西都是给别人看的，应该都是对别人有用的。看了第一篇文章，我从不久之前终于借助Github建立了自己的一个博客，记录自己的技术成长经历；看了第二篇文章，我几乎每周都会对自己有一个总结，而从不把这些总结发到博客上。因为我认为这些总结都是未来回忆自己年轻时的年少轻狂用的，不应该发到博客上了。<br />
+    <h2 id="section">1. 写在前面</h2>
+<p>　　以前读过两篇文章，一片叫《为什么从现在起你应该写博客》，第二篇记不得了，但其中有一个中心思想，说的是你写的东西都是给别人看的，应该都是对别人有用的。看了第一篇文章，我从不久之前终于借助Github建立了自己的一个博客，记录自己的技术成长经历；看了第二篇文章，我几乎每周都会对自己有一个总结，而从不把这些总结发到博客上。因为我认为这些总结都是未来回忆自己年轻时的年少轻狂用的，不应该发到博客上了。<br />
 　　但是今天，发生了一件坏事，算是从小到大最丑的一件事了，但同时也是一件好事。至少以后别人再问我最丑的经历时，我有话可说了。</p>
 
-<h2 id="section">2. 人生最丑的事</h2>
+<h2 id="section-1">2. 人生最丑的事</h2>
 <p>　　今天在小组内做第二次关于spark的技术分享，讲得很烂，算是人生的一个污点了，具体经历就不讲了。但我保证这是历史和未来所有presentation中最烂的一次。我将从以下几个方面来记录这次事件，以后每次活动之前，我都要自己看看今天的这篇文章，告诫自己，不要在同一个地方跌倒两次。</p>
 
 <ul>
@@ -66,25 +64,21 @@
   </li>
 </ul>
 
-<p>```
-import os
-import sys</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<p>spark_home = os.environ.get(‘SPARK_HOME’, None)</p>
+<span class="n">spark_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'SPARK_HOME'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-<p>if not spark_home:
-    raise ValueError(‘SPARK_HOME environment variable is not set’)
-sys.path.insert(0, os.path.join(spark_home, ‘python’))
-sys.path.insert(0, os.path.join(spark_home, ‘python/lib/py4j-0.8.2.1-src.zip’))
-#execfile(os.path.join(spark_home, ‘python/pyspark/shell.py’))
-```</p>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">spark_home</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">'SPARK_HOME environment variable is not set'</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spark_home</span><span class="p">,</span> <span class="s">'python'</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spark_home</span><span class="p">,</span> <span class="s">'python/lib/py4j-0.8.2.1-src.zip'</span><span class="p">))</span>
+<span class="c">#execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))</span></code></pre></figure>
 
 <p>　　Say，关键就是这句 <code class="highlighter-rouge">spark_home = os.environ.get('SPARK_HOME', None)</code> 因为没有定义一个环境变量，因此不能在IPython Notebook的环境变量sys.path里加入pyspark包所在的地址。再想想自己在哪里定义了SPARK_HOME这个变量，明明就在Desktop下的<code class="highlighter-rouge">ipython_notebook_spark.bashrc</code> 里，看看里面是怎么写的：</p>
 
-<p><code class="highlighter-rouge">
-export SPARK_HOME="/usr/local/spark-1.2.0-bin-cdh4/"
-export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode client"
-</code></p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">export </span><span class="nv">SPARK_HOME</span><span class="o">=</span><span class="s2">"/usr/local/spark-1.2.0-bin-cdh4/"</span>
+<span class="nb">export </span><span class="nv">PYSPARK_SUBMIT_ARGS</span><span class="o">=</span><span class="s2">"--master spark://10.21.208.21:7077 --deploy-mode client"</span></code></pre></figure>
 
 <p>　　这下知道了，原因是自己定义的.bashrc文件在登出linux后会失效，而刚才把电脑带到会议室后重新连接的网络，linux console重新登出了，所以必须重新source这个文件。 <br />
 　　现在回想，其实应该在看到错误提示没有pyspark这个包的时候就应该发现这个问题了，之所以一开始没有推测出这个问题，有几个原因：一是在这种情况下发现错误，头脑发热发慌，不能冷静处理；二是自己对这部分技术没有掌握彻底；3是在学习一门新技术时，没有详细地把学习过程和一些操作过程记录下来，导致出问题后不能及时参考。</p>
@@ -105,7 +99,7 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
   </li>
 </ul>
 
-<h2 id="section-1">3. 感悟</h2>
+<h2 id="section-2">3. 感悟</h2>
 
 <ul>
   <li>机会，永远只给有所准备，并且已经准备好了的人；</li>
@@ -113,7 +107,7 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
 <img src="../images/make_little_thing_best.jpg" alt="make_little_thing_best" /></li>
 </ul>
 
-<h2 id="section-2">扫一扫</h2>
+<h2 id="section-3">扫一扫</h2>
 
 <p><img src="../../images/share/2015-02-06-the-badest-thing-in-my-life.md.jpg" alt="2015-02-06-the-badest-thing-in-my-life.md" /></p>
 

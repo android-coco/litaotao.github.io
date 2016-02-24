@@ -1,13 +1,13 @@
 ---
 category: db
-published: true
+published: false
 layout: post
 title: 记录MongoDB一些优化方法
 description: 整理网上收集到的和一些项目中用到的MongoDB优化策略～
 ---  
 
-##    
-## 1. 决定是否优化   
+
+## 1. 决定是否优化sd
 
 ### 1.1 使用MongoDB自带的explain命令查看查询性能  
 　　下面是我在本地测试的一个例子。    

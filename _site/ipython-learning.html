@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    /*background: url() no-repeat center center fixed;*/
     background: #333333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -44,14 +43,13 @@
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="/ipython-learning" title="IPython 学习">IPython 学习</a></h1>
 
-    <p class="entry-date">2015-03-10 <span class="lastModified" style="display: none;" data-source="_posts/spark/2015-03-10-ipython-learning.md">最后更新时间: </span></p>
+    <p class="entry-date">2015-03-10 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2015-03-10-ipython-learning.md">最后更新时间: </span></p>
 
 
-    <p>## 
-## 1. 写在前面
-　　最近一直在学习spark，延伸到学习IPython，发现IPython这东西还真是不一般啊，所以决定还是应该坐下了认真学习一下。下面都是我在官网上学习时的笔记了。</p>
+    <h2 id="section">1. 写在前面</h2>
+<p>　　最近一直在学习spark，延伸到学习IPython，发现IPython这东西还真是不一般啊，所以决定还是应该坐下了认真学习一下。下面都是我在官网上学习时的笔记了。</p>
 
-<h2 id="section">2. 前言</h2>
+<h2 id="section-1">2. 前言</h2>
 <p>　　IPython provides a rich architecture for interactive computing with:</p>
 
 <ul>
@@ -64,7 +62,7 @@
 
 <p>　　IPython 3.x will be the last monolithic release of IPython, containing the notebook server, qtconsole, etc. The language-agnostic parts of the project: the notebook format, message protocol, qtconsole, notebook web application, etc. will move to new projects under the name Jupyter. IPython itself will return to being focused on interactive Python, part of which will be providing a Python kernel for Jupyter.</p>
 
-<h2 id="section-1">3. 介绍</h2>
+<h2 id="section-2">3. 介绍</h2>
 <p>　　The goal of IPython is to create a comprehensive environment for interactive and exploratory computing. To support this goal, IPython has three main components:</p>
 
 <ul>
@@ -90,7 +88,7 @@
 <h3 id="interactive-parallel-computing">3.3 Interactive parallel computing</h3>
 <p>　　看官网。</p>
 
-<h2 id="section-2">4. 安装</h2>
+<h2 id="section-3">4. 安装</h2>
 <p>　　还是看<a href="../http://ipython.org/ipython-doc/stable/install/install.html">官网</a>有用，主要还是要解决依赖的问题，最好的方法就是 pip install “ipython[all]”。</p>
 
 <h2 id="using-ipython-for-interactive-work">5. Using IPython for interactive work</h2>
@@ -195,31 +193,34 @@ A few important extensions are bundled with IPython. Others can be found on the 
 <p>Extensions on PyPI can be installed using pip, like any other Python package. Other simple extensions can be installed with the %install_ext magic. The latter does no validation, so be careful using it on untrusted networks like public wifi.</p>
 
 <p>Using extensions
-To load an extension while IPython is running, use the %load_ext magic:
-<code class="highlighter-rouge">
+To load an extension while IPython is running, use the %load_ext magic:</p>
+
+<p><code class="highlighter-rouge">
 In [1]: %load_ext myextension
-</code>
-To load it each time IPython starts, list it in your configuration file:
-<code class="highlighter-rouge">
+</code></p>
+
+<p>To load it each time IPython starts, list it in your configuration file:</p>
+
+<p><code class="highlighter-rouge">
 c.InteractiveShellApp.extensions = [
     'myextension'
 ]
 </code></p>
 
 <p>Writing extensions
-An IPython extension is an importable Python module that has a couple of special functions to load and unload it. Here is a template:
-```
-# myextension.py</p>
+An IPython extension is an importable Python module that has a couple of special functions to load and unload it. Here is a template:</p>
 
-<p>def load_ipython_extension(ipython):
-    # The <code class="highlighter-rouge">ipython</code> argument is the currently active <code class="highlighter-rouge">InteractiveShell</code>
-    # instance, which can be used in any way. This allows you to register
-    # new magics or aliases, for example.</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># myextension.py</span>
 
-<p>def unload_ipython_extension(ipython):
-    # If you want your extension to be unloadable, put that logic here.
-```
-This load_ipython_extension() function is called after your extension is imported, and the currently active InteractiveShell instance is passed as the only argument. You can do anything you want with IPython at that point.</p>
+<span class="k">def</span> <span class="nf">load_ipython_extension</span><span class="p">(</span><span class="n">ipython</span><span class="p">):</span>
+    <span class="c"># The `ipython` argument is the currently active `InteractiveShell`</span>
+    <span class="c"># instance, which can be used in any way. This allows you to register</span>
+    <span class="c"># new magics or aliases, for example.</span>
+
+<span class="k">def</span> <span class="nf">unload_ipython_extension</span><span class="p">(</span><span class="n">ipython</span><span class="p">):</span>
+    <span class="c"># If you want your extension to be unloadable, put that logic here.</span></code></pre></figure>
+
+<p>This load_ipython_extension() function is called after your extension is imported, and the currently active InteractiveShell instance is passed as the only argument. You can do anything you want with IPython at that point.</p>
 
 <p>load_ipython_extension() will be called again if you load or reload the extension again. It is up to the extension author to add code to manage that.</p>
 
@@ -233,115 +234,104 @@ There are two main ways to define your own magic functions: from standalone func
 
 <p>First, let us see the simplest case. The following shows how to create a line magic, a cell one and one that works in both modes, using just plain functions:</p>
 
-<p>```
-from IPython.core.magic import (register_line_magic, register_cell_magic,
-                                register_line_cell_magic)</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="p">(</span><span class="n">register_line_magic</span><span class="p">,</span> <span class="n">register_cell_magic</span><span class="p">,</span>
+                                <span class="n">register_line_cell_magic</span><span class="p">)</span>
 
-<p>@register_line_magic
-def lmagic(line):
-    “my line magic”
-    return line</p>
+<span class="nd">@register_line_magic</span>
+<span class="k">def</span> <span class="nf">lmagic</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="s">"my line magic"</span>
+    <span class="k">return</span> <span class="n">line</span>
 
-<p>@register_cell_magic
-def cmagic(line, cell):
-    “my cell magic”
-    return line, cell</p>
+<span class="nd">@register_cell_magic</span>
+<span class="k">def</span> <span class="nf">cmagic</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+    <span class="s">"my cell magic"</span>
+    <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
 
-<p>@register_line_cell_magic
-def lcmagic(line, cell=None):
-    “Magic that works both as %lcmagic and as %%lcmagic”
-    if cell is None:
-        print(“Called as line magic”)
-        return line
-    else:
-        print(“Called as cell magic”)
-        return line, cell</p>
+<span class="nd">@register_line_cell_magic</span>
+<span class="k">def</span> <span class="nf">lcmagic</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s">"Magic that works both as </span><span class="si">%</span><span class="s">lcmagic and as </span><span class="si">%%</span><span class="s">lcmagic"</span>
+    <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Called as line magic"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">line</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Called as cell magic"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
 
-<h1 id="we-delete-these-to-avoid-name-conflicts-for-automagic-to-work">We delete these to avoid name conflicts for automagic to work</h1>
-<p>del lmagic, lcmagic
-```</p>
+<span class="c"># We delete these to avoid name conflicts for automagic to work</span>
+<span class="k">del</span> <span class="n">lmagic</span><span class="p">,</span> <span class="n">lcmagic</span></code></pre></figure>
 
 <p>You can also create magics of all three kinds by inheriting from the IPython.core.magic.Magics class. This lets you create magics that can potentially hold state in between calls, and that have full access to the main IPython object:</p>
 
-<p>```
-# This code can be put in any Python module, it does not require IPython
-# itself to be running already.  It only creates the magics subclass but
-# doesn’t instantiate it yet.
-from <strong>future</strong> import print_function
-from IPython.core.magic import (Magics, magics_class, line_magic,
-                                cell_magic, line_cell_magic)</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># This code can be put in any Python module, it does not require IPython</span>
+<span class="c"># itself to be running already.  It only creates the magics subclass but</span>
+<span class="c"># doesn't instantiate it yet.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span><span class="p">,</span>
+                                <span class="n">cell_magic</span><span class="p">,</span> <span class="n">line_cell_magic</span><span class="p">)</span>
 
-<h1 id="the-class-must-call-this-class-decorator-at-creation-time">The class MUST call this class decorator at creation time</h1>
-<p>@magics_class
-class MyMagics(Magics):</p>
+<span class="c"># The class MUST call this class decorator at creation time</span>
+<span class="nd">@magics_class</span>
+<span class="k">class</span> <span class="nc">MyMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@line_magic
-def lmagic(self, line):
-    "my line magic"
-    print("Full access to the main IPython object:", self.shell)
-    print("Variables in the user namespace:", list(self.shell.user_ns.keys()))
-    return line
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">lmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="s">"my line magic"</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Full access to the main IPython object:"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Variables in the user namespace:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">user_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">line</span>
 
-@cell_magic
-def cmagic(self, line, cell):
-    "my cell magic"
-    return line, cell
+    <span class="nd">@cell_magic</span>
+    <span class="k">def</span> <span class="nf">cmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="s">"my cell magic"</span>
+        <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
 
-@line_cell_magic
-def lcmagic(self, line, cell=None):
-    "Magic that works both as %lcmagic and as %%lcmagic"
-    if cell is None:
-        print("Called as line magic")
-        return line
-    else:
-        print("Called as cell magic")
-        return line, cell
-</code></pre>
-</div>
+    <span class="nd">@line_cell_magic</span>
+    <span class="k">def</span> <span class="nf">lcmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="s">"Magic that works both as </span><span class="si">%</span><span class="s">lcmagic and as </span><span class="si">%%</span><span class="s">lcmagic"</span>
+        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Called as line magic"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">line</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Called as cell magic"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
 
-<h1 id="in-order-to-actually-use-these-magics-you-must-register-them-with-a">In order to actually use these magics, you must register them with a</h1>
-<p># running IPython.  This code must be placed in a file that is loaded once
-# IPython is up and running:
-ip = get_ipython()
-# You can register the class itself without instantiating it.  IPython will
-# call the default constructor on it.
-ip.register_magics(MyMagics)
-```</p>
+
+<span class="c"># In order to actually use these magics, you must register them with a</span>
+<span class="c"># running IPython.  This code must be placed in a file that is loaded once</span>
+<span class="c"># IPython is up and running:</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="c"># You can register the class itself without instantiating it.  IPython will</span>
+<span class="c"># call the default constructor on it.</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">MyMagics</span><span class="p">)</span></code></pre></figure>
 
 <p>If you want to create a class with a different constructor that holds additional state, then you should always call the parent constructor and instantiate the class yourself before registration:</p>
 
-<p>```
-@magics_class
-class StatefulMagics(Magics):
-    “Magics that hold additional state”</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nd">@magics_class</span>
+<span class="k">class</span> <span class="nc">StatefulMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+    <span class="s">"Magics that hold additional state"</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def __init__(self, shell, data):
-    # You must call the parent constructor
-    super(StatefulMagics, self).__init__(shell)
-    self.data = data
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shell</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c"># You must call the parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StatefulMagics</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 
-# etc...
-</code></pre>
-</div>
+    <span class="c"># etc...</span>
 
-<h1 id="this-class-must-then-be-registered-with-a-manually-created-instance">This class must then be registered with a manually created instance,</h1>
-<p># since its constructor has different arguments from the default:
-ip = get_ipython()
-magics = StatefulMagics(ip, some_data)
-ip.register_magics(magics)
-```</p>
+<span class="c"># This class must then be registered with a manually created instance,</span>
+<span class="c"># since its constructor has different arguments from the default:</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="n">magics</span> <span class="o">=</span> <span class="n">StatefulMagics</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">some_data</span><span class="p">)</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">magics</span><span class="p">)</span></code></pre></figure>
 
 <p>In earlier versions, IPython had an API for the creation of line magics (cell magics did not exist at the time) that required you to create functions with a method-looking signature and to manually pass both the function and the name. While this API is no longer recommended, it remains indefinitely supported for backwards compatibility purposes. With the old API, you’d create a magic as follows:</p>
 
-<p>```
-def func(self, line):
-    print(“Line magic called with line:”, line)
-    print(“IPython object:”, self.shell)</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Line magic called with line:"</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"IPython object:"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">)</span>
 
-<p>ip = get_ipython()
-# Declare this function as the magic %mycommand
-ip.define_magic(‘mycommand’, func)
-```</p>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="c"># Declare this function as the magic %mycommand</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">'mycommand'</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="ipython-developers-guide">9. IPython developer’s guide</h2>
 <p>This are two categories of developer focused documentation:</p>
@@ -443,36 +433,34 @@ All messages are tagged with enough information (details below) for clients to k
 
 <p>A message is defined by the following four-dictionary structure:</p>
 
-<p>```
-{
-  # The message header contains a pair of unique identifiers for the
-  # originating session and the actual message id, in addition to the
-  # username for the process that generated the message.  This is useful in
-  # collaborative settings where multiple users may be interacting with the
-  # same kernel simultaneously, so that frontends can label the various
-  # messages in a meaningful way.
-  ‘header’ : {
-                ‘msg_id’ : uuid,
-                ‘username’ : str,
-                ‘session’ : uuid,
-                # All recognized message type strings are listed below.
-                ‘msg_type’ : str,
-                # the message protocol version
-                ‘version’ : ‘5.0’,
-     },</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">{</span>
+  <span class="c"># The message header contains a pair of unique identifiers for the</span>
+  <span class="c"># originating session and the actual message id, in addition to the</span>
+  <span class="c"># username for the process that generated the message.  This is useful in</span>
+  <span class="c"># collaborative settings where multiple users may be interacting with the</span>
+  <span class="c"># same kernel simultaneously, so that frontends can label the various</span>
+  <span class="c"># messages in a meaningful way.</span>
+  <span class="s">'header'</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s">'msg_id'</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+                <span class="s">'username'</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s">'session'</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+                <span class="c"># All recognized message type strings are listed below.</span>
+                <span class="s">'msg_type'</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="c"># the message protocol version</span>
+                <span class="s">'version'</span> <span class="p">:</span> <span class="s">'5.0'</span><span class="p">,</span>
+     <span class="p">},</span>
 
-<p># In a chain of messages, the header from the parent is copied so that
-  # clients can track where messages come from.
-  ‘parent_header’ : dict,</p>
+  <span class="c"># In a chain of messages, the header from the parent is copied so that</span>
+  <span class="c"># clients can track where messages come from.</span>
+  <span class="s">'parent_header'</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 
-<p># Any metadata associated with the message.
-  ‘metadata’ : dict,</p>
+  <span class="c"># Any metadata associated with the message.</span>
+  <span class="s">'metadata'</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 
-<p># The actual content of the message must be a dict, whose structure
-  # depends on the message type.
-  ‘content’ : dict,
-}
-```</p>
+  <span class="c"># The actual content of the message must be a dict, whose structure</span>
+  <span class="c"># depends on the message type.</span>
+  <span class="s">'content'</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">}</span></code></pre></figure>
 
 <h2 id="making-kernels-for-ipython">12. Making kernels for IPython</h2>
 
@@ -487,14 +475,14 @@ All messages are tagged with enough information (details below) for clients to k
   <li>You can implement the kernel machinery in your target language. This is more work initially, but the people using your kernel might be more likely to contribute to it if it’s in the language they know.</li>
 </ul>
 
-<h1 id="section-3">. 学习资源</h1>
+<h2 id="section-4">学习资源</h2>
 
 <ul>
   <li><a href="http://ipython.org/">官网</a></li>
   <li><a href="https://github.com/ipython/ipython/wiki?path=Cookbook">IPython Cookbook</a></li>
 </ul>
 
-<h2 id="section-4">扫一扫</h2>
+<h2 id="section-5">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-10-ipython-learning.md.jpg" alt="2015-03-10-ipython-learning.md" /></p>
 
