@@ -66,8 +66,8 @@
         padding-right: 0;
         z-index: 99;
         background-color: transparent;
-        /*position: fixed;*/
-        overflow: scroll;
+        position: relative;
+        /*overflow: scroll;*/
         top: 0px;
         left: 0px;
     }
@@ -90,7 +90,7 @@
 
     .index-content .cate-bar a {
         margin: auto 5px;
-        color: #fff;
+        color: black;
         border: 1px solid #fff;
         border-radius: 4px;
         padding: 4px 4px;
