@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 『 Spark 』2. spark 基本概念解析 
 description: Concepts you need keep in mind about spark.
 ---
@@ -87,7 +87,7 @@ Stage 的划分在 RDD 的论文中有详细的介绍，简单的说是以 shuff
 
 Partition类似hadoop的Split，计算是以partition为单位进行的，当然partition的划分依据有很多，这是可以自己定义的，像HDFS文件，划分的方式就和MapReduce一样，以文件的block来划分不同的partition。总而言之，Spark的partition在概念上与hadoop中的split是相似的，提供了一种划分数据的方式。
 
-## 0. RDD
+## 10. RDD
 
 先看看原文 [Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
 In-Memory Cluster Computing](../files/spark-rdd-paper.pdf) 是怎么介绍 RDD 的。
@@ -128,7 +128,7 @@ RDD是Spark的核心，也是整个Spark的架构基础，可以总下出几个�
 - 提供了粗粒度的操作，且这些操作都支持分区
 - 它将数据存储在内存中，从而提供了低延迟性
 
-## 1. sc.parallelize
+## 11. sc.parallelize
 
 先看看 api 文档里是怎么说的：[parallelize](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext.parallelize)
 
@@ -140,7 +140,7 @@ Distribute a local Python collection to form an RDD. Using xrange is recommended
 
 ---
 
-## 2. code distribute
+## 12. code distribute
 
 提交 spark 应用时，spark 会把应用代码分发到所有的 worker 上面，应用依赖的包需要在所有的worker上都存在，有两种解决 worker 上相关包依赖的问题：
 
@@ -148,32 +148,32 @@ Distribute a local Python collection to form an RDD. Using xrange is recommended
 - 在提交 spark 应用的时候，指定应用依赖的相关包，把 应用代码，应用依赖包 一起分发到 worker；
 
 
-## 3. cache priority
+## 13. cache priority
 
 cache 是否支持 priority，目前不支持，而且 spark 里面对 rdd 的 cache 和我们常见的缓存系统是不一样的。细节可以找我讨论。
 
-## 4. cores
+## 14. cores
 
 The number of cores to use on each executor. For YARN and standalone mode only. In standalone mode, setting this parameter allows an application to run multiple executors on the same worker, provided that there are enough cores on that worker. Otherwise, only one executor per application will run on each worker.
 
 每一个 core，相当于一个 worker 上的进程，这些进程会同时执行分配到这个 worker 上的任务。简单的说，就是 spark manager 把一个 job 切分几个 task 分发到 worker 上同步执行，而每个 worker 把分配给自己的 task 再切分成几个 subtask，分配给当前 worker 上的不同进程。
 
 
-## 5. Memory
+## 15. Memory
 
 分配给 spark 应用的内存是仅仅给 cache 数据用吗？
 
 这个问题目前没有查看得非常仔细，后续继续更新。
 
 
-## 6. RDD narrow/wide dependences
+## 16. RDD narrow/wide dependences
 
 RDD 之间的依赖类别［ 或者，创建一个 RDD 的不同方法 ］
 
 ![rdd-dependences.jpg](../images/rdd-dependences.jpg)
 
 
-## 7. 本地内存与集群内存
+## 17. 本地内存与集群内存
 
 所谓本地内存，是指在 driver 端的程序所需要的内存，由 driver 机器提供，一般用来生成测试数据，接受运算结果等；
 所谓集群内存，是指提交到集群的作业能够向集群申请的最多内存使用量，一般用来存储关键数据；
@@ -181,15 +181,13 @@ RDD 之间的依赖类别［ 或者，创建一个 RDD 的不同方法 ］
 ![spark-memory-cluster-and-driver.jpg](../images/spark-memory-cluster-and-driver.jpg)
 
 
-## 8. 限制用户使用的内存
+## 18. 限制用户使用的内存
 
 可以在启动 spark 应用的时候申请；完全可控。
 
-## 9. 当用户申请总资源超过当前集群总资源
+## 19. 当用户申请总资源超过当前集群总资源
 
 FIFO 资源分配方式。
-
-
 
 
 ## 4. Next
@@ -203,8 +201,9 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 - [spark python API](http://spark.apache.org/docs/latest/api/python/pyspark.html)
 
 
-## 本系列其他文章链接
+## 本系列文章链接
 
 - [『 Spark 』1. spark 简介 ](../introduction-to-spark)
+- [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
 
 

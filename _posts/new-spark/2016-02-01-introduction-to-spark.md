@@ -66,8 +66,9 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 - [Intro to Apache Spark](http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf)
 
 
-## 本系列其他文章链接
+## 本系列文章链接
 
-- [『 Spark 』2. spark 基本概念解析 ](../spark-questions)
+- [『 Spark 』1. spark 简介 ](../introduction-to-spark)
+- [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
 
 
