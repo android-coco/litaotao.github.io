@@ -86,6 +86,12 @@ STAR 原则也可以用于一些细化的问题，比如解决一个难题的始
 
 - 简历中的语言使用时间；
 
+- 业余怎么提升专业能力;
+
+- 对别人怎么介绍 python 这门语言；
+
+- 什么叫动态语言；
+
 - Why use function decorators? Give an example.
 
 ```

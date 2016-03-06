@@ -189,6 +189,10 @@ RDD 之间的依赖类别［ 或者，创建一个 RDD 的不同方法 ］
 
 FIFO 资源分配方式。
 
+## 20. SparkContext [经常简称为 sc]
+
+spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd。
+
 
 ## 4. Next
 
@@ -205,5 +209,6 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 
 - [『 Spark 』1. spark 简介 ](../introduction-to-spark)
 - [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
+- [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 
 

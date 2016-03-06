@@ -6,7 +6,6 @@ description: things you need know before you touch Spark and before you decide t
 ---
 
 
-  
 ## 写在前面
 
 本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。
@@ -59,7 +58,7 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 
 ## 4. Next
 
-下一篇，通过几个例子来介绍 spark 的基本编程模式。
+下一篇，简单介绍 spark 里必须深刻理解的基本概念。
 
 ## 参考文章
 
@@ -70,5 +69,6 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 
 - [『 Spark 』1. spark 简介 ](../introduction-to-spark)
 - [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
+- [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 
 

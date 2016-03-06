@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 Spark 』3. spark 编程模式 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/spark-programming-model" title="『 Spark 』3. spark 编程模式">『 Spark 』3. spark 编程模式</a></h1>
+
+    <p class="entry-date">2016-03-04 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-03-04-spark-programming-model.md">最后更新时间: </span></p>
+
+
+    <h2 id="section">写在前面</h2>
+
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
+
+<h2 id="spark-">1. spark 基本编程模式</h2>
+
+<p>spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD，在上一篇文章中 <a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a> 有讲到。可以说，sc 和 RDD 贯穿了 spark app 的大部分生命周期，从 app 的初始化，到数据的清洗，计算，到最后获取，展示结果。</p>
+
+<p>为了更加深入的了解 RDD 和基于 RDD 的编程模型，我们先把 RDD 的属性简单的分一个类，然后再通过一张流程图来理解。</p>
+
+<h3 id="rdd-">1.1 RDD 的属性</h3>
+
+<p>之前接触过 RDD 的人肯定都知道 “transform” 和 “action” 这两个核心概念，殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 <a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD">api 文档</a></p>
+
+<ul>
+  <li>RDD
+    <ul>
+      <li>action     : count, take, sample, first, collect  …</li>
+      <li>transform  : foreach, glom, map …</li>
+      <li>method     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …</li>
+      <li>property   : context</li>
+    </ul>
+  </li>
+</ul>
+
+<p>看到了吗，这里其实 RDD 其实有很多既不是 “transform” 也不是 “action” 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 <code class="highlighter-rouge">cache</code>, <code class="highlighter-rouge">setName</code>, <code class="highlighter-rouge">lookup</code>, <code class="highlighter-rouge">id</code> 这些，在开发过程中都很有用。</p>
+
+<h3 id="spark--1">1.2 spark 编程模式图</h3>
+
+<p><img src="../images/spark-programming-model.jpg" alt="spark-programming-model.jpg" /></p>
+
+<p>如图所示，我们构建 spark app，一般都是三个步骤:</p>
+
+<ul>
+  <li>(1): 加载数据集，这里的数据集大概分为两组:
+    <ul>
+      <li>一种是不变的，静态数据集，大多数场景都是从数据库，文件系统上面加载进来</li>
+      <li>另一种是动态的数据集，一般做 streaming 应用的时候用到，大多数场景是通过 socket 来加载数据，复杂场景可以通过文件系统，akka actors，kafka，kinesis 和 一些第三方提供的 streaming api [twitter 等] 来作为数据源加载数据</li>
+    </ul>
+  </li>
+  <li>(2): 处理数据，这是重点中的重点，不过不外乎都是从三个方面来完成这里的数据清理，逻辑运算等:
+    <ul>
+      <li>自定义的一些复杂处理函数或者第三方包 [下面我们称为函数集]</li>
+      <li>通过 RDD 的 transform，action 和函数集来完成整个处理，计算流程</li>
+      <li>通过 RDD 提供的 cache，persist，checkpoint 方法把一些处理流程中的重要处理节点和常用数据缓存和备份，以加速处理，计算速度</li>
+    </ul>
+  </li>
+  <li>(3): 结果展示，这里一般情况都是使用 RDD 的 collect，take，first，top 等方法把结果取出来，更常用的是先把结果取出来，放到一个数据库或文件系统上，然后再提供给专门展示结果的另一个 application 使用。</li>
+</ul>
+
+<h2 id="mc-monte-carlo">2. 例子：MC [Monte Carlo]</h2>
+
+<p>下面我将从几个方面来介绍这个例子：首先是介绍蒙特卡罗方法的基本概念和应用，然后是介绍如何用蒙特卡罗方法来估算 pi 的值，最后是看在 spark 集群中如何用多种方法来实现一个蒙特卡洛应用来计算 pi 的值。</p>
+
+<h3 id="section-1">2.1 蒙特卡罗方法介绍</h3>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## from wiki 
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of computational algorithms that 
+rely on repeated random sampling to obtain numerical results. They are often used in physical and 
+mathematical problems and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem classes:[1] optimization, 
+numerical integration, and generating draws from a probability distribution.
+
+## 
+总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。</code></pre></figure>
+
+<h3 id="pi-">2.2 蒙特卡罗方法估算 pi 值</h3>
+
+<p>用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：</p>
+
+<ul>
+  <li>首先，我们在坐标轴上构造一个边长为 1 的正方形</li>
+  <li>其次，我们以 (0, 0) 为圆心，构造一个半径为 1 的圆形</li>
+  <li>此时我们知道这个圆形有 1/4 是在正方形中的，正方形的面积和这 1/4 圆的面积分别是：1 和 pi/4，即 1/4 圆的面积和正方形面积之比刚好是 pi/4</li>
+  <li>然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
+    <ul>
+      <li>随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间</li>
+      <li>如果 x^2 + y^2 &lt; 0，则把这个点标注为红色，表示这个点落在圆内</li>
+      <li>最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m</li>
+      <li>则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 ===»&gt; pi = 4*m/n</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../images/mc.gif" alt="mc.gif" /></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">import numpy as np
+
+def mc_pi(n=100):
+    """Use Monte Calo Method to estimate pi.
+    """
+    m = 0
+    i = 0
+    while i &lt; n:
+        x, y = np.random.rand(2)
+        if x**2 + y**2 &lt; 1:
+            m += 1
+        i += 1
+
+    pi = 4. * m / n
+
+    return m, n, pi</code></pre></figure>
+
+<h3 id="spark--2">2.3 在 spark 集群中实现蒙特卡罗方法</h3>
+
+<h2 id="next">Next</h2>
+
+<p>下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。</p>
+
+<h2 id="section-2">参考文章</h2>
+
+<ul>
+  <li><a href="../files/spark-rdd-paper.pdf">spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing</a></li>
+  <li><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html">spark python API</a></li>
+  <li><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext">spark context API</a></li>
+  <li><a href="http://snap.stanford.edu/data/">机器学习相关数据集-斯坦福</a></li>
+  <li><a href="https://github.com/apache/spark/blob/master/examples/src/main/python/pagerank.py">spark pagerank example</a></li>
+  <li><a href="http://latex.91maths.com/">latex online editor 在线latex公式编辑器</a></li>
+  <li><a href="http://www.ruanyifeng.com/blog/2015/07/monte-carlo-method.html">阮一峰：蒙特卡罗</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">蒙特卡罗，wikipedia</a></li>
+  <li><a href="http://blog.sciencenet.cn/blog-324394-292355.html">科学网：蒙特卡罗</a></li>
+</ul>
+
+<h2 id="section-3">本系列文章链接</h2>
+
+<ul>
+  <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
+  <li><a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a></li>
+</ul>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/spark-programming-model" data-title="『 Spark 』3. spark 编程模式"
+         data-content="content"
+         data-url="http://litaotao.github.io//spark-programming-model">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/spark-programming-model data-title=『 Spark 』3. spark 编程模式 data-url=/spark-programming-model></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

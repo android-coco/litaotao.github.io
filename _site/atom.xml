@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-02-27T11:33:04+08:00</updated>
+   <updated>2016-03-06T15:02:50+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -229,6 +229,10 @@ transformations rather than fine-grained updates to shared state. However, we sh
 
 &lt;p&gt;FIFO 资源分配方式。&lt;/p&gt;
 
+&lt;h2 id=&quot;sparkcontext--sc&quot;&gt;20. SparkContext [经常简称为 sc]&lt;/h2&gt;
+
+&lt;p&gt;spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd。&lt;/p&gt;
+
 &lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
 
 &lt;p&gt;下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。&lt;/p&gt;
@@ -246,6 +250,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -322,7 +327,7 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
 
 &lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
 
-&lt;p&gt;下一篇，通过几个例子来介绍 spark 的基本编程模式。&lt;/p&gt;
+&lt;p&gt;下一篇，简单介绍 spark 里必须深刻理解的基本概念。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;参考文章&lt;/h2&gt;
 
@@ -335,6 +340,7 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>

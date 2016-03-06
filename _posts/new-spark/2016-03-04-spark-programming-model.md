@@ -1,0 +1,135 @@
+---
+layout: post
+published: false
+title: 『 Spark 』3. spark 编程模式
+description: let start coding in spark.
+---
+
+
+## 写在前面
+
+本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。
+
+其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。
+
+
+## 1. spark 基本编程模式
+
+spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD，在上一篇文章中 [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts) 有讲到。可以说，sc 和 RDD 贯穿了 spark app 的大部分生命周期，从 app 的初始化，到数据的清洗，计算，到最后获取，展示结果。
+
+为了更加深入的了解 RDD 和基于 RDD 的编程模型，我们先把 RDD 的属性简单的分一个类，然后再通过一张流程图来理解。
+
+### 1.1 RDD 的属性
+
+之前接触过 RDD 的人肯定都知道 "transform" 和 "action" 这两个核心概念，殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 [api 文档](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD)
+
+- RDD
+    + action     : count, take, sample, first, collect  ...
+    + transform  : foreach, glom, map ...
+    + method     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName ...
+    + property   : context
+
+看到了吗，这里其实 RDD 其实有很多既不是 "transform" 也不是 "action" 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 `cache`, `setName`, `lookup`, `id` 这些，在开发过程中都很有用。
+
+### 1.2 spark 编程模式图
+
+![spark-programming-model.jpg](../images/spark-programming-model.jpg)
+
+如图所示，我们构建 spark app，一般都是三个步骤:
+
+- (1): 加载数据集，这里的数据集大概分为两组:
+    + 一种是不变的，静态数据集，大多数场景都是从数据库，文件系统上面加载进来
+    + 另一种是动态的数据集，一般做 streaming 应用的时候用到，大多数场景是通过 socket 来加载数据，复杂场景可以通过文件系统，akka actors，kafka，kinesis 和 一些第三方提供的 streaming api [twitter 等] 来作为数据源加载数据
+- (2): 处理数据，这是重点中的重点，不过不外乎都是从三个方面来完成这里的数据清理，逻辑运算等:
+    + 自定义的一些复杂处理函数或者第三方包 [下面我们称为函数集]
+    + 通过 RDD 的 transform，action 和函数集来完成整个处理，计算流程
+    + 通过 RDD 提供的 cache，persist，checkpoint 方法把一些处理流程中的重要处理节点和常用数据缓存和备份，以加速处理，计算速度
+- (3): 结果展示，这里一般情况都是使用 RDD 的 collect，take，first，top 等方法把结果取出来，更常用的是先把结果取出来，放到一个数据库或文件系统上，然后再提供给专门展示结果的另一个 application 使用。
+
+
+## 2. 例子：MC [Monte Carlo]
+
+下面我将从几个方面来介绍这个例子：首先是介绍蒙特卡罗方法的基本概念和应用，然后是介绍如何用蒙特卡罗方法来估算 pi 的值，最后是看在 spark 集群中如何用多种方法来实现一个蒙特卡洛应用来计算 pi 的值。
+
+### 2.1 蒙特卡罗方法介绍
+
+{% highlight text %}
+
+## from wiki 
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of computational algorithms that 
+rely on repeated random sampling to obtain numerical results. They are often used in physical and 
+mathematical problems and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem classes:[1] optimization, 
+numerical integration, and generating draws from a probability distribution.
+
+## 
+总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。
+
+{% endhighlight %}
+
+### 2.2 蒙特卡罗方法估算 pi 值
+
+用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：
+
+- 首先，我们在坐标轴上构造一个边长为 1 的正方形
+- 其次，我们以 (0, 0) 为圆心，构造一个半径为 1 的圆形
+- 此时我们知道这个圆形有 1/4 是在正方形中的，正方形的面积和这 1/4 圆的面积分别是：1 和 pi/4，即 1/4 圆的面积和正方形面积之比刚好是 pi/4
+- 然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
+    + 随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间
+    + 如果 x^2 + y^2 < 0，则把这个点标注为红色，表示这个点落在圆内
+    + 最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m
+    + 则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 ===>>> pi = 4*m/n
+
+![mc.gif](../images/mc.gif)
+
+{% highlight text %}
+
+import numpy as np
+
+def mc_pi(n=100):
+    """Use Monte Calo Method to estimate pi.
+    """
+    m = 0
+    i = 0
+    while i < n:
+        x, y = np.random.rand(2)
+        if x**2 + y**2 < 1:
+            m += 1
+        i += 1
+
+    pi = 4. * m / n
+
+    return m, n, pi
+
+{% endhighlight %}
+
+
+### 2.3 在 spark 集群中实现蒙特卡罗方法
+
+
+
+
+## Next
+
+下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。
+
+
+## 参考文章
+
+- [spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
+- [spark python API](http://spark.apache.org/docs/latest/api/python/pyspark.html)
+- [spark context API](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext)
+- [机器学习相关数据集-斯坦福](http://snap.stanford.edu/data/)
+- [spark pagerank example](https://github.com/apache/spark/blob/master/examples/src/main/python/pagerank.py)
+- [latex online editor 在线latex公式编辑器](http://latex.91maths.com/)
+- [阮一峰：蒙特卡罗](http://www.ruanyifeng.com/blog/2015/07/monte-carlo-method.html)
+- [蒙特卡罗，wikipedia](https://en.wikipedia.org/wiki/Monte_Carlo_method)
+- [科学网：蒙特卡罗](http://blog.sciencenet.cn/blog-324394-292355.html)
+
+
+## 本系列文章链接
+
+- [『 Spark 』1. spark 简介 ](../introduction-to-spark)
+- [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
+- [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
