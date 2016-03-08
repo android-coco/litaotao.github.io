@@ -26,13 +26,94 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-06T15:02:50+08:00</updated>
+   <updated>2016-03-08T21:57:15+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>如何做好一个 presentation</title>
+     <link href="/how-to-be-a-amazing-speaker"/>
+     <updated>2016-03-08T00:00:00+08:00</updated>
+     <id>/how-to-be-a-amazing-speaker</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;从 14.04 至今，已经工作将近 2 年了，这两年参加过很多次分享会，自己也当过十来次 speaker，有讲得不差的时候，也有讲得最差的时候：&lt;a href=&quot;../the-badest-thing-in-my-life&quot;&gt;今天发生了一件坏事，也发生了一件好事&lt;/a&gt;。参加这么多次分享会后，给我印象最深的其实并不是某某技术有多厉害，某某产品有多实用，给我感触最深的恰恰是主讲人。我发现，其实一个分享会是否成功，其实很少部分在于分享的主题，而在于主讲人。很多时候，在 speaker 开讲的3分钟内，我就会毫不犹豫的拿起手机；很少时候，我会提笔在笔记本上记下准备提问的问题。&lt;/p&gt;
+
+&lt;p&gt;本篇是记录我这两年来对分享会的一些感触，目的是总结一些在分享会方面的经验，希望以后自己做 speaker 的时候，能一次比一次高效，成功。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 我常遇见的问题&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;主讲人迟到 or 踩点到&lt;/code&gt;   &lt;br /&gt;
+  如果你足够大牌，或者真的有事耽误，那请务必准时到，而且最好提前通知 audience。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ppt，demo 字体太小，颜色太难为人&lt;/code&gt;  &lt;br /&gt;
+  时刻谨记，你做的 ppt，demo 是给参会者看的，而不是给你自己看的。所以，务必注意字体，也不要用那些逆天的颜色搭配。
+  你别跟我说你不懂颜色搭配，因为不懂不是你的错，但不懂去 google 就是你的错了，可以看看我后面的参考文档。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;钻牛角尖&lt;/code&gt;  &lt;br /&gt;
+  这个问题经常在技术型分享会中遇到，几个工程师容易沉溺到一两个特别细节的问题里去争论。我是很赞成积极甚至是激烈的讨论的，但是
+  这个讨论的时间地点都不对，耽误了大多数参会者的时间，甚至还会影响 speaker 的进度。这种情况我推荐把问题简单记录下来，私下讨论，并且讨论完成后给所有参会者发邮件说明就可以了。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;讲完整个 slide 才有 Q&amp;amp;A&lt;/code&gt; &lt;br /&gt;
+  这个其实问题也不大，但我更推荐在中途有一次 Q&amp;amp;A 或者每讲完一个 agenda 就来一次 Q&amp;amp;A。这样的好处是能保证参会者跟住你的脚步，
+  也能保证会议的活跃度。难点是 speaker 需要控制住每一次 Q&amp;amp;A 的时间，保证能按时完成分享。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;presentation&quot;&gt;2. 如何做好一个 presentation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;提前准备&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;ppt, demo: 字体，颜色，如果有程序 demo 的话最好先完整运行一次，然后备份一下运行结果，以防在 present 的时候运行
+  出意外，得不到理想的结果；&lt;/li&gt;
+      &lt;li&gt;ppt 简洁最好，不要花哨，如果是技术性会议，我比较推荐 markdown 写的文档，简洁明了够用；&lt;/li&gt;
+      &lt;li&gt;演示设备：提前10分钟到场，测试会场的电脑，音效等是否ok；如果自己带电脑的话，最好再提前几分钟到场，把自己的电脑和外接屏幕，投影仪
+  等调试好，电脑网络设置好，slide 打开看看外屏显示效果是否ok，demo程序是否 ready；网络这里我是有惨痛经历的，所以我特别注重网络这块；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;表达清晰&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;语速放慢，概念，问题，说清楚&lt;/li&gt;
+      &lt;li&gt;说自己明确知道的，弱有人问到自己不懂的，可以记下来，放到会后纪要里&lt;/li&gt;
+      &lt;li&gt;有人提问的话，在回答前先确认自己知道别人的问题，然后向大众复述一遍问题，再做解答 [这个在听国外的分享时经常遇到，非常好]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;介绍与会议有直接关系的参会者&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;这个很有必要，比如说你来介绍一个产品，但是这个产品依赖于某个部门的服务，那在开讲的时候最好介绍一下那个部门，那个服务。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;会后总结会议内容，给参会者发送会议回顾和总结[depends]&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;这个不一定做，视情况而定。如果是公司内部的，我推荐在会议完成后，自己在 slide 的基础上再总结一下，把 Q&amp;amp;A 环节的问题也总结进去，
+  然后群发给参会者。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;presentation-&quot;&gt;3. 如何判断你这个 presentation 是否达到效果&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;会议中低头玩手机的人多吗&lt;/code&gt; &lt;br /&gt;
+  偶尔有一两个人玩很正常的，因为也许是人家正在处理正事。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Q&amp;amp;A 是否活跃&lt;/code&gt; &lt;br /&gt;
+  这个没办法量化，但是一个1小时的分享会下来，怎么说至少也应该要有3个问题才算活跃吧。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Q&amp;amp;A 的问题是否都是你一个人回答的&lt;/code&gt; &lt;br /&gt;
+  如果有参会者主动回答别人提的问题，那就最好了，哈哈。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.wikihow.com/Do-a-Presentation-in-Class&quot;&gt;How to Do a Presentation in Class&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/30709836&quot;&gt;怎样的 PPT 配色会让人觉得舒服&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dEDcc0aCjaA&quot;&gt;How to Do a Presentation - 5 Steps to a Killer Opener&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』2. spark 基本概念解析</title>
@@ -1710,105 +1791,6 @@ Tue Nov 17 22:21:05 CST 2015
 &lt;p&gt;以后就方便多了，再要写什么临时文本的时候，直接打开浏览器，输入 &lt;a href=&quot;http://litaotao.github.io/files/editor.html&quot;&gt;litaotao.github.io/files/editor.html&lt;/a&gt; 就可以了。怎么有一种逼格满满的赶脚，哈哈。&lt;/p&gt;
 
 &lt;p&gt;当然了，你也可以自己搞一个，下载这个 &lt;a href=&quot;https://github.com/litaotao/litaotao.github.io/raw/master/files/editor.html&quot;&gt;html&lt;/a&gt; 文件，然后放到你的博客下面就可以了。&lt;/p&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>python else 用法总结</title>
-     <link href="/python-if-else-usage"/>
-     <updated>2015-10-25T00:00:00+08:00</updated>
-     <id>/python-if-else-usage</id>
-     <content type="html">&lt;h2 id=&quot;if-else-&quot;&gt;1. 常规的 if else 用法&lt;/h2&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;x is true&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;x is not true&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;if-else--1&quot;&gt;2. if else 快捷用法&lt;/h2&gt;
-
-&lt;p&gt;这里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;if else&lt;/code&gt; 可以作为三元操作符使用。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;mark&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;is_pass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mark&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pass? &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;for-&quot;&gt;3. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; 关键字一起用&lt;/h2&gt;
-
-&lt;p&gt;在满足以下情况的时候，&lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; 下的代码块会被执行：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;for 循环里的语句执行完成&lt;/li&gt;
-  &lt;li&gt;for 循环里的语句没有被 &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 打印 `For loop completed the execution`&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;For loop completed the execution&#39;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 不打印 `For loop completed the execution`&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;For loop completed the execution&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;while-&quot;&gt;4. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt; 关键字一起用&lt;/h2&gt;
-
-&lt;p&gt;和上面类似，在满足以下情况的时候，&lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; 下的代码块会被执行：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;while 循环里的语句执行完成&lt;/li&gt;
-  &lt;li&gt;while 循环里的语句没有被 &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; 语句打断&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 打印 `While loop execution completed`&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;While loop execution completed&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 不打印 `While loop execution completed`&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;While loop execution completed&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;try-except-&quot;&gt;5. 与 &lt;code class=&quot;highlighter-rouge&quot;&gt;try except&lt;/code&gt; 一起用&lt;/h2&gt;
-
-&lt;p&gt;和 &lt;code class=&quot;highlighter-rouge&quot;&gt;try except&lt;/code&gt; 一起使用时，如果不抛出异常，&lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt;里的语句就能被执行。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;result.txt&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;IOError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;cannot open&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# Executes only if file opened properly&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;has&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readlines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;lines&#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.idiotinside.com/2015/10/18/5-methods-to-use-else-block-in-python&quot;&gt;5 different methods to use an else block in python&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
 </content>
    </entry>
    
