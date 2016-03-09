@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 『 Spark 』3. spark 编程模式
 description: let start coding in spark.
 ---
@@ -106,7 +106,84 @@ def mc_pi(n=100):
 
 ### 2.3 在 spark 集群中实现蒙特卡罗方法
 
+- 定义相关函数和常量
 
+{% highlight python %}
+
+### iterate number
+
+total = int(100 * 10000)
+local_collection = xrange(1, total)
+
+def map_func(element):
+    x = random.random()       ## [0, 1)
+    y = random.random()       ## [0, 1)
+    
+    return (x, y)             ## random point
+
+def map_func_2(element):
+    x, y = element
+    return 1 if x**2 + y**2 < 1 else 0
+
+{% endhighlight %}
+
+
+- 初始化 spark app，加载需要处理的数据集
+
+{% highlight python %}
+
+### parallelize a data set into the cluster
+
+rdd = sc.parallelize(local_collection).setName("parallelized_data").cache()
+
+{% endhighlight %}
+
+- 逻辑运算处理
+
+{% highlight python %}
+
+### randomly generate points
+
+rdd2 = rdd.map(map_func).setName("random_point").cache()
+
+### calculate the number of points in and out the circle
+
+rdd3 = rdd2.map(map_func_2).setName("points_in_out_circle").cache()
+
+{% endhighlight %}
+
+- 结果展示
+
+{% highlight python %}
+
+### how many points are in the circle
+
+in_circle = rdd3.reduce(operator.add)
+pi = 4. * in_circle / total
+print 'iterate {} times'.format(total)
+print 'estimated pi : {}'.format(pi)
+
+{% endhighlight %}
+
+### 2.4 Seems a little complex, really?
+
+其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多
+代码”。
+
+![wawawa.gif](../images/wawawa.gif)
+
+其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式。
+好吧，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：
+
+{% highlight python %}
+
+sc.parallelize(xrange(total))  \
+    .map(lambda x: (random.random(), random.random())) \
+    .map(lambda x: 1 if x[0]**2 + x[1]**2 < 1 else 0) \
+    .reduce(lambda x, y: x+y)   \
+    / float(total) * 4
+
+{% endhighlight %}
 
 
 ## Next

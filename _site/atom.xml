@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-08T21:57:15+08:00</updated>
+   <updated>2016-03-09T13:24:05+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -35,10 +35,217 @@
 
    
    <entry>
+     <title>『 Spark 』3. spark 编程模式</title>
+     <link href="/spark-programming-model"/>
+     <updated>2016-03-04T00:00:00+08:00</updated>
+     <id>/spark-programming-model</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-&quot;&gt;1. spark 基本编程模式&lt;/h2&gt;
+
+&lt;p&gt;spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD，在上一篇文章中 &lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt; 有讲到。可以说，sc 和 RDD 贯穿了 spark app 的大部分生命周期，从 app 的初始化，到数据的清洗，计算，到最后获取，展示结果。&lt;/p&gt;
+
+&lt;p&gt;为了更加深入的了解 RDD 和基于 RDD 的编程模型，我们先把 RDD 的属性简单的分一个类，然后再通过一张流程图来理解。&lt;/p&gt;
+
+&lt;h3 id=&quot;rdd-&quot;&gt;1.1 RDD 的属性&lt;/h3&gt;
+
+&lt;p&gt;之前接触过 RDD 的人肯定都知道 “transform” 和 “action” 这两个核心概念，殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 &lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD&quot;&gt;api 文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RDD
+    &lt;ul&gt;
+      &lt;li&gt;action     : count, take, sample, first, collect  …&lt;/li&gt;
+      &lt;li&gt;transform  : foreach, glom, map …&lt;/li&gt;
+      &lt;li&gt;method     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …&lt;/li&gt;
+      &lt;li&gt;property   : context&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;看到了吗，这里其实 RDD 其实有很多既不是 “transform” 也不是 “action” 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 &lt;code class=&quot;highlighter-rouge&quot;&gt;cache&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;setName&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lookup&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; 这些，在开发过程中都很有用。&lt;/p&gt;
+
+&lt;h3 id=&quot;spark--1&quot;&gt;1.2 spark 编程模式图&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-programming-model.jpg&quot; alt=&quot;spark-programming-model.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如图所示，我们构建 spark app，一般都是三个步骤:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;(1): 加载数据集，这里的数据集大概分为两组:
+    &lt;ul&gt;
+      &lt;li&gt;一种是不变的，静态数据集，大多数场景都是从数据库，文件系统上面加载进来&lt;/li&gt;
+      &lt;li&gt;另一种是动态的数据集，一般做 streaming 应用的时候用到，大多数场景是通过 socket 来加载数据，复杂场景可以通过文件系统，akka actors，kafka，kinesis 和 一些第三方提供的 streaming api [twitter 等] 来作为数据源加载数据&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(2): 处理数据，这是重点中的重点，不过不外乎都是从三个方面来完成这里的数据清理，逻辑运算等:
+    &lt;ul&gt;
+      &lt;li&gt;自定义的一些复杂处理函数或者第三方包 [下面我们称为函数集]&lt;/li&gt;
+      &lt;li&gt;通过 RDD 的 transform，action 和函数集来完成整个处理，计算流程&lt;/li&gt;
+      &lt;li&gt;通过 RDD 提供的 cache，persist，checkpoint 方法把一些处理流程中的重要处理节点和常用数据缓存和备份，以加速处理，计算速度&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(3): 结果展示，这里一般情况都是使用 RDD 的 collect，take，first，top 等方法把结果取出来，更常用的是先把结果取出来，放到一个数据库或文件系统上，然后再提供给专门展示结果的另一个 application 使用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mc-monte-carlo&quot;&gt;2. 例子：MC [Monte Carlo]&lt;/h2&gt;
+
+&lt;p&gt;下面我将从几个方面来介绍这个例子：首先是介绍蒙特卡罗方法的基本概念和应用，然后是介绍如何用蒙特卡罗方法来估算 pi 的值，最后是看在 spark 集群中如何用多种方法来实现一个蒙特卡洛应用来计算 pi 的值。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;2.1 蒙特卡罗方法介绍&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## from wiki 
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of computational algorithms that 
+rely on repeated random sampling to obtain numerical results. They are often used in physical and 
+mathematical problems and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem classes:[1] optimization, 
+numerical integration, and generating draws from a probability distribution.
+
+## 
+总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;pi-&quot;&gt;2.2 蒙特卡罗方法估算 pi 值&lt;/h3&gt;
+
+&lt;p&gt;用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首先，我们在坐标轴上构造一个边长为 1 的正方形&lt;/li&gt;
+  &lt;li&gt;其次，我们以 (0, 0) 为圆心，构造一个半径为 1 的圆形&lt;/li&gt;
+  &lt;li&gt;此时我们知道这个圆形有 1/4 是在正方形中的，正方形的面积和这 1/4 圆的面积分别是：1 和 pi/4，即 1/4 圆的面积和正方形面积之比刚好是 pi/4&lt;/li&gt;
+  &lt;li&gt;然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
+    &lt;ul&gt;
+      &lt;li&gt;随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间&lt;/li&gt;
+      &lt;li&gt;如果 x^2 + y^2 &amp;lt; 0，则把这个点标注为红色，表示这个点落在圆内&lt;/li&gt;
+      &lt;li&gt;最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m&lt;/li&gt;
+      &lt;li&gt;则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 ===»&amp;gt; pi = 4*m/n&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/mc.gif&quot; alt=&quot;mc.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import numpy as np
+
+def mc_pi(n=100):
+    &quot;&quot;&quot;Use Monte Calo Method to estimate pi.
+    &quot;&quot;&quot;
+    m = 0
+    i = 0
+    while i &amp;lt; n:
+        x, y = np.random.rand(2)
+        if x**2 + y**2 &amp;lt; 1:
+            m += 1
+        i += 1
+
+    pi = 4. * m / n
+
+    return m, n, pi&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;spark--2&quot;&gt;2.3 在 spark 集群中实现蒙特卡罗方法&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;定义相关函数和常量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### iterate number&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;## random point&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;初始化 spark app，加载需要处理的数据集&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### parallelize a data set into the cluster&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;parallelized_data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;逻辑运算处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### randomly generate points&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;random_point&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### calculate the number of points in and out the circle&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;points_in_out_circle&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;结果展示&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### how many points are in the circle&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;iterate {} times&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;estimated pi : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;seems-a-little-complex-really&quot;&gt;2.4 Seems a little complex, really?&lt;/h3&gt;
+
+&lt;p&gt;其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多
+代码”。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wawawa.gif&quot; alt=&quot;wawawa.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式。
+好吧，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;  \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt; \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   \
+    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
+
+&lt;p&gt;下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../files/spark-rdd-paper.pdf&quot;&gt;spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html&quot;&gt;spark python API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext&quot;&gt;spark context API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://snap.stanford.edu/data/&quot;&gt;机器学习相关数据集-斯坦福&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/blob/master/examples/src/main/python/pagerank.py&quot;&gt;spark pagerank example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://latex.91maths.com/&quot;&gt;latex online editor 在线latex公式编辑器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/07/monte-carlo-method.html&quot;&gt;阮一峰：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Monte_Carlo_method&quot;&gt;蒙特卡罗，wikipedia&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.sciencenet.cn/blog-324394-292355.html&quot;&gt;科学网：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
+   
+   <entry>
      <title>如何做好一个 presentation</title>
-     <link href="/how-to-be-a-amazing-speaker"/>
-     <updated>2016-03-08T00:00:00+08:00</updated>
-     <id>/how-to-be-a-amazing-speaker</id>
+     <link href="/how-to-be-a-amzing-speaker"/>
+     <updated>2016-02-25T00:00:00+08:00</updated>
+     <id>/how-to-be-a-amzing-speaker</id>
      <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;从 14.04 至今，已经工作将近 2 年了，这两年参加过很多次分享会，自己也当过十来次 speaker，有讲得不差的时候，也有讲得最差的时候：&lt;a href=&quot;../the-badest-thing-in-my-life&quot;&gt;今天发生了一件坏事，也发生了一件好事&lt;/a&gt;。参加这么多次分享会后，给我印象最深的其实并不是某某技术有多厉害，某某产品有多实用，给我感触最深的恰恰是主讲人。我发现，其实一个分享会是否成功，其实很少部分在于分享的主题，而在于主讲人。很多时候，在 speaker 开讲的3分钟内，我就会毫不犹豫的拿起手机；很少时候，我会提笔在笔记本上记下准备提问的问题。&lt;/p&gt;
@@ -1754,43 +1961,6 @@ Tue Nov 17 22:21:05 CST 2015
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/744373/circular-or-cyclic-imports-in-python&quot;&gt;Circular (or cyclic) imports in Python&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/handsomekang/article/details/19010407&quot;&gt;解决循环import的问题&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>一行代码，打造在线编辑器</title>
-     <link href="/editor-in-one-line"/>
-     <updated>2015-10-27T00:00:00+08:00</updated>
-     <id>/editor-in-one-line</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 事情是这样的&lt;/h2&gt;
-
-&lt;p&gt;事情是这样的，有一天要开会，我准备把会议的 outline 写到个 &lt;strong&gt;&lt;em&gt;暂时&lt;/em&gt;&lt;/strong&gt; 的 notebook 里，在会议的时候参考。&lt;/p&gt;
-
-&lt;p&gt;然后，问题就来了：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;我不想打开 pages，excel，office 什么的；&lt;/li&gt;
-  &lt;li&gt;我也不想打开 xcode 的 text editor，因为打开的窗口已经很多了，切换起来麻烦；&lt;/li&gt;
-  &lt;li&gt;我也不想用正在写代码的 sublime 新建个文件，因为不想污染我写代码的环境，哈哈；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;然后，想法就来了，要是能用浏览器来做编辑器就好了，然后突然想到很久之前看到的一篇文章，说如何用一行代码把 chrome 浏览器变成在线编辑器。哈哈，google 了下，果然找到解决方法了，果然是技术造福人类啊。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://36kr.com/p/201096.html&quot;&gt;# 极氪 # 仅一行代码，打造一个在线编辑器&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;可是还不够，这样每次都要拷贝，粘贴到浏览器里，多麻烦啊。要是能输入一个链接，直接就有这样一个在线编辑器，那多爽啊。哈哈。&lt;/p&gt;
-
-&lt;p&gt;想想它的原理，其实就是一个 html 文件嘛，更细致一点，就是一个很简单的，定制化的 textarea [我不确定是不是这个组件，但是这都不重要了，哈哈]，只要把这个 html 放到一个固定的，人人都能访问的地方不就行了？&lt;/p&gt;
-
-&lt;h2 id=&quot;github&quot;&gt;2. 感谢 github&lt;/h2&gt;
-
-&lt;p&gt;于是乎，解决方案就来了。首先得感谢 github 啊，让多少人零首付零还款就搭建了个博客，我也一样。既然博客都有了，那把上面的那个 html 文件放到博客上不就行了？&lt;/p&gt;
-
-&lt;p&gt;于是乎，我把上面的 html 保存到自己 github 博客的 &lt;code class=&quot;highlighter-rouge&quot;&gt;files/&lt;/code&gt; 目录下面，然后直接访问 &lt;a href=&quot;http://litaotao.github.io/files/editor.html&quot;&gt;litaotao.github.io/files/editor.html&lt;/a&gt; 就可以了。哈哈，爽爽的赶脚。&lt;/p&gt;
-
-&lt;p&gt;以后就方便多了，再要写什么临时文本的时候，直接打开浏览器，输入 &lt;a href=&quot;http://litaotao.github.io/files/editor.html&quot;&gt;litaotao.github.io/files/editor.html&lt;/a&gt; 就可以了。怎么有一种逼格满满的赶脚，哈哈。&lt;/p&gt;
-
-&lt;p&gt;当然了，你也可以自己搞一个，下载这个 &lt;a href=&quot;https://github.com/litaotao/litaotao.github.io/raw/master/files/editor.html&quot;&gt;html&lt;/a&gt; 文件，然后放到你的博客下面就可以了。&lt;/p&gt;
 </content>
    </entry>
    
