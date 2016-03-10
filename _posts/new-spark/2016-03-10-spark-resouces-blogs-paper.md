@@ -6,8 +6,6 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 ---  
 
 
-
-
 ## 1. 文章，博客，视频
 
 - [RDD论文英文版](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)   
