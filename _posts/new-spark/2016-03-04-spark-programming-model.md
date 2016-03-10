@@ -167,8 +167,7 @@ print 'estimated pi : {}'.format(pi)
 
 ### 2.4 Seems a little complex, really?
 
-其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多
-代码”。
+其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码”。
 
 ![wawawa.gif](../images/wawawa.gif)
 
@@ -205,8 +204,11 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 - [科学网：蒙特卡罗](http://blog.sciencenet.cn/blog-324394-292355.html)
 
 
+
 ## 本系列文章链接
 
 - [『 Spark 』1. spark 简介 ](../introduction-to-spark)
 - [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
+- [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
+- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)

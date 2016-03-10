@@ -46,7 +46,13 @@
     <p class="entry-date">2016-03-08 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-03-08-spark-what-is-rdd.md">最后更新时间: </span></p>
 
 
-    <h2 id="rdd">1. 什么是RDD</h2>
+    <h2 id="section">写在前面</h2>
+
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
+
+<h2 id="rdd">1. 什么是RDD</h2>
 <p>　　先看下源码里是怎么描述RDD的。</p>
 
 <blockquote>
@@ -61,40 +67,44 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   </blockquote>
 </blockquote>
 
-<p>　　每个RDD有5个主要的属性：</p>
+<p>每个RDD有5个主要的属性：</p>
 
 <ul>
   <li>一组分片（partition），即数据集的基本组成单位</li>
   <li>一个计算每个分片的函数</li>
-  <li>对parent RDD的依赖，这个依赖描述了RDD之间的lineage</li>
+  <li>对parent RDD的依赖，这个依赖描述了RDD之间的 <code class="highlighter-rouge">lineage</code></li>
   <li>对于key-value的RDD，一个Partitioner，这是可选择的</li>
   <li>一个列表，存储存取每个partition的preferred位置。对于一个HDFS文件来说，存储每个partition所在的块的位置。这也是可选择的</li>
 </ul>
 
-<p>　　把上面这5个主要的属性总结一下，可以得出RDD的大致概念。首先要知道，RDD大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是spark项目组设计用来表示数据集的一种数据结构。而spark项目组为了让RDD能handle更多的问题，又规定RDD应该是只读的，分区记录的一种数据集合中。可以通过两种方式来创建RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建RDD的方式，即通过其他RDD来创建【以后叫做转换】而成。而正因为RDD满足了这么多特性，所以spark把RDD叫做Resilient Distributed Datasets，中文叫做弹性分布式数据集。很多文章都是先讲RDD的定义，概念，再来说RDD的特性。我觉得其实也可以倒过来，通过RDD的特性反过来理解RDD的定义和概念，通过这种由果溯因的方式来理解RDD也未尝不可。反正对我个人而言这种方式是挺好的。</p>
+<p>把上面这5个主要的属性总结一下，可以得出RDD的大致概念。  <br />
+首先要知道，RDD大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是spark项目组设计用来表示数据集的一种数据结构。而spark项目组为了让RDD能handle更多的问题，又规定RDD应该是只读的，分区记录的一种数据集合中。可以通过两种方式来创建RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建RDD的方式，即通过其他RDD来创建【以后叫做转换】而成。而正因为RDD满足了这么多特性，所以spark把RDD叫做 <code class="highlighter-rouge">Resilient Distributed Datasets</code>，中文叫做弹性分布式数据集。很多文章都是先讲RDD的定义，概念，再来说RDD的特性。我觉得其实也可以倒过来，通过RDD的特性反过来理解RDD的定义和概念，通过这种由果溯因的方式来理解RDD也未尝不可。反正对我个人而言这种方式是挺好的。</p>
 
 <h2 id="rdd-1">2. 理解RDD的几个关键概念</h2>
-<p>　　本来我是想参考RDD的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先focus on几个关键点，到后期应用的时候再步步深入。<br />
-　　所以，按照我个人的理解，我认为想用好spark，必须要理解RDD，而为了理解RDD，我认为只要了解下面几个RDD的几个关键点就能handle很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，谢谢。
-　　
-### 2.1 RDD的背景及解决的痛点问题 <br />
-　　按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that’s all。</p>
+<p>本来我是想参考RDD的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先focus on几个关键点，到后期应用的时候再步步深入。</p>
+
+<p>所以，按照我个人的理解，我认为想用好spark，必须要理解RDD，而为了理解RDD，我认为只要了解下面几个RDD的几个关键点就能handle很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，谢谢。</p>
+
+<h3 id="rdd-2">2.1 RDD的背景及解决的痛点问题</h3>
+
+<p>按照RDD的paper来讲，RDD的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：<code class="highlighter-rouge">RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that's all</code>。</p>
 
 <h3 id="what-is-dag---">2.2 What is DAG - 趣说有向无环图</h3>
-<p>　　DAG - Direct Acyclic Graph，有向五无图，好久没看图片了，先发个图片来理解理解吧。
+
+<p>DAG - Direct Acyclic Graph，有向无环图，好久没看图片了，先发个图片来理解理解吧。
 <img src="../../images/dag.jpg" alt="DAG" /><br />
-　　要理解DAG，只需弄明白三个概念就可以毕业了，首先，我们假设上图图二中的A,B,C,D,E都代表spark里不同的RDD：</p>
+要理解DAG，只需弄明白三个概念就可以毕业了，首先，我们假设上图图二中的A,B,C,D,E都代表spark里不同的RDD：</p>
 
 <ul>
-  <li>图：图是表达RDD Lineage信息的一个结构，在spark中，大部分RDD都是通过其他RDD进行转换而来的，比如说上图图二中，B和D都是通过A转换而来的，而C是通过B转换而来，E的话是通过B和D一起转换来的。</li>
+  <li>图：图是表达<code class="highlighter-rouge">RDD Lineage</code>信息的一个结构，在spark中，大部分RDD都是通过其他RDD进行转换而来的，比如说上图图二中，B和D都是通过A转换而来的，而C是通过B转换而来，E的话是通过B和D一起转换来的。</li>
   <li>有向：有向就更容易理解了，简单来说就是linage是一个top-down的结构，而且是时间序列上的top-down结构，这里不是很好理解，我们在下面讲“无环”这个概念是一起说明。</li>
   <li>
-    <p>无环：这里就是重点要理解的地方了，我猜想spark的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下B,D,E这样一个RDD转换图，那当我们的需要执行D.collect操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。举个例子，我们按照时间序列分析一下图下左下的B,D,E三个RDD：</p>
+    <p>无环：这里就是重点要理解的地方了，我猜想spark的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下B,D,E这样一个RDD转换图，那当我们的需要执行D.collect操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。举个例子，我们按照时间序列分析一下图中，左图的B,D,E三个RDD：</p>
 
     <ol>
       <li>B通过某种方式初始化了第一个RDD【这里我们抛却A,C不谈】；</li>
       <li>D通过某种转换从B生成第二个RDD；</li>
-      <li>E通过某种转换从D生成第三个RDD；</li>
+      <li>E通过某种转换从D生成第三个RDD【这里我们抛却A,C不谈】；</li>
       <li>现在B这个RDD已经存在了，所以根本无从说明B是从E通过转换生成的，为啥，因为B已经存在了；</li>
     </ol>
   </li>
@@ -103,19 +113,19 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 <p>　　够清楚了吗，啥，还不够清楚，好，那我告诉你，B是小明他爷爷，D是小明他爸爸，E是小明自己，你说小明他爷爷能是小明通过某种方式转换出现在这个世界上的吗？</p>
 
 <h3 id="what-is-data-locality---rdd">2.3 What is Data Locality - RDD的位置可见性</h3>
-<p>　　这个问题就不重复造轮子了，直接引用Quora上的一个<a href="https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark">问答了</a>。
-&gt;
-RDD is a dataset which is distributed, that is, it is divided into “partitions”. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to launch one task per partition of the RDD. Its best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data “locally” is known as “locality aware scheduling”.</p>
+<p>　　这个问题就不重复造轮子了，直接引用Quora上的一个<a href="https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark">问答了</a>。</p>
+
+<p>RDD is a dataset which is <code class="highlighter-rouge">distributed</code>, that is, it is divided into <code class="highlighter-rouge">"partitions"</code>. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to <code class="highlighter-rouge">launch one task per partition of the RDD</code>. It’s best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data “locally” is known as “<code class="highlighter-rouge">locality aware scheduling</code>”.</p>
 
 <h3 id="what-is-lazy-evaluation---">2.4 What is Lazy Evaluation - 神马叫惰性求值</h3>
 <p>　　本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫”后续求值”，”按需计算”，”晚点搞”这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。</p>
 
 <h3 id="what-is-narrowwide-dependency---rdd">2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖</h3>
-<p>　　首先，先从原文看看宽依赖和窄依赖各自的定义。
-&gt;
-　　<strong>narrow dependencies</strong>: where each partition of the parent RDD is used by at most one partition of the child RDD, <strong>wide dependencis</strong>, where multiple child partitions may depend on it.</p>
+<p>首先，先从原文看看宽依赖和窄依赖各自的定义。</p>
 
-<p>　　按照<a href="http://shiyanjun.cn/archives/744.html">这篇RDD论文中文译文</a>的解释，窄依赖是指子RDD的每个分区依赖于常数个父分区（即与数据规模无关）；宽依赖指子RDD的每个分区依赖于所有父RDD分区。暂且不说这样理解是否有偏差，我们先来从两个方面了解下计算一个窄依赖的子RDD和一个宽依赖的RDD时具体都有什么区别，然后再回顾这个定义。</p>
+<p><code class="highlighter-rouge">narrow dependencies</code>: where each partition of the parent RDD is used by at most one partition of the child RDD, <code class="highlighter-rouge">wide dependencis</code>, where multiple child partitions may depend on it.</p>
+
+<p>按照<a href="http://shiyanjun.cn/archives/744.html">这篇RDD论文中文译文</a>的解释，窄依赖是指子RDD的每个分区依赖于常数个父分区（即与数据规模无关）；宽依赖指子RDD的每个分区依赖于所有父RDD分区。暂且不说这样理解是否有偏差，我们先来从两个方面了解下计算一个窄依赖的子RDD和一个宽依赖的RDD时具体都有什么区别，然后再回顾这个定义。</p>
 
 <ul>
   <li>计算方面：
@@ -132,11 +142,31 @@ RDD is a dataset which is distributed, that is, it is divided into “partitions
   </li>
 </ul>
 
-<h2 id="section">3. 尚未提到的一些重要概念</h2>
+<h2 id="section-1">3. 尚未提到的一些重要概念</h2>
 <p>　　还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。
 　　</p>
 
-<h2 id="section-1">4. 参考资料</h2>
+<h2 id="next">4. Next</h2>
+
+<p>基础的概念和理论都讲得差不多了，该小试牛刀了，哈哈。</p>
+
+<p>下几篇的安排：</p>
+
+<ul>
+  <li>列一些学习 spark 比较好的<code class="highlighter-rouge">资源</code></li>
+  <li>准备几个稍稍复杂一点的<code class="highlighter-rouge">例子</code>
+    <ul>
+      <li>spark 在搜索领域的应用之 pagerank</li>
+      <li>spark 在社交领域的应用之 评分计算</li>
+      <li>spark 在投资领域应用之指数日内相似度计算</li>
+      <li>spark 在投资领域应用之分布式策略回测</li>
+    </ul>
+  </li>
+  <li>开始讲 <code class="highlighter-rouge">dataframe 和 datasets</code></li>
+</ul>
+
+<h2 id="section-2">参考文章</h2>
+
 <ul>
   <li><a href="http://blog.csdn.net/anzhsoft/article/details/39851421">Spark技术内幕：究竟什么是RDD</a></li>
   <li><a href="http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf">Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
@@ -144,11 +174,16 @@ In-Memory Cluster Computing</a></li>
   <li><a href="http://shiyanjun.cn/archives/744.html">RDD 论文中文版</a></li>
 </ul>
 
-<p>　　</p>
+<h2 id="section-3">本系列文章链接</h2>
 
-<h2 id="section-2">扫一扫</h2>
+<ul>
+  <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
+  <li><a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a></li>
+  <li><a href="../spark-what-is-rdd">『 Spark 』4. spark 之 RDD </a></li>
+  <li><a href="../spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
+</ul>
 
-<p><img src="../../images/share/2014-12-08-spark-what-is-rdd.md.jpg" alt="2014-12-08-spark-what-is-rdd.md" /></p>
 
 
     <!-- share icon -->

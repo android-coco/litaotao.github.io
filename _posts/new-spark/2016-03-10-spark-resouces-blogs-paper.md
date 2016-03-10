@@ -1,7 +1,7 @@
 ---
 layout: post
-published: false
-title: 『 Spark 』5. spark 学习资源推荐
+published: true
+title: 『 Spark 』5. 这些年，你不能错过的 spark 学习资源
 description: 在品尝 spark 过程中收集的一些好文，好站 
 ---  
 
@@ -24,4 +24,15 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 - [meetup](http://www.meetup.com/)
 - [spark third party packages](http://spark-packages.org/)
 - [databricks blog](https://databricks.com/blog)
+- [databricks docs](https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html)
 - [过往记忆](http://www.iteblog.com/archives/category/spark)
+
+
+
+## 本系列文章链接
+
+- [『 Spark 』1. spark 简介 ](../introduction-to-spark)
+- [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
+- [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
+- [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
+- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)

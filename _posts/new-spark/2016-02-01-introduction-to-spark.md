@@ -70,5 +70,5 @@ Spark started in 2009, open sourced 2010, unlike the various specialized systems
 - [『 Spark 』1. spark 简介 ](../introduction-to-spark)
 - [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
-
-
+- [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
+- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
