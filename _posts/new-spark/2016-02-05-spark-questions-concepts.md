@@ -163,7 +163,12 @@ The number of cores to use on each executor. For YARN and standalone mode only. 
 
 分配给 spark 应用的内存是仅仅给 cache 数据用吗？
 
-这个问题目前没有查看得非常仔细，后续继续更新。
+不是，分配给 spark 应用的内存有三个方面的应用：
+
+- spark 本身
+- spark 应用
+    + spark 应用过程中 runtime 使用，比如 UDF 函数
+    + spark 应用中的 cache
 
 
 ## 16. RDD narrow/wide dependences

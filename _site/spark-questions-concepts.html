@@ -213,7 +213,17 @@ transformations rather than fine-grained updates to shared state. However, we sh
 
 <p>分配给 spark 应用的内存是仅仅给 cache 数据用吗？</p>
 
-<p>这个问题目前没有查看得非常仔细，后续继续更新。</p>
+<p>不是，分配给 spark 应用的内存有三个方面的应用：</p>
+
+<ul>
+  <li>spark 本身</li>
+  <li>spark 应用
+    <ul>
+      <li>spark 应用过程中 runtime 使用，比如 UDF 函数</li>
+      <li>spark 应用中的 cache</li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="rdd-narrowwide-dependences">16. RDD narrow/wide dependences</h2>
 
