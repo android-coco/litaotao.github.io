@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-11T09:31:01+08:00</updated>
+   <updated>2016-03-11T17:41:51+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -454,7 +454,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   也能保证会议的活跃度。难点是 speaker 需要控制住每一次 Q&amp;amp;A 的时间，保证能按时完成分享。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;presentation&quot;&gt;2. 如何做好一个 presentation&lt;/h2&gt;
+&lt;h2 id=&quot;presentation&quot;&gt;3. 如何做好一个 presentation&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;提前准备&lt;/code&gt;
@@ -487,7 +487,27 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;presentation-&quot;&gt;3. 如何判断你这个 presentation 是否达到效果&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;4. 细节，及亲身经验&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;关于技术分享之现场跑代码
+    &lt;ul&gt;
+      &lt;li&gt;提前去会场跑一次，确保网络，环境，代码无问题；&lt;/li&gt;
+      &lt;li&gt;例子 1-2 个就行了，最好就举一个例子，但是这个例子里面要涵盖 简单－升级－高级 部分，并且把你想表达的功能点都表达到；&lt;/li&gt;
+      &lt;li&gt;跑代码的时候，最重要的是代码背后的事情和结果展示，每运行一行代码，一个函数，一定要把代码背后的事情表达清楚，甚至是
+  import 一个 package 的时候都最好简单介绍一些；比如说这个 &lt;a href=&quot;https://vimeo.com/155716963&quot;&gt;demo&lt;/a&gt;，主讲人就只举了
+  一个例子，但是需要注意的是他只讲了20分钟左右；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;关于背景介绍
+    &lt;ul&gt;
+      &lt;li&gt;开始介绍背景前先互动一下，问问现场有多少人了解，接触过相关技术，来决定花多少时间来讲介绍这部分；比如说你要讲的主题是
+  spark，可以提前问问听众对spark，hadoop，map reduce，iterative computing，distributed computing 的了解情况；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;presentation-&quot;&gt;4. 如何判断你这个 presentation 是否达到效果&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;会议中低头玩手机的人多吗&lt;/code&gt; &lt;br /&gt;
@@ -498,7 +518,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   如果有参会者主动回答别人提的问题，那就最好了，哈哈。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.wikihow.com/Do-a-Presentation-in-Class&quot;&gt;How to Do a Presentation in Class&lt;/a&gt;&lt;/li&gt;
