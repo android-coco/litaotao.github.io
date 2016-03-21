@@ -1,6 +1,6 @@
 ---
 category: work
-published: false
+published: true
 layout: post
 title: 如何当个面试官
 description: 怎么做一个好的面试官.
@@ -55,21 +55,17 @@ STAR 原则也可以用于一些细化的问题，比如解决一个难题的始
     + 
 
 
-
 - 学习能力
     + 如何学习最新一门新的语言？学习过程中遇到的问题怎么解决的？
     + 换公司，换项目组后如何适应的？
     + 去年你读了几本技术书籍？最喜欢的书籍？
 
 
-
 - 行业能力
     + 是否使用过相关产品，对产品对看法（意见，建议）;
     + 提出几个实际工作中遇到的技术问题，请他讲讲他的理解和解决办法;
     + 找出过去曾经困扰过你或你们团队的问题（可以是技术、运营、沟通），列明产生问题的背景，在面试中用于情景模拟，找出1个技术问题和1个沟通问题;
-        + 与产品经理的想法冲突；尽量保证功能可用，但产品细节可以继续完善；试水；A/B test;
-    + 
-
+        + 与产品经理的想法冲突；尽量保证功能可用，但产品细节可以继续完善；试水；A/B test; 
 
 
 - 协作能力
@@ -207,9 +203,178 @@ Assuming that the candidate does mention unittest (if they don’t, you may just
 
 A more recent addition to the unittest framework is mock. mock allows you to replace parts of your system under test with mock objects and make assertions about how they are to be used. mock is now part of the Python standard library, available as unittest.mock in Python 3.3 onwards.
 
-The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much “slow code” as possible out of the automated test runs, namely filesystem and network access.
+The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much `slow code` as possible out of the automated test runs, namely filesystem and network access.
+
 
 ## Spark 问题
+
+
+- When did you start spark and why?
+
+--------
+
+- What is Apache Spark [key points/features to get to know Spark]?
+
+    - A framework
+    - Birth for large-scale data processing
+    - interactive interpreter 
+    - basic abstraction : RDD
+    - Generalize programming model for data processing [ more than MR ]
+    - Provides high-level APIs : Scala, Python, R, Java, SQL
+    - Arm to teeth : SQL, Streaming, Machine Learning, GraphX and 3-party packages
+    - Compatible with previous ecology : hadoop, mesos, hdfs, cassandra, hbase, s3 …
+    - multi-stage in-memory in contrast to Hadoop's two-stage disk-based MR paradigm
+    - very suit for iterative computing [data cache in memory]
+
+--------
+
+- What is RDD?
+
+RDD stands for Resilient Distribution Datasets: a collection of fault-tolerant operational elements that run in parallel. The partitioned data in RDD is immutable and is distributed in nature.
+
+Internally, each RDD is characterized by five main properties:  
+
+    A list of partitions  
+    A function for computing each split   
+    A list of dependencies on other RDDs  
+    Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)   
+    Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)   
+
+--------
+
+- How does one create RDDs in Spark?
+    - sc.parallelize
+    - sc.textFile
+    - sc.wholeTextFile
+    - transformation of rdd
+
+--------
+
+- What does the Spark Engine do?
+
+Spark Engine is responsible for scheduling, distributing and monitoring the data application across the cluster.
+
+--------
+
+- How do you define Partitions?
+
+A `Partition` is a smaller and logical division of data, that is similar to the `split` in Map Reduce. Partitioning is the process that helps derive logical units of data in order to speed up data processing.
+
+--------
+
+- What operations does the RDD support and list some often used by you?
+    - Transformations
+    - Actions
+
+--------
+
+- Define `Transformations` in Spark.
+
+`Transformations` are functions applied on RDD, resulting in a new RDD. It does not execute until an action occurs. map() and filer() are examples of `transformations`, where the former applies the function assigned to it on each element of the RDD and results in another RDD. The filter() creates a new RDD by selecting elements from the current RDD.
+
+--------
+
+- Define `Action` in Spark.
+
+An `action` helps in bringing back the data from the RDD to the local machine. Execution of `action` is the result of all transformations created previously. reduce() is an action that implements the function passed again and again until only one value is left. On the other hand, the take() action takes all the values from the RDD to the local node.
+
+--------
+
+- What are the functions of `Spark Core`?
+
+The `SparkCore` performs an array of critical functions like memory management, monitoring jobs, fault tolerance, job scheduling and interaction with storage systems.
+
+It is the foundation of the overall project. It provides distributed task dispatching, scheduling, and basic input and output functionalities. RDD in Spark Core makes it fault tolerance. RDD is a collection of items distributed across many nodes that can be manipulated in parallel. Spark Core provides many APIs for building and manipulating these collections.
+
+--------
+
+- What is an `RDD Lineage`?
+
+Spark does not support data replication in the memory. In the event of any data loss, it is rebuilt using the `RDD Lineage`. It is a process that reconstructs lost data partitions.
+
+--------
+
+- What is a `Spark Driver`?
+
+`Spark Driver` is the program that runs on the master node of the machine and declares transformations and actions on data RDDs. The driver also delivers RDD graphs to the `Master`, where the standalone cluster manager runs.
+
+--------
+
+- What is SparkContext?
+
+`SparkContext` is the main entry point for Spark functionality. A `SparkContext` represents the connection to a Spark cluster, and can be used to create RDDs, accumulators and broadcast variables on that cluster.
+
+--------
+
+- What is `Spark Streaming`?
+
+Spark supports stream processing, essentially an extension to the Spark API. This allows stream processing of live data streams. The data from different sources like Flume and HDFS is streamed and processed to file systems, live dashboards and databases. It is similar to batch processing as the input data is divided into streams like batches.
+
+Business use cases for Spark streaming: Each Spark component has its own use case. Whenever you want to analyze data with the latency of less than 15 minutes and greater than 2 minutes i.e. near real time is when you use Spark streaming
+
+--------
+
+- What is an `Accumulator`?
+
+`Accumulators` are Spark’s offline debuggers. Similar to `Hadoop Counters`, `Accumulators` provide the number of `events` in a program.
+
+Accumulators are the variables that can be added through associative operations. Spark natively supports accumulators of numeric value types and standard mutable collections. `AggregrateByKey()` and `combineByKey()` uses accumulators.
+
+--------
+
+- What is `YARN`?
+
+`YARN` is a large-scale, distributed operating system for big data applications. It is one of the key features of Spark, providing a central and resource management platform to deliver scalable operations across the cluster.
+
+--------
+
+- List the benefits of Spark over MapReduce.
+
+    - Due to the availability of in-memory processing, Spark implements the processing around 10-100x faster than Hadoop MapReduce.    
+    - Unlike MapReduce, Spark provides in-built libraries to perform multiple tasks form the same core; like batch processing, steaming, machine learning, interactive SQL queries among others.
+    - MapReduce is highly disk-dependent whereas Spark promotes caching and in-memory data storage
+    - Spark is capable of iterative computation while MapReduce is not.
+    - Spark stores data in-memory whereas Hadoop stores data on the disk. Hadoop uses replication to achieve fault tolerance while Spark uses a different data storage model, resilient distributed datasets (RDD). It also uses a clever way of guaranteeing fault tolerance that minimizes network input and output.
+
+--------
+
+- What is a `Spark Executor`?
+
+When `SparkContext` connects to a cluster manager, it acquires an `Executor` on the cluster nodes. `Executors` are Spark processes that run computations and store the data on the worker node. The final tasks by `SparkContext` are transferred to executors.
+
+--------
+
+- What is a `worker node`?
+
+`Worker node` refers to any node that can run the application code in a cluster.
+
+--------
+
+- Can we do real-time processing using Spark SQL?
+
+Not directly but we can register an existing RDD as a SQL table and trigger SQL queries on top of that.
+
+--------
+
+- What is the shortcoming/downside of Spark?
+
+Spark utilizes the memory. The developer has to be careful. A casual developer might make following mistakes:
+
+    - She may end up running everything on the local node instead of distributing work over to the cluster. 
+    - She might hit some webservice too many times by the way of using multiple clusters.
+
+
+Also, Spark streaming is not actually streaming, in the sense that some of the window functions cannot properly work on top of micro batching.
+
+--------
+
+- When running Spark on Yarn, do I need to install Spark on all nodes of Yarn Cluster? 
+
+Since spark runs on top of Yarn, it utilizes yarn for the execution of its commands over the cluster's nodes. So, you just have to install Spark on one node. 
+
+--------
+
+
 
 - what is spark application;
 - what is driver, master, worker, executor;
@@ -226,4 +391,11 @@ The value and power of mock are well explained in An Introduction to Mocking in 
 - [STAR 面试准则](http://baike.baidu.com/subview/470818/11235965.htm)
 - [如何面试一个工作经验比自己高很多的人](https://www.zhihu.com/question/20042950)
 - [怎样花两年时间去面试一个人](http://mindhacks.cn/2011/11/04/how-to-interview-a-person-for-two-years/)
+- [Top Apache Spark Interview Questions You Should Prepare For In 2016](http://www.edureka.co/blog/top-apache-spark-interview-questions-you-should-prepare-for-in-2016)
+- [Interview Questions on Apache Spark [Part 1]](http://www.knowbigdata.com/blog/interview-questions-apache-spark-part-1)
+- [Interview Questions on Apache Spark [Part 2]](http://www.knowbigdata.com/blog/interview-questions-apache-spark-part-2)
+- [What are some good sources for the Apache Spark interview (Q&A)?](https://www.quora.com/What-are-some-good-sources-for-the-Apache-Spark-interview-Q-A)
+- [Spark in Action Book Review & Interview](http://www.infoq.com/articles/spark-in-action-book-review)
+- [Spark – Interview Questions](http://mybiginterview.com/big-data-interview-questions/spark-interview-questions/)
+
 

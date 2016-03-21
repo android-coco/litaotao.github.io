@@ -6,14 +6,38 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 ---  
 
 
-## 1. 文章，博客，视频
+## 1. 文章，博客
 
 - [RDD论文英文版](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)   
 - [RDD论文中文版](https://code.csdn.net/CODE_Translation/spark_matei_phd)
+- [An Architecture for Fast and General Data Processing
+on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf)
+- [How-to: Tune Your Apache Spark Jobs (Part 1)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/)
+
+
+## 2. 视频
+
+
 - [YouTube: what is apache spark](https://www.youtube.com/watch?v=cs3_3LdCny8)
+- [Introduction to Spark Architecture](https://www.youtube.com/watch?v=65aV15uDKgA)
+
+- [Top 5 Mistakes When Writing Spark Applications](https://www.youtube.com/watch?v=WyfHUNnMutg)
+- [`slide` Top 5 mistakes when writing Spark applications](http://www.slideshare.net/hadooparchbook/top-5-mistakes-when-writing-spark-applications)
+
+- [Tuning and Debugging Apache Spark](https://www.youtube.com/watch?v=kkOG_aJ9KjQ)
+- [`slide` Tuning and Debugging Apache Spark](http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark)
+
+- [A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)](https://www.youtube.com/watch?v=dmL0N3qfSc8)
+- [`slide` A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)](https://spark-summit.org/2014/wp-content/uploads/2014/07/A-Deeper-Understanding-of-Spark-Internals-Aaron-Davidson.pdf)
+
+- [Building, Debugging, and Tuning Spark Machine Learning Pipelines - Joseph Bradley (Databricks)](https://www.youtube.com/watch?v=OednhGRp938)
+- [`slide` Building, Debugging, and Tuning Spark Machine Learning Pipelines](http://www.slideshare.net/SparkSummit/building-debugging-and-tuning-spark-machine-leaning-pipelinesjoseph-bradley)
+
+- [Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)](https://www.youtube.com/watch?v=xWkJCUcD55w)
+- [`slide` Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)](http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015)
 
 
-## 2. 网站
+## 3. 网站
 
 - [official site](http://spark.apache.org/)
 - [user mailing list](http://apache-spark-user-list.1001560.n3.nabble.com/)

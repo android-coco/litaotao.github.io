@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/deep-into-spark-exection-model" title="『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task">『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task</a></h1>
+
+    <p class="entry-date">2016-03-18 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-03-18-deep-into-spark-exection-model.md">最后更新时间: </span></p>
+
+
+    <h2 id="section">写在前面</h2>
+
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+
+<h2 id="spark-">1. spark 运行原理</h2>
+
+<p>这一节是本文的核心，我们可以先抛出一个问题，如果看完这一节，或者这一章之后，你能理解你的整个 spark 应用的执行流程，那就可以关掉这个网页了［对了，关掉网页之前记得分享一下哦，哈哈］</p>
+
+<p><strong><em><code class="highlighter-rouge">Problem: How does user program get translated into units of physical execution ?</code></em></strong></p>
+
+<p>我们首先从一个例子说起，结合例子和运行截图来理解。</p>
+
+<h2 id="section-1">1.1 例子，美国 1880 － 2014 年新生婴儿数据统计</h2>
+
+<ul>
+  <li><code class="highlighter-rouge">目标</code>：用美国 1880 － 2014 年新生婴儿的数据来做做简单的统计</li>
+  <li><code class="highlighter-rouge">数据源</code>：<a href="https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data"> https://catalog.data.gov</a></li>
+  <li><code class="highlighter-rouge">数据格式</code>：
+    <ul>
+      <li>每年的新生婴儿数据在一个文件里面</li>
+      <li>每个文件的每一条数据格式：<code class="highlighter-rouge">姓名,性别,新生人数</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../images/baby-data-format.jpg" alt="baby-data-format.jpg" /></p>
+
+<ul>
+  <li><code class="highlighter-rouge">代码和结果展示</code></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="c">### spark UDF (User Defined Functions)</span>
+<span class="k">def</span> <span class="nf">map_extract</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+    <span class="n">file_path</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">element</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">file_path</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">year</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="p">]</span>
+
+<span class="c">### spark logic</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">wholeTextFiles</span><span class="p">(</span><span class="s">'hdfs://10.21.208.21:8020/user/mercury/names'</span><span class="p">,</span> <span class="n">minPartitions</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>  \
+        <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">map_extract</span><span class="p">)</span> \
+        <span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> \
+        <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)[</span><span class="mi">2</span><span class="p">])))</span> \
+        <span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">)</span> \
+        <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+<span class="c">### result displaying</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'birth'</span><span class="p">])</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'year'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">'year'</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s">'birth'</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s">'US Baby Birth Data from 1897 to 2014'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_bgcolor</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="../images/baby-name-1.jpg" alt="baby-name-1.jpg" /></p>
+
+<h2 id="section-2">1.2 运行流程概览</h2>
+
+<p>还记得我们在  <a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a> 讲到的构建一个 spark application 的过程吗：</p>
+
+<ul>
+  <li><em>加载数据集</em></li>
+  <li><em>处理数据</em></li>
+  <li><em>结果展示</em></li>
+</ul>
+
+<p>上面的 22 行代码，就已经把构建一个 spark app 的三大步骤完成了，amazing, right? 今天我们主要讲 spark 的运行逻辑，所以我们就以核心的 11 － 16 ，这六行代码来作为今天的主线，了解了解 spark 的原理。</p>
+
+<p><img src="../images/baby-name-2.jpg" alt="baby-name-2.jpg" /></p>
+
+<p>可以看到，整个逻辑实际上就用了 sparkContext 的一个函数，rdd 的 3 个 transformation 和 1 个 action。</p>
+
+<p><img src="../images/baby-name-job.jpg" alt="baby-name-job.jpg" /></p>
+
+<p>现在让我们从 WEB UI 上来看看，当我们运行这段代码的时候，后台都发生了什么。
+可以看到，执行这段代码的时候，spark 通过分析，优化代码，知道这段代码需要一个 job 来完成，所以 web ui 上只有一个 job。值得深究的是，这个 job 由两个 stage 完成，这两个 state 一共有 66 个 task。</p>
+
+<p>所以，这里我们就再次理解下 spark 里，job，stage，task 的概念：</p>
+
+<ul>
+  <li><em>job</em> : A job is triggered by an action, like count() or saveAsTextFile(). Click on a job to see information about the stages of tasks inside it. 理解了吗，所谓一个 job，就是由一个 rdd 的 action 触发的动作，可以简单的理解为，当你需要执行一个 rdd 的 action 的时候，会生成一个 job。</li>
+  <li><em>stage</em> : stage 是一个 job 的组成单位，就是说，一个 job 会被切分成 1 个或 1 个以上的 stage，然后各个 stage 会按照执行顺序依次执行。至于 job 根据什么标准来切分 stage，可以回顾第二篇博文：<a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><em>task</em> : A unit of work within a stage, corresponding to one RDD partition。即 stage 下的一个任务执行单元，一般来说，一个 rdd 有多少个 partition，就会有多少个 task，因为每一个 task 只是处理一个 partition 上的数据。从 web ui 截图上我们可以看到，这个 job 一共有 2 个 stage，66 个 task，平均下来每个 stage 有 33 个 task，相当于每个 stage 的数据都有 33 个 partition [注意：这里是平均下来的哦，并不都是每个 stage 有 33 个 task，有时候也会有一个 stage 多，另外一个 stage 少的情况，就看你有没有在不同的 stage 进行 repartition 类似的操作了。]</li>
+</ul>
+
+<p><img src="../images/baby-name-ui-1.jpg" alt="baby-name-ui-1.jpg" /></p>
+
+<h2 id="job">1.3 运行流程之 : job</h2>
+
+<p>根据上面的截图和再次重温，我们知道这个 spark 应用里只有一个 job，那就是因为我们执行了一个 <code class="highlighter-rouge">collect</code> 操作，即把处理后的数据全部返回到我们的 driver 上，进行后续的画图，返回的数据如下图：</p>
+
+<p><img src="../images/baby-name-3.jpg" alt="baby-name-3.jpg" /></p>
+
+<h2 id="stage">1.4 运行流程之 : stage</h2>
+
+<p>我们这个 spark 应用，生成了一个 job，这个 job 由 2 个 stage 组成，并且每个 stage 都有 33 个task，说明每个 stage 的数据都在 33 个 partition 上，这下我们就来看看，这两个 stage 的情况。</p>
+
+<p>首先，我们先看看为什么这里会有两个 stage，根据 <a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a> 中对 stage 的描述，目前有两个划分 stage 的标准：</p>
+
+<ul>
+  <li>当触发 rdd 的 action 时 : 在我们的应用中就是最后的 <code class="highlighter-rouge">collect</code> 操作，关于这个操作的说明，可以看官方文档: <a href="https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.collect">rdd.collect</a></li>
+  <li>当触发 rdd 的 shuffle 操作时 : 在我们的应用中就是 <code class="highlighter-rouge">reduceByKey</code> 这个操作，官方文档: <a href="https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.reduceByKey">rdd.reduceByKey</a></li>
+</ul>
+
+<p><img src="../images/baby-name-4.jpg" alt="baby-name-4.jpg" /></p>
+
+<p>再次回顾上面那张图：</p>
+
+<p><img src="../images/baby-name-job.jpg" alt="baby-name-job.jpg" /></p>
+
+<p>这下应该就明了了，关于两个 stage 的情况：</p>
+
+<p><img src="../images/baby-name-5.jpg" alt="baby-name-5.jpg" /></p>
+
+<ul>
+  <li>
+    <p>第一个 stage，即截图中 stage id 为 0 的 stage，其执行了 <code class="highlighter-rouge">sc.wholeTextFiles().map().flatMap().map().reduceByKey()</code> 这几个步骤，因为这是一个 <code class="highlighter-rouge">Shuffle</code> 操作，所以后面会有 <code class="highlighter-rouge">Shuffle Read</code> 和 <code class="highlighter-rouge">Shuffle Write</code>。具体来说，就是在 stage 0 这个 stage 中，发生了一个 Shuffle 操作，这个操作读入 22.5 MB 的数据，生成 41.7 KB 的数据，并把生成的数据写在了硬盘上。</p>
+  </li>
+  <li>
+    <p>第二个 stage，即截图中 stage id 为 1 到 stage，其执行了 <code class="highlighter-rouge">collect()</code> 这个操作，因为这是一个 <code class="highlighter-rouge">action</code> 操作，并且它上一步是一个 Shuffle 操作，且没有后续操作，所以这里 <code class="highlighter-rouge">collect()</code> 这个操作被独立成一个 stage 了。这里它把上一个 Shuffle 写下的数据读取进来，然后一起返回到 driver 端，所以这里可以看到他的 <code class="highlighter-rouge">Shuffle Read</code> 这里刚好读取了上一个 stage 写下的数据。</p>
+  </li>
+</ul>
+
+<h2 id="task">1.5 运行流程之 : task</h2>
+
+<p>其实到这里应该都理解得差不多了，至于为什么每个 stage 会有 33 个 task [即我们的数据文件存放到 33 个partition 上，可是明明 <code class="highlighter-rouge">sc.wholeTextFiles('hdfs://10.21.208.21:8020/user/mercury/names', minPartitions=40)</code> 这里指定了最小要 40 个partition 到啊]，这个问题我们留到以后说，在后面我们会有一篇讲怎么调试，优化 spark app 的博文，到时候我们会继续回到这里，解答这里的问题。</p>
+
+<p><img src="../images/baby-name-7.jpg" alt="baby-name-7.jpg" />
+<img src="../images/baby-name-8.jpg" alt="baby-name-8.jpg" />
+<img src="../images/baby-name-9.jpg" alt="baby-name-9.jpg" />
+<img src="../images/baby-name-10.jpg" alt="baby-name-10.jpg" />
+<img src="../images/baby-name-11.jpg" alt="baby-name-11.jpg" />
+<img src="../images/baby-name-12.jpg" alt="baby-name-12.jpg" /></p>
+
+<h2 id="next">2. Next</h2>
+
+<p>既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。</p>
+
+<h2 id="section-3">参考文章</h2>
+
+<ul>
+  <li><a href="http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark">Tuning and Debugging in Apache Spark</a></li>
+  <li><a href="http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&amp;qid=1458293667&amp;sr=8-1&amp;keywords=learning+spark">learning spark</a></li>
+</ul>
+
+<h2 id="section-4">本系列文章链接</h2>
+
+<ul>
+  <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
+  <li><a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a></li>
+  <li><a href="../spark-what-is-rdd">『 Spark 』4. spark 之 RDD </a></li>
+  <li><a href="../spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
+  <li><a href="../spark-in-finance-quatitive-investing">『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资</a></li>
+  <li><a href="deep-into-spark-exection-model">『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task</a></li>
+</ul>
+
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/deep-into-spark-exection-model" data-title="『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task"
+         data-content="content"
+         data-url="http://litaotao.github.io//deep-into-spark-exection-model">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/deep-into-spark-exection-model data-title=『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task data-url=/deep-into-spark-exection-model></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-11T17:41:51+08:00</updated>
+   <updated>2016-03-21T18:26:00+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -39,15 +39,44 @@
      <link href="/spark-resouces-blogs-paper"/>
      <updated>2016-03-10T00:00:00+08:00</updated>
      <id>/spark-resouces-blogs-paper</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 文章，博客，视频&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 文章，博客&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文英文版&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://code.csdn.net/CODE_Translation/spark_matei_phd&quot;&gt;RDD论文中文版&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cs3_3LdCny8&quot;&gt;YouTube: what is apache spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf&quot;&gt;An Architecture for Fast and General Data Processing
+on Large Clusters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 1)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;2. 网站&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;2. 视频&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cs3_3LdCny8&quot;&gt;YouTube: what is apache spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=65aV15uDKgA&quot;&gt;Introduction to Spark Architecture&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=WyfHUNnMutg&quot;&gt;Top 5 Mistakes When Writing Spark Applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/hadooparchbook/top-5-mistakes-when-writing-spark-applications&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Top 5 mistakes when writing Spark applications&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kkOG_aJ9KjQ&quot;&gt;Tuning and Debugging Apache Spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Tuning and Debugging Apache Spark&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dmL0N3qfSc8&quot;&gt;A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/A-Deeper-Understanding-of-Spark-Internals-Aaron-Davidson.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=OednhGRp938&quot;&gt;Building, Debugging, and Tuning Spark Machine Learning Pipelines - Joseph Bradley (Databricks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/building-debugging-and-tuning-spark-machine-leaning-pipelinesjoseph-bradley&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Building, Debugging, and Tuning Spark Machine Learning Pipelines&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=xWkJCUcD55w&quot;&gt;Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;3. 网站&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/&quot;&gt;official site&lt;/a&gt;&lt;/li&gt;
@@ -61,7 +90,7 @@
   &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -214,6 +243,8 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -423,6 +454,8 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -524,6 +557,502 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.wikihow.com/Do-a-Presentation-in-Class&quot;&gt;How to Do a Presentation in Class&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/30709836&quot;&gt;怎样的 PPT 配色会让人觉得舒服&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dEDcc0aCjaA&quot;&gt;How to Do a Presentation - 5 Steps to a Killer Opener&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
+   
+   <entry>
+     <title>如何当个面试官</title>
+     <link href="/how-to-be-a-good-interviewer"/>
+     <updated>2016-02-23T00:00:00+08:00</updated>
+     <id>/how-to-be-a-good-interviewer</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 一些宗旨&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;面试的原则&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;面试是为了给公司寻找最适合的人才，而不是最高级人才。&lt;/li&gt;
+  &lt;li&gt;需要新员工完成什么样的任务？&lt;/li&gt;
+  &lt;li&gt;怎样的人能完成这样的任务？&lt;/li&gt;
+  &lt;li&gt;哪些方法可以发现这样的人？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;提问的原则&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每一个面试问题都有明确的目的。你不仅自己了解，还能向其他面试官解释清楚。&lt;/li&gt;
+  &lt;li&gt;多提一些开放性（Open-ended）的问题，而不是那种用Yes/No就可以回答的问题。这样做使你有机会与面试者展开讨论，并且提出后续的问题，尽可能多地了解对方。&lt;/li&gt;
+  &lt;li&gt;不要问宗教、家庭、健康、个人隐私等方面的问题。&lt;/li&gt;
+  &lt;li&gt;不要问太复杂的问题。因为面试者没有太多思考时间，所以无法周全地回答，你也就无从判断他的能力了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;star-&quot;&gt;2. STAR 原则&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Situation : 了解应聘人员以前的工作背景，尽可能多了解他先前供职公司的经营管理状况、所在行业的特点、该行业的市场情况，即所谓的背景调查;&lt;/li&gt;
+  &lt;li&gt;Task : 然后着重了解该员工具体的工作任务都是哪些;&lt;/li&gt;
+  &lt;li&gt;Action : 每一项工作任务都是怎么做的，都采取了哪些行动;&lt;/li&gt;
+  &lt;li&gt;Result : 所采取行动的结果如何;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;STAR 原则也可以用于一些细化的问题，比如解决一个难题的始末。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;面试流程&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;自我介绍&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;告知面试流程&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+    + 基础知识
+    + 行业知识
+    + 协作能力
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;基础能力
+    &lt;ul&gt;
+      &lt;li&gt;首先请他简要介绍下他的经历，并针对他做过的项目选取几个兴趣点深入问一下，考察他做过的事是能全局把握的，还是只是负责一个点；&lt;/li&gt;
+      &lt;li&gt;根据简历选择1~3个与你们公司实际情况最相近的项目，请他简单介绍一下，之后询问项目过程中发生的技术难关、跨团队沟通等问题的解决上；&lt;/li&gt;
+      &lt;li&gt;做过的项目中的挑战性的问题，怎么解决的，解决这个问题的过程；&lt;/li&gt;
+      &lt;li&gt;github 账号；&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;学习能力
+    &lt;ul&gt;
+      &lt;li&gt;如何学习最新一门新的语言？学习过程中遇到的问题怎么解决的？&lt;/li&gt;
+      &lt;li&gt;换公司，换项目组后如何适应的？&lt;/li&gt;
+      &lt;li&gt;去年你读了几本技术书籍？最喜欢的书籍？&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;行业能力
+    &lt;ul&gt;
+      &lt;li&gt;是否使用过相关产品，对产品对看法（意见，建议）;&lt;/li&gt;
+      &lt;li&gt;提出几个实际工作中遇到的技术问题，请他讲讲他的理解和解决办法;&lt;/li&gt;
+      &lt;li&gt;找出过去曾经困扰过你或你们团队的问题（可以是技术、运营、沟通），列明产生问题的背景，在面试中用于情景模拟，找出1个技术问题和1个沟通问题;
+        &lt;ul&gt;
+          &lt;li&gt;与产品经理的想法冲突；尽量保证功能可用，但产品细节可以继续完善；试水；A/B test;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;协作能力
+    &lt;ul&gt;
+      &lt;li&gt;要了解他换工作的原因，动机，他的期望是什么，你要判断公司能否满足他的期望;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;其他
+    &lt;ul&gt;
+      &lt;li&gt;兴趣，爱好，特长；如何发展自己的兴趣爱好；&lt;/li&gt;
+      &lt;li&gt;自己怎么评价自己;&lt;/li&gt;
+      &lt;li&gt;理想中的生活，工作状态;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;python-&quot;&gt;Python 问题&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;简历中的语言使用时间；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;业余怎么提升专业能力;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对别人怎么介绍 python 这门语言；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;什么叫动态语言；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Why use function decorators? Give an example.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+    A decorator is essentially a callable Python object that is used to modify or extend a function or class definition. One of the beauties of decorators is that a single decorator definition can be applied to multiple functions (or classes). Much can thereby be accomplished with decorators that would otherwise require lots of boilerplate (or even worse redundant!) code. Flask, for example, uses decorators as the mechanism for adding new endpoints to a web application. Examples of some of the more common uses of decorators include adding synchronization, type enforcement, logging, or pre/post conditions to a class or function.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What are lambda expressions, list comprehensions and generator expressions? What are the advantages and appropriate uses of each?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lambda expressions are a shorthand technique for creating single line, anonymous functions. Their simple, inline nature often – though not always – leads to more readable and concise code than the alternative of formal function declarations. On the other hand, their terse inline nature, by definition, very much limits what they are capable of doing and their applicability. Being anonymous and inline, the only way to use the same lambda function in multiple locations in your code is to specify it redundantly.&lt;/p&gt;
+
+&lt;p&gt;List comprehensions provide a concise syntax for creating lists. List comprehensions are commonly used to make lists where each element is the result of some operation(s) applied to each member of another sequence or iterable. They can also be used to create a subsequence of those elements whose members satisfy a certain condition. In Python, list comprehensions provide an alternative to using the built-in map() and filter() functions.&lt;/p&gt;
+
+&lt;p&gt;As the applied usage of lambda expressions and list comprehensions can overlap, opinions vary widely as to when and where to use one vs. the other. One point to bear in mind, though, is that a list comprehension executes somewhat faster than a comparable solution using map and lambda (some quick tests yielded a performance difference of roughly 10%). This is because calling a lambda function creates a new stack frame while the expression in the list comprehension is evaluated without doing so.&lt;/p&gt;
+
+&lt;p&gt;Generator expressions are syntactically and functionally similar to list comprehensions but there are some fairly significant differences between the ways the two operate and, accordingly, when each should be used. In a nutshell, iterating over a generator expression or list comprehension will essentially do the same thing, but the list comprehension will create the entire list in memory first while the generator expression will create the items on the fly as needed. Generator expressions can therefore be used for very large (and even infinite) sequences and their lazy (i.e., on demand) generation of values results in improved performance and lower memory usage. It is worth noting, though, that the standard Python list methods can be used on the result of a list comprehension, but not directly on that of a generator expression.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Consider the two approaches below for initializing an array and the arrays that will result. How will the resulting arrays differ and why should you use one initialization approach vs. the other?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+    &amp;gt;&amp;gt;&amp;gt; # INITIALIZING AN ARRAY -- METHOD 1
+    ...
+    &amp;gt;&amp;gt;&amp;gt; x = [[1,2,3,4]] * 3
+    &amp;gt;&amp;gt;&amp;gt; x
+    [[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]
+    &amp;gt;&amp;gt;&amp;gt;
+    &amp;gt;&amp;gt;&amp;gt;
+    &amp;gt;&amp;gt;&amp;gt; # INITIALIZING AN ARRAY -- METHOD 2
+    ...
+    &amp;gt;&amp;gt;&amp;gt; y = [[1,2,3,4] for _ in range(3)]
+    &amp;gt;&amp;gt;&amp;gt; y
+    [[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]
+    &amp;gt;&amp;gt;&amp;gt;
+    &amp;gt;&amp;gt;&amp;gt; # WHICH METHOD SHOULD YOU USE AND WHY?
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;While both methods appear at first blush to produce the same result, there is an extremely significant difference between the two. Method 2 produces, as you would expect, an array of 3 elements, each of which is itself an independent 4-element array. In method 1, however, the members of the array all point to the same object. This can lead to what is most likely unanticipated and undesired behavior as shown below.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+&amp;gt;&amp;gt;&amp;gt; # MODIFYING THE x ARRAY FROM THE PRIOR CODE SNIPPET:
+&amp;gt;&amp;gt;&amp;gt; x[0][3] = 99
+&amp;gt;&amp;gt;&amp;gt; x
+[[1, 2, 3, 99], [1, 2, 3, 99], [1, 2, 3, 99]]
+&amp;gt;&amp;gt;&amp;gt; # UH-OH, DON’T THINK YOU WANTED THAT TO HAPPEN!
+...
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; # MODIFYING THE y ARRAY FROM THE PRIOR CODE SNIPPET:
+&amp;gt;&amp;gt;&amp;gt; y[0][3] = 99
+&amp;gt;&amp;gt;&amp;gt; y
+[[1, 2, 3, 99], [1, 2, 3, 4], [1, 2, 3, 4]]
+&amp;gt;&amp;gt;&amp;gt; # THAT’S MORE LIKE WHAT YOU EXPECTED!
+...
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What will be printed out by the second append() statement below?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+&amp;gt;&amp;gt;&amp;gt; def append(list=[]):
+...     # append the length of a list to the list
+...     list.append(len(list))
+...     return list
+...
+&amp;gt;&amp;gt;&amp;gt; append([&#39;a&#39;,&#39;b&#39;])
+[&#39;a&#39;, &#39;b&#39;, 2]
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; append()  # calling with no arg uses default list value of []
+[0]
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; append()  # but what happens when we AGAIN call append with no arg?
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;When the default value for a function argument is an expression, the expression is evaluated only once, not every time the function is called. Thus, once the list argument has been initialized to an empty array, subsequent calls to append without any argument specified will continue to use the same array to which list was originally initialized. This will therefore yield the following, presumably unexpected, behavior:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+&amp;gt;&amp;gt;&amp;gt; append()  # first call with no arg uses default list value of []
+[0]
+&amp;gt;&amp;gt;&amp;gt; append()  # but then look what happens...
+[0, 1]
+&amp;gt;&amp;gt;&amp;gt; append()  # successive calls keep extending the same default list!
+[0, 1, 2]
+&amp;gt;&amp;gt;&amp;gt; append()  # and so on, and so on, and so on...
+[0, 1, 2, 3]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How might one modify the implementation of the ‘append’ method in the previous question to avoid the undesirable behavior described there?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following alternative implementation of the append method would be one of a number of ways to avoid the undesirable behavior described in the answer to the previous question:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+&amp;gt;&amp;gt;&amp;gt; def append(list=None):
+...     if list is None:
+            list = []
+        # append the length of a list to the list
+...     list.append(len(list))
+...     return list
+...
+&amp;gt;&amp;gt;&amp;gt; append()
+[0]
+&amp;gt;&amp;gt;&amp;gt; append()
+[0]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;How can you swap the values of two variables with a single line of Python code?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What’s your approach to unit testing in Python?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The most fundamental answer to this question centers around Python’s unittest testing framework. Basically, if a candidate doesn’t mention unittest when answering this question, that should be a huge red flag.&lt;/p&gt;
+
+&lt;p&gt;unittest supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework. The unittest module provides classes that make it easy to support these qualities for a set of tests.&lt;/p&gt;
+
+&lt;p&gt;Assuming that the candidate does mention unittest (if they don’t, you may just want to end the interview right then and there!), you should also ask them to describe the key elements of the unittest framework; namely, test fixtures, test cases, test suites and test runners.&lt;/p&gt;
+
+&lt;p&gt;A more recent addition to the unittest framework is mock. mock allows you to replace parts of your system under test with mock objects and make assertions about how they are to be used. mock is now part of the Python standard library, available as unittest.mock in Python 3.3 onwards.&lt;/p&gt;
+
+&lt;p&gt;The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much &lt;code class=&quot;highlighter-rouge&quot;&gt;slow code&lt;/code&gt; as possible out of the automated test runs, namely filesystem and network access.&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-&quot;&gt;Spark 问题&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When did you start spark and why?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is Apache Spark [key points/features to get to know Spark]?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;A framework&lt;/li&gt;
+      &lt;li&gt;Birth for large-scale data processing&lt;/li&gt;
+      &lt;li&gt;interactive interpreter&lt;/li&gt;
+      &lt;li&gt;basic abstraction : RDD&lt;/li&gt;
+      &lt;li&gt;Generalize programming model for data processing [ more than MR ]&lt;/li&gt;
+      &lt;li&gt;Provides high-level APIs : Scala, Python, R, Java, SQL&lt;/li&gt;
+      &lt;li&gt;Arm to teeth : SQL, Streaming, Machine Learning, GraphX and 3-party packages&lt;/li&gt;
+      &lt;li&gt;Compatible with previous ecology : hadoop, mesos, hdfs, cassandra, hbase, s3 …&lt;/li&gt;
+      &lt;li&gt;multi-stage in-memory in contrast to Hadoop’s two-stage disk-based MR paradigm&lt;/li&gt;
+      &lt;li&gt;very suit for iterative computing [data cache in memory]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is RDD?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RDD stands for Resilient Distribution Datasets: a collection of fault-tolerant operational elements that run in parallel. The partitioned data in RDD is immutable and is distributed in nature.&lt;/p&gt;
+
+&lt;p&gt;Internally, each RDD is characterized by five main properties:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A list of partitions  
+A function for computing each split   
+A list of dependencies on other RDDs  
+Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)   
+Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How does one create RDDs in Spark?
+    &lt;ul&gt;
+      &lt;li&gt;sc.parallelize&lt;/li&gt;
+      &lt;li&gt;sc.textFile&lt;/li&gt;
+      &lt;li&gt;sc.wholeTextFile&lt;/li&gt;
+      &lt;li&gt;transformation of rdd&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What does the Spark Engine do?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spark Engine is responsible for scheduling, distributing and monitoring the data application across the cluster.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How do you define Partitions?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A &lt;code class=&quot;highlighter-rouge&quot;&gt;Partition&lt;/code&gt; is a smaller and logical division of data, that is similar to the &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; in Map Reduce. Partitioning is the process that helps derive logical units of data in order to speed up data processing.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What operations does the RDD support and list some often used by you?
+    &lt;ul&gt;
+      &lt;li&gt;Transformations&lt;/li&gt;
+      &lt;li&gt;Actions&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Define &lt;code class=&quot;highlighter-rouge&quot;&gt;Transformations&lt;/code&gt; in Spark.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Transformations&lt;/code&gt; are functions applied on RDD, resulting in a new RDD. It does not execute until an action occurs. map() and filer() are examples of &lt;code class=&quot;highlighter-rouge&quot;&gt;transformations&lt;/code&gt;, where the former applies the function assigned to it on each element of the RDD and results in another RDD. The filter() creates a new RDD by selecting elements from the current RDD.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Define &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; in Spark.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;An &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; helps in bringing back the data from the RDD to the local machine. Execution of &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; is the result of all transformations created previously. reduce() is an action that implements the function passed again and again until only one value is left. On the other hand, the take() action takes all the values from the RDD to the local node.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What are the functions of &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark Core&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;SparkCore&lt;/code&gt; performs an array of critical functions like memory management, monitoring jobs, fault tolerance, job scheduling and interaction with storage systems.&lt;/p&gt;
+
+&lt;p&gt;It is the foundation of the overall project. It provides distributed task dispatching, scheduling, and basic input and output functionalities. RDD in Spark Core makes it fault tolerance. RDD is a collection of items distributed across many nodes that can be manipulated in parallel. Spark Core provides many APIs for building and manipulating these collections.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is an &lt;code class=&quot;highlighter-rouge&quot;&gt;RDD Lineage&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spark does not support data replication in the memory. In the event of any data loss, it is rebuilt using the &lt;code class=&quot;highlighter-rouge&quot;&gt;RDD Lineage&lt;/code&gt;. It is a process that reconstructs lost data partitions.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is a &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark Driver&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Spark Driver&lt;/code&gt; is the program that runs on the master node of the machine and declares transformations and actions on data RDDs. The driver also delivers RDD graphs to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Master&lt;/code&gt;, where the standalone cluster manager runs.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is SparkContext?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SparkContext&lt;/code&gt; is the main entry point for Spark functionality. A &lt;code class=&quot;highlighter-rouge&quot;&gt;SparkContext&lt;/code&gt; represents the connection to a Spark cluster, and can be used to create RDDs, accumulators and broadcast variables on that cluster.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark Streaming&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spark supports stream processing, essentially an extension to the Spark API. This allows stream processing of live data streams. The data from different sources like Flume and HDFS is streamed and processed to file systems, live dashboards and databases. It is similar to batch processing as the input data is divided into streams like batches.&lt;/p&gt;
+
+&lt;p&gt;Business use cases for Spark streaming: Each Spark component has its own use case. Whenever you want to analyze data with the latency of less than 15 minutes and greater than 2 minutes i.e. near real time is when you use Spark streaming&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is an &lt;code class=&quot;highlighter-rouge&quot;&gt;Accumulator&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Accumulators&lt;/code&gt; are Spark’s offline debuggers. Similar to &lt;code class=&quot;highlighter-rouge&quot;&gt;Hadoop Counters&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Accumulators&lt;/code&gt; provide the number of &lt;code class=&quot;highlighter-rouge&quot;&gt;events&lt;/code&gt; in a program.&lt;/p&gt;
+
+&lt;p&gt;Accumulators are the variables that can be added through associative operations. Spark natively supports accumulators of numeric value types and standard mutable collections. &lt;code class=&quot;highlighter-rouge&quot;&gt;AggregrateByKey()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;combineByKey()&lt;/code&gt; uses accumulators.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is &lt;code class=&quot;highlighter-rouge&quot;&gt;YARN&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;YARN&lt;/code&gt; is a large-scale, distributed operating system for big data applications. It is one of the key features of Spark, providing a central and resource management platform to deliver scalable operations across the cluster.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;List the benefits of Spark over MapReduce.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Due to the availability of in-memory processing, Spark implements the processing around 10-100x faster than Hadoop MapReduce.&lt;/li&gt;
+      &lt;li&gt;Unlike MapReduce, Spark provides in-built libraries to perform multiple tasks form the same core; like batch processing, steaming, machine learning, interactive SQL queries among others.&lt;/li&gt;
+      &lt;li&gt;MapReduce is highly disk-dependent whereas Spark promotes caching and in-memory data storage&lt;/li&gt;
+      &lt;li&gt;Spark is capable of iterative computation while MapReduce is not.&lt;/li&gt;
+      &lt;li&gt;Spark stores data in-memory whereas Hadoop stores data on the disk. Hadoop uses replication to achieve fault tolerance while Spark uses a different data storage model, resilient distributed datasets (RDD). It also uses a clever way of guaranteeing fault tolerance that minimizes network input and output.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is a &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark Executor&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;SparkContext&lt;/code&gt; connects to a cluster manager, it acquires an &lt;code class=&quot;highlighter-rouge&quot;&gt;Executor&lt;/code&gt; on the cluster nodes. &lt;code class=&quot;highlighter-rouge&quot;&gt;Executors&lt;/code&gt; are Spark processes that run computations and store the data on the worker node. The final tasks by &lt;code class=&quot;highlighter-rouge&quot;&gt;SparkContext&lt;/code&gt; are transferred to executors.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is a &lt;code class=&quot;highlighter-rouge&quot;&gt;worker node&lt;/code&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Worker node&lt;/code&gt; refers to any node that can run the application code in a cluster.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Can we do real-time processing using Spark SQL?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Not directly but we can register an existing RDD as a SQL table and trigger SQL queries on top of that.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is the shortcoming/downside of Spark?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spark utilizes the memory. The developer has to be careful. A casual developer might make following mistakes:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- She may end up running everything on the local node instead of distributing work over to the cluster. 
+- She might hit some webservice too many times by the way of using multiple clusters.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Also, Spark streaming is not actually streaming, in the sense that some of the window functions cannot properly work on top of micro batching.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When running Spark on Yarn, do I need to install Spark on all nodes of Yarn Cluster?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since spark runs on top of Yarn, it utilizes yarn for the execution of its commands over the cluster’s nodes. So, you just have to install Spark on one node.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;what is spark application;&lt;/li&gt;
+  &lt;li&gt;what is driver, master, worker, executor;&lt;/li&gt;
+  &lt;li&gt;how to deploy spark app, configure spark cluter;&lt;/li&gt;
+  &lt;li&gt;what is RDD;&lt;/li&gt;
+  &lt;li&gt;what is dataframe, datasets;&lt;/li&gt;
+  &lt;li&gt;what is transforms and actions in rdd, why design transforms and actions;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://baike.baidu.com/subview/470818/11235965.htm&quot;&gt;STAR 面试准则&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/20042950&quot;&gt;如何面试一个工作经验比自己高很多的人&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mindhacks.cn/2011/11/04/how-to-interview-a-person-for-two-years/&quot;&gt;怎样花两年时间去面试一个人&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.edureka.co/blog/top-apache-spark-interview-questions-you-should-prepare-for-in-2016&quot;&gt;Top Apache Spark Interview Questions You Should Prepare For In 2016&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.knowbigdata.com/blog/interview-questions-apache-spark-part-1&quot;&gt;Interview Questions on Apache Spark [Part 1]&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.knowbigdata.com/blog/interview-questions-apache-spark-part-2&quot;&gt;Interview Questions on Apache Spark [Part 2]&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.quora.com/What-are-some-good-sources-for-the-Apache-Spark-interview-Q-A&quot;&gt;What are some good sources for the Apache Spark interview (Q&amp;amp;A)?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/articles/spark-in-action-book-review&quot;&gt;Spark in Action Book Review &amp;amp; Interview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mybiginterview.com/big-data-interview-questions/spark-interview-questions/&quot;&gt;Spark – Interview Questions&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -758,6 +1287,8 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -850,6 +1381,8 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1608,265 +2141,6 @@ funWithParam 1 2 3 4 5 6 7 8 9 34 73&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>shell 编程总结二，test 命令，流程控制</title>
-     <link href="/shell-programming-summary-2"/>
-     <updated>2015-11-18T00:00:00+08:00</updated>
-     <id>/shell-programming-summary-2</id>
-     <content type="html">&lt;h2 id=&quot;test-&quot;&gt;1. test 命令&lt;/h2&gt;
-
-&lt;p&gt;Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;1.1 数值测试&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-eq : equal&lt;/code&gt;: 等于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-ne : non-equal&lt;/code&gt;: 不等于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-gt : great than&lt;/code&gt;: 大于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-ge : great or equal&lt;/code&gt;: 大于或等于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-lt : lower than&lt;/code&gt;: 小于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-le : lower or equal&lt;/code&gt;: 小于或等于&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
-&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
-&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num1] -eq &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num2]
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two numbers are equal!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two numbers are not equal!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;1.2 字符串测试&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt;: 等于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;!=&lt;/code&gt;: 不等于&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-z : zero&lt;/code&gt;: 字符串长度为零，则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-n : non-zero&lt;/code&gt;: 字符串长度不为零，则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var-DEFAULT}&lt;/code&gt;:	如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var:-DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var=DEFAULT}&lt;/code&gt;:	如果var没有被声明, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var:=DEFAULT}&lt;/code&gt;: 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var+OTHER}&lt;/code&gt;:	如果var声明了, 那么其值就是$OTHER, 否则就为null字符串&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var:+OTHER}&lt;/code&gt;:	如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var?ERR_MSG}&lt;/code&gt;:	如果var没被声明, 那么就打印$ERR_MSG *&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${var:?ERR_MSG}&lt;/code&gt;:	如果var没被设置, 那么就打印$ERR_MSG *&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
-&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
-&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;num2
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two strings are equal!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The two strings are not equal!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;1.3 文件测试&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e  : exist&lt;/code&gt;: 如果文件存在则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-r  : readable&lt;/code&gt;: 如果文件存在且可读则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-w  : writable&lt;/code&gt;: 如果文件存在且可写则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-x  : execute&lt;/code&gt;: 如果文件存在且可执行则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-s  : &lt;/code&gt;: 如果文件存在且至少有一个字符则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d  : directory&lt;/code&gt;: 如果文件存在且为目录则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-f  : file&lt;/code&gt;: 如果文件存在且为普通文件则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-c  : &lt;/code&gt;: 如果文件存在且为字符型特殊文件则为真&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-b  : block&lt;/code&gt;: 如果文件存在且为块特殊文件则为真&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /bin
-&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; -e ./bash
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The file already exists!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;The file does not exists!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;另外，Shell还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为：”!”最高，”-a”次之，”-o”最低。例如：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /bin
-&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; -e ./notFile -o ./bash
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;One file exists at least!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Both dose not exists!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;2. 流程控制&lt;/h2&gt;
-
-&lt;h3 id=&quot;if-elif-else-fi-&quot;&gt;2.1 if elif else fi 控制符&lt;/h3&gt;
-
-&lt;p&gt;完整的格式如下，其中，&lt;code class=&quot;highlighter-rouge&quot;&gt;elif&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; 可根据实际情况决定是否需要。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;condition1
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;command1
-&lt;span class=&quot;k&quot;&gt;elif &lt;/span&gt;condition2
-    command2
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;commandN
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;实例：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;2&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;3]
-&lt;span class=&quot;nv&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;1+5]
-&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num1] -eq &lt;span class=&quot;nv&quot;&gt;$[&lt;/span&gt;num2]
-&lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;两个数字相等!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;两个数字不相等!&#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;for-&quot;&gt;2.2 for 循环&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;var &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;item1 item2 ... itemN
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;command1
-    command2
-    ...
-    commandN
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;while-&quot;&gt;2.3 while 语句&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;condition
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;示例：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$int&lt;/span&gt;&amp;lt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5 &lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;do
-        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$int&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;int++&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按&lt;ctrl-d&gt;结束循环。&lt;/ctrl-d&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;按下 &amp;lt;CTRL-D&amp;gt; 退出&#39;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s1&quot;&gt;&#39;输入你最喜欢的电影名: &#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;FILM
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;是的！&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILM&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; 是一部好电影&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;无限循环语法格式：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 或者&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 或者&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt; ; ; &lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;until-&quot;&gt;2.4 until 循环&lt;/h3&gt;
-
-&lt;p&gt;until循环执行一系列命令直至条件为真时停止。
-until循环与while循环在处理方式上刚好相反。
-一般while循环优于until循环，但在某些时候—也只是极少数情况下，until循环更加有用。
-until 语法格式:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;condition
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;case-&quot;&gt;2.5 case 语句&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; 值 &lt;span class=&quot;k&quot;&gt;in
-&lt;/span&gt;模式1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    command1
-    command2
-    ...
-    commandN
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-模式2）
-    command1
-    command2
-    ...
-    commandN
-    ;;
-&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;示例：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;输入 1 到 4 之间的数字:&#39;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你输入的数字为:&#39;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;aNum
-&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
-    &lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 1&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 2&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    3&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 3&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    4&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你选择了 4&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;你没有输入 1 到 4 之间的数字&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;break--continue-&quot;&gt;2.6 break 和 continue 语句&lt;/h3&gt;
-
-&lt;p&gt;break命令允许跳出所有循环（终止执行后面的所有循环）。
-下面的例子中，脚本进入死循环直至用户输入数字大于5。要跳出这个循环，返回到shell提示符下，需要使用break命令。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;输入 1 到 5 之间的数字:&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;aNum
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
-        &lt;/span&gt;1|2|3|4|5&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;你输入的数字为 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;你输入的数字不是 1 到 5 之间的! 游戏结束&quot;&lt;/span&gt;
-            &lt;span class=&quot;nb&quot;&gt;break&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; :
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;输入 1 到 5 之间的数字: &quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;aNum
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
-        &lt;/span&gt;1|2|3|4|5&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;你输入的数字为 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$aNum&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;你输入的数字不是 1 到 5 之间的!&quot;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;continue
-            &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;游戏结束&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
