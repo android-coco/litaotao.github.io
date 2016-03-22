@@ -98,11 +98,9 @@ RDD is a dataset which is `distributed`, that is, it is divided into `"partition
 下几篇的安排：
 
 - 列一些学习 spark 比较好的`资源`
-- 准备几个稍稍复杂一点的`例子`
+- 准备几个稍稍复杂一点的`例子`, 例子个数根据时间安排发布
     - spark 在搜索领域的应用之 pagerank
     - spark 在社交领域的应用之 评分计算
-    - spark 在投资领域应用之指数日内相似度计算
-    - spark 在投资领域应用之分布式策略回测
 - 开始讲 `dataframe 和 datasets`
 
 

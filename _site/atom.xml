@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-21T18:26:00+08:00</updated>
+   <updated>2016-03-22T13:08:01+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -98,6 +98,8 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -215,12 +217,10 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 &lt;ul&gt;
   &lt;li&gt;列一些学习 spark 比较好的&lt;code class=&quot;highlighter-rouge&quot;&gt;资源&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;准备几个稍稍复杂一点的&lt;code class=&quot;highlighter-rouge&quot;&gt;例子&lt;/code&gt;
+  &lt;li&gt;准备几个稍稍复杂一点的&lt;code class=&quot;highlighter-rouge&quot;&gt;例子&lt;/code&gt;, 例子个数根据时间安排发布
     &lt;ul&gt;
       &lt;li&gt;spark 在搜索领域的应用之 pagerank&lt;/li&gt;
       &lt;li&gt;spark 在社交领域的应用之 评分计算&lt;/li&gt;
-      &lt;li&gt;spark 在投资领域应用之指数日内相似度计算&lt;/li&gt;
-      &lt;li&gt;spark 在投资领域应用之分布式策略回测&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;开始讲 &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe 和 datasets&lt;/code&gt;&lt;/li&gt;
