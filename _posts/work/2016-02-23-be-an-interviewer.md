@@ -225,4 +225,5 @@ The value and power of mock are well explained in An Introduction to Mocking in 
 - [STAR 面试准则](http://baike.baidu.com/subview/470818/11235965.htm)
 - [如何面试一个工作经验比自己高很多的人](https://www.zhihu.com/question/20042950)
 - [怎样花两年时间去面试一个人](http://mindhacks.cn/2011/11/04/how-to-interview-a-person-for-two-years/)
-
+- [如何面试程序员？](http://www.ruanyifeng.com/blog/2010/12/how_to_interview_a_programmer.html)
+- [国外程序员是如何准备面试的？](http://blog.jobbole.com/253/)

@@ -98,6 +98,7 @@ RDD is a dataset which is `distributed`, that is, it is divided into `"partition
 下几篇的安排：
 
 - 列一些学习 spark 比较好的`资源`
+- 详细从 job，stage，task 的定义来谈谈 spark 的运行原理
 - 准备几个稍稍复杂一点的`例子`, 例子个数根据时间安排发布
     - spark 在搜索领域的应用之 pagerank
     - spark 在社交领域的应用之 评分计算
@@ -118,6 +119,5 @@ In-Memory Cluster Computing](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资](../spark-in-finance-quatitive-investing)
-- [『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
 

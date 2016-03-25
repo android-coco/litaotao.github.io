@@ -26,13 +26,177 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-22T13:08:01+08:00</updated>
+   <updated>2016-03-25T14:30:25+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</title>
+     <link href="/deep-into-spark-exection-model"/>
+     <updated>2016-03-18T00:00:00+08:00</updated>
+     <id>/deep-into-spark-exection-model</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-&quot;&gt;1. spark 运行原理&lt;/h2&gt;
+
+&lt;p&gt;这一节是本文的核心，我们可以先抛出一个问题，如果看完这一节，或者这一章之后，你能理解你的整个 spark 应用的执行流程，那就可以关掉这个网页了［对了，关掉网页之前记得分享一下哦，哈哈］&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Problem: How does user program get translated into units of physical execution ?&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我们首先从一个例子说起，结合例子和运行截图来理解。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1.1 例子，美国 1880 － 2014 年新生婴儿数据统计&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;目标&lt;/code&gt;：用美国 1880 － 2014 年新生婴儿的数据来做做简单的统计&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;数据源&lt;/code&gt;：&lt;a href=&quot;https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data&quot;&gt; https://catalog.data.gov&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;数据格式&lt;/code&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;每年的新生婴儿数据在一个文件里面&lt;/li&gt;
+      &lt;li&gt;每个文件的每一条数据格式：&lt;code class=&quot;highlighter-rouge&quot;&gt;姓名,性别,新生人数&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-data-format.jpg&quot; alt=&quot;baby-data-format.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;代码和结果展示&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### packages&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### spark UDF (User Defined Functions)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### spark logic&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wholeTextFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;hdfs://10.21.208.21:8020/user/mercury/names&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minPartitions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;,&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt; \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### result displaying&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;birth&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;birth&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;US Baby Birth Data from 1897 to 2014&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_axis_bgcolor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;white&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;gray&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;y&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-1.jpg&quot; alt=&quot;baby-name-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;1.2 运行流程概览&lt;/h2&gt;
+
+&lt;p&gt;还记得我们在  &lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt; 讲到的构建一个 spark application 的过程吗：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上面的 22 行代码，就已经把构建一个 spark app 的三大步骤完成了，amazing, right? 今天我们主要讲 spark 的运行逻辑，所以我们就以核心的 11 － 16 ，这六行代码来作为今天的主线，了解了解 spark 的原理。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-2.jpg&quot; alt=&quot;baby-name-2.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到，整个逻辑实际上就用了 sparkContext 的一个函数，rdd 的 3 个 transformation 和 1 个 action。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-job.jpg&quot; alt=&quot;baby-name-job.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在让我们从 WEB UI 上来看看，当我们运行这段代码的时候，后台都发生了什么。
+可以看到，执行这段代码的时候，spark 通过分析，优化代码，知道这段代码需要一个 job 来完成，所以 web ui 上只有一个 job。值得深究的是，这个 job 由两个 stage 完成，这两个 state 一共有 66 个 task。&lt;/p&gt;
+
+&lt;p&gt;所以，这里我们就再次理解下 spark 里，job，stage，task 的概念：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;job&lt;/em&gt; : A job is triggered by an action, like count() or saveAsTextFile(). Click on a job to see information about the stages of tasks inside it. 理解了吗，所谓一个 job，就是由一个 rdd 的 action 触发的动作，可以简单的理解为，当你需要执行一个 rdd 的 action 的时候，会生成一个 job。&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;stage&lt;/em&gt; : stage 是一个 job 的组成单位，就是说，一个 job 会被切分成 1 个或 1 个以上的 stage，然后各个 stage 会按照执行顺序依次执行。至于 job 根据什么标准来切分 stage，可以回顾第二篇博文：&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;task&lt;/em&gt; : A unit of work within a stage, corresponding to one RDD partition。即 stage 下的一个任务执行单元，一般来说，一个 rdd 有多少个 partition，就会有多少个 task，因为每一个 task 只是处理一个 partition 上的数据。从 web ui 截图上我们可以看到，这个 job 一共有 2 个 stage，66 个 task，平均下来每个 stage 有 33 个 task，相当于每个 stage 的数据都有 33 个 partition [注意：这里是平均下来的哦，并不都是每个 stage 有 33 个 task，有时候也会有一个 stage 多，另外一个 stage 少的情况，就看你有没有在不同的 stage 进行 repartition 类似的操作了。]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-ui-1.jpg&quot; alt=&quot;baby-name-ui-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;job&quot;&gt;1.3 运行流程之 : job&lt;/h2&gt;
+
+&lt;p&gt;根据上面的截图和再次重温，我们知道这个 spark 应用里只有一个 job，那就是因为我们执行了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect&lt;/code&gt; 操作，即把处理后的数据全部返回到我们的 driver 上，进行后续的画图，返回的数据如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-3.jpg&quot; alt=&quot;baby-name-3.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;stage&quot;&gt;1.4 运行流程之 : stage&lt;/h2&gt;
+
+&lt;p&gt;我们这个 spark 应用，生成了一个 job，这个 job 由 2 个 stage 组成，并且每个 stage 都有 33 个task，说明每个 stage 的数据都在 33 个 partition 上，这下我们就来看看，这两个 stage 的情况。&lt;/p&gt;
+
+&lt;p&gt;首先，我们先看看为什么这里会有两个 stage，根据 &lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt; 中对 stage 的描述，目前有两个划分 stage 的标准：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当触发 rdd 的 action 时 : 在我们的应用中就是最后的 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect&lt;/code&gt; 操作，关于这个操作的说明，可以看官方文档: &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.collect&quot;&gt;rdd.collect&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;当触发 rdd 的 shuffle 操作时 : 在我们的应用中就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;reduceByKey&lt;/code&gt; 这个操作，官方文档: &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.reduceByKey&quot;&gt;rdd.reduceByKey&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-4.jpg&quot; alt=&quot;baby-name-4.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再次回顾上面那张图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-job.jpg&quot; alt=&quot;baby-name-job.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这下应该就明了了，关于两个 stage 的情况：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-5.jpg&quot; alt=&quot;baby-name-5.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;第一个 stage，即截图中 stage id 为 0 的 stage，其执行了 &lt;code class=&quot;highlighter-rouge&quot;&gt;sc.wholeTextFiles().map().flatMap().map().reduceByKey()&lt;/code&gt; 这几个步骤，因为这是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle&lt;/code&gt; 操作，所以后面会有 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Read&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Write&lt;/code&gt;。具体来说，就是在 stage 0 这个 stage 中，发生了一个 Shuffle 操作，这个操作读入 22.5 MB 的数据，生成 41.7 KB 的数据，并把生成的数据写在了硬盘上。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;第二个 stage，即截图中 stage id 为 1 到 stage，其执行了 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect()&lt;/code&gt; 这个操作，因为这是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; 操作，并且它上一步是一个 Shuffle 操作，且没有后续操作，所以这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect()&lt;/code&gt; 这个操作被独立成一个 stage 了。这里它把上一个 Shuffle 写下的数据读取进来，然后一起返回到 driver 端，所以这里可以看到他的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Read&lt;/code&gt; 这里刚好读取了上一个 stage 写下的数据。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;task&quot;&gt;1.5 运行流程之 : task&lt;/h2&gt;
+
+&lt;p&gt;其实到这里应该都理解得差不多了，至于为什么每个 stage 会有 33 个 task [即我们的数据文件存放到 33 个partition 上，可是明明 &lt;code class=&quot;highlighter-rouge&quot;&gt;sc.wholeTextFiles(&#39;hdfs://10.21.208.21:8020/user/mercury/names&#39;, minPartitions=40)&lt;/code&gt; 这里指定了最小要 40 个partition 到啊]，这个问题我们留到以后说，在后面我们会有一篇讲怎么调试，优化 spark app 的博文，到时候我们会继续回到这里，解答这里的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/baby-name-7.jpg&quot; alt=&quot;baby-name-7.jpg&quot; /&gt;
+&lt;img src=&quot;../images/baby-name-8.jpg&quot; alt=&quot;baby-name-8.jpg&quot; /&gt;
+&lt;img src=&quot;../images/baby-name-9.jpg&quot; alt=&quot;baby-name-9.jpg&quot; /&gt;
+&lt;img src=&quot;../images/baby-name-10.jpg&quot; alt=&quot;baby-name-10.jpg&quot; /&gt;
+&lt;img src=&quot;../images/baby-name-11.jpg&quot; alt=&quot;baby-name-11.jpg&quot; /&gt;
+&lt;img src=&quot;../images/baby-name-12.jpg&quot; alt=&quot;baby-name-12.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;2. Next&lt;/h2&gt;
+
+&lt;p&gt;既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark&quot;&gt;Tuning and Debugging in Apache Spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&amp;amp;qid=1458293667&amp;amp;sr=8-1&amp;amp;keywords=learning+spark&quot;&gt;learning spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』5. 这些年，你不能错过的 spark 学习资源</title>
@@ -73,7 +237,11 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/building-debugging-and-tuning-spark-machine-leaning-pipelinesjoseph-bradley&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Building, Debugging, and Tuning Spark Machine Learning Pipelines&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=xWkJCUcD55w&quot;&gt;Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=HBZuB3pPri0&amp;amp;feature=youtu.be&quot;&gt;Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248&quot;&gt;Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;3. 网站&lt;/h2&gt;
@@ -87,6 +255,8 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -98,8 +268,7 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -217,6 +386,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 &lt;ul&gt;
   &lt;li&gt;列一些学习 spark 比较好的&lt;code class=&quot;highlighter-rouge&quot;&gt;资源&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;详细从 job，stage，task 的定义来谈谈 spark 的运行原理&lt;/li&gt;
   &lt;li&gt;准备几个稍稍复杂一点的&lt;code class=&quot;highlighter-rouge&quot;&gt;例子&lt;/code&gt;, 例子个数根据时间安排发布
     &lt;ul&gt;
       &lt;li&gt;spark 在搜索领域的应用之 pagerank&lt;/li&gt;
@@ -243,8 +413,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -454,8 +623,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1267,6 +1435,10 @@ transformations rather than fine-grained updates to shared state. However, we sh
 
 &lt;p&gt;spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd。&lt;/p&gt;
 
+&lt;h2 id=&quot;rdd--cache-&quot;&gt;21. 对一个 rdd 多次 cache 会有什么影响吗？&lt;/h2&gt;
+
+&lt;p&gt;不会，只会cache一次。&lt;a href=&quot;http://stackoverflow.com/questions/36195105/what-happens-if-i-cache-the-same-rdd-twice-in-spark/36195812#36195812&quot;&gt;stackoverflow&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
 
 &lt;p&gt;下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。&lt;/p&gt;
@@ -1287,8 +1459,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1381,8 +1552,7 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-quatitive-investing&quot;&gt;『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -2081,72 +2251,6 @@ Installing collected packages: celery, kombu, billiard, amqp&lt;/code&gt;&lt;/pr
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file&quot;&gt;stackoverflow: Send log messages from all celery tasks to a single file&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-</content>
-   </entry>
-   
-   <entry>
-     <title>shell 编程总结三，函数</title>
-     <link href="/shell-programming-summary-3"/>
-     <updated>2015-11-22T00:00:00+08:00</updated>
-     <id>/shell-programming-summary-3</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 定义&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。&lt;/li&gt;
-  &lt;li&gt;2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;函数返回值在调用该函数后通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;$?&lt;/code&gt; 来获得。
-注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; funcname &lt;span class=&quot;o&quot;&gt;[()]&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    action;
-
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;int;]
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;2. 函数参数&lt;/h2&gt;
-
-&lt;p&gt;在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数…
-带参数的函数示例：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-funWithParam&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the first parameter is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the second parameter is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the tenth parameter is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$10&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the tenth parameter is &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The value of the eleventh parameter is &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The amount of the parameters is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$# &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The string of the parameters is &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$*&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; !&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-funWithParam 1 2 3 4 5 6 7 8 9 34 73&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;注意，$10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。
-另外，还有几个特殊字符用来处理参数：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$#&lt;/code&gt;	传递到脚本的参数个数&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$*&lt;/code&gt;	以一个单字符串显示所有向脚本传递的参数&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$$&lt;/code&gt;	脚本运行的当前进程ID号&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$!&lt;/code&gt;	后台运行的最后一个进程的ID号&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$@&lt;/code&gt;	与 &lt;code class=&quot;highlighter-rouge&quot;&gt;$*&lt;/code&gt; 相同，但是使用时加引号，并在引号中返回每个参数。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$-&lt;/code&gt;	显示Shell使用的当前选项，与set命令功能相同。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$?&lt;/code&gt;	显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;  Shell本身的文件名&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;Shell 教程&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html&quot;&gt;linux shell 字符串操作（长度，查找，替换）详解&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/ithomer/article/details/6836382&quot;&gt;Linux 之 shell 比较运算符&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
    </entry>
    

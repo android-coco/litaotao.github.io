@@ -198,6 +198,11 @@ FIFO 资源分配方式。
 
 spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd。
 
+## 21. 对一个 rdd 多次 cache 会有什么影响吗？
+
+不会，只会cache一次。[stackoverflow](http://stackoverflow.com/questions/36195105/what-happens-if-i-cache-the-same-rdd-twice-in-spark/36195812#36195812)
+
+
 
 ## 4. Next
 
@@ -218,7 +223,6 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资](../spark-in-finance-quatitive-investing)
-- [『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
 
 
