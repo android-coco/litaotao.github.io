@@ -13,6 +13,15 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 - [An Architecture for Fast and General Data Processing
 on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf)
 - [How-to: Tune Your Apache Spark Jobs (Part 1)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/)
+- [借助 Redis ，让 Spark 提速 45 倍！](http://dataunion.org/22985.html)
+- [量化派基于Hadoop、Spark、Storm的大数据风控架构](http://www.csdn.net/article/2015-10-06/2825849)
+- [基于Spark的异构分布式深度学习平台](http://geek.csdn.net/news/detail/58867)
+- [你对Hadoop和Spark生态圈了解有几许？](http://www.36dsj.com/archives/40723)
+- [Hadoop vs Spark](http://www.yuntoutiao.com/dongtai/5389.html)
+- [雅虎开源CaffeOnSpark：基于Hadoop/Spark的分布式深度学习](http://geek.csdn.net/news/detail/57656)
+
+
+
 
 
 ## 2. 视频

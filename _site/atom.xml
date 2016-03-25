@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-25T14:30:25+08:00</updated>
+   <updated>2016-03-25T16:45:04+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -211,6 +211,12 @@
   &lt;li&gt;&lt;a href=&quot;http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf&quot;&gt;An Architecture for Fast and General Data Processing
 on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 1)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dataunion.org/22985.html&quot;&gt;借助 Redis ，让 Spark 提速 45 倍！&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2015-10-06/2825849&quot;&gt;量化派基于Hadoop、Spark、Storm的大数据风控架构&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/58867&quot;&gt;基于Spark的异构分布式深度学习平台&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.36dsj.com/archives/40723&quot;&gt;你对Hadoop和Spark生态圈了解有几许？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.yuntoutiao.com/dongtai/5389.html&quot;&gt;Hadoop vs Spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/57656&quot;&gt;雅虎开源CaffeOnSpark：基于Hadoop/Spark的分布式深度学习&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;2. 视频&lt;/h2&gt;
@@ -971,6 +977,12 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
 
 &lt;p&gt;The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much &lt;code class=&quot;highlighter-rouge&quot;&gt;slow code&lt;/code&gt; as possible out of the automated test runs, namely filesystem and network access.&lt;/p&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;understand the principle of &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; sentence in python.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.jianshu.com/p/dca3299d0a27&quot;&gt;from … import … &lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;spark-&quot;&gt;Spark 问题&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -1206,10 +1218,17 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   &lt;li&gt;what is RDD;&lt;/li&gt;
   &lt;li&gt;what is dataframe, datasets;&lt;/li&gt;
   &lt;li&gt;what is transforms and actions in rdd, why design transforms and actions;&lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;开放性问题&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Which book impress you the most, and why?&lt;/li&gt;
+  &lt;li&gt;How do you arrange your spare time?&lt;/li&gt;
+  &lt;li&gt;Is there anything on which you have totally different opinions compared with others?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://baike.baidu.com/subview/470818/11235965.htm&quot;&gt;STAR 面试准则&lt;/a&gt;&lt;/li&gt;

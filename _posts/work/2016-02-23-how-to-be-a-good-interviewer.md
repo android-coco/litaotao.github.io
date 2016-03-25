@@ -206,6 +206,11 @@ A more recent addition to the unittest framework is mock. mock allows you to rep
 The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much `slow code` as possible out of the automated test runs, namely filesystem and network access.
 
 
+- understand the principle of `import` sentence in python.
+
+[from ... import ... ](http://www.jianshu.com/p/dca3299d0a27)
+
+
 ## Spark 问题
 
 
@@ -382,7 +387,13 @@ Since spark runs on top of Yarn, it utilizes yarn for the execution of its comma
 - what is RDD;
 - what is dataframe, datasets;
 - what is transforms and actions in rdd, why design transforms and actions;
-- 
+
+
+## 开放性问题
+
+- Which book impress you the most, and why?
+- How do you arrange your spare time?
+- Is there anything on which you have totally different opinions compared with others?
 
 
 
