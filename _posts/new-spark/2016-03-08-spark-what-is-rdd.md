@@ -13,6 +13,8 @@ description: 要想学好spark，怎么能不先搞清楚RDD的来龙去脉呢�
 
 其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。
 
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。
+
 
 ## 1. 什么是RDD 
 　　先看下源码里是怎么描述RDD的。  
@@ -63,10 +65,14 @@ DAG - Direct Acyclic Graph，有向无环图，好久没看图片了，先发个
 　　够清楚了吗，啥，还不够清楚，好，那我告诉你，B是小明他爷爷，D是小明他爸爸，E是小明自己，你说小明他爷爷能是小明通过某种方式转换出现在这个世界上的吗？
 
 ### 2.3 What is Data Locality - RDD的位置可见性   
-　　这个问题就不重复造轮子了，直接引用Quora上的一个[问答了](https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark)。
+　　这个问题就不重复造轮子了，直接引用Quora上的一个[问答了](https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark):
 
+-----
 
 RDD is a dataset which is `distributed`, that is, it is divided into `"partitions"`. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to `launch one task per partition of the RDD`. It's best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data "locally" is known as "`locality aware scheduling`".
+
+----
+
 
 ### 2.4 What is Lazy Evaluation - 神马叫惰性求值 
 　　本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫"后续求值"，"按需计算"，"晚点搞"这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。

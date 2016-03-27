@@ -12,6 +12,9 @@ description: things you need know before you touch Spark and before you decide t
 
 其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。
 
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。
+
+
 ## 1. 如何向别人介绍 spark
 
 ***Apache Spark™ is a fast and general engine for large-scale data processing.***

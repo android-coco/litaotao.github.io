@@ -1,6 +1,6 @@
 ---
 category: work
-published: true
+published: false
 layout: post
 title: 如何当个面试官
 description: 怎么做一个好的面试官.
