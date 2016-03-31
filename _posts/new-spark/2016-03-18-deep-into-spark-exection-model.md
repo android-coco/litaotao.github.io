@@ -138,7 +138,6 @@ ax.grid(color='gray', alpha=0.2, axis='y')
 
 
 
-
 ## 2. Next
 
 既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。
@@ -148,6 +147,10 @@ ax.grid(color='gray', alpha=0.2, axis='y')
 
 - [Tuning and Debugging in Apache Spark](http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark)   
 - [learning spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1458293667&sr=8-1&keywords=learning+spark)
+- [Spark配置](https://aiyanbo.gitbooks.io/spark-programming-guide-zh-cn/content/more/spark-configuration.html)
+- [Spark 配置指南](http://colobu.com/2014/12/10/spark-configuration/)
+
+
 
 ## 本系列文章链接
 

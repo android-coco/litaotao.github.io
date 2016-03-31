@@ -22,8 +22,6 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 
 
 
-
-
 ## 2. 视频
 
 
@@ -48,6 +46,39 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Spark Tuning for Enterprise System Administrators](https://www.youtube.com/watch?v=HBZuB3pPri0&feature=youtu.be)
 - [Spark Tuning for Enterprise System Administrators](http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248)
 
+- [Structuring Spark: DataFrames, Datasets, and Streaming](https://www.youtube.com/watch?v=i7l3JQRx7Qw)
+- [`slide` Structuring Spark: DataFrames, Datasets, and Streaming](http://www.slideshare.net/databricks/structuring-spark-dataframes-datasets-and-streaming)
+
+- [Spark in Production: Lessons from 100+ Production Users](https://www.youtube.com/watch?v=GzG9RTRTFck)
+- [`slide` Spark in Production: Lessons from 100+ Production Users](http://www.slideshare.net/databricks/spark-summit-eu-2015-lessons-from-300-production-users)
+
+- [Production Spark and Tachyon use Cases](https://www.youtube.com/watch?v=rBrsxM091KA)
+- []
+
+- [SparkUI Visualization](https://www.youtube.com/watch?v=VQOKk9jJGcw&index=5&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
+- [`slide` SparkUI Visualization](http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application)
+
+- [Machine Learning with Big Data using Apache Spark](https://www.youtube.com/watch?v=sNwGJP-_30U)
+- []()
+
+- [Securing your Spark Applications](https://www.youtube.com/watch?v=Aups6UcGiQQ&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&index=1)
+- []()
+
+
+- [Building a REST Job Server for Interactive Spark as a Service](https://www.youtube.com/watch?v=AHYq91i-ohI)
+- []()
+
+
+- [Exploiting GPUs for Columnar DataFrame Operations](https://www.youtube.com/watch?v=PPQRi484bNo&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&index=2)
+- []()
+
+
+- [Time Series Stream Processing with Spark and Cassandra](https://www.youtube.com/watch?v=fBWLzB0FMX4&index=3&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
+- []()
+
+
+- [Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://www.youtube.com/watch?v=MFSUAkDBSdQ)
+- [`slide` Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf)
 
 
 

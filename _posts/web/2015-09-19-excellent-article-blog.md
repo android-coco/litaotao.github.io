@@ -24,6 +24,7 @@ description: 优秀文章收藏
 
 - [关于用户头像的设计思考@设计译言](http://www.jianshu.com/p/12d47cbbe883)
 - [写出什么样的文案可以月薪30000](http://www.meihua.info/a/65287)
+- [10个小方法让你的数据更引人注目](http://toutiao.com/i6266886062371504641/)
 
 
 ## 4. 职业
