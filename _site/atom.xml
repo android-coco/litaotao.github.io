@@ -26,13 +26,204 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-03-31T16:32:02+08:00</updated>
+   <updated>2016-04-01T17:01:13+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</title>
+     <link href="/spark-dataframe-introduction"/>
+     <updated>2016-03-30T00:00:00+08:00</updated>
+     <id>/spark-dataframe-introduction</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。&lt;/p&gt;
+
+&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-dataframe&quot;&gt;1. 什么是 spark dataframe&lt;/h2&gt;
+
+&lt;p&gt;先来看看官方原汁原味的文档是怎么介绍的：&lt;/p&gt;
+
+&lt;p&gt;A DataFrame is &lt;code class=&quot;highlighter-rouge&quot;&gt;a distributed collection of data&lt;/code&gt; organized into named columns. It is conceptually equivalent to a &lt;code class=&quot;highlighter-rouge&quot;&gt;table in a relational database&lt;/code&gt; or a data frame in R/Python, but with &lt;code class=&quot;highlighter-rouge&quot;&gt;richer optimizations&lt;/code&gt; under the hood. DataFrames can be constructed from a wide array of sources such as: &lt;code class=&quot;highlighter-rouge&quot;&gt;structured data files, tables in Hive, external databases, or existing RDDs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;我们可以看到 spark dataframe 的几个关键点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;分布式的数据集&lt;/li&gt;
+  &lt;li&gt;类似关系型数据库中的table，或者 excel 里的一张 sheet，或者 python/R 里的 dataframe&lt;/li&gt;
+  &lt;li&gt;拥有丰富的操作函数，类似于 rdd 中的算子&lt;/li&gt;
+  &lt;li&gt;一个 dataframe 可以被注册成一张数据表，然后用 sql 语言在上面操作&lt;/li&gt;
+  &lt;li&gt;丰富的创建方式
+    &lt;ul&gt;
+      &lt;li&gt;已有的RDD&lt;/li&gt;
+      &lt;li&gt;结构化数据文件&lt;/li&gt;
+      &lt;li&gt;JSON数据集&lt;/li&gt;
+      &lt;li&gt;Hive表&lt;/li&gt;
+      &lt;li&gt;外部数据库&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spark-dataframe-1&quot;&gt;2. 为什么要用 spark dataframe&lt;/h2&gt;
+
+&lt;p&gt;DataFrame API 是在 R 和 Python data frame 的设计灵感之上设计的，具有以下功能特性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;从KB到PB级的数据量支持；&lt;/li&gt;
+  &lt;li&gt;多种数据格式和多种存储系统支持；&lt;/li&gt;
+  &lt;li&gt;通过Spark SQL 的 Catalyst优化器进行先进的优化，生成代码；&lt;/li&gt;
+  &lt;li&gt;通过Spark无缝集成所有大数据工具与基础设施；&lt;/li&gt;
+  &lt;li&gt;为Python、Java、Scala和R语言（SparkR）API；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;简单来说，dataframe 能够更方便的操作数据集，而且因为其底层是通过 spark sql 的 Catalyst优化器生成优化后的执行代码，所以其执行速度会更快。总结下来就是，使用 spark dataframe 来构建 spark app，能：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;write less : 写更少的代码&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;do more : 做更多的事情&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;faster : 以更快的速度&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataframe&quot;&gt;3. 创建 dataframe&lt;/h2&gt;
+
+&lt;p&gt;因为 spark sql，dataframe，datasets 都是共用 spark sql 这个库的，三者共享同样的代码优化，生成以及执行流程，所以 sql，dataframe，datasets 的入口都是 sqlContext。可用于创建 spark dataframe 的数据源有很多，我们就讲最简单的从结构化文件创建 dataframe。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-3.jpg&quot; alt=&quot;spark-dataframe-3.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 1 : 创建 sqlContext&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下面是我自己创建 spark sc 都模版：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SparkConf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setAppName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;03-DataFrame-01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setMaster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SPARK_MASTER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;spark.executor.memory&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;2g&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;spark.logConf&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SparkContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sqlContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SQLContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 2 : 创建 dataframe，从 json 文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;数据文件说明：中国 A 股上市公司基本信息，可以在这里取到：&lt;a href=&quot;http://pan.baidu.com/s/1pLxN851&quot;&gt;stock_5.json&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-1.jpg&quot; alt=&quot;spark-dataframe-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注：这里的 json 文件并不是标准的 json 文件，spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。&lt;/p&gt;
+
+&lt;p&gt;比如说，官网的 &lt;code class=&quot;highlighter-rouge&quot;&gt;people.json&lt;/code&gt; 这个例子，它要求的格式是：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Yin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Columbus&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Ohio&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Michael&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;California&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;但对这个文件来看，标准的 json 格式只有下面两种：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Yin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Michael&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Columbus&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Ohio&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;California&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;###&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Yin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Columbus&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Ohio&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Michael&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;California&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;所以在用 spark sql 来读取一个 json 文件的时候，务必要提前处理好 json 的文件格式，这里我们已经提前处理好了，文件如下所示：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ticker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000001&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;tradeDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2016-03-30&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;exchangeCD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;XSHE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;secShortName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;\u5e73\u5b89\u94f6\u884c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;preClosePrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.43&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;openPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;dealAmount&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;19661&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;turnoverValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;572627417.1299999952&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;highestPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;lowestPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.47&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;closePrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;negMarketValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;126303384220.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;marketValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;153102835340.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;isOpen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;secID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000001.XSHE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;listDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1991-04-03&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ListSector&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;\u4e3b\u677f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;totalShares&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14308676200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ticker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000002&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;tradeDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2016-03-30&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;exchangeCD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;XSHE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;secShortName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;\u4e07\u79d1A&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;preClosePrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;24.43&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;openPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;dealAmount&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;turnoverValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;highestPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;lowestPrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;closePrice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;24.43&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;negMarketValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;237174448154.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;marketValue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;269685994760.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;isOpen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;secID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000002.XSHE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;listDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1991-01-29&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ListSector&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;\u4e3b\u677f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;totalShares&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11039132000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### df is short for dataframe&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;hdfs://10.21.208.21:8020/user/mercury/stock_5.json&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printSchema&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;ticker&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;secID&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;tradeDate&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;listDate&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;openPrice&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;closePrice&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 &lt;span class=&quot;s&quot;&gt;&#39;highestPrice&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;lowestPrice&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;isOpen&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-2.jpg&quot; alt=&quot;spark-dataframe-2.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dataframe-1&quot;&gt;4. 操作 dataframe&lt;/h2&gt;
+
+&lt;p&gt;同 rdd 一样，dataframe 也有很多专属于自己的算子，用于操作整个 dataframe 数据集，我们以后都简称为 dataframe api 吧，用 &lt;code class=&quot;highlighter-rouge&quot;&gt;算子&lt;/code&gt;， &lt;code class=&quot;highlighter-rouge&quot;&gt;DSL&lt;/code&gt; 这类的称呼对不熟悉的人来说不易理解，下面这里是完整的 api 列表：&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame&quot;&gt;spark dataframe api&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dataframe--sql-&quot;&gt;4.1 在 dataframe 上执行 sql 语句&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-4.jpg&quot; alt=&quot;spark-dataframe-4.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;spark-dataframe--pandas-dataframe-&quot;&gt;4.2 spark dataframe 与 pandas dataframe 转换&lt;/h3&gt;
+
+&lt;p&gt;一图胜千言啊：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-6.jpg&quot; alt=&quot;spark-dataframe-6.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;纵观 spark 的诞生和发展，我觉得 spark 有一点做得非常明智：&lt;em&gt;对同类产品的兼容&lt;/em&gt;。从大的方面来说，就像 spark 官网的这段话一样: &lt;em&gt;Runs Everywhere: Spark runs on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.&lt;/em&gt;，spark 对 hadoop 系产品的兼容，让 hadoop 系的开发人员可以轻松的从 hadoop 转到 spark；从小的方面来说，spark 对一些细分工具也照顾 [兼容] 得很好，比如说 spark 推出了 dataframe，人家就可以支持 spark dataframe 和 pandas dataframe 的转换。&lt;/p&gt;
+
+&lt;p&gt;熟悉 pandas dataframe 的都了解，pandas 里的 dataframe 可以做很多事情，比如说画图，保存为各种类型的文件，做数据分析什么的。我觉得，可以在 spark 的 dataframe 里做数据处理，分析的整个逻辑，然后可以把最后的结果转化成 pandas 的 dataframe 来展示。当然，如果你的数据量小，也可以直接用 pandas dataframe 来做。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-7.jpg&quot; alt=&quot;spark-dataframe-7.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;5. 一些经验&lt;/h2&gt;
+
+&lt;h3 id=&quot;spark-json-&quot;&gt;5.1 spark json 格式问题&lt;/h3&gt;
+
+&lt;p&gt;spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。&lt;/p&gt;
+
+&lt;h3 id=&quot;spark-dataframe--pandas-dataframe--1&quot;&gt;5.2 spark dataframe 和 pandas dataframe 选择问题&lt;/h3&gt;
+
+&lt;p&gt;如果数据量小，结构简单，可以直接用 pandas dataframe 来做分析；如果数据量大，结构复杂 [嵌套结构]，那么推荐用 spark dataframe 来做数据分析，然后把结果转成 pandas dataframe，用 pandas dataframe 来做展示和报告。&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;6. Next&lt;/h2&gt;
+
+&lt;p&gt;ok，dataframe 简单的也说了几句了。我们先缓一缓，上个例子，再接着讲起他的，例子的话就用一个我正在实践的：用 spark 来做量化投资。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/sql-programming-guide.html#dataframes&quot;&gt;Spark SQL, DataFrames and Datasets Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/17/introducing-dataframes-in-spark-for-large-scale-data-science.html&quot;&gt;Introducing DataFrames in Spark for Large Scale Data Science&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://forums.databricks.com/questions/7257/from-webinar-spark-dataframes-what-is-the-differen-1.html&quot;&gt;From Webinar Apache Spark 1.5: What is the difference between a DataFrame and a RDD?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/apache-spark-sql&quot;&gt;用Apache Spark进行大数据处理——第二部分：Spark SQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html&quot;&gt;An introduction to JSON support in Spark SQL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>『 读书笔记 』3月读书总结和推荐</title>
@@ -156,7 +347,7 @@
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Problem: How does user program get translated into units of physical execution ?&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;我们首先从一个例子说起，结合例子和运行截图来理解。&lt;/p&gt;
+&lt;p&gt;我们用一个例子来说明，结合例子和运行截图来理解。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;1.1 例子，美国 1880 － 2014 年新生婴儿数据统计&lt;/h2&gt;
 
@@ -284,7 +475,11 @@
 
 &lt;p&gt;既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;3. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark&quot;&gt;Tuning and Debugging in Apache Spark&lt;/a&gt;&lt;/li&gt;
@@ -293,7 +488,7 @@
   &lt;li&gt;&lt;a href=&quot;http://colobu.com/2014/12/10/spark-configuration/&quot;&gt;Spark 配置指南&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-5&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -301,7 +496,8 @@
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -369,31 +565,29 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=rBrsxM091KA&quot;&gt;Production Spark and Tachyon use Cases&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/using-spark-with-tachyon-by-gene-pang&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Production Spark and Tachyon use Cases&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=VQOKk9jJGcw&amp;amp;index=5&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&quot;&gt;SparkUI Visualization&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; SparkUI Visualization&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=sNwGJP-_30U&quot;&gt;Machine Learning with Big Data using Apache Spark&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]()&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=sNwGJP-_30U&quot;&gt;Machine Learning with Big Data using Apache Spark&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Aups6UcGiQQ&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&amp;amp;index=1&quot;&gt;Securing your Spark Applications&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]()&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/cloudera/securing-your-apache-spark-applications&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Securing your Spark Applications&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=AHYq91i-ohI&quot;&gt;Building a REST Job Server for Interactive Spark as a Service&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]()&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/building-a-rest-job-server-for-interactive-spark-as-a-service-by-romain-rigaux-and-erick-tryzelaar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Building a REST Job Server for Interactive Spark as a Service&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=PPQRi484bNo&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&amp;amp;index=2&quot;&gt;Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]()&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=fBWLzB0FMX4&amp;amp;index=3&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&quot;&gt;Time Series Stream Processing with Spark and Cassandra&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;[]()&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=fBWLzB0FMX4&amp;amp;index=3&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&quot;&gt;Time Series Stream Processing with Spark and Cassandra&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MFSUAkDBSdQ&quot;&gt;Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
@@ -415,7 +609,15 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;4. next&lt;/h2&gt;
+
+&lt;p&gt;上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -423,8 +625,10 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -557,7 +761,11 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   &lt;li&gt;开始讲 &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe 和 datasets&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;Spark技术内幕：究竟什么是RDD&lt;/a&gt;&lt;/li&gt;
@@ -566,7 +774,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;RDD 论文中文版&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -574,7 +782,8 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -759,11 +968,15 @@ def mc_pi(n=100):
     &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   \
     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;3. Next&lt;/h2&gt;
 
 &lt;p&gt;下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;4. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../files/spark-rdd-paper.pdf&quot;&gt;spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
@@ -778,7 +991,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.sciencenet.cn/blog-324394-292355.html&quot;&gt;科学网：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -786,8 +999,10 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -1112,7 +1327,11 @@ transformations rather than fine-grained updates to shared state. However, we sh
 
 &lt;p&gt;下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../files/spark-rdd-paper.pdf&quot;&gt;spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
@@ -1120,7 +1339,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html&quot;&gt;spark python API&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -1128,7 +1347,8 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1223,8 +1443,10 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -1775,152 +1997,6 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
 &lt;h3 id=&quot;profile-before-optimizing&quot;&gt;8.5 profile before optimizing&lt;/h3&gt;
 
 &lt;h3 id=&quot;use-tracemalloc-to-understand-memory-usage-and-leaks&quot;&gt;8.6 use tracemalloc to understand memory usage and leaks&lt;/h3&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>celery 笔记</title>
-     <link href="/hello-celery"/>
-     <updated>2015-12-18T00:00:00+08:00</updated>
-     <id>/hello-celery</id>
-     <content type="html">&lt;h2 id=&quot;hello-celery&quot;&gt;1. hello, celery&lt;/h2&gt;
-
-&lt;p&gt;three questions:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;what is celery?&lt;/li&gt;
-  &lt;li&gt;why do we need celery?&lt;/li&gt;
-  &lt;li&gt;what features does celery have?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;what-is-celery&quot;&gt;1.1 what is celery?&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;First&lt;/code&gt;, celery is a distributed task queue [ a distributed system to process messages].&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Second&lt;/code&gt;, it provides operations with the tools required to maintain such a system.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/mher/flower&quot;&gt;flower&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://policystat.github.io/jobtastic/&quot;&gt;jobtastic&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Third&lt;/code&gt;, it was built for Dijango Apps in the early, but scaled since version 0.8.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Fourth&lt;/code&gt;, it focus on real-time processing, while also supporting task scheduling.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;why-do-we-need-celery&quot;&gt;1.2 why do we need celery?&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;run something in the background.&lt;/li&gt;
-  &lt;li&gt;run something after the web request is done.&lt;/li&gt;
-  &lt;li&gt;making something is done by executing it asynchronously and using retries.&lt;/li&gt;
-  &lt;li&gt;schedule periodic task.&lt;/li&gt;
-  &lt;li&gt;distributed computing.&lt;/li&gt;
-  &lt;li&gt;parallel executing.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;what-features-does-celery-have&quot;&gt;1.3 what features does celery have?&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;simple&lt;/code&gt;:
-write in python, easily configure.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;high available&lt;/code&gt;: retry mechanism, independent broker HA.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fast&lt;/code&gt;: process millions of tasks one minute.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flexible&lt;/code&gt;: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, autoscalers, broker transports and much more.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;monitoring&lt;/code&gt;: A stream of monitoring events is emitted by workers and is used by built-in and external tools to tell you what your cluster is doing – in real-time.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;auto reloading&lt;/code&gt;: In development workers can be configured to automatically reload source code as it changes.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;workflows&lt;/code&gt;:  Simple and complex workflows can be composed using a set of powerful primitives we call the “canvas”, including grouping, chaining, chunking and more.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;auto scaling&lt;/code&gt;: Dynamically resizing the worker pool depending on load, or custom metrics specified by the user, used to limit memory usage in shared hosting/cloud environments or to enforce a given quality of service.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Time &amp;amp; Rate Limits&lt;/code&gt;: You can control how many tasks can be executed per second/minute/hour, or how long a task can be allowed to run, and this can be set as a default, for a specific worker or individually for each task type.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Scheduling&lt;/code&gt;: You can specify the time to run a task in seconds or a datetime, or or you can use periodic tasks for recurring events based on a simple interval, or crontab expressions supporting minute, hour, day of week, day of month, and month of year.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Resource leak protection&lt;/code&gt;:&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;User components&lt;/code&gt;:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;how-does-celery-work&quot;&gt;2 how does celery work?&lt;/h2&gt;
-
-&lt;h3 id=&quot;some-terms-in-message-queue-and-celery&quot;&gt;2.1 some terms in message queue and celery&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;celery task&lt;/code&gt;: a serialized task info which will be scheduled to done by celery,
-generally it contains some meta data, like bellow:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4cc7438e-afd4-4f8f-a2f3-f46567e7ca77&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;task&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;celery.task.PingTask&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;args&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;kwargs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;retries&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;eta&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2009-11-17T12:30:56.527191&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;producer&lt;/code&gt;: the one who send task messages to the broker,
-generally it is a celery client.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;consumer&lt;/code&gt;: fetch task messages from queues and process them.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;broker&lt;/code&gt;: the one who receives task messages from producer and route different
-messages to different queues.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;exchange&lt;/code&gt;: exchange, or a router, the one who really do message receiving from producer
-and dispatching message to queues. two things should be taken in mind about exchange:
-    &lt;ul&gt;
-      &lt;li&gt;one message from producer can be routed to zero or more queues;&lt;/li&gt;
-      &lt;li&gt;you can set route rules for the exchange, called &lt;a href=&quot;&quot;&gt;bindings&lt;/a&gt;;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;queue&lt;/code&gt;: buffer for store task messages.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;the-celery-workflow&quot;&gt;2.2 the celery workflow&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/how_celery_works.jpg&quot; alt=&quot;how_celery_works.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-workflow-deployment&quot;&gt;2.3 the workflow deployment&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/celery-deploy.jpg&quot; alt=&quot;celery-deploy.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;install-celery&quot;&gt;3. install celery&lt;/h2&gt;
-
-&lt;p&gt;two possible ways to install celery.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;install the latest stable celery and its dependences&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;chenshan@mac007:~/Desktop&lt;span class=&quot;nv&quot;&gt;$sudo&lt;/span&gt; pip install -U celery
-...
-...
-...
-Installing collected packages: celery, kombu, billiard, amqp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;the celery dependences info is listed here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/faq.html#does-celery-have-many-dependencies&quot;&gt;Does Celery have many dependencies&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;install celery with bundles&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.&lt;/p&gt;
-
-&lt;p&gt;You can specify these in your requirements or on the pip comand-line by using brackets. Multiple bundles can be specified by separating them by commas. for example, using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;pip install &quot;celery[librabbitmq,redis,auth,msgpack]&quot;&lt;/code&gt; to install celery with librabbitmq, redis, auth, msgpack libriaries.&lt;/p&gt;
-
-&lt;p&gt;all bundles command can be find here: &lt;a href=&quot;http://docs.celeryproject.org/en/latest/getting-started/introduction.html#bundles&quot;&gt;bundles&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;celery official site&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&quot;&gt;http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zapier.com/blog/async-celery-example-why-and-how/&quot;&gt;Async Celery by Example: Why and How&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blogs.vmware.com/vfabric/2013/04/how-instagram-feeds-work-celery-and-rabbitmq.html&quot;&gt;How Instagram Feeds Work: Celery and RabbitMQ&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/23916413/celery-parallel-distributed-task-with-multiprocessing&quot;&gt;stackoverflow: Celery parallel distributed task with multiprocessing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.avilpage.com/2014/11/scaling-celery-sending-tasks-to-remote.html&quot;&gt;[Scaling Celery] Sending Tasks To Remote Machines!
-&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://lc0.github.io/blog/2013/05/01/celery-messaging-at-scale-at-instagram/&quot;&gt;Celery Messaging at Scale at Instagram&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://denibertovic.com/posts/celery-best-practices/&quot;&gt;CELERY - BEST PRACTICES&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://denibertovic.com/talks/celery-best-practices/#/&quot;&gt;CELERY - BEST PRACTICES slide&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/siddontang/article/details/34447003&quot;&gt;CELERY - BEST PRACTICES 中文&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.opscoder.info/queryset_lazy.html&quot;&gt;从一次celery踩坑中谈谈Queryset的懒加载&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/6192265/send-log-messages-from-all-celery-tasks-to-a-single-file&quot;&gt;stackoverflow: Send log messages from all celery tasks to a single file&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
 </content>
    </entry>

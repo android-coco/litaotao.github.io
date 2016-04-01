@@ -53,28 +53,26 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [`slide` Spark in Production: Lessons from 100+ Production Users](http://www.slideshare.net/databricks/spark-summit-eu-2015-lessons-from-300-production-users)
 
 - [Production Spark and Tachyon use Cases](https://www.youtube.com/watch?v=rBrsxM091KA)
-- []
+- [`slide` Production Spark and Tachyon use Cases](http://www.slideshare.net/SparkSummit/using-spark-with-tachyon-by-gene-pang)
 
 - [SparkUI Visualization](https://www.youtube.com/watch?v=VQOKk9jJGcw&index=5&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
 - [`slide` SparkUI Visualization](http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application)
 
 - [Machine Learning with Big Data using Apache Spark](https://www.youtube.com/watch?v=sNwGJP-_30U)
-- []()
 
 - [Securing your Spark Applications](https://www.youtube.com/watch?v=Aups6UcGiQQ&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&index=1)
-- []()
+- [`slide` Securing your Spark Applications](http://www.slideshare.net/cloudera/securing-your-apache-spark-applications)
 
 
 - [Building a REST Job Server for Interactive Spark as a Service](https://www.youtube.com/watch?v=AHYq91i-ohI)
-- []()
+- [`slide` Building a REST Job Server for Interactive Spark as a Service](http://www.slideshare.net/SparkSummit/building-a-rest-job-server-for-interactive-spark-as-a-service-by-romain-rigaux-and-erick-tryzelaar)
 
 
 - [Exploiting GPUs for Columnar DataFrame Operations](https://www.youtube.com/watch?v=PPQRi484bNo&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&index=2)
-- []()
+- [`slide` Exploiting GPUs for Columnar DataFrame Operations](http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar)
 
 
 - [Time Series Stream Processing with Spark and Cassandra](https://www.youtube.com/watch?v=fBWLzB0FMX4&index=3&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
-- []()
 
 
 - [Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://www.youtube.com/watch?v=MFSUAkDBSdQ)
@@ -97,6 +95,16 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [过往记忆](http://www.iteblog.com/archives/category/spark)
 
 
+## 4. next
+
+上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。
+
+
+## 5. 打开微信，扫一扫，点一点，棒棒的
+
+![wechat_pay.png](../images/wechat_pay.png)
+
+
 
 ## 本系列文章链接
 
@@ -105,4 +113,8 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](../spark-dataframe-introduction)
+
+
+

@@ -22,7 +22,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ***`Problem: How does user program get translated into units of physical execution ?`***
 
-我们首先从一个例子说起，结合例子和运行截图来理解。
+我们用一个例子来说明，结合例子和运行截图来理解。
 
 ## 1.1 例子，美国 1880 － 2014 年新生婴儿数据统计
 
@@ -142,6 +142,10 @@ ax.grid(color='gray', alpha=0.2, axis='y')
 
 既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。
 
+## 3. 打开微信，扫一扫，点一点，棒棒的
+
+![wechat_pay.png](../images/wechat_pay.png)
+
 
 ## 参考文章
 
@@ -159,7 +163,10 @@ ax.grid(color='gray', alpha=0.2, axis='y')
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](../spark-dataframe-introduction)
+
+
 
 
 

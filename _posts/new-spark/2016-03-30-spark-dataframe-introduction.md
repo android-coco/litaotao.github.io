@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 『 Spark 』7. 使用 Spark DataFrame 进行大数据分析
 description: know more, do better 
 ---  
@@ -51,16 +51,12 @@ DataFrame API 是在 R 和 Python data frame 的设计灵感之上设计的，�
 - *do more : 做更多的事情*
 - *faster : 以更快的速度*
 
-### 2.1 write less : 写更少的代码
-
-### 2.2 do more : 做更多的事情
-
-### 2.3 faster : 以更快的速度
-
 
 ## 3. 创建 dataframe
 
-因为 spark sql，dataframe，datasets 都是共用 spark sql 这个库的，三者共享同样的代码优化，生成以及执行流程，所以 sql，dataframe，datasets 的入口都是 sqlContext.
+因为 spark sql，dataframe，datasets 都是共用 spark sql 这个库的，三者共享同样的代码优化，生成以及执行流程，所以 sql，dataframe，datasets 的入口都是 sqlContext。可用于创建 spark dataframe 的数据源有很多，我们就讲最简单的从结构化文件创建 dataframe。
+
+![spark-dataframe-3.jpg](../images/spark-dataframe-3.jpg)
 
 - step 1 : 创建 sqlContext
 
@@ -84,30 +80,118 @@ except:
 
 {% endhighlight %}
 
-- step 2 : 创建 dataframe，从已有的 RDD
+- step 2 : 创建 dataframe，从 json 文件
+
+数据文件说明：中国 A 股上市公司基本信息，可以在这里取到：[stock_5.json](http://pan.baidu.com/s/1pLxN851)
+
+![spark-dataframe-1.jpg](../images/spark-dataframe-1.jpg)
+
+注：这里的 json 文件并不是标准的 json 文件，spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。
+
+比如说，官网的 `people.json` 这个例子，它要求的格式是：
+
+{% highlight json %}
+
+{"name":"Yin", "address":{"city":"Columbus","state":"Ohio"}}
+{"name":"Michael", "address":{"city":null, "state":"California"}}
+
+{% endhighlight %}
+
+但对这个文件来看，标准的 json 格式只有下面两种：
+
+{% highlight json %}
+
+{"name": ["Yin", "Michael"],
+ "address":[ 
+    {"city":"Columbus","state":"Ohio"}, 
+    {"city":null, "state":"California"} 
+  ]
+}
+
+### 或者
+
+[ 
+{"name":"Yin", "address":{"city":"Columbus","state":"Ohio"}},
+{"name":"Michael", "address":{"city":null, "state":"California"}}
+]
+
+{% endhighlight %}
+
+所以在用 spark sql 来读取一个 json 文件的时候，务必要提前处理好 json 的文件格式，这里我们已经提前处理好了，文件如下所示：
+
+{% highlight json %}
+
+{"ticker":"000001","tradeDate":"2016-03-30","exchangeCD":"XSHE","secShortName":"\u5e73\u5b89\u94f6\u884c","preClosePrice":10.43,"openPrice":10.48,"dealAmount":19661,"turnoverValue":572627417.1299999952,"highestPrice":10.7,"lowestPrice":10.47,"closePrice":10.7,"negMarketValue":126303384220.0,"marketValue":153102835340.0,"isOpen":1,"secID":"000001.XSHE","listDate":"1991-04-03","ListSector":"\u4e3b\u677f","totalShares":14308676200},
+{"ticker":"000002","tradeDate":"2016-03-30","exchangeCD":"XSHE","secShortName":"\u4e07\u79d1A","preClosePrice":24.43,"openPrice":0.0,"dealAmount":0,"turnoverValue":0.0,"highestPrice":0.0,"lowestPrice":0.0,"closePrice":24.43,"negMarketValue":237174448154.0,"marketValue":269685994760.0,"isOpen":0,"secID":"000002.XSHE","listDate":"1991-01-29","ListSector":"\u4e3b\u677f","totalShares":11039132000}
+
+{% endhighlight %}
+
+
+{% highlight python %}
+
+### df is short for dataframe
+
+df = sqlContext.read.json('hdfs://10.21.208.21:8020/user/mercury/stock_5.json')
+print df.printSchema()
+print df.select(['ticker', 'secID', 'tradeDate', 'listDate', 'openPrice', 'closePrice', 
+                 'highestPrice', 'lowestPrice', 'isOpen']).show(n=5)
+{% endhighlight %}
+
+![spark-dataframe-2.jpg](../images/spark-dataframe-2.jpg)
 
 
 ## 4. 操作 dataframe
 
+同 rdd 一样，dataframe 也有很多专属于自己的算子，用于操作整个 dataframe 数据集，我们以后都简称为 dataframe api 吧，用 `算子`， `DSL` 这类的称呼对不熟悉的人来说不易理解，下面这里是完整的 api 列表：[spark dataframe api](http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame)
 
 
 
+### 4.1 在 dataframe 上执行 sql 语句
+
+![spark-dataframe-4.jpg](../images/spark-dataframe-4.jpg)
+
+
+### 4.2 spark dataframe 与 pandas dataframe 转换
+
+一图胜千言啊：
+
+![spark-dataframe-6.jpg](../images/spark-dataframe-6.jpg)
+
+纵观 spark 的诞生和发展，我觉得 spark 有一点做得非常明智：*对同类产品的兼容*。从大的方面来说，就像 spark 官网的这段话一样: *Runs Everywhere: Spark runs on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.*，spark 对 hadoop 系产品的兼容，让 hadoop 系的开发人员可以轻松的从 hadoop 转到 spark；从小的方面来说，spark 对一些细分工具也照顾 [兼容] 得很好，比如说 spark 推出了 dataframe，人家就可以支持 spark dataframe 和 pandas dataframe 的转换。
+
+熟悉 pandas dataframe 的都了解，pandas 里的 dataframe 可以做很多事情，比如说画图，保存为各种类型的文件，做数据分析什么的。我觉得，可以在 spark 的 dataframe 里做数据处理，分析的整个逻辑，然后可以把最后的结果转化成 pandas 的 dataframe 来展示。当然，如果你的数据量小，也可以直接用 pandas dataframe 来做。
+
+![spark-dataframe-7.jpg](../images/spark-dataframe-7.jpg)
 
 
 ## 5. 一些经验
 
+### 5.1 spark json 格式问题
+
+spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。
+
+### 5.2 spark dataframe 和 pandas dataframe 选择问题
+
+如果数据量小，结构简单，可以直接用 pandas dataframe 来做分析；如果数据量大，结构复杂 [嵌套结构]，那么推荐用 spark dataframe 来做数据分析，然后把结果转成 pandas dataframe，用 pandas dataframe 来做展示和报告。
 
 
+## 6. Next
 
-## 2. Next
+ok，dataframe 简单的也说了几句了。我们先缓一缓，上个例子，再接着讲起他的，例子的话就用一个我正在实践的：用 spark 来做量化投资。
 
-既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。
+## 7. 打开微信，扫一扫，点一点，棒棒的
+
+![wechat_pay.png](../images/wechat_pay.png)
 
 
 ## 参考文章
 
 - [Spark SQL, DataFrames and Datasets Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html#dataframes)
 - [Introducing DataFrames in Spark for Large Scale Data Science](https://databricks.com/blog/2015/02/17/introducing-dataframes-in-spark-for-large-scale-data-science.html)
+- [From Webinar Apache Spark 1.5: What is the difference between a DataFrame and a RDD?](https://forums.databricks.com/questions/7257/from-webinar-spark-dataframes-what-is-the-differen-1.html)
+- [用Apache Spark进行大数据处理——第二部分：Spark SQL](http://www.infoq.com/cn/articles/apache-spark-sql)
+- [An introduction to JSON support in Spark SQL](https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html)
+
 
 
 ## 本系列文章链接
@@ -117,7 +201,8 @@ except:
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](../spark-dataframe-introduction)
 
 
 

@@ -209,6 +209,13 @@ spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd
 
 下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。
 
+
+## 5. 打开微信，扫一扫，点一点，棒棒的
+
+![wechat_pay.png](../images/wechat_pay.png)
+
+
+
 ## 参考文章
 
 - [spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
@@ -224,6 +231,10 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 - [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
 - [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](../spark-dataframe-introduction)
+
+
+
 
 

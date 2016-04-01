@@ -98,15 +98,11 @@
   <li><em>faster : 以更快的速度</em></li>
 </ul>
 
-<h3 id="write-less--">2.1 write less : 写更少的代码</h3>
-
-<h3 id="do-more--">2.2 do more : 做更多的事情</h3>
-
-<h3 id="faster--">2.3 faster : 以更快的速度</h3>
-
 <h2 id="dataframe">3. 创建 dataframe</h2>
 
-<p>因为 spark sql，dataframe，datasets 都是共用 spark sql 这个库的，三者共享同样的代码优化，生成以及执行流程，所以 sql，dataframe，datasets 的入口都是 sqlContext.</p>
+<p>因为 spark sql，dataframe，datasets 都是共用 spark sql 这个库的，三者共享同样的代码优化，生成以及执行流程，所以 sql，dataframe，datasets 的入口都是 sqlContext。可用于创建 spark dataframe 的数据源有很多，我们就讲最简单的从结构化文件创建 dataframe。</p>
+
+<p><img src="../images/spark-dataframe-3.jpg" alt="spark-dataframe-3.jpg" /></p>
 
 <ul>
   <li>step 1 : 创建 sqlContext</li>
@@ -129,25 +125,99 @@
     <span class="n">sqlContext</span> <span class="o">=</span> <span class="n">SQLContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span></code></pre></figure>
 
 <ul>
-  <li>step 2 : 创建 dataframe，从已有的 RDD</li>
+  <li>step 2 : 创建 dataframe，从 json 文件</li>
 </ul>
+
+<p>数据文件说明：中国 A 股上市公司基本信息，可以在这里取到：<a href="http://pan.baidu.com/s/1pLxN851">stock_5.json</a></p>
+
+<p><img src="../images/spark-dataframe-1.jpg" alt="spark-dataframe-1.jpg" /></p>
+
+<p>注：这里的 json 文件并不是标准的 json 文件，spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。</p>
+
+<p>比如说，官网的 <code class="highlighter-rouge">people.json</code> 这个例子，它要求的格式是：</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Yin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:{</span><span class="nt">"city"</span><span class="p">:</span><span class="s2">"Columbus"</span><span class="p">,</span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"Ohio"</span><span class="p">}}</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Michael"</span><span class="p">,</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:{</span><span class="nt">"city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"California"</span><span class="p">}}</span></code></pre></figure>
+
+<p>但对这个文件来看，标准的 json 格式只有下面两种：</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Yin"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Michael"</span><span class="p">],</span><span class="w">
+ </span><span class="nt">"address"</span><span class="p">:[</span><span class="w"> 
+    </span><span class="p">{</span><span class="nt">"city"</span><span class="p">:</span><span class="s2">"Columbus"</span><span class="p">,</span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"Ohio"</span><span class="p">},</span><span class="w"> 
+    </span><span class="p">{</span><span class="nt">"city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"California"</span><span class="p">}</span><span class="w"> 
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">或者</span><span class="w">
+
+</span><span class="p">[</span><span class="w"> 
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Yin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:{</span><span class="nt">"city"</span><span class="p">:</span><span class="s2">"Columbus"</span><span class="p">,</span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"Ohio"</span><span class="p">}},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Michael"</span><span class="p">,</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:{</span><span class="nt">"city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="s2">"California"</span><span class="p">}}</span><span class="w">
+</span><span class="p">]</span></code></pre></figure>
+
+<p>所以在用 spark sql 来读取一个 json 文件的时候，务必要提前处理好 json 的文件格式，这里我们已经提前处理好了，文件如下所示：</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">"ticker"</span><span class="p">:</span><span class="s2">"000001"</span><span class="p">,</span><span class="nt">"tradeDate"</span><span class="p">:</span><span class="s2">"2016-03-30"</span><span class="p">,</span><span class="nt">"exchangeCD"</span><span class="p">:</span><span class="s2">"XSHE"</span><span class="p">,</span><span class="nt">"secShortName"</span><span class="p">:</span><span class="s2">"\u5e73\u5b89\u94f6\u884c"</span><span class="p">,</span><span class="nt">"preClosePrice"</span><span class="p">:</span><span class="mf">10.43</span><span class="p">,</span><span class="nt">"openPrice"</span><span class="p">:</span><span class="mf">10.48</span><span class="p">,</span><span class="nt">"dealAmount"</span><span class="p">:</span><span class="mi">19661</span><span class="p">,</span><span class="nt">"turnoverValue"</span><span class="p">:</span><span class="mf">572627417.1299999952</span><span class="p">,</span><span class="nt">"highestPrice"</span><span class="p">:</span><span class="mf">10.7</span><span class="p">,</span><span class="nt">"lowestPrice"</span><span class="p">:</span><span class="mf">10.47</span><span class="p">,</span><span class="nt">"closePrice"</span><span class="p">:</span><span class="mf">10.7</span><span class="p">,</span><span class="nt">"negMarketValue"</span><span class="p">:</span><span class="mf">126303384220.0</span><span class="p">,</span><span class="nt">"marketValue"</span><span class="p">:</span><span class="mf">153102835340.0</span><span class="p">,</span><span class="nt">"isOpen"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"secID"</span><span class="p">:</span><span class="s2">"000001.XSHE"</span><span class="p">,</span><span class="nt">"listDate"</span><span class="p">:</span><span class="s2">"1991-04-03"</span><span class="p">,</span><span class="nt">"ListSector"</span><span class="p">:</span><span class="s2">"\u4e3b\u677f"</span><span class="p">,</span><span class="nt">"totalShares"</span><span class="p">:</span><span class="mi">14308676200</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="nt">"ticker"</span><span class="p">:</span><span class="s2">"000002"</span><span class="p">,</span><span class="nt">"tradeDate"</span><span class="p">:</span><span class="s2">"2016-03-30"</span><span class="p">,</span><span class="nt">"exchangeCD"</span><span class="p">:</span><span class="s2">"XSHE"</span><span class="p">,</span><span class="nt">"secShortName"</span><span class="p">:</span><span class="s2">"\u4e07\u79d1A"</span><span class="p">,</span><span class="nt">"preClosePrice"</span><span class="p">:</span><span class="mf">24.43</span><span class="p">,</span><span class="nt">"openPrice"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="nt">"dealAmount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"turnoverValue"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="nt">"highestPrice"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="nt">"lowestPrice"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="nt">"closePrice"</span><span class="p">:</span><span class="mf">24.43</span><span class="p">,</span><span class="nt">"negMarketValue"</span><span class="p">:</span><span class="mf">237174448154.0</span><span class="p">,</span><span class="nt">"marketValue"</span><span class="p">:</span><span class="mf">269685994760.0</span><span class="p">,</span><span class="nt">"isOpen"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"secID"</span><span class="p">:</span><span class="s2">"000002.XSHE"</span><span class="p">,</span><span class="nt">"listDate"</span><span class="p">:</span><span class="s2">"1991-01-29"</span><span class="p">,</span><span class="nt">"ListSector"</span><span class="p">:</span><span class="s2">"\u4e3b\u677f"</span><span class="p">,</span><span class="nt">"totalShares"</span><span class="p">:</span><span class="mi">11039132000</span><span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### df is short for dataframe</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">sqlContext</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s">'hdfs://10.21.208.21:8020/user/mercury/stock_5.json'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="s">'ticker'</span><span class="p">,</span> <span class="s">'secID'</span><span class="p">,</span> <span class="s">'tradeDate'</span><span class="p">,</span> <span class="s">'listDate'</span><span class="p">,</span> <span class="s">'openPrice'</span><span class="p">,</span> <span class="s">'closePrice'</span><span class="p">,</span> 
+                 <span class="s">'highestPrice'</span><span class="p">,</span> <span class="s">'lowestPrice'</span><span class="p">,</span> <span class="s">'isOpen'</span><span class="p">])</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="../images/spark-dataframe-2.jpg" alt="spark-dataframe-2.jpg" /></p>
 
 <h2 id="dataframe-1">4. 操作 dataframe</h2>
 
+<p>同 rdd 一样，dataframe 也有很多专属于自己的算子，用于操作整个 dataframe 数据集，我们以后都简称为 dataframe api 吧，用 <code class="highlighter-rouge">算子</code>， <code class="highlighter-rouge">DSL</code> 这类的称呼对不熟悉的人来说不易理解，下面这里是完整的 api 列表：<a href="http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame">spark dataframe api</a></p>
+
+<h3 id="dataframe--sql-">4.1 在 dataframe 上执行 sql 语句</h3>
+
+<p><img src="../images/spark-dataframe-4.jpg" alt="spark-dataframe-4.jpg" /></p>
+
+<h3 id="spark-dataframe--pandas-dataframe-">4.2 spark dataframe 与 pandas dataframe 转换</h3>
+
+<p>一图胜千言啊：</p>
+
+<p><img src="../images/spark-dataframe-6.jpg" alt="spark-dataframe-6.jpg" /></p>
+
+<p>纵观 spark 的诞生和发展，我觉得 spark 有一点做得非常明智：<em>对同类产品的兼容</em>。从大的方面来说，就像 spark 官网的这段话一样: <em>Runs Everywhere: Spark runs on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</em>，spark 对 hadoop 系产品的兼容，让 hadoop 系的开发人员可以轻松的从 hadoop 转到 spark；从小的方面来说，spark 对一些细分工具也照顾 [兼容] 得很好，比如说 spark 推出了 dataframe，人家就可以支持 spark dataframe 和 pandas dataframe 的转换。</p>
+
+<p>熟悉 pandas dataframe 的都了解，pandas 里的 dataframe 可以做很多事情，比如说画图，保存为各种类型的文件，做数据分析什么的。我觉得，可以在 spark 的 dataframe 里做数据处理，分析的整个逻辑，然后可以把最后的结果转化成 pandas 的 dataframe 来展示。当然，如果你的数据量小，也可以直接用 pandas dataframe 来做。</p>
+
+<p><img src="../images/spark-dataframe-7.jpg" alt="spark-dataframe-7.jpg" /></p>
+
 <h2 id="section-1">5. 一些经验</h2>
 
-<h2 id="next">2. Next</h2>
+<h3 id="spark-json-">5.1 spark json 格式问题</h3>
 
-<p>既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。</p>
+<p>spark 目前也不支持读取标准的 json 文件。你需要预先把标准的 json 文件处理成 spark 支持的格式: 每一行是一个 json 对象。</p>
 
-<h2 id="section-2">参考文章</h2>
+<h3 id="spark-dataframe--pandas-dataframe--1">5.2 spark dataframe 和 pandas dataframe 选择问题</h3>
+
+<p>如果数据量小，结构简单，可以直接用 pandas dataframe 来做分析；如果数据量大，结构复杂 [嵌套结构]，那么推荐用 spark dataframe 来做数据分析，然后把结果转成 pandas dataframe，用 pandas dataframe 来做展示和报告。</p>
+
+<h2 id="next">6. Next</h2>
+
+<p>ok，dataframe 简单的也说了几句了。我们先缓一缓，上个例子，再接着讲起他的，例子的话就用一个我正在实践的：用 spark 来做量化投资。</p>
+
+<h2 id="section-2">7. 打开微信，扫一扫，点一点，棒棒的</h2>
+
+<p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
+
+<h2 id="section-3">参考文章</h2>
 
 <ul>
   <li><a href="http://spark.apache.org/docs/latest/sql-programming-guide.html#dataframes">Spark SQL, DataFrames and Datasets Guide</a></li>
   <li><a href="https://databricks.com/blog/2015/02/17/introducing-dataframes-in-spark-for-large-scale-data-science.html">Introducing DataFrames in Spark for Large Scale Data Science</a></li>
+  <li><a href="https://forums.databricks.com/questions/7257/from-webinar-spark-dataframes-what-is-the-differen-1.html">From Webinar Apache Spark 1.5: What is the difference between a DataFrame and a RDD?</a></li>
+  <li><a href="http://www.infoq.com/cn/articles/apache-spark-sql">用Apache Spark进行大数据处理——第二部分：Spark SQL</a></li>
+  <li><a href="https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html">An introduction to JSON support in Spark SQL</a></li>
 </ul>
 
-<h2 id="section-3">本系列文章链接</h2>
+<h2 id="section-4">本系列文章链接</h2>
 
 <ul>
   <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
@@ -155,7 +225,8 @@
   <li><a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a></li>
   <li><a href="../spark-what-is-rdd">『 Spark 』4. spark 之 RDD </a></li>
   <li><a href="../spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
-  <li><a href="deep-into-spark-exection-model">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></li>
+  <li><a href="../deep-into-spark-exection-model">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></li>
+  <li><a href="../spark-dataframe-introduction">『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</a></li>
 </ul>
 
 
