@@ -26,7 +26,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-01T17:32:19+08:00</updated>
+   <updated>2016-04-01T17:39:43+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -207,6 +207,8 @@
   &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/17/introducing-dataframes-in-spark-for-large-scale-data-science.html&quot;&gt;Introducing DataFrames in Spark for Large Scale Data Science&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://forums.databricks.com/questions/7257/from-webinar-spark-dataframes-what-is-the-differen-1.html&quot;&gt;From Webinar Apache Spark 1.5: What is the difference between a DataFrame and a RDD?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/apache-spark-sql&quot;&gt;用Apache Spark进行大数据处理——第二部分：Spark SQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html&quot;&gt;An introduction to JSON support in Spark SQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2015-02-18/2823997&quot;&gt;Spark新年福音：一个用于大规模数据科学的API——DataFrame&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html&quot;&gt;An introduction to JSON support in Spark SQL&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
