@@ -64,43 +64,43 @@ with an X where your own negotiating style and approach in business negotiation 
 
 - Goal: What is your goal in business negotiations: a binding contract or the creation of a relationship?
 
-![](../images/goal.png)
+![](http://litaotao.github.io/images/goal.png)
 
 - Attitudes: What is your attitude toward negotiation: win/lose or win/win?
 
-![](../images/attitudes.png)
+![](http://litaotao.github.io/images/attitudes.png)
 
 - Personal Styles: During negotiations, is your personal style informal or formal?
 
-![](../images/personal%20styles.png)
+![](http://litaotao.github.io/images/personal%20styles.png)
 
 - Communications: Is your communication style in negotiation direct (for instance, clear and definite proposals and answers) or indirect (for instance, vague, evasive answers)?
 
-![](../images/communications.png)
+![](http://litaotao.github.io/images/communications.png)
 
 - Time Sensitivity: In the negotiation process, is your sensitivity to time high (for instance, you want to make a deal quickly) or low (you negotiate slowly)?
 
-![](../images/high%3Alow.png)
+![](http://litaotao.github.io/images/high%3Alow.png)
 
 - Emotionalism: During negotiations, is your emotionalism high (that is, you have a tendency to display your emotions) or low (you hide your feelings)?
 
-![](../images/high%3Alow.png)
+![](http://litaotao.github.io/images/high%3Alow.png)
 
 - Agreement Form: Do you prefer agreements that are specific (that is, detailed) or general?
 
-![](../images/agreement%20form.png)
+![](http://litaotao.github.io/images/agreement%20form.png)
 
 - Agreement Building: Do you view negotiation as bottom up (reach agreement on details first) or top down (begin with agreement on general principle)?
 
-![](../images/agreement%20building.png)
+![](http://litaotao.github.io/images/agreement%20building.png)
 
 - Team Organization: As a member of a negotiating team, do you prefer having one leader who has authority to make a decision or decision making by consensus?
 
-![](../images/team%20organization.png)
+![](http://litaotao.github.io/images/team%20organization.png)
 
 - Risk Taking: Is your tendency to take risks during negotiations high (for instance, your opening offer to sell is extremely high) or low?
 
-![](../images/high%3Alow.png)
+![](http://litaotao.github.io/images/high%3Alow.png)
 
 
 ### 2.2 Checklist of Ethical Standards and Guidelines
@@ -132,8 +132,8 @@ with an X where your own negotiating style and approach in business negotiation 
     - How to handle ethical issues?
     - Should use an agent to negotiate for me?
 
-![negotiation-1.jpg](../images/negotiation-1.jpg)
-![negotiation-2.jpg](../images/negotiation-2.jpg)
+![negotiation-1.jpg](http://litaotao.github.io/images/negotiation-1.jpg)
+![negotiation-2.jpg](http://litaotao.github.io/images/negotiation-2.jpg)
 
 ### 2.5 A dispute resolution or deal making negotiation
 
@@ -147,8 +147,8 @@ with an X where your own negotiating style and approach in business negotiation 
     - interest-based
     - problem solving
 
-![negotiation-4.jpg](../images/negotiation-4.jpg)
-![negotiation-5.jpg](../images/negotiation-5.jpg)
+![negotiation-4.jpg](http://litaotao.github.io/images/negotiation-4.jpg)
+![negotiation-5.jpg](http://litaotao.github.io/images/negotiation-5.jpg)
 
 
 
