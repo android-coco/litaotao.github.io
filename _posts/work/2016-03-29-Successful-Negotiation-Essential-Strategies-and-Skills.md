@@ -7,6 +7,9 @@ description: Course memo of Successful Negotiation Essential Strategies and Skil
 ---
 
 
+## 写在前面
+
+这是我在 cousera 上这门课 [Successful Negotiation Essential Strategies and Skills](https://www.coursera.org/learn/negotiation-skills) 记录的学习笔记。
 
 
 ## 1. Introduction and Overview
@@ -18,10 +21,10 @@ We all negotiate on a daily basis. On a personal level, we negotiate with friend
 
 In this course, you’ll learn about and practice the four steps to a successful negotiation, with one module for each step:
 
-- Prepare: Plan Your Negotiation Strategy
-- Negotiate: Use Key Tactics for Success
-- Close: Create a Contract
-- Perform and Evaluate: The End Game
+- *Prepare*: Plan Your Negotiation Strategy
+- *Negotiate*: Use Key Tactics for Success
+- *Close*: Create a Contract
+- *Perform and Evaluate*: The End Game
 
 ### 1.2 Suggested Readings
 
@@ -61,42 +64,94 @@ with an X where your own negotiating style and approach in business negotiation 
 
 - Goal: What is your goal in business negotiations: a binding contract or the creation of a relationship?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/goal.png)
+![](../images/goal.png)
 
 - Attitudes: What is your attitude toward negotiation: win/lose or win/win?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/attitudes.png)
+![](../images/attitudes.png)
 
 - Personal Styles: During negotiations, is your personal style informal or formal?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/personal%20styles.png)
+![](../images/personal%20styles.png)
 
 - Communications: Is your communication style in negotiation direct (for instance, clear and definite proposals and answers) or indirect (for instance, vague, evasive answers)?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/communications.png)
+![](../images/communications.png)
 
 - Time Sensitivity: In the negotiation process, is your sensitivity to time high (for instance, you want to make a deal quickly) or low (you negotiate slowly)?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/high%3Alow.png)
+![](../images/high%3Alow.png)
 
 - Emotionalism: During negotiations, is your emotionalism high (that is, you have a tendency to display your emotions) or low (you hide your feelings)?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/high%3Alow.png)
+![](../images/high%3Alow.png)
 
 - Agreement Form: Do you prefer agreements that are specific (that is, detailed) or general?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/agreement%20form.png)
+![](../images/agreement%20form.png)
 
 - Agreement Building: Do you view negotiation as bottom up (reach agreement on details first) or top down (begin with agreement on general principle)?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/agreement%20building.png)
+![](../images/agreement%20building.png)
 
 - Team Organization: As a member of a negotiating team, do you prefer having one leader who has authority to make a decision or decision making by consensus?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/team%20organization.png)
+![](../images/team%20organization.png)
 
 - Risk Taking: Is your tendency to take risks during negotiations high (for instance, your opening offer to sell is extremely high) or low?
 
-![](https://spark-public.s3.amazonaws.com/flex-successfulnegotiation/high%3Alow.png)
+![](../images/high%3Alow.png)
+
+
+### 2.2 Checklist of Ethical Standards and Guidelines
+
+- *Required by Law*:
+
+    - No Fraud. (Do not lie.)
+    - Uphold your fiduciary duty. (If there is a fiduciary relationship with the other side, you owe the highest duty of trust and loyalty.)
+    - Don’t act in an unconscionable manner. (When you are in a dominant position of power, try to reach an agreement that is fair to the other side.)
+    
+- *Voluntary Ethical Standards and Guidelines*:
+
+    - Organizational standards. (If your employer has a Code of Conduct, does it provide standards for your negotiations?)
+    - Someone you admire. (What would someone you admire do in your situation?)
+    - Family test. (How would you feel when describing to your family what you did during a negotiation?)
+    - Newspaper test. (How would you feel if a newspaper article in the local paper described what you did during a negotiation?)
+    - Golden Rule. (Treat others as you want to be treated. Keep in mind that fairness is very important to the other side.)
+
+### 2.3 Should I Negotiate?
+
+### 2.4 A Position Based Negotiation and Interest Based Negotiation
+
+- *Prepare*: Plan Your Negotiation Strategy
+    - preliminary question: should I negotiate?
+    - Is this negotiation a position-based or interest-based?
+    - resolve a dispute or make a deal?
+    - How to analyse the negotiation?
+    - cross-cultural negotiation?
+    - How to handle ethical issues?
+    - Should use an agent to negotiate for me?
+
+![negotiation-1.jpg](../images/negotiation-1.jpg)
+![negotiation-2.jpg](../images/negotiation-2.jpg)
+
+### 2.5 A dispute resolution or deal making negotiation
+
+- dispute resolution
+    - backwark looking
+    - position-based
+    - adverserial
+
+- deal making
+    - forward looking
+    - interest-based
+    - problem solving
+
+![negotiation-4.jpg](../images/negotiation-4.jpg)
+![negotiation-5.jpg](../images/negotiation-5.jpg)
+
+
+
+
 
 
