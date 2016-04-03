@@ -159,6 +159,65 @@ Using controllable partitioning, applications can sometimes greatly reduce commu
 
 Spark provides special operations on RDDs containing key/value pairs. These RDDs are called pair RDDs. Pair RDDs are a useful building block in many programs, as they expose operations that allow you to act on each key in parallel or regroup data across the network. 
 
+### 4.2 Data Partitioning (Advanced)
+
+The final Spark feature we will discuss in this chapter is how to control datasets’ partitioning across nodes. In a distributed program, communication is very expensive, so *laying out data to minimize network traffic can greatly improve performance*. Much like how a single-node program needs to choose the right data structure for a collection of records, Spark programs can choose to control their RDDs’ partitioning to reduce communication. Partitioning will not be helpful in all applications.for example, if a given RDD is scanned only once, there is no point in partitioning it in advance. *It is useful only when a dataset is reused multiple times in key-oriented operations such as joins*. We will give some examples shortly.
+
+Spark’s partitioning is available on all RDDs of key/value pairs, and causes the system to group elements based on a function of each key. Although Spark does not give explicit control of which worker node each key goes to (partly because the system is designed to work even if specific nodes fail), it lets the program ensure that a set of keys will appear together on some node. For example, you might choose to hash-partition an RDD into 100 partitions so that keys that have the same hash value modulo 100 appear on the same node. Or you might range-partition the RDD into sorted ranges of keys so that elements with keys in the same range appear on the same node.
+
+As a simple example, consider an application that keeps a large table of user information in memory—say, an RDD of (UserID, UserInfo) pairs, where UserInfo contains a list of topics the user is subscribed to. The application periodically combines this table with a smaller file representing events that happened in the past five minutes—say, a table of (UserID, LinkInfo) pairs for users who have clicked a link on a website in those five minutes. For example, we may wish to count how many users visited a link that was not to one of their subscribed topics. We can perform this combination with Spark’s join() operation, which can be used to group the UserInfo and LinkInfo pairs for each UserID by key. Our application would look like bellow:
+
+{% highlight python %}
+
+// Initialization code; we load the user info from a Hadoop SequenceFile on HDFS.
+// This distributes elements of userData by the HDFS block where they are found,
+// and doesn't provide Spark with any way of knowing in which partition a
+// particular UserID is located.
+val sc = new SparkContext(...)
+val userData = sc.sequenceFile[UserID, UserInfo]("hdfs://...").persist()
+
+// Function called periodically to process a logfile of events in the past 5 minutes;
+// we assume that this is a SequenceFile containing (UserID, LinkInfo) pairs.
+def processNewLogs(logFileName: String) {
+  val events = sc.sequenceFile[UserID, LinkInfo](logFileName)
+  val joined = userData.join(events)// RDD of (UserID, (UserInfo, LinkInfo)) pairs
+  val offTopicVisits = joined.filter {
+    case (userId, (userInfo, linkInfo)) => // Expand the tuple into its components
+      !userInfo.topics.contains(linkInfo.topic)
+  }.count()
+  println("Number of visits to non-subscribed topics: " + offTopicVisits)
+}
+
+{% endhighlight %}
+
+This code will run fine as is, but it will be inefficient. This is because the *join()* operation, called each time *processNewLogs()* is invoked, does not know anything about how the keys are partitioned in the datasets. By default, this operation will hash all the keys of both datasets, sending elements with the same key hash across the network to the same machine, and then join together the elements with the same key on that machine. Because we expect the userData table to be much larger than the small log of events seen every five minutes, this wastes a lot of work: the userData table is hashed and shuffled across the network on every call, even though it doesn’t change.
+
+![learning-spark-1-2.jpg](../images/learning-spark-1-2.jpg)
+
+Fixing this is simple: just use the *partitionBy()* transformation on userData to hash-partition it at the start of the program. We do this by passing a spark.HashPartitioner object to partitionBy, as shown bellow:
+
+{% highlight python  %}
+
+val sc = new SparkContext(...)
+val userData = sc.sequenceFile[UserID, UserInfo]("hdfs://...")
+                 .partitionBy(new HashPartitioner(100))   // Create 100 partitions
+                 .persist()
+
+{% endhighlight  %}
+
+The *processNewLogs()* method can remain unchanged: the events RDD is local to *processNewLogs()*, and is used only once within this method, so there is no advantage in specifying a partitioner for events. Because we called *partitionBy()* when building userData, Spark will now know that it is hash-partitioned, and calls to *join()* on it will take advantage of this information. In particular, when we call *userData.join(events)*, Spark will shuffle only the events RDD, sending events with each particular UserID to the machine that contains the corresponding hash partition of userData. The result is that a lot less data is communicated over the network, and the program runs significantly faster.
+
+![learning-spark-1-3.jpg](../images/learning-spark-1-3.jpg)
+
+Note that *partitionBy()* is a transformation, so it always returns a new RDD—it does not change the original RDD in place. RDDs can never be modified once created. Therefore it is important to persist and save as userData the result of *partitionBy()*, not the original *sequenceFile()*. Also, the 100 passed to *partitionBy()* represents the number of partitions, which will control how many parallel tasks perform further operations on the RDD (e.g., joins); in general, make this at least as large as the number of cores in your cluster.
+
+*WARNING* :
+
+Failure to persist an RDD after it has been transformed with *partitionBy()* will cause subsequent uses of the RDD to repeat the partitioning of the data. Without persistence, use of the partitioned RDD will cause reevaluation of the RDDs complete lineage. That would negate the advantage of *partitionBy()*, resulting in repeated partitioning and shuffling of data across the network, similar to what occurs without any specified partitioner.
+
+
+
+
 
 
 
