@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 Spark 』 spark 应用程序性能优化 | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/boost-spark-application-performance" title="『 Spark 』 spark 应用程序性能优化">『 Spark 』 spark 应用程序性能优化</a></h1>
+
+    <p class="entry-date">2016-04-03 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-04-03-boost-spark-application-performance.md">最后更新时间: </span></p>
+
+
+    <h2 id="section">写在前面</h2>
+
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
+
+<p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
+
+<h2 id="repartition-and-coalesce">1. repartition and coalesce</h2>
+
+<p><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">原文：</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Spark provides the `repartition()` function, which shuffles the data 
+across the network to create a new set of partitions. Keep in mind 
+that repartitioning your data is a fairly expensive operation. Spark 
+also has an optimized version of `repartition()` called `coalesce()` 
+that allows avoiding data movement, but only if you are decreasing 
+the number of RDD partitions. To know whether you can safely call 
+coalesce(), you can check the size of the RDD using `rdd.partitions.size()` 
+in Java/Scala and `rdd.getNumPartitions()` in Python and make sure 
+that you are coalescing it to fewer partitions than it currently has.
+</code></pre>
+</div>
+
+<p>总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 <code class="highlighter-rouge">coalesce</code>，不要用 <code class="highlighter-rouge">repartition</code>.</p>
+
+<h2 id="passing-functions-to-spark">2. Passing Functions to Spark</h2>
+
+<p>In Python, we have three options for passing functions into Spark.</p>
+
+<ul>
+  <li>lambda expressions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">"error"</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>top-level functions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">my_personal_lib</span>
+
+<span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">my_personal_lib</span><span class="o">.</span><span class="n">containsError</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>locally defined functions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">containsError</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">"error"</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">containsError</span><span class="p">)</span></code></pre></figure>
+
+<p>One issue to watch out for when passing functions is inadvertently serializing the object containing the function. When you pass a function that is the member of an object, or contains references to fields in an object (e.g., self.field), Spark sends the entire object to worker nodes, which can be much larger than the bit of information you need. Sometimes this can also cause your program to fail, if your class contains objects that Python can’t figure out how to pickle.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### wrong way</span>
+
+<span class="k">class</span> <span class="nc">SearchFunctions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
+  <span class="k">def</span> <span class="nf">isMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="ow">in</span> <span class="n">s</span>
+  <span class="k">def</span> <span class="nf">getMatchesFunctionReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Problem: references all of "self" in "self.isMatch"</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isMatch</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getMatchesMemberReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Problem: references all of "self" in "self.query"</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c">### the right way</span>
+
+<span class="k">class</span> <span class="nc">WordFunctions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="nf">getMatchesNoReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Safe: extract only the field we need into a local variable</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="next">6. Next</h2>
+
+<p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？哈哈，上次简单介绍了 dataframe，下次我准备再讲讲 datasets，然后总结一下 rdd，dataframe 和 datasets 这三者之间扑朔迷离，藕断丝连的各种迷情。</p>
+
+<h2 id="section-1">7. 打开微信，扫一扫，点一点，棒棒的</h2>
+
+<p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
+
+<h2 id="section-2">参考文章</h2>
+
+<ul>
+  <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></li>
+</ul>
+
+<h2 id="section-3">本系列文章链接</h2>
+
+<ul>
+  <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
+  <li><a href="../spark-questions-concepts">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><a href="../spark-programming-model">『 Spark 』3. spark 编程模式 </a></li>
+  <li><a href="../spark-what-is-rdd">『 Spark 』4. spark 之 RDD </a></li>
+  <li><a href="../spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
+  <li><a href="../deep-into-spark-exection-model">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></li>
+  <li><a href="../spark-dataframe-introduction">『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</a></li>
+</ul>
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/boost-spark-application-performance" data-title="『 Spark 』 spark 应用程序性能优化"
+         data-content="content"
+         data-url="http://litaotao.github.io//boost-spark-application-performance">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』 spark 应用程序性能优化 data-url=/boost-spark-application-performance></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

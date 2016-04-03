@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 读书笔记 』Learning Spark | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/memo-for-learning-spark-book" title="『 读书笔记 』Learning Spark">『 读书笔记 』Learning Spark</a></h1>
+
+    <p class="entry-date">2016-04-02 <span class="lastModified" style="display: none;" data-source="_posts/books-2016/2016-04-02-memo-for-learning-spark-book.md">最后更新时间: </span></p>
+
+
+    <h2 id="section">写在前面</h2>
+
+<p>这本书是在 2015.02 就出版的，那个时候 spark 应该还只是 1.1 左右，最近准备看一两本讲 spark 的高质量的书，算是梳理一下自己的思维。期间因为觉得这本书出版得太早，可能会缺少 spark 现在的很多 feature，所以选了另外一本在 gitbook 上开源的书。可是看了这本 learning spark 后，发现两本书还是有很大的差别。虽然必须承认这本书出版得较早，里面缺少了一些 spark 的新 feature，但是这完全不影响你学习 spark，掌握 spark 的里里外外。我比较推荐这本书作为 spark 初学者的入门书，而且这本书还是 spark 的作者 Matei 合著的，在很多问题的解释上会比其他人解释得更浅显易懂。</p>
+
+<p>spark 的知识点很多，也很细碎，初学者需要通读几遍再加上亲身实践，才能把这些细小的知识点串起来，慢慢开始深入了解 spark，inside out。这篇读书笔记是我在读 learning spark 时候记录的书中的一些知识点，供以后 review 用，当然大家也可以参考参考。</p>
+
+<p>书籍简介：</p>
+
+<ul>
+  <li>第一本介绍 spark 的书</li>
+  <li>由 spark 开发者写</li>
+  <li>完全 free，在 safaribook 上可以直接在线看：<a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/">learning spark on safaribook</a></li>
+  <li>本书代码: <a href="https://github.com/databricks/learning-spark">code of learning spark on github</a></li>
+</ul>
+
+<h2 id="preface">0. Preface</h2>
+
+<p>Spark offers three main benefits.</p>
+
+<ul>
+  <li>First, it is easy to use—you can develop applications on your laptop, using a high-level API that lets you focus on the content of your computation.</li>
+  <li>Second, Spark is fast, ena‐ bling interactive use and complex algorithms.</li>
+  <li>third, Spark is a general engine, letting you combine multiple types of computations (e.g., SQL queries, text process‐ing, and machine learning) that might previously have required different engines. These features make Spark an excellent starting point to learn about Big Data in general.</li>
+</ul>
+
+<h2 id="introduction-to-data-analysis-with-spark">1. Introduction to Data Analysis with Spark</h2>
+
+<h3 id="what-is-apache-spark">1.1 What Is Apache Spark?</h3>
+
+<p><img src="../images/learning-spark-1-1.jpg" alt="learning-spark-1-1.jpg" /></p>
+
+<ul>
+  <li><em>Spark Core</em></li>
+</ul>
+
+<p>Spark Core contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems.</p>
+
+<ul>
+  <li><em>Spark SQL</em></li>
+</ul>
+
+<p>Spark SQL is Spark’s package for working with structured data. It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.</p>
+
+<ul>
+  <li><em>Spark Streaming</em></li>
+</ul>
+
+<p>Spark Streaming is a Spark component that enables processing of live streams of data.</p>
+
+<ul>
+  <li><em>MLlib</em></li>
+</ul>
+
+<p>Spark comes with a library containing common machine learning (ML) functionality, called MLlib.</p>
+
+<ul>
+  <li><em>GraphX</em></li>
+</ul>
+
+<p>GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.</p>
+
+<h3 id="storage-layers-for-spark">1.2 Storage Layers for Spark</h3>
+
+<p>Spark can create distributed datasets from any file stored in the Hadoop distributed filesystem (HDFS) or other storage systems supported by the Hadoop APIs (including your local filesystem, Amazon S3, Cassandra, Hive, HBase, etc.). It’s important to remember that Spark does not require Hadoop; it simply has support for storage systems implementing the Hadoop APIs.</p>
+
+<h2 id="downloading-spark-and-getting-started">2. Downloading Spark and Getting Started</h2>
+
+<h3 id="introduction-to-core-spark-concepts">2.1 Introduction to Core Spark Concepts</h3>
+
+<p>At a high level, every Spark application consists of a driver program that launches various parallel operations on a cluster. The driver program contains your application’s main function and defines distributed datasets on the cluster, then applies operations to them.</p>
+
+<p>Driver programs access Spark through a SparkContext object, which represents a connection to a computing cluster.</p>
+
+<h2 id="programming-with-rdds">3. Programming with RDDs</h2>
+
+<p>In Spark all work is expressed as either creating new RDDs, transforming existing RDDs, or calling operations on RDDs to compute a result.</p>
+
+<h3 id="rdd-basics">3.1 RDD Basics</h3>
+
+<p>An RDD in Spark is simply an immutable distributed collection of objects. Each RDD is split into multiple partitions, which may be computed on different nodes of the cluster.</p>
+
+<p>Users create RDDs in two ways: by loading an external dataset, or by distributing a collection of objects (e.g., a list or set) in their driver program.</p>
+
+<p>To summarize, every Spark program and shell session will work as follows:</p>
+
+<ul>
+  <li>Create some input RDDs from external data.</li>
+  <li>Transform them to define new RDDs using transformations like filter().</li>
+  <li>Ask Spark to persist() any intermediate RDDs that will need to be reused.</li>
+  <li>Launch actions such as count() and first() to kick off a parallel computation, which is then optimized and executed by Spark.</li>
+</ul>
+
+<h3 id="passing-functions-to-spark">3.2 Passing Functions to Spark</h3>
+
+<p>In Python, we have three options for passing functions into Spark.</p>
+
+<ul>
+  <li>lambda expressions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">"error"</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>top-level functions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">my_personal_lib</span>
+
+<span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">my_personal_lib</span><span class="o">.</span><span class="n">containsError</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>locally defined functions</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">containsError</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">"error"</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="n">word</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">containsError</span><span class="p">)</span></code></pre></figure>
+
+<p>One issue to watch out for when passing functions is inadvertently serializing the object containing the function. When you pass a function that is the member of an object, or contains references to fields in an object (e.g., self.field), Spark sends the entire object to worker nodes, which can be much larger than the bit of information you need. Sometimes this can also cause your program to fail, if your class contains objects that Python can’t figure out how to pickle.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### wrong way</span>
+
+<span class="k">class</span> <span class="nc">SearchFunctions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
+  <span class="k">def</span> <span class="nf">isMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="ow">in</span> <span class="n">s</span>
+  <span class="k">def</span> <span class="nf">getMatchesFunctionReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Problem: references all of "self" in "self.isMatch"</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isMatch</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getMatchesMemberReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Problem: references all of "self" in "self.query"</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c">### the right way</span>
+
+<span class="k">class</span> <span class="nc">WordFunctions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="nf">getMatchesNoReference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rdd</span><span class="p">):</span>
+      <span class="c"># Safe: extract only the field we need into a local variable</span>
+      <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span>
+      <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="working-with-keyvalue-pairs">4. Working with Key/Value Pairs</h2>
+
+<p>Using controllable partitioning, applications can sometimes greatly reduce communication costs by ensuring that data will be accessed together and will be on the same node. This can provide significant speedups. We illustrate partitioning using the PageRank algorithm as an example. Choosing the right partitioning for a distributed dataset is similar to choosing the right data structure for a local one—in both cases, data layout can greatly affect performance.</p>
+
+<h3 id="motivation">4.1 Motivation</h3>
+
+<p>Spark provides special operations on RDDs containing key/value pairs. These RDDs are called pair RDDs. Pair RDDs are a useful building block in many programs, as they expose operations that allow you to act on each key in parallel or regroup data across the network.</p>
+
+<h2 id="section-1">参考文章</h2>
+
+<ul>
+  <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/">learning spark on safaribook</a></li>
+  <li><a href="https://github.com/databricks/learning-spark">code of learning spark on github</a></li>
+  <li><a href="https://spark-summit.org/">spark-summit</a></li>
+</ul>
+
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/memo-for-learning-spark-book" data-title="『 读书笔记 』Learning Spark"
+         data-content="content"
+         data-url="http://litaotao.github.io//memo-for-learning-spark-book">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/memo-for-learning-spark-book data-title=『 读书笔记 』Learning Spark data-url=/memo-for-learning-spark-book></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>
