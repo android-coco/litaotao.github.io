@@ -389,8 +389,11 @@ a.external:after {
 }
 
 #menuIndex .myinfo a {
-	display: inline-block;
-	margin: auto 5px;
+	/*display: inline-block;*/
+    /*margin: auto 5px;*/
+    /*changed on Apr.3rd.2016 by taotao.li; making the `home, profile, code and mail button in the same line in the post page`*/
+    display: table-cell;
+	margin: auto;
 }
 
 #menuIndex .myinfo a:hover {
