@@ -29,7 +29,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
     in Java/Scala and `rdd.getNumPartitions()` in Python and make sure 
     that you are coalescing it to fewer partitions than it currently has.
 
-总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 `coalesce`，不要用 `repartition`.
+总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 `coalesce`，不要用 `repartition`。关于 `partition` 的更多优化细节，参考 [chapter 4 of Learning Spark](https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html)
 
 ## 2. Passing Functions to Spark
 

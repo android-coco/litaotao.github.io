@@ -215,6 +215,219 @@ Note that *partitionBy()* is a transformation, so it always returns a new RDD—
 
 Failure to persist an RDD after it has been transformed with *partitionBy()* will cause subsequent uses of the RDD to repeat the partitioning of the data. Without persistence, use of the partitioned RDD will cause reevaluation of the RDDs complete lineage. That would negate the advantage of *partitionBy()*, resulting in repeated partitioning and shuffling of data across the network, similar to what occurs without any specified partitioner.
 
+In fact, many other Spark operations automatically result in an RDD with known partitioning information, and many operations other than *join()* will take advantage of this information. For example, *sortByKey()* and *groupByKey()* will result in *range-partitioned and hash-partitioned* RDDs, respectively. On the other hand, operations like *map() cause the new RDD to forget the parent’s partitioning information*, because such operations could theoretically modify the key of each record. The next few sections describe how to determine how an RDD is partitioned, and exactly how partitioning affects the various Spark operations.
+
+If we created an RDD of *(Int, Int)* pairs, which initially have no partitioning information. We then created a second RDD by hash-partitioning the first. If we actually wanted to use partitioned in further operations, then we should have appended *persist()* to the third line of input, in which partitioned is defined. This is for the same reason that we needed *persist()* for userData in the previous example: *without persist(), subsequent RDD actions will evaluate the entire lineage of partitioned, which will cause pairs to be hash-partitioned over and over*.
+
+*Operations That Benefit from Partitioning*:
+
+Many of Spark’s operations involve shuffling data by key across the network. All of these will benefit from partitioning. As of Spark 1.0, the operations that benefit from partitioning are *cogroup(), groupWith(), join(), leftOuterJoin(), rightOuterJoin(), groupByKey(), reduceByKey(), combineByKey(), and lookup()*.
+
+For operations that act on a single RDD, such as *reduceByKey()*, running on a pre-partitioned RDD will cause all the values for each key to be computed locally on a single machine, requiring only the final, locally reduced value to be sent from each worker node back to the master. For binary operations, such as *cogroup() and join()*, pre-partitioning will cause at least one of the RDDs (the one with the known partitioner) to not be shuffled. If both RDDs have the same partitioner, and if they are cached on the same machines (e.g., one was created using mapValues() on the other, which preserves keys and partitioning) or if one of them has not yet been computed, then no shuffling across the network will occur.
+
+
+## 5. Loading and Saving Your Data
+
+### 5.1 File Formats
+
+![learning-spark-1-4.jpg](../images/learning-spark-1-4.jpg)
+
+#### 5.1.1 Text Files
+
+When we load a single text file as an RDD, each input line becomes an element in the RDD. We can also load multiple whole text files at the same time into a pair RDD by using `wholeTextFiles`, with the key being the name and the value being the contents of each file.
+
+*TIP*: 
+
+Spark supports reading all the files in a given directory and doing wildcard expansion on the input (e.g., part-*.txt). This is useful since large datasets are often spread across multiple files, especially if other files (like success markers) may be in the same directory.
+
+
+#### 5.1.2 JSON 
+
+JSON is a popular semistructured data format. The simplest way to load JSON data is by loading the data as a text file and then mapping over the values with a JSON parser. Likewise, we can use our preferred JSON serialization library to write out the values to strings, which we can then write out. In Java and Scala we can also work with JSON data using a custom Hadoop format. “JSON” also shows how to load JSON data with Spark SQL.
+
+
+#### 5.1.3 Comma-Separated Values and Tab-Separated Values
+
+Comma-separated value (CSV) files are supposed to contain a fixed number of fields per line, and the fields are separated by a comma (or a tab in the case of tab-separated value, or TSV, files). Records are often stored one per line, but this is not always the case as records can sometimes span lines. CSV and TSV files can sometimes be inconsistent, most frequently with respect to handling newlines, escaping, and rendering non-ASCII characters, or noninteger numbers. CSVs cannot handle nested field types natively, so we have to unpack and pack to specific fields manually.
+
+Unlike with JSON fields, each record doesn’t have field names associated with it; instead we get back row numbers. It is common practice in single CSV files to make the first row’s column values the names of each field.
+
+Loading CSV/TSV data is similar to loading JSON data in that we can first load it as text and then process it.
+
+
+#### 5.1.4 SequenceFiles
+
+SequenceFiles are a popular Hadoop format composed of flat files with key/value pairs. SequenceFiles have sync markers that allow Spark to seek to a point in the file and then resynchronize with the record boundaries. This allows Spark to efficiently read SequenceFiles in parallel from multiple nodes. SequenceFiles are a common input/output format for Hadoop MapReduce jobs as well, so if you are working with an existing Hadoop system there is a good chance your data will be available as a SequenceFile.
+
+
+### 5.2 File Compression
+
+Frequently when working with Big Data, we find ourselves needing to use compressed data to save storage space and network overhead. With most Hadoop output formats, we can specify a compression codec that will compress the data. As we have already seen, Spark’s native input formats (textFile and sequenceFile) can automatically handle some types of compression for us. When you’re reading in compressed data, there are some compression codecs that can be used to automatically guess the compression type.
+
+These compression options apply only to the Hadoop formats that support compression, namely those that are written out to a filesystem. The database Hadoop formats generally do not implement support for compression, or if they have compressed records that is configured in the database itself.
+
+Choosing an output compression codec can have a big impact on future users of the data. With distributed systems such as Spark, we normally try to read our data in from multiple different machines. To make this possible, each worker needs to be able to find the start of a new record. Some compression formats make this impossible, which requires a single node to read in all of the data and thus can easily lead to a bottleneck. Formats that can be easily read from multiple machines are called “splittable.” Table 5-3 lists the available compression options.
+
+
+![learning-spark-1-5.jpg](../images/learning-spark-1-5.jpg)
+
+*WARNING*:
+
+While Spark’s textFile() method can handle compressed input, it automatically disables splittable even if the input is compressed such that it could be read in a splittable way. If you find yourself needing to read in a large single-file compressed input, consider skipping Spark’s wrapper and instead use either newAPIHadoopFile or hadoopFile and specify the correct compression codec.
+
+
+### 5.3 File Systems
+
+Spark supports a large number of filesystems for reading and writing to, which we can use with any of the file formats we want.
+
+#### 5.3.1 Local/Regular FS
+
+`While Spark supports loading files from the local filesystem, it requires that the files are available at the same path on all nodes in your cluster.`
+
+Some network filesystems, like NFS, AFS, and MapR’s NFS layer, are exposed to the user as a regular filesystem. If your data is already in one of these systems, then you can use it as an input by just specifying a `file:// path`; Spark will handle it as long as the filesystem is mounted at the same path on each node.
+
+If your file isn’t already on all nodes in the cluster, you can load it locally on the driver without going through Spark and then call parallelize to distribute the contents to workers. This approach can be slow, however, so we recommend putting your files in a shared filesystem like HDFS, NFS, or S3.
+
+
+#### 5.3.2 Amazon S3
+
+Amazon S3 is an increasingly popular option for storing large amounts of data. S3 is especially fast when your compute nodes are located inside of Amazon EC2, but can easily have much worse performance if you have to go over the public Internet.
+
+To access S3 in Spark, you should first set the `AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY` environment variables to your S3 credentials. You can create these credentials from the Amazon Web Services console. Then pass a path starting with `s3n:// to Spark’s` file input methods, of the form `s3n://bucket/path-within-bucket`. As with all the other filesystems, Spark supports wildcard paths for S3, such as `s3n://bucket/my-files/*.txt`.
+
+If you get an S3 access permissions error from Amazon, make sure that the account for which you specified an access key has both “read” and “list” permissions on the bucket. Spark needs to be able to list the objects in the bucket to identify the ones you want to read.
+
+#### 5.3.3 HDFS
+
+The Hadoop Distributed File System (HDFS) is a popular distributed filesystem with which Spark works well. HDFS is designed to work on commodity hardware and be resilient to node failure while providing high data throughput. Spark and HDFS can be collocated on the same machines, and Spark can take advantage of this data locality to avoid network overhead.
+
+Using Spark with HDFS is as simple as specifying `hdfs://master:port/path` for your input and output.
+
+*WARNING*:
+
+The HDFS protocol changes across Hadoop versions, so if you run a version of Spark that is compiled for a different version it will fail. By default Spark is built against Hadoop 1.0.4. If you build from source, you can specify SPARK_HADOOP_VERSION= as a environment variable to build against a different version; or you can download a different precompiled version of Spark. You can determine the value by running hadoop version.
+
+
+### 5.4 Structured Data with Spark SQL
+
+Spark SQL is a component added in Spark 1.0 that is quickly becoming Spark’s preferred way to work with structured and semistructured data. By structured data, we mean data that has a schema, that is, a consistent set of fields across data records. Spark SQL supports multiple structured data sources as input, and because it understands their schema, it can efficiently read only the fields you require from these data sources. 
+
+
+### 5.5 Databases
+
+Spark can access several popular databases using either their Hadoop connectors or custom Spark connectors. 
+
+
+## 6. Advanced Spark Programming
+
+### 6.1 Accumulators
+
+When we normally pass functions to Spark, such as a *map()* function or a condition for *filter()*, they can use variables defined outside them in the driver program, but each task running on the cluster gets a new copy of each variable, and updates from these copies are not propagated back to the driver. Spark’s shared variables, accumulators and broadcast variables, relax this restriction for two common types of communication patterns: aggregation of results and broadcasts.
+
+Our first type of shared variable, accumulators, provides a simple syntax for aggregating values from worker nodes back to the driver program. One of the most common uses of accumulators is to count events that occur during job execution for debugging purposes. 
+
+{% highlight python %}
+
+# Accumulator empty line count in Python
+
+file = sc.textFile(inputFile)
+# Create Accumulator[Int] initialized to 0
+blankLines = sc.accumulator(0)
+
+def extractCallSigns(line):
+    global blankLines   # Make the global variable accessible
+    if (line == ""):
+        blankLines += 1
+    return line.split(" ")
+
+callSigns = file.flatMap(extractCallSigns)
+callSigns.saveAsTextFile(outputDir + "/callsigns")
+print "Blank lines: %d" % blankLines.value
+
+{% endhighlight %}
+
+To summarize, accumulators work as follows:
+
+- We create them in the driver by calling the *SparkContext.accumulator(initialValue)* method, which produces an accumulator holding an initial value. The return type is an *org.apache.spark.Accumulator[T]* object, where *T* is the type of initialValue.
+- Worker code in Spark closures can add to the accumulator with its *+=* method (or add in Java).
+- The driver program can call the *value* property on the accumulator to access its value (or call *value() and setValue()* in Java).
+
+Note that tasks on worker nodes cannot access the accumulator’s *value()*, from the point of view of these tasks, accumulators are write-only variables. This allows accumulators to be implemented efficiently, without having to communicate every update.
+
+#### 6.1.1 Accumulators and Fault Tolerance
+
+Spark automatically deals with failed or slow machines by re-executing failed or slow tasks. For example, if the node running a partition of a *map()* operation crashes, Spark will rerun it on another node; and even if the node does not crash but is simply much slower than other nodes, Spark can preemptively launch a “speculative” copy of the task on another node, and take its result if that finishes. Even if no nodes fail, Spark may have to rerun a task to rebuild a cached value that falls out of memory. The net result is therefore that the same function may run multiple times on the same data depending on what happens on the cluster.
+
+How does this interact with accumulators? The end result is that for accumulators used in actions, Spark applies each task’s update to each accumulator only once. Thus, if we want a reliable absolute value counter, regardless of failures or multiple evaluations, we must put it inside an action like *foreach()*.
+
+For accumulators used in RDD transformations instead of actions, this guarantee does not exist. An accumulator update within a transformation can occur more than once. One such case of a probably unintended multiple update occurs when a cached but infrequently used RDD is first evicted from the LRU cache and is then subsequently needed. This forces the RDD to be recalculated from its lineage, with the unintended side effect that calls to update an accumulator within the transformations in that lineage are sent again to the driver. Within transformations, accumulators should, consequently, be used only for debugging purposes.
+
+While future versions of Spark may change this behavior to count the update only once, the current version (1.2.0) does have the multiple update behavior, so accumulators in transformations are recommended only for debugging purposes.
+
+
+#### 6.1.2 Custom Accumulators
+
+So far we’ve seen how to use one of Spark’s built-in accumulator types: integers (Accumulator[Int]) with addition. Out of the box, Spark supports accumulators of type Double, Long, and Float. In addition to these, Spark also includes an API to define custom accumulator types and custom aggregation operations (e.g., finding the maximum of the accumulated values instead of adding them). Custom accumulators need to extend AccumulatorParam, which is covered in the Spark API documentation. Beyond adding to a numeric value, we can use any operation for add, provided that operation is commutative and associative. For example, instead of adding to track the total we could keep track of the maximum value seen so far.
+
+
+### 6.2 Broadcast Variables
+
+Spark’s second type of shared variable, broadcast variables, allows the program to efficiently send a large, read-only value to all the worker nodes for use in one or more Spark operations. They come in handy, for example, if your application needs to send a large, read-only lookup table to all the nodes, or even a large feature vector in a machine learning algorithm.
+
+Recall that Spark automatically sends all variables referenced in your closures to the worker nodes. While this is convenient, it can also be inefficient because :
+
+- the default task launching mechanism is optimized for small task sizes
+- you might, in fact, use the same variable in multiple parallel operations, but Spark will send it separately for each operation. 
+
+A broadcast variable is simply an object of type *spark.broadcast.Broadcast[T]*, which wraps a value of type T. We can access this value by calling *value* on the Broadcast object in our tasks. The value is sent to each node only once, using an efficient, BitTorrent-like communication mechanism.
+
+*Optimizing Broadcasts*:
+
+When we are broadcasting large values, it is important to choose a data serialization format that is both fast and compact, because the time to send the value over the network can quickly become a bottleneck if it takes a long time to either serialize a value or to send the serialized value over the network. 
+
+the process of using broadcast variables is simple:
+
+- Create a *Broadcast[T]* by calling SparkContext.broadcast on an object of type T. Any type works as long as it is also Serializable.
+- Access its value with the *value* property (or *value()* method in Java).
+- The variable will be sent to each node only once, and should be treated as read-only (updates will not be propagated to other nodes).
+
+### 6.3 Working on a Per-Partition Basis
+
+Working with data on a per-partition basis allows us to avoid redoing setup work for each data item. Operations like opening a database connection or creating a random-number generator are examples of setup steps that we wish to avoid doing for each element. Spark has per-partition versions of map and foreach to help reduce the cost of these operations by letting you run code only once for each partition of an RDD.
+
+When operating on a per-partition basis, Spark gives our function an Iterator of the elements in that partition. To return values, we return an Iterable. In addition to mapPartitions(), Spark has a number of other per-partition operators. Bellow is an example of a partition-based operation `mapPartitions`:
+
+{% highlight python %}
+
+```
+mapPartitions(f, preservesPartitioning=False)
+Return a new RDD by applying a function to each partition of this RDD.
+```
+
+>>> rdd = sc.parallelize([1, 2, 3, 4], 2)
+>>> def f(iterator): yield sum(iterator)
+>>> rdd.mapPartitions(f).collect()
+[3, 7]
+
+{% endhighlight %}
+
+### 6.4 Piping to External Programs
+
+Spark provides a *pipe()* method on RDDs. Spark’s *pipe()* lets us write parts of jobs using any language we want as long as it can read and write to Unix standard streams. With *pipe()*, you can write a transformation of an RDD that reads each RDD element from standard input as a String, manipulates that String however you like, and then writes the result(s) as Strings to standard output. The interface and programming model is restrictive and limited, but sometimes it’s just what you need to do something like make use of a native code function within a map or filter operation.
+
+### 6.5 Numeric RDD Operations
+
+## 7. Running on a Cluster
+
+
+
+
+
+
+
+
+
+
 
 
 
