@@ -16,12 +16,12 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ## 1. Application
 
-用户在 spark 上构建的程序，包含了 driver 程序以及集群上的 executors.
+用户在 spark 上构建的程序，包含了 driver 程序以及在集群上运行的程序代码，物理机器上涉及了 driver，master，worker 三个节点.
 
 
 ## 2. Driver Program
 
-运行 main 函数并且创建 SparkContext 的程序。
+创建 sc ，定义 udf 函数，定义一个 spark 应用程序所需要的三大步骤的逻辑：加载数据集，处理数据，结果展示。
 
 ## 3. Cluster Manager
 
@@ -31,24 +31,23 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ## 4. Worker Node
 
-集群中任何一个可以运行spark应用代码的节点。
-Worker Node就是物理节点，可以在上面启动Executor进程。
+集群中任何一个可以运行spark应用代码的节点。Worker Node就是物理节点，可以在上面启动Executor进程。
 
 ## 5. Executor
 
 在每个 Worker Node 上为某应用启动的一个进程，该进程负责运行任务，并且负责将数据存在内存或者磁盘上，每个任务都有各自独立的 Executor。
 Executor 是一个执行 Task 的容器。它的主要职责是：
 
-1、初始化程序要执行的上下文 SparkEnv，解决应用程序需要运行时的 jar 包的依赖，加载类。
-2、同时还有一个 ExecutorBackend 向 cluster manager 汇报当前的任务状态，这一方面有点类似 hadoop的 tasktracker 和 task。
+- 初始化程序要执行的上下文 SparkEnv，解决应用程序需要运行时的 jar 包的依赖，加载类。
+- 同时还有一个 ExecutorBackend 向 cluster manager 汇报当前的任务状态，这一方面有点类似 hadoop的 tasktracker 和 task。
 
 总结：Executor 是一个应用程序运行的监控和执行容器。
 
 
 ## 6. Jobs
 
-包含很多 task 的并行计算，可以认为是 Spark RDD 里面的 action,每个 action 的计算会生成一个job。
-用户提交的 Job 会提交给 DAGScheduler，Job 会被分解成 Stage和Task。
+包含很多 task 的并行计算，可以认为是 Spark RDD 里面的 action，每个 action 的触发会生成一个job。
+用户提交的 Job 会提交给 DAGScheduler，Job 会被分解成 Stage，Stage 会被细化成 Task，Task 简单的说就是在一个数据 partition 上的单个数据处理流程。关于 job，stage，task，详细可以参考这篇文章：[『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
 
 ![spark-web-ui-job.jpg](../images/spark-web-ui-job.jpg)
 
@@ -58,15 +57,14 @@ A job is triggered by an `action`, like `count()` or `saveAsTextFile()`, click o
 
 ## 7. Stage
 
-一个 Job 会被拆分为多组 Task，每组任务被称为一个 Stage就像Map Stage， Reduce Stage。
+一个 Job 会被拆分为多组 Task，每组任务被称为一个 Stage 就像 Map Stage， Reduce Stage。
 
-Stage 的划分在 RDD 的论文中有详细的介绍，简单的说是以 shuffle和result 这两种类型来划分。
+Stage 的划分在 RDD 的论文中有详细的介绍，简单的说是以 shuffle 和 result 这两种类型来划分。
 在 Spark 中有两类 task:
 
 - shuffleMapTask
 
     输出是shuffle所需数据, stage的划分也以此为依据，shuffle之前的所有变换是一个stage，shuffle之后的操作是另一个stage。
-
 
 - resultTask，
     
@@ -74,19 +72,11 @@ Stage 的划分在 RDD 的论文中有详细的介绍，简单的说是以 shuff
 
 ## 8. Task
 
-被送到executor上的工作单元，Spark上分为2类task。
-
-- shuffleMapTask
-
-    A ShuffleMapTask divides the elements of an RDD into multiple buckets (based on a partitioner specified in the ShuffleDependency).
-
-- resultTask
-
-    A task that sends back the output to the driver application.
+被送到 executor 上的工作单元。
 
 ## 9. Partition
 
-Partition类似hadoop的Split，计算是以partition为单位进行的，当然partition的划分依据有很多，这是可以自己定义的，像HDFS文件，划分的方式就和MapReduce一样，以文件的block来划分不同的partition。总而言之，Spark的partition在概念上与hadoop中的split是相似的，提供了一种划分数据的方式。
+Partition 类似 hadoop 的 Split，计算是以 partition 为单位进行的，当然 partition 的划分依据有很多，这是可以自己定义的，像 HDFS 文件，划分的方式就和 MapReduce 一样，以文件的 block 来划分不同的 partition。总而言之，Spark 的 partition 在概念上与 hadoop 中的 split 是相似的，提供了一种划分数据的方式。
 
 ## 10. RDD
 
@@ -95,7 +85,7 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf) 是怎么介绍 RDD �
 
 ----
 
-a distributed memory abstraction that lets programmers perform in-memory computations on large clusters in a fault-tolerant manner. 
+a `distributed memory abstraction` that lets programmers perform in-memory computations on large clusters in a fault-tolerant manner. 
 
 RDDs are motivated by two types of applications that current computing frameworks handle inefficiently: 
 
@@ -104,8 +94,7 @@ RDDs are motivated by two types of applications that current computing framework
 
 In both cases, keeping data in memory can improve performance by an order of magnitude.
 
-To achieve fault tolerance efficiently, RDDs provide a restricted form of shared memory, based on coarsegrained
-transformations rather than fine-grained updates to shared state. However, we show that RDDs are expressive enough to capture a wide class of computations, including recent specialized programming models for iterative jobs, such as Pregel, and new applications that these models do not capture. We have implemented RDDs in a system called Spark, which we evaluate through a variety of user applications and benchmarks.
+To achieve fault tolerance efficiently, RDDs provide a restricted form of shared memory, based on coarsegrained transformations rather than fine-grained updates to shared state. However, we show that RDDs are expressive enough to capture a wide class of computations, including recent specialized programming models for iterative jobs, such as Pregel, and new applications that these models do not capture. We have implemented RDDs in a system called Spark, which we evaluate through a variety of user applications and benchmarks.
 
 ----
 
@@ -129,6 +118,8 @@ RDD是Spark的核心，也是整个Spark的架构基础，可以总下出几个�
 - 提供了粗粒度的操作，且这些操作都支持分区
 - 它将数据存储在内存中，从而提供了低延迟性
 
+关于 rdd 的更多详情，可以参考这篇文章：[『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
+
 ## 11. sc.parallelize
 
 先看看 api 文档里是怎么说的：[parallelize](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext.parallelize)
@@ -140,6 +131,8 @@ RDD是Spark的核心，也是整个Spark的架构基础，可以总下出几个�
 Distribute a local Python collection to form an RDD. Using xrange is recommended if the input represents a range for performance.
 
 ---
+
+简单的说，parallelize 就是把 driver 端定义的一个数据集，或者一个获取数据集的生成器，分发到 worker 上的 executor 中，以供后续分析。这种方式在测试代码逻辑时经常用到，但在构建真正的 spark 应用程序时很少会用到，一般都是从 hdfs 或者数据库去读取数据。
 
 ## 12. code distribute
 
@@ -155,7 +148,11 @@ cache 是否支持 priority，目前不支持，而且 spark 里面对 rdd 的 c
 
 ## 14. cores
 
+----
+
 The number of cores to use on each executor. For YARN and standalone mode only. In standalone mode, setting this parameter allows an application to run multiple executors on the same worker, provided that there are enough cores on that worker. Otherwise, only one executor per application will run on each worker.
+
+----
 
 每一个 core，相当于一个 worker 上的进程，这些进程会同时执行分配到这个 worker 上的任务。简单的说，就是 spark manager 把一个 job 切分几个 task 分发到 worker 上同步执行，而每个 worker 把分配给自己的 task 再切分成几个 subtask，分配给当前 worker 上的不同进程。
 

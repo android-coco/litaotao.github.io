@@ -1,6 +1,7 @@
 /***********default settings**********/
 body {
-	font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
+	/*font-family: "-webkit-pictograph";*/
 	font-size: 16px;
 	background-color: #f7f7f7;
     background: transparent;
@@ -308,6 +309,7 @@ a.external:after {
 .index-content h2 a {
 	color: #444;
 	text-decoration: underline;
+    font-family: monospace;
 }
 
 .index-content h2 a:hover {

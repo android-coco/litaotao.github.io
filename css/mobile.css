@@ -106,19 +106,19 @@
         margin-top: 20px;
         margin-bottom: 10px;
         padding: 5px 10px;
-        background-color: rgba(0, 0, 0, 0.3);
+        /*background-color: rgba(0, 0, 0, 0.3);*/
     }
 
     .index-content .title-date {
-        color: #eee;
+        /*color: #eee;*/
     }
 
     .index-content h2 a {
-        color: #fff;
+        /*color: #fff;*/
     }
 
     .index-content .title-desc {
-        color: #eee;
+        /*color: #eee;*/
     }
 
     .post #avatar {
@@ -168,5 +168,9 @@
         height: 92px !important;
         background-size: 100% 100%;
         z-index: 199;
+    }
+
+    #menuIndex .myinfo a {
+        padding-right: 10px;
     }
 }
