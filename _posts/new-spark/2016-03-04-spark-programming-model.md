@@ -23,15 +23,15 @@ spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD
 
 ### 1.1 RDD 的属性
 
-之前接触过 RDD 的人肯定都知道 "transform" 和 "action" 这两个核心概念，殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 [api 文档](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD)
+接触过 RDD 的人肯定都知道 *transform* 和 *action* 这两个核心概念，甚至很多人都认为 RDD 仅仅有 *transform* 和 *action* 这两个概念。殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 [api 文档](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD)
 
 - RDD
-    + action     : count, take, sample, first, collect  ...
-    + transform  : foreach, glom, map ...
-    + method     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName ...
-    + property   : context
+    + `action`     : count, take, sample, first, collect  ...
+    + `transform`  : foreach, glom, map ...
+    + `method`     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName ...
+    + `property`   : context
 
-看到了吗，这里其实 RDD 其实有很多既不是 "transform" 也不是 "action" 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 `cache`, `setName`, `lookup`, `id` 这些，在开发过程中都很有用。
+看到了吗，这里其实 RDD 其实有很多既不是 *transform* 也不是 *action* 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 `cache`, `setName`, `lookup`, `id` 这些，在开发过程中都很有用。
 
 ### 1.2 spark 编程模式图
 
@@ -58,18 +58,20 @@ spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD
 {% highlight text %}
 
 ## from wiki 
-Monte Carlo methods (or Monte Carlo experiments) are a broad class of computational algorithms that 
-rely on repeated random sampling to obtain numerical results. They are often used in physical and 
-mathematical problems and are most useful when it is difficult or impossible to use other mathematical 
-methods. Monte Carlo methods are mainly used in three distinct problem classes:[1] optimization, 
-numerical integration, and generating draws from a probability distribution.
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of 
+computational algorithms that rely on repeated random sampling to obtain 
+numerical results. They are often used in physical and mathematical problems 
+and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem 
+classes:[1] optimization, numerical integration, and generating draws from 
+a probability distribution.
 
 ## 
 总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。
 
 {% endhighlight %}
 
-### 2.2 蒙特卡罗方法估算 pi 值
+### 2.2 蒙特卡罗方法估算 pi 值原理
 
 用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：
 
@@ -83,6 +85,8 @@ numerical integration, and generating draws from a probability distribution.
     + 则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 ===>>> pi = 4*m/n
 
 ![mc.gif](../images/mc.gif)
+
+### 2.3 Python 实现蒙特卡罗方法估算 pi 值
 
 {% highlight text %}
 
@@ -100,13 +104,18 @@ def mc_pi(n=100):
         i += 1
 
     pi = 4. * m / n
-
-    return m, n, pi
+    res = {'total_point': n, 'point_in_circle': m, 'estimated_pi': pi}
+    
+    return res
 
 {% endhighlight %}
 
+![spark-programming-model-11.jpg](../images/spark-programming-model-11.jpg)
+
 
 ### 2.3 在 spark 集群中实现蒙特卡罗方法
+
+我们按照上面写的三大步骤来写这个 spark 应用：
 
 - 定义相关函数和常量
 
@@ -130,31 +139,37 @@ def map_func_2(element):
 {% endhighlight %}
 
 
-- 初始化 spark app，加载需要处理的数据集
+- *加载数据集*
 
 {% highlight python %}
 
 ### parallelize a data set into the cluster
 
-rdd = sc.parallelize(local_collection).setName("parallelized_data").cache()
+rdd = sc.parallelize(local_collection)       \
+        .setName("parallelized_data")        \
+        .cache()
 
 {% endhighlight %}
 
-- 逻辑运算处理
+- *处理数据*
 
 {% highlight python %}
 
 ### randomly generate points
 
-rdd2 = rdd.map(map_func).setName("random_point").cache()
+rdd2 = rdd.map(map_func)            \
+          .setName("random_point")  \
+          .cache()
 
 ### calculate the number of points in and out the circle
 
-rdd3 = rdd2.map(map_func_2).setName("points_in_out_circle").cache()
+rdd3 = rdd2.map(map_func_2)                 \
+           .setName("points_in_out_circle") \
+           .cache()
 
 {% endhighlight %}
 
-- 结果展示
+- *结果展示*
 
 {% highlight python %}
 
@@ -169,19 +184,27 @@ print 'estimated pi : {}'.format(pi)
 
 ### 2.4 Seems a little complex, really?
 
-其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码”。
+上面这个例子，可能会让一些初步接触 spark 的人很困惑，"明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？"。
 
 ![wawawa.gif](../images/wawawa.gif)
 
-其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式。
-好吧，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：
+其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式，如果你还不相信，可以把模拟次数加到千万或者亿次以上看看效果。
+
+如果，如果你还是纠结于 "我骗了你，spark 没有梦想中的那么好" 的话，那看下面这一行代码吧，它也完成了同样的事情：
 
 {% highlight python %}
 
-sc.parallelize(xrange(total))  \
-    .map(lambda x: (random.random(), random.random())) \
-    .map(lambda x: 1 if x[0]**2 + x[1]**2 < 1 else 0) \
-    .reduce(lambda x, y: x+y)   \
+### version 1
+sc.parallelize(xrange(total))                                 \
+    .map(lambda x: (random.random(), random.random()))        \
+    .map(lambda x: 1 if x[0]**2 + x[1]**2 < 1 else 0)         \
+    .reduce(lambda x, y: x + y)                               \
+    / float(total) * 4
+
+### version 2
+sc.parallelize(xrange(total))                                  \
+    .map(lambda x: 1 if sum(np.random.random(2) ** 2) else 0)  \
+    .reduce(lambda x, y: x + y)                                \
     / float(total) * 4
 
 {% endhighlight %}

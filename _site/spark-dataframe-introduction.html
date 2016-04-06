@@ -256,7 +256,8 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
         (function() {
           var ds = document.createElement('script');
           ds.type = 'text/javascript';ds.async = true;
-          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.src = '../js/embed.js'
           ds.charset = 'UTF-8';
           (document.getElementsByTagName('head')[0]
            || document.getElementsByTagName('body')[0]).appendChild(ds);

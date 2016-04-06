@@ -145,7 +145,6 @@ print df.select(['ticker', 'secID', 'tradeDate', 'listDate', 'openPrice', 'close
 同 rdd 一样，dataframe 也有很多专属于自己的算子，用于操作整个 dataframe 数据集，我们以后都简称为 dataframe api 吧，用 `算子`， `DSL` 这类的称呼对不熟悉的人来说不易理解，下面这里是完整的 api 列表：[spark dataframe api](http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame)
 
 
-
 ### 4.1 在 dataframe 上执行 sql 语句
 
 ![spark-dataframe-4.jpg](../images/spark-dataframe-4.jpg)

@@ -63,20 +63,20 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 <h3 id="rdd-">1.1 RDD 的属性</h3>
 
-<p>之前接触过 RDD 的人肯定都知道 “transform” 和 “action” 这两个核心概念，殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 <a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD">api 文档</a></p>
+<p>接触过 RDD 的人肯定都知道 <em>transform</em> 和 <em>action</em> 这两个核心概念，甚至很多人都认为 RDD 仅仅有 <em>transform</em> 和 <em>action</em> 这两个概念。殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 <a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD">api 文档</a></p>
 
 <ul>
   <li>RDD
     <ul>
-      <li>action     : count, take, sample, first, collect  …</li>
-      <li>transform  : foreach, glom, map …</li>
-      <li>method     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …</li>
-      <li>property   : context</li>
+      <li><code class="highlighter-rouge">action</code>     : count, take, sample, first, collect  …</li>
+      <li><code class="highlighter-rouge">transform</code>  : foreach, glom, map …</li>
+      <li><code class="highlighter-rouge">method</code>     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …</li>
+      <li><code class="highlighter-rouge">property</code>   : context</li>
     </ul>
   </li>
 </ul>
 
-<p>看到了吗，这里其实 RDD 其实有很多既不是 “transform” 也不是 “action” 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 <code class="highlighter-rouge">cache</code>, <code class="highlighter-rouge">setName</code>, <code class="highlighter-rouge">lookup</code>, <code class="highlighter-rouge">id</code> 这些，在开发过程中都很有用。</p>
+<p>看到了吗，这里其实 RDD 其实有很多既不是 <em>transform</em> 也不是 <em>action</em> 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 <code class="highlighter-rouge">cache</code>, <code class="highlighter-rouge">setName</code>, <code class="highlighter-rouge">lookup</code>, <code class="highlighter-rouge">id</code> 这些，在开发过程中都很有用。</p>
 
 <h3 id="spark--1">1.2 spark 编程模式图</h3>
 
@@ -108,16 +108,18 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 <h3 id="section-1">2.1 蒙特卡罗方法介绍</h3>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">## from wiki 
-Monte Carlo methods (or Monte Carlo experiments) are a broad class of computational algorithms that 
-rely on repeated random sampling to obtain numerical results. They are often used in physical and 
-mathematical problems and are most useful when it is difficult or impossible to use other mathematical 
-methods. Monte Carlo methods are mainly used in three distinct problem classes:[1] optimization, 
-numerical integration, and generating draws from a probability distribution.
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of 
+computational algorithms that rely on repeated random sampling to obtain 
+numerical results. They are often used in physical and mathematical problems 
+and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem 
+classes:[1] optimization, numerical integration, and generating draws from 
+a probability distribution.
 
 ## 
 总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。</code></pre></figure>
 
-<h3 id="pi-">2.2 蒙特卡罗方法估算 pi 值</h3>
+<h3 id="pi-">2.2 蒙特卡罗方法估算 pi 值原理</h3>
 
 <p>用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：</p>
 
@@ -137,6 +139,8 @@ numerical integration, and generating draws from a probability distribution.
 
 <p><img src="../images/mc.gif" alt="mc.gif" /></p>
 
+<h3 id="python--pi-">2.3 Python 实现蒙特卡罗方法估算 pi 值</h3>
+
 <figure class="highlight"><pre><code class="language-text" data-lang="text">import numpy as np
 
 def mc_pi(n=100):
@@ -151,10 +155,15 @@ def mc_pi(n=100):
         i += 1
 
     pi = 4. * m / n
+    res = {'total_point': n, 'point_in_circle': m, 'estimated_pi': pi}
+    
+    return res</code></pre></figure>
 
-    return m, n, pi</code></pre></figure>
+<p><img src="../images/spark-programming-model-11.jpg" alt="spark-programming-model-11.jpg" /></p>
 
 <h3 id="spark--2">2.3 在 spark 集群中实现蒙特卡罗方法</h3>
+
+<p>我们按照上面写的三大步骤来写这个 spark 应用：</p>
 
 <ul>
   <li>定义相关函数和常量</li>
@@ -176,27 +185,33 @@ def mc_pi(n=100):
     <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span></code></pre></figure>
 
 <ul>
-  <li>初始化 spark app，加载需要处理的数据集</li>
+  <li><em>加载数据集</em></li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### parallelize a data set into the cluster</span>
 
-<span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">local_collection</span><span class="p">)</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"parallelized_data"</span><span class="p">)</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
+<span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">local_collection</span><span class="p">)</span>       \
+        <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"parallelized_data"</span><span class="p">)</span>        \
+        <span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
 
 <ul>
-  <li>逻辑运算处理</li>
+  <li><em>处理数据</em></li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### randomly generate points</span>
 
-<span class="n">rdd2</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">map_func</span><span class="p">)</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"random_point"</span><span class="p">)</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+<span class="n">rdd2</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">map_func</span><span class="p">)</span>            \
+          <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"random_point"</span><span class="p">)</span>  \
+          <span class="o">.</span><span class="n">cache</span><span class="p">()</span>
 
 <span class="c">### calculate the number of points in and out the circle</span>
 
-<span class="n">rdd3</span> <span class="o">=</span> <span class="n">rdd2</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">map_func_2</span><span class="p">)</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"points_in_out_circle"</span><span class="p">)</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
+<span class="n">rdd3</span> <span class="o">=</span> <span class="n">rdd2</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">map_func_2</span><span class="p">)</span>                 \
+           <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"points_in_out_circle"</span><span class="p">)</span> \
+           <span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
 
 <ul>
-  <li>结果展示</li>
+  <li><em>结果展示</em></li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### how many points are in the circle</span>
@@ -208,17 +223,25 @@ def mc_pi(n=100):
 
 <h3 id="seems-a-little-complex-really">2.4 Seems a little complex, really?</h3>
 
-<p>其实大家也看出来了，上面这个例子和似乎并不能让初步接触 spark 的人信服，“明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码”。</p>
+<p>上面这个例子，可能会让一些初步接触 spark 的人很困惑，”明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？”。</p>
 
 <p><img src="../images/wawawa.gif" alt="wawawa.gif" /></p>
 
-<p>其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式。
-好吧，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：</p>
+<p>其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式，如果你还不相信，可以把模拟次数加到千万或者亿次以上看看效果。</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">xrange</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>  \
-    <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()))</span> \
-    <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span> \
-    <span class="o">.</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>   \
+<p>如果，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### version 1</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">xrange</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>                                 \
+    <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()))</span>        \
+    <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>         \
+    <span class="o">.</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>                               \
+    <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+
+<span class="c">### version 2</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">xrange</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>                                  \
+    <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>  \
+    <span class="o">.</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>                                \
     <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span></code></pre></figure>
 
 <h2 id="next">3. Next</h2>
@@ -280,7 +303,8 @@ In-Memory Cluster Computing</a></li>
         (function() {
           var ds = document.createElement('script');
           ds.type = 'text/javascript';ds.async = true;
-          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.src = '../js/embed.js'
           ds.charset = 'UTF-8';
           (document.getElementsByTagName('head')[0]
            || document.getElementsByTagName('body')[0]).appendChild(ds);

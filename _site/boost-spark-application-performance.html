@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>『 Spark 』 spark 应用程序性能优化 | Taotao's Zone</title>
+  <title>『 Spark 』9. spark 应用程序性能优化 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,7 +42,7 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/boost-spark-application-performance" title="『 Spark 』 spark 应用程序性能优化">『 Spark 』 spark 应用程序性能优化</a></h1>
+    <h1 class="entry-title"><a href="/boost-spark-application-performance" title="『 Spark 』9. spark 应用程序性能优化">『 Spark 』9. spark 应用程序性能优化</a></h1>
 
     <p class="entry-date">2016-04-03 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-04-03-boost-spark-application-performance.md">最后更新时间: </span></p>
 
@@ -51,9 +51,9 @@
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
-<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。</p>
-
-<p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 <br />
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   <br />
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
 
 <h2 id="repartition-and-coalesce">1. repartition and coalesce</h2>
 
@@ -71,7 +71,7 @@ that you are coalescing it to fewer partitions than it currently has.
 </code></pre>
 </div>
 
-<p>总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 <code class="highlighter-rouge">coalesce</code>，不要用 <code class="highlighter-rouge">repartition</code>.</p>
+<p>总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 <code class="highlighter-rouge">coalesce</code>，不要用 <code class="highlighter-rouge">repartition</code>。关于 <code class="highlighter-rouge">partition</code> 的更多优化细节，参考 <a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></p>
 
 <h2 id="passing-functions-to-spark">2. Passing Functions to Spark</h2>
 
@@ -152,7 +152,7 @@ that you are coalescing it to fewer partitions than it currently has.
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/boost-spark-application-performance" data-title="『 Spark 』 spark 应用程序性能优化"
+    <div class="ds-share" data-thread-key="/boost-spark-application-performance" data-title="『 Spark 』9. spark 应用程序性能优化"
          data-content="content"
          data-url="http://litaotao.github.io//boost-spark-application-performance">
         <div class="ds-share-aside-left">
@@ -165,7 +165,7 @@ that you are coalescing it to fewer partitions than it currently has.
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』 spark 应用程序性能优化 data-url=/boost-spark-application-performance></div>
+        <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』9. spark 应用程序性能优化 data-url=/boost-spark-application-performance></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">
@@ -173,7 +173,8 @@ that you are coalescing it to fewer partitions than it currently has.
         (function() {
           var ds = document.createElement('script');
           ds.type = 'text/javascript';ds.async = true;
-          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.src = '../js/embed.js'
           ds.charset = 'UTF-8';
           (document.getElementsByTagName('head')[0]
            || document.getElementsByTagName('body')[0]).appendChild(ds);
@@ -188,9 +189,9 @@ that you are coalescing it to fewer partitions than it currently has.
     <div class="myinfo"><center>
       <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
       <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
-      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i><span> Profile</span></a>
-      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i><span> Code</span></a>
-      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope-alt icon-large"></i><span> Mail</span></a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
     </center></div>
     <div id="menu"></div>
   </div>
