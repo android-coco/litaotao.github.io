@@ -113,7 +113,7 @@ def mc_pi(n=100):
 ![spark-programming-model-11.jpg](../images/spark-programming-model-11.jpg)
 
 
-### 2.3 在 spark 集群中实现蒙特卡罗方法
+### 2.4 在 spark 集群中实现蒙特卡罗方法
 
 我们按照上面写的三大步骤来写这个 spark 应用：
 
@@ -182,7 +182,7 @@ print 'estimated pi : {}'.format(pi)
 
 {% endhighlight %}
 
-### 2.4 Seems a little complex, really?
+### 2.5 Seems a little complex, really?
 
 上面这个例子，可能会让一些初步接触 spark 的人很困惑，"明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？"。
 

@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-06T16:14:29+08:00</updated>
+   <updated>2016-04-06T16:16:09+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -919,7 +919,7 @@ def mc_pi(n=100):
 
 &lt;p&gt;&lt;img src=&quot;../images/spark-programming-model-11.jpg&quot; alt=&quot;spark-programming-model-11.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;spark--2&quot;&gt;2.3 在 spark 集群中实现蒙特卡罗方法&lt;/h3&gt;
+&lt;h3 id=&quot;spark--2&quot;&gt;2.4 在 spark 集群中实现蒙特卡罗方法&lt;/h3&gt;
 
 &lt;p&gt;我们按照上面写的三大步骤来写这个 spark 应用：&lt;/p&gt;
 
@@ -979,7 +979,7 @@ def mc_pi(n=100):
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;iterate {} times&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;estimated pi : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;seems-a-little-complex-really&quot;&gt;2.4 Seems a little complex, really?&lt;/h3&gt;
+&lt;h3 id=&quot;seems-a-little-complex-really&quot;&gt;2.5 Seems a little complex, really?&lt;/h3&gt;
 
 &lt;p&gt;上面这个例子，可能会让一些初步接触 spark 的人很困惑，”明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？”。&lt;/p&gt;
 
