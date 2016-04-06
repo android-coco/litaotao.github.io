@@ -52,7 +52,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [`slide` Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)](http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015)
 
 - [Spark Tuning for Enterprise System Administrators](https://www.youtube.com/watch?v=HBZuB3pPri0&feature=youtu.be)
-- [Spark Tuning for Enterprise System Administrators](http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248)
+- [`slide` Spark Tuning for Enterprise System Administrators](http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248)
 
 - [Structuring Spark: DataFrames, Datasets, and Streaming](https://www.youtube.com/watch?v=i7l3JQRx7Qw)
 - [`slide` Structuring Spark: DataFrames, Datasets, and Streaming](http://www.slideshare.net/databricks/structuring-spark-dataframes-datasets-and-streaming)
@@ -66,7 +66,12 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [SparkUI Visualization](https://www.youtube.com/watch?v=VQOKk9jJGcw&index=5&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
 - [`slide` SparkUI Visualization](http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application)
 
-- [Machine Learning with Big Data using Apache Spark](https://www.youtube.com/watch?v=sNwGJP-_30U)
+- [
+Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015](https://www.youtube.com/watch?v=Wg2boMqLjCg)
+- [ `slide` 
+Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015](http://www.slideshare.net/databricks/strata-sj-everyday-im-shuffling-tips-for-writing-better-spark-programs)
+
+- [Large Scale Distributed Machine Learning on Apache Spark](https://www.youtube.com/watch?v=FA3ArTyXNoo)
 
 - [Securing your Spark Applications](https://www.youtube.com/watch?v=Aups6UcGiQQ&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&index=1)
 - [`slide` Securing your Spark Applications](http://www.slideshare.net/cloudera/securing-your-apache-spark-applications)

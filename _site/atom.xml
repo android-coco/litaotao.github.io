@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-06T16:16:09+08:00</updated>
+   <updated>2016-04-06T17:52:14+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -564,7 +564,7 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=HBZuB3pPri0&amp;amp;feature=youtu.be&quot;&gt;Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248&quot;&gt;Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=i7l3JQRx7Qw&quot;&gt;Structuring Spark: DataFrames, Datasets, and Streaming&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
@@ -582,8 +582,14 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; SparkUI Visualization&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Wg2boMqLjCg&quot;&gt;
+Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=sNwGJP-_30U&quot;&gt;Machine Learning with Big Data using Apache Spark&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/strata-sj-everyday-im-shuffling-tips-for-writing-better-spark-programs&quot;&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; 
+Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=FA3ArTyXNoo&quot;&gt;Large Scale Distributed Machine Learning on Apache Spark&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Aups6UcGiQQ&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&amp;amp;index=1&quot;&gt;Securing your Spark Applications&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
