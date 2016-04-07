@@ -117,7 +117,7 @@ def mc_pi(n=100):
 
 我们按照上面写的三大步骤来写这个 spark 应用：
 
-- 定义相关函数和常量
+- *加载数据集*
 
 {% highlight python %}
 
@@ -125,23 +125,6 @@ def mc_pi(n=100):
 
 total = int(100 * 10000)
 local_collection = xrange(1, total)
-
-def map_func(element):
-    x = random.random()       ## [0, 1)
-    y = random.random()       ## [0, 1)
-    
-    return (x, y)             ## random point
-
-def map_func_2(element):
-    x, y = element
-    return 1 if x**2 + y**2 < 1 else 0
-
-{% endhighlight %}
-
-
-- *加载数据集*
-
-{% highlight python %}
 
 ### parallelize a data set into the cluster
 
@@ -155,7 +138,18 @@ rdd = sc.parallelize(local_collection)       \
 
 {% highlight python %}
 
+
 ### randomly generate points
+
+def map_func(element):
+    x = random.random()       ## [0, 1)
+    y = random.random()       ## [0, 1)
+    
+    return (x, y)             ## random point
+
+def map_func_2(element):
+    x, y = element
+    return 1 if x**2 + y**2 < 1 else 0
 
 rdd2 = rdd.map(map_func)            \
           .setName("random_point")  \
