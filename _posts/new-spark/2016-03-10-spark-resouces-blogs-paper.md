@@ -113,7 +113,7 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。
 
 
-## 5. 打开微信，扫一扫，点一点，棒棒的
+## 5. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

@@ -142,9 +142,9 @@ ax.grid(color='gray', alpha=0.2, axis='y')
 
 既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。
 
-## 3. 打开微信，扫一扫，点一点，棒棒的
+## 7. 打开微信，扫一扫，点一点，棒棒的，^_^
 
-![wechat_pay.png](../images/wechat_pay.png)
+![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
 
 
 ## 参考文章

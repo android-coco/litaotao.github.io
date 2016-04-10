@@ -114,7 +114,7 @@ RDD is a dataset which is `distributed`, that is, it is divided into `"partition
 - 开始讲 `dataframe 和 datasets`
 
 
-## 5. 打开微信，扫一扫，点一点，棒棒的
+## 5. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

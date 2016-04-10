@@ -209,7 +209,7 @@ sc.parallelize(xrange(total))                                  \
 下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。
 
 
-## 4. 打开微信，扫一扫，点一点，棒棒的
+## 4. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

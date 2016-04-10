@@ -178,9 +178,9 @@ spark 目前也不支持读取标准的 json 文件。你需要预先把标准�
 
 ok，dataframe 简单的也说了几句了。我们先缓一缓，上个例子，再接着讲起他的，例子的话就用一个我正在实践的：用 spark 来做量化投资。
 
-## 7. 打开微信，扫一扫，点一点，棒棒的
+## 7. 打开微信，扫一扫，点一点，棒棒的，^_^
 
-![wechat_pay.png](../images/wechat_pay.png)
+![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
 
 
 ## 参考文章

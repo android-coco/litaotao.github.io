@@ -43,20 +43,20 @@ p {
 	margin-bottom: 40px;
 	line-height: 1.8em;
 }
-
-/*code {*/
-	/*background: #eee;*/
-	/*border: 1px solid #ccc;*/
-	/*padding: 0 5px;*/
-	/*line-height: 14px;*/
-	/*font-size: 14px;*/
-	/*word-wrap: break-word;*/
-	/*border-radius: 5px;*/
-	/*color: maroon;*/
-	/*font-style: oblique;*/
-	/*font-family: monospace;*/
-/*}*/
-
+/*
+code {
+	background: #eee;
+	border: 1px solid #ccc;
+	padding: 0 5px;
+	line-height: 14px;
+	font-size: 14px;
+	word-wrap: break-word;
+	border-radius: 5px;
+	color: maroon;
+	font-style: oblique;
+	font-family: monospace;
+}
+*/
 pre {
 	background-color: #000;
 	padding: 15px;

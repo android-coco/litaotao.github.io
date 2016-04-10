@@ -256,7 +256,11 @@ def parse_backtest(res):
 ok，这个例子就先讲到这里了，最后打个广告，欢迎大家来 [uqer](https://uqer.io/community/list) 来数钱哈，我在 uqer 的链接是：[taotao.li](https://uqer.io/community/user/5480622df9f06c8e773366f4/shares)，我们的qq群是：149439636。关于 uqer，有任何问题都可以随时在 uqer 的社区，qq 群联系我啊。
 
 
-## 2. Next
+## 2. 打开微信，扫一扫，点一点，棒棒的，^_^
+
+![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
+
+## 3. Next
 
 既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。
 

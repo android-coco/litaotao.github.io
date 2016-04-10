@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-09T09:14:46+08:00</updated>
+   <updated>2016-04-10T10:02:56+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -197,9 +197,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;p&gt;ok，dataframe 简单的也说了几句了。我们先缓一缓，上个例子，再接着讲起他的，例子的话就用一个我正在实践的：用 spark 来做量化投资。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
 
@@ -478,9 +478,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;p&gt;既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;3. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-3&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;参考文章&lt;/h2&gt;
 
@@ -630,7 +630,7 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
 
 &lt;p&gt;上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 
@@ -780,7 +780,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   &lt;li&gt;开始讲 &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe 和 datasets&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 
@@ -1010,7 +1010,7 @@ def mc_pi(n=100):
 
 &lt;p&gt;下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;4. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;4. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 
@@ -1360,7 +1360,7 @@ In-Memory Cluster Computing&lt;/a&gt; 是怎么介绍 RDD 的。&lt;/p&gt;
 
 &lt;p&gt;下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 

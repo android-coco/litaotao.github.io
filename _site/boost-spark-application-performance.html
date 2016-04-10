@@ -55,7 +55,24 @@
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   <br />
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
 
-<h2 id="repartition-and-coalesce">1. repartition and coalesce</h2>
+<h2 id="why-how-when-what">1. 优化? Why? How? When? What?</h2>
+
+<p><img src="../images/how_when_what_why.jpg" alt="how_when_what_why.jpg" /></p>
+
+<p>“spark 应用程序也需要优化？”，很多人可能会有这个疑问，“不是已经有代码生成器，执行优化器，pipeline 什么的了的吗？”。是的，spark 的确是有一些列强大的内置工具，让你的代码在执行时更快。但是，如果一切都依赖于工具，框架来做的话，我想那只能说明两个问题：1. 你对这个框架仅仅是知其然，而非知其所以然；2. 看来你也只是照葫芦画瓢而已，没了你，别人也可以轻轻松松的写这样一个 spark 应用程序，so you are replaceable;</p>
+
+<p>在做 spark 应用程序的优化的时候，从下面几个点出发就够了：</p>
+
+<ul>
+  <li>为什么：因为你的资源有限，因为你的应用上生产环境了会有很多不稳定的因素，在上生产前做好优化和测试是唯一一个降低不稳定因素影响的办法；</li>
+  <li>怎么做：web ui ＋ log 是做优化的倚天剑和屠龙刀，能掌握好这两点就可以了；</li>
+  <li>何时做：应用开发成熟时，满足业务要求时，就可以根据需求和时间安排开始做了；</li>
+  <li>做什么：一般来说，spark 应用程序 80% 的优化，都是集中在三个地方：内存，磁盘io，网络io。再细点说，就是 driver，executor 的内存，shuffle 的设置，文件系统的配置，集群的搭建，集群和文件系统的搭建［e.g 尽量让文件系统和集群都在一个局域网内，网络更快；如果可以，可以让 driver 和 集群也在一个局域网内，因为有时候需要从 worker 返回数据到 driver］</li>
+</ul>
+
+<p>OK，下面我们来看看一些常见的优化方法。</p>
+
+<h2 id="repartition-and-coalesce">2. repartition and coalesce</h2>
 
 <p><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">原文：</a></p>
 
@@ -73,7 +90,7 @@ that you are coalescing it to fewer partitions than it currently has.
 
 <p>总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 <code class="highlighter-rouge">coalesce</code>，不要用 <code class="highlighter-rouge">repartition</code>。关于 <code class="highlighter-rouge">partition</code> 的更多优化细节，参考 <a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></p>
 
-<h2 id="passing-functions-to-spark">2. Passing Functions to Spark</h2>
+<h2 id="passing-functions-to-spark">3. Passing Functions to Spark</h2>
 
 <p>In Python, we have three options for passing functions into Spark.</p>
 
@@ -124,21 +141,25 @@ that you are coalescing it to fewer partitions than it currently has.
       <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span>
       <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span></code></pre></figure>
 
+<h2 id="section-1">4.</h2>
+
 <h2 id="next">6. Next</h2>
 
 <p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？哈哈，上次简单介绍了 dataframe，下次我准备再讲讲 datasets，然后总结一下 rdd，dataframe 和 datasets 这三者之间扑朔迷离，藕断丝连的各种迷情。</p>
 
-<h2 id="section-1">7. 打开微信，扫一扫，点一点，棒棒的</h2>
+<h2 id="section-2">7. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
-<p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
+<p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
 
-<h2 id="section-2">参考文章</h2>
+<h2 id="section-3">参考文章</h2>
 
 <ul>
   <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></li>
+  <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch08.html">chapter 8 of Learning Spark</a></li>
+  <li><a href="https://www.youtube.com/watch?v=WyfHUNnMutg">Top 5 Mistakes When Writing Spark Applications</a></li>
 </ul>
 
-<h2 id="section-3">本系列文章链接</h2>
+<h2 id="section-4">本系列文章链接</h2>
 
 <ul>
   <li><a href="../introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
