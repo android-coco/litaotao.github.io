@@ -759,6 +759,20 @@ spark.ui.port   36000</code></pre></figure>
 
 <p>To dive deeper into tuning Spark, visit the <a href="http://spark.apache.org/docs/latest/tuning.html">tuning guide</a> in the official documentation.</p>
 
+<h2 id="spark-sql">9. Spark SQL</h2>
+
+<p>Spark SQL provides three main capabilities:</p>
+
+<ul>
+  <li>It can load data from a variety of structured sources (e.g., JSON, Hive, and Parquet).</li>
+  <li>It lets you query the data using SQL, both inside a Spark program and from external tools that connect to Spark SQL through standard database connectors (JDBC/ODBC), such as business intelligence tools like Tableau.</li>
+  <li>When used within a Spark program, Spark SQL provides rich integration between SQL and regular Python/Java/Scala code, including the ability to join RDDs and SQL tables, expose custom functions in SQL, and more. Many jobs are easier to write using this combination.</li>
+</ul>
+
+<p>Spark SQL provides a special type of RDD called SchemaRDD. A SchemaRDD is an RDD of Row objects, each representing a record. While SchemaRDDs look like regular RDDs, internally they store data in a more efficient manner, taking advantage of their schema. In addition, they provide new operations not available on RDDs, such as the ability to run SQL queries. SchemaRDDs can be created from external data sources, from the results of queries, or from regular RDDs.</p>
+
+<p><img src="../images/learning-spark-1-10.jpg" alt="learning-spark-1-10.jpg" /></p>
+
 <h2 id="section-1">参考文章</h2>
 
 <ul>
