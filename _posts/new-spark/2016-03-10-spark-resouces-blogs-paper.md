@@ -14,7 +14,29 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。
 
 
-## 1. 文章，博客
+## 1. 书籍
+
+- [Learning Spark](https://www.amazon.cn/Spark%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E7%BE%8E-%E5%8D%A1%E5%8A%B3-%E7%BE%8E-%E8%82%AF%E7%BB%B4%E5%B0%BC%E6%96%AF%E7%A7%91-%E7%BE%8E-%E6%B8%A9%E5%BE%B7%E5%B0%94-%E5%8A%A0-%E6%89%8E%E5%93%88%E9%87%8C%E4%BA%9A/dp/B016DWSEXI/ref=sr_1_1?ie=UTF8&qid=1460447269&sr=8-1&keywords=spark+%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90)
+
+- [Mastering Apache Spark](https://www.gitbook.com/book/jaceklaskowski/mastering-apache-spark/details)
+
+
+## 2. 网站
+
+- [official site](http://spark.apache.org/)
+- [user mailing list](http://apache-spark-user-list.1001560.n3.nabble.com/)
+- [spark channel on youtube](https://www.youtube.com/user/TheApacheSpark)
+- [spark summit](https://spark-summit.org/)
+- [meetup](http://www.meetup.com/)
+- [spark third party packages](http://spark-packages.org/)
+- [databricks blog](https://databricks.com/blog)
+- [databricks docs](https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html)
+- [cloudera blog about spark](http://blog.cloudera.com/blog/category/spark/)
+- [http://techsuppdiva.github.io/](http://techsuppdiva.github.io/)
+- [过往记忆](http://www.iteblog.com/archives/category/spark)
+
+
+## 3. 文章，博客
 
 - [RDD论文英文版](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)   
 - [RDD论文中文版](https://code.csdn.net/CODE_Translation/spark_matei_phd)
@@ -27,10 +49,13 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [你对Hadoop和Spark生态圈了解有几许？](http://www.36dsj.com/archives/40723)
 - [Hadoop vs Spark](http://www.yuntoutiao.com/dongtai/5389.html)
 - [雅虎开源CaffeOnSpark：基于Hadoop/Spark的分布式深度学习](http://geek.csdn.net/news/detail/57656)
+- [2016 上海第二次 spark meetup: 1. spark_meetup.pdf](http://litaotao.github.io/files/1. spark_meetup.pdf)
+- [2016 上海第二次 spark meetup: 2. Flink_ An unified stream engine.pdf](http://litaotao.github.io/files/2. Flink_ An unified stream engine.pdf)
+- [2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf](http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf)
+- [2016 上海第二次 spark meetup: 4. splunk_spark.pdf](http://litaotao.github.io/files/4. splunk_spark.pdf)
 
 
-
-## 2. 视频
+## 4. 视频
 
 
 - [YouTube: what is apache spark](https://www.youtube.com/watch?v=cs3_3LdCny8)
@@ -85,35 +110,17 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [`slide` Exploiting GPUs for Columnar DataFrame Operations](http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar)
 
 
-- [Time Series Stream Processing with Spark and Cassandra](https://www.youtube.com/watch?v=fBWLzB0FMX4&index=3&list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp)
-
-
 - [Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://www.youtube.com/watch?v=MFSUAkDBSdQ)
 - [`slide` Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf)
 
 
 
-## 3. 网站
-
-- [official site](http://spark.apache.org/)
-- [user mailing list](http://apache-spark-user-list.1001560.n3.nabble.com/)
-- [spark channel on youtube](https://www.youtube.com/user/TheApacheSpark)
-- [spark summit](https://spark-summit.org/)
-- [meetup](http://www.meetup.com/)
-- [spark third party packages](http://spark-packages.org/)
-- [databricks blog](https://databricks.com/blog)
-- [databricks docs](https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html)
-- [cloudera blog about spark](http://blog.cloudera.com/blog/category/spark/)
-- [http://techsuppdiva.github.io/](http://techsuppdiva.github.io/)
-- [过往记忆](http://www.iteblog.com/archives/category/spark)
-
-
-## 4. next
+## 5. next
 
 上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。
 
 
-## 5. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 6. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

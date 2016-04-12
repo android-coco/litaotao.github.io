@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-12T12:49:46+08:00</updated>
+   <updated>2016-04-12T16:44:27+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -519,7 +519,34 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;1. 文章，博客&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;1. 书籍&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.amazon.cn/Spark%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E7%BE%8E-%E5%8D%A1%E5%8A%B3-%E7%BE%8E-%E8%82%AF%E7%BB%B4%E5%B0%BC%E6%96%AF%E7%A7%91-%E7%BE%8E-%E6%B8%A9%E5%BE%B7%E5%B0%94-%E5%8A%A0-%E6%89%8E%E5%93%88%E9%87%8C%E4%BA%9A/dp/B016DWSEXI/ref=sr_1_1?ie=UTF8&amp;amp;qid=1460447269&amp;amp;sr=8-1&amp;amp;keywords=spark+%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90&quot;&gt;Learning Spark&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.gitbook.com/book/jaceklaskowski/mastering-apache-spark/details&quot;&gt;Mastering Apache Spark&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 网站&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/&quot;&gt;official site&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://apache-spark-user-list.1001560.n3.nabble.com/&quot;&gt;user mailing list&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/user/TheApacheSpark&quot;&gt;spark channel on youtube&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/&quot;&gt;spark summit&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.meetup.com/&quot;&gt;meetup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 文章，博客&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文英文版&lt;/a&gt;&lt;/li&gt;
@@ -533,9 +560,13 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.36dsj.com/archives/40723&quot;&gt;你对Hadoop和Spark生态圈了解有几许？&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.yuntoutiao.com/dongtai/5389.html&quot;&gt;Hadoop vs Spark&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/57656&quot;&gt;雅虎开源CaffeOnSpark：基于Hadoop/Spark的分布式深度学习&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/1. spark_meetup.pdf&quot;&gt;2016 上海第二次 spark meetup: 1. spark_meetup.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/2. Flink_ An unified stream engine.pdf&quot;&gt;2016 上海第二次 spark meetup: 2. Flink_ An unified stream engine.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf&quot;&gt;2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/4. splunk_spark.pdf&quot;&gt;2016 上海第二次 spark meetup: 4. splunk_spark.pdf&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;2. 视频&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;4. 视频&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cs3_3LdCny8&quot;&gt;YouTube: what is apache spark&lt;/a&gt;&lt;/li&gt;
@@ -603,38 +634,19 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=fBWLzB0FMX4&amp;amp;index=3&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&quot;&gt;Time Series Stream Processing with Spark and Cassandra&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MFSUAkDBSdQ&quot;&gt;Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;3. 网站&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/&quot;&gt;official site&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://apache-spark-user-list.1001560.n3.nabble.com/&quot;&gt;user mailing list&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/user/TheApacheSpark&quot;&gt;spark channel on youtube&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/&quot;&gt;spark summit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.meetup.com/&quot;&gt;meetup&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;4. next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;5. next&lt;/h2&gt;
 
 &lt;p&gt;上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+&lt;h2 id=&quot;section-5&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
