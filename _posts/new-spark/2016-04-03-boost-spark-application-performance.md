@@ -129,6 +129,7 @@ class WordFunctions(object):
 - [chapter 4 of Learning Spark](https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html)
 - [chapter 8 of Learning Spark](https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch08.html)
 - [Top 5 Mistakes When Writing Spark Applications](https://www.youtube.com/watch?v=WyfHUNnMutg)
+- [Databricks Spark Knowledge Base](https://www.gitbook.com/book/databricks/databricks-spark-knowledge-base/details)
 
 
 ## 本系列文章链接

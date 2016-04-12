@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>『 读书笔记 』Learning Spark [part 2] | Taotao's Zone</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/memo-for-learning-spark-book-part2" title="『 读书笔记 』Learning Spark [part 2]">『 读书笔记 』Learning Spark [part 2]</a></h1>
+
+    <p class="entry-date">2016-04-02 <span class="lastModified" style="display: none;" data-source="_posts/books-2016/2016-04-02-memo-for-learning-spark-book-part2.md">最后更新时间: </span></p>
+
+
+    <h2 id="section">写在前面</h2>
+
+<p>这本书是在 2015.02 就出版的，那个时候 spark 应该还只是 1.1 左右，最近准备看一两本讲 spark 的高质量的书，算是梳理一下自己的思维。期间因为觉得这本书出版得太早，可能会缺少 spark 现在的很多 feature，所以选了另外一本在 gitbook 上开源的书。可是看了这本 learning spark 后，发现两本书还是有很大的差别。虽然必须承认这本书出版得较早，里面缺少了一些 spark 的新 feature，但是这完全不影响你学习 spark，掌握 spark 的里里外外。我比较推荐这本书作为 spark 初学者的入门书，而且这本书还是 spark 的作者 Matei 合著的，在很多问题的解释上会比其他人解释得更浅显易懂。</p>
+
+<p>spark 的知识点很多，也很细碎，初学者需要通读几遍再加上亲身实践，才能把这些细小的知识点串起来，慢慢开始深入了解 spark，inside out。这篇读书笔记是我在读 learning spark 时候记录的书中的一些知识点，供以后 review 用，当然大家也可以参考参考。</p>
+
+<p>书籍简介：</p>
+
+<ul>
+  <li>第一本介绍 spark 的书</li>
+  <li>由 spark 开发者写</li>
+  <li>完全 free，在 safaribook 上可以直接在线看：<a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/">learning spark on safaribook</a></li>
+  <li>本书代码: <a href="https://github.com/databricks/learning-spark">code of learning spark on github</a></li>
+</ul>
+
+<h2 id="tuning-and-debugging-spark">8. Tuning and Debugging Spark</h2>
+
+<p>Tuning and debugging spark is closely linked to configure spark, so let’s start with how to configure spark application.</p>
+
+<h3 id="configuring-spark-with-sparkconf">8.1 Configuring Spark with SparkConf</h3>
+
+<ul>
+  <li>SparkConf Class</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Construct a conf</span>
+<span class="n">conf</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SparkConf</span><span class="p">()</span>
+<span class="n">conf</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="s">"spark.app.name"</span><span class="p">,</span> <span class="s">"My Spark App"</span><span class="p">)</span>
+<span class="n">conf</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="s">"spark.master"</span><span class="p">,</span> <span class="s">"local[4]"</span><span class="p">)</span>
+<span class="n">conf</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="s">"spark.ui.port"</span><span class="p">,</span> <span class="s">"36000"</span><span class="p">)</span> <span class="c"># Override the default port</span>
+
+<span class="c"># Create a SparkContext with this configuration</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>spark-submit command</li>
+</ul>
+
+<p>The spark-submit tool provides built-in flags for the most common Spark configuration parameters and a generic <em>–conf</em> flag that accepts any Spark configuration value.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>bin/spark-submit <span class="se">\</span>
+  --class com.example.MyApp <span class="se">\</span>
+  --master <span class="nb">local</span><span class="o">[</span>4] <span class="se">\</span>
+  --name <span class="s2">"My Spark App"</span> <span class="se">\</span>
+  --conf spark.ui.port<span class="o">=</span>36000 <span class="se">\</span>
+  myApp.jar</code></pre></figure>
+
+<p>spark-submit also supports loading configuration values from a file. This can be useful to set environmental configuration, which may be shared across multiple users, such as a default master. By default, spark-submit will look for a file called <em>conf/spark-defaults.conf</em> in the Spark directory and attempt to read whitespace-delimited key/value pairs from this file. You can also customize the exact location of the file using the <em>–properties-file</em> flag to spark-submit</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>bin/spark-submit <span class="se">\</span>
+  --class com.example.MyApp <span class="se">\</span>
+  --properties-file my-config.conf <span class="se">\</span>
+  myApp.jar
+
+<span class="c">## Contents of my-config.conf ##</span>
+spark.master    <span class="nb">local</span><span class="o">[</span>4]
+spark.app.name  <span class="s2">"My Spark App"</span>
+spark.ui.port   36000</code></pre></figure>
+
+<p>In some cases, the same configuration property might be set in multiple places. In these cases Spark has a specific precedence order:</p>
+
+<p><code class="highlighter-rouge">SparkConf object &gt; spark-submit paramters &gt; values in the properties file &gt; default values</code></p>
+
+<p>Almost all Spark configurations occur through the SparkConf construct, but one important option doesn’t. To set the local storage directories for Spark to use for shuffle data (necessary for standalone and Mesos modes), you export the <em>SPARK_LOCAL_DIRS</em> environment variable inside of <em>conf/spark-env.sh</em> to a comma-separated list of storage locations. <em>SPARK_LOCAL_DIRS</em> is described in detail in “Hardware Provisioning”. This is specified differently from other Spark configurations because its value may be different on different physical hosts.</p>
+
+<h3 id="components-of-execution-jobs-tasks-and-stages">8.2 Components of Execution: Jobs, Tasks, and Stages</h3>
+
+<p>A first step in tuning and debugging Spark is to have a deeper understanding of the system’s internal design. In previous chapters you saw the “logical” representation of RDDs and their partitions. When executing, Spark translates this logical representation into a physical execution plan by merging multiple operations into tasks.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span> <span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">))</span>  \ 
+  <span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">words</span> <span class="p">:</span> <span class="n">words</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>                     \  
+  <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">words</span> <span class="p">:</span> <span class="p">(</span><span class="n">words</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>                         \
+  <span class="o">.</span><span class="n">reduceByKey</span><span class="p">{</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="p">}</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> </code></pre></figure>
+
+<p>Spark’s scheduler creates a <em>physical execution plan</em> to compute the RDDs needed for performing the action. Here when we call <em>collect()</em> on the RDD, every partition of the RDD must be materialized and then transferred to the driver program. Spark’s scheduler starts at the final RDD being computed (in this case, collects) and works backward to find what it must compute. It visits that RDD’s parents, its parents’ parents, and so on, <em>recursively to develop a physical plan necessary to compute all ancestor RDDs</em>. In the simplest case, the scheduler outputs a computation stage for each RDD in this graph where the stage has tasks for each partition in that RDD. Those stages are then executed in reverse order to compute the final required RDD.</p>
+
+<p>In more complex cases, the physical set of stages will not be an exact 1:1 correspondence to the RDD graph. This can occur when the scheduler performs <em>pipelining, or collapsing of multiple RDDs into a single stage. Pipelining occurs when RDDs can be computed from their parents without data movement</em>. The lineage output shown in above example uses indentation levels to show where RDDs are going to be pipelined together into physical stages. RDDs that exist at the same level of indentation as their parents will be pipelined during physical execution.</p>
+
+<p><img src="../images/learning-spark-1-7.jpg" alt="learning-spark-1-7.jpg" /></p>
+
+<p>In addition to pipelining, Spark’s internal scheduler may truncate the lineage of the RDD graph if an existing RDD has already been <em>persisted in cluster memory or on disk</em>. Spark can “short-circuit” in this case and just begin computing based on the persisted RDD. A second case in which this truncation can happen is when an RDD is <em>already materialized as a side effect of an earlier shuffle, even if it was not explicitly persist()ed</em>. This is an under-the-hood optimization that takes advantage of the fact that Spark shuffle outputs are written to disk, and exploits the fact that many times portions of the RDD graph are recomputed.</p>
+
+<p>Once the stage graph is defined, tasks are created and dispatched to an internal scheduler, which varies depending on the deployment mode being used. <em>Stages in the physical plan can depend on each other, based on the RDD lineage, so they will be executed in a specific order</em>. For instance, a stage that outputs shuffle data must occur before one that relies on that data being present.</p>
+
+<p>A physical stage will launch tasks that each do the same thing but on specific partitions of data. Each task internally performs the same steps:</p>
+
+<ul>
+  <li><em>Fetching its input</em>, either from data storage (if the RDD is an input RDD), an existing RDD (if the stage is based on already cached data), or shuffle outputs.</li>
+  <li><em>Performing the operation</em> necessary to compute RDD(s) that it represents. For instance, executing filter() or map() functions on the input data, or performing grouping or reduction.</li>
+  <li><em>Writing output</em> to a shuffle, to external storage, or back to the driver (if it is the final RDD of an action such as count()).</li>
+</ul>
+
+<p>Most logging and instrumentation in Spark is expressed in terms of stages, tasks, and shuffles. Understanding <em>how user code compiles down into the bits of physical execution is an advanced concept</em>, but one that will help you immensely in tuning and debugging applications.</p>
+
+<p>To summarize, the following phases occur during Spark execution:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">User code defines a DAG (directed acyclic graph) of RDDs</code></li>
+</ul>
+
+<p>Operations on RDDs create new RDDs that refer back to their parents, thereby creating a graph.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Actions force translation of the DAG to an execution plan</code></li>
+</ul>
+
+<p>When you call an action on an RDD it must be computed. This requires computing its parent RDDs as well. Spark’s scheduler submits a job to compute all needed RDDs. That job will have one or more stages, which are parallel waves of computation composed of tasks. <em>Each stage will correspond to one or more RDDs in the DAG. A single stage can correspond to multiple RDDs due to pipelining</em>.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Tasks are scheduled and executed on a cluster</code></li>
+</ul>
+
+<p>Stages are processed in order, with individual tasks launching to compute segments of the RDD. Once the final stage is finished in a job, the action is complete.</p>
+
+<p>In a given Spark application, this entire sequence of steps may occur many times in a continuous fashion as new RDDs are created.</p>
+
+<h3 id="finding-information">8.3 Finding Information</h3>
+
+<h4 id="jobs-progress-and-metrics-of-stages-tasks-and-more">8.3.1 JOBS: PROGRESS AND METRICS OF STAGES, TASKS, AND MORE</h4>
+
+<p>One very useful piece of information on this page is the progress of running jobs, stages, and tasks. Within each stage, this page provides several metrics that you can use to better understand physical execution.</p>
+
+<p><img src="../images/learning-spark-1-8.jpg" alt="learning-spark-1-8.jpg" /></p>
+
+<p>A common use for this page is to assess the performance of a job. A good first step is to look through the stages that make up a job and see whether some are particularly slow or vary significantly in response time across multiple runs of the same job. If you have an especially expensive stage, you can click through and better understand what user code the stage is associated with.</p>
+
+<p>Once you’ve narrowed down a stage of interest, the stage page, shown bellow, can help isolate performance issues. <em>In data-parallel systems such as Spark, a common source of performance issues is skew</em>, which occurs when a small number of tasks take a very large amount of time compared to others. The stage page can help you identify skew by looking at the distribution of different metrics over all tasks. A good starting point is the runtime of the task; do a few tasks take much more time than others? If this is the case, you can dig deeper and see what is causing the tasks to be slow. Do a small number of tasks read or write much more data than others? Are tasks running on certain nodes very slow? These are useful first steps when you’re debugging a job.</p>
+
+<p><img src="../images/learning-spark-1-9.jpg" alt="learning-spark-1-9.jpg" /></p>
+
+<p>In addition to looking at task skew, it can be helpful to identify how much time tasks are spending in each of the phases of the task lifecycle: reading, computing, and writing. If tasks spend very little time reading or writing data, but take a long time overall, it might be the case that the user code itself is expensive (for an example of user code optimizations, see “Working on a Per-Partition Basis”). Some tasks may spend almost all of their time reading data from an external storage system, and will not benefit much from additional optimization in Spark since they are bottlenecked on input read.</p>
+
+<h4 id="storage-information-for-rdds-that-are-persisted">8.3.2 STORAGE: INFORMATION FOR RDDS THAT ARE PERSISTED</h4>
+
+<p>The storage page contains information about persisted RDDs. An RDD is persisted if someone called <em>persist()</em> on the RDD and it was later computed in some job. In some cases, if many RDDs are cached, older ones will fall out of memory to make space for newer ones. This page will tell you exactly what fraction of each RDD is cached and the quantity of data cached in various storage media (disk, memory, etc.). It can be helpful to scan this page and understand whether important datasets are fitting into memory or not.</p>
+
+<ul>
+  <li>spark.memory.fraction 0.75(default)</li>
+</ul>
+
+<p>which mean that only the 75% of the total memory set per executor is available for execution and storage. And remaining 25% is used by executors internally.</p>
+
+<ul>
+  <li>spark.memory.storageFraction 0.5(default)</li>
+</ul>
+
+<p>which means out of 75% only 50% is available for running the job and remaining 50% for storage.</p>
+
+<p>refer to <em>spark executor memory, just for cache or the runtime memory ?</em> in spark mailing-list.</p>
+
+<h4 id="executors-a-list-of-executors-present-in-the-application">8.3.3 EXECUTORS: A LIST OF EXECUTORS PRESENT IN THE APPLICATION</h4>
+
+<p>This page lists the active executors in the application along with some metrics around the processing and storage on each executor. One valuable use of this page is to confirm that your application has the amount of resources you were expecting. A good first step when debugging issues is to scan this page, since a misconfiguration resulting in fewer executors than expected can, for obvious reasons, affect performance. It can also be useful to look for executors with anomalous behaviors, such as a very large ratio of failed to successful tasks. An executor with a high failure rate could indicate a misconfiguration or failure on the physical host in question. Simply removing that host from the cluster can improve performance.</p>
+
+<p>Another feature in the executors page is the ability to collect a stack trace from executors using the Thread Dump button (this feature was introduced in Spark 1.2). Visualizing the thread call stack of an executor can show exactly what code is executing at an instant in time. If an executor is sampled several times in a short time period with this feature, you can identify “hot spots,” or expensive sections, in user code. This type of informal profiling can often detect inefficiencies in user code.</p>
+
+<h4 id="environment-debugging-sparks-configuration">8.3.4 ENVIRONMENT: DEBUGGING SPARK’S CONFIGURATION</h4>
+
+<p>This page enumerates the set of active properties in the environment of your Spark application. The configuration here represents the “ground truth” of your application’s configuration. It can be helpful if you are debugging which configuration flags are enabled, especially if you are using multiple configuration mechanisms. This page will also enumerate JARs and files you’ve added to your application, which can be useful when you’re tracking down issues such as missing dependencies.</p>
+
+<h4 id="driver-and-executor-logs">8.3.5 Driver and Executor Logs</h4>
+
+<p>The exact location of Spark’s logfiles depends on the deployment mode:</p>
+
+<ul>
+  <li>In Spark’s Standalone mode, application logs are directly displayed in the standalone master’s web UI. They are stored by default in the work/ directory of the Spark distribution on each worker.</li>
+</ul>
+
+<p>By default Spark outputs a healthy amount of logging information. It is also possible to customize the logging behavior to change the logging level or log output to non-standard locations. Spark’s logging subsystem is based on log4j, a widely used Java logging library, and uses log4j’s configuration format. An example log4j configuration file is bundled with Spark at conf/log4j.properties.template. To customize Spark’s logging, first copy the example to a file called log4j.properties. You can then modify behavior such as the root logging level (the threshold level for logging output). By default, it is INFO. For less log output, it can be set to WARN or ERROR. Once you’ve tweaked the logging to match your desired level or format, you can add the log4j.properties file using the –files flag of spark-submit. If you have trouble setting the log level in this way, make sure that you are not including any JARs that themselves contain log4j.properties files with your application. Log4j works by scanning the classpath for the first properties file it finds, and will ignore your customization if it finds properties somewhere else first.</p>
+
+<h3 id="key-performance-considerations">8.4 Key Performance Considerations</h3>
+
+<h4 id="level-of-parallelism">8.4.1 Level of Parallelism</h4>
+
+<p>The logical representation of an RDD is a single collection of objects. During physical execution, as discussed already a few times in this book, <em>an RDD is divided into a set of partitions with each partition containing some subset of the total data</em>. When Spark schedules and runs tasks, it creates <em>a single task for data stored in one partition</em>, and that task will require, by default, a single core in the cluster to execute. Out of the box, Spark will infer what it thinks is a good degree of parallelism for RDDs, and this is sufficient for many use cases. Input RDDs typically choose parallelism based on the underlying storage systems. For example, HDFS input RDDs have one partition for each block of the underlying HDFS file. RDDs that are derived from shuffling other RDDs will have parallelism set based on the size of their parent RDDs.</p>
+
+<p>The degree of parallelism can affect performance in two ways.</p>
+
+<ul>
+  <li>First, if there is too little parallelism, Spark might leave resources idle. For example, if your application has 1,000 cores allocated to it, and you are running a stage with only 30 tasks, you might be able to increase the level of parallelism to utilize more cores.</li>
+  <li>If there is too much parallelism, small overheads associated with each partition can add up and become significant. A sign of this is that you have tasks that complete almost instantly—in a few milliseconds—or tasks that do not read or write any data.</li>
+</ul>
+
+<p>Spark offers two ways to tune the degree of parallelism for operations:</p>
+
+<ul>
+  <li>The first is that, during operations that shuffle data, you can always give a degree of parallelism for the produced RDD as a parameter.</li>
+  <li>The second is that any existing RDD can be redistributed to have more or fewer partitions. The <em>repartition()</em> operator will randomly shuffle an RDD into the desired number of partitions. If you know you are shrinking the RDD, you can use the <em>coalesce()</em> operator; this is more efficient than <em>repartition()</em> since it avoids a shuffle operation. If you think you have too much or too little parallelism, it can help to redistribute your data with these operators.</li>
+</ul>
+
+<p>As an example, let’s say we are reading a large amount of data from S3, but then immediately performing a filter() operation that is likely to exclude all but a tiny fraction of the dataset. By default the RDD returned by filter() will have the same size as its parent and might have many empty or small partitions. In this case you can improve the application’s performance by coalescing down to a smaller RDD, as shown bellow:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### version 1</span>
+
+<span class="c"># Wildcard input that may match thousands of files</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">"s3n://log-files/2014/*.log"</span><span class="p">)</span>  \
+  <span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span>
+
+<span class="c"># A filter that excludes almost all data</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">"s3n://log-files/2014/*.log"</span><span class="p">)</span>              \
+  <span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"2014-10-17"</span><span class="p">))</span>  \
+  <span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span>
+
+<span class="c">### version 2</span>
+<span class="c"># We coalesce the lines RDD before caching</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">"s3n://log-files/2014/*.log"</span><span class="p">)</span>              \
+  <span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>                                 \
+  <span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"2014-10-17"</span><span class="p">))</span>  \
+  <span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span></code></pre></figure>
+
+<h4 id="serialization-format">8.4.2 Serialization Format</h4>
+
+<p>When Spark is transferring data over the network or spilling data to disk, it needs to serialize objects into a binary format. This comes into play during shuffle operations, where potentially large amounts of data are transferred. By default Spark will use Java’s built-in serializer. Spark also supports the use of Kryo, a third-party serialization library that improves on Java’s serialization by offering both faster serialization times and a more compact binary representation, but cannot serialize all types of objects “out of the box.” Almost all applications will benefit from shifting to Kryo for serialization.</p>
+
+<p>To use Kryo serialization, you can set the <em>spark.serializer</em> setting to <em>org.apache.spark.serializer.KryoSerializer</em>. For best performance, you’ll also want to register classes with Kryo that you plan to serialize. Registering a class allows Kryo to avoid writing full class names with individual objects, a space savings that can add up over thousands or millions of serialized records. If you want to force this type of registration, you can set <em>spark.kryo.registrationRequired</em> to true, and Kryo will throw errors if it encounters an unregistered class.</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">conf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">SparkConf</span><span class="o">()</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="s">"spark.serializer"</span><span class="o">,</span> <span class="s">"org.apache.spark.serializer.KryoSerializer"</span><span class="o">)</span>
+<span class="c1">// Be strict about class registration
+</span><span class="n">conf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="s">"spark.kryo.registrationRequired"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">registerKryoClasses</span><span class="o">(</span><span class="nc">Array</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">MyClass</span><span class="o">],</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">MyOtherClass</span><span class="o">]))</span></code></pre></figure>
+
+<h4 id="memory-management">8.4.3 Memory Management</h4>
+
+<p>Spark uses memory in different ways, so understanding and tuning Spark’s use of memory can help optimize your application. Inside of each executor, memory is used for a few purposes:</p>
+
+<ul>
+  <li><em>RDD storage</em></li>
+</ul>
+
+<p>When you call <em>persist() or cache()</em> on an RDD, its partitions will be stored in memory buffers. Spark will limit the amount of memory used when caching to a certain fraction of the JVM’s overall heap, set by <em>spark.storage.memoryFraction</em>. If this limit is exceeded, older partitions will be dropped from memory.</p>
+
+<ul>
+  <li><em>Shuffle and aggregation buffers</em></li>
+</ul>
+
+<p>When performing shuffle operations, Spark will create intermediate buffers for storing shuffle output data. These buffers are used to store intermediate results of aggregations in addition to buffering data that is going to be directly output as part of the shuffle. Spark will attempt to limit the total amount of memory used in shuffle-related buffers to <em>spark.shuffle.memoryFraction</em>.</p>
+
+<ul>
+  <li><em>User code</em></li>
+</ul>
+
+<p>Spark executes arbitrary user code, so user functions can themselves require substantial memory. For instance, if a user application allocates large arrays or other objects, these will contend for overall memory usage. User code has access to everything left in the JVM heap after the space for RDD storage and shuffle storage are allocated.</p>
+
+<p>In addition to tweaking memory regions, you can improve certain elements of Spark’s default caching behavior for some workloads. Spark’s default cache() operation persists memory using the MEMORY_ONLY storage level. This means that if there is not enough space to cache new RDD partitions, old ones will simply be deleted and, if they are needed again, they will be recomputed. It is sometimes better to call persist() with the MEMORY_AND_DISK storage level, which instead drops RDD partitions to disk and simply reads them back to memory from a local store if they are needed again. This can be much cheaper than recomputing blocks and can lead to more predictable performance. This is particularly useful if your RDD partitions are very expensive to recompute (for instance, if you are reading data from a database). The full list of possible storage levels is given in Table 3-6.</p>
+
+<p>A second improvement on the default caching policy is to cache serialized objects instead of raw Java objects, which you can accomplish using the MEMORY_ONLY_SER or MEMORY_AND_DISK_SER storage levels. Caching serialized objects will slightly slow down the cache operation due to the cost of serializing objects, but it can substantially reduce time spent on garbage collection in the JVM, since many individual records can be stored as a single serialized buffer. This is because the cost of garbage collection scales with the number of objects on the heap, not the number of bytes of data, and this caching method will take many objects and serialize them into a single giant buffer. Consider this option if you are caching large amounts of data (e.g., gigabytes) as objects and/or seeing long garbage collection pauses. Such pauses would be visible in the application UI under the GC Time column for each task.</p>
+
+<h4 id="hardware-provisioning">8.4.4 Hardware Provisioning</h4>
+
+<p>The hardware resources you give to Spark will have a significant effect on the completion time of your application. The main parameters that affect cluster sizing are the amount of memory given to each executor, the number of cores for each executor, the total number of executors, and the number of local disks to use for scratch data.</p>
+
+<p>In all deployment modes, executor memory is set with <em>spark.executor.memory or the –executor-memory</em> flag to spark-submit. The options for number and cores of executors differ depending on deployment mode. In YARN you can set <em>spark.executor.cores or the –executor-cores flag and the –num-executors</em> flag to determine the total count. In Mesos and Standalone mode, Spark will greedily acquire as many cores and executors as are offered by the scheduler. However, both Mesos and Standalone mode support setting <em>spark.cores.max</em> to limit the total number of cores across all executors for an application. Local disks are used for scratch storage during shuffle operations.</p>
+
+<p>Broadly speaking, Spark applications will benefit from having more memory and cores. Spark’s architecture allows for linear scaling; adding twice the resources will often make your application run twice as fast. An additional consideration when sizing a Spark application is whether you plan to cache intermediate datasets as part of your workload. If you do plan to use caching, the more of your cached data can fit in memory, the better the performance will be. The Spark storage UI will give details about what fraction of your cached data is in memory. One approach is to start by caching a subset of your data on a smaller cluster and extrapolate the total memory you will need to fit larger amounts of the data in memory.</p>
+
+<p>In addition to memory and cores, Spark uses local disk volumes to store intermediate data required during shuffle operations along with RDD partitions that are spilled to disk. Using a larger number of local disks can help accelerate the performance of Spark applications. In YARN mode, the configuration for local disks is read directly from YARN, which provides its own mechanism for specifying scratch storage directories. In Standalone mode, you can set the <em>SPARK_LOCAL_DIRS</em> environment variable in <em>spark-env.sh</em> when deploying the Standalone cluster and Spark applications will inherit this config when they are launched. In Mesos mode, or if you are running in another mode and want to override the cluster’s default storage locations, you can set the <em>spark.local.dir</em> option. In all cases you specify the local directories using a single comma-separated list. It is common to have one local directory for each disk volume available to Spark. Writes will be evenly striped across all local directories provided. Larger numbers of disks will provide higher overall throughput.</p>
+
+<p>One caveat to the “more is better” guideline is when sizing memory for executors. Using very large heap sizes can cause garbage collection pauses to hurt the throughput of a Spark job. It can sometimes be beneficial to request smaller executors (say, 64 GB or less) to mitigate this issue. Mesos and YARN can, out of the box, support packing multiple, smaller executors onto the same physical host, so requesting smaller executors doesn’t mean your application will have fewer overall resources. In Spark’s Standalone mode, you need to launch multiple workers (determined using <em>SPARK_WORKER_INSTANCES</em>) for a single application to run more than one executor on a host. This limitation will likely be removed in a later version of Spark. In addition to using smaller executors, storing data in serialized form (see “Memory Management”) can also help alleviate garbage collection.</p>
+
+<p>To dive deeper into tuning Spark, visit the <a href="http://spark.apache.org/docs/latest/tuning.html">tuning guide</a> in the official documentation.</p>
+
+<h2 id="spark-sql">9. Spark SQL</h2>
+
+<p>Spark SQL provides three main capabilities:</p>
+
+<ul>
+  <li>It can load data from a variety of structured sources (e.g., JSON, Hive, and Parquet).</li>
+  <li>It lets you query the data using SQL, both inside a Spark program and from external tools that connect to Spark SQL through standard database connectors (JDBC/ODBC), such as business intelligence tools like Tableau.</li>
+  <li>When used within a Spark program, Spark SQL provides rich integration between SQL and regular Python/Java/Scala code, including the ability to join RDDs and SQL tables, expose custom functions in SQL, and more. Many jobs are easier to write using this combination.</li>
+</ul>
+
+<p>Spark SQL provides a special type of RDD called SchemaRDD. A SchemaRDD is an RDD of Row objects, each representing a record. While SchemaRDDs look like regular RDDs, internally they store data in a more efficient manner, taking advantage of their schema. In addition, they provide new operations not available on RDDs, such as the ability to run SQL queries. SchemaRDDs can be created from external data sources, from the results of queries, or from regular RDDs.</p>
+
+<p><img src="../images/learning-spark-1-10.jpg" alt="learning-spark-1-10.jpg" /></p>
+
+<h3 id="linking-with-spark-sql">9.1 Linking with Spark SQL</h3>
+
+<h3 id="using-spark-sql-in-applications">9.2 Using Spark SQL in Applications</h3>
+
+<h4 id="schemardds-will-be-dataframe-in-future">9.2.1 SchemaRDDs [Will be DataFrame in future]</h4>
+
+<p>Both loading data and executing queries return SchemaRDDs. SchemaRDDs are similar to tables in a traditional database. Under the hood, a SchemaRDD is an RDD composed of Row objects with additional schema information of the types in each column. Row objects are just wrappers around arrays of basic types (e.g., integers and strings).</p>
+
+<p>SchemaRDDs are also regular RDDs, so you can operate on them using existing RDD transformations like <em>map() and filter()</em>. However, they provide several additional capabilities. Most importantly, you can register any SchemaRDD as a temporary table to query it via <em>HiveContext.sql or SQLContext.sql</em>. You do so using the SchemaRDD’s <em>registerTempTable()</em> method.</p>
+
+<h4 id="working-with-row-objects">9.2.2 WORKING WITH ROW OBJECTS</h4>
+
+<p>Row objects represent records inside SchemaRDDs, and are simply fixed-length arrays of fields.</p>
+
+<h4 id="caching">9.2.3 Caching</h4>
+
+<p>Caching in Spark SQL works a bit differently. Since we know the types of each column, Spark is able to more efficiently store the data. To make sure that we cache using the memory efficient representation, rather than the full objects, we should use the special <em>hiveCtx.cacheTable(“tableName”)</em> method. When caching a table Spark SQL represents the data in an in-memory columnar format. This cached table will remain in memory only for the life of our driver program, so if it exits we will need to recache our data. As with RDDs, we cache tables when we expect to run multiple tasks or queries against the same data.</p>
+
+<p>In Spark 1.2, the regular cache() method on RDDs also results in a cacheTable().</p>
+
+<h3 id="loading-and-saving-data">9.3 Loading and Saving Data</h3>
+
+<h3 id="jdbcodbc-server">9.4 JDBC/ODBC Server</h3>
+
+<p>Spark SQL also provides JDBC connectivity, which is useful for connecting business intelligence (BI) tools to a Spark cluster and for sharing a cluster across multiple users. The JDBC server runs as a standalone Spark driver program that can be shared by multiple clients. Any client can cache tables in memory, query them, and so on, and the cluster resources and cached data will be shared among all of them.</p>
+
+<p>Spark SQL’s JDBC server corresponds to the HiveServer2 in Hive. It is also known as the “Thrift server” since it uses the Thrift communication protocol. Note that the JDBC server requires Spark be built with Hive support.</p>
+
+<p>The server can be launched with <em>sbin/start-thriftserver.sh</em> in your Spark directory. This script takes many of the same options as <em>spark-submit</em>. By default it listens on <em>localhost:10000</em>, but we can change these with either environment variables (<em>HIVE_SERVER2_THRIFT_PORT and HIVE_SERVER2_THRIFT_BIND_HOST</em>), or with Hive configuration properties (<em>hive.server2.thrift.port and hive.server2.thrift.bind.host</em>). You can also specify Hive properties on the command line with <em>–hiveconf property=value</em></p>
+
+<p>Many external tools can also connect to Spark SQL via its ODBC driver. The Spark SQL ODBC driver is produced by Simba and can be downloaded from various Spark vendors (e.g., Databricks Cloud, Datastax, and MapR). It is commonly used by business intelligence (BI) tools such as Microstrategy or Tableau; check with your tool about how it can connect to Spark SQL. In addition, most BI tools that have connectors to Hive can also connect to Spark SQL using their existing Hive connector, because it uses the same query language and server.</p>
+
+<p>One of the advantages of using Spark SQL’s JDBC server is we can share cached tables between multiple programs. This is possible since the JDBC Thrift server is a single driver program. To do this, you only need to register the table and then run the CACHE command on it.</p>
+
+<h3 id="user-defined-functions">9.5 User-Defined Functions</h3>
+
+<p>User-defined functions, or UDFs, allow you to register custom functions in Python, Java, and Scala to call within SQL. Spark SQL makes it especially easy to write UDFs. It supports both its own UDF interface and existing Apache Hive UDFs.</p>
+
+<h4 id="spark-sql-udfs">9.5.1 Spark SQL UDFs</h4>
+
+<p>Spark SQL offers a built-in method to easily register UDFs by passing in a function in your programming language. In Scala and Python, we can use the native function and lambda syntax of the language, and in Java we need only extend the appropriate UDF class. Our UDFs can work on a variety of types, and we can return a different type than the one we are called with.</p>
+
+<p>In Python and Java we also need to specify the return type using one of the SchemaRDD types. In Java these types are found in org.apache.spark.sql.api.java.DataType and in Python we import the DataType.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Make a UDF to tell us how long some text is</span>
+<span class="n">hiveCtx</span><span class="o">.</span><span class="n">registerFunction</span><span class="p">(</span><span class="s">"strLenPython"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">IntegerType</span><span class="p">())</span>
+<span class="n">lengthSchemaRDD</span> <span class="o">=</span> <span class="n">hiveCtx</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s">"SELECT strLenPython('text') FROM tweets LIMIT 10"</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="spark-sql-performance">9.6 Spark SQL Performance</h3>
+
+<p>Spark SQL is for more than just users who are familiar with SQL. Spark SQL makes it very easy to perform conditional aggregate operations, like counting the sum of multiple columns, without having to construct special objects.</p>
+
+<p>Spark SQL is able to use the knowledge of types to more efficiently represent our data. When caching data, Spark SQL uses an in-memory columnar storage. This not only takes up less space when cached, but if our subsequent queries depend only on subsets of the data, Spark SQL minimizes the data read.</p>
+
+<p>Predicate push-down allows Spark SQL to move some parts of our query “down” to the engine we are querying. If we wanted to read only certain records in Spark, the standard way to handle this would be to read in the entire dataset and then execute a filter on it. However, in Spark SQL, if the underlying data store supports retrieving only subsets of the key range, or another restriction, Spark SQL is able to push the restrictions in our query down to the data store, resulting in potentially much less data being read.</p>
+
+<h4 id="performance-tuning-options">9.6.1 Performance Tuning Options</h4>
+
+<h2 id="section-1">参考文章</h2>
+
+<ul>
+  <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/">learning spark on safaribook</a></li>
+  <li><a href="https://github.com/databricks/learning-spark">code of learning spark on github</a></li>
+  <li><a href="https://spark-summit.org/">spark-summit</a></li>
+</ul>
+
+
+
+    <!-- share icon -->
+    <div class="ds-share" data-thread-key="/memo-for-learning-spark-book-part2" data-title="『 读书笔记 』Learning Spark [part 2]"
+         data-content="content"
+         data-url="http://litaotao.github.io//memo-for-learning-spark-book-part2">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/memo-for-learning-spark-book-part2 data-title=『 读书笔记 』Learning Spark [part 2] data-url=/memo-for-learning-spark-book-part2></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.src = '../js/embed.js'
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
+      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>
