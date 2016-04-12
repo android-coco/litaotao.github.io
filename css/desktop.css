@@ -150,7 +150,7 @@ a.external:after {
 }
 
 .entry-date span.lastModified {
-	margin-right: 95px;
+	/*margin-right: 95px;*/
 	float: right;
 }
 
@@ -498,4 +498,10 @@ a.external:after {
     color: blue;
     font-style: oblique;
     font-weight: bolder;
+}
+
+/*多说分享插件位置优化*/
+.ds-share-aside-toggle {
+    width: 25px;
+    right: -25px;
 }

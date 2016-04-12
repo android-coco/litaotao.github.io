@@ -25,7 +25,10 @@ layout: default
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a></h1>
 
-    <p class="entry-date">{{ page.date|date:"%Y-%m-%d" }} <span class="lastModified" style="display: none;" data-source="{{ page.path }}">最后更新时间: </span></p>
+    <p class="entry-date">{{ page.date|date:"%Y-%m-%d" }} 
+        <span class="lastModified" style="display: none;" data-source="{{ page.path }}">最后更新时间: 
+        </span>
+    </p>
 
 
     {{ content }}
