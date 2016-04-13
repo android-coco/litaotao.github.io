@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-12T16:44:27+08:00</updated>
+   <updated>2016-04-13T21:31:36+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -541,6 +541,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html&quot;&gt;databricks training&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
