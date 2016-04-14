@@ -92,68 +92,138 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 <h3 id="section-4">4.1 加载数据集</h3>
 
-<p>本文用到的数据集已经上传到百度云了，下载链接：</p>
+<p>本文用到的数据集已经上传到百度云了，上传文件是一个压缩文件，解压缩后把整个文件夹上传到 hadoop 上就行了，文件夹里有 1505 个文件，文件名表示上证指数某日的分钟线行情，文件内容即为历史当日分钟线行情：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">try</span><span class="p">:</span>
+<p><img src="../images/spark-in-finance-3.jpg" alt="spark-in-finance-3.jpg" /></p>
+
+<p>下载链接：<a href="http://pan.baidu.com/s/1jIvW4mU">minute_bar.zip on baidu</a></p>
+
+<p>下面，我们先创建 SparkContext，然后加载存放在 hdfs 上的数据。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### 创建 sc</span>
+<span class="k">try</span><span class="p">:</span>
     <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">sc_conf</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">sc_conf</span><span class="p">)</span>
-    
-<span class="k">print</span> <span class="s">'-'</span> <span class="o">*</span> <span class="mi">80</span>
-<span class="k">print</span> <span class="s">'SparkContext Configuration'</span>
-<span class="n">sc_conf</span><span class="o">.</span><span class="n">getAll</span><span class="p">()</span></code></pre></figure>
+
+<span class="c">### 加载 hdfs 上的数据</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'hdfs://10.21.208.21:8020/user/mercury/minute_bar'</span>
+<span class="n">rdd_mkt_data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">wholeTextFiles</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">minPartitions</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span> \
+                 <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">'index_minute_bar'</span><span class="p">)</span> \
+                 <span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
 
 <h3 id="section-5">4.2 处理数据</h3>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">cal_minute_bar_similarity_minute</span><span class="p">(</span><span class="n">line_id</span><span class="p">):</span>
+<ul>
+  <li>指定要预测的分钟线</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### UDF 函数，从 rdd_mkt_data 获取某日历史分钟线行情数据</span>
+<span class="k">def</span> <span class="nf">minute_bar_index</span><span class="p">(</span><span class="n">line_id</span><span class="p">):</span>
+    <span class="n">line_data</span> <span class="o">=</span> <span class="n">rdd_mkt_data</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">line_id</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">line</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'barTime'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">line</span>
+
+<span class="c">### 指定想要预测的线的 id，这里我们预测上证指数 2016.03.17 的分钟线</span>
+<span class="n">target_line</span> <span class="o">=</span> <span class="s">'000001.ZICN-20160317'</span>
+<span class="c">### 指定用于计算相似度的分钟线长度，这里我们用 90 个分钟 bar，</span>
+<span class="c">### 即开盘 09:30 到 11:00 的分钟线</span>
+<span class="n">minute_bar_length</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">minute_bar_length_share</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">minute_bar_length</span><span class="p">)</span>
+<span class="n">target_line_mkt_data</span> <span class="o">=</span> <span class="n">minute_bar_index</span><span class="p">(</span><span class="n">target_line</span><span class="p">)</span>
+<span class="n">target_line_share</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">target_line_mkt_data</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>计算相似度</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### 相似度计算函数</span>
+<span class="k">def</span> <span class="nf">cal_similarity</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
     <span class="s">"""计算相似度
-
-    采用简单的算法：偏离值平方累积。
-
     """</span>
-
-    <span class="n">minute_length</span> <span class="o">=</span> <span class="n">minute_bar_share</span><span class="o">.</span><span class="n">value</span>
+    <span class="c">### 使用 sklearn，pandas 来简化计算流程</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">sklearn.preprocessing</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+    
+    <span class="c">### 通过广播变量获取预测的目标线和准备用来预测的分钟线长度</span>
+    <span class="n">minute_length</span> <span class="o">=</span> <span class="n">minute_bar_length_share</span><span class="o">.</span><span class="n">value</span>
     <span class="n">target_line</span> <span class="o">=</span> <span class="n">target_line_share</span><span class="o">.</span><span class="n">value</span>
     
-    <span class="n">ticker</span><span class="p">,</span> <span class="n">tradeDate</span> <span class="o">=</span> <span class="n">line_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
-    <span class="n">line_data</span> <span class="o">=</span> <span class="n">minute_bar_index</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">tradeDate</span><span class="p">)</span>
+    <span class="c">### 参数 line 的格式是： (line_id, line_data)</span>
+    <span class="n">line_id</span><span class="p">,</span> <span class="n">line_data</span> <span class="o">=</span> <span class="n">line</span>
     
+    <span class="c">### 获取 pandas dataframe 格式的某日分钟线行情</span>
+    <span class="n">ticker</span><span class="p">,</span> <span class="n">tradeDate</span> <span class="o">=</span> <span class="n">line_id</span><span class="p">[</span><span class="o">-</span><span class="mi">25</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
+    <span class="n">line_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line_data</span><span class="p">))</span>
+    <span class="n">line_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'barTime'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    
+    <span class="c">### 每天有 240 条分钟线的 bar，我们用 前 minute_length 来计算相似度</span>
     <span class="n">line1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">target_line</span><span class="o">.</span><span class="n">ratio</span><span class="p">)[:</span> <span class="n">minute_length</span><span class="p">]</span>
     <span class="n">line2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line_data</span><span class="o">.</span><span class="n">ratio</span><span class="p">)[:</span> <span class="n">minute_length</span><span class="p">]</span>
     
-    <span class="kn">import</span> <span class="nn">sklearn.preprocessing</span>
-    <span class="n">scaler</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
-
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>    
     <span class="n">tmp</span><span class="p">[</span><span class="s">'first'</span><span class="p">],</span> <span class="n">tmp</span><span class="p">[</span><span class="s">'second'</span><span class="p">]</span> <span class="o">=</span> <span class="n">line1</span><span class="p">,</span> <span class="n">line2</span>
     <span class="n">tmp</span><span class="p">[</span><span class="s">'diff'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s">'first'</span><span class="p">]</span> <span class="o">-</span> <span class="n">tmp</span><span class="p">[</span><span class="s">'second'</span><span class="p">]</span>
     <span class="n">diff_square</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="s">'diff'</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="p">(</span><span class="n">line_id</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">diff_square</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-<span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">line_ids</span><span class="p">)</span>  \
-        <span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">cal_minute_bar_similarity_minute</span><span class="p">)</span>  \
-        <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">'rdd-similarity'</span><span class="p">)</span>  \
-        <span class="o">.</span><span class="n">cache</span><span class="p">()</span>                   </code></pre></figure>
+    <span class="c">### 返回格式：(分钟线id，该分钟线和目标线前 minute_length 个长度的相似度)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">line_id</span><span class="p">[</span><span class="o">-</span><span class="mi">25</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">diff_square</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>                
+
+
+<span class="c">### spark 相似度计算代码</span>
+<span class="n">rdd_similarity</span> <span class="o">=</span> <span class="n">rdd_mkt_data</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">cal_similarity</span><span class="p">)</span>\
+                             <span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s">'rdd_similarity'</span><span class="p">)</span> \
+                             <span class="o">.</span><span class="n">cache</span><span class="p">()</span></code></pre></figure>
 
 <h3 id="section-6">4.3 结果展示</h3>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">similarity_data</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">takeOrdered</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<ul>
+  <li>获取相似度高的分钟线</li>
+</ul>
 
-<span class="k">def</span> <span class="nf">draw_similarity</span><span class="p">(</span><span class="n">target_line</span><span class="p">,</span> <span class="n">minute_bar_length</span><span class="p">,</span> <span class="n">similarity_data</span><span class="p">):</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">### UDF，从 rdd_mkt_data 里获取指定的多日分钟线数据</span>
+<span class="k">def</span> <span class="nf">get_similary_line</span><span class="p">(</span><span class="n">similarity_data</span><span class="p">):</span>
+    <span class="c">### 获取原始相似的分钟线数据</span>
+    <span class="n">rdd_lines</span> <span class="o">=</span> <span class="n">rdd_mkt_data</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">25</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">similarity_data</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="c">### 把原始分钟线数据转成 pandas dataframe 格式</span>
+    <span class="n">similar_line</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">25</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> 
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rdd_lines</span>
+    <span class="p">}</span>
+    <span class="n">similar_line</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">similar_line</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'barTime'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">similar_line</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">similar_line</span>
+
+<span class="c">### 获取相似度最高的30日分钟线</span>
+
+<span class="n">similarity_data</span> <span class="o">=</span> <span class="n">rdd_similarity</span><span class="o">.</span><span class="n">takeOrdered</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">similar_line</span> <span class="o">=</span> <span class="n">get_similary_line</span><span class="p">(</span><span class="n">similarity_data</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>根据相似分钟线绘制预测图</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">draw_similarity</span><span class="p">(</span><span class="n">target_line</span><span class="p">,</span> <span class="n">minute_bar_length</span><span class="p">,</span> <span class="n">similarity_data</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-    <span class="n">res</span><span class="p">[</span><span class="s">'target_line'</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_line</span><span class="o">.</span><span class="n">ratio</span>
+    
     <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">similarity_data</span><span class="p">:</span>
         <span class="n">line_id</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">ticker</span><span class="p">,</span> <span class="n">tradeDate</span> <span class="o">=</span> <span class="n">line_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
-        <span class="n">line_data</span> <span class="o">=</span> <span class="n">minute_bar_index</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">tradeDate</span><span class="p">)</span>
+        <span class="n">line_data</span> <span class="o">=</span> <span class="n">similar_line</span><span class="p">[</span><span class="n">line_id</span><span class="p">]</span>
         <span class="n">res</span><span class="p">[</span><span class="n">line_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_data</span><span class="o">.</span><span class="n">ratio</span>
         <span class="k">if</span> <span class="s">'minute'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span> <span class="p">:</span>
             <span class="n">res</span><span class="p">[</span><span class="s">'minute'</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_data</span><span class="o">.</span><span class="n">barTime</span>  
         <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_id</span><span class="p">)</span>
     <span class="n">res</span><span class="p">[</span><span class="s">'fitting'</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="s">'target_line'</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_line_mkt_data</span><span class="o">.</span><span class="n">ratio</span>
     
     <span class="c">### plot </span>
     
@@ -161,26 +231,31 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
                   <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">u'Minute Bar Prediction'</span><span class="p">)</span>
     <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s">'target_line'</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">'.b'</span><span class="p">)</span>
     <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s">'fitting'</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">'-y'</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s">'dashed'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">minute_bar_length</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> 
+              <span class="n">linestyles</span><span class="o">=</span><span class="s">'dashed'</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_bgcolor</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">)</span>
     
     <span class="c">### plot area</span>
-    <span class="n">fitting_line</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s">'fitting'</span><span class="p">]</span>
-    <span class="n">fitting_line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fitting_line</span><span class="p">)[</span><span class="n">minute_bar_length</span> <span class="p">:</span> <span class="p">]</span>
+    <span class="n">avg_line</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s">'fitting'</span><span class="p">]</span>
+    <span class="n">avg_line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">avg_line</span><span class="p">)[</span><span class="n">minute_bar_length</span> <span class="p">:</span> <span class="p">]</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
         <span class="n">predict_line</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">line</span><span class="p">]</span>
         <span class="n">predict_line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">predict_line</span><span class="p">)[</span><span class="n">minute_bar_length</span> <span class="p">:</span> <span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">minute_bar_length</span><span class="p">,</span> <span class="mi">241</span><span class="p">),</span> 
-                        <span class="n">fitting_line</span><span class="p">,</span> <span class="n">predict_line</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">minute_bar_length</span><span class="p">,</span> <span class="mi">241</span><span class="p">),</span> <span class="n">avg_line</span><span class="p">,</span> 
+                        <span class="n">predict_line</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">ax</span>
 
 <span class="n">res</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">draw_similarity</span><span class="p">(</span><span class="n">target_line</span><span class="p">,</span> <span class="n">minute_bar_length</span><span class="p">,</span> <span class="n">similarity_data</span><span class="p">)</span></code></pre></figure>
 
+<p><img src="../images/spark-in-finance-2.jpg" alt="spark-in-finance-2.jpg" /></p>
+
 <h2 id="next">6. Next</h2>
 
-<p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，期间也写了一些 spark 的应用程序，读了一些高质量的书和博文，在 youtube 上也看了一些高质量的技术分享。也总结了一些写 spark 应用程序的时候的细节问题，下一篇就列一下这些细节问题，希望能优化，加速各位的 spark 应用程序。</p>
+<p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，本来原计划第九篇是总结一些 spark 性能优化的 tips 的。可是前几天一个朋友突然问我是怎么开发 spark 应用程序的。我才恍然大悟，一下子写了这么多篇，都没有把搭建开发环境的经验写出来的呢。</p>
+
+<p>下一篇我就总结一下自己怎么搭建的一个 ipython + spark 的开发环境；不管各位有没有用过 ipython [notebook]，我都强烈推荐使用，使用它能打打提高你的开发效率和开发体验，你一定会爱上他的，相信我。</p>
 
 <h2 id="section-7">7. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
@@ -208,7 +283,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   <li><a href="../spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
   <li><a href="../deep-into-spark-exection-model">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></li>
   <li><a href="../spark-dataframe-introduction">『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</a></li>
+  <li><a href="../spark-in-finance-and-investing">『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测</a></li>
 </ul>
+
 
 
     <!-- share icon -->

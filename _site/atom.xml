@@ -27,13 +27,257 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-13T21:31:36+08:00</updated>
+   <updated>2016-04-14T17:32:28+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测</title>
+     <link href="/spark-in-finance-and-investing"/>
+     <updated>2016-04-01T00:00:00+08:00</updated>
+     <id>/spark-in-finance-and-investing</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 同花顺收费版之走势预测&lt;/h2&gt;
+
+&lt;p&gt;2014年后半年开始，国内 A 股市场可谓是热火朝天啊，路上的人谈的都是股票。小弟虽然就职金融互联网公司，但之前从来没有买过股票，但每天听着别人又赚了几套房几辆车，那叫一个心痒痒啊，那感觉，就跟一个出浴美女和你共处一室，但你却要死忍住不去掀开浴巾一样。终于，小弟还是”犯了全天下男人都会犯的错误”，还是在 2015.03.19 那天入市了，还记得自己的第一次是献给了一支叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;天建集团&lt;/code&gt; 的股票，好像当天还赚了一两百块吧，当时心情那叫一个激动，下班了第一时间就打电话给娘亲了。&lt;/p&gt;
+
+&lt;p&gt;哦，似乎有点扯得远了。言归正传，当时自己为了投资更方便，就花了将近 300 大洋买了同花顺的 level 2 版，里面有个功能，叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;形态预测&lt;/code&gt;。具体就是，根据所有股票的历史行情，看看当前股票的未来一段时间的走势分布。下面是一个截图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-in-finance-1.jpg&quot; alt=&quot;spark-in-finance-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;截图说明：颜色越深，概率越大，包括一组预测的 k 线走势。就像上面说的，上面的那支股票的预测结果是：未来3周收益大于 4.0% 的概率有 60%。amazing…&lt;/p&gt;
+
+&lt;p&gt;先不说这个预测准确度有多高，但首先这个思路不错，至少可以作为一个信号吧［当然一个稳健的投资策略肯定不能仅仅依赖于一个信号］&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 形态选股&lt;/h2&gt;
+
+&lt;p&gt;同花顺这个功能，其实也挺实用的，因为本身在股票市场技术指标这个分类下面，就有形态选股这样一种指标。比如说，经常听财经频道主持人说的 &lt;a href=&quot;http://baike.baidu.com/item/%E4%B8%89%E9%98%B3%E5%BC%80%E6%B3%B0/18751451&quot;&gt;三阳开泰&lt;/a&gt;，&lt;a href=&quot;http://baike.baidu.com/view/1302521.htm&quot;&gt;圆弧底&lt;/a&gt; 什么的。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 指数日内相似度&lt;/h2&gt;
+
+&lt;p&gt;今天，我们就来尝试一下，通过指数日内走势来进行宏观择时: 我们在早盘 11:00 时，使用当天上证指数的分时图，预测一下当天走势情况。&lt;/p&gt;
+
+&lt;p&gt;原理如下：使用上证指数历史分时数据，计算历史上每天 09:30 到 11:00 的分时段走势与今天早盘 09:30 到 11:00 走势的相似度。我们认为，相似度越高，则今日 11:00 到 15:00 走势和 15:00 的收盘涨跌，与历史当日的走势和收盘涨跌有较大的相似度。&lt;/p&gt;
+
+&lt;p&gt;结果预览，如下图所示哦：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-in-finance-2.jpg&quot; alt=&quot;spark-in-finance-2.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-&quot;&gt;4. spark 实现指数日内相似度&lt;/h2&gt;
+
+&lt;p&gt;同样，我们也用第三篇 &lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt; 讲到的三个步骤来实现这个简单的，但有实践意义的 spark 应用程序。&lt;/p&gt;
+
+&lt;p&gt;备注：为了方便理解，我把这个例子精简过了，只用上证指数 6 年的分钟线数据，对应的相似度算法也是采用最简单的算法。但是不影响对整个应用框架的理解和扩展。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;4.1 加载数据集&lt;/h3&gt;
+
+&lt;p&gt;本文用到的数据集已经上传到百度云了，上传文件是一个压缩文件，解压缩后把整个文件夹上传到 hadoop 上就行了，文件夹里有 1505 个文件，文件名表示上证指数某日的分钟线行情，文件内容即为历史当日分钟线行情：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-in-finance-3.jpg&quot; alt=&quot;spark-in-finance-3.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下载链接：&lt;a href=&quot;http://pan.baidu.com/s/1jIvW4mU&quot;&gt;minute_bar.zip on baidu&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下面，我们先创建 SparkContext，然后加载存放在 hdfs 上的数据。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### 创建 sc&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SparkContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SparkContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc_conf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### 加载 hdfs 上的数据&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;hdfs://10.21.208.21:8020/user/mercury/minute_bar&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rdd_mkt_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wholeTextFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minPartitions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+                 &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;index_minute_bar&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+                 &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;4.2 处理数据&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;指定要预测的分钟线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### UDF 函数，从 rdd_mkt_data 获取某日历史分钟线行情数据&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minute_bar_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd_mkt_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;barTime&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### 指定想要预测的线的 id，这里我们预测上证指数 2016.03.17 的分钟线&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;000001.ZICN-20160317&#39;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 指定用于计算相似度的分钟线长度，这里我们用 90 个分钟 bar，&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 即开盘 09:30 到 11:00 的分钟线&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minute_bar_length_share&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;broadcast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target_line_mkt_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_bar_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target_line_share&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;broadcast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_line_mkt_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;计算相似度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### 相似度计算函数&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cal_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;计算相似度
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;### 使用 sklearn，pandas 来简化计算流程&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.preprocessing&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scaler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sklearn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preprocessing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MinMaxScaler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### 通过广播变量获取预测的目标线和准备用来预测的分钟线长度&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;minute_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_bar_length_share&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target_line_share&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### 参数 line 的格式是： (line_id, line_data)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### 获取 pandas dataframe 格式的某日分钟线行情&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tradeDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;-&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;barTime&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### 每天有 240 条分钟线的 bar，我们用 前 minute_length 来计算相似度&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;line2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;    
+    &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;first&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;second&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line2&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;diff&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;first&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;second&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;diff_square&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;diff&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;### 返回格式：(分钟线id，该分钟线和目标线前 minute_length 个长度的相似度)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff_square&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;                
+
+
+&lt;span class=&quot;c&quot;&gt;### spark 相似度计算代码&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rdd_similarity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd_mkt_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cal_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;\
+                             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;rdd_similarity&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+                             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;4.3 结果展示&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;获取相似度高的分钟线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### UDF，从 rdd_mkt_data 里获取指定的多日分钟线数据&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_similary_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;### 获取原始相似的分钟线数据&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rdd_lines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd_mkt_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;### 把原始分钟线数据转成 pandas dataframe 格式&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd_lines&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;barTime&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### 获取相似度最高的30日分钟线&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd_similarity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;takeOrdered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_similary_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;根据相似分钟线绘制预测图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;draw_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similar_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;minute&#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;minute&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barTime&lt;/span&gt;  
+        &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;fitting&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;target_line&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target_line_mkt_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### plot &lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;minute&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                  &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;u&#39;Minute Bar Prediction&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;target_line&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;.b&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;fitting&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;-y&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vlines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ymin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.02&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ymax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.02&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+              &lt;span class=&quot;n&quot;&gt;linestyles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;dashed&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_axis_bgcolor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;white&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;gray&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;y&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;### plot area&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;avg_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;fitting&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;avg_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;avg_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;predict_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;predict_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill_between&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;241&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;avg_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                        &lt;span class=&quot;n&quot;&gt;predict_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;draw_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute_bar_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;similarity_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-in-finance-2.jpg&quot; alt=&quot;spark-in-finance-2.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;6. Next&lt;/h2&gt;
+
+&lt;p&gt;这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，本来原计划第九篇是总结一些 spark 性能优化的 tips 的。可是前几天一个朋友突然问我是怎么开发 spark 应用程序的。我才恍然大悟，一下子写了这么多篇，都没有把搭建开发环境的经验写出来的呢。&lt;/p&gt;
+
+&lt;p&gt;下一篇我就总结一下自己怎么搭建的一个 ipython + spark 的开发环境；不管各位有没有用过 ipython [notebook]，我都强烈推荐使用，使用它能打打提高你的开发效率和开发体验，你一定会爱上他的，相信我。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/sql-programming-guide.html#dataframes&quot;&gt;Spark SQL, DataFrames and Datasets Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/17/introducing-dataframes-in-spark-for-large-scale-data-science.html&quot;&gt;Introducing DataFrames in Spark for Large Scale Data Science&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://forums.databricks.com/questions/7257/from-webinar-spark-dataframes-what-is-the-differen-1.html&quot;&gt;From Webinar Apache Spark 1.5: What is the difference between a DataFrame and a RDD?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/apache-spark-sql&quot;&gt;用Apache Spark进行大数据处理——第二部分：Spark SQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html&quot;&gt;An introduction to JSON support in Spark SQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2015-02-18/2823997&quot;&gt;Spark新年福音：一个用于大规模数据科学的API——DataFrame&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2015/02/02/an-introduction-to-json-support-in-spark-sql.html&quot;&gt;An introduction to JSON support in Spark SQL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</title>
@@ -223,6 +467,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -501,6 +746,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -657,6 +903,7 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -815,6 +1062,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1051,6 +1299,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1394,6 +1643,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1491,558 +1741,8 @@ It also supports a rich set of higher-level tools including :&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 读书笔记 』effective Python</title>
-     <link href="/effective-python"/>
-     <updated>2015-12-30T00:00:00+08:00</updated>
-     <id>/effective-python</id>
-     <content type="html">&lt;h2 id=&quot;pythonic-thinking&quot;&gt;1. Pythonic Thinking&lt;/h2&gt;
-
-&lt;h3 id=&quot;know-which-version-of-python-youre-using&quot;&gt;1.1 know which version of python you’re using&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;two major python version;&lt;/li&gt;
-  &lt;li&gt;multiple popular &lt;code class=&quot;highlighter-rouge&quot;&gt;runtimes&lt;/code&gt; for python: cpython, jython, ironpython, pypy, etc;&lt;/li&gt;
-  &lt;li&gt;be sure that the command line for running python on your system is the version you want;&lt;/li&gt;
-  &lt;li&gt;prefer python 3 in your next project;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;follow-the-pep-8-style-guide&quot;&gt;1.2 follow the pep 8 style guide&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;always follow the pep 8 style guide;&lt;/li&gt;
-  &lt;li&gt;sharing a common style with the larger community facilitates collaboration with others;&lt;/li&gt;
-  &lt;li&gt;using a consistent style, making it easier to maintain your code later;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;know-the-differences-between-bytes-str-and-unicode&quot;&gt;1.3 know the differences between bytes, str and unicode&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html&quot;&gt;PYTHON-进阶-编码处理小结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/evening/archive/2012/04/19/2457440.html&quot;&gt;python encode和decode函数说明&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;in python 3, bytes contains sequences of 8-bit values, str contains sequences of unicode characters. bytes and str instances can’t be used together with operators.&lt;/li&gt;
-  &lt;li&gt;in python 2, str contains sequences of 8-bit, unicode contains sequences of unicode characters. str and unicode can be used together with operators if the str only contains 7-bit ascii characters;&lt;/li&gt;
-  &lt;li&gt;if you want to read or write binary data to/from a file, always open the file using a binary mode (like ‘rb’, ‘wb’);&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;wirte-helper-functions-instead-of-complex-expressions&quot;&gt;1.4 wirte helper functions instead of complex expressions&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python’s syntax make it easy to write a single line expression that are overly difficult to read;&lt;/li&gt;
-  &lt;li&gt;move complex single line expressions to helper functions;&lt;/li&gt;
-  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;if/else&lt;/code&gt; expression make it more readable to alternative using bool operators like &lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;know-how-to-slice-sequence&quot;&gt;1.5 know how to slice sequence&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;avoid being verbose, do not use [0] and [len(sequence)] to fetch the first or end element of a sequence;&lt;/li&gt;
-  &lt;li&gt;assign to a list slice will replace the origin data in that slice part even if the new data’s length does not equal with the old one;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;avoid-using-start-end-and-stride-in-a-single-slice&quot;&gt;1.6 avoid using start, end and stride in a single slice&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;specifying start, end and stride in a slice can be extremely confusing;&lt;/li&gt;
-  &lt;li&gt;avoid negative stride if possible;&lt;/li&gt;
-  &lt;li&gt;avoid using start, end and stride in a single slice, consider doing two assignments(one to slice, the other to stride) or using islice from the itertools module;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-list-comprehension-instead-of-map-and-filter&quot;&gt;1.7 use list comprehension instead of map and filter&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;list comprehension is more clearer than map and filter because it does not need another &lt;code class=&quot;highlighter-rouge&quot;&gt;lambda&lt;/code&gt; expression;&lt;/li&gt;
-  &lt;li&gt;list comprehension allows to skip items from the input list, but map can not make that without using &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;dict and set also support comprehension;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;avoid-more-than-two-expressions-in-list-comprehension&quot;&gt;1.8 avoid more than two expressions in list comprehension&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;list comprehension support multiple levels of loops and multiple conditions per loop;&lt;/li&gt;
-  &lt;li&gt;list comprehension with two expressions are difficult to read in some degree;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-generator-for-large-list-comprehension&quot;&gt;1.9 consider generator for large list comprehension&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;list comprehension can consume large memory for large input;&lt;/li&gt;
-  &lt;li&gt;generator can avoid memory issues by produce one item each time;&lt;/li&gt;
-  &lt;li&gt;generator can execute very quickly when chained together;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;prefer-enumerate-over-range&quot;&gt;1.10 prefer enumerate over range&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;index : {}, item : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;enumerate provides a concise syntax for looping an iterator and getting the index for each item;&lt;/li&gt;
-  &lt;li&gt;prefer enumerate instead looping over a range and indexing for each item;&lt;/li&gt;
-  &lt;li&gt;you can specify a number to the enumerate function, specifying the index you want to iterate with;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-zip-to-process-iterators-in-parallel&quot;&gt;1.11 use zip to process iterators in parallel&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; can be used to iterate over multiple iterators;&lt;/li&gt;
-  &lt;li&gt;in python 3, &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; is a lazy generator, in python 2, &lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; return all the results as a list, but you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;izip&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;itertools&lt;/code&gt; to make it a generator;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zip&lt;/code&gt; truncates it’s output silently if you supply it with different length, if you cannot lose any data, use the &lt;code class=&quot;highlighter-rouge&quot;&gt;zip_longest&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;itertools&lt;/code&gt;;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;avoid-else-blocks-after-for-and-while-loops&quot;&gt;1.12 avoid else blocks after for and while loops&lt;/h3&gt;
-
-&lt;h3 id=&quot;take-advantage-of-each-block-in-tryexceptelsefinally&quot;&gt;1.13 take advantage of each block in try/except/else/finally&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;try/finally&lt;/code&gt; statements let you run cleanup code regardless whether there is exceptions in your &lt;code class=&quot;highlighter-rouge&quot;&gt;try&lt;/code&gt; block or not;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;functions&quot;&gt;2. functions&lt;/h2&gt;
-
-&lt;h3 id=&quot;prefering-exceptions-to-return-none&quot;&gt;2.1 prefering exceptions to return none&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;functions that return &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; to indicate special meaning are error prone beacause &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; and other values (0, empty string, etc) are evaluated to &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; in the conditional expression;&lt;/li&gt;
-  &lt;li&gt;Raise exceptions to indicate special situations instead of returning &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;, expect the calling code to handle the exceptions properly;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;know-how-closures-interactive-with-variable-scope&quot;&gt;2.2 know how closures interactive with variable scope&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sort_priority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;helper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_priority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python supports closures: functions that refer to variables from the scope in which they were defined. this is why helper function is able to access the group argument to &lt;code class=&quot;highlighter-rouge&quot;&gt;sort_priority&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;functions are first-class objects in python, meaning you can refer to them directly, assign them to variables, pass them as arguments to other functions, compare them in expressions and if statements, etc. this is how the sort method can accept a closure function as the key argument;&lt;/li&gt;
-  &lt;li&gt;python has specific rules for comparing tuples. it first compares items in index zero, then index one and so on. this is why the return value from the helper closure causes the sort order to have two distinct groups.&lt;/li&gt;
-  &lt;li&gt;when you refer a variable in an expression, the python interpreter will traverse the scope to resolve the reference in this order:
-    &lt;ul&gt;
-      &lt;li&gt;the current function’s scope;&lt;/li&gt;
-      &lt;li&gt;any enclosing scope(like other containing functions)&lt;/li&gt;
-      &lt;li&gt;the scope of the module that contains the code(also called the global scope)&lt;/li&gt;
-      &lt;li&gt;the built-in scope&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-generators-instead-of-returning-list&quot;&gt;2.3 consider generators instead of returning list&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;using generators can be clearer than the alternative of returning lists of accumulated results;&lt;/li&gt;
-  &lt;li&gt;the iterator returned by a generator produces the set of values passed to yield expressions within the generator funtions’ body;&lt;/li&gt;
-  &lt;li&gt;generators can produce a sequence of outputs for arbitrarily large inputs because their working memory doesn’t include all inputs and outputs;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;be-defensive-when-iterating-over-arguments&quot;&gt;2.4 be defensive when iterating over arguments&lt;/h3&gt;
-
-&lt;h3 id=&quot;reduce-visual-noise-with-variable-positional-arguments&quot;&gt;2.5 reduce visual noise with variable positional arguments&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;functions can accept a variable number of positional arguments by using &lt;code class=&quot;highlighter-rouge&quot;&gt;*args&lt;/code&gt; in the def statement;&lt;/li&gt;
-  &lt;li&gt;you can use the items from a sequence as the posistional arguments for a function with the &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; operator;&lt;/li&gt;
-  &lt;li&gt;using the &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; operator with a generator may cause your program to ran out of memory and crash;&lt;/li&gt;
-  &lt;li&gt;adding new positional parameters to functions that accept &lt;code class=&quot;highlighter-rouge&quot;&gt;*args&lt;/code&gt; can introduce hard-to-find bugs;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;provide-optional-behavior-with-keyword-argument&quot;&gt;2.6 provide optional behavior with keyword argument&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;function arguments can be positional or keyword arguments;&lt;/li&gt;
-  &lt;li&gt;keyword arguments will make it clear when it will be confusing only using positional arguments;&lt;/li&gt;
-  &lt;li&gt;keyword arguments with default values make it easy to add new behaviors, especially there exists some callers;&lt;/li&gt;
-  &lt;li&gt;optional keyword should always be passed using keyword argument other than positional argument;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-none-and-docstrings-to-specify-dynamic-default-arguments&quot;&gt;2.7 use none and docstrings to specify dynamic default arguments&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# when the function is defined, default argument values are evaluated just once per module at the loading time.&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;msg: {}, time: {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;msg_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;msg: {}, time: {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use None for default value is especially important when the argument is mutable;&lt;/li&gt;
-  &lt;li&gt;default argument values are only evaluated once;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;enforce-clarity-with-keyword-only-argument&quot;&gt;2.8 enforce clarity with keyword only argument&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;keyword argument make the intention of the function more clear;&lt;/li&gt;
-  &lt;li&gt;prefer to use keyword arguments if possible, especially when there are many boolean flag arguments;&lt;/li&gt;
-  &lt;li&gt;python 3 supports explicit syntax for keyword only arguments in functions;&lt;/li&gt;
-  &lt;li&gt;python 2 can emulate keyword only argument by using &lt;code class=&quot;highlighter-rouge&quot;&gt;**kwargs&lt;/code&gt; and manually throw &lt;code class=&quot;highlighter-rouge&quot;&gt;TypeError&lt;/code&gt; exception;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;classes-and-inheritance&quot;&gt;3. Classes and Inheritance&lt;/h2&gt;
-
-&lt;h3 id=&quot;prefer-helper-classes-over-bookkeeping-with-dictionaries-and-tuples&quot;&gt;3.1 prefer helper classes over bookkeeping with dictionaries and tuples&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;avoid making dicts with values that are other dicts or long tuple;&lt;/li&gt;
-  &lt;li&gt;use namedtuple for lightweight, immutable data containers before you need the flexibility of full class;&lt;/li&gt;
-  &lt;li&gt;move your bookkeeping code to use multiple helper classes when your internal state dicts get complicated;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;accept-functions-for-simple-interfaces-instead-of-classes&quot;&gt;3.2 accept functions for simple interfaces instead of classes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;instead of defining classes, functions are often all you need for simple interfaces between components in python;&lt;/li&gt;
-  &lt;li&gt;references to functions and methods in python are first class, meaning they can be used in expressions like any other type;&lt;/li&gt;
-  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; special method enables instances of a class to be called like plain python functions;&lt;/li&gt;
-  &lt;li&gt;when you need a function to maintain state, consider defining a class that provides the &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; method instead of defining a stateful closure.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-classmethod-polymorphism-to-construct-objects-generically&quot;&gt;3.3 use @classmethod polymorphism to construct objects generically&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python only supports a single constructor per class, the &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__&lt;/code&gt; method;&lt;/li&gt;
-  &lt;li&gt;use @classmethod to define alternative constructors for your classes;&lt;/li&gt;
-  &lt;li&gt;use class method polymorphism to provide generic ways to build and connect concrete subclasses;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;initialized-parent-classes-with-super&quot;&gt;3.4 initialized parent classes with super&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python’s standard method to resolution order (MRO) solves the problems of superclass init order and diamond inheritance;&lt;/li&gt;
-  &lt;li&gt;always use the super built-in function to init parent classes;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-multiple-inheritance-only-for-mix-in-utility-classes&quot;&gt;3.5 use multiple inheritance only for mix-in utility classes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;avoid using multiple inheritance if mix-in classes can achieve the same outcome;&lt;/li&gt;
-  &lt;li&gt;use pluggable behaviors at the instance level to provide per-class customization when mix-in classes may require it;&lt;/li&gt;
-  &lt;li&gt;compose mix-ins to create complex functionality from simple behaviors;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;prefer-public-attributes-over-private-ones&quot;&gt;3.6 prefer public attributes over private ones&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;private attributes aren’t rigorously enforced by the python compiler;&lt;/li&gt;
-  &lt;li&gt;plan from the beginning to allow subclasses to do more with your internal APIs and attributes instead of locking them out by default;&lt;/li&gt;
-  &lt;li&gt;use documentation of protected fields to guide subclasses instead of trying to force access control with private attributes;&lt;/li&gt;
-  &lt;li&gt;only consider using private attributes to avoid naming conflicts with subclasses that are out of your control;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;inherit-from-collectionsabc-for-custom-container-types&quot;&gt;3.7 inherit from collections.abc for custom container types&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;inherit directly from python’s container types (list, dict) for simple use cases;&lt;/li&gt;
-  &lt;li&gt;beaware of the large number of methods required to implement custom container types correctly;&lt;/li&gt;
-  &lt;li&gt;have your custom container types inherit from the interfaces defined in collections.abc to ensure that your classes match required interfaces and behaviors;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;metaclasses-and-attributes&quot;&gt;4. metaclasses and attributes&lt;/h2&gt;
-
-&lt;h3 id=&quot;use-plain-attributes-instead-of-get-and-set-methods&quot;&gt;4.1 use plain attributes instead of get and set methods&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;define new class interfaces using simple public attributes and avoid set and get methods;&lt;/li&gt;
-  &lt;li&gt;use @property to define special behavior when attributes are accessed on your objects, if necessary;&lt;/li&gt;
-  &lt;li&gt;follow the rule of least surprise and avoid weird side effects in your @property methods;&lt;/li&gt;
-  &lt;li&gt;ensure that @property methods are fast, do slow or complex work using normal methods;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-property-instead-of-refactoring-attributes&quot;&gt;4.2 consider @property instead of refactoring attributes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use @property to give existing instance attributes new functionality;&lt;/li&gt;
-  &lt;li&gt;make incremental progress toward better data models by using @property;&lt;/li&gt;
-  &lt;li&gt;consider refactoring a class and all call sites when you find yourself using @property too heavily;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-descriptors-for-reusable-property-methods&quot;&gt;4.3 use descriptors for reusable @property methods&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;reuse the behavior and validation of @property methods by defining your own descriptor classes;&lt;/li&gt;
-  &lt;li&gt;use WeakKeyDict to ensure that your descriptor classes don’t cause memory leaks;&lt;/li&gt;
-  &lt;li&gt;don’t get bogged down trying to understand exactly how &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; uses the descriptor protocol for getting and setting attrbutes;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-getattr-getattribute-and-setattr-for-lazy-attributes&quot;&gt;4.4 use &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; for lazy attributes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; to lazily load and save attributes for an object;&lt;/li&gt;
-  &lt;li&gt;understand that &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattr__&lt;/code&gt; only gets called once when accessing a missing attribute, whereas &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; gets called every time an attribute is accessed;&lt;/li&gt;
-  &lt;li&gt;avoid infinite recursion in &lt;code class=&quot;highlighter-rouge&quot;&gt;__getattribute__&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;__setattr__&lt;/code&gt; by using methods from super() to access instance attributes directly;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;validate-subclass-with-metaclass&quot;&gt;4.5 validate subclass with metaclass&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use metaclasses to ensure that subclasses are well formed at the time they are defined, before objects of their type are constructed;&lt;/li&gt;
-  &lt;li&gt;metaclasses have slightly different syntax in python 2 and python 3;&lt;/li&gt;
-  &lt;li&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;__new__&lt;/code&gt; method of metaclasses is run after the class statement’s entire body has been processed;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;register-class-existence-with-metaclasses&quot;&gt;4.6 register class existence with metaclasses&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;class registeration is a helpful pattern for building modular python programs;&lt;/li&gt;
-  &lt;li&gt;metaclasses let you run register code automatically each time your base class is subclassed in a program;&lt;/li&gt;
-  &lt;li&gt;using metaclasses for class register avoids errors by ensuring that you never miss a register call;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;annotate-class-attributes-with-metaclasses&quot;&gt;4.7 annotate class attributes with metaclasses&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;metaclasses enable you to modify a class’s attributes before the class is fully defined;&lt;/li&gt;
-  &lt;li&gt;descriptors and metaclasses make a powerful combination for declarative behavior and runtime introspection;&lt;/li&gt;
-  &lt;li&gt;you can avoid both memory leaks and the weakref module by using metaclasses along with descriptors;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;concurrenc-and-parallelism&quot;&gt;5. concurrenc and parallelism&lt;/h2&gt;
-
-&lt;h3 id=&quot;use-subprocess-to-manage-child-processes&quot;&gt;5.1 use subprocess to manage child processes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use the subprocess module to run child processes and manage their input and output manually;&lt;/li&gt;
-  &lt;li&gt;child processes run in parallel with the python interpreter, enabling you to maximize your cpu usage;&lt;/li&gt;
-  &lt;li&gt;use the timeout parameter with communicate to avoid deadlocks and hanging child proceses;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-threads-for-blocking-io-avoid-for-parallelism&quot;&gt;5.2 use threads for blocking i/o, avoid for parallelism&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python threads can’t run bytecode in parallel on multiple cpu cores because of the glow interpreter lock;&lt;/li&gt;
-  &lt;li&gt;python threads are still useful despite the gil because they provide an easy way to do multiple things at seemingly the same time;&lt;/li&gt;
-  &lt;li&gt;use python threads to make multiple system calls in parallel, this allows you to do blocking io at the same time as computation;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-lock-to-prevent-data-races-in-threads&quot;&gt;5.3 use lock to prevent data races in threads&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;even though python has global interpreter lock, you’re still responsible for protecting against data races between the threads in your programs;&lt;/li&gt;
-  &lt;li&gt;your programs will corrupt their data structures if you allow multiple threads to modify the same objects without locks;&lt;/li&gt;
-  &lt;li&gt;the lock class in the threading built-in module is python’s standard mutual exclusion lock implementation;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-queue-to-coordinate-work-between-threads&quot;&gt;5.4 use queue to coordinate work between threads&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;pipelines are a great way to organize sequences of work that run concurrently using multiple python threads;&lt;/li&gt;
-  &lt;li&gt;be aware of the many problems in building concurrent pipelines: busy waiting, stopping workers and memory explosion;&lt;/li&gt;
-  &lt;li&gt;the queue class has all of the facilities you need to build robust pipelines: blocking operations, buffer sizes and joining;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-coroutines-to-run-many-functions-concurrently&quot;&gt;5.5 consider coroutines to run many functions concurrently&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;coroutines provie an efficient way to run tens of thousands of functions seemingly at the same time;&lt;/li&gt;
-  &lt;li&gt;within a generator, the value of the yield expression will be whatever value was passed to the generator’s send method from the exterior code;&lt;/li&gt;
-  &lt;li&gt;coroutines give you a powerful tool for separating the core logic of your program from its interaction with the surrounding environment;&lt;/li&gt;
-  &lt;li&gt;python 2 doesn’t support yield from or returning values from generators;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-concurrentfutures-for-true-parallelism&quot;&gt;5.6 consider concurrent.futures for true parallelism&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;moving cpu bottlenecks to c-extension modules can be an effective way to improve performance while maximizing your investment in python code. however, the cost of doing so is high and may introduce bugs;&lt;/li&gt;
-  &lt;li&gt;the multiprocessing module provides powerful tools that can parallelize certain types of python computation with minimal effort;&lt;/li&gt;
-  &lt;li&gt;the power of multiprocessing is best accessed through the concurrent.futures built-in module and its simple processpollexecutor class;&lt;/li&gt;
-  &lt;li&gt;the advanced parts of the multiprocessing module should be avoided because they are so complex;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;built-in-modules&quot;&gt;6. built-in modules&lt;/h2&gt;
-
-&lt;h3 id=&quot;define-functions-decorators-with-functoolswraps&quot;&gt;6.1 define functions decorators with functools.wraps&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;decorators are python syntax for allowing one function to modify another function at runtime;&lt;/li&gt;
-  &lt;li&gt;using decorators can cause strange behaviors in tools that do introspection, such as debuggers;&lt;/li&gt;
-  &lt;li&gt;use the &lt;code class=&quot;highlighter-rouge&quot;&gt;wraps&lt;/code&gt; decorator from the &lt;code class=&quot;highlighter-rouge&quot;&gt;functools&lt;/code&gt; built-in modules when you define your own decorators to avoid any issues;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;consider-contextlib-and-with-statements-for-reusable-tryfinally-behavior&quot;&gt;6.2 consider contextlib and with statements for reusable try/finally behavior&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the with statement allow you to reuse logic from try/finally blocks and reduce visual noise;&lt;/li&gt;
-  &lt;li&gt;the contextlib built-in module provides a contextmanager decorator that makes it easy to use your own functions in with statements;&lt;/li&gt;
-  &lt;li&gt;the value yielded by context managers is supplied to the as part of the with statement. it’s useful for letting your code directly access the cause of the special context;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;make-pickle-reliable-with-copyreg&quot;&gt;6.3 make pickle reliable with copyreg&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;s serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the pickle module is only useful for serializing and deserializing objects between trusted programs;&lt;/li&gt;
-  &lt;li&gt;the pickle module may break down when used for more than trivial use cases;&lt;/li&gt;
-  &lt;li&gt;use the copyreg built-in module with pickle to add missing attribute values, allow versioning of classes, and provide stable import paths;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-datetime-instead-of-time-for-local-clocks&quot;&gt;6.4 use datetime instead of time for local clocks&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;avoid using the time module for translating between different time zones;&lt;/li&gt;
-  &lt;li&gt;use the datetime built-in module along with the pytz module to reiliably convert between times in different time zones;&lt;/li&gt;
-  &lt;li&gt;always represent time in utc and do conversions to local time as the final step before presentation;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-built-in-algorithms-and-data-structures&quot;&gt;6.5 use built-in algorithms and data structures&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;use python’s built-in modules for algorithms and data structures;&lt;/li&gt;
-  &lt;li&gt;don’t reimplement this functionality yourself;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-decimal-when-precising-is-paramount&quot;&gt;6.6 use decimal when precising is paramount&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python has built-in types and classes in modules that can represent practically every type of numerical value;&lt;/li&gt;
-  &lt;li&gt;the decimal class is ideal for situations that require high precision and exact rounding behavior, such as computations of monetary values;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;know-where-to-find-community-built-modules&quot;&gt;6.7 know where to find community-built modules&lt;/h3&gt;
-
-&lt;h2 id=&quot;collaboration&quot;&gt;7. collaboration&lt;/h2&gt;
-
-&lt;h3 id=&quot;write-docstring-for-every-function-class-and-module&quot;&gt;7.1 write docstring for every function, class and module&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;write documentation for every module, class and function using docstrings. keep them up to date as your code changes;&lt;/li&gt;
-  &lt;li&gt;for modules, introduce the contents of the module and any important classes or functions all users should know about;&lt;/li&gt;
-  &lt;li&gt;for classes, document behavior, important attributes and subclass behavior in the docstring following the class statement;&lt;/li&gt;
-  &lt;li&gt;for functions and methods, document every argument, returned value, raised exception and other behaviors in the docstring following the def statement;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-packages-to-organize-modules-and-provide-stable-apis&quot;&gt;7.2 use packages to organize modules and provide stable apis&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;packages in python are modules that contain other modules, packages allow you to organize your code into separate, non-conflicting namespaces with unique absolute module names;&lt;/li&gt;
-  &lt;li&gt;simple packages are defined by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; file to a directory that contains other source files. these files become the child modules of the directory’s package, package directories may also contain other packages;&lt;/li&gt;
-  &lt;li&gt;you can provide an explicit api for a module by listing its publicly visible names in its &lt;code class=&quot;highlighter-rouge&quot;&gt;__all__&lt;/code&gt; special attribute;&lt;/li&gt;
-  &lt;li&gt;you can hide a package’s internal implementation by only importing public names in the package’s &lt;code class=&quot;highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; file or by naming internal-only members with a leading underscore;&lt;/li&gt;
-  &lt;li&gt;when collaborating within a single team or on a single codebase, using &lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt; for explicit apis is probably unnecessary;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;define-a-root-exception-to-insulate-callers-from-apis&quot;&gt;7.3 define a root exception to insulate callers from apis&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;define root exceptions for your modules allows api consumers to insulate themselves from your api;&lt;/li&gt;
-  &lt;li&gt;catching root exception can help your modules allows api consumers to insulate themselves from your api;&lt;/li&gt;
-  &lt;li&gt;catching the python exception base class can help you find bugs in api implementation;&lt;/li&gt;
-  &lt;li&gt;intermediate root exceptions let you add more specific types of exceptions in the future without breaking your api consumers;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;know-how-to-break-circular-dependecies&quot;&gt;7.4 know how to break circular dependecies&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# dialog.py&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;save_dialog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# app.py&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dialog&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;then if you use app.py in your project, you’ll absolutely get an error like bellow:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;---------------------------------------------------------------------------&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;AttributeError&lt;/span&gt;                            &lt;span class=&quot;n&quot;&gt;Traceback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;recent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ipython&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f8537898a049&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;----&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;app&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chenshan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;----&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dialog&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# import ipdb; ipdb.set_trace()&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chenshan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-      &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;save_dialog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-     &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
-     &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;AttributeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;module&#39;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;has&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;no&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attribute&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;prefs&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;the problem with a circular dependency is that the attributes of a module aren’t defined until the code for those attributes has executed(after step 5), but the module can be loaded with the import statement immediately after it’s inserted into sys.modules(after step 4)&lt;/p&gt;
-
-&lt;p&gt;in the example above,&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;the app.py import dialog before doing anything&lt;/li&gt;
-  &lt;li&gt;then, dialog.py import app firstly, currently the &lt;code class=&quot;highlighter-rouge&quot;&gt;imported app is just an empty module&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;then, in dailog.py, the &lt;code class=&quot;highlighter-rouge&quot;&gt;save_dialog = Dialog(app.prefs.get(&quot;hello&quot;))&lt;/code&gt;, at that time, we’re sure that there are really a module named &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; exists in current runtime, but it’s an empty module, so will raise an attribute error like this.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;python import machinery:
-    &lt;ul&gt;
-      &lt;li&gt;searches for your module in locations from sys.path&lt;/li&gt;
-      &lt;li&gt;loads the code from the module and ensures that it compiles&lt;/li&gt;
-      &lt;li&gt;creates a corresponding empty module object&lt;/li&gt;
-      &lt;li&gt;inserts the module into sys.modules&lt;/li&gt;
-      &lt;li&gt;runs the code in the module object to define its contents&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://localhost:4000/python-cycle-import/&quot;&gt;sever ways to break circular imports&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;reorder imports&lt;/li&gt;
-      &lt;li&gt;import first, config second, run last&lt;/li&gt;
-      &lt;li&gt;dynamic import&lt;/li&gt;
-      &lt;li&gt;re-strucuture or re-factory your code&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;use-virtual-env-for-isonated-and-reproducible-dependences&quot;&gt;7.5 use virtual env for isonated and reproducible dependences&lt;/h3&gt;
-
-&lt;h2 id=&quot;production&quot;&gt;8. Production&lt;/h2&gt;
-
-&lt;h3 id=&quot;consider-module-scoped-code-to-configure-deployment-env&quot;&gt;8.1 consider module-scoped code to configure deployment env&lt;/h3&gt;
-
-&lt;h3 id=&quot;use-repr-string-for-debugging-output&quot;&gt;8.2 use repr string for debugging output&lt;/h3&gt;
-
-&lt;h3 id=&quot;test-everything-with-unittest&quot;&gt;8.3 test everything with unittest&lt;/h3&gt;
-
-&lt;h3 id=&quot;consider-interactive-debugging-with-pdb&quot;&gt;8.4 consider interactive debugging with pdb&lt;/h3&gt;
-
-&lt;h3 id=&quot;profile-before-optimizing&quot;&gt;8.5 profile before optimizing&lt;/h3&gt;
-
-&lt;h3 id=&quot;use-tracemalloc-to-understand-memory-usage-and-leaks&quot;&gt;8.6 use tracemalloc to understand memory usage and leaks&lt;/h3&gt;
 
 </content>
    </entry>

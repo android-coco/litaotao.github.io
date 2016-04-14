@@ -280,3 +280,4 @@ ok，这个例子就先讲到这里了，最后打个广告，欢迎大家来 [u
 - [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
 - [『 Spark 』6. 实战案例 ｜ Spark 在金融领域的应用 ｜ 量化投资](../spark-in-finance-quatitive-investing)
 - [『 Spark 』7. 深入研究 spark 运行原理之 job, stage, task](deep-into-spark-exection-model)
+- [『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测](../spark-in-finance-and-investing)
