@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-14T17:32:28+08:00</updated>
+   <updated>2016-04-16T16:30:37+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -241,13 +241,13 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;p&gt;&lt;img src=&quot;../images/spark-in-finance-2.jpg&quot; alt=&quot;spark-in-finance-2.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;next&quot;&gt;6. Next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;5. Next&lt;/h2&gt;
 
 &lt;p&gt;这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，本来原计划第九篇是总结一些 spark 性能优化的 tips 的。可是前几天一个朋友突然问我是怎么开发 spark 应用程序的。我才恍然大悟，一下子写了这么多篇，都没有把搭建开发环境的经验写出来的呢。&lt;/p&gt;
 
 &lt;p&gt;下一篇我就总结一下自己怎么搭建的一个 ipython + spark 的开发环境；不管各位有没有用过 ipython [notebook]，我都强烈推荐使用，使用它能打打提高你的开发效率和开发体验，你一定会爱上他的，相信我。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+&lt;h2 id=&quot;section-7&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
 
@@ -790,6 +790,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html&quot;&gt;databricks training&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lib.csdn.net/base/10&quot;&gt;csdn spark 知识库&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 

@@ -222,14 +222,14 @@ res, ax = draw_similarity(target_line, minute_bar_length, similarity_data)
 
 ![spark-in-finance-2.jpg](../images/spark-in-finance-2.jpg)
 
-## 6. Next
+## 5. Next
 
 这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，本来原计划第九篇是总结一些 spark 性能优化的 tips 的。可是前几天一个朋友突然问我是怎么开发 spark 应用程序的。我才恍然大悟，一下子写了这么多篇，都没有把搭建开发环境的经验写出来的呢。
 
 下一篇我就总结一下自己怎么搭建的一个 ipython + spark 的开发环境；不管各位有没有用过 ipython [notebook]，我都强烈推荐使用，使用它能打打提高你的开发效率和开发体验，你一定会爱上他的，相信我。
 
 
-## 7. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 6. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
 
