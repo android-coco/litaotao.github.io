@@ -223,16 +223,15 @@ In-Memory Cluster Computing](../files/spark-rdd-paper.pdf)
 
 ## 本系列文章链接
 
-- [『 Spark 』1. spark 简介 ](../introduction-to-spark)
-- [『 Spark 』2. spark 基本概念解析 ](../spark-questions-concepts)
-- [『 Spark 』3. spark 编程模式 ](../spark-programming-model)
-- [『 Spark 』4. spark 之 RDD ](../spark-what-is-rdd)
-- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](../spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](../deep-into-spark-exection-model)
-- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](../spark-dataframe-introduction)
-- [『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测](../spark-in-finance-and-investing)
-
-
+- [『 Spark 』1. spark 简介 ](http://litaotao.github.io/introduction-to-spark)
+- [『 Spark 』2. spark 基本概念解析 ](http://litaotao.github.io/spark-questions-concepts)
+- [『 Spark 』3. spark 编程模式 ](http://litaotao.github.io/spark-programming-model)
+- [『 Spark 』4. spark 之 RDD ](http://litaotao.github.io/spark-what-is-rdd)
+- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](http://litaotao.github.io/spark-resouces-blogs-paper)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](http://litaotao.github.io/deep-into-spark-exection-model)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](http://litaotao.github.io/spark-dataframe-introduction)
+- [『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测](http://litaotao.github.io/spark-in-finance-and-investing)
+- [『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境](http://litaotao.github.io/ipython-notebook-spark)
 
 
 
