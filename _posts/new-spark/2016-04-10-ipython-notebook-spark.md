@@ -1,7 +1,7 @@
 ---
 layout: post
-published: false
-title: 『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境
+published: true
+title: 『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境
 description: know more, do better 
 ---  
 
@@ -27,7 +27,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ## 2. 原理
 
-Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的定义，我们可以借此在启动 IPython 的时候去做一些自定义的事，比如说加载一些模块，做一些初始化的工作。具体我们来看如何创建一个配置文件，并且指定一个配置文件启动 ipython。
+Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的定义，我们可以借此在启动 IPython 的时候去做一些自定义的事，比如说加载一些模块，做一些初始化的工作。这里我们就是利用 Ipython 的这个灵活的特性，在启动 Ipython 的时候，自动加载 spark 的 pyspark 包，甚至是初始化一个 SparkContext。
+
+具体我们来看如何创建一个配置文件，并且指定一个配置文件启动 ipython。
 
 ## 3. 配置Ipython  
 
@@ -35,7 +37,7 @@ Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的
 
 - profile 命令说明    
 
-　　profile 是 ipython 的一个子命令，其中 profile 又有两个子命令，分别是 create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：  
+profile 是 ipython 的一个子命令，其中 profile 又有两个子命令，分别是 create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：  
 
 {% highlight shell %}
 
@@ -71,7 +73,7 @@ list
 
 - profile子命令 list 说明    
 
-　　本想 list 命令应该很简单的，和 linux 下的 ls 差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 *Available profiles in /root/.config/ipython:* 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的[这篇文章](http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/)中，作者说创建的配置文件会放到 *~/.ipython/profile_pyspark/* 下，其实这并不是一定的，具体放在哪个目录下面，可以根据 profile list 的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 */root/.config/ipython* 下面的。
+本想 list 命令应该很简单的，和 linux 下的 ls 差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 *Available profiles in /root/.config/ipython:* 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的[这篇文章](http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/)中，作者说创建的配置文件会放到 *~/.ipython/profile_pyspark/* 下，其实这并不是一定的，具体放在哪个目录下面，可以根据 profile list 的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 */root/.config/ipython* 下面的。
 
 {% highlight shell %}
 
@@ -98,7 +100,7 @@ To use any of the above profiles, start IPython with:
 
 - profile子命令 create 说明    
 
-　　简单介绍下create子命令的用法。
+简单介绍下create子命令的用法。
 
 {% highlight shell %}
 
@@ -149,7 +151,7 @@ c.NotebookApp.password = "sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1
 {% endhighlight %}
 
 - 设置访问密码   
-　　如果你的 notebook server 是需要访问控制的，简单的话可以设置一个访问密码。
+如果你的 notebook server 是需要访问控制的，简单的话可以设置一个访问密码。
 
     + 生成密码
     + 编辑配置文件，设置密码
@@ -171,7 +173,7 @@ c.NotebookApp.password = "sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1
 {% endhighlight %}
 
 - 设置启动文件  
-　　这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：
+这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：
 
 ```
 root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py
@@ -188,11 +190,11 @@ sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))
 # execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
 ```
 
-　　上面的启动配置文件也还简单，即拿到 *spark_home* 路径，并在系统环境变量 path 里加上两个路径，然后再执行一个 *shell.py* 文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的 SPARK_HOME 配置对了，并且下面有 python 这个文件夹，并且 *python/lib 下有 py4j-0.8.1* 这个文件。我在检查的时候就发现我的包版本是 py4j-0.8.2.1 的，所以还是要改得和自己的包一致才行。   
-　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： *sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))*    
-　　注意，上面的最后一行 *execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))* 被注释掉了，表示在新建或打开一个 notebook 时并不去执行 *shell.py* 这个文件，这个文件是创建 SparkContext 的，即如果执行改行语句，那在启动 notebook 时就会初始化一个 sc，但这个 sc 的配置都是写死了的，在 spark web UI 监控里的 appName 也是一样的，很不方便。而且考虑到并不是打开一个 notebook 就要用到 spark 的资源，所以最好是要用户自己定义 sc 了。  
+上面的启动配置文件也还简单，即拿到 *spark_home* 路径，并在系统环境变量 path 里加上两个路径，然后再执行一个 *shell.py* 文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的 SPARK_HOME 配置对了，并且下面有 python 这个文件夹，并且 *python/lib 下有 py4j-0.8.1* 这个文件。我在检查的时候就发现我的包版本是 py4j-0.8.2.1 的，所以还是要改得和自己的包一致才行。   
+这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： *sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))*    
+注意，上面的最后一行 *execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))* 被注释掉了，表示在新建或打开一个 notebook 时并不去执行 *shell.py* 这个文件，这个文件是创建 SparkContext 的，即如果执行改行语句，那在启动 notebook 时就会初始化一个 sc，但这个 sc 的配置都是写死了的，在 spark web UI 监控里的 appName 也是一样的，很不方便。而且考虑到并不是打开一个 notebook 就要用到 spark 的资源，所以最好是要用户自己定义 sc 了。  
 
-　　python/pyspark/shell.py的核心代码：   
+python/pyspark/shell.py 的核心代码：   
 
 ```
 sc = SparkContext(appName="PySparkShell", pyFiles=add_files)
@@ -200,18 +202,18 @@ atexit.register(lambda: sc.stop())
 ```
 
 
-## 4. Ok，here we go　　
-　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。  
+## 4. Ok，here we go
+到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。  
 
 ```
 # for the CDH-installed Spark
 export SPARK_HOME='/usr/local/spark-1.2.0-bin-cdh4/'
 
 # this is where you specify all the options you would normally add after bin/pyspark
-  export PYSPARK_SUBMIT_ARGS='--master spark://10.21.208.21:7077 --deploy-mode client'
+export PYSPARK_SUBMIT_ARGS='--master spark://10.21.208.21:7077 --deploy-mode client'
 ```
 
-　　ok，万事具备，只欠东风了。让我们来尝尝鲜吧：
+ok，万事具备，只欠东风了。让我们来尝尝鲜吧：
 
 ```
 root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
@@ -223,13 +225,13 @@ root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
 2015-02-01 10:40:54.869 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 ```
 
-　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
+在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
 ![notebook-spark-1](http://litaotao.github.io/images/notebook-spark-1.jpg)
 ![notebook-spark-2](http://litaotao.github.io/images/notebook-spark-2.jpg)
 
 
 ## 5. 总结
-　　下面是简单的步骤总结：
+下面是简单的步骤总结：
 
 - 建立环境变量配置文件：*ipython_notebook_spark.bashrc *   
 

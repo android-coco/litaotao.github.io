@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境 | Taotao's Zone</title>
+  <title>『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境 | Taotao's Zone</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,14 +42,17 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/ipython-notebook-spark" title="『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境">『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境</a></h1>
+    <h1 class="entry-title"><a href="/ipython-notebook-spark" title="『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境">『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境</a></h1>
 
-    <p class="entry-date">2016-04-10 <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-04-10-ipython-notebook-spark.md">最后更新时间: </span></p>
+    <p class="entry-date">2016-04-10 
+        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-04-10-ipython-notebook-spark.md">最后更新时间: 
+        </span>
+    </p>
 
 
     <h2 id="section">写在前面</h2>
 
-<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，并非为了做什么教程，所以一切以个人理解梳理为主，没有必要的细节就不会记录了。若想深入了解，最好阅读参考文章和官方文档。</p>
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
 <p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 <br />
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   <br />
@@ -70,7 +73,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 <h2 id="section-2">2. 原理</h2>
 
-<p>Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的定义，我们可以借此在启动 IPython 的时候去做一些自定义的事，比如说加载一些模块，做一些初始化的工作。具体我们来看如何创建一个配置文件，并且指定一个配置文件启动 ipython。</p>
+<p>Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的定义，我们可以借此在启动 IPython 的时候去做一些自定义的事，比如说加载一些模块，做一些初始化的工作。这里我们就是利用 Ipython 的这个灵活的特性，在启动 Ipython 的时候，自动加载 spark 的 pyspark 包，甚至是初始化一个 SparkContext。</p>
+
+<p>具体我们来看如何创建一个配置文件，并且指定一个配置文件启动 ipython。</p>
 
 <h2 id="ipython">3. 配置Ipython</h2>
 
@@ -80,7 +85,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   <li>profile 命令说明</li>
 </ul>
 
-<p>　　profile 是 ipython 的一个子命令，其中 profile 又有两个子命令，分别是 create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：</p>
+<p>profile 是 ipython 的一个子命令，其中 profile 又有两个子命令，分别是 create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">root@ubuntu2[13:54:01]:~/Desktop#ipython profile
 No subcommand specified. Must specify one of: <span class="o">[</span><span class="s1">'create'</span>, <span class="s1">'list'</span><span class="o">]</span>
@@ -114,7 +119,7 @@ list
   <li>profile子命令 list 说明</li>
 </ul>
 
-<p>　　本想 list 命令应该很简单的，和 linux 下的 ls 差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 <em>Available profiles in /root/.config/ipython:</em> 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的<a href="http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/">这篇文章</a>中，作者说创建的配置文件会放到 <em>~/.ipython/profile_pyspark/</em> 下，其实这并不是一定的，具体放在哪个目录下面，可以根据 profile list 的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 <em>/root/.config/ipython</em> 下面的。</p>
+<p>本想 list 命令应该很简单的，和 linux 下的 ls 差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 <em>Available profiles in /root/.config/ipython:</em> 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的<a href="http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/">这篇文章</a>中，作者说创建的配置文件会放到 <em>~/.ipython/profile_pyspark/</em> 下，其实这并不是一定的，具体放在哪个目录下面，可以根据 profile list 的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 <em>/root/.config/ipython</em> 下面的。</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">root@ubuntu2[14:09:12]:~/Desktop#ipython profile list
 
@@ -139,7 +144,7 @@ To use any of the above profiles, start IPython with:
   <li>profile子命令 create 说明</li>
 </ul>
 
-<p>　　简单介绍下create子命令的用法。</p>
+<p>简单介绍下create子命令的用法。</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">root@ubuntu2[09:25:57]:~/Desktop#ipython profile <span class="nb">help </span>create
 Create an IPython profile by name
@@ -186,7 +191,7 @@ ipython_config.py  ipython_notebook_config.py  log  pid  security  startup</code
 <ul>
   <li>
     <p>设置访问密码 <br />
-　　如果你的 notebook server 是需要访问控制的，简单的话可以设置一个访问密码。</p>
+如果你的 notebook server 是需要访问控制的，简单的话可以设置一个访问密码。</p>
 
     <ul>
       <li>生成密码</li>
@@ -209,7 +214,7 @@ ipython_config.py  ipython_notebook_config.py  log  pid  security  startup</code
 
 <ul>
   <li>设置启动文件<br />
-　　这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：</li>
+这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：</li>
 </ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py
@@ -227,29 +232,29 @@ sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-0.8.2.1-src.zip'))
 </code></pre>
 </div>
 
-<p>　　上面的启动配置文件也还简单，即拿到 <em>spark_home</em> 路径，并在系统环境变量 path 里加上两个路径，然后再执行一个 <em>shell.py</em> 文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的 SPARK_HOME 配置对了，并且下面有 python 这个文件夹，并且 <em>python/lib 下有 py4j-0.8.1</em> 这个文件。我在检查的时候就发现我的包版本是 py4j-0.8.2.1 的，所以还是要改得和自己的包一致才行。 <br />
-　　这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： <em>sys.path.insert(0, os.path.join(spark_home, ‘python/lib/py4j-0.8.2.1-src.zip’))</em>  <br />
-　　注意，上面的最后一行 <em>execfile(os.path.join(spark_home, ‘python/pyspark/shell.py’))</em> 被注释掉了，表示在新建或打开一个 notebook 时并不去执行 <em>shell.py</em> 这个文件，这个文件是创建 SparkContext 的，即如果执行改行语句，那在启动 notebook 时就会初始化一个 sc，但这个 sc 的配置都是写死了的，在 spark web UI 监控里的 appName 也是一样的，很不方便。而且考虑到并不是打开一个 notebook 就要用到 spark 的资源，所以最好是要用户自己定义 sc 了。</p>
+<p>上面的启动配置文件也还简单，即拿到 <em>spark_home</em> 路径，并在系统环境变量 path 里加上两个路径，然后再执行一个 <em>shell.py</em> 文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的 SPARK_HOME 配置对了，并且下面有 python 这个文件夹，并且 <em>python/lib 下有 py4j-0.8.1</em> 这个文件。我在检查的时候就发现我的包版本是 py4j-0.8.2.1 的，所以还是要改得和自己的包一致才行。 <br />
+这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： <em>sys.path.insert(0, os.path.join(spark_home, ‘python/lib/py4j-0.8.2.1-src.zip’))</em>  <br />
+注意，上面的最后一行 <em>execfile(os.path.join(spark_home, ‘python/pyspark/shell.py’))</em> 被注释掉了，表示在新建或打开一个 notebook 时并不去执行 <em>shell.py</em> 这个文件，这个文件是创建 SparkContext 的，即如果执行改行语句，那在启动 notebook 时就会初始化一个 sc，但这个 sc 的配置都是写死了的，在 spark web UI 监控里的 appName 也是一样的，很不方便。而且考虑到并不是打开一个 notebook 就要用到 spark 的资源，所以最好是要用户自己定义 sc 了。</p>
 
-<p>　　python/pyspark/shell.py的核心代码：</p>
+<p>python/pyspark/shell.py 的核心代码：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sc = SparkContext(appName="PySparkShell", pyFiles=add_files)
 atexit.register(lambda: sc.stop())
 </code></pre>
 </div>
 
-<h2 id="okhere-we-go">4. Ok，here we go　　</h2>
-<p>　　到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。</p>
+<h2 id="okhere-we-go">4. Ok，here we go</h2>
+<p>到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># for the CDH-installed Spark
 export SPARK_HOME='/usr/local/spark-1.2.0-bin-cdh4/'
 
 # this is where you specify all the options you would normally add after bin/pyspark
-  export PYSPARK_SUBMIT_ARGS='--master spark://10.21.208.21:7077 --deploy-mode client'
+export PYSPARK_SUBMIT_ARGS='--master spark://10.21.208.21:7077 --deploy-mode client'
 </code></pre>
 </div>
 
-<p>　　ok，万事具备，只欠东风了。让我们来尝尝鲜吧：</p>
+<p>ok，万事具备，只欠东风了。让我们来尝尝鲜吧：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
 2015-02-01 10:40:54.850 [NotebookApp] Using existing profile dir: u'/root/.config/ipython/profile_pyspark'
@@ -261,12 +266,12 @@ export SPARK_HOME='/usr/local/spark-1.2.0-bin-cdh4/'
 </code></pre>
 </div>
 
-<p>　　在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
+<p>在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
 <img src="http://litaotao.github.io/images/notebook-spark-1.jpg" alt="notebook-spark-1" />
 <img src="http://litaotao.github.io/images/notebook-spark-2.jpg" alt="notebook-spark-2" /></p>
 
 <h2 id="section-4">5. 总结</h2>
-<p>　　下面是简单的步骤总结：</p>
+<p>下面是简单的步骤总结：</p>
 
 <ul>
   <li>建立环境变量配置文件：*ipython_notebook_spark.bashrc *</li>
@@ -290,6 +295,8 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
 
 <h2 id="next">4. next</h2>
 
+<p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，期间也写了一些 spark 的应用程序，读了一些高质量的书和博文，在 youtube 上也看了一些高质量的技术分享。也总结了一些写 spark 应用程序的时候的细节问题，下一篇就列一下这些细节问题，希望能优化，加速各位的 spark 应用程序。</p>
+
 <h2 id="section-5">5. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
@@ -309,7 +316,7 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/ipython-notebook-spark" data-title="『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境"
+    <div class="ds-share" data-thread-key="/ipython-notebook-spark" data-title="『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境"
          data-content="content"
          data-url="http://litaotao.github.io//ipython-notebook-spark">
         <div class="ds-share-aside-left">
@@ -322,7 +329,7 @@ export PYSPARK_SUBMIT_ARGS="--master spark://10.21.208.21:7077 --deploy-mode cli
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/ipython-notebook-spark data-title=『 Spark 』10. 搭建 IPython + Notebook + Spark 开发环境 data-url=/ipython-notebook-spark></div>
+        <div class="ds-thread" data-thread-key=/ipython-notebook-spark data-title=『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境 data-url=/ipython-notebook-spark></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">

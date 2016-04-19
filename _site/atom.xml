@@ -27,13 +27,284 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-16T16:55:44+08:00</updated>
+   <updated>2016-04-19T14:21:10+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境</title>
+     <link href="/ipython-notebook-spark"/>
+     <updated>2016-04-10T00:00:00+08:00</updated>
+     <id>/ipython-notebook-spark</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 致谢&lt;/h2&gt;
+
+&lt;p&gt;首先我忠心地感谢 IPython，Spark 的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇 IPython Notebook 的 Spark 客户端，真的感受到 The power of technology, the power of open source.&lt;br /&gt;
+下面是这两个项目的 github 地址：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ipython/ipython&quot;&gt;Ipython&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark&quot;&gt;Spark&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;同时，这篇文章在刚开始的部分，参考了很多 &lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇博客&lt;/a&gt;的内容，感谢这么多人能无私分享如此高质量的内容。 &lt;br /&gt;
+但是，这篇文章不是简单记录怎么做，我尽量做到量少质高，所以有些地方会说得比较详细，其中也会提到在解决遇到的问题上的一些方法和思路。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 原理&lt;/h2&gt;
+
+&lt;p&gt;Ipython 支持自定义的配置文件，而且配置文件可以极其灵活的定义，我们可以借此在启动 IPython 的时候去做一些自定义的事，比如说加载一些模块，做一些初始化的工作。这里我们就是利用 Ipython 的这个灵活的特性，在启动 Ipython 的时候，自动加载 spark 的 pyspark 包，甚至是初始化一个 SparkContext。&lt;/p&gt;
+
+&lt;p&gt;具体我们来看如何创建一个配置文件，并且指定一个配置文件启动 ipython。&lt;/p&gt;
+
+&lt;h2 id=&quot;ipython&quot;&gt;3. 配置Ipython&lt;/h2&gt;
+
+&lt;h3 id=&quot;ipython-profile&quot;&gt;3.1 ipython 配置名profile介绍&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;profile 命令说明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;profile 是 ipython 的一个子命令，其中 profile 又有两个子命令，分别是 create和list，顾名思义，create就是创建一个配置文件，list就是列出当前配置文件。如下：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;root@ubuntu2[13:54:01]:~/Desktop#ipython profile
+No subcommand specified. Must specify one of: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;create&#39;&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;&#39;list&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+Manage IPython profiles
+
+Profile directories contain configuration, log and security related files and
+are named using the convention &lt;span class=&quot;s1&quot;&gt;&#39;profile_&amp;lt;name&amp;gt;&#39;&lt;/span&gt;. By default they are located &lt;span class=&quot;k&quot;&gt;in
+&lt;/span&gt;your ipython directory.  You can create profiles with &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ipython profile create
+&amp;lt;name&amp;gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, or see the profiles you already have with &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ipython profile list&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+To get started configuring IPython, simply &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;:
+
+&lt;span class=&quot;gp&quot;&gt;$&amp;gt; &lt;/span&gt;ipython profile create
+
+and IPython will create the default profile &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &amp;lt;ipython_dir&amp;gt;/profile_default,
+where you can edit ipython_config.py to start configuring IPython.
+
+Subcommands
+-----------
+
+Subcommands are launched as &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ipython cmd &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;args]&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;. For information on using
+subcommand &lt;span class=&quot;s1&quot;&gt;&#39;cmd&#39;&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;: &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ipython cmd -h&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;.
+
+create
+    Create an IPython profile by name
+list
+    List available IPython profiles&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;profile子命令 list 说明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本想 list 命令应该很简单的，和 linux 下的 ls 差不多嘛，但我自己看了下，其中还是有些细节值得推敲的。其中这项 &lt;em&gt;Available profiles in /root/.config/ipython:&lt;/em&gt; 是说目前有两个配置文件在那个目录下面，pyspark是我自己创建的了。在参考的&lt;a href=&quot;http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/&quot;&gt;这篇文章&lt;/a&gt;中，作者说创建的配置文件会放到 &lt;em&gt;~/.ipython/profile_pyspark/&lt;/em&gt; 下，其实这并不是一定的，具体放在哪个目录下面，可以根据 profile list 的命令来查看。如此看来，我们在这台机器上创建的配置文件应该是放在目录 &lt;em&gt;/root/.config/ipython&lt;/em&gt; 下面的。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;root@ubuntu2[14:09:12]:~/Desktop#ipython profile list
+
+Available profiles &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;IPython:
+    pysh
+    math
+    sympy
+    cluster
+
+    The first request &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;a bundled profile will copy it
+    into your IPython directory &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/root/.config/ipython&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,
+    where you can customize it.
+
+Available profiles &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /root/.config/ipython:
+    default
+    pyspark
+
+To use any of the above profiles, start IPython with:
+    ipython --profile&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;name&amp;gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;profile子命令 create 说明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;简单介绍下create子命令的用法。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;root@ubuntu2[09:25:57]:~/Desktop#ipython profile &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;create
+Create an IPython profile by name
+
+Create an ipython profile directory by its name or profile directory path.
+Profile directories contain configuration, log and security related files and
+are named using the convention &lt;span class=&quot;s1&quot;&gt;&#39;profile_&amp;lt;name&amp;gt;&#39;&lt;/span&gt;. By default they are located &lt;span class=&quot;k&quot;&gt;in
+&lt;/span&gt;your ipython directory. Once created, you will can edit the configuration files
+&lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;the profile directory to configure IPython. Most users will create a profile
+directory by name, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ipython profile create myprofile&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, which will put the
+directory &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;ipython_dir&amp;gt;/profile_myprofile&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;ipython-1&quot;&gt;3.2 创建新的Ipython配置文件&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;创建配置文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;因为我之前已经配置过一个pyspark的配置文件了，这里我们创建一个测试用的配置文件，pytest。运行一下命令后，会在 &lt;em&gt;/root/.config/ipython&lt;/em&gt; 下生成一个 pytest 的目录。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;root@ubuntu2[14:54:14]:~/Desktop#ipython profile create pytest
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ProfileCreate] Generating default config file: u&lt;span class=&quot;s1&quot;&gt;&#39;/root/.config/ipython/profile_pytest/ipython_config.py&#39;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ProfileCreate] Generating default config file: u&lt;span class=&quot;s1&quot;&gt;&#39;/root/.config/ipython/profile_pytest/ipython_notebook_config.py&#39;&lt;/span&gt;
+
+root@ubuntu2[15:00:57]:~/Desktop#ls ~/.config/ipython/profile_pytest/
+ipython_config.py  ipython_notebook_config.py  log  pid  security  startup&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;3.3 编辑配置文件&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;编辑 &lt;em&gt;ipython_notebook_config.py&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要更改的只有下面三项：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;c.NotebookApp.ip&lt;/em&gt;: 启动服务的地址，设置成 ‘*’ 可以从同一网段的其他机器访问到；&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;c.NotebookApp.open_browser&lt;/em&gt;: 设置成 ‘False’，表示启动 ipython notebook 的时候不会自动打开浏览器；&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;c.NotebookApp.password&lt;/em&gt;: 设置 ipython notebook 的登陆密码，怎么设置看下面；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NotebookApp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;*&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NotebookApp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open_browser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;    
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NotebookApp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1fb8f&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;设置访问密码 &lt;br /&gt;
+如果你的 notebook server 是需要访问控制的，简单的话可以设置一个访问密码。&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;生成密码&lt;/li&gt;
+      &lt;li&gt;编辑配置文件，设置密码&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.lib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwd&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Enter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Verify&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;sha1:e819609871c8:1039dbc5a1392fc230d371d1ce19511490978685&#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### set password &lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NotebookApp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sha1:c6b748a8e1e2:4688f91ccfb9a8e0afd041ec77cdda99d0e1fb8f&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置启动文件&lt;br /&gt;
+这一步算是比较重要的了，也是我在配置这个notebook server中遇到的比较难解的问题。这里我们首先需要创建一个启动文件，并在启动文件里设置一些spark的启动参数。如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu2[09:52:14]:~/Desktop#touch ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py
+root@ubuntu2[10:08:44]:~/Desktop#vi ~/.config/ipython/profile_pytest/startup/00-pytest-setup.py   
+
+import os
+import sys
+
+spark_home = os.environ.get(&#39;SPARK_HOME&#39;, None)
+if not spark_home:
+    raise ValueError(&#39;SPARK_HOME environment variable is not set&#39;)
+sys.path.insert(0, os.path.join(spark_home, &#39;python&#39;))
+sys.path.insert(0, os.path.join(spark_home, &#39;python/lib/py4j-0.8.2.1-src.zip&#39;))
+# execfile(os.path.join(spark_home, &#39;python/pyspark/shell.py&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面的启动配置文件也还简单，即拿到 &lt;em&gt;spark_home&lt;/em&gt; 路径，并在系统环境变量 path 里加上两个路径，然后再执行一个 &lt;em&gt;shell.py&lt;/em&gt; 文件。不过，在保存之前还是先确认下配置文件写对了，比如说你的 SPARK_HOME 配置对了，并且下面有 python 这个文件夹，并且 &lt;em&gt;python/lib 下有 py4j-0.8.1&lt;/em&gt; 这个文件。我在检查的时候就发现我的包版本是 py4j-0.8.2.1 的，所以还是要改得和自己的包一致才行。 &lt;br /&gt;
+这里得到一个经验，在这种手把手，step by step的教程中，一定要注意版本控制，毕竟各人的机器，操作系统，软件版本等都不可能完全一致，也许在别人机器上能成功，在自己的机器上不成功也是很正常的事情，毕竟细节决定成败啊！所以在我这里，这句我是这样写的： &lt;em&gt;sys.path.insert(0, os.path.join(spark_home, ‘python/lib/py4j-0.8.2.1-src.zip’))&lt;/em&gt;  &lt;br /&gt;
+注意，上面的最后一行 &lt;em&gt;execfile(os.path.join(spark_home, ‘python/pyspark/shell.py’))&lt;/em&gt; 被注释掉了，表示在新建或打开一个 notebook 时并不去执行 &lt;em&gt;shell.py&lt;/em&gt; 这个文件，这个文件是创建 SparkContext 的，即如果执行改行语句，那在启动 notebook 时就会初始化一个 sc，但这个 sc 的配置都是写死了的，在 spark web UI 监控里的 appName 也是一样的，很不方便。而且考虑到并不是打开一个 notebook 就要用到 spark 的资源，所以最好是要用户自己定义 sc 了。&lt;/p&gt;
+
+&lt;p&gt;python/pyspark/shell.py 的核心代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sc = SparkContext(appName=&quot;PySparkShell&quot;, pyFiles=add_files)
+atexit.register(lambda: sc.stop())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;okhere-we-go&quot;&gt;4. Ok，here we go&lt;/h2&gt;
+&lt;p&gt;到这里差不多大功告成了，可以启动notebook server了。不过在启动之前，需要配置两个环境变量参数，同样，这两个环境变量参数在也是根据个人配置而定的。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# for the CDH-installed Spark
+export SPARK_HOME=&#39;/usr/local/spark-1.2.0-bin-cdh4/&#39;
+
+# this is where you specify all the options you would normally add after bin/pyspark
+export PYSPARK_SUBMIT_ARGS=&#39;--master spark://10.21.208.21:7077 --deploy-mode client&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;ok，万事具备，只欠东风了。让我们来尝尝鲜吧：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu2[10:40:50]:~/Desktop#ipython notebook --profile=pyspark
+2015-02-01 10:40:54.850 [NotebookApp] Using existing profile dir: u&#39;/root/.config/ipython/profile_pyspark&#39;
+2015-02-01 10:40:54.858 [NotebookApp] Using MathJax from CDN: http://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-02-01 10:40:54.868 [NotebookApp] CRITICAL | WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+2015-02-01 10:40:54.869 [NotebookApp] Serving notebooks from local directory: /root/Desktop
+2015-02-01 10:40:54.869 [NotebookApp] The IPython Notebook is running at: http://[all ip addresses on your system]:8880/
+2015-02-01 10:40:54.869 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在浏览器输入driver:8880即可访问notebook server了，首先会提示输入密码，密码正确后就可以使用了。
+&lt;img src=&quot;http://litaotao.github.io/images/notebook-spark-1.jpg&quot; alt=&quot;notebook-spark-1&quot; /&gt;
+&lt;img src=&quot;http://litaotao.github.io/images/notebook-spark-2.jpg&quot; alt=&quot;notebook-spark-2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;5. 总结&lt;/h2&gt;
+&lt;p&gt;下面是简单的步骤总结：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;建立环境变量配置文件：*ipython_notebook_spark.bashrc *&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export SPARK_HOME=&quot;/usr/local/spark-1.2.0-bin-cdh4/&quot;
+export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mode client&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;配置Ipython notebook server
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;ipython profile create pyspark&lt;/em&gt;&lt;/li&gt;
+      &lt;li&gt;编辑 &lt;em&gt;ipython_notebook_config.py&lt;/em&gt;&lt;/li&gt;
+      &lt;li&gt;[可选]配置ipython notebook登录密码&lt;/li&gt;
+      &lt;li&gt;设置启动文件&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;设置启动脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;4. next&lt;/h2&gt;
+
+&lt;p&gt;这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？一转眼 spark 已经快要有十篇 blog 了，期间也写了一些 spark 的应用程序，读了一些高质量的书和博文，在 youtube 上也看了一些高质量的技术分享。也总结了一些写 spark 应用程序的时候的细节问题，下一篇就列一下这些细节问题，希望能优化，加速各位的 spark 应用程序。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测</title>
@@ -1635,104 +1906,6 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』1. spark 简介</title>
-     <link href="/introduction-to-spark"/>
-     <updated>2016-02-01T00:00:00+08:00</updated>
-     <id>/introduction-to-spark</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;spark&quot;&gt;1. 如何向别人介绍 spark&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Apache Spark™ is a fast and general engine for large-scale data processing.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Apache Spark is a fast and general-purpose cluster computing system.  &lt;br /&gt;
-It provides high-level APIs in &lt;code class=&quot;highlighter-rouge&quot;&gt;Java, Scala, Python and R&lt;/code&gt;, and an optimized engine that supports general execution graphs.  &lt;br /&gt;
-It also supports a rich set of higher-level tools including :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets&lt;/li&gt;
-  &lt;li&gt;MLlib for machine learning&lt;/li&gt;
-  &lt;li&gt;GraphX for graph processing&lt;/li&gt;
-  &lt;li&gt;Spark Streaming for stream data processing&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;spark-&quot;&gt;2. spark 诞生的一些背景&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-1.jpg&quot; alt=&quot;introduction-to-spark-1.jpg&quot; /&gt;
-&lt;img src=&quot;../images/introduction-to-spark-2.jpg&quot; alt=&quot;introduction-to-spark-2.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;generalize MapReduce to support new apps within same engine
-    &lt;ul&gt;
-      &lt;li&gt;it’s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;speed up iteration computing over hadoop.
-    &lt;ul&gt;
-      &lt;li&gt;use memory + disk instead of disk as data storage medium&lt;/li&gt;
-      &lt;li&gt;design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-4.jpg&quot; alt=&quot;introduction-to-spark-4.jpg&quot; /&gt;
-&lt;img src=&quot;../images/introduction-to-spark-5.jpg&quot; alt=&quot;introduction-to-spark-5.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;spark-1&quot;&gt;3. 为何选用 spark&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;designed, implemented and used as libs, instead of specialized systems;
-    &lt;ul&gt;
-      &lt;li&gt;much more useful and maintainable&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-3.jpg&quot; alt=&quot;introduction-to-spark-3.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;from history, it is designed and improved upon hadoop and storm, it has perfect genes;&lt;/li&gt;
-  &lt;li&gt;documents, community, products and trends;&lt;/li&gt;
-  &lt;li&gt;it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;&lt;/li&gt;
-  &lt;li&gt;it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
-
-&lt;p&gt;下一篇，简单介绍 spark 里必须深刻理解的基本概念。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf&quot;&gt;Intro to Apache Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/introduing_spark.pdf&quot;&gt;introducing spark&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
