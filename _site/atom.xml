@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-19T16:25:23+08:00</updated>
+   <updated>2016-04-20T22:36:36+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1077,6 +1077,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf&quot;&gt;An Architecture for Fast and General Data Processing
 on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 1)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 2)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://dataunion.org/22985.html&quot;&gt;借助 Redis ，让 Spark 提速 45 倍！&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2015-10-06/2825849&quot;&gt;量化派基于Hadoop、Spark、Storm的大数据风控架构&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/58867&quot;&gt;基于Spark的异构分布式深度学习平台&lt;/a&gt;&lt;/li&gt;
@@ -1087,6 +1088,7 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/2. Flink_ An unified stream engine.pdf&quot;&gt;2016 上海第二次 spark meetup: 2. Flink_ An unified stream engine.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf&quot;&gt;2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/4. splunk_spark.pdf&quot;&gt;2016 上海第二次 spark meetup: 4. splunk_spark.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://prezi.com/w4wjzdq7y0lj/spark/&quot;&gt;基于Spark的医疗和金融大数据&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;4. 视频&lt;/h2&gt;
@@ -1158,7 +1160,11 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
     &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MFSUAkDBSdQ&quot;&gt;Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;amp;index=6&amp;amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x&quot;&gt;Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;next&quot;&gt;5. next&lt;/h2&gt;
@@ -1896,11 +1902,15 @@ In-Memory Cluster Computing&lt;/a&gt; 是怎么介绍 RDD 的。&lt;/p&gt;
 
 &lt;p&gt;不会，只会cache一次。&lt;a href=&quot;http://stackoverflow.com/questions/36195105/what-happens-if-i-cache-the-same-rdd-twice-in-spark/36195812#36195812&quot;&gt;stackoverflow&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
+&lt;h2 id=&quot;shuffle&quot;&gt;22. 什么是 shuffle&lt;/h2&gt;
+
+&lt;p&gt;shuffle 是两个 stage 之间的数据传输过程。&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;23. Next&lt;/h2&gt;
 
 &lt;p&gt;下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;24. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 

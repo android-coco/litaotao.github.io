@@ -45,6 +45,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [An Architecture for Fast and General Data Processing
 on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf)
 - [How-to: Tune Your Apache Spark Jobs (Part 1)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/)
+- [How-to: Tune Your Apache Spark Jobs (Part 2)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/)
 - [借助 Redis ，让 Spark 提速 45 倍！](http://dataunion.org/22985.html)
 - [量化派基于Hadoop、Spark、Storm的大数据风控架构](http://www.csdn.net/article/2015-10-06/2825849)
 - [基于Spark的异构分布式深度学习平台](http://geek.csdn.net/news/detail/58867)
@@ -55,6 +56,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [2016 上海第二次 spark meetup: 2. Flink_ An unified stream engine.pdf](http://litaotao.github.io/files/2. Flink_ An unified stream engine.pdf)
 - [2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf](http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf)
 - [2016 上海第二次 spark meetup: 4. splunk_spark.pdf](http://litaotao.github.io/files/4. splunk_spark.pdf)
+- [基于Spark的医疗和金融大数据](https://prezi.com/w4wjzdq7y0lj/spark/)
 
 
 ## 4. 视频
@@ -114,6 +116,10 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 
 - [Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://www.youtube.com/watch?v=MFSUAkDBSdQ)
 - [`slide` Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)](https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf)
+
+
+- [Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://www.youtube.com/watch?v=8hn2KVC8FvA&index=6&list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x)
+- [`slide` Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf)
 
 
 

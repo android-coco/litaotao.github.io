@@ -200,14 +200,16 @@ spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd
 
 不会，只会cache一次。[stackoverflow](http://stackoverflow.com/questions/36195105/what-happens-if-i-cache-the-same-rdd-twice-in-spark/36195812#36195812)
 
+## 22. 什么是 shuffle
 
+shuffle 是两个 stage 之间的数据传输过程。
 
-## 4. Next
+## 23. Next
 
 下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。
 
 
-## 5. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 24. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 
