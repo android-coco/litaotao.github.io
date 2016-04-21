@@ -1,9 +1,9 @@
 
-04.05.2016
+## 04.05.2016
 
 1. ferry, ferry terminal, I come to office by ferry, the road from the ferry terminal to our office will take 15 minutes.
 
-04.06.2016
+## 04.06.2016
 
 2. corporation, company, organization, entity
 
@@ -12,14 +12,14 @@
 - An organization is an official group of people, for example, a business, a charity or a club;
 - An entity is something that exists seperately from other things which has a clear identity and its own;
 
-04.07.2016
+## 04.07.2016
 
 3. smashing, dismal
 
 - smashing[british, unnormal], excellent or first-rate, wonderful
 - dismal, something that is dismal is sad or depressing.
 
-04.17.2016
+## 04.17.2016
 
 
 4. business card
@@ -36,7 +36,7 @@
 - complete: to complete a set or group means to provide the last item that is needed to make it full as a group; if you complete something, you finish doing or making it;
 - accomplish: if you accomplish something, you succeed in doing it;
 
-04.18.2016
+## 04.18.2016
 
 7. award, reward, prize
 
@@ -74,4 +74,8 @@ Hundreds of prizes can be won in our newspaper competition.
 
 >> 
 - Do you have any plan about the May holiday?
+
+
+
+
 

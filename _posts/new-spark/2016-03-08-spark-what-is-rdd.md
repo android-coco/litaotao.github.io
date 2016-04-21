@@ -93,6 +93,8 @@ RDD is a dataset which is `distributed`, that is, it is divided into `"partition
     + 窄依赖：当父RDD的某分片丢失时，只有丢失的那一块数据需要被重新计算；  
     + 宽依赖：当父RDD的某分片丢失时，需要把父RDD的所有分区数据重新计算一次，计算量明显比窄依赖情况下大很多；  
 
+![spark-rdd-dependency.png](../images/spark-rdd-dependency.png)
+
 ## 3. 尚未提到的一些重要概念  
 还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。
 

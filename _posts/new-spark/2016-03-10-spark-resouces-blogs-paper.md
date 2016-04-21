@@ -121,6 +121,10 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://www.youtube.com/watch?v=8hn2KVC8FvA&index=6&list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x)
 - [`slide` Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf)
 
+- [Advanced Spark Internals and Tuning – Reynold Xin](https://www.youtube.com/watch?v=HG2Yd-3r4-M&list=PLTPXxbhUt-YWGNTaDj6HSjnHMxiTD1HCR&index=1)
+- [`slide` Advanced Spark Internals and Tuning – Reynold Xin](https://databricks-training.s3.amazonaws.com/slides/advanced-spark-training.pdf)
+
+
 
 
 ## 5. next

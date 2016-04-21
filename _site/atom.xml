@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-20T22:36:36+08:00</updated>
+   <updated>2016-04-21T12:14:55+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1164,7 +1164,11 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
     &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;amp;index=6&amp;amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x&quot;&gt;Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=HG2Yd-3r4-M&amp;amp;list=PLTPXxbhUt-YWGNTaDj6HSjnHMxiTD1HCR&amp;amp;index=1&quot;&gt;Advanced Spark Internals and Tuning – Reynold Xin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks-training.s3.amazonaws.com/slides/advanced-spark-training.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Advanced Spark Internals and Tuning – Reynold Xin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;next&quot;&gt;5. next&lt;/h2&gt;
@@ -1299,6 +1303,8 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-rdd-dependency.png&quot; alt=&quot;spark-rdd-dependency.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;3. 尚未提到的一些重要概念&lt;/h2&gt;
 &lt;p&gt;还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。&lt;/p&gt;
