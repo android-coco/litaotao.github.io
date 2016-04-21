@@ -27,6 +27,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - 怎么做：web ui ＋ log 是做优化的倚天剑和屠龙刀，能掌握好这两点就可以了；
 - 何时做：应用开发成熟时，满足业务要求时，就可以根据需求和时间安排开始做了；
 - 做什么：一般来说，spark 应用程序 80% 的优化，都是集中在三个地方：内存，磁盘io，网络io。再细点说，就是 driver，executor 的内存，shuffle 的设置，文件系统的配置，集群的搭建，集群和文件系统的搭建［e.g 尽量让文件系统和集群都在一个局域网内，网络更快；如果可以，可以让 driver 和 集群也在一个局域网内，因为有时候需要从 worker 返回数据到 driver］
+- 备注：千万不要一心想着优化都从程序本身入手，虽然大多数时候都是程序自己的原因，但在入手检查程序之前最好先确认所有的 worker 机器情况都正常哦。比如说机器负载，网络情况。
 
 下面这张图来自 databricks 的一个分享 [Tuning and Debugging Apache Spark](https://www.youtube.com/watch?v=kkOG_aJ9KjQ)，很有意思，说得非常对啊，哈哈。
 
@@ -195,8 +196,11 @@ def apply(loc: BlockManagerId, uncompressedSizes: Array[Long]): MapStatus = {
 {% endhighlight %}
 
 
-## 8. avoid shuffles
+## 8. avoid shuffle when possible
 
+![spark-optimization-6.png](../images/spark-optimization-6.png)
+
+spark 中的 shuffle 默认是把上一个 stage 的数据写到 disk 上，然后下一个 stage 再从 disk 上读取数据。这里的磁盘 IO 会对性能造成很大的影响，特别是数据量大的时候。
 
 
 ## 9. use reduceByKey instead of GroupByKey when possible
@@ -208,7 +212,17 @@ def apply(loc: BlockManagerId, uncompressedSizes: Array[Long]): MapStatus = {
 ![spark-optimization-4.png](../images/spark-optimization-4.png)
 
 
-## 11. 
+## 11. use Kryo serializer
+
+spark 应用程序中，在对 RDD 进行 shuffle 和 cache 时，数据都是需要被序列化才可以存储的，此时除了 IO 外，数据序列化也可能是应用程序的瓶颈。这里推荐使用 kryo 序列库，在数据序列化时能保证较高的序列化效率。
+
+
+{% highlight python %}
+
+sc_conf = SparkConf()
+sc_conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+
+{% endhighlight %}
 
 
 
