@@ -2,7 +2,7 @@
 category: books-2016
 published: false
 layout: post
-title: 『 读书笔记 』4月读书总结和推荐
+title: 『 读书笔记 』4月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
 ---
 
@@ -28,8 +28,9 @@ ps: 我对好书的定义很简单：
 - 留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]
 - 最后一条，印刷质量要好
 
+## 1. 读书总结
 
-## 1. [Learning Spark](https://www.amazon.cn/%E5%AD%A6%E4%B9%A0Spark-%E5%8D%A1%E5%8A%B3/dp/B016OFNU9M/ref=sr_1_1?ie=UTF8&qid=1460795691&sr=8-1&keywords=learning+spark)
+### 1.1 [Learning Spark](https://www.amazon.cn/%E5%AD%A6%E4%B9%A0Spark-%E5%8D%A1%E5%8A%B3/dp/B016OFNU9M/ref=sr_1_1?ie=UTF8&qid=1460795691&sr=8-1&keywords=learning+spark)
 
 这是 spark 几个作者一起写的第一本系统性介绍 spark 的书籍，质量非常高，内容非常赞，强烈推荐对 spark 感兴趣的人读，及时在 spark 方面有很多经验的高手也可以看看。我个人非常喜欢这本书，我自己是在 [safaribooksonline](https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/) 上看的，体验非常好。虽然这本书出版时间较久，2015年初出版的，里面肯定会介绍不到 spark 之后的一些特性，但是我依然强烈推荐。只要多读几遍这本书，把里面的知识点都掌握好了，对 spark 后来的特性掌握完全不是问题。
 
@@ -37,7 +38,7 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* * * * *`
 
-## 2. [程序员跳槽全攻略](http://pan.baidu.com/s/1boRIG5T)
+### 1.2 [程序员跳槽全攻略](http://pan.baidu.com/s/1boRIG5T)
 
 哈哈，这本书不知道是在哪个地方看到的。当时觉得很惊奇，难道连跳槽都还要有攻略？说实话，现在已经想不起来这本书讲了什么了。或许对我来说没什么用吧，我一直觉得找工作，换工作这类事都是一个水到渠成的问题。只要你真的准备好了，一切都有可能。就跟做项目管理一样，有的人一心想怎么提高员工的积极性，一心去找什么协同软件，项目软件来管理项目，我觉得这却是本末倒置了。时间要花在刀刃上，问题不要治标不治本。就项目管理这个事来说，我强烈推荐 西蒙·斯涅克 的这个 TED talk：[Start with why -- how great leaders inspire action](https://www.youtube.com/watch?v=u4ZoJKF_VuA)。 
 
@@ -45,37 +46,77 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* *`
 
-## 3. []()
+### 1.3 [大型网站技术架构:核心原理与案例分析](https://www.amazon.cn/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-%E6%9D%8E%E6%99%BA%E6%85%A7/dp/B00F3Z26G8/ref=sr_1_1?ie=UTF8&qid=1461222402&sr=8-1&keywords=%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84)
+
+这本书写得还可以，虽然只有 200 多页，原理也讲得很浅，很多细节问题都没有深入去探究，甚至还专门花一章讲了自己的一个项目，略有点铺张浪费大意思。但是，这本书对于没有亲历过大型网站架构，但对这方面有兴趣的同学来说，还是能有所启发的，至少能有一个框架在脑子里。就跟注音版的百科全书一样，虽然不能方方面面都讲解到，但是能让小孩儿对这个世界有一个形象的认识。
+
+总结：对新手来说，可以了解大型网站的技术架构框架；对老手来说，也许可以偶尔花个下午茶时间随手翻翻。
+
+推荐指数：`* * * *`
+
+### 1.4 [Apache_Spark_Analytics_Made_Simple](https://databricks.com/blog/2016/03/31/introducing-our-new-ebook-apache-spark-analytics-made-simple.html)
+
+这是 databricks 出的一本电子书，其实是收录了 databricks 上几篇比较好的 blog。不得不再说一次，databricks 真的是我见过的最会做 marketing 的技术类公司了，summit，meetup，blog，news，linkedin 上经常都是他们的信息。这次简单把 blog 上几篇比较不错的几篇文章合成一本电子书，又宣传了一把，虽然说是换汤不换药，但是确实有效。好了，回归主题，这本电子书里的文章都能在 databricks blog 上看到，其中有几篇他们都在 summit，meetup 上提到过，内容上的确不错，但如果你看过很多他们的 summit 和 blog 的话，可以不用再重复看这本电子书了。
+
+总结：撇开新壶装旧酒不说，这本书里的内容还是很不错的，如果没看过blog，没看过 summit，可以看看。推荐指数全 5 星，因为参杂了个人主观因素，哈哈，我自己很喜欢 databricks 出的东西。
+
+推荐指数：`* * * * *`
+
+### 1.5 [spark-redis official document](http://pan.baidu.com/s/1boRIG5T)
+
+之所以看官方这个文档，是因为一篇博文 [45倍加速Spark的处理效率？](http://www.infoq.com/cn/articles/spark-processing-efficiency)，当时还挺惊讶的，于是乎想了解了解 spark ＋ redis 会擦出什么样的火花。官方有两个文档，都挺简短的，在上面的链接里可以看到［感谢度娘，明明可以靠脸蛋儿］。总的来说，就是 redis 官方开发了一个 spark 的第三方包 [spark-redis](http://spark-packages.org/package/RedisLabs/spark-redis)，支持 rdd 从 redis 里读取数据。that's all。但是我看完文档后并不是很感冒，因为文档里的例子就一个，而且我并没有觉得 spark 里有特别需要从 redis 里读取数据的需求，实在需要，为什么不把数据 cache 到内存呢？为何还要走 redis 这条路，路越长越容易出错呀。而且，还有一个很大的问题是，既然用到了 spark，那么数据量一般都不会小，那么如果采用 spark ＋ redis 的方案，是不是要考虑到 redis 扩容，容错的问题呢？那是不是要一个 redis cluster 呢？这个 redis cluster 是不是要和 spark cluster 在一起呢？如果在一起会不会互相有所影响呢？如果不在一起网络 IO 会不会让你情不自禁地说 fuck 呢？最重要的是，老板会问你是不是又要烧他的钱买机器了呢？
+
+总结：个人目前觉得必要性不大，但是，可以去了解。*见识* 这东西，虽然有了不一定能了不起，但没有的话就很难了不起了，哈哈。
+
+推荐指数：`* * * *`
+
+
+
+### 1.6 [公司财务原理（第十版），第一，二章](https://www.amazon.cn/%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86-%E7%90%86%E6%9F%A5%E5%BE%B7-A-%E5%B8%83%E9%9B%B7%E5%88%A9/dp/B006Z2YI32/ref=sr_1_2?ie=UTF8&qid=1461250263&sr=8-2&keywords=%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86)
+
+这本书是今年以来我看到的最好的一本公司财务相关的书，推荐看第十版英文原版的，之前有看过几章第八版中文版的，但我觉得原版的看起来似乎比中文版更易懂。推荐看英文原版，遇到问题和不理解的地方可以参考中文版来促进理解。*公司财务原理* 和上个月读的 *估值的艺术*，是我觉得非常非常好的两本关于公司财务和发展，金融基础的书。当初想系统的看一些这类书最初是因为想在自己的量化策略里加上一些基本面的因子和指标，后来看了 *估值的艺术* 和 *公司财务原理* 前两章下来，我觉得这两本书对自己以后创业帮助极大，它能告诉你从哪些方面来跟踪公司的发展情况，已经制定财务计划，了解公司运作，金融市场运作流程等，极有用。这也是我特地降低这本书的看书速度的原因，因为是英文原版，而且内容很丰富，所以我打算这本书每个月看2章到3章就行了，关键是要真正理解。
+
+总结：从小来说，这本书能让你了解公司财务，金融市场运作的一些情况，对从事投资方面的人来说很有用；从大来说，这本书能交给你不少关于如何开展，运作一个公司的很多规则和经验，非常有用。严重推荐，值得认真研读。
+
+推荐指数：`* * * * *`
+
+### 1.7 []()
 
 总结：
 
 推荐指数：`*`
 
 
+## 2. 博文推荐 
 
-## 3. []()
+### 2.1 [大数据背后的神秘公式（上）：贝叶斯公式](https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=2651640686&idx=1&sn=c2053e953b94f2b6133230c2d0b48d83&scene=0&key=b28b03434249256b1d6facc8de2ef11e0e4dcbdf601d1b76f0eb49a592cba264c4613048cc1946d7e2048b13dd15aa02&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-总结：
+### 2.2 [大数据背后的神秘公式（下）：贝叶斯革命](https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=2651640692&idx=1&sn=effef2d07f3afc0e6506d45633e3f771&scene=0&key=b28b03434249256b8a2e9811f53c2873930c9c4ab8fc855d766a6bdac7001085057ba88e71803c6bd7f0a00614c44fc8&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-推荐指数：`*`
+### 2.3 [Apache kafka 工作原理介绍](http://www.ibm.com/developerworks/cn/opensource/os-cn-kafka/index.html)
 
+### 2.4 [优秀的数据产品经理如何炼成](https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=403145071&idx=1&sn=7ab3a8fd92b622d3cd7362db5b20b82a&scene=0&key=b28b03434249256bf46f5ae8286a91d594b55d0f3f709de24e82865fa245df906c24fdbd0dc7bb12df7f9e8ed45c7a37&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
+>>
+这些都是讲方法论的，个人觉得想要在自己所在的行业做到优秀，最核心，最关键的因素是自己打心底爱这个职业。人生两大境界：爱我所做，做我所爱。
 
-## 3. []()
+### 2.5 [情商高就是心里装着别人](https://mp.weixin.qq.com/s?__biz=MjM5MDMyMzg2MA==&mid=407893431&idx=1&sn=bceacc10da607cb6b0e7c5d14c963b90&scene=0&key=b28b03434249256b37259de5b86de1aed3f2f01e22bb962ca1590d9c6f9966bfcbf006f7be14d7d93377444fe2388ecf&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-总结：
+### 2.6 [凯利公式——仓位控制的利器](https://mp.weixin.qq.com/s?__biz=MjM5MzU1NTQzNQ==&mid=402506711&idx=1&sn=9b6cb08013e6eeeaa8f9e2685b927239&scene=0&key=b28b03434249256b0b41bf07161162782850f60db9a4a83fea5016eda2be43295e33240989a80ed10c56deb90cdaabca&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-推荐指数：`*`
+### 2.7 [「滚床单」有哪些优雅的叫法？](https://mp.weixin.qq.com/s?__biz=MjM5NzEwNTMwMA==&mid=403311481&idx=1&sn=7b597caceb57c69b3c53c052e0050cf2&scene=0&key=b28b03434249256be55dc6bc20a8bc9b34fe45739f7a6d6ec9fc84dde0eafabb7fa00e636f05592c74d23c3bac40654c&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
+>>
+轻松一下，哈哈。
 
+### 2.8 [从算法到案例：推荐系统必读的10篇精选技术文章](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=402796490&idx=1&sn=5f9fd2dbd9d0030c954084f2df75d410&scene=0&key=b28b03434249256bcc21f98e1dce38db43a18cba063d4f11b77c9091c999e698be4dfddc847ac0ec70d1785d3f3d0473&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-## 3. []()
+### 2.9 [推荐系统和搜索引擎的关系](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=402656056&idx=1&sn=2ebfde6f4df33ec690836f22c7f14d07&scene=0&key=b28b03434249256b1d5444866538d49c0aa9cc9979fe2fecc4a249659942d85afdb654ce26577ded111a887c020c517f&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3)
 
-总结：
+>>
+曾经被问到过的一个问题，其实看了本文大多数人应该都有感触 ："对啊，就这几个简单的区别嘛，我知道啊"。但是，"知道" 和 "能清晰简捷的表述出来" 之间的差别还是很大的, that tells the difference。
 
-推荐指数：`*`
+### 2.10 [最值得关注的20个优秀企业技术博客](http://www.infoq.com/cn/articles/20-outstanding-enterprise-technology-blog)
 
-## 参考文章
-
-- [In Startups And Life, You Need Plan A, B, And Z](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/)
+### 2.11 [In Startups And Life, You Need Plan A, B, And Z](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/)
 

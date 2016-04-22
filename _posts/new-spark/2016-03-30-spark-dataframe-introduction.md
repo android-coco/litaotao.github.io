@@ -37,6 +37,12 @@ A DataFrame is `a distributed collection of data` organized into named columns. 
 
 ## 2. 为什么要用 spark dataframe
 
+为什么要用 dataframe，从细节实现上来说，这个问题比较复杂，不过，基本上下面这张图就能说明所有问题了：
+
+![spark-dataframe-flow.png](../images/spark-dataframe-flow.png)
+
+但是，本文是从基础角度来说 spark dataframe，先不纠结这些细节问题，先了解一些基础的原理和优势，关于上面那张图里面的内容，看后期安排，也许在之后第 15 篇左右会专门讲。
+
 DataFrame API 是在 R 和 Python data frame 的设计灵感之上设计的，具有以下功能特性：
 
 - 从KB到PB级的数据量支持；

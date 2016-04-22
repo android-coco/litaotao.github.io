@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-21T14:56:55+08:00</updated>
+   <updated>2016-04-22T13:10:32+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -590,6 +590,12 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;spark-dataframe-1&quot;&gt;2. 为什么要用 spark dataframe&lt;/h2&gt;
+
+&lt;p&gt;为什么要用 dataframe，从细节实现上来说，这个问题比较复杂，不过，基本上下面这张图就能说明所有问题了：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-dataframe-flow.png&quot; alt=&quot;spark-dataframe-flow.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是，本文是从基础角度来说 spark dataframe，先不纠结这些细节问题，先了解一些基础的原理和优势，关于上面那张图里面的内容，看后期安排，也许在之后第 15 篇左右会专门讲。&lt;/p&gt;
 
 &lt;p&gt;DataFrame API 是在 R 和 Python data frame 的设计灵感之上设计的，具有以下功能特性：&lt;/p&gt;
 
