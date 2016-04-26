@@ -17,7 +17,6 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 ## 1. 书籍
 
 - [Learning Spark](https://www.amazon.cn/Spark%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E7%BE%8E-%E5%8D%A1%E5%8A%B3-%E7%BE%8E-%E8%82%AF%E7%BB%B4%E5%B0%BC%E6%96%AF%E7%A7%91-%E7%BE%8E-%E6%B8%A9%E5%BE%B7%E5%B0%94-%E5%8A%A0-%E6%89%8E%E5%93%88%E9%87%8C%E4%BA%9A/dp/B016DWSEXI/ref=sr_1_1?ie=UTF8&qid=1460447269&sr=8-1&keywords=spark+%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90)
-
 - [Mastering Apache Spark](https://www.gitbook.com/book/jaceklaskowski/mastering-apache-spark/details)
 
 
@@ -33,6 +32,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [databricks docs](https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html)
 - [databricks training](https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html)
 - [cloudera blog about spark](http://blog.cloudera.com/blog/category/spark/)
+- [https://0x0fff.com](https://0x0fff.com)
 - [http://techsuppdiva.github.io/](http://techsuppdiva.github.io/)
 - [csdn spark 知识库](http://lib.csdn.net/base/10)
 - [过往记忆](http://www.iteblog.com/archives/category/spark)
@@ -123,6 +123,9 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 
 - [Advanced Spark Internals and Tuning – Reynold Xin](https://www.youtube.com/watch?v=HG2Yd-3r4-M&list=PLTPXxbhUt-YWGNTaDj6HSjnHMxiTD1HCR&index=1)
 - [`slide` Advanced Spark Internals and Tuning – Reynold Xin](https://databricks-training.s3.amazonaws.com/slides/advanced-spark-training.pdf)
+
+- [The Future of Real Time in Spark](https://www.youtube.com/watch?v=oXkxXDG0gNk)
+- [The Future of Real Time in Spark](http://www.slideshare.net/databricks/the-future-of-realtime-in-spark-58433411)
 
 
 

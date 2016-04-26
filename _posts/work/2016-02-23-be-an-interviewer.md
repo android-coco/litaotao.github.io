@@ -209,6 +209,16 @@ A more recent addition to the unittest framework is mock. mock allows you to rep
 
 The value and power of mock are well explained in An Introduction to Mocking in Python. As noted therein, system calls are prime candidates for mocking: whether writing a script to eject a CD drive, a web server which removes antiquated cache files from /tmp, or a socket server which binds to a TCP port, these calls all feature undesired side-effects in the context of unit tests. Similarly, keeping your unit-tests efficient and performant means keeping as much “slow code” as possible out of the automated test runs, namely filesystem and network access.
 
+- what is dynamic typing?
+
+variables don't have fixed types.
+
+- what is mutable and immutalble types?
+
+mutable types are those that allow in-place modification of the content, mutable types are not stable, so they can not be the keys of dictionary. `string` in python is immutable, so better to use list comprehension and `join` key-word to build string.
+
+
+
 ## Spark 问题
 
 - what is spark application;

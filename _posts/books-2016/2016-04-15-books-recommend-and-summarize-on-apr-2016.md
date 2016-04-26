@@ -6,7 +6,6 @@ title: 『 读书笔记 』4月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
 ---
 
-
 ## 写在前面
 
 计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，管理。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 [ABZ 理论](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/) 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。
@@ -68,8 +67,7 @@ ps: 我对好书的定义很简单：
 
 总结：个人目前觉得必要性不大，但是，可以去了解。*见识* 这东西，虽然有了不一定能了不起，但没有的话就很难了不起了，哈哈。
 
-推荐指数：`* * * *`
-
+推荐指数：`* * *`
 
 
 ### 1.6 [公司财务原理（第十版），第一，二章](https://www.amazon.cn/%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86-%E7%90%86%E6%9F%A5%E5%BE%B7-A-%E5%B8%83%E9%9B%B7%E5%88%A9/dp/B006Z2YI32/ref=sr_1_2?ie=UTF8&qid=1461250263&sr=8-2&keywords=%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86)
@@ -80,11 +78,40 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* * * * *`
 
-### 1.7 []()
+### 1.7 [金字塔原理](https://www.amazon.cn/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86-%E9%BA%A6%E8%82%AF%E9%94%A140%E5%B9%B4%E7%BB%8F%E5%85%B8%E5%9F%B9%E8%AE%AD%E6%95%99%E6%9D%90-%E8%8A%AD%E8%8A%AD%E6%8B%89-%E6%98%8E%E6%89%98/dp/B00G33NKP0/ref=sr_1_1?ie=UTF8&qid=1461466347&sr=8-1&keywords=%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86)
+
+这本书真正吸引我的是它的副标题：*思考，表达和解决问题的逻辑*。通看下来，前面3章比较有用，介绍了所谓的 *金字塔原理* 是个什么原理，但是后面的介绍过于细致了，有时候容易让读者迷失在那些细节之中。而且这本书读下来有一种干涩的感觉，有点像教科书。我不太确定是不是因为中文翻译的问题，过段时间可能会再看看原版的，到时候再回来说明一下。
+
+总结：*思考，表达和解决问题的逻辑*，这个副标题很吸引我，但与其花很多时间通读本书，还不如细读两边前3章。也许是中文翻译的问题，文字比较干涩无力，读完原版的后再回来写点总结。anyway，还是很推荐这本书的前3章的。
+
+推荐指数：`* * *`
+
+### 1.8 [The Hitchhiker’s Guide to Python!](http://docs.python-guide.org/en/latest/)
+
+这是 python 界一位大神，也是 *requests* 包的作者，kennethreitz 写的一本入门教程。读这本书完全是佩服 kennethreitz，想看看这些有足够实战经验的大神写出来的书是什么样的。内容还算丰富，开发工具和相关 package 就列出了一大堆，应该都是大神了解过的。里面也解答了一些我一直以来的疑问，推荐新手和老手都看看，不会花很多时间，但肯定会有或多或少的收获，性价比挺高。
+
+总结：具有很多实战经验的大神写的书，不管是新手还是老手都值得看一下。虽然不会解决你所有的问题［当然不会，有哪本书能解决你所有的问题哦～］，但是肯定会有所收获。
+
+推荐指数：`* * * *`
+
+
+### 1.9 [创业维艰](https://www.amazon.cn/%E5%88%9B%E4%B8%9A%E7%BB%B4%E8%89%B0-%E5%A6%82%E4%BD%95%E5%AE%8C%E6%88%90%E6%AF%94%E9%9A%BE%E6%9B%B4%E9%9A%BE%E7%9A%84%E4%BA%8B-%E6%9C%AC%E2%80%A2%E9%9C%8D%E6%B4%9B%E7%BB%B4%E8%8C%A8/dp/B00SMB8ZVU/ref=sr_1_1?ie=UTF8&qid=1461653303&sr=8-1&keywords=%E5%88%9B%E4%B8%9A%E7%BB%B4%E8%89%B0)
+
+这本书真正吸引我的，是它的英文原标题：*the hard thing about hard things*。很有趣，这个英文标题一下子就吸引我了，而且公司大 boss 也推荐过，遂前两天从公司图书馆借来看了下，准备回头自己也买一本。［我有个习惯，想看的书，一般都会先在公司图书馆借来看看，有感觉再买］。事实证明，这本书内容很丰富，值得反复阅读，其中的很多内容我都很欣赏。比如说 `知道我今天为什么来上班吗？好公司与烂公司的区别`，`创业公司为什么要进行人员培训`，``
 
 总结：
 
-推荐指数：`*`
+推荐指数：`* * *`
+
+### 1.10.1 [研报系列: 大数据深度学习系列](http://pan.baidu.com/s/1boRIG5T)
+
+推荐指数：`* * * *`
+
+### 1.10.2 [研报系列: 兴业金工-SmartAlpha系列](http://pan.baidu.com/s/1boRIG5T)
+
+推荐指数：`* * * *`
+
+
 
 
 ## 2. 博文推荐 
@@ -120,3 +147,10 @@ ps: 我对好书的定义很简单：
 
 ### 2.11 [In Startups And Life, You Need Plan A, B, And Z](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/)
 
+### 2.12 [安全专业人士最爱的19个GitHub开源项目](https://mp.weixin.qq.com/s?__biz=MjM5MzM3NjM4MA==&mid=2654675314&idx=4&sn=841dacff037413cd290c691dca609a81&scene=0&key=b28b03434249256bf0f6bffac4d224a7b5968a0c614784efcb6ab64dd13fa148235f7863184e6e75702c3a61550b7a3c&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=odHK3wvWF6tiLGqSv51GbzWYZKWKFp2q0sChpmkwqCKg7%2Bfu1KKvJjq0MwPW8f52)
+
+### 2.13 [git分支原理命令图文解析](http://blog.csdn.net/qwe6112071/article/details/51118761)
+
+### 2.14 [系统之锹sysdig：Linux服务器监控和排障利器](https://linux.cn/article-4341-1.html)
+
+### 2.15 [Spark Architecture](https://0x0fff.com/spark-architecture/)
