@@ -164,3 +164,5 @@ ps: 我对好书的定义很简单：
 ### 2.14 [系统之锹sysdig：Linux服务器监控和排障利器](https://linux.cn/article-4341-1.html)
 
 ### 2.15 [Spark Architecture](https://0x0fff.com/spark-architecture/)
+
+### 2.16 [Hadoop家族学习路线图](http://blog.fens.me/hadoop-family-roadmap/)

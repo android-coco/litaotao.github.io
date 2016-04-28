@@ -27,7 +27,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-26T21:21:28+08:00</updated>
+   <updated>2016-04-28T13:37:01+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -1960,6 +1960,12 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
 
 </feed>
 
+
+
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1258855744'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258855744' type='text/javascript'%3E%3C/script%3E"));
+  </script>
 
 </body>
 </html>
