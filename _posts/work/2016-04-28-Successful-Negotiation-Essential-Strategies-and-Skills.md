@@ -14,7 +14,7 @@ description: Course memo of Successful Negotiation Essential Strategies and Skil
 
 ## 1. Introduction and Overview
 
-We all negotiate on a daily basis. On a personal level, we negotiate with friends, family, landlords, car sellers and employers, among others. Negotiation is also the key to business success. No business can survive without profitable contracts. Within a company, negotiation skills can lead to your career advancement. Through this course, you’ll learn the strategies and skills that can lead to successful negotiations in your personal life and in business transactions.
+*We all negotiate on a daily basis*. On a personal level, we negotiate with friends, family, landlords, car sellers and employers, among others. Negotiation is also the key to business success. No business can survive without profitable contracts. Within a company, negotiation skills can lead to your career advancement. Through this course, you’ll learn the strategies and skills that can lead to successful negotiations in your personal life and in business transactions.
 
 
 ### 1.1 How to Succeed in This Course
@@ -34,7 +34,7 @@ The suggested readings for this course are from [Negotiating for Success: Essent
 ## 2. Prepare: Plan Your Negotiation Strategy
 
 
-This module focuses on the first step in the negotiation process—planning for a negotiation. After completing this module, you will be able to:
+This module focuses on *the first step in the negotiation process—planning for a negotiation*. After completing this module, you will be able to:
 
 - Decide if a negotiation is position-based or interest-based
 - Decide if a negotiation is dispute-resolution or deal-making
@@ -48,19 +48,16 @@ This module focuses on the first step in the negotiation process—planning for 
 
 To assess your negotiation style while preparing for negotiations, complete the following three steps:
 
+>>
 - Complete the attachment to assess and understand your negotiating style.
-
 - Use the assessment to assess the style of the other side. This is especially important in cross-cultural negotiations. Remember that there can be considerable variation in negotiation style within a culture.
-
 - Do a gap analysis. Locate the major gaps between your style and the style of the other side. Focus on these gaps when preparing for the negotiation.
 
 Additional tip: After completing the gap analysis, try a role reversal exercise where you use the style of the other side. This will enable you to better understand the other side’s style.
 
-Assessing Your Negotiating Style
+- `Assessing Your Negotiating Style`
 
-Instructions: Listed below are ten important traits of a person’s negotiating style and approach. Each trait demonstrates a wide range of variations, which can be organized along a continuum, as has been done below. With respect to each trait, indicate
-
-with an X where your own negotiating style and approach in business negotiation falls along each continuum.
+Instructions: Listed below are ten important traits of a person’s negotiating style and approach. Each trait demonstrates a wide range of variations, which can be organized along a continuum, as has been done below. With respect to each trait, indicate with an X where your own negotiating style and approach in business negotiation falls along each continuum.
 
 - Goal: What is your goal in business negotiations: a binding contract or the creation of a relationship?
 
@@ -135,7 +132,7 @@ with an X where your own negotiating style and approach in business negotiation 
 ![negotiation-1.jpg](http://litaotao.github.io/images/negotiation-1.jpg)
 ![negotiation-2.jpg](http://litaotao.github.io/images/negotiation-2.jpg)
 
-### 2.5 A dispute resolution or deal making negotiation
+### 2.5 A Dispute Resolution or Deal Making Negotiation
 
 - dispute resolution
     - backwark looking
@@ -150,7 +147,30 @@ with an X where your own negotiating style and approach in business negotiation 
 ![negotiation-4.jpg](http://litaotao.github.io/images/negotiation-4.jpg)
 ![negotiation-5.jpg](http://litaotao.github.io/images/negotiation-5.jpg)
 
+### 2.6 Analysing the Negotiation
 
+- overall goal of the negotiation;
+- the most important issues in reaching this goal;
+- the best alternative to the negotiation agreement;
+- the reservation price for the negotiation;
+- most likely price;
+- the stretch goal;
+
+![negotiation-6.png](../images/negotiation-6.png)
+![negotiation-7.png](../images/negotiation-7.png)
+
+### 2.7 Best Alternative to a Negotiated Agreement
+
+### 2.8 Use Decision Trees to Complete Your BATNA Analysis
+
+![negotiation-8.png](../images/negotiation-8.png)
+
+
+### 2.9 Cross-Cultural Negotiations
+
+cultures can influence the result of the negotiations, there are many variations within a cultures, therefore, be sensitive to culture. But you don't need fully understand local culture, moderate adaptation often better than major adaptation.
+
+![negotiation-9.png](../images/negotiation-9.png)
 
 
 

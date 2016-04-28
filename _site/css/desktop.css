@@ -506,6 +506,7 @@ a.external:after {
     right: -25px;
 }
 
+/*cnzz 统计图标，不显示*/
 #cnzz_stat_icon_1258855744 {
     display: none;
 }

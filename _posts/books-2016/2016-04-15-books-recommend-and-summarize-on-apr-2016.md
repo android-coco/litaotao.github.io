@@ -16,7 +16,7 @@ description: the more you read, the more you think, better you'll be.
 
 ![book-reading.jpg](../images/book-reading.jpg)
 
-本月看了 7 本书，其中的电子书链接都放到亲爱的[度娘云](http://pan.baidu.com/s/1boRIG5T)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
+本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1boRIG5T)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
 
 ps: 我对好书的定义很简单：
 
@@ -118,6 +118,10 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * *`
 
 ### 1.10.2 [研报系列: 兴业金工-SmartAlpha系列](http://pan.baidu.com/s/1boRIG5T)
+
+推荐指数：`* * * *`
+
+### 1.10.3 [聪明贝塔创造超额收益的秘密]()(http://pan.baidu.com/s/1boRIG5T)
 
 推荐指数：`* * * *`
 
