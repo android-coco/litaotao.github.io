@@ -113,19 +113,28 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* * * * *`
 
-### 1.10.1 [研报系列: 大数据深度学习系列](http://pan.baidu.com/s/1boRIG5T)
+### 1.10 [Successful Negotiation: Essential Strategies and Skills](https://www.coursera.org/learn/negotiation-skills/)
+
+这是 coursera 上的一门公开课，讲商业谈判的。老师说话很清晰，课件也做得非常好，这门课我有单独做笔记的，稍后会放出来。就课程内容而言，我很喜欢，梳理了很多商业谈判的思考和执行流程，对销售人员我觉得用处很大。
+
+总结：这位老师讲得非常详细，例子也简单明了，课件清晰易懂，内容很丰富，值得学习。
+
+推荐指数：`* * * * *`
+
+
+### 1.11.1 [研报系列: 大数据深度学习系列](http://pan.baidu.com/s/1boRIG5T)
 
 推荐指数：`* * * *`
 
-### 1.10.2 [研报系列: 兴业金工-SmartAlpha系列](http://pan.baidu.com/s/1boRIG5T)
+### 1.11.2 [研报系列: 兴业金工-SmartAlpha系列](http://pan.baidu.com/s/1boRIG5T)
 
 推荐指数：`* * * *`
 
-### 1.10.3 [研报系列：聪明贝塔创造超额收益的秘密](http://pan.baidu.com/s/1boRIG5T)
+### 1.11.3 [研报系列：聪明贝塔创造超额收益的秘密](http://pan.baidu.com/s/1boRIG5T)
 
 推荐指数：`* * * *`
 
-### 1.10.4 [研报系列: PHBS 之 【内培分享】股票之量化择时 ](https://mp.weixin.qq.com/s?__biz=MzAxMTgxOTk1Mg==&mid=2652253014&idx=1&sn=b46105f151dada9072b7e532f1039ce6&scene=1&srcid=042918Y41xWXir3VkCzE4Vai&key=b28b03434249256bca154929931849b7030dd828c272e65879cb4066d506bd78a0cd49cee81f5897c05b4ee8029eebce&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=ZRo6lfuwcyd7LYl1iiZja8mspEIxaYmAkVHLUKMP28QL9ZUUWG5v463an4rQY0HS)
+### 1.11.4 [研报系列: PHBS 之 【内培分享】股票之量化择时 ](https://mp.weixin.qq.com/s?__biz=MzAxMTgxOTk1Mg==&mid=2652253014&idx=1&sn=b46105f151dada9072b7e532f1039ce6&scene=1&srcid=042918Y41xWXir3VkCzE4Vai&key=b28b03434249256bca154929931849b7030dd828c272e65879cb4066d506bd78a0cd49cee81f5897c05b4ee8029eebce&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=ZRo6lfuwcyd7LYl1iiZja8mspEIxaYmAkVHLUKMP28QL9ZUUWG5v463an4rQY0HS)
 
 推荐指数：`* * * *`
 
