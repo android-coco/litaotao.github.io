@@ -1,6 +1,6 @@
 ---
 category: books-2016
-published: false
+published: true
 layout: post
 title: 『 读书笔记 』4月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
@@ -12,9 +12,9 @@ description: the more you read, the more you think, better you'll be.
 
 月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。
 
-下面是一张我用 google docs 来做读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。
+下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。
 
-![book-reading.jpg](../images/book-reading.jpg)
+![book-reading-04.png](../images/book-reading-04.png)
 
 本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1boRIG5T)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
 
@@ -121,10 +121,13 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* * * *`
 
-### 1.10.3 [聪明贝塔创造超额收益的秘密]()(http://pan.baidu.com/s/1boRIG5T)
+### 1.10.3 [研报系列：聪明贝塔创造超额收益的秘密](http://pan.baidu.com/s/1boRIG5T)
 
 推荐指数：`* * * *`
 
+### 1.10.4 [研报系列: PHBS 之 【内培分享】股票之量化择时 ](https://mp.weixin.qq.com/s?__biz=MzAxMTgxOTk1Mg==&mid=2652253014&idx=1&sn=b46105f151dada9072b7e532f1039ce6&scene=1&srcid=042918Y41xWXir3VkCzE4Vai&key=b28b03434249256bca154929931849b7030dd828c272e65879cb4066d506bd78a0cd49cee81f5897c05b4ee8029eebce&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=ZRo6lfuwcyd7LYl1iiZja8mspEIxaYmAkVHLUKMP28QL9ZUUWG5v463an4rQY0HS)
+
+推荐指数：`* * * *`
 
 
 

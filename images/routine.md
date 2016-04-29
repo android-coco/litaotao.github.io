@@ -75,7 +75,21 @@ Hundreds of prizes can be won in our newspaper competition.
 >> 
 - Do you have any plan about the May holiday?
 
+## 04.28 2016
+
+9. 量化宽松 quantitative easing
+
+QE is a unconventional monetary police, that to lower the interest rates and increase the money supply through purchasing government securities or some other special securities on the market. There are two parts of QE, the 'Q' means increasing money supply, the 'E' means ease the presure of banks. Quantitative easing is considered when short-term interest rates are at or approaching zeor [that can not be lower], and does not involve printing new banknotes.
 
 
+10. 经济周期 economic cycle/business cycle
+
+11. 金叉／死叉：golden cross/death cross
+
+a crossover, golden cross involve that short-term moving average break above its long-term moving average.
+
+12. 融资融券 margin trading and short selling
+
+13. 上旬／中旬／下旬：early/mid/late 
 
 
