@@ -27,6 +27,8 @@ ps: 我对好书的定义很简单：
 - 留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]
 - 最后一条，印刷质量要好
 
+上月读书总结：[『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
+
 ## 1. 读书总结
 
 ### 1.1 [Learning Spark](https://www.amazon.cn/%E5%AD%A6%E4%B9%A0Spark-%E5%8D%A1%E5%8A%B3/dp/B016OFNU9M/ref=sr_1_1?ie=UTF8&qid=1460795691&sr=8-1&keywords=learning+spark)
@@ -182,3 +184,9 @@ ps: 我对好书的定义很简单：
 ### 2.15 [Spark Architecture](https://0x0fff.com/spark-architecture/)
 
 ### 2.16 [Hadoop家族学习路线图](http://blog.fens.me/hadoop-family-roadmap/)
+
+
+## 3. 读书总结系列
+
+- [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
+- [『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)

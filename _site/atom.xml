@@ -28,7 +28,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-04-29T17:20:09+08:00</updated>
+   <updated>2016-05-03T09:29:39+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -63,6 +63,8 @@
   &lt;li&gt;留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]&lt;/li&gt;
   &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
 
@@ -233,6 +235,13 @@
 &lt;h3 id=&quot;spark-architecturehttps0x0fffcomspark-architecture&quot;&gt;2.15 &lt;a href=&quot;https://0x0fff.com/spark-architecture/&quot;&gt;Spark Architecture&lt;/a&gt;&lt;/h3&gt;
 
 &lt;h3 id=&quot;hadoophttpblogfensmehadoop-family-roadmap&quot;&gt;2.16 &lt;a href=&quot;http://blog.fens.me/hadoop-family-roadmap/&quot;&gt;Hadoop家族学习路线图&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 读书总结系列&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </content>
    </entry>
    
@@ -1298,6 +1307,7 @@ on Large Clusters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf&quot;&gt;2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/4. splunk_spark.pdf&quot;&gt;2016 上海第二次 spark meetup: 4. splunk_spark.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://prezi.com/w4wjzdq7y0lj/spark/&quot;&gt;基于Spark的医疗和金融大数据&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/&quot;&gt;Monitoring Spark with Graphite and Grafana&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;4. 视频&lt;/h2&gt;

@@ -57,6 +57,8 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf](http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf)
 - [2016 上海第二次 spark meetup: 4. splunk_spark.pdf](http://litaotao.github.io/files/4. splunk_spark.pdf)
 - [基于Spark的医疗和金融大数据](https://prezi.com/w4wjzdq7y0lj/spark/)
+- [Monitoring Spark with Graphite and Grafana](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/)
+
 
 
 ## 4. 视频
