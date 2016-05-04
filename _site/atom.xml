@@ -38,7 +38,22 @@
         })();
       })();
   </script>
-  
+  <!-- baidu spider initiative push -->
+  <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
 </head>
 <body>
   <?xml version="1.0" encoding="utf-8"?>
@@ -47,7 +62,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-04T17:38:22+08:00</updated>
+   <updated>2016-05-04T22:50:30+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
