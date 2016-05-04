@@ -49,7 +49,7 @@ ps: 我对好书的定义很简单：
 
 ## 2. 博文推荐 
 
-### 2.1 
+- [对话：一个工程师在蘑菇街4年的架构感悟](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547068&idx=1&sn=910e345a35383e9d440d8a41695ccb10&scene=1&srcid=0504Wzmtyh8LNqrTo2XrP1my&from=groupmessage&isappinstalled=0#wechat_redirect)
 
 
 

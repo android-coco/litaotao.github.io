@@ -1,6 +1,6 @@
 ---
 category: work
-published: false
+published: true
 layout: post
 title: 『 Coursera 』Successful Negotiation Essential Strategies and Skills
 description: Course memo of Successful Negotiation Essential Strategies and Skills on coursera.
@@ -172,6 +172,28 @@ cultures can influence the result of the negotiations, there are many variations
 
 ![negotiation-9.png](../images/negotiation-9.png)
 
+
+### 2.10 Ethical Issues and Standards
+
+### 2.11 Agents
+
+![negotiation-10.png](../images/negotiation-10.png)
+
+
+## 3. Negotiate: Use Key Tactics for Success
+
+### 3.1 Course Materials
+
+After completing this module, you will be able to:
+
+- Recognize your source of power in negotiations
+- Use and increase your power in negotiations
+- Employ psychological tools during a negotiation
+- Avoid psychological traps in a negotiation
+- Use psychological tools when making leadership and financial decisions
+
+
+### 3.2 Getting to Know the Other Side and Using Power in Negotiations
 
 
 
