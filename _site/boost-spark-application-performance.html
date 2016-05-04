@@ -2,12 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>『 Spark 』10. spark 应用程序性能优化 | Taotao's Zone</title>
+  <title>『 Spark 』10. spark 应用程序性能优化｜12 个优化方法 | Taotao's Zone</title>
+  <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
+  <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <script src="/files/dc3da690b0d2a5655a8d6150862a2a07.html"></script>
   <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
   <link rel="stylesheet" href="/css/default.css" type="text/css" />
   <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
@@ -42,10 +45,10 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/boost-spark-application-performance" title="『 Spark 』10. spark 应用程序性能优化">『 Spark 』10. spark 应用程序性能优化</a></h1>
+    <h1 class="entry-title"><a href="/boost-spark-application-performance" title="『 Spark 』10. spark 应用程序性能优化｜12 个优化方法">『 Spark 』10. spark 应用程序性能优化｜12 个优化方法</a></h1>
 
-    <p class="entry-date">2016-04-13 
-        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-04-13-boost-spark-application-performance.md">最后更新时间: 
+    <p class="entry-date">2016-05-03 
+        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-05-03-boost-spark-application-performance.md">最后更新时间: 
         </span>
     </p>
 
@@ -193,9 +196,52 @@ that you are coalescing it to fewer partitions than it currently has.
     <span class="o">}</span>
   <span class="o">}</span></code></pre></figure>
 
-<h2 id="level-of-parallel">6. level of parallel</h2>
+<h2 id="level-of-parallel--partition">6. level of parallel － partition</h2>
 
-<h2 id="data-skew">6. data skew</h2>
+<p>先来看看一个 stage 里所有 task 运行的一些性能指标，其中的一些说明：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Scheduler Delay</code>: spark 分配 task 所花费的时间</li>
+  <li><code class="highlighter-rouge">Executor Computing Time</code>: executor 执行 task 所花费的时间</li>
+  <li><code class="highlighter-rouge">Getting Result Time</code>: 获取 task 执行结果所花费的时间</li>
+  <li><code class="highlighter-rouge">Result Serialization Time</code>: task 执行结果序列化时间</li>
+  <li><code class="highlighter-rouge">Task Deserialization Time</code>: task 反序列化时间</li>
+  <li><code class="highlighter-rouge">Shuffle Write Time</code>: shuffle 写数据时间</li>
+  <li><code class="highlighter-rouge">Shuffle Read Time</code>: shuffle 读数据所花费时间</li>
+</ul>
+
+<p><img src="../images/spark-optimization-7.png" alt="spark-optimization-7.png" /></p>
+
+<p>而这里要说的 <code class="highlighter-rouge">level of parallel</code>，其实大多数情况下都是指 partition 的数量，partition 数量的变化会影响上面几个指标的变动。我们调优的时候，很多时候都会看上面的指标变化情况。当 partition 变化的时候，上面几个指标变动情况如下：</p>
+
+<ul>
+  <li>partition 过小［容易引入 data skew 问题］
+    <ul>
+      <li><code class="highlighter-rouge">Scheduler Delay</code>: 无明显变化</li>
+      <li><code class="highlighter-rouge">Executor Computing Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+      <li><code class="highlighter-rouge">Getting Result Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+      <li><code class="highlighter-rouge">Result Serialization Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+      <li><code class="highlighter-rouge">Task Deserialization Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+      <li><code class="highlighter-rouge">Shuffle Write Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+      <li><code class="highlighter-rouge">Shuffle Read Time</code>: 不稳定，有大有小，但平均下来比较大</li>
+    </ul>
+  </li>
+  <li>partition 过大
+    <ul>
+      <li><code class="highlighter-rouge">Scheduler Delay</code>: 无明显变化</li>
+      <li><code class="highlighter-rouge">Executor Computing Time</code>: 比较稳定，平均下来比较小</li>
+      <li><code class="highlighter-rouge">Getting Result Time</code>: 比较稳定，平均下来比较小</li>
+      <li><code class="highlighter-rouge">Result Serialization Time</code>: 比较稳定，平均下来比较小</li>
+      <li><code class="highlighter-rouge">Task Deserialization Time</code>: 比较稳定，平均下来比较小</li>
+      <li><code class="highlighter-rouge">Shuffle Write Time</code>: 比较稳定，平均下来比较小</li>
+      <li><code class="highlighter-rouge">Shuffle Read Time</code>: 比较稳定，平均下来比较小</li>
+    </ul>
+  </li>
+</ul>
+
+<p>那应该怎么设置 partition 的数量呢？这里同样也没有专门的公式和规范，一般都在尝试几次后有一个比较优化的结果。但宗旨是：尽量不要导致 data skew 问题，尽量让每一个 task 执行的时间在一段变化不大的区间之内。</p>
+
+<h2 id="data-skew">7. data skew</h2>
 
 <p>大多数时候，我们希望的分布式计算带来的好处应该是像下图这样的效果：</p>
 
@@ -216,7 +262,7 @@ that you are coalescing it to fewer partitions than it currently has.
   <li><a href="https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;index=6&amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x">Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li</a></li>
 </ul>
 
-<h2 id="avoid-cartesian-operation">7. avoid cartesian operation</h2>
+<h2 id="avoid-cartesian-operation">8. avoid cartesian operation</h2>
 
 <p><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.cartesian">rdd.cartesian</a> 操作很耗时，特别是当数据集很大的时候，cartesian 的数量级都是平方级增长的，既耗时也耗空间。</p>
 
@@ -224,30 +270,33 @@ that you are coalescing it to fewer partitions than it currently has.
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rdd</span><span class="o">.</span><span class="n">cartesian</span><span class="p">(</span><span class="n">rdd</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">())</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="avoid-shuffle-when-possible">8. avoid shuffle when possible</h2>
+<h2 id="avoid-shuffle-when-possible">9. avoid shuffle when possible</h2>
 
 <p><img src="../images/spark-optimization-6.png" alt="spark-optimization-6.png" /></p>
 
 <p>spark 中的 shuffle 默认是把上一个 stage 的数据写到 disk 上，然后下一个 stage 再从 disk 上读取数据。这里的磁盘 IO 会对性能造成很大的影响，特别是数据量大的时候。</p>
 
-<h2 id="use-reducebykey-instead-of-groupbykey-when-possible">9. use reduceByKey instead of GroupByKey when possible</h2>
+<h2 id="use-reducebykey-instead-of-groupbykey-when-possible">10. use reduceByKey instead of GroupByKey when possible</h2>
 
-<h2 id="use-treereduce-instead-of-reduce-when-possible">10. use treeReduce instead of reduce when possible</h2>
+<p><img src="../images/spark-optimization-9.png" alt="spark-optimization-9.png" />
+<img src="../images/spark-optimization-10.png" alt="spark-optimization-10.png" /></p>
+
+<h2 id="use-treereduce-instead-of-reduce-when-possible">11. use treeReduce instead of reduce when possible</h2>
 
 <p><img src="../images/spark-optimization-4.png" alt="spark-optimization-4.png" /></p>
 
-<h2 id="use-kryo-serializer">11. use Kryo serializer</h2>
+<h2 id="use-kryo-serializer">12. use Kryo serializer</h2>
 
 <p>spark 应用程序中，在对 RDD 进行 shuffle 和 cache 时，数据都是需要被序列化才可以存储的，此时除了 IO 外，数据序列化也可能是应用程序的瓶颈。这里推荐使用 kryo 序列库，在数据序列化时能保证较高的序列化效率。</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sc_conf</span> <span class="o">=</span> <span class="n">SparkConf</span><span class="p">()</span>
 <span class="n">sc_conf</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="s">"spark.serializer"</span><span class="p">,</span> <span class="s">"org.apache.spark.serializer.KryoSerializer"</span><span class="p">)</span></code></pre></figure>
 
-<h2 id="next">6. Next</h2>
+<h2 id="next">13. Next</h2>
 
-<p>这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？哈哈，上次简单介绍了 dataframe，下次我准备再讲讲 datasets，然后总结一下 rdd，dataframe 和 datasets 这三者之间扑朔迷离，藕断丝连的各种迷情。</p>
+<p>这些都是一些实际实践中的经验和对一些高质量分享的总结［大多数是来自那些高质量分享］，里面可能有说得不完全正确的地方，在未来亲自实践，调试过后会再有一篇性能调试的 blog 的，本篇仅供参考哦。下一次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。</p>
 
-<h2 id="section-1">7. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="section-1">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
 
@@ -261,6 +310,8 @@ that you are coalescing it to fewer partitions than it currently has.
   <li><a href="https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;index=6&amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x">Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li</a></li>
   <li><a href="https://datarus.wordpress.com/2015/05/04/fighting-the-skew-in-spark/">Fighting the skew in Spark</a></li>
   <li><a href="https://www.youtube.com/watch?v=kkOG_aJ9KjQ">Tuning and Debugging Apache Spark</a></li>
+  <li><a href="http://spark.apache.org/docs/latest/tuning.html#level-of-parallelism">Tuning Spark</a></li>
+  <li><a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html">Avoid GroupByKey</a></li>
 </ul>
 
 <h2 id="section-3">本系列文章链接</h2>
@@ -277,7 +328,7 @@ that you are coalescing it to fewer partitions than it currently has.
 
 
     <!-- share icon -->
-    <div class="ds-share" data-thread-key="/boost-spark-application-performance" data-title="『 Spark 』10. spark 应用程序性能优化"
+    <!-- <div class="ds-share" data-thread-key="/boost-spark-application-performance" data-title="『 Spark 』10. spark 应用程序性能优化｜12 个优化方法"
          data-content="content"
          data-url="http://litaotao.github.io//boost-spark-application-performance">
         <div class="ds-share-aside-left">
@@ -286,11 +337,16 @@ that you are coalescing it to fewer partitions than it currently has.
           <div class="ds-share-aside-toggle">分享</div>
         </div>
     </div>
+ -->
+    <!-- 百度分享按钮 -->
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"7","bdPos":"left","bdTop":"118"},"image":{"viewList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
 
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』10. spark 应用程序性能优化 data-url=/boost-spark-application-performance></div>
+        <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』10. spark 应用程序性能优化｜12 个优化方法 data-url=/boost-spark-application-performance></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">
@@ -310,6 +366,10 @@ that you are coalescing it to fewer partitions than it currently has.
     </div>
   </div>
 
+  <div>
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258855744'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258855744' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
   <div id="menuIndex" class="sidenav">
     <div class="myinfo"><center>
       <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
@@ -322,8 +382,13 @@ that you are coalescing it to fewer partitions than it currently has.
   </div>
 </div>
 
-
 <script src="/js/post.js" type="text/javascript"></script>
+
+
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1258855744'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258855744' type='text/javascript'%3E%3C/script%3E"));
+  </script>
 
 </body>
 </html>

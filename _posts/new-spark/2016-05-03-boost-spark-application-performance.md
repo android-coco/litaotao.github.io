@@ -1,7 +1,7 @@
 ---
 layout: post
-published: false
-title: 『 Spark 』10. spark 应用程序性能优化
+published: true
+title: 『 Spark 』10. spark 应用程序性能优化｜12 个优化方法
 description: know more, do better 
 ---  
 
@@ -160,10 +160,43 @@ def apply(loc: BlockManagerId, uncompressedSizes: Array[Long]): MapStatus = {
 {% endhighlight %}
 
 
-## 6. level of parallel
+## 6. level of parallel － partition
 
+先来看看一个 stage 里所有 task 运行的一些性能指标，其中的一些说明：
 
-## 6. data skew
+- `Scheduler Delay`: spark 分配 task 所花费的时间
+- `Executor Computing Time`: executor 执行 task 所花费的时间
+- `Getting Result Time`: 获取 task 执行结果所花费的时间
+- `Result Serialization Time`: task 执行结果序列化时间
+- `Task Deserialization Time`: task 反序列化时间
+- `Shuffle Write Time`: shuffle 写数据时间
+- `Shuffle Read Time`: shuffle 读数据所花费时间
+
+![spark-optimization-7.png](../images/spark-optimization-7.png)
+
+而这里要说的 `level of parallel`，其实大多数情况下都是指 partition 的数量，partition 数量的变化会影响上面几个指标的变动。我们调优的时候，很多时候都会看上面的指标变化情况。当 partition 变化的时候，上面几个指标变动情况如下：
+
+- partition 过小［容易引入 data skew 问题］
+    - `Scheduler Delay`: 无明显变化
+    - `Executor Computing Time`: 不稳定，有大有小，但平均下来比较大
+    - `Getting Result Time`: 不稳定，有大有小，但平均下来比较大
+    - `Result Serialization Time`: 不稳定，有大有小，但平均下来比较大
+    - `Task Deserialization Time`: 不稳定，有大有小，但平均下来比较大
+    - `Shuffle Write Time`: 不稳定，有大有小，但平均下来比较大
+    - `Shuffle Read Time`: 不稳定，有大有小，但平均下来比较大
+
+- partition 过大
+    - `Scheduler Delay`: 无明显变化
+    - `Executor Computing Time`: 比较稳定，平均下来比较小
+    - `Getting Result Time`: 比较稳定，平均下来比较小
+    - `Result Serialization Time`: 比较稳定，平均下来比较小
+    - `Task Deserialization Time`: 比较稳定，平均下来比较小
+    - `Shuffle Write Time`: 比较稳定，平均下来比较小
+    - `Shuffle Read Time`: 比较稳定，平均下来比较小
+
+那应该怎么设置 partition 的数量呢？这里同样也没有专门的公式和规范，一般都在尝试几次后有一个比较优化的结果。但宗旨是：尽量不要导致 data skew 问题，尽量让每一个 task 执行的时间在一段变化不大的区间之内。
+
+## 7. data skew
 
 大多数时候，我们希望的分布式计算带来的好处应该是像下图这样的效果：
 
@@ -183,7 +216,7 @@ def apply(loc: BlockManagerId, uncompressedSizes: Array[Long]): MapStatus = {
 - [Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://www.youtube.com/watch?v=8hn2KVC8FvA&index=6&list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x)
 
 
-## 7. avoid cartesian operation
+## 8. avoid cartesian operation
 
 [rdd.cartesian](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.cartesian) 操作很耗时，特别是当数据集很大的时候，cartesian 的数量级都是平方级增长的，既耗时也耗空间。
 
@@ -196,23 +229,24 @@ def apply(loc: BlockManagerId, uncompressedSizes: Array[Long]): MapStatus = {
 {% endhighlight %}
 
 
-## 8. avoid shuffle when possible
+## 9. avoid shuffle when possible
 
 ![spark-optimization-6.png](../images/spark-optimization-6.png)
 
 spark 中的 shuffle 默认是把上一个 stage 的数据写到 disk 上，然后下一个 stage 再从 disk 上读取数据。这里的磁盘 IO 会对性能造成很大的影响，特别是数据量大的时候。
 
 
-## 9. use reduceByKey instead of GroupByKey when possible
+## 10. use reduceByKey instead of GroupByKey when possible
 
+![spark-optimization-9.png](../images/spark-optimization-9.png)
+![spark-optimization-10.png](../images/spark-optimization-10.png)
 
-
-## 10. use treeReduce instead of reduce when possible
+## 11. use treeReduce instead of reduce when possible
 
 ![spark-optimization-4.png](../images/spark-optimization-4.png)
 
 
-## 11. use Kryo serializer
+## 12. use Kryo serializer
 
 spark 应用程序中，在对 RDD 进行 shuffle 和 cache 时，数据都是需要被序列化才可以存储的，此时除了 IO 外，数据序列化也可能是应用程序的瓶颈。这里推荐使用 kryo 序列库，在数据序列化时能保证较高的序列化效率。
 
@@ -226,11 +260,11 @@ sc_conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
 
 
 
-## 6. Next
+## 13. Next
 
-这个例子还算 ok 吧，可是我每天都应用的投资策略的一部分啊，已经下血本了，各位还不打赏打赏吗？哈哈，上次简单介绍了 dataframe，下次我准备再讲讲 datasets，然后总结一下 rdd，dataframe 和 datasets 这三者之间扑朔迷离，藕断丝连的各种迷情。
+这些都是一些实际实践中的经验和对一些高质量分享的总结［大多数是来自那些高质量分享］，里面可能有说得不完全正确的地方，在未来亲自实践，调试过后会再有一篇性能调试的 blog 的，本篇仅供参考哦。下一次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。
 
-## 7. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 14. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
 
@@ -244,7 +278,8 @@ sc_conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
 - [Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li](https://www.youtube.com/watch?v=8hn2KVC8FvA&index=6&list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x)
 - [Fighting the skew in Spark](https://datarus.wordpress.com/2015/05/04/fighting-the-skew-in-spark/)
 - [Tuning and Debugging Apache Spark](https://www.youtube.com/watch?v=kkOG_aJ9KjQ)
-
+- [Tuning Spark](http://spark.apache.org/docs/latest/tuning.html#level-of-parallelism)
+- [Avoid GroupByKey](https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html)
 
 
 ## 本系列文章链接
