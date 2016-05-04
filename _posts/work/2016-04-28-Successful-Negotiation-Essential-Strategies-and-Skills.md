@@ -1,6 +1,6 @@
 ---
 category: work
-published: true
+published: false
 layout: post
 title: 『 Coursera 』Successful Negotiation Essential Strategies and Skills
 description: Course memo of Successful Negotiation Essential Strategies and Skills on coursera.

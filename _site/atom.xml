@@ -62,7 +62,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-04T22:50:30+08:00</updated>
+   <updated>2016-05-04T22:53:59+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -559,250 +559,6 @@ that you are coalescing it to fewer partitions than it currently has.
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Coursera 』Successful Negotiation Essential Strategies and Skills</title>
-     <link href="/Successful-Negotiation-Essential-Strategies-and-Skills"/>
-     <updated>2016-04-28T00:00:00+08:00</updated>
-     <id>/Successful-Negotiation-Essential-Strategies-and-Skills</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;这是我在 cousera 上这门课 &lt;a href=&quot;https://www.coursera.org/learn/negotiation-skills&quot;&gt;Successful Negotiation Essential Strategies and Skills&lt;/a&gt; 记录的学习笔记。&lt;/p&gt;
-
-&lt;h2 id=&quot;introduction-and-overview&quot;&gt;1. Introduction and Overview&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;We all negotiate on a daily basis&lt;/em&gt;. On a personal level, we negotiate with friends, family, landlords, car sellers and employers, among others. Negotiation is also the key to business success. No business can survive without profitable contracts. Within a company, negotiation skills can lead to your career advancement. Through this course, you’ll learn the strategies and skills that can lead to successful negotiations in your personal life and in business transactions.&lt;/p&gt;
-
-&lt;h3 id=&quot;how-to-succeed-in-this-course&quot;&gt;1.1 How to Succeed in This Course&lt;/h3&gt;
-
-&lt;p&gt;In this course, you’ll learn about and practice the four steps to a successful negotiation, with one module for each step:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Prepare&lt;/em&gt;: Plan Your Negotiation Strategy&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Negotiate&lt;/em&gt;: Use Key Tactics for Success&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Close&lt;/em&gt;: Create a Contract&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Perform and Evaluate&lt;/em&gt;: The End Game&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;suggested-readings&quot;&gt;1.2 Suggested Readings&lt;/h3&gt;
-
-&lt;p&gt;The suggested readings for this course are from &lt;a href=&quot;https://www.theseus.fi/bitstream/handle/10024/42807/Mahmoodi_Kosar.pdf?sequence=1&quot;&gt;Negotiating for Success: Essential Strategies and Skills&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;prepare-plan-your-negotiation-strategy&quot;&gt;2. Prepare: Plan Your Negotiation Strategy&lt;/h2&gt;
-
-&lt;p&gt;This module focuses on &lt;em&gt;the first step in the negotiation process—planning for a negotiation&lt;/em&gt;. After completing this module, you will be able to:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Decide if a negotiation is position-based or interest-based&lt;/li&gt;
-  &lt;li&gt;Decide if a negotiation is dispute-resolution or deal-making&lt;/li&gt;
-  &lt;li&gt;Complete a negotiation analysis, including: setting a reservation price and stretch goal, identifying alternatives to a deal, and finding the zone of potential agreement&lt;/li&gt;
-  &lt;li&gt;Use a decision tree to determine your BATNA&lt;/li&gt;
-  &lt;li&gt;Conduct cross-cultural negotiations&lt;/li&gt;
-  &lt;li&gt;Resolve ethical issues in negotiations&lt;/li&gt;
-  &lt;li&gt;Decide if you should use an agent in a negotiation&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;assessing-your-negotiating-style&quot;&gt;2.1 Assessing Your Negotiating Style&lt;/h3&gt;
-
-&lt;p&gt;To assess your negotiation style while preparing for negotiations, complete the following three steps:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Complete the attachment to assess and understand your negotiating style.&lt;/li&gt;
-      &lt;li&gt;Use the assessment to assess the style of the other side. This is especially important in cross-cultural negotiations. Remember that there can be considerable variation in negotiation style within a culture.&lt;/li&gt;
-      &lt;li&gt;Do a gap analysis. Locate the major gaps between your style and the style of the other side. Focus on these gaps when preparing for the negotiation.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Additional tip: After completing the gap analysis, try a role reversal exercise where you use the style of the other side. This will enable you to better understand the other side’s style.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Assessing Your Negotiating Style&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Instructions: Listed below are ten important traits of a person’s negotiating style and approach. Each trait demonstrates a wide range of variations, which can be organized along a continuum, as has been done below. With respect to each trait, indicate with an X where your own negotiating style and approach in business negotiation falls along each continuum.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Goal: What is your goal in business negotiations: a binding contract or the creation of a relationship?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/goal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Attitudes: What is your attitude toward negotiation: win/lose or win/win?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/attitudes.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Personal Styles: During negotiations, is your personal style informal or formal?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/personal%20styles.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Communications: Is your communication style in negotiation direct (for instance, clear and definite proposals and answers) or indirect (for instance, vague, evasive answers)?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/communications.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Time Sensitivity: In the negotiation process, is your sensitivity to time high (for instance, you want to make a deal quickly) or low (you negotiate slowly)?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/high%3Alow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Emotionalism: During negotiations, is your emotionalism high (that is, you have a tendency to display your emotions) or low (you hide your feelings)?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/high%3Alow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Agreement Form: Do you prefer agreements that are specific (that is, detailed) or general?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/agreement%20form.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Agreement Building: Do you view negotiation as bottom up (reach agreement on details first) or top down (begin with agreement on general principle)?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/agreement%20building.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Team Organization: As a member of a negotiating team, do you prefer having one leader who has authority to make a decision or decision making by consensus?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/team%20organization.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Risk Taking: Is your tendency to take risks during negotiations high (for instance, your opening offer to sell is extremely high) or low?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/high%3Alow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;checklist-of-ethical-standards-and-guidelines&quot;&gt;2.2 Checklist of Ethical Standards and Guidelines&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Required by Law&lt;/em&gt;:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;No Fraud. (Do not lie.)&lt;/li&gt;
-      &lt;li&gt;Uphold your fiduciary duty. (If there is a fiduciary relationship with the other side, you owe the highest duty of trust and loyalty.)&lt;/li&gt;
-      &lt;li&gt;Don’t act in an unconscionable manner. (When you are in a dominant position of power, try to reach an agreement that is fair to the other side.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Voluntary Ethical Standards and Guidelines&lt;/em&gt;:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Organizational standards. (If your employer has a Code of Conduct, does it provide standards for your negotiations?)&lt;/li&gt;
-      &lt;li&gt;Someone you admire. (What would someone you admire do in your situation?)&lt;/li&gt;
-      &lt;li&gt;Family test. (How would you feel when describing to your family what you did during a negotiation?)&lt;/li&gt;
-      &lt;li&gt;Newspaper test. (How would you feel if a newspaper article in the local paper described what you did during a negotiation?)&lt;/li&gt;
-      &lt;li&gt;Golden Rule. (Treat others as you want to be treated. Keep in mind that fairness is very important to the other side.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;should-i-negotiate&quot;&gt;2.3 Should I Negotiate?&lt;/h3&gt;
-
-&lt;h3 id=&quot;a-position-based-negotiation-and-interest-based-negotiation&quot;&gt;2.4 A Position Based Negotiation and Interest Based Negotiation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Prepare&lt;/em&gt;: Plan Your Negotiation Strategy
-    &lt;ul&gt;
-      &lt;li&gt;preliminary question: should I negotiate?&lt;/li&gt;
-      &lt;li&gt;Is this negotiation a position-based or interest-based?&lt;/li&gt;
-      &lt;li&gt;resolve a dispute or make a deal?&lt;/li&gt;
-      &lt;li&gt;How to analyse the negotiation?&lt;/li&gt;
-      &lt;li&gt;cross-cultural negotiation?&lt;/li&gt;
-      &lt;li&gt;How to handle ethical issues?&lt;/li&gt;
-      &lt;li&gt;Should use an agent to negotiate for me?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/negotiation-1.jpg&quot; alt=&quot;negotiation-1.jpg&quot; /&gt;
-&lt;img src=&quot;http://litaotao.github.io/images/negotiation-2.jpg&quot; alt=&quot;negotiation-2.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;a-dispute-resolution-or-deal-making-negotiation&quot;&gt;2.5 A Dispute Resolution or Deal Making Negotiation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;dispute resolution
-    &lt;ul&gt;
-      &lt;li&gt;backwark looking&lt;/li&gt;
-      &lt;li&gt;position-based&lt;/li&gt;
-      &lt;li&gt;adverserial&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;deal making
-    &lt;ul&gt;
-      &lt;li&gt;forward looking&lt;/li&gt;
-      &lt;li&gt;interest-based&lt;/li&gt;
-      &lt;li&gt;problem solving&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/negotiation-4.jpg&quot; alt=&quot;negotiation-4.jpg&quot; /&gt;
-&lt;img src=&quot;http://litaotao.github.io/images/negotiation-5.jpg&quot; alt=&quot;negotiation-5.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;analysing-the-negotiation&quot;&gt;2.6 Analysing the Negotiation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;overall goal of the negotiation;&lt;/li&gt;
-  &lt;li&gt;the most important issues in reaching this goal;&lt;/li&gt;
-  &lt;li&gt;the best alternative to the negotiation agreement;&lt;/li&gt;
-  &lt;li&gt;the reservation price for the negotiation;&lt;/li&gt;
-  &lt;li&gt;most likely price;&lt;/li&gt;
-  &lt;li&gt;the stretch goal;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/negotiation-6.png&quot; alt=&quot;negotiation-6.png&quot; /&gt;
-&lt;img src=&quot;../images/negotiation-7.png&quot; alt=&quot;negotiation-7.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;best-alternative-to-a-negotiated-agreement&quot;&gt;2.7 Best Alternative to a Negotiated Agreement&lt;/h3&gt;
-
-&lt;h3 id=&quot;use-decision-trees-to-complete-your-batna-analysis&quot;&gt;2.8 Use Decision Trees to Complete Your BATNA Analysis&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/negotiation-8.png&quot; alt=&quot;negotiation-8.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;cross-cultural-negotiations&quot;&gt;2.9 Cross-Cultural Negotiations&lt;/h3&gt;
-
-&lt;p&gt;cultures can influence the result of the negotiations, there are many variations within a cultures, therefore, be sensitive to culture. But you don’t need fully understand local culture, moderate adaptation often better than major adaptation.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/negotiation-9.png&quot; alt=&quot;negotiation-9.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ethical-issues-and-standards&quot;&gt;2.10 Ethical Issues and Standards&lt;/h3&gt;
-
-&lt;h3 id=&quot;agents&quot;&gt;2.11 Agents&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/negotiation-10.png&quot; alt=&quot;negotiation-10.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;negotiate-use-key-tactics-for-success&quot;&gt;3. Negotiate: Use Key Tactics for Success&lt;/h2&gt;
-
-&lt;h3 id=&quot;course-materials&quot;&gt;3.1 Course Materials&lt;/h3&gt;
-
-&lt;p&gt;After completing this module, you will be able to:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Recognize your source of power in negotiations&lt;/li&gt;
-  &lt;li&gt;Use and increase your power in negotiations&lt;/li&gt;
-  &lt;li&gt;Employ psychological tools during a negotiation&lt;/li&gt;
-  &lt;li&gt;Avoid psychological traps in a negotiation&lt;/li&gt;
-  &lt;li&gt;Use psychological tools when making leadership and financial decisions&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;getting-to-know-the-other-side-and-using-power-in-negotiations&quot;&gt;3.2 Getting to Know the Other Side and Using Power in Negotiations&lt;/h3&gt;
-
 </content>
    </entry>
    
@@ -2127,6 +1883,245 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   &lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
 In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;RDD 论文中文版&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
+   
+   <entry>
+     <title>『 Spark 』3. spark 编程模式</title>
+     <link href="/spark-programming-model"/>
+     <updated>2016-03-04T00:00:00+08:00</updated>
+     <id>/spark-programming-model</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-&quot;&gt;1. spark 基本编程模式&lt;/h2&gt;
+
+&lt;p&gt;spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD，在上一篇文章中 &lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt; 有讲到。可以说，sc 和 RDD 贯穿了 spark app 的大部分生命周期，从 app 的初始化，到数据的清洗，计算，到最后获取，展示结果。&lt;/p&gt;
+
+&lt;p&gt;为了更加深入的了解 RDD 和基于 RDD 的编程模型，我们先把 RDD 的属性简单的分一个类，然后再通过一张流程图来理解。&lt;/p&gt;
+
+&lt;h3 id=&quot;rdd-&quot;&gt;1.1 RDD 的属性&lt;/h3&gt;
+
+&lt;p&gt;接触过 RDD 的人肯定都知道 &lt;em&gt;transform&lt;/em&gt; 和 &lt;em&gt;action&lt;/em&gt; 这两个核心概念，甚至很多人都认为 RDD 仅仅有 &lt;em&gt;transform&lt;/em&gt; 和 &lt;em&gt;action&lt;/em&gt; 这两个概念。殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 &lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD&quot;&gt;api 文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RDD
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt;     : count, take, sample, first, collect  …&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;transform&lt;/code&gt;  : foreach, glom, map …&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt;     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;property&lt;/code&gt;   : context&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;看到了吗，这里其实 RDD 其实有很多既不是 &lt;em&gt;transform&lt;/em&gt; 也不是 &lt;em&gt;action&lt;/em&gt; 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 &lt;code class=&quot;highlighter-rouge&quot;&gt;cache&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;setName&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lookup&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; 这些，在开发过程中都很有用。&lt;/p&gt;
+
+&lt;h3 id=&quot;spark--1&quot;&gt;1.2 spark 编程模式图&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-programming-model.jpg&quot; alt=&quot;spark-programming-model.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如图所示，我们构建 spark app，一般都是三个步骤:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;，这里的数据集大概分为两组:
+    &lt;ul&gt;
+      &lt;li&gt;一种是不变的，静态数据集，大多数场景都是从数据库，文件系统上面加载进来&lt;/li&gt;
+      &lt;li&gt;另一种是动态的数据集，一般做 streaming 应用的时候用到，大多数场景是通过 socket 来加载数据，复杂场景可以通过文件系统，akka actors，kafka，kinesis 和 一些第三方提供的 streaming api [twitter 等] 来作为数据源加载数据&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;，这是重点中的重点，不过不外乎都是从三个方面来完成这里的数据清理，逻辑运算等:
+    &lt;ul&gt;
+      &lt;li&gt;自定义的一些复杂处理函数或者第三方包 [下面我们称为函数集]&lt;/li&gt;
+      &lt;li&gt;通过 RDD 的 transform，action 和函数集来完成整个处理，计算流程&lt;/li&gt;
+      &lt;li&gt;通过 RDD 提供的 cache，persist，checkpoint 方法把一些处理流程中的重要处理节点和常用数据缓存和备份，以加速处理，计算速度&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;，这里一般情况都是使用 RDD 的 collect，take，first，top 等方法把结果取出来，更常用的是先把结果取出来，放到一个数据库或文件系统上，然后再提供给专门展示结果的另一个 application 使用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mc-monte-carlo&quot;&gt;2. 例子：MC [Monte Carlo]&lt;/h2&gt;
+
+&lt;p&gt;下面我将从几个方面来介绍这个例子：首先是介绍蒙特卡罗方法的基本概念和应用，然后是介绍如何用蒙特卡罗方法来估算 pi 的值，最后是看在 spark 集群中如何用多种方法来实现一个蒙特卡洛应用来计算 pi 的值。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;2.1 蒙特卡罗方法介绍&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## from wiki 
+Monte Carlo methods (or Monte Carlo experiments) are a broad class of 
+computational algorithms that rely on repeated random sampling to obtain 
+numerical results. They are often used in physical and mathematical problems 
+and are most useful when it is difficult or impossible to use other mathematical 
+methods. Monte Carlo methods are mainly used in three distinct problem 
+classes:[1] optimization, numerical integration, and generating draws from 
+a probability distribution.
+
+## 
+总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;pi-&quot;&gt;2.2 蒙特卡罗方法估算 pi 值原理&lt;/h3&gt;
+
+&lt;p&gt;用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首先，我们在坐标轴上构造一个边长为 1 的正方形&lt;/li&gt;
+  &lt;li&gt;其次，我们以 (0, 0) 为圆心，构造一个半径为 1 的圆形&lt;/li&gt;
+  &lt;li&gt;此时我们知道这个圆形有 1/4 是在正方形中的，正方形的面积和这 1/4 圆的面积分别是：1 和 pi/4，即 1/4 圆的面积和正方形面积之比刚好是 pi/4&lt;/li&gt;
+  &lt;li&gt;然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
+    &lt;ul&gt;
+      &lt;li&gt;随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间&lt;/li&gt;
+      &lt;li&gt;如果 x^2 + y^2 &amp;lt; 0，则把这个点标注为红色，表示这个点落在圆内&lt;/li&gt;
+      &lt;li&gt;最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m&lt;/li&gt;
+      &lt;li&gt;则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 =&amp;gt; pi = 4*m/n&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/mc.gif&quot; alt=&quot;mc.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;python--pi-&quot;&gt;2.3 Python 实现蒙特卡罗方法估算 pi 值&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import numpy as np
+
+def mc_pi(n=100):
+    &quot;&quot;&quot;Use Monte Calo Method to estimate pi.
+    &quot;&quot;&quot;
+    m = 0
+    i = 0
+    while i &amp;lt; n:
+        x, y = np.random.rand(2)
+        if x**2 + y**2 &amp;lt; 1:
+            m += 1
+        i += 1
+
+    pi = 4. * m / n
+    res = {&#39;total_point&#39;: n, &#39;point_in_circle&#39;: m, &#39;estimated_pi&#39;: pi}
+    
+    return res&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-programming-model-11.jpg&quot; alt=&quot;spark-programming-model-11.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;spark--2&quot;&gt;2.4 在 spark 集群中实现蒙特卡罗方法&lt;/h3&gt;
+
+&lt;p&gt;我们按照上面写的三大步骤来写这个 spark 应用：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### iterate number&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### parallelize a data set into the cluster&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;       \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;parallelized_data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        \
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### randomly generate points&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;## random point&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;            \
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;random_point&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### calculate the number of points in and out the circle&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                 \
+           &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;points_in_out_circle&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+           &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### how many points are in the circle&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;iterate {} times&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;estimated pi : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;seems-a-little-complex-really&quot;&gt;2.5 Seems a little complex, really?&lt;/h3&gt;
+
+&lt;p&gt;上面这个例子，可能会让一些初步接触 spark 的人很困惑，”明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？”。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wawawa.gif&quot; alt=&quot;wawawa.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式，如果你还不相信，可以把模拟次数加到千万或者亿次以上看看效果。&lt;/p&gt;
+
+&lt;p&gt;如果，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### version 1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;                                 \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;        \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;         \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                               \
+    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### version 2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;                                  \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                \
+    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;3. Next&lt;/h2&gt;
+
+&lt;p&gt;下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;4. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../files/spark-rdd-paper.pdf&quot;&gt;spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html&quot;&gt;spark python API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext&quot;&gt;spark context API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://snap.stanford.edu/data/&quot;&gt;机器学习相关数据集-斯坦福&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/blob/master/examples/src/main/python/pagerank.py&quot;&gt;spark pagerank example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://latex.91maths.com/&quot;&gt;latex online editor 在线latex公式编辑器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/07/monte-carlo-method.html&quot;&gt;阮一峰：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Monte_Carlo_method&quot;&gt;蒙特卡罗，wikipedia&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.sciencenet.cn/blog-324394-292355.html&quot;&gt;科学网：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
