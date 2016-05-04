@@ -30,7 +30,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-04T14:03:35+08:00</updated>
+   <updated>2016-05-04T14:07:35+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -307,13 +307,16 @@ that you are coalescing it to fewer partitions than it currently has.
 &lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;../introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -795,6 +798,7 @@ export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mod
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1039,8 +1043,8 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 </content>
    </entry>
    
@@ -1240,6 +1244,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1525,6 +1530,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1696,6 +1702,7 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -1858,6 +1865,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -2096,6 +2104,7 @@ In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
