@@ -1,3 +1,13 @@
 http://litaotao.github.io
 http://litaotao.github.io/boost-spark-application-performance
+http://litaotao.github.io/ipython-notebook-spark
+http://litaotao.github.io/spark-in-finance-and-investing
+http://litaotao.github.io/spark-dataframe-introduction
+http://litaotao.github.io/books-recommend-and-summarize-on-mar-2016
+http://litaotao.github.io/deep-into-spark-exection-model
+http://litaotao.github.io/spark-resouces-blogs-paper
+http://litaotao.github.io/spark-what-is-rdd
+http://litaotao.github.io/spark-programming-model
+http://litaotao.github.io/spark-questions-concepts
+http://litaotao.github.io/introduction-to-spark
 http://litaotao.github.io/books-recommend-and-summarize-on-apr-2016
