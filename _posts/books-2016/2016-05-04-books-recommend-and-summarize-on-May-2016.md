@@ -50,8 +50,16 @@ ps: 我对好书的定义很简单：
 ## 2. 博文推荐 
 
 - [对话：一个工程师在蘑菇街4年的架构感悟](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547068&idx=1&sn=910e345a35383e9d440d8a41695ccb10&scene=1&srcid=0504Wzmtyh8LNqrTo2XrP1my&from=groupmessage&isappinstalled=0#wechat_redirect)
+- [如果有人问你数据库的原理，叫他看这篇文章](http://blog.jobbole.com/100349/)
 
+>>
+这篇文章是真的不错。
 
+- [日请求量过亿，谈陌陌的Feed服务优化之路](http://mp.weixin.qq.com/s?__biz=MzA5Nzc4OTA1Mw==&mid=2659597071&idx=1&sn=cd8df9f8c52dfbfb54e65adbe19fae27&scene=0#wechat_redirect)
+- [支付宝架构师：从工程师到架构师的成长之路](http://www.scalerstalk.com/838-architect)
+- [向Spark开炮：1.6版本问题总结与趟坑](http://geek.csdn.net/news/detail/70162)
+- [你应该知道的HTTP基础知识](http://www.jianshu.com/p/e544b7a76dac)
+- [HTTP CODE 常用对照表](http://tool.oschina.net/commons?type=5)
 
 ## 3. 读书总结系列
 

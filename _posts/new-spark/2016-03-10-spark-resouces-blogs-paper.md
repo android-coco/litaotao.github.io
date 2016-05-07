@@ -99,8 +99,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 
 - [
 Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015](https://www.youtube.com/watch?v=Wg2boMqLjCg)
-- [ `slide` 
-Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015](http://www.slideshare.net/databricks/strata-sj-everyday-im-shuffling-tips-for-writing-better-spark-programs)
+- [ `slide` Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015](http://www.slideshare.net/databricks/strata-sj-everyday-im-shuffling-tips-for-writing-better-spark-programs)
 
 - [Large Scale Distributed Machine Learning on Apache Spark](https://www.youtube.com/watch?v=FA3ArTyXNoo)
 
@@ -129,6 +128,11 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [The Future of Real Time in Spark](https://www.youtube.com/watch?v=oXkxXDG0gNk)
 - [The Future of Real Time in Spark](http://www.slideshare.net/databricks/the-future-of-realtime-in-spark-58433411)
 
+- [Spark 2 0](https://www.youtube.com/watch?v=ZFBgY0PwUeY&feature=youtu.be)
+- [`slide` Spark 2 0](http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia)
+
+- [Democratizing Access to Data](https://www.youtube.com/watch?v=BPotQuqFnyw&feature=youtu.be)
+- [`slide` Democratizing Access to Data](http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-ali-ghodsi-and-databricks-community-edition-demo)
 
 
 
