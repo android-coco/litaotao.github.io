@@ -73,7 +73,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-07T11:43:48+08:00</updated>
+   <updated>2016-05-08T09:42:08+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -2009,7 +2009,7 @@ a probability distribution.
   &lt;li&gt;然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
     &lt;ul&gt;
       &lt;li&gt;随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间&lt;/li&gt;
-      &lt;li&gt;如果 x^2 + y^2 &amp;lt; 0，则把这个点标注为红色，表示这个点落在圆内&lt;/li&gt;
+      &lt;li&gt;如果 x^2 + y^2 &amp;lt; 1，则把这个点标注为红色，表示这个点落在圆内&lt;/li&gt;
       &lt;li&gt;最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m&lt;/li&gt;
       &lt;li&gt;则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 =&amp;gt; pi = 4*m/n&lt;/li&gt;
     &lt;/ul&gt;

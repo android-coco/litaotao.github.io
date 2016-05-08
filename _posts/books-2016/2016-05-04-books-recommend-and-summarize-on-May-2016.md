@@ -44,7 +44,14 @@ ps: 我对好书的定义很简单：
 
 推荐指数：``
 
+### 1.2 [Advanced Analytics with Spark](https://www.amazon.cn/Spark%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E9%87%8C%E6%89%8E/dp/B015VTKN5Q/ref=sr_1_1?ie=UTF8&qid=1462618411&sr=8-1&keywords=advanced+spark)
 
+选好书：orelly，preface，content，author，safaribooksonline，github repo for code
+
+
+总结：
+
+推荐指数：`* * * * *`
 
 
 ## 2. 博文推荐 
