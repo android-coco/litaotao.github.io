@@ -66,6 +66,24 @@
   </script>
 
 </head>
+
+<!-- meiqia plug-in -->
+
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[a] = m[a] || function() {
+            (m[a].a = m[a].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = i + '?v=' + new Date().getUTCDate();
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '//static.meiqia.com/dist/meiqia.js', '_MEIQIA');
+    _MEIQIA('entId', 15857);
+</script>
+
 <body>
   <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -73,7 +91,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-08T21:43:46+08:00</updated>
+   <updated>2016-05-09T17:28:01+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>

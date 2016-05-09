@@ -1,5 +1,5 @@
 ---
-category: web
+category: product
 published: true
 layout: post
 title: 一次微信升级引发的思考

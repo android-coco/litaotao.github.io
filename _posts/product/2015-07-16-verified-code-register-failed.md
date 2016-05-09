@@ -1,5 +1,5 @@
 ---
-category: tools
+category: product
 published: true
 layout: post
 title: 如何处理用户手机注册时收不到验证码的问题
