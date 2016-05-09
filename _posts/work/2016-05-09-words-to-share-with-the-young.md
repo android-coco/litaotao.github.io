@@ -35,8 +35,17 @@ I always knew looking back on the tears would make me laugh.
 
 ## 3. About Schedule Time
 
-关于怎么合理安排时间，这是一个比较大的话题，但是在生活中能时时遇到，我觉得这个问题没有一个可以量化的答案，但是可以有一个准则：优先考虑最重要的事，顾及不重要的事，
+关于怎么合理安排时间，这是一个比较大的话题，但是在生活中能时时遇到，我觉得这个问题没有一个可以量化的答案，但是可以有一个准则：优先考虑最重要的事，尽量顾及不重要的事，给突发急事优先处理权。
 
+举个例子，如果你想做一个技术型管理者，可以给自己制定了这样一个发展路线：
+
+- 在自己擅长的技术方面，做到这几个技术领域的高手，比如说 python，后台开发框架，分布式架构设计
+
+> 这是你知识的深度；
+
+- 在管理能力培养方面，多多看书，听相关讲座和分享，多跟老人交流分享
+
+> 这是你知识的广度；
 
 
 ## 3. Words to share with you
@@ -45,6 +54,7 @@ I always knew looking back on the tears would make me laugh.
 - You are what you've done in the past, what you're doing tells what you will be tomorrow.
 - Be the top in your field.
 - Keep 20/80 principle in your mind.
+- Check the A,B,Z model of Hoffman.
 
 
 
