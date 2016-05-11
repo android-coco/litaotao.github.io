@@ -1416,10 +1416,13 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 
 先参考 [飘逸的python - 偏函数functools.partial](http://blog.csdn.net/handsomekang/article/details/9712125)  
 
+## 58. 打开微信，扫一扫，点一点，棒棒的，^_^
+
+![wechat_pay.png](../images/wechat_pay.png)
 
 
 
-## 参考文章   
+## 参考文档
 
 - [初学者必知的Python中优雅的用法](http://python.jobbole.com/81393/)   
 - [Python基础技术问题总结](http://python.jobbole.com/81233/)    
@@ -1450,21 +1453,10 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 - [飘逸的python - descriptor(描述器)就是这么回事](http://blog.csdn.net/handsomekang/article/details/39895871)      
 - [Python描述器引导(翻译)](http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html)     
 - [PYTHON-进阶-ITERTOOLS模块小结](http://wklken.me/posts/2013/08/20/python-extra-itertools.html)
-
-
-
-
-
-## 参考网站  
-
 - [python 日报](http://py.memect.com/)   
 - [伯乐在线-python文章集锦](http://python.jobbole.com/category/python/)   
 - [黑客与极客的python文章集锦](http://www.freebuf.com/)
 
-
-## 扫一扫     
-
-![2015-03-17-python-materials.md](../../images/share/2015-03-17-python-materials.md.jpg)
 
 
 
