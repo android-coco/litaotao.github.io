@@ -68,6 +68,24 @@ ps: 我对好书的定义很简单：
 - [你应该知道的HTTP基础知识](http://www.jianshu.com/p/e544b7a76dac)
 - [HTTP CODE 常用对照表](http://tool.oschina.net/commons?type=5)
 
+- [博客推荐系统——物料准备 (第一部分)](http://www.infoq.com/cn/articles/blog-recommendation-system-part01)
+- [博客推荐系统: 基于内容相似性的推荐 ( 第二部分)](http://www.infoq.com/cn/articles/blog-recommendation-system-part02)
+
+>>
+这两篇文章写得简单易懂，可以帮助新手了解一个简单的推荐系统的结构。
+
+
+- [小公司的前端应该怎么做？](http://www.cnblogs.com/yexiaochai/p/5311712.html)
+- [如何更有效的处理数据检索缓存](https://mp.weixin.qq.com/s?__biz=MzIzNDE0NjMzOQ==&mid=2653923761&idx=1&sn=6af678b749b02aa19b947dcb1c58593a&scene=0&key=b28b03434249256ba48b934c509118b6073fefc76610faa0c26ecce439f484c51d19dcfc83c4a3a7378de329a6739ae2&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=fHxj4QiBJX6%2FngUiCgKPGZz8WHBOrnfOUJgjiQhkTd7CpYCzpY3KoVuHVZxrf88X)
+
+- [独立开发者必知的一些总结](http://godcoder.me/2016/04/25/%E8%B5%9A%E9%92%B1%E5%BF%85%E7%9C%8B%EF%BC%9A%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E8%80%85%E5%BF%85%E7%9F%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/)
+- [面试官如何面试程序员](http://blog.jobbole.com/100702/)
+- [Spark性能优化指南——基础篇](http://tech.meituan.com/spark-tuning-basic.html)
+- [Spark性能优化指南——高级篇](http://tech.meituan.com/spark-tuning-pro.html)
+
+
+
+
 ## 3. 读书总结系列
 
 - [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)

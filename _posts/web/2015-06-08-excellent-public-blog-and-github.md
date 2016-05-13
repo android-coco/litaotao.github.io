@@ -34,3 +34,7 @@ blog: [https://engineering.quora.com/](https://engineering.quora.com/)
 - pinterest
 
 blog: [engineering.pinterest.com](https://engineering.pinterest.com)
+
+- 美团点评
+
+blog: [http://tech.meituan.com/](http://tech.meituan.com/)
