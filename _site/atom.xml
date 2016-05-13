@@ -92,13 +92,414 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-14T00:15:30+08:00</updated>
+   <updated>2016-05-14T00:24:26+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>如何使用 github pages 搭建博客</title>
+     <link href="/github-pages-blog"/>
+     <updated>2016-05-10T00:00:00+08:00</updated>
+     <id>/github-pages-blog</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;使用 github 也快有3年了，的确觉得 github 的方便，易用，而且不仅仅在版本控制方面［版本控制方面个人感觉比 svn 好用了太多太多］，而且还提供了一个平台，让你随时跟进最近技术和趋势。今天就来说说其中一个比较实用&lt;/p&gt;
+
+&lt;p&gt;ps: 本文对应的 github repo 在这里：&lt;a href=&quot;https://github.com/litaotao/github-blog-template&quot;&gt;https://github.com/litaotao/github-blog-template&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 最简单的步骤&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 1 : 新建一个 repo，并克隆 repo 到本地&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;repo 名定为 你的github用户名 + .github.io，比如说，我的 github 用户名叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;litaotao&lt;/code&gt;, 那新建的 repo 名就叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;litaotao.github.io&lt;/code&gt;&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 2 : 克隆&lt;a href=&quot;https://github.com/litaotao/github-blog-template&quot;&gt;模版&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-1.png&quot; alt=&quot;github-pages-blog-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用 git 命令克隆模版：&lt;em&gt;git clone git@github.com:litaotao/github-blog-template.git&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp&lt;span class=&quot;nv&quot;&gt;$git&lt;/span&gt; clone git@github.com:litaotao/github-blog-template.git
+Cloning into &lt;span class=&quot;s1&quot;&gt;&#39;github-blog-template&#39;&lt;/span&gt;...
+remote: Counting objects: 75, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
+remote: Compressing objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;68/68&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
+remote: Total 75 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, reused 72 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, pack-reused 0
+Receiving objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;75/75&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, 1.19 MiB | 425.00 KiB/s, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
+Resolving deltas: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4/4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
+Checking connectivity... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 3 : 复制模版相关文件到你的本地repo中&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;首先，先删掉模版里的一个文件夹 &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp/github-blog-template&lt;span class=&quot;nv&quot;&gt;$ll&lt;/span&gt;
+...
+...
+...
+drwxr-xr-x  13 taotao  staff   442B May 10 10:32 .git
+taotao@mac007:~/Desktop/tmp/github-blog-template&lt;span class=&quot;nv&quot;&gt;$sudo&lt;/span&gt; rm -rf .git&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;然后，复制模版下所有文件到你的本地repo中，使用命令 &lt;em&gt;cp -r github-blog-template/&lt;/em&gt; your_local_repo/*&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;taotao&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@mac007&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;github&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;your_local_repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step 4 : 本地运行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;进入到 your_local_repo 目录，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll server --watch&lt;/code&gt; 命令启动本地博客。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp/your_local_repo&lt;span class=&quot;nv&quot;&gt;$jekyll&lt;/span&gt; server --watch
+Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
+            Source: /Users/chenshan/Desktop/tmp/your_local_repo
+       Destination: /Users/chenshan/Desktop/tmp/your_local_repo/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating...
+                    &lt;span class=&quot;k&quot;&gt;done in &lt;/span&gt;0.588 seconds.
+ Auto-regeneration: enabled &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/Users/chenshan/Desktop/tmp/your_local_repo&#39;&lt;/span&gt;
+Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
+    Server address: http://127.0.0.1:4000/
+  Server running... press ctrl-c to stop.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;如果一切顺利，在浏览器访问：localhost:4000 即可看到你的博客了，我已经在模版里放了两篇文章，截图如下。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-2.png&quot; alt=&quot;github-pages-blog-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 自定义配置&lt;/h2&gt;
+
+&lt;p&gt;如果你已经成功完成了第一步，那恭喜，你马上就能拥有一个自己的博客了，在此之前，你只需要改一个配置文件即可：github-blog-template/_config.yml，你需要改的地方我用中文标注出来了，可以参考注释说明和我的博客来配置：&lt;a href=&quot;https://github.com/litaotao/litaotao.github.io&quot;&gt;https://github.com/litaotao/litaotao.github.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;markdown: kramdown
+highlighter: rouge
+paginate: 8
+permalink: /:title
+encoding: UTF-8
+gems: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;jekyll-paginate]
+
+title: 你的博客名称
+url: 你的博客地址，就叫 http://github用户名+.github.io
+feed: /atom.xml
+author_info: &amp;lt;a &lt;span class=&quot;nv&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://litaotao.github.io/&quot;&lt;/span&gt;&amp;gt;你的名字&amp;lt;/a&amp;gt;
+
+myblog:
+  gavatar: 你的头像地址
+  gpname: 你的名字
+  linkedin: 你的 linkedin 地址
+  github: 你的 github 地址
+  email: mailto:你的 email 地址
+  coverimgs: &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;
+  postbgimg: &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;
+
+categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名称，对应到 your_local_repo/_posts/ 下的文件夹名]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;ok,如果你已经更改好配置文件了，并且本地运行正常的话，可以上传到 github 了。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 深度阅读之目录文件说明&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/github/github-blog-template&lt;span class=&quot;nv&quot;&gt;$tree&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 404 页面，你可以自定义&lt;/span&gt;
+├── 404.html
+├── README.md
+&lt;span class=&quot;c&quot;&gt;### 博客配置文件，基本上是最重要的一个文件之一了&lt;/span&gt;
+├── _config.yml
+&lt;span class=&quot;c&quot;&gt;### 博客页面模版目录&lt;/span&gt;
+├── _layouts
+│   ├── default.html
+│   ├── home.html
+│   ├── page.html
+│   └── post.html
+&lt;span class=&quot;c&quot;&gt;### 博客文章目录，下面可以按文件夹进行博文分类&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 注意，博文文件格式必须是：时间-博文标题.md，参考下面的格式&lt;/span&gt;
+├── _posts
+│   ├── books
+│   │   └── 2016-04-29-books-recommend-and-summarize-on-apr-2016.md
+│   └── python
+│       └── 2016-04-01-spark-in-finance-and-investing.md
+&lt;span class=&quot;c&quot;&gt;### 这个是你的站点地图了，用户可以访问这个文件夹下面的所有文件&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 比如说，用户可以直接访问我的 litaotao.github.io/404.html; litaotao.github.io/images/2.jpg&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 比如说，当你访问 litaotao.github.io/spark-in-finance-and-investing  &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;###        实际上是访问了 litaotao.github.io/spark-in-finance-and-investing.html&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 你会发现这下面有很多在博客更目录下重复的文件夹，比如说 css，js，images等文件夹，不要纳闷，这是正常的&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 因为你的博客更目录下的文件，是 jekyll 用来渲染一个 html 文件的，html 文件及其所需要的任何文件，都会放到 _site 这个&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;### 专用的目录下面&lt;/span&gt;
+├── _site
+│   ├── 404.html
+│   ├── README.md
+│   ├── atom.xml
+│   ├── books-recommend-and-summarize-on-apr-2016.html
+│   ├── css
+│   │   ...
+│   │   ...
+│   │   ...
+│   ├── images
+│   │   ├── 2.jpg
+│   │   ├── spark-in-finance-1.jpg
+│   │   ├── spark-in-finance-2.jpg
+│   │   └── spark-in-finance-3.jpg
+│   ├── index.html
+│   ├── js
+│   │   ...
+│   │   ...
+│   │   ...
+│   └── spark-in-finance-and-investing.html
+├── atom.xml
+├── css
+│   │   ...
+│   │   ...
+│   │   ...
+├── images
+│   │   ...
+│   │   ...
+│   │   ...
+├── index.html
+└── js
+    │   │   ...
+    │   ...
+    │   ...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;4. 总结&lt;/h2&gt;
+
+&lt;p&gt;总的来说，利用 github 搭建博客的步骤为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;创建一个 github用户名 + ‘.github.io’ 的新 repo，并克隆到本地&lt;/li&gt;
+  &lt;li&gt;把模版，除去 ‘.git’ 的所有文件 copy 到你的repo 中&lt;/li&gt;
+  &lt;li&gt;更改 ‘_config.yml’ 配置文件&lt;/li&gt;
+  &lt;li&gt;本地试运行，上传到github&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;5. 其他话题&lt;/h2&gt;
+
+&lt;p&gt;一个简单，但基本够用的博客就这样搭建完成了。其他还有一些扩展话题，感兴趣的同学可以 google 或者联系我，比如说：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何给你的博客加上 评论功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-3.png&quot; alt=&quot;github-pages-blog-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何给你的博客加上 cnzz 统计功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-4.png&quot; alt=&quot;github-pages-blog-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何给你的博客加上 growingio 统计功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-5.png&quot; alt=&quot;github-pages-blog-5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何给你的博客加上 百度分享功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-6.png&quot; alt=&quot;github-pages-blog-6.png&quot; /&gt;&lt;/p&gt;
+</content>
+   </entry>
+   
+   <entry>
+     <title>一封素不相识的来信</title>
+     <link href="/words-to-share-with-the-young"/>
+     <updated>2016-05-09T00:00:00+08:00</updated>
+     <id>/words-to-share-with-the-young</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;前几天无意间收到一封email，是一位小学弟写的，看到这封信，我仿佛看到大学时期的自己。从大一开始就没消停过，一开始捣鼓航模，还想趁军训期间和同学倒卖医用纱布，面膜，防嗮霜什么的；后来大二开始学习电路后，又开始捣鼓单片机，嵌入式，arduino，电路设计；大三后想出国又去整托福雅思，再后来发现没法拿到全额奖学金后；大四就开始乖乖找工作，学驾照，做毕业设计，最后大四下学期就来上海开始在第一家［也是现在的这家］公司实习。&lt;/p&gt;
+
+&lt;p&gt;回首大学时期，期间真的遇到过无数蛋疼的事情，也不断的在各个迷茫的漩涡中 back and forth。但是现在，在毕业2年后，我却觉得就像一句台词说的那样：当回首过去，才知道那些当时看起来的坎坎坷坷其实没也多大不了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;I always knew looking back on the tears would make me laugh.&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我本想认真的回复他，可是想想，也许现实中还有很多像他一样的学弟学妹，也正面临各种艰难的抉择和迷茫的漩涡。如果我把给他的回复放到博客上，只要其他的小学弟学妹也能看到，岂不最大化这封 email 的价值？［sorry，在金融业浸淫两年有余，做什么事都容易把价值最大化，投入产出比这些 f**king awesome factors 考虑进去］&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;这是那位学弟的来信［已征求学弟同意，允许发布到博客上］&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/words-to-the-young-1.png&quot; alt=&quot;words-to-the-young-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-key-problems&quot;&gt;1. The Key Problems&lt;/h2&gt;
+
+&lt;p&gt;下面，是我根据这封 email 的内容和我的个人经验，总结的一些这位学弟面临的问题。到最后，我会一一再次回答学弟信里提到的几个问题。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How should I schedule my time when I want to broaden my horizens?&lt;/li&gt;
+  &lt;li&gt;When I want to learning something new, there always be endless materials to read!&lt;/li&gt;
+  &lt;li&gt;How to build a web page to record your daily routines or growth plan?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;about-schedule-time&quot;&gt;2. About Schedule Time&lt;/h2&gt;
+
+&lt;p&gt;关于怎么合理安排时间，这是一个比较大的话题，但是在生活中能时时遇到，我觉得这个问题没有一个可以量化的答案，但是可以有一个准则：优先考虑最重要的事，尽量顾及不重要的事，给突发急事优先处理权。&lt;/p&gt;
+
+&lt;p&gt;举个例子，如果你想做一个技术型管理者，可以给自己制定了这样一个发展路线：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在自己擅长的技术方面，做到这个技术领域的高手，比如说 python，后台开发框架，分布式架构设计&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是你知识的深度；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在管理能力培养方面，多多看书，听相关讲座和分享，多跟老人交流分享&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是你知识的广度；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;当你已经开始熟悉一个领域，并且想对其他方面有所了解的时候；即当你在某些方面有一些深度了解，又想扩宽自己的知识面的时候。你应该怎么安排你的时间呢？在我看来，或者以我的个人经历来看，我很推荐二八原则，即可以把 20% 的时间花在其他方面上，并且严格控制好限度，千万不可以为一昧想看其他方面的东西而影响当前一些工作和正常学习的进度。&lt;/p&gt;
+
+&lt;h2 id=&quot;about-endless-materials&quot;&gt;3. About Endless Materials&lt;/h2&gt;
+
+&lt;p&gt;这个话题是一个比较好玩的话题，不知道大家有没有这样一个感受，从小学到大学，成绩最好的那些同学，真的不是做作业做得最多的那些同学。同样的，一个公司里最能干的人，很少是那些加班加到天昏地暗的人。我一直对这种现象很好奇，知道最近几年开始慢慢带小孩儿［侄儿］，开始有去想如何教育孩子的经验之后，我才慢慢理解这种现象：在这种学习，工作的社会活动中，你投入的量越多，并不一定能带来质的提升。&lt;/p&gt;
+
+&lt;p&gt;简单的说，你所进行的学习，工作，需要你投入脑力和体力这两大核心要素，而在很多时候，我们发现一些同学去做了很多练习册，也发现一些同事无休止的加班，其实这些都是投入了大量体力的劳动，但是，其中的大部分人在这个体力活动的过程中，却很少去进行思考：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;这道题为什么会错？&lt;/li&gt;
+  &lt;li&gt;我在第一次接触这道题的时候是怎么去思考的？&lt;/li&gt;
+  &lt;li&gt;下一次遇到这种题，切入点，思考点应该是什么？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;也就是说，有些情况下，即使你投入了大量的体力，但却很少动用脑力去思考，反思的话，很难会有质的提升。言归正传，之所以要扯上面这些，我是想强调一个概念：你找的资料越多，看得越多，并不一定能让你懂得越多。&lt;/p&gt;
+
+&lt;p&gt;所以，当你想学一个新事物的时候，面临那么多纷繁的资料，你怎么办？我觉得，如果你找了10份资料，那就简单看下，从其中先选出你觉得最好的2～3份资料，然后 completely delete 其他落选的资料，把你分配的 20% 时间全部花在选出来的这 2～3 份资料上面。看完之后，你一定会知道你对那个新的学科，新的领域了解多少，你也会知道如果你还想深入下去，你还需要哪些东西需要学习，有的放矢。&lt;/p&gt;
+
+&lt;h2 id=&quot;about-blogs-for-personal-use&quot;&gt;4. About Blogs for Personal Use&lt;/h2&gt;
+
+&lt;p&gt;这里的可选项很多，但我觉得基于 github pages 的博客比较方便，简洁，灵活。这个网上有很多教程，只需要 google 一下 ： &lt;a href=&quot;https://www.google.co.jp/webhp?sourceid=chrome-instant&amp;amp;ion=1&amp;amp;espv=2&amp;amp;ie=UTF-8#q=github+blog+pages&quot;&gt;github blog pages&lt;/a&gt; 就行了，我这里也专门有一个简单教程和模版：&lt;a href=&quot;../github-pages-blog&quot;&gt;如何使用 github pages 搭建博客&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;除了博客，我强烈推荐使用 google docs 来做一些短期规划和跟踪，我之前有用过很多协同工具来做计划任务的安排，比如说有道云协作，evernote，但它们对我来说都太过于复杂了，还是觉得 google docs 好用。&lt;/p&gt;
+
+&lt;p&gt;对于使用工具来制定，记录和跟踪你的短期安排，长期规划，我有一个小建议，不管用什么工具，一定要明确工具就是工具，不要把太多的时间花在工具上面，否则就本末倒置了。&lt;/p&gt;
+
+&lt;p&gt;下面是我一些 google docs 的截图：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每月读书规划和记录［当月下旬最后几天会根据当月读书情况完成下月的读书计划］&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/words-to-the-young-2.png&quot; alt=&quot;words-to-the-young-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每月安排，出于公司隐私考虑，这里面有删掉了一些工作内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/words-to-the-young-3.png&quot; alt=&quot;words-to-the-young-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;5. 小步总结&lt;/h2&gt;
+
+&lt;p&gt;其实，上面回答了三个方面的问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何规划时间&lt;/li&gt;
+  &lt;li&gt;如何学习一门新技能&lt;/li&gt;
+  &lt;li&gt;如何利用工具制定，跟踪个人计划&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每个方面都没有往深了说，但我觉得能表达到意思就够了，如果觉得有问题的可以直接留言或通过其他方式联系我，可以一起探讨。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;6. 一一回答信中的问题&lt;/h2&gt;
+
+&lt;p&gt;下面一一回答信中的问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;你是怎麼分配時間同時學習幾個領域的知識？我本科的電腦課都讀完了，但當我嘗試進入machine learning/ data mining/ AI 的領域時，發現自己並不能專心致志的向一個方向閱讀／練習，反而是在網上能找到的資料太多，看的眼花凌亂，學習並沒有效率。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;我一般在想学习其他领域的时候，我会根据当前工作，生活安排情况，最多安排出 20% 的时间，在短期内把这 20% 的时间全部用到那个新领域上去。之后再根据对该领域的了解和自身职业发展，兴趣爱好情况，对这个领域的安排做调整。
+例子：在团度 4月的团建上，我发现自己还是很喜欢台球，于是安排了这个月的 5% 左右的时间在台球学习和整理上，之后会把相关资料放到博客上，或者你也可以先到 github 上看：&lt;a href=&quot;https://github.com/litaotao/litaotao.github.io/blob/master/_posts/work/2016-04-29-pools-and-billiards.md&quot;&gt;2016-04-29-pools-and-billiards&lt;/a&gt;&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;你的讀書筆記網站是怎麼設置／日常是怎麼使用的？我在設想一個放到github.pages，有著簡單版面的博客／ 紀錄系統兩用網站。我本來是一個比較back-end focused的人，除了一步一步找javascript教學我現在沒有足夠的經驗去設計一個複雜的網站。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;如果你想有一个博客来制定，安排，跟踪你的学习规划，现学 html，js，css 是完全不够的，而且是本末倒置的。All you need is just a tool other than building the tool. 我一般都使用 google docs 和 基于 github pages 搭建的博客，教程在这里：&lt;a href=&quot;../github-pages-blog&quot;&gt;如何使用 github pages 搭建博客&lt;/a&gt; ，你可以看这个教程页面了解更多。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;對於看書／行業以外的知識，你是怎麼控制的？我常常一不小心就開出幾十個tab，然後每個tab又有幾十個有用的延伸閱讀材料，根本不能夠完成目標。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;就像我在第一个问题里面回复的一样：首先，我会想清楚除了 &lt;code class=&quot;highlighter-rouge&quot;&gt;主营业务&lt;/code&gt; 之外，我最想做什么。第二，我会去单独找一份资料，并且深度学习那份资料去了解这个我想学习的东西。例子：我5月份想系统学习台球知识，网上的台球教程有很多，当然也很有可能一下子开十几个 tab 页面出来。我的做法是，我找一个微信公众号［我找的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;taiqiujiaoxue&lt;/code&gt; 这个公众号］，把这个公众号里的文章全部看完［截至5月13号，我大概看了这个公众号上 2.5 年的文章］。
+相信我，千万不要一开始就找很多资料，去找1～3份不错的资料，然后深度研读他们，读完你会知道，针对于那个领域，你还需要了解什么。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;我看到了你對金融也有興趣／研究，對於學習fin tech的技術跟行業知識，你有一些提議嗎？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+
+    &lt;p&gt;fin-tech 其实定义很广泛，我也不知道你具体想学哪个细分领域的知识。fin-tech 是 financial 和 technology 的结合，也是最近几年才兴起的概念，特别是伴随大数据的兴起，最近一两年股市的跌宕起伏，fin-tech 也开始一波强势宣传。但是，万变不离其宗，简单的说，fin－tech 就是金融 ＋ 互联网。如果你想学习这方面的知识，我可以从 fin-tech 的一个方面［量化投资］给你一些建议和我的一些经验：第一，学习掌握基本的金融概念和知识；第二，了解一些互联网行业从业知识；第三，使用相关网站［uqer.io, quantopian.com, www.worldquant.com 等］；第四，关注这个行业的业内新闻，紧跟发展节奏。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;words-to-share-with-you&quot;&gt;7. Words to share with you&lt;/h2&gt;
+
+&lt;p&gt;这封回信也差不多写完了，作为结尾，我想说，其实每个人的见解都有其局限性，所以对比自己有经验的人的意见和建议，都需要先对比自身情况，选择性接收。&lt;/p&gt;
+
+&lt;p&gt;但是，有一些话，有一些哲理却是更古不变的，所以，作为结尾，我想以几句话和各位一起分享，你们可以不同意我上面所说的任何话，但是对下面的几句话，keeping them in mind is a much wiser choice:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I always knew looking back on the tears would make me laugh;&lt;/li&gt;
+  &lt;li&gt;You are what you’ve done in the past, what you’re doing tells what you will be tomorrow;&lt;/li&gt;
+  &lt;li&gt;Be the top 20% in your field;&lt;/li&gt;
+  &lt;li&gt;Keep 20/80 principle in your mind;&lt;/li&gt;
+  &lt;li&gt;Something reasonable in your eyes is unbelievable to others;&lt;/li&gt;
+  &lt;li&gt;A thing turns into its opposite if pushed too far;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最后，祝大家：&lt;em&gt;Love what you do, do what you love.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/words-to-the-young-4.png&quot; alt=&quot;words-to-the-young-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;8. 参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;In Startups And Life, You Need Plan A, B, And Z&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/zh/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99&quot;&gt;帕雷托法则&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』10. spark 应用程序性能优化｜12 个优化方法</title>
@@ -1760,408 +2161,6 @@ Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jo
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』4. spark 之 RDD</title>
-     <link href="/spark-what-is-rdd"/>
-     <updated>2016-03-08T00:00:00+08:00</updated>
-     <id>/spark-what-is-rdd</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;rdd&quot;&gt;1. 什么是RDD&lt;/h2&gt;
-&lt;p&gt;先看下源码里是怎么描述RDD的。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;p&gt;Internally, each RDD is characterized by five main properties:&lt;br /&gt;
-A list of partitions&lt;br /&gt;
-A function for computing each split &lt;br /&gt;
-A list of dependencies on other RDDs&lt;br /&gt;
-Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned) &lt;br /&gt;
-Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;可以知道，每个 RDD 有以下5个主要的属性：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;一组分片（partition），即数据集的基本组成单位&lt;/li&gt;
-      &lt;li&gt;一个计算每个分片的函数&lt;/li&gt;
-      &lt;li&gt;对parent RDD的依赖，这个依赖描述了RDD之间的 &lt;code class=&quot;highlighter-rouge&quot;&gt;lineage&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;对于key-value的RDD，一个Partitioner，这是可选择的&lt;/li&gt;
-      &lt;li&gt;一个列表，存储存取每个partition的preferred位置。对于一个HDFS文件来说，存储每个partition所在的块的位置。这也是可选择的&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;把上面这5个主要的属性总结一下，可以得出RDD的大致概念：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;p&gt;首先，RDD 大概是这样一种表示数据集的东西，它具有以上列出的一些属性。是设计用来表示数据集的一种数据结构。为了让 RDD 能 handle 更多的问题，规定 RDD 应该是只读的，分区记录的一种数据集合。可以通过两种方式来创建 RDD：一种是基于物理存储中的数据，比如说磁盘上的文件；另一种，也是大多数创建 RDD 的方式，即通过其他 RDD 来创建【以后叫做转换】而成。而正因为 RDD 满足了这么多特性，所以 spark 把 RDD 叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;Resilient Distributed Datasets&lt;/code&gt;，中文叫做弹性分布式数据集。很多文章都是先讲 RDD 的定义，概念，再来说 RDD 的特性。我觉得其实也可以倒过来，通过 RDD 的特性反过来理解 RDD 的定义和概念，通过这种由果溯因的方式来理解 RDD 也未尝不可，至少对我个人而言这种方式是挺好的。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;rdd-1&quot;&gt;2. 理解RDD的几个关键概念&lt;/h2&gt;
-
-&lt;p&gt;本来我是想参考 RDD 的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先 focus on 几个关键点，到后期应用的时候再步步深入。&lt;/p&gt;
-
-&lt;p&gt;所以，按照我个人的理解，我认为想用好 spark，必须要理解 RDD ，而为了理解 RDD ，我认为只要了解下面几个 RDD 的几个关键点就能 handle 很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，或者直接联系我，互相交流。&lt;/p&gt;
-
-&lt;h3 id=&quot;rdd-2&quot;&gt;2.1 RDD的背景及解决的痛点问题&lt;/h3&gt;
-
-&lt;p&gt;RDD 的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD 还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：&lt;code class=&quot;highlighter-rouge&quot;&gt;RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that&#39;s all&lt;/code&gt;。&lt;/p&gt;
-
-&lt;h3 id=&quot;what-is-dag---&quot;&gt;2.2 What is DAG - 趣说有向无环图&lt;/h3&gt;
-
-&lt;p&gt;DAG - Direct Acyclic Graph，有向无环图，好久没看图片了，先发个图片来理解理解吧。
-&lt;img src=&quot;../../images/dag.jpg&quot; alt=&quot;DAG&quot; /&gt;&lt;br /&gt;
-要理解DAG，只需弄明白三个概念就可以毕业了，首先，我们假设上图图二中的A,B,C,D,E都代表spark里不同的RDD：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;图：图是表达&lt;code class=&quot;highlighter-rouge&quot;&gt;RDD Lineage&lt;/code&gt;信息的一个结构，在 spark 中，大部分 RDD 都是通过其他 RDD 进行转换而来的，比如说上图图二中，B和D都是通过A转换而来的，而C是通过B转换而来，E的话是通过B和D一起转换来的。&lt;/li&gt;
-  &lt;li&gt;有向：有向就更容易理解了，简单来说就是 linage 是一个 top-down 的结构，而且是时间序列上的 top-down 结构，这里如果没有理解的话，我们在下面讲“无环”这个概念时一起说明。&lt;/li&gt;
-  &lt;li&gt;无环：这里就是重点要理解的地方了，spark 的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下 B,D,E 这样一个 RDD 转换图，那当我们的需要执行 D.collect 操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;what-is-data-locality---rdd&quot;&gt;2.3 What is Data Locality - RDD的位置可见性&lt;/h3&gt;
-&lt;p&gt;这个问题就不重复造轮子了，直接引用Quora上的一个&lt;a href=&quot;https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark&quot;&gt;问答了&lt;/a&gt;:&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;RDD is a dataset which is &lt;code class=&quot;highlighter-rouge&quot;&gt;distributed&lt;/code&gt;, that is, it is divided into &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;partitions&quot;&lt;/code&gt;. Each of these partitions can be present in the memory or disk of different machines. If you want Spark to process the RDD, then Spark needs to &lt;code class=&quot;highlighter-rouge&quot;&gt;launch one task per partition of the RDD&lt;/code&gt;. It’s best that each task be sent to the machine have the partition that task is supposed to process. In that case, the task will be able to read the data of the partition from the local machine. Otherwise, the task would have to pull the partition data over the network from a different machine, which is less efficient. This scheduling of tasks (that is, allocation of tasks to machines) such that the tasks can read data “locally” is known as “&lt;code class=&quot;highlighter-rouge&quot;&gt;locality aware scheduling&lt;/code&gt;”.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;what-is-lazy-evaluation---&quot;&gt;2.4 What is Lazy Evaluation - 神马叫惰性求值&lt;/h3&gt;
-&lt;p&gt;本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫”后续求值”，”按需计算”，”晚点搞”这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。&lt;/p&gt;
-
-&lt;h3 id=&quot;what-is-narrowwide-dependency---rdd&quot;&gt;2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖&lt;/h3&gt;
-&lt;p&gt;首先，先从原文看看宽依赖和窄依赖各自的定义。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;narrow dependencies&lt;/code&gt;: where each partition of the parent RDD is used by at most one partition of the child RDD, &lt;code class=&quot;highlighter-rouge&quot;&gt;wide dependencis&lt;/code&gt;, where multiple child partitions may depend on it.&lt;/p&gt;
-
-&lt;p&gt;按照&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;这篇RDD论文中文译文&lt;/a&gt;的解释，窄依赖是指子RDD的每个分区依赖于常数个父分区（即与数据规模无关）；宽依赖指子RDD的每个分区依赖于所有父RDD分区。暂且不说这样理解是否有偏差，我们先来从两个方面了解下计算一个窄依赖的子RDD和一个宽依赖的RDD时具体都有什么区别，然后再回顾这个定义。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;计算方面：
-    &lt;ul&gt;
-      &lt;li&gt;计算窄依赖的子RDD：可以在某一个计算节点上直接通过父RDD的某几块数据（通常是一块）计算得到子RDD某一块的数据；&lt;/li&gt;
-      &lt;li&gt;计算宽依赖的子RDD：子RDD某一块数据的计算必须等到它的父RDD所有数据都计算完成之后才可以进行，而且需要对父RDD的计算结果进行hash并传递到对应的节点之上；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;容错恢复方面：
-    &lt;ul&gt;
-      &lt;li&gt;窄依赖：当父RDD的某分片丢失时，只有丢失的那一块数据需要被重新计算；&lt;/li&gt;
-      &lt;li&gt;宽依赖：当父RDD的某分片丢失时，需要把父RDD的所有分区数据重新计算一次，计算量明显比窄依赖情况下大很多；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/spark-rdd-dependency.png&quot; alt=&quot;spark-rdd-dependency.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;3. 尚未提到的一些重要概念&lt;/h2&gt;
-&lt;p&gt;还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。&lt;/p&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;4. Next&lt;/h2&gt;
-
-&lt;p&gt;基础的概念和理论都讲得差不多了，该小试牛刀了，哈哈。&lt;/p&gt;
-
-&lt;p&gt;下几篇的安排：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;列一些学习 spark 比较好的&lt;code class=&quot;highlighter-rouge&quot;&gt;资源&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;详细从 job，stage，task 的定义来谈谈 spark 的运行原理&lt;/li&gt;
-  &lt;li&gt;准备几个稍稍复杂一点的&lt;code class=&quot;highlighter-rouge&quot;&gt;例子&lt;/code&gt;, 例子个数根据时间安排发布
-    &lt;ul&gt;
-      &lt;li&gt;spark 在金融领域的应用之 指数相似度计算&lt;/li&gt;
-      &lt;li&gt;spark 在搜索领域的应用之 pagerank&lt;/li&gt;
-      &lt;li&gt;spark 在社交领域的应用之 评分计算&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;开始讲 &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe 和 datasets&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;5. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/anzhsoft/article/details/39851421&quot;&gt;Spark技术内幕：究竟什么是RDD&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
-In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://shiyanjun.cn/archives/744.html&quot;&gt;RDD 论文中文版&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』3. spark 编程模式</title>
-     <link href="/spark-programming-model"/>
-     <updated>2016-03-04T00:00:00+08:00</updated>
-     <id>/spark-programming-model</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;spark-&quot;&gt;1. spark 基本编程模式&lt;/h2&gt;
-
-&lt;p&gt;spark 里有两个很重要的概念：SparkContext [一般简称为 sc] 和 RDD，在上一篇文章中 &lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt; 有讲到。可以说，sc 和 RDD 贯穿了 spark app 的大部分生命周期，从 app 的初始化，到数据的清洗，计算，到最后获取，展示结果。&lt;/p&gt;
-
-&lt;p&gt;为了更加深入的了解 RDD 和基于 RDD 的编程模型，我们先把 RDD 的属性简单的分一个类，然后再通过一张流程图来理解。&lt;/p&gt;
-
-&lt;h3 id=&quot;rdd-&quot;&gt;1.1 RDD 的属性&lt;/h3&gt;
-
-&lt;p&gt;接触过 RDD 的人肯定都知道 &lt;em&gt;transform&lt;/em&gt; 和 &lt;em&gt;action&lt;/em&gt; 这两个核心概念，甚至很多人都认为 RDD 仅仅有 &lt;em&gt;transform&lt;/em&gt; 和 &lt;em&gt;action&lt;/em&gt; 这两个概念。殊不知其实 RDD 里面还有很多其他方法，下面我们来简单的分个类，在看这里的时候最好参考一下官方的 &lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD&quot;&gt;api 文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;RDD
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt;     : count, take, sample, first, collect  …&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;transform&lt;/code&gt;  : foreach, glom, map …&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt;     : cache, checkpoint, id, isCheckpointed, isEmpty, keys, lookup, max, mean, name, setName …&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;property&lt;/code&gt;   : context&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;看到了吗，这里其实 RDD 其实有很多既不是 &lt;em&gt;transform&lt;/em&gt; 也不是 &lt;em&gt;action&lt;/em&gt; 的函数和属性，在编写 spark app 的时候，其实很多时候我们都会用到那些 method，这样在开发调试过程中都会更加方便。比如说 &lt;code class=&quot;highlighter-rouge&quot;&gt;cache&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;setName&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lookup&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; 这些，在开发过程中都很有用。&lt;/p&gt;
-
-&lt;h3 id=&quot;spark--1&quot;&gt;1.2 spark 编程模式图&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/spark-programming-model.jpg&quot; alt=&quot;spark-programming-model.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如图所示，我们构建 spark app，一般都是三个步骤:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;，这里的数据集大概分为两组:
-    &lt;ul&gt;
-      &lt;li&gt;一种是不变的，静态数据集，大多数场景都是从数据库，文件系统上面加载进来&lt;/li&gt;
-      &lt;li&gt;另一种是动态的数据集，一般做 streaming 应用的时候用到，大多数场景是通过 socket 来加载数据，复杂场景可以通过文件系统，akka actors，kafka，kinesis 和 一些第三方提供的 streaming api [twitter 等] 来作为数据源加载数据&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;，这是重点中的重点，不过不外乎都是从三个方面来完成这里的数据清理，逻辑运算等:
-    &lt;ul&gt;
-      &lt;li&gt;自定义的一些复杂处理函数或者第三方包 [下面我们称为函数集]&lt;/li&gt;
-      &lt;li&gt;通过 RDD 的 transform，action 和函数集来完成整个处理，计算流程&lt;/li&gt;
-      &lt;li&gt;通过 RDD 提供的 cache，persist，checkpoint 方法把一些处理流程中的重要处理节点和常用数据缓存和备份，以加速处理，计算速度&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;，这里一般情况都是使用 RDD 的 collect，take，first，top 等方法把结果取出来，更常用的是先把结果取出来，放到一个数据库或文件系统上，然后再提供给专门展示结果的另一个 application 使用。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;mc-monte-carlo&quot;&gt;2. 例子：MC [Monte Carlo]&lt;/h2&gt;
-
-&lt;p&gt;下面我将从几个方面来介绍这个例子：首先是介绍蒙特卡罗方法的基本概念和应用，然后是介绍如何用蒙特卡罗方法来估算 pi 的值，最后是看在 spark 集群中如何用多种方法来实现一个蒙特卡洛应用来计算 pi 的值。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;2.1 蒙特卡罗方法介绍&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## from wiki 
-Monte Carlo methods (or Monte Carlo experiments) are a broad class of 
-computational algorithms that rely on repeated random sampling to obtain 
-numerical results. They are often used in physical and mathematical problems 
-and are most useful when it is difficult or impossible to use other mathematical 
-methods. Monte Carlo methods are mainly used in three distinct problem 
-classes:[1] optimization, numerical integration, and generating draws from 
-a probability distribution.
-
-## 
-总的来说，蒙特卡罗是一种基于随机样本实验来进行估值的一种计算方法。&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;pi-&quot;&gt;2.2 蒙特卡罗方法估算 pi 值原理&lt;/h3&gt;
-
-&lt;p&gt;用蒙特卡罗方法估算 pi 值，核心方法是利用正方形和圆形面积的比例：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;首先，我们在坐标轴上构造一个边长为 1 的正方形&lt;/li&gt;
-  &lt;li&gt;其次，我们以 (0, 0) 为圆心，构造一个半径为 1 的圆形&lt;/li&gt;
-  &lt;li&gt;此时我们知道这个圆形有 1/4 是在正方形中的，正方形的面积和这 1/4 圆的面积分别是：1 和 pi/4，即 1/4 圆的面积和正方形面积之比刚好是 pi/4&lt;/li&gt;
-  &lt;li&gt;然后通过蒙特卡罗模拟，看看这个比例大概是多少，模拟方法如下：
-    &lt;ul&gt;
-      &lt;li&gt;随机扔 n 个点 (x, y)，其中 x, y 都在 0 和 1 之间&lt;/li&gt;
-      &lt;li&gt;如果 x^2 + y^2 &amp;lt; 1，则把这个点标注为红色，表示这个点落在圆内&lt;/li&gt;
-      &lt;li&gt;最后数数有 n 个点中有多少点是红点，即落在圆内，假设点数为 m&lt;/li&gt;
-      &lt;li&gt;则这个 1/4 圆的面积和正方形面积的比例应该是：m/n，即 m/n = pi/4 =&amp;gt; pi = 4*m/n&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/mc.gif&quot; alt=&quot;mc.gif&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;python--pi-&quot;&gt;2.3 Python 实现蒙特卡罗方法估算 pi 值&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import numpy as np
-
-def mc_pi(n=100):
-    &quot;&quot;&quot;Use Monte Calo Method to estimate pi.
-    &quot;&quot;&quot;
-    m = 0
-    i = 0
-    while i &amp;lt; n:
-        x, y = np.random.rand(2)
-        if x**2 + y**2 &amp;lt; 1:
-            m += 1
-        i += 1
-
-    pi = 4. * m / n
-    res = {&#39;total_point&#39;: n, &#39;point_in_circle&#39;: m, &#39;estimated_pi&#39;: pi}
-    
-    return res&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/spark-programming-model-11.jpg&quot; alt=&quot;spark-programming-model-11.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;spark--2&quot;&gt;2.4 在 spark 集群中实现蒙特卡罗方法&lt;/h3&gt;
-
-&lt;p&gt;我们按照上面写的三大步骤来写这个 spark 应用：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### iterate number&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### parallelize a data set into the cluster&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;       \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;parallelized_data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### randomly generate points&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;## [0, 1)&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;## random point&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;            \
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;random_point&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### calculate the number of points in and out the circle&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_func_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                 \
-           &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;points_in_out_circle&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-           &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### how many points are in the circle&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdd3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in_circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;iterate {} times&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;estimated pi : {}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;seems-a-little-complex-really&quot;&gt;2.5 Seems a little complex, really?&lt;/h3&gt;
-
-&lt;p&gt;上面这个例子，可能会让一些初步接触 spark 的人很困惑，”明明几行代码就能解决的问题在 spark 里还有按照这些步骤写这么多代码？难道是老湿又骗我了吗？”。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wawawa.gif&quot; alt=&quot;wawawa.gif&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其实，就从上面这个例子看起来，似乎 spark 真的没有什么优势，但是，上面这个例子的目的是表明 spark 的编程模式，如果你还不相信，可以把模拟次数加到千万或者亿次以上看看效果。&lt;/p&gt;
-
-&lt;p&gt;如果，如果你还是纠结于 “我骗了你，spark 没有梦想中的那么好” 的话，那看下面这一行代码吧，它也完成了同样的事情：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### version 1&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;                                 \
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;        \
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;         \
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                               \
-    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### version 2&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parallelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;                                  \
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                \
-    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;3. Next&lt;/h2&gt;
-
-&lt;p&gt;下一篇，介绍 spark 的 RDD，之后会单独介绍 spark 的 dataframe 和 datasets。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;4. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;../files/spark-rdd-paper.pdf&quot;&gt;spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
-In-Memory Cluster Computing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html&quot;&gt;spark python API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext&quot;&gt;spark context API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://snap.stanford.edu/data/&quot;&gt;机器学习相关数据集-斯坦福&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/blob/master/examples/src/main/python/pagerank.py&quot;&gt;spark pagerank example&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://latex.91maths.com/&quot;&gt;latex online editor 在线latex公式编辑器&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/07/monte-carlo-method.html&quot;&gt;阮一峰：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Monte_Carlo_method&quot;&gt;蒙特卡罗，wikipedia&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.sciencenet.cn/blog-324394-292355.html&quot;&gt;科学网：蒙特卡罗&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;

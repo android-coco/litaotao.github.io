@@ -1,6 +1,6 @@
 ---
 category: work
-published: false
+published: true
 layout: post
 title: 如何使用 github pages 搭建博客
 description: 感谢 github~
