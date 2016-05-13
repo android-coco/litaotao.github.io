@@ -282,7 +282,7 @@ a.external:after {
 .index-content .section {
 	margin-left: 30%;
 	padding-top: 0px;
-	padding-right: 15%;
+	/*padding-right: 15%;*/
 }
 
 .index-content .artical-list {
@@ -308,7 +308,7 @@ a.external:after {
 
 .index-content h2 a {
 	color: #444;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
     font-family: monospace;
 }
 
@@ -353,10 +353,11 @@ a.external:after {
 }
 
 .index-content .cate-bar {
-	width: 70%;
-	margin: 0 auto;
+	/*width: 70%;*/
+	/*margin: 0 auto;*/
 	line-height: 100px;
-	text-align: right;
+    text-align: center;
+	/*text-align: right;*/
 	color: #999;
 }
 

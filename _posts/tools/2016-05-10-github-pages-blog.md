@@ -11,6 +11,8 @@ description: 感谢 github~
 
 使用 github 也快有3年了，的确觉得 github 的方便，易用，而且不仅仅在版本控制方面［版本控制方面个人感觉比 svn 好用了太多太多］，而且还提供了一个平台，让你随时跟进最近技术和趋势。今天就来说说其中一个比较实用  
 
+ps: 本文对应的 github repo 在这里：[https://github.com/litaotao/github-blog-template](https://github.com/litaotao/github-blog-template)
+
 ## 1. 最简单的步骤
 
 - step 1 : 新建一个 repo，并克隆 repo 到本地
