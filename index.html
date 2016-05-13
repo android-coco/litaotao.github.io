@@ -29,7 +29,10 @@ layout: home
             "http://litaotao.github.io/images/cover_5.jpg",
             "http://litaotao.github.io/images/cover_6.jpg",
         ];
-        return all[Math.floor((Math.random() * all.length))];
+        // 背景图片轮换方式，每小时一换，增加 cache 命中率，加快访问速度；
+        var index = new Date().getHours() % all.length;
+        return all[index];
+        // return all[Math.floor((Math.random() * all.length))];
     }
 
     $(function(){
