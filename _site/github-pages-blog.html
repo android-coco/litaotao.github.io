@@ -219,19 +219,31 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
 <h2 id="section-3">3. 深度阅读之目录文件说明</h2>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/github/github-blog-template<span class="nv">$tree</span>
+<span class="c">### 404 页面，你可以自定义</span>
 ├── 404.html
 ├── README.md
+<span class="c">### 博客配置文件，基本上是最重要的一个文件之一了</span>
 ├── _config.yml
+<span class="c">### 博客页面模版目录</span>
 ├── _layouts
 │   ├── default.html
 │   ├── home.html
 │   ├── page.html
 │   └── post.html
+<span class="c">### 博客文章目录，下面可以按文件夹进行博文分类</span>
+<span class="c">### 注意，博文文件格式必须是：时间-博文标题.md，参考下面的格式</span>
 ├── _posts
 │   ├── books
 │   │   └── 2016-04-29-books-recommend-and-summarize-on-apr-2016.md
 │   └── python
 │       └── 2016-04-01-spark-in-finance-and-investing.md
+<span class="c">### 这个是你的站点地图了，用户可以访问这个文件夹下面的所有文件</span>
+<span class="c">### 比如说，用户可以直接访问我的 litaotao.github.io/404.html; litaotao.github.io/images/2.jpg</span>
+<span class="c">### 比如说，当你访问 litaotao.github.io/spark-in-finance-and-investing  </span>
+<span class="c">###        实际上是访问了 litaotao.github.io/spark-in-finance-and-investing.html</span>
+<span class="c">### 你会发现这下面有很多在博客更目录下重复的文件夹，比如说 css，js，images等文件夹，不要纳闷，这是正常的</span>
+<span class="c">### 因为你的博客更目录下的文件，是 jekyll 用来渲染一个 html 文件的，html 文件及其所需要的任何文件，都会放到 _site 这个</span>
+<span class="c">### 专用的目录下面</span>
 ├── _site
 │   ├── 404.html
 │   ├── README.md
@@ -267,9 +279,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
     │   ...
     │   ...</code></pre></figure>
 
-<h2 id="best-practices">4. Best Practices</h2>
-
-<h2 id="section-4">5. 总结</h2>
+<h2 id="section-4">4. 总结</h2>
 
 <p>总的来说，利用 github 搭建博客的步骤为：</p>
 
@@ -280,7 +290,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
   <li>本地试运行，上传到github</li>
 </ul>
 
-<h2 id="section-5">6. 其他话题</h2>
+<h2 id="section-5">5. 其他话题</h2>
 
 <p>一个简单，但基本够用的博客就这样搭建完成了。其他还有一些扩展话题，感兴趣的同学可以 google 或者联系我，比如说：</p>
 
