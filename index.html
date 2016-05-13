@@ -20,16 +20,27 @@ layout: home
         {% endfor %}
         </ul>
     </div>
+
     <script>
-      $(function() {
-        function geturl() {
-          var all = [ {{ site.myblog.coverimgs }} ];
-          return all[Math.floor((Math.random()*all.length))];
-        }
+    function geturl() {
+        var all = [
+            "http://b.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=2d2dfd3af71f3a295ec8d7caa91ecd0c/dbb44aed2e738bd41265eed5a68b87d6267ff98a.jpg",
+            "http://a.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=236b95d79545d688a702b6a594f2466f/500fd9f9d72a6059c5bbbdfe2f34349b023bbaaf.jpg",
+            "http://f.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=8a8e098d222dd42a5b0903af33002a88/c2cec3fdfc0392458b2cbdeb8094a4c27c1e25bc.jpg",
+            "http://f.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=10f58c09e01190ef05fb90dbfe20ec2b/8b82b9014a90f603e64dc0a33e12b31bb151ed51.jpg",
+            "http://c.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=e150de9144a98226bcc12923bab9c83c/2fdda3cc7cd98d100b7d50d5263fb80e7aec90ac.jpg"
+        ];
+        return all[Math.floor((Math.random() * all.length))];
+    }
+
+    $(function(){
         $('div#avatar').transition({ scale: 2.5 }).transition({ opacity: 1, scale: 1 }, 800, 'ease');
-      });
+        photo_url = "background-image: url( " + geturl() + " )";
+        $('div.aside')[0].setAttribute("style", photo_url);
+    })
     </script>
-    <div class="aside" style="background-image: url(http://attach.bbs.miui.com/forum/201206/06/2226336d6nxnnfxldyxhed.jpg);">
+    
+    <div class="aside" style="background-image: url( geturl() );">
       <div id="avatar" class="avatar circle" style="width: 150px; height: 150px; position: absolute; right: -75px; top: 75px; opacity: 0;">
         <div class="center circle" style="margin-top: 4px; height: 142px; width: 142px; background-image: url('images/2.jpg')"></div>
       </div> 
