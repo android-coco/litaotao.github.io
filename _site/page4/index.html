@@ -362,6 +362,13 @@
             $('div.aside')[0].setAttribute("style", photo_url);
         }
     })
+
+    $( window ).resize(function() { 
+        console.log("Screen Resized, refresh page start...");
+        location.reload(); 
+        console.log("Screen Resized, refresh page done...");
+    });
+
     </script>
 
 </div>
