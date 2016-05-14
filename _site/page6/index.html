@@ -363,10 +363,11 @@
         }
     })
 
+    // 切换屏幕［横竖屏］ 时刷新页面；以免大屏图片到小屏依旧保存，体验太差
     $( window ).resize(function() { 
-        console.log("Screen Resized, refresh page start...");
+        // console.log("Screen Resized, refresh page start...");
         location.reload(); 
-        console.log("Screen Resized, refresh page done...");
+        // console.log("Screen Resized, refresh page done...");
     });
 
     </script>
