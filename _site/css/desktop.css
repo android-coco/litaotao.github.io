@@ -356,7 +356,7 @@ a.external:after {
 }
 
 .index-content .cate-bar {
-	width: 70%;
+	/*width: 70%;*/
 	margin: 0 auto;
 	line-height: 100px;
     text-align: center;
