@@ -364,7 +364,8 @@ a.external:after {
 }
 
 .index-content .cate-bar a {
-	margin: auto 20px;
+    /*margin: auto 20px;*/
+	margin: auto 5%;
 	color: #999;
 }
 
