@@ -217,3 +217,8 @@ taotao@mac007:~/Desktop/github/github-blog-template$tree
 - 如何给你的博客加上 百度分享功能
 
 ![github-pages-blog-6.png](../images/github-pages-blog-6.png)
+
+## 6. 打开微信，扫一扫，点一点，棒棒的，^_^
+
+![wechat_pay_any.png](../images/wechat_pay_any.png)
+
