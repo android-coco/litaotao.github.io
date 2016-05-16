@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>『 Spark 』1. spark 简介 | Taotao's Zone</title>
+  <title>『 Spark 』11. spark 机器学习 | Taotao's Zone</title>
   <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
   <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
@@ -107,10 +107,10 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/introduction-to-spark" title="『 Spark 』1. spark 简介">『 Spark 』1. spark 简介</a></h1>
+    <h1 class="entry-title"><a href="/spark-mlib-machine-learning" title="『 Spark 』11. spark 机器学习">『 Spark 』11. spark 机器学习</a></h1>
 
-    <p class="entry-date">2016-02-01 
-        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-02-01-introduction-to-spark.md">最后更新时间: 
+    <p class="entry-date">2016-05-16 
+        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-05-16-spark-mlib-machine-learning.md">最后更新时间: 
         </span>
     </p>
 
@@ -123,76 +123,115 @@
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   <br />
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
 
-<h2 id="spark">1. 如何向别人介绍 spark</h2>
+<h2 id="spark-more-than-a-framework">1. Spark! More than A Framework!</h2>
 
-<p><strong><em>Apache Spark™ is a fast and general engine for large-scale data processing.</em></strong></p>
-
-<p>Apache Spark is a fast and general-purpose cluster computing system.  <br />
-It provides high-level APIs in <code class="highlighter-rouge">Java, Scala, Python and R</code>, and an optimized engine that supports general execution graphs.  <br />
-It also supports a rich set of higher-level tools including :</p>
+<p>还记得我们的第一篇 Spark 博文里的这张图吗？其实我觉得 spark 有两个层次的概念：</p>
 
 <ul>
-  <li>Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets</li>
-  <li>MLlib for machine learning</li>
-  <li>GraphX for graph processing</li>
-  <li>Spark Streaming for stream data processing</li>
+  <li>一个通用的分布式计算框架，spark core</li>
+  <li>基于 spark core 设计，无缝实现的库，dataframe，sql，mllib，graphx，bagel, streaming, sparkR 以及一些第三方包</li>
 </ul>
 
-<h2 id="spark-">2. spark 诞生的一些背景</h2>
-
-<p><img src="../images/introduction-to-spark-1.jpg" alt="introduction-to-spark-1.jpg" />
-<img src="../images/introduction-to-spark-2.jpg" alt="introduction-to-spark-2.jpg" /></p>
-
-<p>Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to :</p>
-
-<ul>
-  <li>generalize MapReduce to support new apps within same engine
-    <ul>
-      <li>it’s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</li>
-    </ul>
-  </li>
-  <li>speed up iteration computing over hadoop.
-    <ul>
-      <li>use memory + disk instead of disk as data storage medium</li>
-      <li>design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]</li>
-    </ul>
-  </li>
-</ul>
-
-<p><img src="../images/introduction-to-spark-4.jpg" alt="introduction-to-spark-4.jpg" />
-<img src="../images/introduction-to-spark-5.jpg" alt="introduction-to-spark-5.jpg" /></p>
-
-<h2 id="spark-1">3. 为何选用 spark</h2>
-
-<ul>
-  <li>designed, implemented and used as libs, instead of specialized systems;
-    <ul>
-      <li>much more useful and maintainable</li>
-    </ul>
-  </li>
-</ul>
+<p>我之所以一开始很看好 spark，其中很大原因是第二条，也是下面这张图表达的意思：Spark, more than a framework.</p>
 
 <p><img src="../images/introduction-to-spark-3.jpg" alt="introduction-to-spark-3.jpg" /></p>
 
-<ul>
-  <li>from history, it is designed and improved upon hadoop and storm, it has perfect genes;</li>
-  <li>documents, community, products and trends;</li>
-  <li>it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;</li>
-  <li>it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;</li>
-</ul>
+<p>之后准备满满开始写一些这些库的博文，我用过的只有 sql，dataframe，streaming，mlib，所以可能不会写 sparkr，bagel，graphx 的东西，不过这些网上也有不少优质文章的，哈哈。</p>
 
-<h2 id="next">4. Next</h2>
+<p>今天再回顾回顾 mlib，进行一个小小的总结，之后再慢慢把一些实用的例子写下来。</p>
 
-<p>下一篇，简单介绍 spark 里必须深刻理解的基本概念。</p>
+<h2 id="brief-intro-to-mllib">2. Brief Intro to MLlib</h2>
 
-<h2 id="section-1">参考文章</h2>
+<p>spark 里的机器学习目前［1.6.0］有两个库：</p>
 
 <ul>
-  <li><a href="http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf">Intro to Apache Spark</a></li>
-  <li><a href="http://litaotao.github.io/files/introduing_spark.pdf">introducing spark</a></li>
+  <li>spark.mllib ，是原始的基于 rdd api 设计和实现的机器学习库</li>
+  <li>spark.ml，是基于 dataframe api 设计和实现的机器学习库</li>
 </ul>
 
-<h2 id="section-2">本系列文章链接</h2>
+<p>官方推荐使用 spark.ml 来实现你的机器学习算法，并且已经说明 dataframe, datasets API 将会替换 rdd，所以自然 ml 也会在不远的将来替换 mllib 了。事实上，在 spark 2.0 中，就已经开始尝试先把 dataframe 和 datasets 统一成一个 datasets api 了。参考：<a href="http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia"><code class="highlighter-rouge">slide</code> Spark 2 0</a></p>
+
+<p>从官方开发计划来说，我肯定是强烈推荐使用 spark.ml 库的，而且官方也说明了的，在 spark 2.x 之后，mllib 基本只做维护，其他新的 features 都是基于 ml 来开发了；不过除去这个方面，spark.ml 提供基于 dataframe/datasets 的 pipeline 执行流程，还有基于 spark sql 的高效的 code generation，所以不论从哪个方面来说，我觉得使用 dataframe/datasets，使用 spark.ml 都是一个比较明智的选择。所以，本文，以及后期 spark 机器学习的博文，都会基于 spark.ml，dataframe/datasets 来写。</p>
+
+<p><img src="../images/spark-ml-3.png" alt="spark-ml-3.png" /></p>
+
+<p>不过目前 ml 有一个不足的地方，ml 支持的算法目前没有 mllib 的多。</p>
+
+<h2 id="ml-">3. ML 核心概念</h2>
+
+<ul>
+  <li><em>DataFrame</em>: Spark ML uses DataFrame from Spark SQL as an ML dataset, which can hold a variety of data types. 即机器学习数据集输入输出都以 dataframe 的格式提供。</li>
+  <li><em>Pipeline Components</em>:
+    <ul>
+      <li><em>Transformer</em>: A Transformer is an algorithm which can transform one DataFrame into another DataFrame.</li>
+      <li><em>Estimator</em>: An Estimator is an algorithm which can be fit on a DataFrame to produce a Transformer.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><em>Transformer.transform()s</em> and <em>Estimator.fit()s</em> are both stateless. In the future, stateful algorithms may be supported via alternative concepts. Each instance of a Transformer or Estimator has a unique ID, which is useful in specifying parameters (discussed below).</p>
+</blockquote>
+
+<ul>
+  <li><em>Pipeline</em>: A Pipeline chains multiple Transformers and Estimators together to specify an ML workflow. That’s runing a sequence of algorithms to process and learn from data.</li>
+  <li><em>Parameter</em>: All Transformers and Estimators now share a common API for specifying parameters.</li>
+</ul>
+
+<h2 id="ml-pipeline-">4. ML Pipeline 介绍</h2>
+
+<p>In machine learning, it is common to run a sequence of algorithms to process and learn from data. E.g., a simple text document processing workflow might include several stages:</p>
+
+<ul>
+  <li>Split each document’s text into words.</li>
+  <li>Convert each document’s words into a numerical feature vector.</li>
+  <li>Learn a prediction model using the feature vectors and labels.</li>
+</ul>
+
+<p>Spark ML represents such a workflow as a Pipeline, which consists of a sequence of <em>PipelineStages (Transformers and Estimators)</em> to be run in a specific order.</p>
+
+<h3 id="section-1">4.1 工作原理</h3>
+
+<p>A Pipeline is specified as a <em>sequence of stages</em>, and each stage is either a <em>Transformer</em> or an <em>Estimator</em>. These stages are run in order, and the input DataFrame is transformed as it passes through each stage. For Transformer stages, the <em>transform()</em> method is called on the DataFrame. For Estimator stages, the <em>fit()</em> method is called to produce a Transformer (which becomes part of the PipelineModel, or fitted Pipeline), and that Transformer’s <em>transform()</em> method is called on the DataFrame.</p>
+
+<p>We illustrate this for the simple text document workflow. The figure below is for the training time usage of a Pipeline.</p>
+
+<p><img src="../images/spark-ml-1.png" alt="spark-ml-1.png" /></p>
+
+<p>Above, the top row represents a Pipeline with three stages. The first two (Tokenizer and HashingTF) are Transformers (blue), and the third (LogisticRegression) is an Estimator (red).</p>
+
+<p>The bottom row represents data flowing through the pipeline, where cylinders indicate DataFrames. The Pipeline.fit() method is called on the original DataFrame, which has raw text documents and labels. The Tokenizer.transform() method splits the raw text documents into words, adding a new column with words to the DataFrame. The HashingTF.transform() method converts the words column into feature vectors, adding a new column with those vectors to the DataFrame. Now, since LogisticRegression is an Estimator, the Pipeline first calls LogisticRegression.fit() to produce a LogisticRegressionModel. If the Pipeline had more stages, it would call the LogisticRegressionModel’s transform() method on the DataFrame before passing the DataFrame to the next stage.</p>
+
+<p>A Pipeline is an Estimator. Thus, after a Pipeline’s fit() method runs, it produces a PipelineModel, which is a Transformer. This PipelineModel is used at test time; the figure below illustrates this usage.</p>
+
+<p><img src="../images/spark-ml-2.png" alt="spark-ml-2.png" /></p>
+
+<p>In the figure above, the PipelineModel has the same number of stages as the original Pipeline, but all Estimators in the original Pipeline have become Transformers. When the PipelineModel’s transform() method is called on a test dataset, the data are passed through the fitted pipeline in order. Each stage’s transform() method updates the dataset and passes it to the next stage.</p>
+
+<p>Pipelines and PipelineModels help to ensure that training and test data go through identical feature processing steps.</p>
+
+<h2 id="mllib-">mllib 相关资源</h2>
+
+<p>可以到这篇博文 <a href="http://litaotao.github.io/spark-resouces-blogs-paper">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a> ，在 mllib 目录下看一下 mllib 的好资料。</p>
+
+<h2 id="next">13. Next</h2>
+
+<p>下一次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。</p>
+
+<h2 id="section-2">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+
+<p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
+
+<h2 id="section-3">参考文章</h2>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=ZFBgY0PwUeY&amp;feature=youtu.be">Spark 2 0</a></li>
+  <li><a href="http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia"><code class="highlighter-rouge">slide</code> Spark 2 0</a></li>
+  <li><a href="http://spark.apache.org/docs/latest/ml-guide.html">Spark ML Guide</a></li>
+  <li><a href="https://databricks.com/blog/2016/05/11/spark-2-0-technical-preview-easier-faster-and-smarter.html">Preview of Apache Spark 2.0 now on Databricks Community Edition</a></li>
+</ul>
+
+<h2 id="section-4">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark">『 Spark 』1. spark 简介 </a></li>
@@ -208,11 +247,10 @@ It also supports a rich set of higher-level tools including :</p>
 </ul>
 
 
-
     <!-- share icon -->
-    <!-- <div class="ds-share" data-thread-key="/introduction-to-spark" data-title="『 Spark 』1. spark 简介"
+    <!-- <div class="ds-share" data-thread-key="/spark-mlib-machine-learning" data-title="『 Spark 』11. spark 机器学习"
          data-content="content"
-         data-url="http://litaotao.github.io//introduction-to-spark">
+         data-url="http://litaotao.github.io//spark-mlib-machine-learning">
         <div class="ds-share-aside-left">
           <div class="ds-share-aside-inner">
           </div>
@@ -228,7 +266,7 @@ It also supports a rich set of higher-level tools including :</p>
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/introduction-to-spark data-title=『 Spark 』1. spark 简介 data-url=/introduction-to-spark></div>
+        <div class="ds-thread" data-thread-key=/spark-mlib-machine-learning data-title=『 Spark 』11. spark 机器学习 data-url=/spark-mlib-machine-learning></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">

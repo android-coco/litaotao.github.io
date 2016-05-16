@@ -29,6 +29,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [meetup](http://www.meetup.com/)
 - [spark third party packages](http://spark-packages.org/)
 - [databricks blog](https://databricks.com/blog)
+- [http://blog.madhukaraphatak.com/](http://blog.madhukaraphatak.com/)
 - [databricks docs](https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html)
 - [databricks training](https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html)
 - [cloudera blog about spark](http://blog.cloudera.com/blog/category/spark/)

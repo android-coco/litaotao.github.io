@@ -222,3 +222,10 @@ taotao@mac007:~/Desktop/github/github-blog-template$tree
 
 ![wechat_pay_any.png](../images/wechat_pay_any.png)
 
+
+## 7. 用本模版搭建的博客
+
+- [http://yuanlaishiai.com/](http://yuanlaishiai.com/)
+- [http://way1989.github.io/](http://way1989.github.io/)
+- [http://taotaomami.github.io/](http://taotaomami.github.io/)
+- [http://ljdomain.github.io/](http://ljdomain.github.io/)

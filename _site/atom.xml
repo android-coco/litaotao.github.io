@@ -24,8 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <!-- growingIO code -->
-  <!-- 去除 growingIO 统计，功能不全，也没 cnzz 和 ga 好用，还耗时 -->
-<!--   <script type='text/javascript'>
+  <script type='text/javascript'>
       var _vds = _vds || [];
       window._vds = _vds;
       (function(){
@@ -39,7 +38,7 @@
           s.parentNode.insertBefore(vds, s);
         })();
       })();
-  </script> -->
+  </script>
   <!-- baidu spider initiative push -->
   <script>
     (function(){
@@ -92,7 +91,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-15T21:45:59+08:00</updated>
+   <updated>2016-05-16T19:44:51+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -315,6 +314,14 @@ categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名�
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay_any.png&quot; alt=&quot;wechat_pay_any.png&quot; /&gt;&lt;/p&gt;
 
+&lt;h2 id=&quot;section-7&quot;&gt;7. 用本模版搭建的博客&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yuanlaishiai.com/&quot;&gt;http://yuanlaishiai.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://way1989.github.io/&quot;&gt;http://way1989.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://taotaomami.github.io/&quot;&gt;http://taotaomami.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ljdomain.github.io/&quot;&gt;http://ljdomain.github.io/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </content>
    </entry>
    
@@ -2034,6 +2041,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://www.meetup.com/&quot;&gt;meetup&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.madhukaraphatak.com/&quot;&gt;http://blog.madhukaraphatak.com/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html&quot;&gt;databricks training&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
