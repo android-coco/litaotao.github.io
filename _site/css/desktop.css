@@ -43,6 +43,7 @@ h4,h5,h6 {
 p {
 	margin-bottom: 40px;
 	line-height: 1.8em;
+    overflow-wrap: break-word;
 }
 /*
 code {
