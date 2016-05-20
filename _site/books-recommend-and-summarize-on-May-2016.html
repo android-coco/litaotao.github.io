@@ -13,16 +13,17 @@
   <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
   <script src="/files/dc3da690b0d2a5655a8d6150862a2a07.html"></script>
   <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
-  <link rel="stylesheet" href="/css/default.css" type="text/css" />
-  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
-  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="stylesheet" href="/css/default-min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop-min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile-min.css" type="text/css" />
   <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
   <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
   <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
   <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
+  
   <!-- growingIO code -->
   <script type='text/javascript'>
       var _vds = _vds || [];
@@ -39,8 +40,10 @@
         })();
       })();
   </script>
+  
+  <!-- 删掉 baidu spider 主动推送，无效 -->
   <!-- baidu spider initiative push -->
-  <script>
+<!-- <script>
     (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
@@ -53,7 +56,8 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
     })();
-  </script>
+  </script> -->
+  
   <!-- google analytics push code -->
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -84,18 +88,20 @@
     _MEIQIA('entId', 15857);
 </script>
  -->
+
 <body>
   <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
   html {
-    background: #333333;
+    /*background: #333333;*/
+    background: rgb(246, 246, 246);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
   }
   /*body { background:transparent;}*/
-  @media screen and (max-width: 750px){
+  @media screen and (max-width: 770px){
     body { background: rgba(255, 255, 255, 0.9); }
   }
 </style>
@@ -108,8 +114,8 @@
   <div class="entry" style="position: relative;">
     <h1 class="entry-title"><a href="/books-recommend-and-summarize-on-May-2016" title="『 读书笔记 』5月读书总结｜博文推荐">『 读书笔记 』5月读书总结｜博文推荐</a></h1>
 
-    <p class="entry-date">2016-05-04 
-        <span class="lastModified" style="display: none;" data-source="_posts/books-2016/2016-05-04-books-recommend-and-summarize-on-May-2016.md">最后更新时间: 
+    <p class="entry-date">2016-05-16 
+        <span class="lastModified" style="display: none;" data-source="_posts/books-2016/2016-05-16-books-recommend-and-summarize-on-May-2016.md">最后更新时间: 
         </span>
     </p>
 
@@ -151,7 +157,7 @@
 
 <p>总结：如果你闲得蛋疼的话，来读这本书吧。</p>
 
-<p>推荐指数：``</p>
+<p>推荐指数：</p>
 
 <h3 id="advanced-analytics-with-sparkhttpswwwamazoncnsparke9ab98e7baa7e695b0e68daee58886e69e90-e9878ce6898edpb015vtkn5qrefsr11ieutf8qid1462618411sr8-1keywordsadvancedspark">1.2 <a href="https://www.amazon.cn/Spark%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E9%87%8C%E6%89%8E/dp/B015VTKN5Q/ref=sr_1_1?ie=UTF8&amp;qid=1462618411&amp;sr=8-1&amp;keywords=advanced+spark">Advanced Analytics with Spark</a></h3>
 
@@ -160,6 +166,44 @@
 <p>总结：</p>
 
 <p>推荐指数：<code class="highlighter-rouge">* * * * *</code></p>
+
+<h3 id="hadoop3httpswwwamazoncnhadoope69d83e5a881e68c87e58d97-e68080e789b9dpb00oufxpdarefsr11sbooksieutf8qid1463474378sr1-1keywordshadoope69d83e5a881e68c87e58d97">1.3 <a href="https://www.amazon.cn/Hadoop%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E6%80%80%E7%89%B9/dp/B00OUFXPDA/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1463474378&amp;sr=1-1&amp;keywords=hadoop+%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97">Hadoop权威指南(第3版)(修订版)</a></h3>
+
+<p>之所以要看这本书，是因为最近一直在看一些 spark 的资料，而大多数 spark 应用都把数据存储在 hdfs 上，而且也有同事问过 hadoop 上 datanode 和 namenode 的一些问题，当时我也只能按照自己的理解来回答他。这迫使我相信，要想用好 spark，对 hadoop 以及 hadoop 的生态需要有一定的了解和掌握，这是促使我安排这本书的核心原因。</p>
+
+<p>这本书讲得比较全，推荐大家看中文第三版修订版或者第四版影音版的，因为涵盖了大多成熟的 hadoop 生态里的其他开源项目，能对 hadoop 及其生态有一个比较简单的了解。</p>
+
+<p>总结：第三版修订版或第四版影印版值得阅读，对了解 hadoop 的基本原理，运行流程，使用方法很有帮助，还能了解 hadoop 生态系统里的其他开源项目。</p>
+
+<p>推荐指数：<code class="highlighter-rouge">* * * *</code></p>
+
+<h3 id="httpswwwamazoncngpproductb00b2fhtomrefohauidetailpageo00s00ieutf8psc1">1.4 <a href="https://www.amazon.cn/gp/product/B00B2FHTOM/ref=oh_aui_detailpage_o00_s00?ie=UTF8&amp;psc=1">急救手册</a></h3>
+
+<p>很久之前就想看这样一本书，因为现实生活中遇到过这样一件事：在公交车上遇到一个突发癫痫的老人，当时我就离那个老人不远，但老人倒地，发抖，口吐白沫的时候我突然觉得好像周围都静止了，整个人都惊呆了，因为自己完全不知道该怎么办，好像这种事情就永远不会发生在自己身边一样。现在工作了，思想渐渐成熟，满满发现这些学校里面不会传授的知识在生活中的重要性，于是特地选了这本书来学习急救技能。</p>
+
+<p>就本书来说，内容对我这种门外汗来说完全够用了，书籍本身印刷质量非常高，铜纸版印刷的，有很多详细的彩色插图介绍，很值得。</p>
+
+<p>总结：虽然不想承认，但现在人们的健康情况却是越来越差了，掌握一些基础的急救技能真的很有必要，不仅是为了路人，更是为了家人。</p>
+
+<p>推荐指数：<code class="highlighter-rouge">* * * * *</code></p>
+
+<p>###</p>
+
+<p>总结：</p>
+
+<p>推荐指数：<code class="highlighter-rouge">* * * *</code></p>
+
+<p>###</p>
+
+<p>总结：</p>
+
+<p>推荐指数：<code class="highlighter-rouge">* * * *</code></p>
+
+<p>###</p>
+
+<p>总结：</p>
+
+<p>推荐指数：<code class="highlighter-rouge">* * * *</code></p>
 
 <h2 id="section-2">2. 博文推荐</h2>
 
@@ -196,7 +240,29 @@
 
 <ul>
   <li><a href="http://www.cnblogs.com/yexiaochai/p/5311712.html">小公司的前端应该怎么做？</a></li>
-  <li><a href="https://mp.weixin.qq.com/s?__biz=MzIzNDE0NjMzOQ==&amp;mid=2653923761&amp;idx=1&amp;sn=6af678b749b02aa19b947dcb1c58593a&amp;scene=0&amp;key=b28b03434249256ba48b934c509118b6073fefc76610faa0c26ecce439f484c51d19dcfc83c4a3a7378de329a6739ae2&amp;ascene=0&amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;version=11020201&amp;pass_ticket=fHxj4QiBJX6%2FngUiCgKPGZz8WHBOrnfOUJgjiQhkTd7CpYCzpY3KoVuHVZxrf88X">如何更有效的处理数据检索缓存</a></li>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNDE0NjMzOQ==&amp;mid=2653923761&amp;idx=1&amp;sn=6af678b749b02aa19b947dcb1c58593a&amp;scene=0&amp;key=b28b03434249256ba48b934c509118b6073fefc76610faa0c26ecce439f484c51d19dcfc83c4a3a7378de329a6739ae2&amp;ascene=0&amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;version=11020201&amp;pass_ticket=fHxj4QiBJX6%2FngUiCgKPGZz8WHBOrnfOUJgjiQhkTd7CpYCzpY3KoVuHVZxrf88X">如何更有效的处理数据检索缓存</a></p>
+  </li>
+  <li><a href="http://godcoder.me/2016/04/25/%E8%B5%9A%E9%92%B1%E5%BF%85%E7%9C%8B%EF%BC%9A%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E8%80%85%E5%BF%85%E7%9F%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/">独立开发者必知的一些总结</a></li>
+  <li><a href="http://blog.jobbole.com/100702/">面试官如何面试程序员</a></li>
+  <li><a href="http://tech.meituan.com/spark-tuning-basic.html">Spark性能优化指南——基础篇</a></li>
+  <li><a href="http://tech.meituan.com/spark-tuning-pro.html">Spark性能优化指南——高级篇</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;mid=2653749258&amp;idx=1&amp;sn=82d5929393932fbf1cb97d9acbdd41b5&amp;scene=1&amp;srcid=05188fOCSKGwfCzJfI73ssBE&amp;key=8d8120cb97983fad7f2968069d314547f9679b9bbb4497c084f9246b67b6f6f81d90b0cdb2e55a81153d93e2d75b7a89&amp;ascene=0&amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;version=11020201&amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L">如何在72小时之内快速搞懂一个陌生行业？</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;mid=2653749289&amp;idx=4&amp;sn=a3e57e4400cde387f330e7ea8429d30a&amp;scene=1&amp;srcid=0518elOD5oMp6TNMP4Z9nPxD&amp;key=8d8120cb97983fade74366a3f02b2ceb18dd53e99524441327fe1192e109cf6d1d532b144cd29ce82f208e9e65a7bcc0&amp;ascene=0&amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;version=11020201&amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L">数据化解析Term Sheet十大核心条款，关于融资的干货都在这儿了</a></li>
+  <li><a href="http://colachan.com/post/3502">优秀配色方案的探索过程</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MzA4NjAzNDg4NA==&amp;mid=2656366443&amp;idx=3&amp;sn=19091f8ca1bd18a1cba55fc88402a7fd&amp;scene=1&amp;srcid=0515hXptbhIi1JhXUGtyqI5r&amp;key=8d8120cb97983fad3adcf075795d583f5889e72bfd0a1874e4d968c4478a422244e16d191be3b8c1c5010484537b5e4f&amp;ascene=0&amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;version=11020201&amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L">知乎上的48条神回复，针针见血，看完整个人都通透多了</a></li>
+</ul>
+
+<blockquote>
+  <p>哈哈，轻松一下</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p><a href="http://mp.weixin.qq.com/s?__biz=MzAwMjgwMTEzNw==&amp;mid=2652227239&amp;idx=1&amp;sn=fdc9cd6fad120594426a9fe4b80b438c&amp;scene=2&amp;srcid=0514jA1Y6iz4kUl721PEWR6k&amp;from=timeline&amp;isappinstalled=0#wechat_redirect">几种一致性模型的分析</a></p>
+  </li>
+  <li><a href=""></a></li>
+  <li><a href=""></a></li>
 </ul>
 
 <h2 id="section-3">3. 读书总结系列</h2>
@@ -246,25 +312,29 @@
       </div>
     </div>
   </div>
-
-  <div>
-      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258855744'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258855744' type='text/javascript'%3E%3C/script%3E"));</script>
-  </div>
-
+  
   <div id="menuIndex" class="sidenav">
-    <div class="myinfo"><center>
-      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
-      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
-      <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
-      <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
-      <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
-    </center></div>
+    <div class="myinfo">
+        <center>
+          <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;">
+          </div>
+          <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+          <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+          <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
+          <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
+        </center>
+    </div>
     <div id="menu"></div>
   </div>
 </div>
 
 <script src="/js/post.js" type="text/javascript"></script>
-
+<script type="text/javascript">
+    //博文页面也做一下刷新操作，避免有时候切换横竖屏时格式不对的问题  
+    $( window ).resize(function() { 
+        location.reload(); 
+    });
+</script>
 
   <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");

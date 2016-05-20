@@ -135,7 +135,8 @@ command + k + j: 展开所有函数
 
 command + shift + d: 复制光标所在整行，并粘贴到下一行。
 
+## 22. command + r 
 
-## 扫一扫     
+快速跳转到标题：
 
-![2015-01-26-sublime-key-shortcut.md](../../images/share/2015-01-26-sublime-key-shortcut.md.jpg)
+![sublime-command-r.png](../images/sublime-command-r.png)

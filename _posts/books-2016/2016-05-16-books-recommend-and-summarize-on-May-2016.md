@@ -42,7 +42,8 @@ ps: 我对好书的定义很简单：
 
 总结：如果你闲得蛋疼的话，来读这本书吧。
 
-推荐指数：``
+推荐指数：
+
 
 ### 1.2 [Advanced Analytics with Spark](https://www.amazon.cn/Spark%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E9%87%8C%E6%89%8E/dp/B015VTKN5Q/ref=sr_1_1?ie=UTF8&qid=1462618411&sr=8-1&keywords=advanced+spark)
 
@@ -52,6 +53,50 @@ ps: 我对好书的定义很简单：
 总结：
 
 推荐指数：`* * * * *`
+
+
+### 1.3 [Hadoop权威指南(第3版)(修订版)](https://www.amazon.cn/Hadoop%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E6%80%80%E7%89%B9/dp/B00OUFXPDA/ref=sr_1_1?s=books&ie=UTF8&qid=1463474378&sr=1-1&keywords=hadoop+%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97)
+
+之所以要看这本书，是因为最近一直在看一些 spark 的资料，而大多数 spark 应用都把数据存储在 hdfs 上，而且也有同事问过 hadoop 上 datanode 和 namenode 的一些问题，当时我也只能按照自己的理解来回答他。这迫使我相信，要想用好 spark，对 hadoop 以及 hadoop 的生态需要有一定的了解和掌握，这是促使我安排这本书的核心原因。
+
+这本书讲得比较全，推荐大家看中文第三版修订版或者第四版影音版的，因为涵盖了大多成熟的 hadoop 生态里的其他开源项目，能对 hadoop 及其生态有一个比较简单的了解。
+
+总结：第三版修订版或第四版影印版值得阅读，对了解 hadoop 的基本原理，运行流程，使用方法很有帮助，还能了解 hadoop 生态系统里的其他开源项目。
+
+推荐指数：`* * * *`
+
+
+### 1.4 [急救手册](https://www.amazon.cn/gp/product/B00B2FHTOM/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
+
+很久之前就想看这样一本书，因为现实生活中遇到过这样一件事：在公交车上遇到一个突发癫痫的老人，当时我就离那个老人不远，但老人倒地，发抖，口吐白沫的时候我突然觉得好像周围都静止了，整个人都惊呆了，因为自己完全不知道该怎么办，好像这种事情就永远不会发生在自己身边一样。现在工作了，思想渐渐成熟，满满发现这些学校里面不会传授的知识在生活中的重要性，于是特地选了这本书来学习急救技能。
+
+就本书来说，内容对我这种门外汗来说完全够用了，书籍本身印刷质量非常高，铜纸版印刷的，有很多详细的彩色插图介绍，很值得。
+
+总结：虽然不想承认，但现在人们的健康情况却是越来越差了，掌握一些基础的急救技能真的很有必要，不仅是为了路人，更是为了家人。
+
+推荐指数：`* * * * *`
+
+
+### 
+
+总结：
+
+推荐指数：`* * * *`
+
+
+### 
+
+总结：
+
+推荐指数：`* * * *`
+
+
+### 
+
+总结：
+
+推荐指数：`* * * *`
+
 
 
 ## 2. 博文推荐 
@@ -82,7 +127,17 @@ ps: 我对好书的定义很简单：
 - [面试官如何面试程序员](http://blog.jobbole.com/100702/)
 - [Spark性能优化指南——基础篇](http://tech.meituan.com/spark-tuning-basic.html)
 - [Spark性能优化指南——高级篇](http://tech.meituan.com/spark-tuning-pro.html)
+- [如何在72小时之内快速搞懂一个陌生行业？](https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&mid=2653749258&idx=1&sn=82d5929393932fbf1cb97d9acbdd41b5&scene=1&srcid=05188fOCSKGwfCzJfI73ssBE&key=8d8120cb97983fad7f2968069d314547f9679b9bbb4497c084f9246b67b6f6f81d90b0cdb2e55a81153d93e2d75b7a89&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
+- [数据化解析Term Sheet十大核心条款，关于融资的干货都在这儿了](https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&mid=2653749289&idx=4&sn=a3e57e4400cde387f330e7ea8429d30a&scene=1&srcid=0518elOD5oMp6TNMP4Z9nPxD&key=8d8120cb97983fade74366a3f02b2ceb18dd53e99524441327fe1192e109cf6d1d532b144cd29ce82f208e9e65a7bcc0&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
+- [优秀配色方案的探索过程](http://colachan.com/post/3502)
+- [知乎上的48条神回复，针针见血，看完整个人都通透多了](https://mp.weixin.qq.com/s?__biz=MzA4NjAzNDg4NA==&mid=2656366443&idx=3&sn=19091f8ca1bd18a1cba55fc88402a7fd&scene=1&srcid=0515hXptbhIi1JhXUGtyqI5r&key=8d8120cb97983fad3adcf075795d583f5889e72bfd0a1874e4d968c4478a422244e16d191be3b8c1c5010484537b5e4f&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
 
+> 哈哈，轻松一下
+
+- [几种一致性模型的分析](http://mp.weixin.qq.com/s?__biz=MzAwMjgwMTEzNw==&mid=2652227239&idx=1&sn=fdc9cd6fad120594426a9fe4b80b438c&scene=2&srcid=0514jA1Y6iz4kUl721PEWR6k&from=timeline&isappinstalled=0#wechat_redirect)
+
+- []()
+- []()
 
 
 

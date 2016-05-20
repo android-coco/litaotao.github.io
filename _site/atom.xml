@@ -57,6 +57,7 @@
         s.parentNode.insertBefore(bp, s);
     })();
   </script> -->
+  
   <!-- google analytics push code -->
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -87,6 +88,7 @@
     _MEIQIA('entId', 15857);
 </script>
  -->
+
 <body>
   <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -94,13 +96,230 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-16T22:20:04+08:00</updated>
+   <updated>2016-05-20T12:41:26+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>一个工程师对产品的唬说扒道</title>
+     <link href="/thinking-of-product-design-and-data-driven"/>
+     <updated>2016-05-15T00:00:00+08:00</updated>
+     <id>/thinking-of-product-design-and-data-driven</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;感谢公司开放的企业文化；&lt;/p&gt;
+
+&lt;p&gt;我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 从几个问题说起&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;有没有哪个软件的升级让你眼前一亮？&lt;/li&gt;
+  &lt;li&gt;有没有哪个应用，在你使用他不到3分钟就 say goodbye？&lt;/li&gt;
+  &lt;li&gt;是什么让你在众多同类软件中，选择当前正在用的这一款？&lt;/li&gt;
+  &lt;li&gt;是什么原因决定了一个产品的销量？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;microsoft-office-wps-google-docs&quot;&gt;2. Microsoft Office, WPS, Google Docs&lt;/h2&gt;
+
+&lt;p&gt;第一次听说 google docs 是在大学时期找工作的时候，当时听说 google 在电话面试的时候会要求在 google docs 上写代码。当时我很纳闷：电话面试？写代码？电话面试的时候面试官怎么看你写的代码呀？&lt;/p&gt;
+
+&lt;p&gt;后来才用了 google docs 之后才知道，原来 docs 功能已经超出我的想象了：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;覆盖了基本的 office 功能&lt;/li&gt;
+  &lt;li&gt;多用户实时在线协同&lt;/li&gt;
+  &lt;li&gt;界面简洁轻便&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;后来自从开始用 google docs 之后，我几乎再也没有碰过 ms office［事实上大学时期也只用 wps 了］，偶尔会用到 wps。&lt;/p&gt;
+
+&lt;p&gt;我经常在思考，为什么我会从 Microsoft Office 转向 WPS，后来为什么又会从 WPS 转到 Google Docs？后来在工作中，闲暇时会琢磨琢磨自己用的一些应用和逛的一些网站，在思考和研究那些应用和网站的时候，我会发现，其实真理是永恒不变的：&lt;em&gt;成功的产品都是相似的，失败的产品各有所因&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;言归正传，回到我们今天的主题：如何设计一个应用的客服通道？&lt;/p&gt;
+
+&lt;p&gt;上面之所以要讲我的 Microsoft Office, WPS, Google Docs 故事，其实是想引出我最喜欢的 google docs 的一个设计，也是今天的主角，那就是：&lt;em&gt;Floating Action Button&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-1.png&quot; alt=&quot;product-design-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;floating-action-button-&quot;&gt;3. Floating Action Button ?&lt;/h2&gt;
+
+&lt;p&gt;其实我一开始也不知道居然有专门这样一个设计手册，而且还是 google 出的。当时只是觉得有这么多应用采用 google docs 右下角 button 的设计，应该会有一个地方来说明这种设计好处。所以当我 google 关键字 &lt;a href=&quot;https://www.google.co.jp/search?q=design+button+action&amp;amp;oq=design+button+action&amp;amp;aqs=chrome..69i57j69i60l3.344j0j1&amp;amp;sourceid=chrome&amp;amp;ie=UTF-8&quot;&gt;design button action&lt;/a&gt; 的时候，我发现了宝藏：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-2.png&quot; alt=&quot;product-design-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-3.png&quot; alt=&quot;product-design-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-4.png&quot; alt=&quot;product-design-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;4. 如何设计一个应用的客服通道&lt;/h2&gt;
+
+&lt;p&gt;上面说了这么多，似乎和今天的 &lt;code class=&quot;highlighter-rouge&quot;&gt;如何设计一个应用的客服通道&lt;/code&gt; 没有多大联系，其实不然，下面我们就开始来谈谈今天的主题，然后再看看上面所说的内容和即时客服的那些关系。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;4.1 客服的历史&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;压根儿就没有客服&lt;/li&gt;
+  &lt;li&gt;电话客服
+    &lt;ul&gt;
+      &lt;li&gt;优点：沟通及时；&lt;/li&gt;
+      &lt;li&gt;缺点：通讯成本高；复杂问题指导难度大；记录难度稍大；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;邮件客服
+    &lt;ul&gt;
+      &lt;li&gt;优点：通讯成本低；方便记录问题；指导难度低；&lt;/li&gt;
+      &lt;li&gt;缺点：沟通不及时；客户保密性弱；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;通讯软件1v1客服
+    &lt;ul&gt;
+      &lt;li&gt;优点：沟通及时；通讯成本低；指导难度低；记录难度一般；&lt;/li&gt;
+      &lt;li&gt;缺点：客户保密性弱；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;用户交流群客服
+    &lt;ul&gt;
+      &lt;li&gt;优点：沟通即时；通讯成本低；指导难度很低；记录难度稍难；&lt;/li&gt;
+      &lt;li&gt;缺点：客户保密性很弱；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;4.2 什么是即时客服&lt;/h3&gt;
+
+&lt;p&gt;即提供给客户，允许实时与客服人员进行咨询的工具，常见的一些：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;平台内置：阿里旺旺&lt;/li&gt;
+  &lt;li&gt;三方平台：营销 QQ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;4.3 即时客服的优缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;优势：即时性，提供用户高效的体验，第一时间探知用户心理，进行二次推销&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;例子 ：假设阿里旺旺是仅提供邮件功能？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;缺点：无法应对大规模访问&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;例子 ：淘宝大店都会有数十个在线客服，双十一期间基本很难及时收到客服回复&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;best-practice&quot;&gt;4.4 Best Practice&lt;/h3&gt;
+
+&lt;p&gt;我一直相信，没有好与不好的设计，只有适用与不适用的设计。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;5. 即时客服方案&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;商业方案：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://app.meiqia.com/&quot;&gt;美洽&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;开源方案：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.ppmessage.com/user/#/app/settings/historymessage&quot;&gt;ppmessage&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://rocket.chat/docs/administrator-guides/livechat/&quot;&gt;rocket.chat&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;6. 题外话：关于增长&lt;/h2&gt;
+
+&lt;p&gt;其实关于增长的话题，我觉得跟客服的发展历史一样，都是当问题积累到一个点，再加以外部因素的驱动得以爆发。增长这个话题，我觉得是伴随最近5年大数据，云计算，互联网产业化的爆发式发展而引出的话题。而有一个新兴的职业，也伴随增长这个话题而出现在现在的职场当中：数据科学家。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/data-scientists.png&quot; alt=&quot;data-scientists.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aaarr-&quot;&gt;6.1 AAARR 模型&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-6.png&quot; alt=&quot;product-design-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;whysharp-arms-broaden-lens&quot;&gt;6.2 Why：&lt;em&gt;Sharp arms, broaden lens&lt;/em&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;推广个人博客：&lt;a href=&quot;litaotao.github.io&quot;&gt;litaotao.github.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;结识技术牛人：多做技术交流，不要闭门造车，坐井观天&lt;/li&gt;
+  &lt;li&gt;学习运营技能：扩展自己的知识面&lt;/li&gt;
+  &lt;li&gt;学习产品分析技能：扩展自己的知识面&lt;/li&gt;
+  &lt;li&gt;学习市场研究技能：扩展自己的知识面，案例参考：&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;growth-retention-engagement&quot;&gt;6.3 指标：Growth, Retention, Engagement&lt;/h3&gt;
+
+&lt;p&gt;Growth, Retention 和 Engagement 是做增长的三个大指标：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Growth: 增长数据&lt;/li&gt;
+  &lt;li&gt;Retention: 留存数据&lt;/li&gt;
+  &lt;li&gt;Engagement: 参与/活跃度数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Growth, Retention 和 Engagement 是一套比较完善的做增长所需要关注的指标，因为我只维护自己的博客，所以其实只需要关心其中的一小部分指标就足够了。同样的道理，并不是所有的产品都需要做增长，特别是大多数专业领域的商业产品，比如说：恒生电子的 homs 系统；但有的产品是必须要做增长，特别是大多数社交软件，受众群广的对个人的产品，比如说：facebook，twitter，微博，微信，qq，keep。&lt;/p&gt;
+
+&lt;p&gt;下面是我关注的一些指标：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CNZZ
+    &lt;ul&gt;
+      &lt;li&gt;新老访客分布 : 查看新老访客占比，希望老访客稳定在一个区间内&lt;/li&gt;
+      &lt;li&gt;来路域名／来路页面／站内入口 : 推广引流效果，制定推广计划&lt;/li&gt;
+      &lt;li&gt;浏览器分布 : 制定浏览器兼容计划&lt;/li&gt;
+      &lt;li&gt;分辨率分布 : 制定页面优化方案&lt;/li&gt;
+      &lt;li&gt;平均访问时长 : 检验文章质量问题&lt;/li&gt;
+      &lt;li&gt;热点图 : 网站排版优化&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Google Search Console
+    &lt;ul&gt;
+      &lt;li&gt;查询词 : SEO 与内容优化&lt;/li&gt;
+      &lt;li&gt;内容关键字 : SEO 与内容优化&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Google Analytics
+    &lt;ul&gt;
+      &lt;li&gt;实时 -&amp;gt; 概览［用处不是特别大，但是很炫酷］&lt;/li&gt;
+      &lt;li&gt;受众群体 -&amp;gt; 用户流量 : 用户流失分析，内容优化［推荐系统的重要性］&lt;/li&gt;
+      &lt;li&gt;行为 -&amp;gt; 网站内容 -&amp;gt; 所有页面 : 内容优化，页面质量检查&lt;/li&gt;
+      &lt;li&gt;行为 -&amp;gt; 网站速度 : 速度优化利器&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Baidu Share
+    &lt;ul&gt;
+      &lt;li&gt;分享媒体，分享量，会流量，回流比，分享页面&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/product-design-7.png&quot; alt=&quot;product-design-7.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;5. 参考文档&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/design/spec/material-design/introduction.html&quot;&gt;Material Design&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/design/spec/components/buttons-floating-action-button.html&quot;&gt;Google Design Components&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.woshipm.com/ucd/166400.html&quot;&gt;Material Design：为什么 FAB (Floating Action Button) 是不好的体验设计&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tech2ipo.com/10029855&quot;&gt;下拉菜单为何是一种不好的用户体验?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinking-of-wechat-design&quot;&gt;一次微信升级引发到思考&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/157106.html&quot;&gt;二十一世纪最性感的职业：数据科学家&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.indeed.com/jobtrends?q=%22Data+Scientist%22&amp;amp;l=&quot;&gt;Indeed Job Trend&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1nvSwiRv&quot;&gt;百度，Google SEO 文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>如何使用 github pages 搭建博客</title>
@@ -324,7 +543,10 @@ categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名�
   &lt;li&gt;&lt;a href=&quot;http://way1989.github.io/&quot;&gt;http://way1989.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://taotaomami.github.io/&quot;&gt;http://taotaomami.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://ljdomain.github.io/&quot;&gt;http://ljdomain.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://darren123chen.github.io/&quot;&gt;http://darren123chen.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://frankchen0130.github.io/&quot;&gt;http://frankchen0130.github.io/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </content>
    </entry>
    
@@ -1997,186 +2219,6 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-5&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』5. 这些年，你不能错过的 spark 学习资源</title>
-     <link href="/spark-resouces-blogs-paper"/>
-     <updated>2016-03-10T00:00:00+08:00</updated>
-     <id>/spark-resouces-blogs-paper</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 书籍&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.amazon.cn/Spark%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E7%BE%8E-%E5%8D%A1%E5%8A%B3-%E7%BE%8E-%E8%82%AF%E7%BB%B4%E5%B0%BC%E6%96%AF%E7%A7%91-%E7%BE%8E-%E6%B8%A9%E5%BE%B7%E5%B0%94-%E5%8A%A0-%E6%89%8E%E5%93%88%E9%87%8C%E4%BA%9A/dp/B016DWSEXI/ref=sr_1_1?ie=UTF8&amp;amp;qid=1460447269&amp;amp;sr=8-1&amp;amp;keywords=spark+%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90&quot;&gt;Learning Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.gitbook.com/book/jaceklaskowski/mastering-apache-spark/details&quot;&gt;Mastering Apache Spark&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;2. 网站&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/&quot;&gt;official site&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://apache-spark-user-list.1001560.n3.nabble.com/&quot;&gt;user mailing list&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/user/TheApacheSpark&quot;&gt;spark channel on youtube&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/&quot;&gt;spark summit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.meetup.com/&quot;&gt;meetup&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark-packages.org/&quot;&gt;spark third party packages&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog&quot;&gt;databricks blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.madhukaraphatak.com/&quot;&gt;http://blog.madhukaraphatak.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/sample_applications/index.html#Introduction%20(Readme).html&quot;&gt;databricks docs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.cloud.databricks.com/docs/latest/courses/index.html#Introduction%20to%20Big%20Data%20with%20Apache%20Spark%20(CS100-1x)/Introduction%20(README).html&quot;&gt;databricks training&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/category/spark/&quot;&gt;cloudera blog about spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://0x0fff.com&quot;&gt;https://0x0fff.com&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://techsuppdiva.github.io/&quot;&gt;http://techsuppdiva.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://lib.csdn.net/base/10&quot;&gt;csdn spark 知识库&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.iteblog.com/archives/category/spark&quot;&gt;过往记忆&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;3. 文章，博客&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf&quot;&gt;RDD论文英文版&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://code.csdn.net/CODE_Translation/spark_matei_phd&quot;&gt;RDD论文中文版&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf&quot;&gt;An Architecture for Fast and General Data Processing
-on Large Clusters&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 1)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/&quot;&gt;How-to: Tune Your Apache Spark Jobs (Part 2)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://dataunion.org/22985.html&quot;&gt;借助 Redis ，让 Spark 提速 45 倍！&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.csdn.net/article/2015-10-06/2825849&quot;&gt;量化派基于Hadoop、Spark、Storm的大数据风控架构&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/58867&quot;&gt;基于Spark的异构分布式深度学习平台&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.36dsj.com/archives/40723&quot;&gt;你对Hadoop和Spark生态圈了解有几许？&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.yuntoutiao.com/dongtai/5389.html&quot;&gt;Hadoop vs Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/57656&quot;&gt;雅虎开源CaffeOnSpark：基于Hadoop/Spark的分布式深度学习&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/1. spark_meetup.pdf&quot;&gt;2016 上海第二次 spark meetup: 1. spark_meetup.pdf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/2. Flink_ An unified stream engine.pdf&quot;&gt;2016 上海第二次 spark meetup: 2. Flink_ An unified stream engine.pdf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/3. Spark在计算广告领域的应用实践.pdf&quot;&gt;2016 上海第二次 spark meetup: 3. Spark在计算广告领域的应用实践.pdf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/files/4. splunk_spark.pdf&quot;&gt;2016 上海第二次 spark meetup: 4. splunk_spark.pdf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://prezi.com/w4wjzdq7y0lj/spark/&quot;&gt;基于Spark的医疗和金融大数据&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/&quot;&gt;Monitoring Spark with Graphite and Grafana&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;4. 视频&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cs3_3LdCny8&quot;&gt;YouTube: what is apache spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=65aV15uDKgA&quot;&gt;Introduction to Spark Architecture&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=WyfHUNnMutg&quot;&gt;Top 5 Mistakes When Writing Spark Applications&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/hadooparchbook/top-5-mistakes-when-writing-spark-applications&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Top 5 mistakes when writing Spark applications&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kkOG_aJ9KjQ&quot;&gt;Tuning and Debugging Apache Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Tuning and Debugging Apache Spark&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dmL0N3qfSc8&quot;&gt;A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/A-Deeper-Understanding-of-Spark-Internals-Aaron-Davidson.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; A Deeper Understanding of Spark Internals - Aaron Davidson (Databricks)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=OednhGRp938&quot;&gt;Building, Debugging, and Tuning Spark Machine Learning Pipelines - Joseph Bradley (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/building-debugging-and-tuning-spark-machine-leaning-pipelinesjoseph-bradley&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Building, Debugging, and Tuning Spark Machine Learning Pipelines&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=xWkJCUcD55w&quot;&gt;Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-dataframes-simple-and-fast-analytics-on-structured-data-at-spark-summit-2015&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark DataFrames Simple and Fast Analysis of Structured Data - Michael Armbrust (Databricks)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=HBZuB3pPri0&amp;amp;feature=youtu.be&quot;&gt;Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/AnyaBida/bida-sse2016final-58237248&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark Tuning for Enterprise System Administrators&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=i7l3JQRx7Qw&quot;&gt;Structuring Spark: DataFrames, Datasets, and Streaming&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/structuring-spark-dataframes-datasets-and-streaming&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Structuring Spark: DataFrames, Datasets, and Streaming&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=GzG9RTRTFck&quot;&gt;Spark in Production: Lessons from 100+ Production Users&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-summit-eu-2015-lessons-from-300-production-users&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark in Production: Lessons from 100+ Production Users&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=rBrsxM091KA&quot;&gt;Production Spark and Tachyon use Cases&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/using-spark-with-tachyon-by-gene-pang&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Production Spark and Tachyon use Cases&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=VQOKk9jJGcw&amp;amp;index=5&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&quot;&gt;SparkUI Visualization&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/spark-summit-eu-2015-sparkui-visualization-a-lens-into-your-application&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; SparkUI Visualization&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Wg2boMqLjCg&quot;&gt;
-Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/strata-sj-everyday-im-shuffling-tips-for-writing-better-spark-programs&quot;&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Everyday I’m Shuffling - Tips for Writing Better Spark Programs, Strata San Jose 2015&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=FA3ArTyXNoo&quot;&gt;Large Scale Distributed Machine Learning on Apache Spark&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Aups6UcGiQQ&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&amp;amp;index=1&quot;&gt;Securing your Spark Applications&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/cloudera/securing-your-apache-spark-applications&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Securing your Spark Applications&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=AHYq91i-ohI&quot;&gt;Building a REST Job Server for Interactive Spark as a Service&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/building-a-rest-job-server-for-interactive-spark-as-a-service-by-romain-rigaux-and-erick-tryzelaar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Building a REST Job Server for Interactive Spark as a Service&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=PPQRi484bNo&amp;amp;list=PL-x35fyliRwif48cPXQ1nFM85_7e200Jp&amp;amp;index=2&quot;&gt;Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/SparkSummit/exploiting-gpus-for-columnar-datafrrames-by-kiran-lonikar&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Exploiting GPUs for Columnar DataFrame Operations&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MFSUAkDBSdQ&quot;&gt;Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Easy-json-Data-Manipulation-Yin-Huai.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Easy JSON Data Manipulation in Spark - Yin Huai (Databricks)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;amp;index=6&amp;amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x&quot;&gt;Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://spark-summit.org/2014/wp-content/uploads/2014/07/Sparkling-Indentification-of-Task-Skew-and-Speculative-Partition-of-Data-for-Spark-Applications-Peilong-Li.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=HG2Yd-3r4-M&amp;amp;list=PLTPXxbhUt-YWGNTaDj6HSjnHMxiTD1HCR&amp;amp;index=1&quot;&gt;Advanced Spark Internals and Tuning – Reynold Xin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://databricks-training.s3.amazonaws.com/slides/advanced-spark-training.pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Advanced Spark Internals and Tuning – Reynold Xin&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=oXkxXDG0gNk&quot;&gt;The Future of Real Time in Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/the-future-of-realtime-in-spark-58433411&quot;&gt;The Future of Real Time in Spark&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=ZFBgY0PwUeY&amp;amp;feature=youtu.be&quot;&gt;Spark 2 0&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark 2 0&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=BPotQuqFnyw&amp;amp;feature=youtu.be&quot;&gt;Democratizing Access to Data&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-ali-ghodsi-and-databricks-community-edition-demo&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Democratizing Access to Data&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;5. next&lt;/h2&gt;
-
-&lt;p&gt;上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-5&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay.png&quot; alt=&quot;wechat_pay.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-6&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;

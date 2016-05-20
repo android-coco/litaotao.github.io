@@ -229,3 +229,6 @@ taotao@mac007:~/Desktop/github/github-blog-template$tree
 - [http://way1989.github.io/](http://way1989.github.io/)
 - [http://taotaomami.github.io/](http://taotaomami.github.io/)
 - [http://ljdomain.github.io/](http://ljdomain.github.io/)
+- [http://darren123chen.github.io/](http://darren123chen.github.io/)
+- [http://frankchen0130.github.io/](http://frankchen0130.github.io/)
+
