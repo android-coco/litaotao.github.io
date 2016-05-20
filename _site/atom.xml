@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-20T13:08:42+08:00</updated>
+   <updated>2016-05-20T13:38:15+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -243,7 +243,7 @@
 
 &lt;p&gt;&lt;img src=&quot;../images/data-scientists.png&quot; alt=&quot;data-scientists.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;aaarr-&quot;&gt;6.1 AAARR 模型&lt;/h3&gt;
+&lt;h3 id=&quot;aarrr-&quot;&gt;6.1 AARRR 模型&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/product-design-6.png&quot; alt=&quot;product-design-6.png&quot; /&gt;&lt;/p&gt;
 
@@ -272,7 +272,7 @@
 &lt;p&gt;下面是我关注的一些指标：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;CNZZ
+  &lt;li&gt;&lt;em&gt;CNZZ&lt;/em&gt;
     &lt;ul&gt;
       &lt;li&gt;新老访客分布 : 查看新老访客占比，希望老访客稳定在一个区间内&lt;/li&gt;
       &lt;li&gt;来路域名／来路页面／站内入口 : 推广引流效果，制定推广计划&lt;/li&gt;
@@ -282,26 +282,26 @@
       &lt;li&gt;热点图 : 网站排版优化&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Google Search Console
+  &lt;li&gt;&lt;em&gt;Google Search Console&lt;/em&gt;
     &lt;ul&gt;
       &lt;li&gt;查询词 : SEO 与内容优化&lt;/li&gt;
       &lt;li&gt;内容关键字 : SEO 与内容优化&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Google Analytics
+  &lt;li&gt;&lt;em&gt;Google Analytics&lt;/em&gt;
     &lt;ul&gt;
       &lt;li&gt;实时 -&amp;gt; 概览［用处不是特别大，但是很炫酷］&lt;/li&gt;
       &lt;li&gt;受众群体 -&amp;gt; 用户流量 : 用户流失分析，内容优化［推荐系统的重要性］&lt;/li&gt;
       &lt;li&gt;行为 -&amp;gt; 网站内容 -&amp;gt; 所有页面 : 内容优化，页面质量检查&lt;/li&gt;
       &lt;li&gt;行为 -&amp;gt; 网站速度 : 速度优化利器
         &lt;ul&gt;
-          &lt;li&gt;速度优化之图片压缩：
+          &lt;li&gt;速度优化之图片压缩：本文用到的 &lt;code class=&quot;highlighter-rouge&quot;&gt;8&lt;/code&gt; 张图片，压缩后节省 &lt;code class=&quot;highlighter-rouge&quot;&gt;73%&lt;/code&gt; 的大小，节省 &lt;code class=&quot;highlighter-rouge&quot;&gt;597kb&lt;/code&gt; 的网络传输量，相当于&lt;code class=&quot;highlighter-rouge&quot;&gt;每千次 pv 节省 597MB&lt;/code&gt; 流量；
   &lt;img src=&quot;../images/product-design-8.png&quot; alt=&quot;product-design-8.png&quot; /&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Baidu Share
+  &lt;li&gt;&lt;em&gt;Baidu Share&lt;/em&gt;
     &lt;ul&gt;
       &lt;li&gt;分享媒体，分享量，会流量，回流比，分享页面&lt;/li&gt;
     &lt;/ul&gt;
@@ -342,6 +342,7 @@
   &lt;li&gt;&lt;a href=&quot;http://www.indeed.com/jobtrends?q=%22Data+Scientist%22&amp;amp;l=&quot;&gt;Indeed Job Trend&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1nvSwiRv&quot;&gt;百度，Google SEO 文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;tinypng.com&quot;&gt;在线图片压缩&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
