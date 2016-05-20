@@ -51,9 +51,9 @@ $(document).ready(function(){
             $('body, html').animate({ scrollTop: scrollNum-30 }, 400, 'swing');
           });
       }
-      // if($('.entry h2').length > 2 && !isMobile.any() && !ie6) {
+      if($('.entry h2').length > 2 && !isMobile.any() && !ie6) {
       // 优化手机端目录显示
-      if($('.entry h2').length > 2 && !ie6) {
+      // if($('.entry h2').length > 2 && !ie6) {
         genIndex();
         if ($(window).width() > 750) {
           $(window).load(function(){
