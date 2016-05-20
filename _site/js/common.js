@@ -40,7 +40,7 @@ function present_mode(){
     $("#avatar")[0].style.display = "none";
     $("#menuIndex")[0].style.display = "none";
     $(".entry")[0].style.width = "100%";
-    $( window ).resize(function() { 
-        
-    });
+    $("#content")[0].style.marginLeft = "40px";
+    $("#content")[0].style.marginRight = "120px";
+    $("#content")[0].style.width = "90%";
 }
