@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-20T12:46:50+08:00</updated>
+   <updated>2016-05-20T12:59:16+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -113,7 +113,7 @@
 
 &lt;p&gt;感谢公司开放的企业文化；&lt;/p&gt;
 
-&lt;p&gt;我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品。&lt;/p&gt;
+&lt;p&gt;我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品；此外，我还会分享一些自己使用 CNZZ, Google Analytics, Google Search Console, GrowingIO, Baidu Share 工具来尝试用户增长的一些想法。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;1. 从几个问题说起&lt;/h2&gt;
 
@@ -310,7 +310,27 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-8&quot;&gt;5. 参考文档&lt;/h2&gt;
+&lt;h2 id=&quot;section-8&quot;&gt;7. 彩蛋&lt;/h2&gt;
+
+&lt;p&gt;免费的 google 搜索网站［都是从 CNZZ 上的 &lt;em&gt;来路域名&lt;/em&gt; 这个项目里看到的］：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://soguge.com/&quot;&gt;http://soguge.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gugesou.cn/&quot;&gt;http://www.gugesou.cn/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://isfox.com/&quot;&gt;http://isfox.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://g.xsou.co/&quot;&gt;https://g.xsou.co/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.sov5.com/&quot;&gt;http://www.sov5.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.qiangwaiba.com/google&quot;&gt;http://www.qiangwaiba.com/google&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.googto.com/&quot;&gt;http://www.googto.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.laiguge.com/&quot;&gt;https://www.laiguge.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://search.twcc.com/&quot;&gt;http://search.twcc.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;8. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_any.png&quot; alt=&quot;wechat_pay_any.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-10&quot;&gt;9. 参考文档&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.google.com/design/spec/material-design/introduction.html&quot;&gt;Material Design&lt;/a&gt;&lt;/li&gt;

@@ -11,7 +11,7 @@ description: 我蒸滴是一个工程师啊，只是没事儿就想琢磨琢磨�
 
 感谢公司开放的企业文化；
 
-我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品。
+我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品；此外，我还会分享一些自己使用 CNZZ, Google Analytics, Google Search Console, GrowingIO, Baidu Share 工具来尝试用户增长的一些想法。
 
 
 ## 1. 从几个问题说起
@@ -169,7 +169,27 @@ Growth, Retention 和 Engagement 是一套比较完善的做增长所需要关�
     ![product-design-7.png](../images/product-design-7.png)
 
 
-## 5. 参考文档
+## 7. 彩蛋
+
+免费的 google 搜索网站［都是从 CNZZ 上的 *来路域名* 这个项目里看到的］：
+
+- [http://soguge.com/](http://soguge.com/)
+- [http://www.gugesou.cn/](http://www.gugesou.cn/)
+- [http://isfox.com/](http://isfox.com/)
+- [https://g.xsou.co/](https://g.xsou.co/)
+- [http://www.sov5.com/](http://www.sov5.com/)
+- [http://www.qiangwaiba.com/google](http://www.qiangwaiba.com/google)
+- [http://www.googto.com/](http://www.googto.com/)
+- [https://www.laiguge.com/](https://www.laiguge.com/)
+- [http://search.twcc.com/](http://search.twcc.com/)
+
+
+## 8. 打开微信，扫一扫，点一点，棒棒的，^_^
+
+![wechat_pay_any.png](../images/wechat_pay_any.png)
+
+
+## 9. 参考文档
 
 - [Material Design](https://www.google.com/design/spec/material-design/introduction.html)
 - [Google Design Components](https://www.google.com/design/spec/components/buttons-floating-action-button.html)
