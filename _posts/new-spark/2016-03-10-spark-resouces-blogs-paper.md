@@ -9,7 +9,7 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 
 本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。
 
-其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。   
+其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。   
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。     
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。
 
@@ -127,13 +127,17 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [`slide` Advanced Spark Internals and Tuning – Reynold Xin](https://databricks-training.s3.amazonaws.com/slides/advanced-spark-training.pdf)
 
 - [The Future of Real Time in Spark](https://www.youtube.com/watch?v=oXkxXDG0gNk)
-- [The Future of Real Time in Spark](http://www.slideshare.net/databricks/the-future-of-realtime-in-spark-58433411)
+- [`slide` The Future of Real Time in Spark](http://www.slideshare.net/databricks/the-future-of-realtime-in-spark-58433411)
 
 - [Spark 2 0](https://www.youtube.com/watch?v=ZFBgY0PwUeY&feature=youtu.be)
 - [`slide` Spark 2 0](http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia)
 
 - [Democratizing Access to Data](https://www.youtube.com/watch?v=BPotQuqFnyw&feature=youtu.be)
 - [`slide` Democratizing Access to Data](http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-ali-ghodsi-and-databricks-community-edition-demo)
+
+- [Not Your Father's Database: How to Use Apache Spark Properly in Your Big Data Architecture](https://www.youtube.com/watch?v=l2YHIUucXOg&feature=youtu.be)
+- [`slide` Not Your Father's Database: How to Use Apache Spark Properly in Your Big Data Architecture](http://www.slideshare.net/SparkSummit/not-your-fathers-database-by-vida-ha)
+
 
 
 

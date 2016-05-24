@@ -16,7 +16,7 @@ description: the more you read, the more you think, better you'll be.
 
 ![book-reading-04.png](../images/book-reading-04.png)
 
-本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是 coursera 上的一门公开课 *Successful Negotiation: Essential Strategies and Skills*，也当是一本书了。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1boRIG5T)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
+本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是 coursera 上的一门公开课 *Successful Negotiation: Essential Strategies and Skills*，也当是一本书了。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1i5hNu7r)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
 
 ps: 我对好书的定义很简单：
 
@@ -77,25 +77,41 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * * *`
 
 
-### 
+### 1.5 [增长黑客](https://www.amazon.cn/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2-%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%8E%E6%94%B6%E5%85%A5%E5%A2%9E%E9%95%BF%E7%A7%98%E7%B1%8D-%E8%8C%83%E5%86%B0/dp/B011BHQSV0/ref=sr_1_1?s=books&ie=UTF8&qid=1463890320&sr=1-1&keywords=%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2)
+
+这本书是从公司图书馆借来看的，看完后感觉很有收获，准备在亚马逊上买本回来。这本书讲得挺细致，虽然说并没有特别多的概念，但里面提到了很多实际例子，很有学习和借鉴价值。看完这本书，至少能对增长有一个简单的认识，知道如果自己准备去做一个应用，产品的增长的时候，该从什么方面入手，怎么去制定策略，以及自己还要补充哪些方面的知识才能做一个更好的增长官。不过增长这个概念在国内兴起没有多久，也是伴随大数据兴起的一个产物吧，所以国内对这方面还没有比较系统的介绍，因此，《增长黑客》这本书算是国内对增长这个正在兴起的空白领域一个比较不错的开端吧，相信之后会有更多更好更系统的资料问世。
+
+总结：内容不错，例子充足，对有意创业，或对增长，用户研究，市场营销推广有兴趣的人很有学习和借鉴价值。
+
+推荐指数：`* * * * *`
+
+
+### 1.6 [公司财务原理（第十版），第三，四章](https://www.amazon.cn/%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86-%E7%90%86%E6%9F%A5%E5%BE%B7-A-%E5%B8%83%E9%9B%B7%E5%88%A9/dp/B006Z2YI32/ref=sr_1_2?ie=UTF8&qid=1461250263&sr=8-2&keywords=%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86)
+
 
 总结：
 
-推荐指数：`* * * *`
+推荐指数：`* * * * *`
 
 
-### 
+### 1.7 [Growth 全栈增长工程师指南](https://github.com/phodal/growth-ebook)
 
-总结：
+本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还停清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。
 
-推荐指数：`* * * *`
+总结：如果你初入职场，对全栈工程师，growth 增长完全不了解，并且有兴趣的话，可以花2-3天时间看完这本书。
+
+推荐指数：`* *`
 
 
-### 
+### 1.11 [研报系列：宏观择时](http://pan.baidu.com/s/1i5hNu7r)
 
-总结：
+- [【干货包邮】手把手教你做宏观择时](https://uqer.io/community/share/566a98a5f9f06c6c8a91cb82)
+- [宏观因子模型的择时效应](http://pan.baidu.com/s/1i5hNu7r)
+- [宏观因子择时分析方法](http://pan.baidu.com/s/1i5hNu7r)
+- [基于择时功效的股市宏观多因素预测模型](http://pan.baidu.com/s/1i5hNu7r)
+- [长江证券：宏观经济变量与股市关系系列](http://pan.baidu.com/s/1i5hNu7r)
 
-推荐指数：`* * * *`
+推荐指数：`* * * * *`
 
 
 
@@ -136,9 +152,24 @@ ps: 我对好书的定义很简单：
 
 - [几种一致性模型的分析](http://mp.weixin.qq.com/s?__biz=MzAwMjgwMTEzNw==&mid=2652227239&idx=1&sn=fdc9cd6fad120594426a9fe4b80b438c&scene=2&srcid=0514jA1Y6iz4kUl721PEWR6k&from=timeline&isappinstalled=0#wechat_redirect)
 
-- []()
+- [怎样花两年时间去面试一个人](http://mindhacks.cn/2011/11/04/how-to-interview-a-person-for-two-years/)
+- [可视化数据采集器import.io与集搜客评测对比](http://www.jianshu.com/p/b2aaee9679c7)
+- [如何快速在一个陌生领域达到优秀水平](https://mp.weixin.qq.com/s?__biz=MzA4ODM1MTMzMQ==&mid=2651791131&idx=2&sn=7512d96b25ba78f4fcb0786f9a2838d4&scene=1)
+- [“早知道这些我的公司就不会死”系列（一）：CAC、LTV、PBP](http://36kr.com/p/5046704.html)
+- [“早知道这些我的公司就不会死”系列（二）：Cohort Analysis](http://36kr.com/p/5046873.html)
+- [【重磅长文】技术和科学是不同的源流，一万字读懂人类技术史](https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=2651641296&idx=1&sn=3f65244acb598f8f68d5599cb4d5dc15&scene=1&srcid=05220ulv9HLRpscIbHRe6hUe&key=8d8120cb97983faddfc814fefef84d13371f4af24b28d954a8dea6ccdfde9155059791bb67178f5a4fe77a0920295121&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=i2mSa8qzhbxkf7Yygmi7gmQsztfvHYN0h%2FTT558qJiaNMaAltw17D%2F06VteZfWM6)
+- [纯干货！面试官如何面试程序员](http://blog.jobbole.com/100702/)
+- [纯干货！程序员面试的技巧](http://blog.jobbole.com/99830/)
+- [160篇精选干货内容精编20160523 | 私募工场](https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&mid=2651442463&idx=5&sn=955d59554989ff0f4ea00b8f5281beab&scene=1&srcid=0523LdGhpiCiPyoRgX1saCSg&key=8d8120cb97983fad4f21efed0a495d8c66cd71210271ea6703679184411ede7245147d179559f367e4f1ff02d7426352&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=58KQfrxdep1KCNhDrD4Sowiu6JC%2BtWbJVU3lEFWSuJeI2eHPntuvLd0Cgd%2BlcSfM)
+
+> 里面的文章都是经典好文啊。
+
 - []()
 
+
+## 4. 优质产品
+
+- [import.io](https://www.import.io/)
 
 
 ## 3. 读书总结系列

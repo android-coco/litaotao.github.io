@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-20T16:42:23+08:00</updated>
+   <updated>2016-05-24T17:12:18+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -324,6 +324,7 @@
   &lt;li&gt;&lt;a href=&quot;http://www.googto.com/&quot;&gt;http://www.googto.com/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.laiguge.com/&quot;&gt;https://www.laiguge.com/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://search.twcc.com/&quot;&gt;http://search.twcc.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://kuaiguge.com/&quot;&gt;https://kuaiguge.com/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-9&quot;&gt;8. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
@@ -571,8 +572,10 @@ categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名�
   &lt;li&gt;&lt;a href=&quot;http://ljdomain.github.io/&quot;&gt;http://ljdomain.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://darren123chen.github.io/&quot;&gt;http://darren123chen.github.io/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://frankchen0130.github.io/&quot;&gt;http://frankchen0130.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jjaugust.github.io/&quot;&gt;http://jjaugust.github.io/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gsven.bid/&quot;&gt;http://www.gsven.bid/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://frankchen0130.github.io/&quot;&gt;http://frankchen0130.github.io/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 </content>
    </entry>
    
@@ -773,7 +776,7 @@ categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名�
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 
@@ -1265,7 +1268,7 @@ that you are coalescing it to fewer partitions than it currently has.
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 
@@ -1538,7 +1541,7 @@ export PYSPARK_SUBMIT_ARGS=&quot;--master spark://10.21.208.21:7077 --deploy-mod
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 
@@ -1783,7 +1786,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 
@@ -2088,7 +2091,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本好还是必要的。 &lt;br /&gt;
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
 

@@ -231,4 +231,6 @@ taotao@mac007:~/Desktop/github/github-blog-template$tree
 - [http://ljdomain.github.io/](http://ljdomain.github.io/)
 - [http://darren123chen.github.io/](http://darren123chen.github.io/)
 - [http://frankchen0130.github.io/](http://frankchen0130.github.io/)
-
+- [http://jjaugust.github.io/](http://jjaugust.github.io/)
+- [http://www.gsven.bid/](http://www.gsven.bid/)
+- [http://frankchen0130.github.io/](http://frankchen0130.github.io/)
