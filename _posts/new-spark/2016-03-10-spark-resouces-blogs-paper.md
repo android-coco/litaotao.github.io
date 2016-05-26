@@ -59,7 +59,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [2016 上海第二次 spark meetup: 4. splunk_spark.pdf](http://litaotao.github.io/files/4. splunk_spark.pdf)
 - [基于Spark的医疗和金融大数据](https://prezi.com/w4wjzdq7y0lj/spark/)
 - [Monitoring Spark with Graphite and Grafana](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/)
-
+- [Spark使用CombineTextInputFormat缓解小文件过多导致Task数目过多的问题](http://www.cnblogs.com/yurunmiao/p/5195754.html)
 
 
 ## 4. 视频

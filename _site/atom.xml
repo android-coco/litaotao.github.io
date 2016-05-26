@@ -96,13 +96,147 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-24T17:12:18+08:00</updated>
+   <updated>2016-05-26T12:07:20+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』11. spark 机器学习</title>
+     <link href="/spark-mlib-machine-learning"/>
+     <updated>2016-05-16T00:00:00+08:00</updated>
+     <id>/spark-mlib-machine-learning</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
+Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+
+&lt;h2 id=&quot;spark-more-than-a-framework&quot;&gt;1. Spark! More than A Framework!&lt;/h2&gt;
+
+&lt;p&gt;还记得我们的第一篇 Spark 博文里的这张图吗？其实我觉得 spark 有两个层次的概念：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个通用的分布式计算框架，spark core&lt;/li&gt;
+  &lt;li&gt;基于 spark core 设计，无缝实现的库，dataframe，sql，mllib，graphx，bagel, streaming, sparkR 以及一些第三方包&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我之所以一开始很看好 spark，其中很大原因是第二条，也是下面这张图表达的意思：Spark, more than a framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/introduction-to-spark-3.jpg&quot; alt=&quot;introduction-to-spark-3.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;之后准备写一些这些库的博文，我用过的只有 sql，dataframe，streaming，mlib，所以可能不会写 sparkr，bagel，graphx 的东西，不过这些网上也有不少优质文章的，哈哈。&lt;/p&gt;
+
+&lt;p&gt;今天再回顾回顾 mahine learning in Spark，进行一个小小的总结，之后再慢慢把一些实用的例子写下来。&lt;/p&gt;
+
+&lt;h2 id=&quot;brief-intro-to-machine-learning-in-spark&quot;&gt;2. Brief Intro to Machine Learning in Spark&lt;/h2&gt;
+
+&lt;p&gt;spark 里的机器学习目前［1.6.0］有两个库：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/mllib-guide.html&quot;&gt;spark.mllib&lt;/a&gt; ，是原始的基于 rdd api 设计和实现的机器学习库&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/ml-guide.html&quot;&gt;spark.ml&lt;/a&gt;，是基于 dataframe api 设计和实现的机器学习库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;官方推荐使用 spark.ml 来实现你的机器学习算法，并且已经说明 dataframe, datasets API 将会替换 rdd，所以自然 ml 也会在不远的将来替换 mllib 了。事实上，在 spark 2.0 中，就已经开始尝试先把 dataframe 和 datasets 统一成一个 datasets api 了。参考：&lt;a href=&quot;http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark 2 0&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;从官方开发计划来说，我肯定是强烈推荐使用 spark.ml 库的，而且官方也说明了的，在 spark 2.x 之后，mllib 基本只做维护，其他新的 features 都是基于 ml 来开发了；不过除去这个方面，spark.ml 提供基于 dataframe/datasets 的 pipeline 执行流程，还有基于 spark sql 的高效的 code generation，所以不论从哪个方面来说，我觉得使用 dataframe/datasets，使用 spark.ml 都是一个比较明智的选择。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-ml-3.png&quot; alt=&quot;spark-ml-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不过目前 ml 有一个不足的地方，ml 支持的算法目前没有 mllib 的多。&lt;/p&gt;
+
+&lt;h2 id=&quot;ml-&quot;&gt;3. ML 核心概念&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;DataFrame&lt;/em&gt;: Spark ML uses DataFrame from Spark SQL as an ML dataset, which can hold a variety of data types. 即机器学习数据集输入输出都以 dataframe 的格式提供。&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Pipeline Components&lt;/em&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;Transformer&lt;/em&gt;: A Transformer is an algorithm which can transform one DataFrame into another DataFrame.&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Estimator&lt;/em&gt;: An Estimator is an algorithm which can be fit on a DataFrame to produce a Transformer.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Transformer.transform()s&lt;/em&gt; and &lt;em&gt;Estimator.fit()s&lt;/em&gt; are both stateless. In the future, stateful algorithms may be supported via alternative concepts. Each instance of a Transformer or Estimator has a unique ID, which is useful in specifying parameters (discussed below).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Pipeline&lt;/em&gt;: A Pipeline chains multiple Transformers and Estimators together to specify an ML workflow. That’s runing a sequence of algorithms to process and learn from data.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Parameter&lt;/em&gt;: All Transformers and Estimators now share a common API for specifying parameters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ml-pipeline-&quot;&gt;4. ML Pipeline 介绍&lt;/h2&gt;
+
+&lt;p&gt;In machine learning, it is common to run a sequence of algorithms to process and learn from data. E.g., a simple text document processing workflow might include several stages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Split each document’s text into words.&lt;/li&gt;
+  &lt;li&gt;Convert each document’s words into a numerical feature vector.&lt;/li&gt;
+  &lt;li&gt;Learn a prediction model using the feature vectors and labels.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spark ML represents such a workflow as a Pipeline, which consists of a sequence of &lt;em&gt;PipelineStages (Transformers and Estimators)&lt;/em&gt; to be run in a specific order.&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;4.1 工作原理&lt;/h3&gt;
+
+&lt;p&gt;A Pipeline is specified as a &lt;em&gt;sequence of stages&lt;/em&gt;, and each stage is either a &lt;em&gt;Transformer&lt;/em&gt; or an &lt;em&gt;Estimator&lt;/em&gt;. These stages are run in order, and the input DataFrame is transformed as it passes through each stage. For Transformer stages, the &lt;em&gt;transform()&lt;/em&gt; method is called on the DataFrame. For Estimator stages, the &lt;em&gt;fit()&lt;/em&gt; method is called to produce a Transformer (which becomes part of the PipelineModel, or fitted Pipeline), and that Transformer’s &lt;em&gt;transform()&lt;/em&gt; method is called on the DataFrame.&lt;/p&gt;
+
+&lt;p&gt;We illustrate this for the simple text document workflow. The figure below is for the training time usage of a Pipeline.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-ml-1.png&quot; alt=&quot;spark-ml-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Above, the top row represents a Pipeline with three stages. The first two (Tokenizer and HashingTF) are Transformers (blue), and the third (LogisticRegression) is an Estimator (red).&lt;/p&gt;
+
+&lt;p&gt;The bottom row represents data flowing through the pipeline, where cylinders indicate DataFrames. The Pipeline.fit() method is called on the original DataFrame, which has raw text documents and labels. The Tokenizer.transform() method splits the raw text documents into words, adding a new column with words to the DataFrame. The HashingTF.transform() method converts the words column into feature vectors, adding a new column with those vectors to the DataFrame. Now, since LogisticRegression is an Estimator, the Pipeline first calls LogisticRegression.fit() to produce a LogisticRegressionModel. If the Pipeline had more stages, it would call the LogisticRegressionModel’s transform() method on the DataFrame before passing the DataFrame to the next stage.&lt;/p&gt;
+
+&lt;p&gt;A Pipeline is an Estimator. Thus, after a Pipeline’s fit() method runs, it produces a PipelineModel, which is a Transformer. This PipelineModel is used at test time; the figure below illustrates this usage.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark-ml-2.png&quot; alt=&quot;spark-ml-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the figure above, the PipelineModel has the same number of stages as the original Pipeline, but all Estimators in the original Pipeline have become Transformers. When the PipelineModel’s transform() method is called on a test dataset, the data are passed through the fitted pipeline in order. Each stage’s transform() method updates the dataset and passes it to the next stage.&lt;/p&gt;
+
+&lt;p&gt;Pipelines and PipelineModels help to ensure that training and test data go through identical feature processing steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;13. Next&lt;/h2&gt;
+
+&lt;p&gt;下一次，简单的在 spark 里实现一个推荐系统。然后下下次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;14. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_any.png&quot; alt=&quot;wechat_pay_any.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=ZFBgY0PwUeY&amp;amp;feature=youtu.be&quot;&gt;Spark 2 0&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slide&lt;/code&gt; Spark 2 0&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/ml-guide.html&quot;&gt;Spark ML Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks.com/blog/2016/05/11/spark-2-0-technical-preview-easier-faster-and-smarter.html&quot;&gt;Preview of Apache Spark 2.0 now on Databricks Community Edition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>一个工程师对产品的唬说扒道</title>
@@ -2077,189 +2211,6 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;In Startups And Life, You Need Plan A, B, And Z&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</title>
-     <link href="/deep-into-spark-exection-model"/>
-     <updated>2016-03-18T00:00:00+08:00</updated>
-     <id>/deep-into-spark-exection-model</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;spark-&quot;&gt;1. spark 运行原理&lt;/h2&gt;
-
-&lt;p&gt;这一节是本文的核心，我们可以先抛出一个问题，如果看完这一节，或者这一章之后，你能理解你的整个 spark 应用的执行流程，那就可以关掉这个网页了［对了，关掉网页之前记得分享一下哦，哈哈］&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Problem: How does user program get translated into units of physical execution ?&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我们用一个例子来说明，结合例子和运行截图来理解。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1.1 例子，美国 1880 － 2014 年新生婴儿数据统计&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;目标&lt;/code&gt;：用美国 1880 － 2014 年新生婴儿的数据来做做简单的统计&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;数据源&lt;/code&gt;：&lt;a href=&quot;https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data&quot;&gt; https://catalog.data.gov&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;数据格式&lt;/code&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;每年的新生婴儿数据在一个文件里面&lt;/li&gt;
-      &lt;li&gt;每个文件的每一条数据格式：&lt;code class=&quot;highlighter-rouge&quot;&gt;姓名,性别,新生人数&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-data-format.jpg&quot; alt=&quot;baby-data-format.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;代码和结果展示&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;### packages&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### spark UDF (User Defined Functions)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map_extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### spark logic&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wholeTextFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;hdfs://10.21.208.21:8020/user/mercury/names&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                        &lt;span class=&quot;n&quot;&gt;minPartitions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;,&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt; \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### result displaying&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;birth&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;\
-         &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;birth&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;US Baby Birth Data from 1897 to 2014&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;linewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_axis_bgcolor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;white&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;gray&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;y&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-1.jpg&quot; alt=&quot;baby-name-1.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;1.2 运行流程概览&lt;/h2&gt;
-
-&lt;p&gt;还记得我们在  &lt;a href=&quot;../spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt; 讲到的构建一个 spark application 的过程吗：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;加载数据集&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;处理数据&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;结果展示&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上面的 22 行代码，就已经把构建一个 spark app 的三大步骤完成了，amazing, right? 今天我们主要讲 spark 的运行逻辑，所以我们就以核心的 11 － 16 ，这六行代码来作为今天的主线，了解了解 spark 的原理。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-2.jpg&quot; alt=&quot;baby-name-2.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;可以看到，整个逻辑实际上就用了 sparkContext 的一个函数，rdd 的 3 个 transformation 和 1 个 action。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-job.jpg&quot; alt=&quot;baby-name-job.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;现在让我们从 WEB UI 上来看看，当我们运行这段代码的时候，后台都发生了什么。
-可以看到，执行这段代码的时候，spark 通过分析，优化代码，知道这段代码需要一个 job 来完成，所以 web ui 上只有一个 job。值得深究的是，这个 job 由两个 stage 完成，这两个 state 一共有 66 个 task。&lt;/p&gt;
-
-&lt;p&gt;所以，这里我们就再次理解下 spark 里，job，stage，task 的概念：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;job&lt;/em&gt; : A job is triggered by an action, like count() or saveAsTextFile(). Click on a job to see information about the stages of tasks inside it. 理解了吗，所谓一个 job，就是由一个 rdd 的 action 触发的动作，可以简单的理解为，当你需要执行一个 rdd 的 action 的时候，会生成一个 job。&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;stage&lt;/em&gt; : stage 是一个 job 的组成单位，就是说，一个 job 会被切分成 1 个或 1 个以上的 stage，然后各个 stage 会按照执行顺序依次执行。至于 job 根据什么标准来切分 stage，可以回顾第二篇博文：&lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;task&lt;/em&gt; : A unit of work within a stage, corresponding to one RDD partition。即 stage 下的一个任务执行单元，一般来说，一个 rdd 有多少个 partition，就会有多少个 task，因为每一个 task 只是处理一个 partition 上的数据。从 web ui 截图上我们可以看到，这个 job 一共有 2 个 stage，66 个 task，平均下来每个 stage 有 33 个 task，相当于每个 stage 的数据都有 33 个 partition [注意：这里是平均下来的哦，并不都是每个 stage 有 33 个 task，有时候也会有一个 stage 多，另外一个 stage 少的情况，就看你有没有在不同的 stage 进行 repartition 类似的操作了。]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-ui-1.jpg&quot; alt=&quot;baby-name-ui-1.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;job&quot;&gt;1.3 运行流程之 : job&lt;/h2&gt;
-
-&lt;p&gt;根据上面的截图和再次重温，我们知道这个 spark 应用里只有一个 job，那就是因为我们执行了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect&lt;/code&gt; 操作，即把处理后的数据全部返回到我们的 driver 上，进行后续的画图，返回的数据如下图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-3.jpg&quot; alt=&quot;baby-name-3.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;stage&quot;&gt;1.4 运行流程之 : stage&lt;/h2&gt;
-
-&lt;p&gt;我们这个 spark 应用，生成了一个 job，这个 job 由 2 个 stage 组成，并且每个 stage 都有 33 个task，说明每个 stage 的数据都在 33 个 partition 上，这下我们就来看看，这两个 stage 的情况。&lt;/p&gt;
-
-&lt;p&gt;首先，我们先看看为什么这里会有两个 stage，根据 &lt;a href=&quot;../spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt; 中对 stage 的描述，目前有两个划分 stage 的标准：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;当触发 rdd 的 action 时 : 在我们的应用中就是最后的 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect&lt;/code&gt; 操作，关于这个操作的说明，可以看官方文档: &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.collect&quot;&gt;rdd.collect&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;当触发 rdd 的 shuffle 操作时 : 在我们的应用中就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;reduceByKey&lt;/code&gt; 这个操作，官方文档: &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.reduceByKey&quot;&gt;rdd.reduceByKey&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-4.jpg&quot; alt=&quot;baby-name-4.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;再次回顾上面那张图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-job.jpg&quot; alt=&quot;baby-name-job.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这下应该就明了了，关于两个 stage 的情况：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-5.jpg&quot; alt=&quot;baby-name-5.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;第一个 stage，即截图中 stage id 为 0 的 stage，其执行了 &lt;code class=&quot;highlighter-rouge&quot;&gt;sc.wholeTextFiles().map().flatMap().map().reduceByKey()&lt;/code&gt; 这几个步骤，因为这是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle&lt;/code&gt; 操作，所以后面会有 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Read&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Write&lt;/code&gt;。具体来说，就是在 stage 0 这个 stage 中，发生了一个 Shuffle 操作，这个操作读入 22.5 MB 的数据，生成 41.7 KB 的数据，并把生成的数据写在了硬盘上。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第二个 stage，即截图中 stage id 为 1 到 stage，其执行了 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect()&lt;/code&gt; 这个操作，因为这是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; 操作，并且它上一步是一个 Shuffle 操作，且没有后续操作，所以这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;collect()&lt;/code&gt; 这个操作被独立成一个 stage 了。这里它把上一个 Shuffle 写下的数据读取进来，然后一起返回到 driver 端，所以这里可以看到他的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Shuffle Read&lt;/code&gt; 这里刚好读取了上一个 stage 写下的数据。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;task&quot;&gt;1.5 运行流程之 : task&lt;/h2&gt;
-
-&lt;p&gt;其实到这里应该都理解得差不多了，至于为什么每个 stage 会有 33 个 task [即我们的数据文件存放到 33 个partition 上，可是明明 &lt;code class=&quot;highlighter-rouge&quot;&gt;sc.wholeTextFiles(&#39;hdfs://10.21.208.21:8020/user/mercury/names&#39;, minPartitions=40)&lt;/code&gt; 这里指定了最小要 40 个partition 到啊]，这个问题我们留到以后说，在后面我们会有一篇讲怎么调试，优化 spark app 的博文，到时候我们会继续回到这里，解答这里的问题。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/baby-name-7.jpg&quot; alt=&quot;baby-name-7.jpg&quot; /&gt;
-&lt;img src=&quot;../images/baby-name-8.jpg&quot; alt=&quot;baby-name-8.jpg&quot; /&gt;
-&lt;img src=&quot;../images/baby-name-9.jpg&quot; alt=&quot;baby-name-9.jpg&quot; /&gt;
-&lt;img src=&quot;../images/baby-name-10.jpg&quot; alt=&quot;baby-name-10.jpg&quot; /&gt;
-&lt;img src=&quot;../images/baby-name-11.jpg&quot; alt=&quot;baby-name-11.jpg&quot; /&gt;
-&lt;img src=&quot;../images/baby-name-12.jpg&quot; alt=&quot;baby-name-12.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;next&quot;&gt;2. Next&lt;/h2&gt;
-
-&lt;p&gt;既然我们都慢慢开始深入理解 spark 的执行原理了，那下次我们就来说说 spark 的一些配置吧，然后再说说 spark 应用的优化。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;7. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/pwendell/tuning-and-debugging-in-apache-spark&quot;&gt;Tuning and Debugging in Apache Spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&amp;amp;qid=1458293667&amp;amp;sr=8-1&amp;amp;keywords=learning+spark&quot;&gt;learning spark&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aiyanbo.gitbooks.io/spark-programming-guide-zh-cn/content/more/spark-configuration.html&quot;&gt;Spark配置&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://colobu.com/2014/12/10/spark-configuration/&quot;&gt;Spark 配置指南&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-5&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>

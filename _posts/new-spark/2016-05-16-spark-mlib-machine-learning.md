@@ -1,8 +1,8 @@
 ---
 layout: post
-published: false
+published: true
 title: 『 Spark 』11. spark 机器学习
-description: know more, do better 
+description: Machine Learning in Spark, 介绍 spark 里支持机器学习的两个 package，ml 和 mllib。 
 ---  
 
 
@@ -26,24 +26,25 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ![introduction-to-spark-3.jpg](../images/introduction-to-spark-3.jpg)
 
-之后准备满满开始写一些这些库的博文，我用过的只有 sql，dataframe，streaming，mlib，所以可能不会写 sparkr，bagel，graphx 的东西，不过这些网上也有不少优质文章的，哈哈。
+之后准备写一些这些库的博文，我用过的只有 sql，dataframe，streaming，mlib，所以可能不会写 sparkr，bagel，graphx 的东西，不过这些网上也有不少优质文章的，哈哈。
 
-今天再回顾回顾 mlib，进行一个小小的总结，之后再慢慢把一些实用的例子写下来。
+今天再回顾回顾 mahine learning in Spark，进行一个小小的总结，之后再慢慢把一些实用的例子写下来。
 
-## 2. Brief Intro to MLlib
+## 2. Brief Intro to Machine Learning in Spark
 
 spark 里的机器学习目前［1.6.0］有两个库：
 
-- spark.mllib ，是原始的基于 rdd api 设计和实现的机器学习库 
-- spark.ml，是基于 dataframe api 设计和实现的机器学习库
+- [spark.mllib](http://spark.apache.org/docs/latest/mllib-guide.html) ，是原始的基于 rdd api 设计和实现的机器学习库 
+- [spark.ml](http://spark.apache.org/docs/latest/ml-guide.html)，是基于 dataframe api 设计和实现的机器学习库
 
 官方推荐使用 spark.ml 来实现你的机器学习算法，并且已经说明 dataframe, datasets API 将会替换 rdd，所以自然 ml 也会在不远的将来替换 mllib 了。事实上，在 spark 2.0 中，就已经开始尝试先把 dataframe 和 datasets 统一成一个 datasets api 了。参考：[`slide` Spark 2 0](http://www.slideshare.net/databricks/2016-spark-summit-east-keynote-matei-zaharia)
 
-从官方开发计划来说，我肯定是强烈推荐使用 spark.ml 库的，而且官方也说明了的，在 spark 2.x 之后，mllib 基本只做维护，其他新的 features 都是基于 ml 来开发了；不过除去这个方面，spark.ml 提供基于 dataframe/datasets 的 pipeline 执行流程，还有基于 spark sql 的高效的 code generation，所以不论从哪个方面来说，我觉得使用 dataframe/datasets，使用 spark.ml 都是一个比较明智的选择。所以，本文，以及后期 spark 机器学习的博文，都会基于 spark.ml，dataframe/datasets 来写。
+从官方开发计划来说，我肯定是强烈推荐使用 spark.ml 库的，而且官方也说明了的，在 spark 2.x 之后，mllib 基本只做维护，其他新的 features 都是基于 ml 来开发了；不过除去这个方面，spark.ml 提供基于 dataframe/datasets 的 pipeline 执行流程，还有基于 spark sql 的高效的 code generation，所以不论从哪个方面来说，我觉得使用 dataframe/datasets，使用 spark.ml 都是一个比较明智的选择。
 
 ![spark-ml-3.png](../images/spark-ml-3.png)
 
 不过目前 ml 有一个不足的地方，ml 支持的算法目前没有 mllib 的多。
+
 
 ## 3. ML 核心概念
 
@@ -88,19 +89,13 @@ In the figure above, the PipelineModel has the same number of stages as the orig
 Pipelines and PipelineModels help to ensure that training and test data go through identical feature processing steps.
 
 
-
-
-## mllib 相关资源
-
-可以到这篇博文 [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](http://litaotao.github.io/spark-resouces-blogs-paper) ，在 mllib 目录下看一下 mllib 的好资料。
-
 ## 13. Next
 
-下一次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。
+下一次，简单的在 spark 里实现一个推荐系统。然后下下次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。
 
 ## 14. 打开微信，扫一扫，点一点，棒棒的，^_^
 
-![wechat_pay_6-6.png](../images/wechat_pay_6-6.png)
+![wechat_pay_any.png](../images/wechat_pay_any.png)
 
 
 ## 参考文章

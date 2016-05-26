@@ -164,6 +164,9 @@ ps: 我对好书的定义很简单：
 
 > 里面的文章都是经典好文啊。
 
+- [COOKIE和SESSION有什么区别？](https://www.zhihu.com/question/19786827)
+- [管理用户状态——Cookie与Session](https://mp.weixin.qq.com/s?__biz=MzAwMDMwNDk0NQ==&mid=402620884&idx=1&sn=748ed5b1fdd1513cbd756f9aba22d9f4&scene=1&srcid=0524PtsNUNNhIeXM5pFVRrZJ&key=8d8120cb97983fadf39272d32286a25d4d1649e9d16065b9ed7505f6343bdbbedf8604b977753336be30e2da19c8a5cf&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=ouW8BNyym0LBAWwoMu5hF%2B%2Bk9DI8LMK%2BHzsZ%2F0DkMigOaFgpa%2FamlmXSHyRZIDd8)
+- [均方根值（RMS）+ 均方根误差（RMSE）+标准差（Standard Deviation）](http://blog.163.com/jey_df/blog/static/1825501612013411105655629/)
 - []()
 
 
