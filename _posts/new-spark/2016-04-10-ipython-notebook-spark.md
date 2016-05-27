@@ -16,7 +16,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
 ## 1. 致谢   
 
-首先我忠心地感谢 IPython，Spark 的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个机遇 IPython Notebook 的 Spark 客户端，真的感受到 The power of technology, the power of open source.  
+首先我忠心地感谢 IPython，Spark 的开源作者，真心谢谢你们开发这么方便，好用，功能强大的项目，而且还无私地奉献给大众使用。刚刚很轻松地搭建了一个基于 IPython Notebook 的 Spark 开发环境，真的感受到 The power of technology, the power of open source.  
 下面是这两个项目的 github 地址：  
 
 - [Ipython](https://github.com/ipython/ipython)  
