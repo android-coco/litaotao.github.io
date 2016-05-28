@@ -1416,7 +1416,12 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 
 先参考 [飘逸的python - 偏函数functools.partial](http://blog.csdn.net/handsomekang/article/details/9712125)  
 
-## 58. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 58. python 中时间格式转换
+
+![python-time.jpg](../images/python-time.jpg)
+
+
+## 59. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 
