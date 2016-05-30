@@ -88,8 +88,13 @@ ps: 我对好书的定义很简单：
 
 ### 1.6 [公司财务原理（第十版），第三，四章](https://www.amazon.cn/%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86-%E7%90%86%E6%9F%A5%E5%BE%B7-A-%E5%B8%83%E9%9B%B7%E5%88%A9/dp/B006Z2YI32/ref=sr_1_2?ie=UTF8&qid=1461250263&sr=8-2&keywords=%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86)
 
+第三章，第四章是说债券，股票估值的，讲得一如既往的好。我一般都是先看原版，然后再看第八版的中译本，看看有什么漏掉的地方。第八版是把这两章合并到一章讲的，内容简单很多，还是推荐看第十版原版，讲得详细很多。
 
-总结：
+但是这次有个问题，其中第四章提到的 `市场资本化率` 这个概念，名字好奇葩啊，难以理解，直接叫 `预期到期收益率` 就好理解多了呀。我第一眼看到 `市场资本化率` 总是容易理解成 `流动股本与总股本比率[其他股本不流通，或者被国家持有类似的]`，oh，先不管了，继续接着看，没准儿哪天就能理解了呢。
+
+![pcf-1.png](../images/pcf-1.png)
+
+总结：再次说明，`公司财务原理` 和 `估值的艺术` 是我看过的觉得超级不错的讲公司财务的书，而且我觉得不仅仅是讲公司财务，还能理解一些公司运转，公司决策这些思想和原理，强烈推荐，值得认真研读。关于 `估值的艺术`，可以看我三月的读书笔记，在这里 [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
 
 推荐指数：`* * * * *`
 
@@ -101,6 +106,24 @@ ps: 我对好书的定义很简单：
 总结：如果你初入职场，对全栈工程师，growth 增长完全不了解，并且有兴趣的话，可以花2-3天时间看完这本书。
 
 推荐指数：`* *`
+
+
+### 1.8 [MongoDB权威指南（第2版）.pdf](http://pan.baidu.com/s/1i5hNu7r)
+
+MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是机遇 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容jiangde2比较浅，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。
+
+总结：就书本内容来说，两本都挺不错的。如果之前接触过 mongodb，推荐直接看第二版英文版的；如果之前没接触过 mongodb，推荐直接看第一版中文版的。
+
+推荐指数：`* * * * *`
+
+### 1.9 [区块链——新经济蓝图](https://www.amazon.cn/%E5%8C%BA%E5%9D%97%E9%93%BE-%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE%E5%8F%8A%E5%AF%BC%E8%AF%BB-%E6%A2%85%E5%85%B0%E5%A6%AE%C2%B7%E6%96%AF%E4%B8%87/dp/B01ANE1ZH4/ref=sr_1_1?ie=UTF8&qid=1464594715&sr=8-1&keywords=%E5%8C%BA%E5%9D%97%E9%93%BE%E2%80%94%E2%80%94%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE)
+
+oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量折磨大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点[郁金香](http://baike.baidu.com/subview/1005782/19581327.htm)的味道呢？
+
+oh, my gosh.
+
+总结：oh, my gosh。这本书真不知道咋个写推荐指数了，oh, my gosh.
+
 
 
 ### 1.11 [研报系列：宏观择时](http://pan.baidu.com/s/1i5hNu7r)
@@ -160,7 +183,7 @@ ps: 我对好书的定义很简单：
 - [【重磅长文】技术和科学是不同的源流，一万字读懂人类技术史](https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=2651641296&idx=1&sn=3f65244acb598f8f68d5599cb4d5dc15&scene=1&srcid=05220ulv9HLRpscIbHRe6hUe&key=8d8120cb97983faddfc814fefef84d13371f4af24b28d954a8dea6ccdfde9155059791bb67178f5a4fe77a0920295121&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=i2mSa8qzhbxkf7Yygmi7gmQsztfvHYN0h%2FTT558qJiaNMaAltw17D%2F06VteZfWM6)
 - [纯干货！面试官如何面试程序员](http://blog.jobbole.com/100702/)
 - [纯干货！程序员面试的技巧](http://blog.jobbole.com/99830/)
-- [160篇精选干货内容精编20160523 | 私募工场](https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&mid=2651442463&idx=5&sn=955d59554989ff0f4ea00b8f5281beab&scene=1&srcid=0523LdGhpiCiPyoRgX1saCSg&key=8d8120cb97983fad4f21efed0a495d8c66cd71210271ea6703679184411ede7245147d179559f367e4f1ff02d7426352&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=58KQfrxdep1KCNhDrD4Sowiu6JC%2BtWbJVU3lEFWSuJeI2eHPntuvLd0Cgd%2BlcSfM)
+- [160篇精选干货内容精编20160523 私募工场](https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&mid=2651442463&idx=5&sn=955d59554989ff0f4ea00b8f5281beab&scene=1&srcid=0523LdGhpiCiPyoRgX1saCSg&key=8d8120cb97983fad4f21efed0a495d8c66cd71210271ea6703679184411ede7245147d179559f367e4f1ff02d7426352&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=58KQfrxdep1KCNhDrD4Sowiu6JC%2BtWbJVU3lEFWSuJeI2eHPntuvLd0Cgd%2BlcSfM)
 
 > 里面的文章都是经典好文啊。
 
