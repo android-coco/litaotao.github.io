@@ -1,6 +1,6 @@
 ---
 category: work
-published: false
+published: true
 layout: post
 title: 台球知识总结
 description: 来个一杆收吧.
@@ -9,8 +9,20 @@ description: 来个一杆收吧.
 
 ## 写在前面
 
-四月初和同事去打过一次台球，又激发起对台球的喜爱。可是发现自己把这些 `爱好` 都藏得太深了，一昧扎头在工作之中，为了梦想的别墅和科迈罗。可是回头想想，是不是如果花时间在爱好上就一定会影响自己实现梦想的速度呢？这个问题真的很值得思考，因为也经常听到一种声音 “等有钱了／解套了［股票回本了］／天气好了／代码写完了 ...”，难道兴趣和爱好真的只有在自己拥有一直所想要都一切之后才能浮出生活吗？
+四月初和同事去打过一次台球，又激发起对台球的喜爱。可是发现自己把这些 `爱好` 都藏得太深了，一昧扎头在工作之中，为了梦想的别墅和科迈罗。可是回头想想，是不是如果花时间在爱好上就一定会影响自己实现梦想的速度呢？这个问题真的很值得思考，因为也经常听到一种声音 `等有钱了／解套了［股票回本了］／天气好了／代码写完了 ...`，难道兴趣和爱好真的只有在自己拥有一直所想要都一切之后才能浮出生活吗？我想应该不是这样的：
 
+- 首先，兴趣，爱好不仅是生活的调味剂，还应该也是工作的调味剂
+- 其次，我发现其实就算每天都是埋头工作，其实也有不少时间是在玩手机，刷朋友圈，看新闻 ...，在这些琐事里抽点时间，也能把台球技术练起来啊［当然练台球也不一定要去球馆啊，可以先把它的原理搞清楚，知道你这个球如何走位，发多少力度，然后打球的时候就真正是在练 `手感，球感` 了。记得以前每次打球，遇到库边球的时候，我都要想半天除了撞点以外，到底是左塞还是右塞才能让进袋的几率加大呢，foolish］
+- 最后，凡事不能等，如果真的要等到有别墅豪车了再去练球，那万一到时候已经进化到 `弱水三千，只让工作陪` 的境界了呢，oh，不敢想象。
+
+所以我 4 月底就制定了 5 月的计划，计划 5 月期间把能找到的台球相关的好资料都读一遍，熟知台球的基本原理。我原本打算用搜索引擎来找相关资料的，后来发现网络上资料太多太杂，没法看，最后发现居然微信上搜出来的文章质量更高一些。哈哈，意料之外，情理之中啊。
+
+我订阅了两个微信公众号，一个是台球教学: `taiqiujiaoxue`，另外一个是 17SNK台球：`snk_shequ`。原本计划是把这两个公众号的历史文章都看完，后来看到台球教学这个公众号 2014年11月 左右的文章后，我已经总结了这个公众号里面的一些文章，并且发现之前的文章似乎都是新壶装旧酒了，而且有的在台球教学这个公众号出现的文章也在 17SNK台球 这个公众号里也出现了。so，秉持着 `deepth then horizens` 的原则，我准备先多回顾所有看过的这些文字，把里面提到的知识点和技巧再次融会贯通到脑壳里，再去继续深入探讨更多相关的话题。
+
+
+所以，下面的这些文章，基本上都来自我对台球教学这个公众号自 2014.11 到 2016.05 月的所有文章的整理，里面的基本都看过，觉得有用才记下来的。微信分享的有一些有时间限制，如果链接过期可以直接用微信扫扫就行了。
+
+ps：还会继续看相关文章，遇到不错的会继续更新上来。
 
 
 ## 1. 基础知识
@@ -59,9 +71,7 @@ description: 来个一杆收吧.
 - [一个台球高手的十点经验总结](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=203183522&idx=3&sn=f2265df5e496c1246ed920d664f1b7fd&scene=1&srcid=0513OAbjkNG7hFGd1TQuVC7b&key=8d8120cb97983fad3872b4e9aa747a77e01784273534abeb1170d2080b981381dc8e46b1556618b03c894a871e1ad975&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
 - [台球基础：最简单的翻袋公式](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=203238443&idx=2&sn=533bd0588baee5a43dd76b5c805e738b&scene=1&srcid=05132uF3mPby28DpqtRaBVIJ&key=8d8120cb97983fad1f97f8c3cf4166549d118ebd1aa27bed7b8139c76bb2651f7818022a364c0606cb180966389e4fcd&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
 - [台球用品之巧克粉](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=203263865&idx=2&sn=645ba7b6bb8a8e9711fddb113bf6c42b&scene=1&srcid=0513wkmeu8WrppLO1rVhkThk&key=8d8120cb97983fadd03c4f384d3259d2992c0515f5a967c8751e3615c662ee343a446f7a853d98c185e5b9bdd2fa4151&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
-- []()
-- []()
-- []()
+
 
 
 
@@ -114,9 +124,7 @@ description: 来个一杆收吧.
 - [尼克.保罗台球基础教程：简单省力的运杆动作](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=208058601&idx=2&sn=c03887419d3b5af222a18f642fb3c036&scene=1&srcid=05081BPdXPAsRjlusg9vNmpa&key=b28b03434249256b2c3c0b242d2ad1acff0205cf6b1a534239ae6fdb0192d76bcf412075a8f2f024b87c89f40d0e4aee&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=dsmDHWhR9Ayusn1usKBDaHVj0fjqDKHonrjQbh%2BbK9FozWX7TkgGQAaHCvUnQfFD)
 - [尼克.保罗台球基础教程：运杆动作的基本规则](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=208126017&idx=1&sn=bc7640850f42c62223b5b2e312132347&scene=1&srcid=0508aIuRqFT5FCLosujHGWu6&key=b28b03434249256bee750eccd6f337ec41cb10d7c1b93d5749cebc7564f86fa8d327b7c986fcf4c78e3bb80b25c2432e&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=dsmDHWhR9Ayusn1usKBDaHVj0fjqDKHonrjQbh%2BbK9FozWX7TkgGQAaHCvUnQfFD)
 - [尼克.保罗台球基础教程：后摆与送杆的分离](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=208255900&idx=1&sn=46cac9f2ff446ff46029637e83e01f97&scene=1&srcid=0508UAskS2irxrjhTzPgI8nZ&key=b28b03434249256b79c58b210a94a40aaae1fed5abefab1b947a27f9ddfa623ae579b5a0dccf2d072ed9418fac18dff6&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=dsmDHWhR9Ayusn1usKBDaHVj0fjqDKHonrjQbh%2BbK9FozWX7TkgGQAaHCvUnQfFD)
-- []()
-- []()
-- []()
+
 
 
 
@@ -124,8 +132,7 @@ description: 来个一杆收吧.
 
 - [刘军斯诺克教学视频](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=401378237&idx=4&sn=6d170c936b7f70335d5e93e73aaee546&scene=1&srcid=043081SXDVkYRdOXcnGQjv9D&key=b28b03434249256b2296b1bd2d750888d47946fdfdd9f98c582ccbb1064092de4c91f02bd6aa0bcb1007f32802b5f501&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=8qA63fh%2FUVupEI5btNGrCxRGS3sRpbsoRDe0EA989gz9wMDSVuTBStGTOeHm4xig)
 - [【视频】非常标准的斯诺克拉伸式发力的后手动作](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=201222767&idx=6&sn=0be40378af5a1f58068d2212044379cc&scene=1&srcid=0513u4FQ54D7mL5Pv70obLgg&key=8d8120cb97983fad2ef987100850208a7fc9b55de6cc0782246474b73ce3730cb7fa27b75dbdae59818e3bf2edee0f63&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
-- []()
-- []()
+
 
 ## 4. 进阶视频
 
@@ -138,7 +145,6 @@ description: 来个一杆收吧.
 - [【视频】台球界的奇迹，特鲁姆普变态的杆法](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=206560680&idx=3&sn=5f8c436eac67ece4c2e0708b421eb852&scene=1&srcid=0508eGIooNeabOGND4k0wISE&key=b28b03434249256b25bf9e68de6e8d153ae2437daa11cdf7497d5da1ff8c284e86f055418ba161073eb96729e3424cd7&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=dsmDHWhR9Ayusn1usKBDaHVj0fjqDKHonrjQbh%2BbK9FozWX7TkgGQAaHCvUnQfFD)
 - [精彩视频：特鲁姆普变态的杆法](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=203135980&idx=4&sn=c8f7d911c23ea888ffe87fe6251b4bdc&scene=1&srcid=0513xhcVPkYU8Wma1BvN1mRM&key=8d8120cb97983fad31f403c928adc411efb4a7f43f449e39603b41d2f9b3b26ea016ae3aab15dc4d0e5a9d548dd0fb46&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
 - [视频：反弹的另类打法，这样也能进，真是逆天了。](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=203263865&idx=7&sn=e1c4748dfb7d7519fcab66e50918286f&scene=1&srcid=0513WBhry8Us15dQXiMqWxKj&key=8d8120cb97983fad399161eb28750da2e7244ca41b9b31c549c403fec5f00b459c067f94e78fb017cfb127d863900535&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
-- []()
-- []()
+
 
 
