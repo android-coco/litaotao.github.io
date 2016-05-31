@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-05-30T18:00:09+08:00</updated>
+   <updated>2016-05-31T15:36:39+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -107,7 +107,7 @@
    <entry>
      <title>『 读书笔记 』5月读书总结｜博文推荐</title>
      <link href="/books-recommend-and-summarize-on-May-2016"/>
-     <updated>2016-05-30T00:00:00+08:00</updated>
+     <updated>2016-05-31T00:00:00+08:00</updated>
      <id>/books-recommend-and-summarize-on-May-2016</id>
      <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
@@ -117,9 +117,9 @@
 
 &lt;p&gt;下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/book-reading-04.png&quot; alt=&quot;book-reading-04.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/book-reading-05.png&quot; alt=&quot;book-reading-05.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是 coursera 上的一门公开课 &lt;em&gt;Successful Negotiation: Essential Strategies and Skills&lt;/em&gt;，也当是一本书了。其中有电子书版的都放到亲爱的&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;度娘云&lt;/a&gt;里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。&lt;/p&gt;
+&lt;p&gt;本月原计划安排了 19 本书，实际只看了 10 本书，其中标记为 &lt;code class=&quot;highlighter-rouge&quot;&gt;---&lt;/code&gt; 的是正在看的，没有看完的了，下个月看完了再写上来。其中有电子书版的都放到亲爱的&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;度娘云&lt;/a&gt;里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。&lt;/p&gt;
 
 &lt;p&gt;ps: 我对好书的定义很简单：&lt;/p&gt;
 
@@ -132,7 +132,7 @@
   &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
 
@@ -146,15 +146,15 @@
 
 &lt;p&gt;总结：如果你闲得蛋疼的话，来读这本书吧。&lt;/p&gt;
 
-&lt;p&gt;推荐指数：&lt;/p&gt;
+&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;advanced-analytics-with-sparkhttpswwwamazoncnsparke9ab98e7baa7e695b0e68daee58886e69e90-e9878ce6898edpb015vtkn5qrefsr11ieutf8qid1462618411sr8-1keywordsadvancedspark&quot;&gt;1.2 &lt;a href=&quot;https://www.amazon.cn/Spark%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E9%87%8C%E6%89%8E/dp/B015VTKN5Q/ref=sr_1_1?ie=UTF8&amp;amp;qid=1462618411&amp;amp;sr=8-1&amp;amp;keywords=advanced+spark&quot;&gt;Advanced Analytics with Spark&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;httpsgithubcomphodalgrowth-ebook&quot;&gt;1.2 &lt;a href=&quot;https://github.com/phodal/growth-ebook&quot;&gt;插播：百度搜索引擎网页质量白皮书&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;选好书：orelly，preface，content，author，safaribooksonline，github repo for code&lt;/p&gt;
+&lt;p&gt;中途插入的，当时要在看 &lt;a href=&quot;https://www.amazon.cn/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2-%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%8E%E6%94%B6%E5%85%A5%E5%A2%9E%E9%95%BF%E7%A7%98%E7%B1%8D-%E8%8C%83%E5%86%B0/dp/B011BHQSV0/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1463890320&amp;amp;sr=1-1&amp;amp;keywords=%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2&quot;&gt;增长黑客&lt;/a&gt; 的时候，需要对 SEO 也了解一下，所以就下载了百度的和 google 的 seo 指南，很让我惊奇啊。google 的 seo 指南有满满的140多页，而百度的手册居然连 google 的零头都不到，oh my g~o~d。难以置信，算了，虽然我很想以偏概全，但还是得说百度依然是一个伟大的公司，虽然我从不用它的搜索产品，但其他产品还是挺ok的。&lt;/p&gt;
 
-&lt;p&gt;总结：&lt;/p&gt;
+&lt;p&gt;总结：虽然你看了，并且按照百度制定的规范去做了，对你的 seo 可能也没多大用。不过，推荐也看一看。&lt;/p&gt;
 
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * *&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;hadoop3httpswwwamazoncnhadoope69d83e5a881e68c87e58d97-e68080e789b9dpb00oufxpdarefsr11sbooksieutf8qid1463474378sr1-1keywordshadoope69d83e5a881e68c87e58d97&quot;&gt;1.3 &lt;a href=&quot;https://www.amazon.cn/Hadoop%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E6%80%80%E7%89%B9/dp/B00OUFXPDA/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1463474378&amp;amp;sr=1-1&amp;amp;keywords=hadoop+%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97&quot;&gt;Hadoop权威指南(第3版)(修订版)&lt;/a&gt;&lt;/h3&gt;
 
@@ -198,7 +198,7 @@
 
 &lt;h3 id=&quot;growth-httpsgithubcomphodalgrowth-ebook&quot;&gt;1.7 &lt;a href=&quot;https://github.com/phodal/growth-ebook&quot;&gt;Growth 全栈增长工程师指南&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还停清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。&lt;/p&gt;
+&lt;p&gt;本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还挺清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。&lt;/p&gt;
 
 &lt;p&gt;总结：如果你初入职场，对全栈工程师，growth 增长完全不了解，并且有兴趣的话，可以花2-3天时间看完这本书。&lt;/p&gt;
 
@@ -206,7 +206,7 @@
 
 &lt;h3 id=&quot;mongodb2pdfhttppanbaiducoms1i5hnu7r&quot;&gt;1.8 &lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;MongoDB权威指南（第2版）.pdf&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是机遇 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容jiangde2比较浅，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。&lt;/p&gt;
+&lt;p&gt;MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是基于 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容简单，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。&lt;/p&gt;
 
 &lt;p&gt;总结：就书本内容来说，两本都挺不错的。如果之前接触过 mongodb，推荐直接看第二版英文版的；如果之前没接触过 mongodb，推荐直接看第一版中文版的。&lt;/p&gt;
 
@@ -214,13 +214,13 @@
 
 &lt;h3 id=&quot;httpswwwamazoncne58cbae59d97e993be-e696b0e7bb8fe6b58ee8939de59bbee58f8ae5afbce8afbb-e6a285e585b0e5a6aec2b7e696afe4b887dpb01ane1zh4refsr11ieutf8qid1464594715sr8-1keywordse58cbae59d97e993bee28094e28094e696b0e7bb8fe6b58ee8939de59bbe&quot;&gt;1.9 &lt;a href=&quot;https://www.amazon.cn/%E5%8C%BA%E5%9D%97%E9%93%BE-%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE%E5%8F%8A%E5%AF%BC%E8%AF%BB-%E6%A2%85%E5%85%B0%E5%A6%AE%C2%B7%E6%96%AF%E4%B8%87/dp/B01ANE1ZH4/ref=sr_1_1?ie=UTF8&amp;amp;qid=1464594715&amp;amp;sr=8-1&amp;amp;keywords=%E5%8C%BA%E5%9D%97%E9%93%BE%E2%80%94%E2%80%94%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE&quot;&gt;区块链——新经济蓝图&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量折磨大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点&lt;a href=&quot;http://baike.baidu.com/subview/1005782/19581327.htm&quot;&gt;郁金香&lt;/a&gt;的味道呢？&lt;/p&gt;
+&lt;p&gt;oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量这么大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点&lt;a href=&quot;http://baike.baidu.com/subview/1005782/19581327.htm&quot;&gt;郁金香&lt;/a&gt;的味道呢？&lt;/p&gt;
 
 &lt;p&gt;oh, my gosh.&lt;/p&gt;
 
 &lt;p&gt;总结：oh, my gosh。这本书真不知道咋个写推荐指数了，oh, my gosh.&lt;/p&gt;
 
-&lt;h3 id=&quot;httppanbaiducoms1i5hnu7r&quot;&gt;1.11 &lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;研报系列：宏观择时&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;httppanbaiducoms1i5hnu7r&quot;&gt;1.10 &lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;研报系列：宏观择时&lt;/a&gt;&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/566a98a5f9f06c6c8a91cb82&quot;&gt;【干货包邮】手把手教你做宏观择时&lt;/a&gt;&lt;/li&gt;
@@ -343,7 +343,7 @@
 
 &lt;p&gt;所以我 4 月底就制定了 5 月的计划，计划 5 月期间把能找到的台球相关的好资料都读一遍，熟知台球的基本原理。我原本打算用搜索引擎来找相关资料的，后来发现网络上资料太多太杂，没法看，最后发现居然微信上搜出来的文章质量更高一些。哈哈，意料之外，情理之中啊。&lt;/p&gt;
 
-&lt;p&gt;我订阅了两个微信公众号，一个是台球教学: &lt;code class=&quot;highlighter-rouge&quot;&gt;taiqiujiaoxue&lt;/code&gt;，另外一个是 17SNK台球：&lt;code class=&quot;highlighter-rouge&quot;&gt;snk_shequ&lt;/code&gt;。原本计划是把这两个公众号的历史文章都看完，后来看到台球教学这个公众号 2014年11月 左右的文章后，我已经总结了这个公众号里面的一些文章，并且发现之前的文章似乎都是新壶装旧酒了，而且有的在台球教学这个公众号出现的文章也在 17SNK台球 这个公众号里也出现了。so，秉持着 &lt;code class=&quot;highlighter-rouge&quot;&gt;deepth then horizens&lt;/code&gt; 的原则，我准备先多回顾所有看过的这些文字，把里面提到的知识点和技巧再次融会贯通到脑壳里，再去继续深入探讨更多相关的话题。&lt;/p&gt;
+&lt;p&gt;我订阅了两个微信公众号，一个是台球教学: &lt;code class=&quot;highlighter-rouge&quot;&gt;taiqiujiaoxue&lt;/code&gt;，另外一个是 17SNK台球：&lt;code class=&quot;highlighter-rouge&quot;&gt;snk_shequ&lt;/code&gt;。原本计划是把这两个公众号的历史文章都看完，后来看到台球教学这个公众号 2014年11月 左右的文章后，我已经总结了这个公众号里面的一些文章，并且发现之前的文章似乎都是新壶装旧酒了，而且有的在台球教学这个公众号出现的文章也在 17SNK台球 这个公众号里也出现了。so，秉持着 &lt;code class=&quot;highlighter-rouge&quot;&gt;deepth then horizon&lt;/code&gt; 的原则，我准备先多回顾所有看过的这些文字，把里面提到的知识点和技巧再次融会贯通到脑壳里，再去继续深入探讨更多相关的话题。&lt;/p&gt;
 
 &lt;p&gt;所以，下面的这些文章，基本上都来自我对台球教学这个公众号自 2014.11 到 2016.05 月的所有文章的整理，里面的基本都看过，觉得有用才记下来的。微信分享的有一些有时间限制，如果链接过期可以直接用微信扫扫就行了。&lt;/p&gt;
 

@@ -1,6 +1,6 @@
 ---
 category: books-2016
-published: false
+published: true
 layout: post
 title: 『 读书笔记 』5月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
@@ -14,9 +14,9 @@ description: the more you read, the more you think, better you'll be.
 
 下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。
 
-![book-reading-04.png](../images/book-reading-04.png)
+![book-reading-05.png](../images/book-reading-05.png)
 
-本月看了 11 本书，其中第十本是一些研报的合集，就当是一本了；第十一本是 coursera 上的一门公开课 *Successful Negotiation: Essential Strategies and Skills*，也当是一本书了。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1i5hNu7r)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
+本月原计划安排了 19 本书，实际只看了 10 本书，其中标记为 `---` 的是正在看的，没有看完的了，下个月看完了再写上来。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1i5hNu7r)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
 
 ps: 我对好书的定义很简单：
 
@@ -27,7 +27,7 @@ ps: 我对好书的定义很简单：
 - 留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]
 - 最后一条，印刷质量要好
 
-上月读书总结：[『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
+上月读书总结：[『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
 
 
 ## 1. 读书总结
@@ -42,17 +42,16 @@ ps: 我对好书的定义很简单：
 
 总结：如果你闲得蛋疼的话，来读这本书吧。
 
-推荐指数：
+推荐指数：`NULL`
 
 
-### 1.2 [Advanced Analytics with Spark](https://www.amazon.cn/Spark%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E9%87%8C%E6%89%8E/dp/B015VTKN5Q/ref=sr_1_1?ie=UTF8&qid=1462618411&sr=8-1&keywords=advanced+spark)
+### 1.2 [插播：百度搜索引擎网页质量白皮书](https://github.com/phodal/growth-ebook)
 
-选好书：orelly，preface，content，author，safaribooksonline，github repo for code
+中途插入的，当时要在看 [增长黑客](https://www.amazon.cn/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2-%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%8E%E6%94%B6%E5%85%A5%E5%A2%9E%E9%95%BF%E7%A7%98%E7%B1%8D-%E8%8C%83%E5%86%B0/dp/B011BHQSV0/ref=sr_1_1?s=books&ie=UTF8&qid=1463890320&sr=1-1&keywords=%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2) 的时候，需要对 SEO 也了解一下，所以就下载了百度的和 google 的 seo 指南，很让我惊奇啊。google 的 seo 指南有满满的140多页，而百度的手册居然连 google 的零头都不到，oh my g~o~d。难以置信，算了，虽然我很想以偏概全，但还是得说百度依然是一个伟大的公司，虽然我从不用它的搜索产品，但其他产品还是挺ok的。
 
+总结：虽然你看了，并且按照百度制定的规范去做了，对你的 seo 可能也没多大用。不过，推荐也看一看。
 
-总结：
-
-推荐指数：`* * * * *`
+推荐指数：`* * *`
 
 
 ### 1.3 [Hadoop权威指南(第3版)(修订版)](https://www.amazon.cn/Hadoop%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E6%80%80%E7%89%B9/dp/B00OUFXPDA/ref=sr_1_1?s=books&ie=UTF8&qid=1463474378&sr=1-1&keywords=hadoop+%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97)
@@ -101,7 +100,7 @@ ps: 我对好书的定义很简单：
 
 ### 1.7 [Growth 全栈增长工程师指南](https://github.com/phodal/growth-ebook)
 
-本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还停清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。
+本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还挺清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。
 
 总结：如果你初入职场，对全栈工程师，growth 增长完全不了解，并且有兴趣的话，可以花2-3天时间看完这本书。
 
@@ -110,7 +109,7 @@ ps: 我对好书的定义很简单：
 
 ### 1.8 [MongoDB权威指南（第2版）.pdf](http://pan.baidu.com/s/1i5hNu7r)
 
-MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是机遇 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容jiangde2比较浅，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。
+MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是基于 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容简单，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。
 
 总结：就书本内容来说，两本都挺不错的。如果之前接触过 mongodb，推荐直接看第二版英文版的；如果之前没接触过 mongodb，推荐直接看第一版中文版的。
 
@@ -118,7 +117,7 @@ MongoDB权威指南这本书目前出到第二版了，但是第二版只有英�
 
 ### 1.9 [区块链——新经济蓝图](https://www.amazon.cn/%E5%8C%BA%E5%9D%97%E9%93%BE-%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE%E5%8F%8A%E5%AF%BC%E8%AF%BB-%E6%A2%85%E5%85%B0%E5%A6%AE%C2%B7%E6%96%AF%E4%B8%87/dp/B01ANE1ZH4/ref=sr_1_1?ie=UTF8&qid=1464594715&sr=8-1&keywords=%E5%8C%BA%E5%9D%97%E9%93%BE%E2%80%94%E2%80%94%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE)
 
-oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量折磨大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点[郁金香](http://baike.baidu.com/subview/1005782/19581327.htm)的味道呢？
+oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量这么大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点[郁金香](http://baike.baidu.com/subview/1005782/19581327.htm)的味道呢？
 
 oh, my gosh.
 
@@ -126,7 +125,7 @@ oh, my gosh.
 
 
 
-### 1.11 [研报系列：宏观择时](http://pan.baidu.com/s/1i5hNu7r)
+### 1.10 [研报系列：宏观择时](http://pan.baidu.com/s/1i5hNu7r)
 
 - [【干货包邮】手把手教你做宏观择时](https://uqer.io/community/share/566a98a5f9f06c6c8a91cb82)
 - [宏观因子模型的择时效应](http://pan.baidu.com/s/1i5hNu7r)
