@@ -40,6 +40,8 @@ description: 这个标题吸引到你了吗？那就进来看看呗～～～
 ![python-quant.0019.jpeg](../images/python-quant/python-quant.025.jpeg)
 
 
+讲稿 pdf 版：[python-quant-uqer.pdf](http://litaotao.github.io/files/python-quant-uqer.pdf)
+
 ## 2. 参考文档
 
 - [『06.02 公开课』1. Python Basics](https://uqer.io/community/share/575113fa228e5b869e1fc5f2)
