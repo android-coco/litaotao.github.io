@@ -140,7 +140,7 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [`slide` Not Your Father's Database: How to Use Apache Spark Properly in Your Big Data Architecture](http://www.slideshare.net/SparkSummit/not-your-fathers-database-by-vida-ha)
 
 - [Disrupting Big Data with Apache Spark in the Cloud](https://www.youtube.com/watch?v=vob_kn10aNU)
-- [Disrupting Big Data with Apache Spark in the Cloud](http://www.slideshare.net/JenAman/distributing-big-data-with-apache-spark-in-the-cloud)
+- [`slide` Disrupting Big Data with Apache Spark in the Cloud](http://www.slideshare.net/JenAman/distributing-big-data-with-apache-spark-in-the-cloud)
 
 >>
 我一直很欣赏 databricks 出的 video 和 slide，结构非常清晰，这个是其中一个非常好的演讲，里面有很多值得借鉴的地方，特别是当你像别人介绍你的工作，产品的时候。[我有一个感受，很少有人能清晰，有条理的介绍自己正在做的产品，对于一些小众的产品，甚至一些职业的销售也难以做到清晰，简明的叙述。这个 video 和 slide 有很大的参考价值。我自己感觉仔细研究这些 video 和 slide 有时候比看上一两本专业讲销售的书还要管用。]
