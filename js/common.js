@@ -44,3 +44,4 @@ function present_mode(){
     $("#content")[0].style.marginRight = "120px";
     $("#content")[0].style.width = "90%";
 }
+

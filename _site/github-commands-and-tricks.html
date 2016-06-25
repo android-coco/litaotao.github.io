@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>git 常用命令及一些小技巧 | Taotao's Zone</title>
+  <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
+  <meta name="baidu-site-verification" content="hgXDOPtWLn" />
+  <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <script src="/files/dc3da690b0d2a5655a8d6150862a2a07.html"></script>
+  <!-- <link rel="stylesheet" href="/css/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/css/default-min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop-min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile-min.css" type="text/css" />
+  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+  
+  <!-- growingIO code -->
+  <script type='text/javascript'>
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function(){
+        _vds.push(['setAccountId', '9f3f34627219ccd1']);
+        (function() {
+          var vds = document.createElement('script');
+          vds.type='text/javascript';
+          vds.async = true;
+          vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(vds, s);
+        })();
+      })();
+  </script>
+  
+  <!-- 删掉 baidu spider 主动推送，无效 -->
+  <!-- baidu spider initiative push -->
+<!-- <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+  </script> -->
+  
+  <!-- google analytics push code -->
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72176628-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+
+</head>
+
+<!-- meiqia plug-in -->
+<!-- 
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[a] = m[a] || function() {
+            (m[a].a = m[a].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = i + '?v=' + new Date().getUTCDate();
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '//static.meiqia.com/dist/meiqia.js', '_MEIQIA');
+    _MEIQIA('entId', 15857);
+</script>
+ -->
+
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    /*background: #333333;*/
+    background: rgb(246, 246, 246);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*body { background:transparent;}*/
+  @media screen and (max-width: 770px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/2.jpg');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/github-commands-and-tricks" title="git 常用命令及一些小技巧">git 常用命令及一些小技巧</a></h1>    
+
+    <p class="entry-date">2016-06-10 
+        <span class="lastModified" style="display: none;" data-source="_posts/tools/2016-06-10-github-commands-and-tricks.md">最后更新时间: 
+        </span>
+    </p>
+
+
+    <h2 id="section">1. 常用命令</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git init                                                  # 初始化本地git仓库（创建新仓库）
+git config --global user.name "xxx"                       # 配置用户名
+git config --global user.email "xxx@xxx.com"              # 配置邮件
+git config --global color.ui true                         # git status等命令自动着色
+git config --global color.status auto
+git config --global color.diff auto
+git config --global color.branch auto
+git config --global color.interactive auto
+git config --global --unset http.proxy                    # remove  proxy configuration on git
+git clone git+ssh://git@192.168.53.168/VT.git             # clone远程仓库
+git status                                                # 查看当前版本状态（是否修改）
+git add xyz                                               # 添加xyz文件至index
+git add .                                                 # 增加当前子目录下所有更改过的文件至index
+git commit -m 'xxx'                                       # 提交
+git commit --amend -m 'xxx'                               # 合并上一次提交（用于反复修改）
+git commit -am 'xxx'                                      # 将add和commit合为一步
+git rm xxx                                                # 删除index中的文件
+git rm -r *                                               # 递归删除
+git log                                                   # 显示提交日志
+git log -1                                                # 显示1行日志 -n为n行
+git log -5
+git log --stat                                            # 显示提交日志及相关变动文件
+git log -p -m
+git show dfb02e6e4f2f7b573337763e5c0013802e392818         # 显示某个提交的详细内容
+git show dfb02                                            # 可只用commitid的前几位
+git show HEAD                                             # 显示HEAD提交日志
+git show HEAD^                                            # 显示HEAD的父（上一个版本）的提交日志 ^^为上两个版本 ^5为上5个版本
+git tag                                                   # 显示已存在的tag
+git tag -a v2.0 -m 'xxx'                                  # 增加v2.0的tag
+git show v2.0                                             # 显示v2.0的日志及详细内容
+git log v2.0                                              # 显示v2.0的日志
+git diff                                                  # 显示所有未添加至index的变更
+git diff --cached                                         # 显示所有已添加index但还未commit的变更
+git diff HEAD^                                            # 比较与上一个版本的差异
+git diff HEAD -- ./lib                                    # 比较与HEAD版本lib目录的差异
+git diff origin/master..master                            # 比较远程分支master上有本地分支master上没有的
+git diff origin/master..master --stat                     # 只显示差异的文件，不显示具体内容
+git remote add origin git+ssh://git@192.168.53.168/VT.git # 增加远程定义（用于push/pull/fetch）
+git branch                                                # 显示本地分支
+git branch --contains 50089                               # 显示包含提交50089的分支
+git branch -a                                             # 显示所有分支
+git branch -r                                             # 显示所有原创分支
+git branch --merged                                       # 显示所有已合并到当前分支的分支
+git branch --no-merged                                    # 显示所有未合并到当前分支的分支
+git branch -m master master_copy                          # 本地分支改名
+git checkout -b master_copy                               # 从当前分支创建新分支master_copy并检出
+git checkout -b master master_copy                        # 上面的完整版
+git checkout features/performance                         # 检出已存在的features/performance分支
+git checkout --track hotfixes/BJVEP933                    # 检出远程分支hotfixes/BJVEP933并创建本地跟踪分支
+git checkout v2.0                                         # 检出版本v2.0
+git checkout -b devel origin/develop                      # 从远程分支develop创建新本地分支devel并检出
+git checkout -- README                                    # 检出head版本的README文件（可用于修改错误回退）
+git merge origin/master                                   # 合并远程master分支至当前分支
+git cherry-pick ff44785404a8e                             # 合并提交ff44785404a8e的修改
+git push origin master                                    # 将当前分支push到远程master分支
+git push origin :hotfixes/BJVEP933                        # 删除远程仓库的hotfixes/BJVEP933分支
+git push --tags                                           # 把所有tag推送到远程仓库
+git fetch                                                 # 获取所有远程分支（不更新本地分支，另需merge）
+git fetch --prune                                         # 获取所有原创分支并清除服务器上已删掉的分支
+git pull origin master                                    # 获取远程分支master并merge到当前分支
+git mv README README2                                     # 重命名文件README为README2
+git reset --hard HEAD                                     # 将当前版本重置为HEAD（通常用于merge失败回退）
+git rebase
+git branch -d hotfixes/BJVEP933                           # 删除分支hotfixes/BJVEP933（本分支修改已合并到其他分支）
+git branch -D hotfixes/BJVEP933                           # 强制删除分支hotfixes/BJVEP933
+git ls-files                                              # 列出git index包含的文件
+git show-branch                                           # 图示当前分支历史
+git show-branch --all                                     # 图示所有分支历史
+git whatchanged                                           # 显示提交历史对应的文件修改
+git revert dfb02e6e4f2f7b573337763e5c0013802e392818       # 撤销提交dfb02e6e4f2f7b573337763e5c0013802e392818
+git ls-tree HEAD                                          # 内部命令：显示某个git对象
+git rev-parse v2.0                                        # 内部命令：显示某个ref对于的SHA1 HASH
+git reflog                                                # 显示所有提交，包括孤立节点
+git show HEAD@{5}
+git show master@{yesterday}                               # 显示master分支昨天的状态
+git log --pretty=format:'%h %s' --graph                   # 图示提交日志
+git show HEAD~3
+git show -s --pretty=raw 2be7fcb476
+git stash                                                 # 暂存当前修改，将所有至为HEAD状态
+git stash list                                            # 查看所有暂存
+git stash show -p stash@{0}                               # 参考第一次暂存
+git stash apply stash@{0}                                 # 应用第一次暂存
+git grep "delete from"                                    # 文件中搜索文本“delete from”
+git grep -e '#define' --and -e SORT_DIRENT
+git gc
+git fsck
+</code></pre>
+</div>
+
+<h2 id="section-1">2. 常用技巧</h2>
+
+<ul>
+  <li>更改分支名字</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch -m old_branch new_branch         # Rename branch locally    
+git push origin :old_branch                 # Delete the old branch    
+git push --set-upstream origin new_branch   # Push the new branch, set local branch to track the new remote
+</code></pre>
+</div>
+
+<h2 id="section-2">参考文章</h2>
+
+<ul>
+  <li><a href="https://gist.github.com/guweigang/9848271">git命令大全</a></li>
+</ul>
+
+
+    <!-- share icon -->
+    <!-- <div class="ds-share" data-thread-key="/github-commands-and-tricks" data-title="git 常用命令及一些小技巧"
+         data-content="content"
+         data-url="http://litaotao.github.io//github-commands-and-tricks">
+        <div class="ds-share-aside-left">
+          <div class="ds-share-aside-inner">
+          </div>
+          <div class="ds-share-aside-toggle">分享</div>
+        </div>
+    </div>
+ -->
+    <!-- 百度分享按钮 -->
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"7","bdPos":"left","bdTop":"118"},"image":{"viewList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+    <div id="disqus_container">
+      <div style="margin-bottom:20px">
+      <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key=/github-commands-and-tricks data-title=git 常用命令及一些小技巧 data-url=/github-commands-and-tricks></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:"litaotao"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.src = '../js/embed.js'
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+  
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo">
+        <center>
+          <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;">
+          </div>
+          <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+          <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+          <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
+          <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
+          <button onclick="present_mode()"><i class="icon-align-justify icon-large"></i> Present Mode</button>
+        </center>
+    </div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //博文页面也做一下刷新操作，避免有时候切换横竖屏时格式不对的问题  
+    // $( window ).resize(function() { 
+    //     location.reload(); 
+    // });
+</script>
+
+
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1258855744'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258855744' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+
+</body>
+</html>
