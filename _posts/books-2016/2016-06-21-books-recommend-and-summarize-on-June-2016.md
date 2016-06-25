@@ -46,8 +46,6 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * * *`
 
 
-
-
 ## 2. 博文推荐 
 
 - [2016互联网女皇报告中文版独家首发！互联网从业者必读](https://mp.weixin.qq.com/s?__biz=Mjc1NjM3MjY2MA==&mid=2691310247&idx=1&sn=a470f2b774ff2b2d2727c323c81060a8&scene=1&srcid=06024TjhsIA3GuNNcBEc0P6o&key=8d8120cb97983fad8e70dac70f7e420e3bc37978063fad3f4ce7de655803a6ea175bb2e4ed0392831cc71d970537663f&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=IoQ%2BUVsdDZWWSRMlZax8Mu0JimENzcV0jjrhlKk%2FXt1Klh1o6ceKpDOKTAi2GFYK)
