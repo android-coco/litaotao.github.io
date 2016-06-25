@@ -40,6 +40,10 @@ ps: 我对好书的定义很简单：
 
 推荐指数：`* * * * *`
 
+### 1.2 [研报：行业轮动系列](https://www.amazon.cn/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95%E7%B2%BE%E8%AF%BB-%E9%99%88%E5%AE%87/dp/B00127EU7E/ref=sr_1_2?ie=UTF8&qid=1465825540&sr=8-2&keywords=%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95+%E7%B2%BE%E8%AF%BB)
+
+
+推荐指数：`* * * * *`
 
 
 
@@ -123,9 +127,21 @@ ps: 我对好书的定义很简单：
 >>
 嗯，有空也可以看看这些文章，培养培养自己的 *软性能力* ，哈哈。
 
-- []()
-- []()
-- []()
+- [【内培分享】分级基金](https://mp.weixin.qq.com/s?__biz=MzAxMTgxOTk1Mg==&mid=2652253464&idx=1&sn=616cad999042d00763a04ce4e11a3be1&scene=0&key=f8ab7b995657050b4c1442f102d7fb18768d0caaa0cae04a04765d6fff2681fd5d24b2abc3fbc77328c9581a88ebfb2c&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&version=11020201&pass_ticket=dk1S8qEiHYepM0bEZk%2BzGaUy%2Fvyn8apbdrKIDYn8nH8IJcpXEDD%2FJ8oSSOBZiD9L)
+
+>>
+*PHBS量化交易* 这个微信公众号的文章质量不是一般的高啊。
+
+- [最实用的增肌食谱](https://mp.weixin.qq.com/s?__biz=MzAxNDYzNzI0OQ==&mid=2655083698&idx=4&sn=14eaacf8387f8f4d00f48d2534388c4f&scene=24&srcid=0620w2Rvfsg63CgIUclZ3p9Z&key=f8ab7b995657050b0335be5bc3aa365a7be38601ed96d17b125f3a9d54d863f7c1e86c5e107823b971e273840c2d1baf&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&version=11020201&pass_ticket=dk1S8qEiHYepM0bEZk%2BzGaUy%2Fvyn8apbdrKIDYn8nH8IJcpXEDD%2FJ8oSSOBZiD9L)
+- [【增肌食谱】“美肌”和“美食”都不可辜负](https://mp.weixin.qq.com/s?__biz=MzAxNTA5NzgyNQ==&mid=209354250&idx=1&sn=ae3739937122970a125b34f27fca2603&scene=24&srcid=0620sVCf2RDtcCddYsfLFCfx&key=f8ab7b995657050bc486df91c92201a8b686a42ed4dc1f711b9cd937e5685dd4533758494028b217dcf7fbc5613994ad&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&version=11020201&pass_ticket=dk1S8qEiHYepM0bEZk%2BzGaUy%2Fvyn8apbdrKIDYn8nH8IJcpXEDD%2FJ8oSSOBZiD9L)
+
+>>
+两周前开始锻炼身体了，哈哈。香卤黄豆看起来最好做了，搞起搞起。
+
+- [关于面试的那些事儿（1）](https://mp.weixin.qq.com/s?__biz=MzA3MDExNzcyNA==&mid=2650392112&idx=1&sn=8d39cb28672cc7ed24bf173ceb785b18&scene=0&key=f8ab7b995657050b096f8b22d5e465e7e2c3a0e39b3bbb07379ad0ac804f10a333f422cea6a71745aa964f7a54f8f949&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&version=11020201&pass_ticket=dk1S8qEiHYepM0bEZk%2BzGaUy%2Fvyn8apbdrKIDYn8nH8IJcpXEDD%2FJ8oSSOBZiD9L)
+
+>>
+不错，可以多读读这类文章，顺便反思反思自己。
 
 
 ## 4. 优质视频

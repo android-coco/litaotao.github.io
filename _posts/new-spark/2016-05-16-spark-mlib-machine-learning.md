@@ -91,7 +91,7 @@ Pipelines and PipelineModels help to ensure that training and test data go throu
 
 ## 13. Next
 
-下一次，简单的在 spark 里实现一个推荐系统。然后下下次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。
+Spark 2.0 马上就要 release 了，下次我们就来看看 spark 2.0 释放了哪些重磅炸弹吧，哈哈～～～
 
 ## 14. 打开微信，扫一扫，点一点，棒棒的，^_^
 
@@ -109,13 +109,15 @@ Pipelines and PipelineModels help to ensure that training and test data go throu
 
 ## 本系列文章链接
 
-- [『 Spark 』1. spark 简介 ](http://litaotao.github.io/introduction-to-spark)
-- [『 Spark 』2. spark 基本概念解析 ](http://litaotao.github.io/spark-questions-concepts)
-- [『 Spark 』3. spark 编程模式 ](http://litaotao.github.io/spark-programming-model)
-- [『 Spark 』4. spark 之 RDD ](http://litaotao.github.io/spark-what-is-rdd)
-- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](http://litaotao.github.io/spark-resouces-blogs-paper)
-- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](http://litaotao.github.io/deep-into-spark-exection-model)
-- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](http://litaotao.github.io/spark-dataframe-introduction)
-- [『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测](http://litaotao.github.io/spark-in-finance-and-investing)
-- [『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境](http://litaotao.github.io/ipython-notebook-spark)
-- [『 Spark 』10. spark 应用程序性能优化｜12 个优化方法](http://litaotao.github.io/boost-spark-application-performance)
+- [『 Spark 』1. spark 简介 ](http://litaotao.github.io/introduction-to-spark?s=inner)
+- [『 Spark 』2. spark 基本概念解析 ](http://litaotao.github.io/spark-questions-concepts?s=inner)
+- [『 Spark 』3. spark 编程模式 ](http://litaotao.github.io/spark-programming-model?s=inner)
+- [『 Spark 』4. spark 之 RDD ](http://litaotao.github.io/spark-what-is-rdd?s=inner)
+- [『 Spark 』5. 这些年，你不能错过的 spark 学习资源 ](http://litaotao.github.io/spark-resouces-blogs-paper?s=inner)
+- [『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task](http://litaotao.github.io/deep-into-spark-exection-model?s=inner)
+- [『 Spark 』7. 使用 Spark DataFrame 进行大数据分析](http://litaotao.github.io/spark-dataframe-introduction?s=inner)
+- [『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测](http://litaotao.github.io/spark-in-finance-and-investing?s=inner)
+- [『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境](http://litaotao.github.io/ipython-notebook-spark?s=inner)
+- [『 Spark 』10. spark 应用程序性能优化｜12 个优化方法](http://litaotao.github.io/boost-spark-application-performance?s=inner)
+- [『 Spark 』11. spark 机器学习](http://litaotao.github.io/spark-mlib-machine-learning?s=inner)
+- [『 Spark 』12. Spark 2.0 特性介绍](http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner)
