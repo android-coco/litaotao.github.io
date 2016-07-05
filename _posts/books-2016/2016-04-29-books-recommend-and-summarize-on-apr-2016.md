@@ -190,3 +190,5 @@ ps: 我对好书的定义很简单：
 
 - [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
 - [『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
+- [『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-May-2016)
+- [『 读书笔记 』6月读书总结｜博文推荐](../books-recommend-and-summarize-on-June-2016)

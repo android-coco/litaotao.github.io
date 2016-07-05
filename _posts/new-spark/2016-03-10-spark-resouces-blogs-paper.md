@@ -27,6 +27,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [user mailing list](http://apache-spark-user-list.1001560.n3.nabble.com/)
 - [spark channel on youtube](https://www.youtube.com/user/TheApacheSpark)
 - [spark summit](https://spark-summit.org/)
+- [spark technology center](http://www.spark.tc/)
 - [meetup](http://www.meetup.com/)
 - [spark third party packages](http://spark-packages.org/)
 - [databricks blog](https://databricks.com/blog)
@@ -61,6 +62,18 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [基于Spark的医疗和金融大数据](https://prezi.com/w4wjzdq7y0lj/spark/)
 - [Monitoring Spark with Graphite and Grafana](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/)
 - [Spark使用CombineTextInputFormat缓解小文件过多导致Task数目过多的问题](http://www.cnblogs.com/yurunmiao/p/5195754.html)
+- [Databricks Empowers Enterprises to Secure Their Apache Spark Workloads](http://www.marketwired.com/press-release/databricks-empowers-enterprises-to-secure-their-apache-spark-workloads-2132605.htm)
+- [Achieving End-to-end Security for Apache Spark with Databricks](https://databricks.com/blog/2016/06/08/achieving-end-to-end-security-for-apache-spark-with-databricks.html)
+
+>>
+上面两篇是 databricks 出的关于 databricks 专业版的描述，虽然没有从根本上解决问题，但是读起来还是挺有说服力的，哈哈，因为采用了很多很细节的方案。不错不错，各位有在做云产品的，在宣传自己的安全方案时可用参考参考哦。
+
+- [Deep Dive into Spark SQL’s Catalyst Optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html)
+- [Apache Spark Future](https://0x0fff.com/apache-spark-future/)
+- [Spark配置参数](http://blog.javachen.com/2015/06/07/spark-configuration.html)
+- [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
+
+
 
 
 ## 4. 视频
@@ -145,6 +158,43 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 >>
 我一直很欣赏 databricks 出的 video 和 slide，结构非常清晰，这个是其中一个非常好的演讲，里面有很多值得借鉴的地方，特别是当你像别人介绍你的工作，产品的时候。[我有一个感受，很少有人能清晰，有条理的介绍自己正在做的产品，对于一些小众的产品，甚至一些职业的销售也难以做到清晰，简明的叙述。这个 video 和 slide 有很大的参考价值。我自己感觉仔细研究这些 video 和 slide 有时候比看上一两本专业讲销售的书还要管用。]
 
+- [Getting The Best Performance With PySpark](https://www.youtube.com/watch?v=V6DkTVvy9vk)
+- [`slide` Getting The Best Performance With PySpark](http://www.slideshare.net/hkarau/getting-the-best-performance-with-pyspark-spark-summit-west-2016)
+
+- [Disrupting Big Data with Apache Spark in the Cloud](https://www.youtube.com/watch?v=4uw_obRH5eM)
+- [`slide` Disrupting Big Data with Apache Spark in the Cloud](http://www.slideshare.net/JenAman/distributing-big-data-with-apache-spark-in-the-cloud)
+
+- [Large Scale Deep Learning with TensorFlow](https://www.youtube.com/watch?v=XYwIDn00PAo)
+- [`slide` Large Scale Deep Learning with TensorFlow](http://www.slideshare.net/JenAman/large-scale-deep-learning-with-tensorflow)
+
+- [700 Queries Per Second with Updates: Spark As A Real-Time Web Service]()
+- [`slide` 700 Queries Per Second with Updates: Spark As A Real-Time Web Service](http://www.slideshare.net/SparkSummit/700-queries-per-second-with-updates-spark-as-a-realtime-web-service)
+
+- [Operational Tips for Deploying Spark]()
+- [`slide` Operational Tips for Deploying Spark](http://www.slideshare.net/SparkSummit/operational-tips-for-deploying-spark-by-miklos-christine)
+
+- [Connecting Python To The Spark Ecosystem]()
+- [`slide` Connecting Python To The Spark Ecosystem](http://www.slideshare.net/SparkSummit/connecting-python-to-the-spark-ecosystem)
+
+- [Livy: A REST Web Service For Apache Spark]()
+- [`slide` Livy: A REST Web Service For Apache Spark](http://www.slideshare.net/JenAman/livy-a-rest-web-service-for-apache-spark)
+
+
+- [Understanding Memory Management In Spark For Fun And Profit]()
+- [`slide` Understanding Memory Management In Spark For Fun And Profit](http://www.slideshare.net/SparkSummit/understanding-memory-management-in-spark-for-fun-and-profit)
+
+- [Deep Dive: Memory Management in Apache Spark]()
+- [`slide` Deep Dive: Memory Management in Apache Spark](http://www.slideshare.net/databricks/deep-dive-memory-management-in-apache-spark)
+
+
+- [High Performance Python on Apache Spark]()
+- [`slide` High Performance Python on Apache Spark](http://www.slideshare.net/wesm/high-performance-python-on-apache-spark)
+
+- [A Deep Dive into Structured Streaming]()
+- [`slide` A Deep Dive into Structured Streaming](http://www.slideshare.net/databricks/a-deep-dive-into-structured-streaming)
+
+- []()
+- [`slide` Spark Job Server and Spark as a Query Engine (Spark Meetup 5/14)](http://www.slideshare.net/EvanChan2/spark-job-server-and-spark-as-a-query-engine-spark-meetup-514)
 
 
 ## 5. next

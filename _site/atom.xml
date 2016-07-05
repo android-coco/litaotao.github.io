@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-06-25T20:54:12+08:00</updated>
+   <updated>2016-07-05T17:35:25+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -183,7 +183,7 @@
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Spark 2.0 中，更新了新的 SQL 解析器，可以支持子查询了，特地重复一下，因为基本上所有复杂的 sql 语句都会用到子查询。&lt;/li&gt;
+  &lt;li&gt;Spark 2.0 中，更新了新的 SQL 解析器，可以支持子查询了，特地重复一下，因为基本上所有复杂的 sql 语句都会用到子查询，官方有例子: &lt;a href=&quot;https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2728434780191932/1483312212640900/6987336228780374/latest.html&quot;&gt;Subqueries in Apache Spark 2.0&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;dataframes-and-datasets-api&quot;&gt;5. 特性 3 - 统一 DataFrames and Datasets API&lt;/h2&gt;
@@ -300,6 +300,7 @@
   &lt;li&gt;&lt;a href=&quot;https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/6122906529858466/2727501386611546/5382278320999420/latest.html&quot;&gt;Demo 2. SparkSession - the new entry point&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/6122906529858466/431554386690871/4814681571895601/latest.html&quot;&gt;Dataset API&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/6122906529858466/100429797847215/4814681571895601/latest.html&quot;&gt;Saving &amp;amp; loading Machine Learning (ML) models&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2728434780191932/1483312212640900/6987336228780374/latest.html&quot;&gt;Subqueries in Apache Spark 2.0&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;本系列文章链接&lt;/h2&gt;
@@ -723,12 +724,13 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
   &lt;li&gt;&lt;a href=&quot;https://www.import.io/&quot;&gt;import.io&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;3. 读书总结系列&lt;/h2&gt;
+&lt;h2 id=&quot;section-4&quot;&gt;5. 读书总结系列&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
