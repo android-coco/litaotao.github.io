@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-07-06T18:02:33+08:00</updated>
+   <updated>2016-07-07T12:29:24+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -105,7 +105,7 @@
 
    
    <entry>
-     <title>『 Spark 』12. Spark 2.0 | 10 个特性介绍</title>
+     <title>『 Spark 』12. Spark 2.0 特性介绍</title>
      <link href="/spark-2.0-faster-easier-smarter"/>
      <updated>2016-06-16T00:00:00+08:00</updated>
      <id>/spark-2.0-faster-easier-smarter</id>
@@ -317,16 +317,7 @@
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;[『 Spark 』12. Spark 2.0&lt;/td&gt;
-          &lt;td&gt;10 个特性介绍](http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1028,16 +1019,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;[『 Spark 』12. Spark 2.0&lt;/td&gt;
-          &lt;td&gt;10 个特性介绍](http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1985,16 +1967,7 @@ that you are coalescing it to fewer partitions than it currently has.
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;[『 Spark 』12. Spark 2.0&lt;/td&gt;
-          &lt;td&gt;10 个特性介绍](http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
