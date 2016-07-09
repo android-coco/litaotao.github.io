@@ -41,7 +41,19 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [过往记忆](http://www.iteblog.com/archives/category/spark)
 
 
-## 3. 文章，博客
+## 3. Databricks Blog
+
+- [Apache Spark 1.5 DataFrame API Highlights: Date/Time/String Handling, Time Intervals, and UDAFs](https://databricks.com/blog/2015/09/16/apache-spark-1-5-dataframe-api-highlights.html)
+- [Achieving End-to-end Security for Apache Spark with Databricks](https://databricks.com/blog/2016/06/08/achieving-end-to-end-security-for-apache-spark-with-databricks.html)
+
+>>
+上面两篇是 databricks 出的关于 databricks 专业版的描述，虽然没有从根本上解决问题，但是读起来还是挺有说服力的，哈哈，因为采用了很多很细节的方案。不错不错，各位有在做云产品的，在宣传自己的安全方案时可用参考参考哦。
+
+- [Deep Dive into Spark SQL’s Catalyst Optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html)
+
+
+
+## 4. 文章，博客
 
 - [RDD论文英文版](http://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf)   
 - [RDD论文中文版](https://code.csdn.net/CODE_Translation/spark_matei_phd)
@@ -63,12 +75,6 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Monitoring Spark with Graphite and Grafana](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/)
 - [Spark使用CombineTextInputFormat缓解小文件过多导致Task数目过多的问题](http://www.cnblogs.com/yurunmiao/p/5195754.html)
 - [Databricks Empowers Enterprises to Secure Their Apache Spark Workloads](http://www.marketwired.com/press-release/databricks-empowers-enterprises-to-secure-their-apache-spark-workloads-2132605.htm)
-- [Achieving End-to-end Security for Apache Spark with Databricks](https://databricks.com/blog/2016/06/08/achieving-end-to-end-security-for-apache-spark-with-databricks.html)
-
->>
-上面两篇是 databricks 出的关于 databricks 专业版的描述，虽然没有从根本上解决问题，但是读起来还是挺有说服力的，哈哈，因为采用了很多很细节的方案。不错不错，各位有在做云产品的，在宣传自己的安全方案时可用参考参考哦。
-
-- [Deep Dive into Spark SQL’s Catalyst Optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html)
 - [Apache Spark Future](https://0x0fff.com/apache-spark-future/)
 - [Spark配置参数](http://blog.javachen.com/2015/06/07/spark-configuration.html)
 - [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
@@ -76,7 +82,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 
 
 
-## 4. 视频
+## 5. 视频
 
 
 - [YouTube: what is apache spark](https://www.youtube.com/watch?v=cs3_3LdCny8)
@@ -197,12 +203,12 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [`slide` Spark Job Server and Spark as a Query Engine (Spark Meetup 5/14)](http://www.slideshare.net/EvanChan2/spark-job-server-and-spark-as-a-query-engine-spark-meetup-514)
 
 
-## 5. next
+## 6. next
 
 上面的资源我都会不断更新的，里面 80% 以上的都是我亲自看过并且觉得有价值的，可不是胡乱收集一通的，推荐欣赏哦。
 
 
-## 6. 打开微信，扫一扫，点一点，棒棒的，^_^
+## 7. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

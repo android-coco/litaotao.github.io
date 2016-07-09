@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-07-07T12:29:24+08:00</updated>
+   <updated>2016-07-09T19:08:04+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -105,7 +105,7 @@
 
    
    <entry>
-     <title>『 Spark 』12. Spark 2.0 特性介绍</title>
+     <title>『 Spark 』12. Spark 2.0  | 10 个特性介绍</title>
      <link href="/spark-2.0-faster-easier-smarter"/>
      <updated>2016-06-16T00:00:00+08:00</updated>
      <id>/spark-2.0-faster-easier-smarter</id>
@@ -150,7 +150,13 @@
 
 &lt;h2 id=&quot;section-1&quot;&gt;3. 特性 1 - 官方文档&lt;/h2&gt;
 
-&lt;p&gt;spark 2.0 似乎对官方文档做了比较大的改变，赞，这里是 2.0 预览版的文档链接，等不及的小伙伴们可以先看了：&lt;a href=&quot;http://spark.apache.org/docs/2.0.0-preview/&quot;&gt;Spark Programming Guide of 2.0 Preview&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;spark 2.0 似乎对官方文档做了比较大的改变，赞，这里是 2.0 预览版的文档链接，等不及的小伙伴们可以先看了：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/2.0.0-preview/&quot;&gt;2.0.0-preview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://people.apache.org/~pwendell/spark-nightly/spark-master-docs/latest/index.html&quot;&gt;master-docs &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://home.apache.org/~pwendell/spark-nightly/spark-branch-2.0-docs/latest/&quot;&gt;2.0.0 docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;sql-&quot;&gt;4. 特性 2 - 支持标准 SQL 语句&lt;/h2&gt;
 
