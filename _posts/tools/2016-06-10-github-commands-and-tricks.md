@@ -126,10 +126,14 @@ git push origin :old_branch                 # Delete the old branch
 git push --set-upstream origin new_branch   # Push the new branch, set local branch to track the new remote
 ```
 
+- 多帐户配置
+
+[git 多帐户配置，一台电脑上同时使用 github, gitlab, gitcafe](https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md)
 
 ## 参考文章
 
 - [git命令大全](https://gist.github.com/guweigang/9848271)
 - [A Visual Git Reference](http://marklodato.github.io/visual-git-guide/index-en.html)
 - [git config命令使用第一篇——介绍，基本操作，增删改查](http://www.cnblogs.com/hutaoer/archive/2012/12/09/3078879.html)
+- [git 多帐户配置，一台电脑上同时使用 github, gitlab, gitcafe](https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md)
 

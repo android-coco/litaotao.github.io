@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-07-09T19:08:04+08:00</updated>
+   <updated>2016-07-12T15:57:55+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -454,12 +454,19 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;多帐户配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md&quot;&gt;git 多帐户配置，一台电脑上同时使用 github, gitlab, gitcafe&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://gist.github.com/guweigang/9848271&quot;&gt;git命令大全&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://marklodato.github.io/visual-git-guide/index-en.html&quot;&gt;A Visual Git Reference&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/hutaoer/archive/2012/12/09/3078879.html&quot;&gt;git config命令使用第一篇——介绍，基本操作，增删改查&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md&quot;&gt;git 多帐户配置，一台电脑上同时使用 github, gitlab, gitcafe&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
