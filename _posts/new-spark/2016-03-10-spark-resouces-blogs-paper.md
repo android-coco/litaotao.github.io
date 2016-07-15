@@ -14,11 +14,13 @@ description: 在品尝 spark 过程中收集的一些好文，好站
 Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。
 
 
-## 1. 书籍
+## 1. 书籍，在线文档
 
 - [Learning Spark](https://www.amazon.cn/Spark%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E7%BE%8E-%E5%8D%A1%E5%8A%B3-%E7%BE%8E-%E8%82%AF%E7%BB%B4%E5%B0%BC%E6%96%AF%E7%A7%91-%E7%BE%8E-%E6%B8%A9%E5%BE%B7%E5%B0%94-%E5%8A%A0-%E6%89%8E%E5%93%88%E9%87%8C%E4%BA%9A/dp/B016DWSEXI/ref=sr_1_1?ie=UTF8&qid=1460447269&sr=8-1&keywords=spark+%E5%BF%AB%E9%80%9F%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90)
 - [Advanced.Analytics.with.Spark](https://www.amazon.cn/Advanced-Analytics-with-Spark-Patterns-for-Learning-from-Data-at-Scale-Ryza-Sandy/dp/1491912766/ref=sr_1_3?ie=UTF8&qid=1466065861&sr=8-3&keywords=Advanced.Analytics.with.Spark)
 - [Mastering Apache Spark](https://www.gitbook.com/book/jaceklaskowski/mastering-apache-spark/details)
+- [Official Guide](http://spark.apache.org/docs/latest/)
+- [Spark Guide by Cloudera](http://www.cloudera.com/documentation/enterprise/latest/topics/spark.html)
 
 
 ## 2. 网站
