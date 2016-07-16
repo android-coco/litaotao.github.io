@@ -52,6 +52,14 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 上面两篇是 databricks 出的关于 databricks 专业版的描述，虽然没有从根本上解决问题，但是读起来还是挺有说服力的，哈哈，因为采用了很多很细节的方案。不错不错，各位有在做云产品的，在宣传自己的安全方案时可用参考参考哦。
 
 - [Deep Dive into Spark SQL’s Catalyst Optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html)
+- [A Tale of Three Apache Spark APIs: RDDs, DataFrames, and Datasets](https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html)
+- [Understanding your Apache Spark application through visualization](https://databricks.com/blog/2015/06/22/understanding-your-spark-application-through-visualization.html)
+- [New Visualizations for Understanding Apache Spark Streaming Applications](https://databricks.com/blog/2015/07/08/new-visualizations-for-understanding-apache-spark-streaming-applications.html)
+- [An Introduction to Writing Apache Spark Applications on Databricks](https://databricks.com/blog/2016/06/15/an-introduction-to-writing-apache-spark-applications-on-databricks.html)
+- [A Gentle Introduction to Apache Spark on Databricks](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055043/484361/latest.html)
+- [Apache Spark on Databricks for Data Scientists](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055194/484361/latest.html)
+- [ Import Notebook Apache Spark on Databricks for Data Engineers](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html)
+
 
 
 

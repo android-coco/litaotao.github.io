@@ -2,7 +2,7 @@
 category: books-2016
 published: false
 layout: post
-title: 『 读书笔记 』6月读书总结｜博文推荐
+title: 『 读书笔记 』6月读书总结｜博文推荐｜上半年读书回顾
 description: the more you read, the more you think, better you'll be.
 ---
 

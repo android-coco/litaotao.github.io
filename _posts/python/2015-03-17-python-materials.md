@@ -1420,8 +1420,13 @@ python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指�
 
 ![python-time.jpg](../images/python-time.jpg)
 
+## 59. python 一行代码启动 http 服务器
 
-## 59. 打开微信，扫一扫，点一点，棒棒的，^_^
+`python -mSimpleHTTPServer`
+
+
+
+## 60. 打开微信，扫一扫，点一点，棒棒的，^_^
 
 ![wechat_pay.png](../images/wechat_pay.png)
 

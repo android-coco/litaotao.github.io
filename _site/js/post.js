@@ -151,4 +151,9 @@ $(document).ready(function(){
         });
       }
     })();
+
+    // present mode button
+    if (isMobile.any() == null) {
+        $("#present_button")[0].style.display = "block";
+    }
 });
