@@ -212,6 +212,12 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - []()
 - [`slide` Spark Job Server and Spark as a Query Engine (Spark Meetup 5/14)](http://www.slideshare.net/EvanChan2/spark-job-server-and-spark-as-a-query-engine-spark-meetup-514)
 
+- [Apache spark job server example with installation](https://www.youtube.com/watch?v=JKKqAgNkHZk)
+
+- [Productionizing Spark and the Spark REST Job Server](https://www.youtube.com/watch?v=kQGS_6TxfTk)
+- [ `slide` Productionizing Spark and the Spark REST Job Server](http://www.slideshare.net/SparkSummit/productionizing-spark-and-the-rest-job-server-evan-chan)
+
+
 
 ## 6. next
 

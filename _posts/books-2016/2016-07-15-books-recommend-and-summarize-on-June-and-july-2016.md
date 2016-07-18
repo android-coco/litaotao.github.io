@@ -2,7 +2,7 @@
 category: books-2016
 published: false
 layout: post
-title: 『 读书笔记 』6月读书总结｜博文推荐｜上半年读书回顾
+title: 『 读书笔记 』6月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
 ---
 
@@ -16,9 +16,6 @@ description: the more you read, the more you think, better you'll be.
 
 ![book-reading-05.png](../images/book-reading-05.png)
 
-本月原计划安排了 19 本书，实际只看了 10 本书，其中标记为 `---` 的是正在看的，没有看完的了，下个月看完了再写上来。其中有电子书版的都放到亲爱的[度娘云](http://pan.baidu.com/s/1i5hNu7r)里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。
-
-
 ps: 我对好书的定义很简单：
 
 - 给自己有所启发的
@@ -28,7 +25,7 @@ ps: 我对好书的定义很简单：
 - 留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]
 - 最后一条，印刷质量要好
 
-上月读书总结：[『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
+上月读书总结：[『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-may-2016)
 
 
 ## 1. 读书总结
@@ -98,7 +95,6 @@ ps: 我对好书的定义很简单：
 总结：
 
 推荐指数：`* * * * *`
-
 
 
 
@@ -198,18 +194,18 @@ ps: 我对好书的定义很简单：
 不错，可以多读读这类文章，顺便反思反思自己。
 
 
-## 4. 优质视频
+## 3. 优质视频
 
 - [7 Ways to Make a Conversation With Anyone](https://www.youtube.com/watch?v=F4Zu5ZZAG7I)
 - [The 7 secrets of the greatest speakers in history](https://www.youtube.com/watch?v=i0a61wFaF8A)
 
 
-## 5. 优质产品
+## 4. 优质产品
 
 - [databricks.com](www.databricks.com/)
 
 
-## 6. 读书总结系列
+## 5. 读书总结系列
 
 - [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
 - [『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
