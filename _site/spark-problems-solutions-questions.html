@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>My Resume English | Taotao's Zone</title>
+  <title>『 Spark 』Spark 实践过程中遇到过的那些问题 | Taotao's Zone</title>
   <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
   <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
@@ -112,125 +112,66 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/resume-en" title="My Resume English">My Resume English</a></h1>    
+    <h1 class="entry-title"><a href="/spark-problems-solutions-questions" title="『 Spark 』Spark 实践过程中遇到过的那些问题">『 Spark 』Spark 实践过程中遇到过的那些问题</a></h1>    
 
-    <p class="entry-date">2014-11-08 
-        <span class="lastModified" style="display: none;" data-source="_posts/work/2014-11-08-resume-en.md">最后更新时间: 
+    <p class="entry-date">2016-08-02 
+        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-08-02-spark-problems-solutions-questions.md">最后更新时间: 
         </span>
     </p>
 
 
-    <h2 id="profile">Profile</h2>
-<hr />
-<ul>
-  <li>Taotao.Li, Male, 1991</li>
-  <li>Bachelor, Beijing University of Posts and Telecommunications, Automation</li>
-  <li>Blog：<a href="http://litaotao.github.io">http://litaotao.github.io</a></li>
-  <li>Github: <a href="http://github.com/litaotao">http://github.com/litaotao</a></li>
-  <li>Linkedin: <a href="https://www.linkedin.com/in/taotaoli">https://www.linkedin.com/in/taotaoli</a></li>
-  <li>Position：Quant Engineer</li>
-  <li>Phone, WeChat：18202171279</li>
-  <li>Email：taotao.engineer#gmail.com</li>
-</ul>
+    <h2 id="section">写在前面</h2>
 
-<h2 id="experience">Experience</h2>
-<hr />
+<p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
-<h3 id="datayeshttpwwwdatayescomhome--112015--"><a href="http://www.datayes.com/#/home">DataYes</a> ( 11.2015 ~ )</h3>
+<p>其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 <br />
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。</p>
 
-<ul>
-  <li>
-    <h4 id="uqeruqerio"><a href="uqer.io">UQER</a></h4>
-    <p>Futures backtesting framework, including market data ETL, strategy research, backtesting and simulation in real-time;   <br />
-Quantitative strategy research and building;
-Design, build and deploy finance data computing platform on Spark;</p>
-  </li>
-</ul>
+<p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。</p>
 
-<h3 id="glowhttpwwwglowingcom--062015--112015-"><a href="http://www.glowing.com/">Glow</a> ( 06.2015 ~ 11.2015 )</h3>
+<h2 id="section-1">1. 网络联通</h2>
 
-<ul>
-  <li>
-    <h4 id="data-engineer">Data Engineer</h4>
-    <p>Develop and maintain Apps’ metrics report, including data ETL, calculating, storage and report; <br />
-Assist building A/B test service and result reporting; <br />
-Using looker to building metrics dashboard.</p>
-  </li>
-</ul>
+<p>Driver, Master, Worker 之间一定要互相都能连通。driver 最好不要用虚拟机，会出各种问题。</p>
 
-<h3 id="datayeshttpwwwdatayescomhome--042014--062015-"><a href="http://www.datayes.com/#/home">DataYes</a> ( 04.2014 ~ 06.2015 )</h3>
+<h2 id="bad-substitution">2. bad substitution</h2>
+
+<p><img src="../images/bad_substitution_1.jpg" alt="bad_substitution_1.jpg" />
+<img src="../images/bad_substitution_2.jpg" alt="bad_substitution_2.jpg" /></p>
+
+<p>https://community.hortonworks.com/questions/23699/bad-substitution-error-running-spark-on-yarn.html</p>
+
+<h2 id="next">13. Next</h2>
+
+<p>最近 databricks 出了一篇非常不错的文章，讲 spark 的一些概念的，个人觉得非常不错，下一篇就翻译这篇文章吧。届时大家可以结合起第二篇文章一起理解：<a href="http://litaotao.github.io/spark-questions-concepts?s=inner">『 Spark 』2. spark 基本概念解析 </a></p>
+
+<h2 id="section-2">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+
+<p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
+
+<h2 id="section-3">参考文章</h2>
+
+<h2 id="section-4">本系列文章链接</h2>
 
 <ul>
-  <li>
-    <h3 id="strategy-commuityhttpsuqeriocommunitylist"><a href="https://uqer.io/community/list">Strategy Commuity</a></h3>
-    <p>Community is the room attached with the online strategy research platform, aiming at offering a platform where quants can share strategies and communicate. I am the server developer of the community.</p>
-  </li>
-  <li>
-    <h4 id="datayes-credit-rating-systemhttpwwwdatayescomproductstaterating"><a href="http://www.datayes.com/#/product?state=rating">DataYes Credit Rating System</a></h4>
-    <p>Rating is a product serving for domestic small comanies. I was responsible for the backend server of this credit system. Using the agile method to organize the developing roadmap, I boosted up the effciency of development. Svn, Visio, Confluence, Jira were most frequently used tools. And Python, Flask, NoSql were the main technology stack in this project. Besides, as a fresh man in financial, I learned some specialized knowledge and analytic methods about enterprise credit. What’s fortunately was that I received the best new staff in Q2.</p>
-  </li>
+  <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
+  <li><a href="http://litaotao.github.io/spark-questions-concepts?s=inner">『 Spark 』2. spark 基本概念解析 </a></li>
+  <li><a href="http://litaotao.github.io/spark-programming-model?s=inner">『 Spark 』3. spark 编程模式 </a></li>
+  <li><a href="http://litaotao.github.io/spark-what-is-rdd?s=inner">『 Spark 』4. spark 之 RDD </a></li>
+  <li><a href="http://litaotao.github.io/spark-resouces-blogs-paper?s=inner">『 Spark 』5. 这些年，你不能错过的 spark 学习资源 </a></li>
+  <li><a href="http://litaotao.github.io/deep-into-spark-exection-model?s=inner">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></li>
+  <li><a href="http://litaotao.github.io/spark-dataframe-introduction?s=inner">『 Spark 』7. 使用 Spark DataFrame 进行大数据分析</a></li>
+  <li><a href="http://litaotao.github.io/spark-in-finance-and-investing?s=inner">『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测</a></li>
+  <li><a href="http://litaotao.github.io/ipython-notebook-spark?s=inner">『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境</a></li>
+  <li><a href="http://litaotao.github.io/boost-spark-application-performance?s=inner">『 Spark 』10. spark 应用程序性能优化｜12 个优化方法</a></li>
+  <li><a href="http://litaotao.github.io/spark-mlib-machine-learning?s=inner">『 Spark 』11. spark 机器学习</a></li>
+  <li><a href="http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner">『 Spark 』12. Spark 2.0 特性介绍</a></li>
 </ul>
-
-<h2 id="skill">Skill</h2>
-<hr />
-
-<ul>
-  <li>OS：Linux，Mac，Windows</li>
-  <li>Program：Python/IPython，C，C++，Shell，Erlang，JS，HTML，CSS</li>
-  <li>Framework：Spark, Hadoop, Flask，Restful，OTP</li>
-  <li>Database：Mongo，MySQL，PostgreSQL, Redshift, Amazon S3, Redis</li>
-  <li>Tool：Nginx，Vagrant, Visio，Gliffy，Phabricator</li>
-  <li>Direction：Quantitative investing, Machine Learning，Recommendation</li>
-  <li>Management：Svn，Git，Markdown，JIRA，Jenkins，Confluence</li>
-</ul>
-
-<h2 id="share">Share</h2>
-<hr />
-<ul>
-  <li><a href="../files/spark-fire.ppt">Spark Fire</a></li>
-  <li><a href="http://litaotao.github.io/files/introduing_spark.pdf">Introduing Spark</a></li>
-  <li><a href="http://litaotao.github.io/files/python-quant-uqer.pdf">Python for Finance, Quant Topic</a></li>
-</ul>
-
-<h2 id="projects">Projects</h2>
-<hr />
-<ul>
-  <li><a href="https://github.com/litaotao/IPython-Dashboard">IPython-Dashboard</a> : A stand alone, light-weight web server for building, sharing graphs created in ipython. Build for data science, data analysis guys. Building an interactive visualization, collaborated dashboard, and real-time streaming graph.</li>
-  <li><a href="https://github.com/litaotao/github-blog-template">github-blog-template</a> : My github blog template。</li>
-  <li><a href="https://github.com/litaotao/ipython-notebook-spark">ipython-notebook-spark</a> : Materials and tutorial on building Spark developing platorm on IPython.</li>
-</ul>
-
-<h2 id="hobby">Hobby</h2>
-<hr />
-<p>Model Plane, Model Car; Ping Pong, Running, Billiards; Reading &amp; Thinking, Technology Research.</p>
-
-<h2 id="honour">Honour</h2>
-<hr />
-<ul>
-  <li>[DataYes] Best New Staff of Q2, 2014 [5 people earned, about 220 people in total];</li>
-  <li>[DataYes] CEO Special Award of Q2, 2016 [2 people earned, about 260 people in total];</li>
-</ul>
-
-<h2 id="statement">Statement</h2>
-<hr />
-<p>Loving computer science, keeping in touch with cutting-edge technologies; easy-going, do well in team work; with wide interests, reading, model plane and model car; looking forward to improve in every possible way, so sometimes I’ll assist opeartion team and sales team.</p>
-
-<h2 id="thanks">Thanks</h2>
-<hr />
-
-<p>Thank you very much for reading my profile, appreciating for your feedback.</p>
-
-<h2 id="pdf">PDF</h2>
-<hr />
-
-<p>Thanks, to download as pdf, please click <a href="../files/litaotao-developer-en.pdf">litaotao-developer-cn</a>   <br />
-For Chinese version resume：<a href="../resume">resume_cn</a></p>
 
 
     <!-- share icon -->
-    <!-- <div class="ds-share" data-thread-key="/resume-en" data-title="My Resume English"
+    <!-- <div class="ds-share" data-thread-key="/spark-problems-solutions-questions" data-title="『 Spark 』Spark 实践过程中遇到过的那些问题"
          data-content="content"
-         data-url="http://litaotao.github.io//resume-en">
+         data-url="http://litaotao.github.io//spark-problems-solutions-questions">
         <div class="ds-share-aside-left">
           <div class="ds-share-aside-inner">
           </div>
@@ -246,7 +187,7 @@ For Chinese version resume：<a href="../resume">resume_cn</a></p>
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/resume-en data-title=My Resume English data-url=/resume-en></div>
+        <div class="ds-thread" data-thread-key=/spark-problems-solutions-questions data-title=『 Spark 』Spark 实践过程中遇到过的那些问题 data-url=/spark-problems-solutions-questions></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">
