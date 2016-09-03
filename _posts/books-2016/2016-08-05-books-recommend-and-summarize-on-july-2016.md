@@ -59,7 +59,10 @@ ps: 我对好书的定义很简单：
 
 ## 4. 优质视频
 
+- [IBM Analytics for Apache® Spark™ Overview](https://www.youtube.com/watch?v=3ZWDA89ckk8)
 
+>
+IBM Analytics 平台的介绍，video 做得非常好，质量非常高，可以借鉴来做公司介绍，产品介绍，项目介绍等。
 
 ## 5. 优质产品
 

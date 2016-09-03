@@ -30,6 +30,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [spark channel on youtube](https://www.youtube.com/user/TheApacheSpark)
 - [spark summit](https://spark-summit.org/)
 - [spark technology center](http://www.spark.tc/)
+- [sparkhub](https://sparkhub.databricks.com/)
 - [meetup](http://www.meetup.com/)
 - [spark third party packages](http://spark-packages.org/)
 - [databricks blog](https://databricks.com/blog)
@@ -59,7 +60,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [A Gentle Introduction to Apache Spark on Databricks](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055043/484361/latest.html)
 - [Apache Spark on Databricks for Data Scientists](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055194/484361/latest.html)
 - [ Import Notebook Apache Spark on Databricks for Data Engineers](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html)
-
+- [Structured Streaming In Apache Spark: A new high-level API for streaming](https://databricks.com/blog/2016/07/28/structured-streaming-in-apache-spark.html)
 
 
 
@@ -71,6 +72,16 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf)
 - [How-to: Tune Your Apache Spark Jobs (Part 1)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/)
 - [How-to: Tune Your Apache Spark Jobs (Part 2)](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/)
+- [`By 0x0fff` Spark Misconceptions](https://0x0fff.com/spark-misconceptions/)
+- [`By 0x0fff` Spark Architecture](https://0x0fff.com/spark-architecture/)
+- [`By 0x0fff` Spark DataFrames are faster, aren’t they?](https://0x0fff.com/spark-dataframes-are-faster-arent-they/)
+- [`By 0x0fff` Spark Architecture: Shuffle](https://0x0fff.com/spark-architecture-shuffle/)
+- [`By 0x0fff` Modern Data Architecture](https://0x0fff.com/modern-data-architecture/)
+- [`By 0x0fff` Spark Architecture Talk](https://0x0fff.com/spark-architecture-talk/)
+- [`By 0x0fff` Apache Spark Future](https://0x0fff.com/apache-spark-future/)
+- [`By 0x0fff` Data Industry Trends](https://0x0fff.com/data-industry-trends/)
+- [`By 0x0fff` Spark Memory Management](https://0x0fff.com/spark-memory-management/)
+- [`By 0x0fff` Spark Architecture Video](https://0x0fff.com/spark-architecture-video/)
 - [借助 Redis ，让 Spark 提速 45 倍！](http://dataunion.org/22985.html)
 - [量化派基于Hadoop、Spark、Storm的大数据风控架构](http://www.csdn.net/article/2015-10-06/2825849)
 - [基于Spark的异构分布式深度学习平台](http://geek.csdn.net/news/detail/58867)
@@ -85,9 +96,9 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Monitoring Spark with Graphite and Grafana](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/)
 - [Spark使用CombineTextInputFormat缓解小文件过多导致Task数目过多的问题](http://www.cnblogs.com/yurunmiao/p/5195754.html)
 - [Databricks Empowers Enterprises to Secure Their Apache Spark Workloads](http://www.marketwired.com/press-release/databricks-empowers-enterprises-to-secure-their-apache-spark-workloads-2132605.htm)
-- [Apache Spark Future](https://0x0fff.com/apache-spark-future/)
 - [Spark配置参数](http://blog.javachen.com/2015/06/07/spark-configuration.html)
 - [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
+- [Apache Spark’s Hidden REST API](http://arturmkrtchyan.com/apache-spark-hidden-rest-api)
 
 
 
@@ -183,18 +194,17 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [Large Scale Deep Learning with TensorFlow](https://www.youtube.com/watch?v=XYwIDn00PAo)
 - [`slide` Large Scale Deep Learning with TensorFlow](http://www.slideshare.net/JenAman/large-scale-deep-learning-with-tensorflow)
 
-- [700 Queries Per Second with Updates: Spark As A Real-Time Web Service]()
+- [700 Queries Per Second with Updates: Spark As A Real-Time Web Service](https://sparkhub.databricks.com/video/700-queries-per-second-with-updates-spark-as-a-real-time-web-service/)
 - [`slide` 700 Queries Per Second with Updates: Spark As A Real-Time Web Service](http://www.slideshare.net/SparkSummit/700-queries-per-second-with-updates-spark-as-a-realtime-web-service)
-
+- [`blog` 700 SQL Queries per Second in Apache Spark with FiloDB](http://velvia.github.io/Spark-Concurrent-Fast-Queries/)
 - [Operational Tips for Deploying Spark]()
 - [`slide` Operational Tips for Deploying Spark](http://www.slideshare.net/SparkSummit/operational-tips-for-deploying-spark-by-miklos-christine)
 
 - [Connecting Python To The Spark Ecosystem]()
 - [`slide` Connecting Python To The Spark Ecosystem](http://www.slideshare.net/SparkSummit/connecting-python-to-the-spark-ecosystem)
 
-- [Livy: A REST Web Service For Apache Spark]()
+- [Livy: A REST Web Service For Apache Spark](https://www.youtube.com/watch?v=C_3iEf_KNv8&feature=youtu.be)
 - [`slide` Livy: A REST Web Service For Apache Spark](http://www.slideshare.net/JenAman/livy-a-rest-web-service-for-apache-spark)
-
 
 - [Understanding Memory Management In Spark For Fun And Profit]()
 - [`slide` Understanding Memory Management In Spark For Fun And Profit](http://www.slideshare.net/SparkSummit/understanding-memory-management-in-spark-for-fun-and-profit)
@@ -217,6 +227,11 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [Productionizing Spark and the Spark REST Job Server](https://www.youtube.com/watch?v=kQGS_6TxfTk)
 - [ `slide` Productionizing Spark and the Spark REST Job Server](http://www.slideshare.net/SparkSummit/productionizing-spark-and-the-rest-job-server-evan-chan)
 
+- [Data Profiling and Pipeline Processing with Spark](https://youtu.be/r7SF5WldITk)
+- [`slide` Data Profiling and Pipeline Processing with Spark](http://www.slideshare.net/SparkSummit/spark-summit-keynote-by-suren-nathan)
+
+- [Spark at Bloomberg: Dynamically Composable Analytics](https://www.youtube.com/watch?v=iMaFRSseeNk&feature=youtu.be)
+- [`slide` Spark at Bloomberg: Dynamically Composable Analytics](http://www.slideshare.net/JenAman/spark-at-bloomberg-dynamically-composable-analytics)
 
 
 ## 6. next
