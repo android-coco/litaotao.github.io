@@ -61,7 +61,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [Apache Spark on Databricks for Data Scientists](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055194/484361/latest.html)
 - [ Import Notebook Apache Spark on Databricks for Data Engineers](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html)
 - [Structured Streaming In Apache Spark: A new high-level API for streaming](https://databricks.com/blog/2016/07/28/structured-streaming-in-apache-spark.html)
-
+- [Spark SQL Supported Syntax](https://github.com/databricks/spark-sql-perf/blob/master/src/main/scala/com/databricks/spark/sql/perf/tpcds/TPCDS_1_4_Queries.scala)
 
 
 ## 4. 文章，博客

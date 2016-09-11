@@ -8,7 +8,7 @@ description: the more you read, the more you think, better you'll be.
 
 ## 写在前面
 
-计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，管理。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 [ABZ 理论](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/) 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。
+计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 [ABZ 理论](http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/) 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。
 
 月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。
 
@@ -192,3 +192,4 @@ ps: 我对好书的定义很简单：
 - [『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
 - [『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-May-2016)
 - [『 读书笔记 』6月读书总结｜博文推荐](../books-recommend-and-summarize-on-June-2016)
+- [『 读书笔记 』坚持读书 6 个多月的感受](../books-recommend-and-summarize-on-july-2016)

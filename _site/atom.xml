@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-08-08T13:37:48+08:00</updated>
+   <updated>2016-09-11T14:02:28+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
@@ -105,13 +105,254 @@
 
    
    <entry>
+     <title>『 读书笔记 』坚持读书 6 个多月的感受</title>
+     <link href="/books-recommend-and-summarize-on-july-2016"/>
+     <updated>2016-08-05T00:00:00+08:00</updated>
+     <id>/books-recommend-and-summarize-on-july-2016</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
+
+&lt;p&gt;月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。&lt;/p&gt;
+
+&lt;p&gt;下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/book-reading-05.png&quot; alt=&quot;book-reading-05.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;七八月不准备看新书了，着重想把最近半年看的书做一个小结，其一是 review 一下看过的好书，巩固一下知识，其二也算是温故知新嘛。&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;ps: 我对好书的定义很简单：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;给自己有所启发的&lt;/li&gt;
+  &lt;li&gt;高质量的，专业的教程类书籍&lt;/li&gt;
+  &lt;li&gt;后期会再度回首的书&lt;/li&gt;
+  &lt;li&gt;看完后会打算赠送给盆友看的书&lt;/li&gt;
+  &lt;li&gt;留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]&lt;/li&gt;
+  &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-may-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 最近几个月的感受&lt;/h2&gt;
+
+&lt;p&gt;自从年后开始安排每月读书计划来，每个月都会读一些书籍，分技术，创业，金融几大方面的。一开始不知道是不是能坚持下来，当时的打算是 &lt;em&gt;不管长期下来能否坚持下来，总该试试吧&lt;/em&gt;。后来没想到一开始就顺利的完成计划，真的没想到自己能在一个月内看完十来本书，而且都不是滥竽充数的去看，而且后来慢慢的能接受这种节奏了。&lt;/p&gt;
+
+&lt;p&gt;最近两月不打算看新书，准备把过去半年来看的书，博文回顾一下，温故知新嘛。&lt;/p&gt;
+
+&lt;p&gt;很多朋友问我怎么做到一个月看十来本书的，也问我看完折么多书有什么感受。我有时候同样也在心里问自己这些问题，发现感受颇深，下面分条简单说说自己的感受，希望和大家共勉：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;凡事只要你想做，都应该去尝试尝试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;即使别人说不行，但是如果你真的喜欢，真的想做，也该去尝试尝试。就像《球王贝利》里的贝利一样，推荐大家都可以看看这部纪录片。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;事情的结果很重要，但过程更重要&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;之前觉得看完一本书就算是完成了一个任务一样。直到有一天我开始问自己，怎么判断自己看完一本书是真的“看完” 了。这真的是一个很有趣的问题。同样的问题可以拓展的很多方面，老板交代的任务怎么样才算做完了？客户反馈的需求怎么样才算是解决了？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;爱我所做，做我所爱&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;大学的时候，经常听同学说不喜欢专业，不喜欢课程什么的；工作后，经常听朋友说对现在的工作内容安排不满什么的。其实我以前有经常有这样的想法，特别是刚毕业的时候，大多数毕业生都是抱着指点江山的心态踏出校园，但基本上刚踏入职场都是先做基础的东西，很多人一开始难以接受这个落差，特别是名牌毕业和海外回来的。我自己最近两年的经验，和最近半年的读书感受，觉得有八个字能解决这类似困惑的：爱我所做，做我所爱 －－－ 在你没有能力负担得起自己的爱好和偏执，在你没有能力选择自己所期望的角色的时候，就好好的爱你现在正在做的事情吧；把你正在做的事情做到极致，在这个过程中不断提高，升华自己，总会有你能自由选择角色的一天。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;step by step, one goes far&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这算是对抱着指点江山的年轻人们的一点建议吧，也是自己一直以来的宗旨。很多时候，想要做完一件事情很容易，但想要做好一件事情往往很难。一个产品，从开发，到测试，到预生产，到最后的生产化，每一步都需要人们的齐心协力才能做完做好。不要去做一触而就，一夜暴富的梦，多花精力，一步一步的提升自己各方面的能力和积累经验，一切都会水到渠成。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 最近半年看过的好书&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;技术
+    &lt;ul&gt;
+      &lt;li&gt;effective python&lt;/li&gt;
+      &lt;li&gt;大型网站技术架构&lt;/li&gt;
+      &lt;li&gt;learning spark&lt;/li&gt;
+      &lt;li&gt;MongoDB权威指南(第2版)&lt;/li&gt;
+      &lt;li&gt;Hadoop.The.Definitive.Guide.4th.Edition&lt;/li&gt;
+      &lt;li&gt;Linux工具快速教程&lt;/li&gt;
+      &lt;li&gt;cloudera spark guide&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;金融
+    &lt;ul&gt;
+      &lt;li&gt;金融产品大全&lt;/li&gt;
+      &lt;li&gt;估值的艺术&lt;/li&gt;
+      &lt;li&gt;公司财务原理，第一章 ～ 第六章&lt;/li&gt;
+      &lt;li&gt;主动投资组合管理:创造高收益并控制风险的量化投资方法(原书第2版) - 第一部分&lt;/li&gt;
+      &lt;li&gt;研报系列：行业轮动&lt;/li&gt;
+      &lt;li&gt;quantcon 2016&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;创业
+    &lt;ul&gt;
+      &lt;li&gt;逻辑思维 1&lt;/li&gt;
+      &lt;li&gt;从0到1&lt;/li&gt;
+      &lt;li&gt;创业维艰：如何完成比难更难的事&lt;/li&gt;
+      &lt;li&gt;couresa : Successful Negotiation: Essential Strategies and Skills&lt;/li&gt;
+      &lt;li&gt;增长黑客&lt;/li&gt;
+      &lt;li&gt;孙子兵法&lt;/li&gt;
+      &lt;li&gt;material design&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;生活
+    &lt;ul&gt;
+      &lt;li&gt;急救手册(修订第9版)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 最近半年看过的好文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;技术
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA5NzkxMzg1Nw==&amp;amp;mid=2653160283&amp;amp;idx=1&amp;amp;sn=23f0391b3a2dc89ac5415ba2b5ace8c5&amp;amp;scene=2&amp;amp;srcid=0802hQQW4XPrsMomZHusM2ZE&amp;amp;key=8dcebf9e179c9f3a89e8f40f109f25e3e404e7e090788e88d863e1cb87c21a4f37908bd69e6b479be5b7754479c091f5&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&amp;amp;version=11020201&amp;amp;pass_ticket=EWbmu2ulGZY2GWWK849sZRkPEGEZ7OqlAZ6k9eKwxVTonzo6ZiJNQ74u4t6XvXvu&quot;&gt;作为大数据工程师，你必须熟练运用的性能优化技术&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100349/&quot;&gt;如果有人问你数据库的原理，叫他看这篇文章&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;blockquote&gt;
+
+        &lt;p&gt;这篇文章是真的不错。&lt;/p&gt;
+      &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/70162&quot;&gt;向Spark开炮：1.6版本问题总结与趟坑&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/e544b7a76dac&quot;&gt;你应该知道的HTTP基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://tool.oschina.net/commons?type=5&quot;&gt;HTTP CODE 常用对照表&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;amp;mid=2651640686&amp;amp;idx=1&amp;amp;sn=c2053e953b94f2b6133230c2d0b48d83&amp;amp;scene=0&amp;amp;key=b28b03434249256b1d6facc8de2ef11e0e4dcbdf601d1b76f0eb49a592cba264c4613048cc1946d7e2048b13dd15aa02&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;大数据背后的神秘公式（上）：贝叶斯公式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;amp;mid=2651640692&amp;amp;idx=1&amp;amp;sn=effef2d07f3afc0e6506d45633e3f771&amp;amp;scene=0&amp;amp;key=b28b03434249256b8a2e9811f53c2873930c9c4ab8fc855d766a6bdac7001085057ba88e71803c6bd7f0a00614c44fc8&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;大数据背后的神秘公式（下）：贝叶斯革命&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&amp;amp;mid=402796490&amp;amp;idx=1&amp;amp;sn=5f9fd2dbd9d0030c954084f2df75d410&amp;amp;scene=0&amp;amp;key=b28b03434249256bcc21f98e1dce38db43a18cba063d4f11b77c9091c999e698be4dfddc847ac0ec70d1785d3f3d0473&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;从算法到案例：推荐系统必读的10篇精选技术文章&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/qwe6112071/article/details/51118761&quot;&gt;git分支原理命令图文解析&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://0x0fff.com/spark-architecture/&quot;&gt;Spark Architecture&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100702/&quot;&gt;面试官如何面试程序员&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100702/&quot;&gt;纯干货！面试官如何面试程序员&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/99830/&quot;&gt;纯干货！程序员面试的技巧&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;金融
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzAwNTA4NTA0OQ==&amp;amp;mid=2653689783&amp;amp;idx=1&amp;amp;sn=5b41b552f725a120807bbd5ca286eed7&amp;amp;scene=0&amp;amp;key=8dcebf9e179c9f3a25882d9773d95ef90ca36a6be79535b8f3597000d24352afae293f4114788bb8a0dc8b2ee51e6183&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&amp;amp;version=11020201&amp;amp;pass_ticket=EWbmu2ulGZY2GWWK849sZRkPEGEZ7OqlAZ6k9eKwxVTonzo6ZiJNQ74u4t6XvXvu&quot;&gt;【方正金工Q培训会议纪要】你不知道的CTA投资学——吴启铭&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&amp;amp;mid=2651443855&amp;amp;idx=2&amp;amp;sn=6e6ed8aff72260ab11e553a1c3cbf0a1&amp;amp;scene=0&amp;amp;key=8dcebf9e179c9f3a7b3855f10551161877a604d52c81d63df9a09548535700da4730653fc53c422fb9cb15d442928746&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&amp;amp;version=11020201&amp;amp;pass_ticket=EWbmu2ulGZY2GWWK849sZRkPEGEZ7OqlAZ6k9eKwxVTonzo6ZiJNQ74u4t6XvXvu&quot;&gt;量化策略的市场容量&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/quant_market.png&quot; alt=&quot;quant_market.png&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA5MDE5OTkyMQ==&amp;amp;mid=2649377759&amp;amp;idx=3&amp;amp;sn=df1e7d2c356b1e3806983166a96e935e&amp;amp;scene=0&amp;amp;key=8dcebf9e179c9f3ac86539ca65b1672ab403097a4cb2d6f8190c24958aeca24b5a1a4c7450c3b059506a7aa8c97576f6&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.11.5+build(15F34)&amp;amp;version=11020201&amp;amp;pass_ticket=EWbmu2ulGZY2GWWK849sZRkPEGEZ7OqlAZ6k9eKwxVTonzo6ZiJNQ74u4t6XvXvu&quot;&gt;聊聊赌场和金融圈最著名的一个数学公式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.joinquant.com/post/1311?f=study&amp;amp;m=math&quot;&gt;凯利公式，你用对了吗&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;blockquote&gt;
+
+        &lt;p&gt;两篇讲凯利公式的文章，比较不错。&lt;/p&gt;
+      &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&amp;amp;mid=2651442463&amp;amp;idx=5&amp;amp;sn=955d59554989ff0f4ea00b8f5281beab&amp;amp;scene=1&amp;amp;srcid=0523LdGhpiCiPyoRgX1saCSg&amp;amp;key=8d8120cb97983fad4f21efed0a495d8c66cd71210271ea6703679184411ede7245147d179559f367e4f1ff02d7426352&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=58KQfrxdep1KCNhDrD4Sowiu6JC%2BtWbJVU3lEFWSuJeI2eHPntuvLd0Cgd%2BlcSfM&quot;&gt;160篇精选干货内容精编20160523 私募工场&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;里面的文章都是经典好文啊。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;创业
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;amp;mid=2653749258&amp;amp;idx=1&amp;amp;sn=82d5929393932fbf1cb97d9acbdd41b5&amp;amp;scene=1&amp;amp;srcid=05188fOCSKGwfCzJfI73ssBE&amp;amp;key=8d8120cb97983fad7f2968069d314547f9679b9bbb4497c084f9246b67b6f6f81d90b0cdb2e55a81153d93e2d75b7a89&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;如何在72小时之内快速搞懂一个陌生行业？&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;amp;mid=2653749289&amp;amp;idx=4&amp;amp;sn=a3e57e4400cde387f330e7ea8429d30a&amp;amp;scene=1&amp;amp;srcid=0518elOD5oMp6TNMP4Z9nPxD&amp;amp;key=8d8120cb97983fade74366a3f02b2ceb18dd53e99524441327fe1192e109cf6d1d532b144cd29ce82f208e9e65a7bcc0&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;数据化解析Term Sheet十大核心条款，关于融资的干货都在这儿了&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://colachan.com/post/3502&quot;&gt;优秀配色方案的探索过程&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4ODM1MTMzMQ==&amp;amp;mid=2651791131&amp;amp;idx=2&amp;amp;sn=7512d96b25ba78f4fcb0786f9a2838d4&amp;amp;scene=1&quot;&gt;如何快速在一个陌生领域达到优秀水平&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/5046704.html&quot;&gt;“早知道这些我的公司就不会死”系列（一）：CAC、LTV、PBP&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/5046873.html&quot;&gt;“早知道这些我的公司就不会死”系列（二）：Cohort Analysis&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;amp;mid=403145071&amp;amp;idx=1&amp;amp;sn=7ab3a8fd92b622d3cd7362db5b20b82a&amp;amp;scene=0&amp;amp;key=b28b03434249256bf46f5ae8286a91d594b55d0f3f709de24e82865fa245df906c24fdbd0dc7bb12df7f9e8ed45c7a37&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;优秀的数据产品经理如何炼成&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;blockquote&gt;
+
+        &lt;p&gt;这些都是讲方法论的，个人觉得想要在自己所在的行业做到优秀，最核心，最关键的因素是自己打心底爱这个职业。人生两大境界：爱我所做，做我所爱。&lt;/p&gt;
+      &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;生活
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4NjAzNDg4NA==&amp;amp;mid=2656366443&amp;amp;idx=3&amp;amp;sn=19091f8ca1bd18a1cba55fc88402a7fd&amp;amp;scene=1&amp;amp;srcid=0515hXptbhIi1JhXUGtyqI5r&amp;amp;key=8d8120cb97983fad3adcf075795d583f5889e72bfd0a1874e4d968c4478a422244e16d191be3b8c1c5010484537b5e4f&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;知乎上的48条神回复，针针见血，看完整个人都通透多了&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;哈哈，轻松一下&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MDMyMzg2MA==&amp;amp;mid=407893431&amp;amp;idx=1&amp;amp;sn=bceacc10da607cb6b0e7c5d14c963b90&amp;amp;scene=0&amp;amp;key=b28b03434249256b37259de5b86de1aed3f2f01e22bb962ca1590d9c6f9966bfcbf006f7be14d7d93377444fe2388ecf&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;情商高就是心里装着别人&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5NzEwNTMwMA==&amp;amp;mid=403311481&amp;amp;idx=1&amp;amp;sn=7b597caceb57c69b3c53c052e0050cf2&amp;amp;scene=0&amp;amp;key=b28b03434249256be55dc6bc20a8bc9b34fe45739f7a6d6ec9fc84dde0eafabb7fa00e636f05592c74d23c3bac40654c&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&amp;amp;version=11020201&amp;amp;pass_ticket=mBoeKJT4SCEkrgKop52x3Dw7dtf706Nn06oeT3552IIocF4nfR7p%2FEc0dm3Jc7Z3&quot;&gt;「滚床单」有哪些优雅的叫法？&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;In Startups And Life, You Need Plan A, B, And Z&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;4. 其他好东西&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=3ZWDA89ckk8&quot;&gt;IBM Analytics for Apache® Spark™ Overview&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;IBM Analytics 平台的介绍，video 做得非常好，质量非常高，可以借鉴来做公司介绍，产品介绍，项目介绍等。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.websequencediagrams.com/&quot;&gt;https://www.websequencediagrams.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;不错的在线流程图应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.import.io/&quot;&gt;import.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;6. 读书总结系列&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
+   
+   <entry>
      <title>『 读书笔记 』6月读书总结｜博文推荐</title>
      <link href="/books-recommend-and-summarize-on-June-and-july-2016"/>
      <updated>2016-07-17T00:00:00+08:00</updated>
      <id>/books-recommend-and-summarize-on-June-and-july-2016</id>
      <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
-&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，管理。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
+&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
 
 &lt;p&gt;月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。&lt;/p&gt;
 
@@ -130,7 +371,7 @@
   &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-may-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-June-and-july-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
 
@@ -243,6 +484,7 @@ WebApi-&amp;gt;user: 200 + JSON&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -741,7 +983,7 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
      <id>/books-recommend-and-summarize-on-May-2016</id>
      <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
-&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，管理。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
+&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
 
 &lt;p&gt;月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。&lt;/p&gt;
 
@@ -952,6 +1194,7 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1485,237 +1728,6 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1nvSwiRv&quot;&gt;百度，Google SEO 文档&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;tinypng.com&quot;&gt;在线图片压缩&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>如何使用 github pages 搭建博客</title>
-     <link href="/github-pages-blog"/>
-     <updated>2016-05-10T00:00:00+08:00</updated>
-     <id>/github-pages-blog</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;使用 github 也快有3年了，的确觉得 github 的方便，易用，而且不仅仅在版本控制方面［版本控制方面个人感觉比 svn 好用了太多太多］，而且还提供了一个平台，让你随时跟进最近技术和趋势。今天就来说说其中一个比较实用&lt;/p&gt;
-
-&lt;p&gt;ps: 本文对应的 github repo 在这里：&lt;a href=&quot;https://github.com/litaotao/github-blog-template&quot;&gt;https://github.com/litaotao/github-blog-template&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 最简单的步骤&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;step 1 : 新建一个 repo，并克隆 repo 到本地&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;p&gt;repo 名定为 你的github用户名 + .github.io，比如说，我的 github 用户名叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;litaotao&lt;/code&gt;, 那新建的 repo 名就叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;litaotao.github.io&lt;/code&gt;&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;step 2 : 克隆&lt;a href=&quot;https://github.com/litaotao/github-blog-template&quot;&gt;模版&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-1.png&quot; alt=&quot;github-pages-blog-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;使用 git 命令克隆模版：&lt;em&gt;git clone git@github.com:litaotao/github-blog-template.git&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp&lt;span class=&quot;nv&quot;&gt;$git&lt;/span&gt; clone git@github.com:litaotao/github-blog-template.git
-Cloning into &lt;span class=&quot;s1&quot;&gt;&#39;github-blog-template&#39;&lt;/span&gt;...
-remote: Counting objects: 75, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
-remote: Compressing objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;68/68&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
-remote: Total 75 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, reused 72 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, pack-reused 0
-Receiving objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;75/75&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, 1.19 MiB | 425.00 KiB/s, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
-Resolving deltas: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4/4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
-Checking connectivity... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;step 3 : 复制模版相关文件到你的本地repo中&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;首先，先删掉模版里的一个文件夹 &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp/github-blog-template&lt;span class=&quot;nv&quot;&gt;$ll&lt;/span&gt;
-...
-...
-...
-drwxr-xr-x  13 taotao  staff   442B May 10 10:32 .git
-taotao@mac007:~/Desktop/tmp/github-blog-template&lt;span class=&quot;nv&quot;&gt;$sudo&lt;/span&gt; rm -rf .git&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;然后，复制模版下所有文件到你的本地repo中，使用命令 &lt;em&gt;cp -r github-blog-template/&lt;/em&gt; your_local_repo/*&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;taotao&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@mac007&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Desktop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;github&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;your_local_repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;step 4 : 本地运行&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;进入到 your_local_repo 目录，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll server --watch&lt;/code&gt; 命令启动本地博客。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/tmp/your_local_repo&lt;span class=&quot;nv&quot;&gt;$jekyll&lt;/span&gt; server --watch
-Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
-            Source: /Users/chenshan/Desktop/tmp/your_local_repo
-       Destination: /Users/chenshan/Desktop/tmp/your_local_repo/_site
- Incremental build: disabled. Enable with --incremental
-      Generating...
-                    &lt;span class=&quot;k&quot;&gt;done in &lt;/span&gt;0.588 seconds.
- Auto-regeneration: enabled &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/Users/chenshan/Desktop/tmp/your_local_repo&#39;&lt;/span&gt;
-Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
-    Server address: http://127.0.0.1:4000/
-  Server running... press ctrl-c to stop.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;如果一切顺利，在浏览器访问：localhost:4000 即可看到你的博客了，我已经在模版里放了两篇文章，截图如下。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-2.png&quot; alt=&quot;github-pages-blog-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;2. 自定义配置&lt;/h2&gt;
-
-&lt;p&gt;如果你已经成功完成了第一步，那恭喜，你马上就能拥有一个自己的博客了，在此之前，你只需要改一个配置文件即可：github-blog-template/_config.yml，你需要改的地方我用中文标注出来了，可以参考注释说明和我的博客来配置：&lt;a href=&quot;https://github.com/litaotao/litaotao.github.io&quot;&gt;https://github.com/litaotao/litaotao.github.io&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;markdown: kramdown
-highlighter: rouge
-paginate: 8
-permalink: /:title
-encoding: UTF-8
-gems: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;jekyll-paginate]
-
-title: 你的博客名称
-url: 你的博客地址，就叫 http://github用户名+.github.io
-feed: /atom.xml
-author_info: &amp;lt;a &lt;span class=&quot;nv&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://litaotao.github.io/&quot;&lt;/span&gt;&amp;gt;你的名字&amp;lt;/a&amp;gt;
-
-myblog:
-  gavatar: 你的头像地址
-  gpname: 你的名字
-  linkedin: 你的 linkedin 地址
-  github: 你的 github 地址
-  email: mailto:你的 email 地址
-  coverimgs: &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;
-  postbgimg: &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;
-
-categories: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;你的博客目录名称，对应到 your_local_repo/_posts/ 下的文件夹名]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;ok,如果你已经更改好配置文件了，并且本地运行正常的话，可以上传到 github 了。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;3. 深度阅读之目录文件说明&lt;/h2&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/github/github-blog-template&lt;span class=&quot;nv&quot;&gt;$tree&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 404 页面，你可以自定义&lt;/span&gt;
-├── 404.html
-├── README.md
-&lt;span class=&quot;c&quot;&gt;### 博客配置文件，基本上是最重要的一个文件之一了&lt;/span&gt;
-├── _config.yml
-&lt;span class=&quot;c&quot;&gt;### 博客页面模版目录&lt;/span&gt;
-├── _layouts
-│   ├── default.html
-│   ├── home.html
-│   ├── page.html
-│   └── post.html
-&lt;span class=&quot;c&quot;&gt;### 博客文章目录，下面可以按文件夹进行博文分类&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 注意，博文文件格式必须是：时间-博文标题.md，参考下面的格式&lt;/span&gt;
-├── _posts
-│   ├── books
-│   │   └── 2016-04-29-books-recommend-and-summarize-on-apr-2016.md
-│   └── python
-│       └── 2016-04-01-spark-in-finance-and-investing.md
-&lt;span class=&quot;c&quot;&gt;### 这个是你的站点地图了，用户可以访问这个文件夹下面的所有文件&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 比如说，用户可以直接访问我的 litaotao.github.io/404.html; litaotao.github.io/images/2.jpg&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 比如说，当你访问 litaotao.github.io/spark-in-finance-and-investing  &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;###        实际上是访问了 litaotao.github.io/spark-in-finance-and-investing.html&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 你会发现这下面有很多在博客更目录下重复的文件夹，比如说 css，js，images等文件夹，不要纳闷，这是正常的&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 因为你的博客更目录下的文件，是 jekyll 用来渲染一个 html 文件的，html 文件及其所需要的任何文件，都会放到 _site 这个&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;### 专用的目录下面&lt;/span&gt;
-├── _site
-│   ├── 404.html
-│   ├── README.md
-│   ├── atom.xml
-│   ├── books-recommend-and-summarize-on-apr-2016.html
-│   ├── css
-│   │   ...
-│   │   ...
-│   │   ...
-│   ├── images
-│   │   ├── 2.jpg
-│   │   ├── spark-in-finance-1.jpg
-│   │   ├── spark-in-finance-2.jpg
-│   │   └── spark-in-finance-3.jpg
-│   ├── index.html
-│   ├── js
-│   │   ...
-│   │   ...
-│   │   ...
-│   └── spark-in-finance-and-investing.html
-├── atom.xml
-├── css
-│   │   ...
-│   │   ...
-│   │   ...
-├── images
-│   │   ...
-│   │   ...
-│   │   ...
-├── index.html
-└── js
-    │   │   ...
-    │   ...
-    │   ...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;4. 总结&lt;/h2&gt;
-
-&lt;p&gt;总的来说，利用 github 搭建博客的步骤为：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;创建一个 github用户名 + ‘.github.io’ 的新 repo，并克隆到本地&lt;/li&gt;
-  &lt;li&gt;把模版，除去 ‘.git’ 的所有文件 copy 到你的repo 中&lt;/li&gt;
-  &lt;li&gt;更改 ‘_config.yml’ 配置文件&lt;/li&gt;
-  &lt;li&gt;本地试运行，上传到github&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-5&quot;&gt;5. 其他话题&lt;/h2&gt;
-
-&lt;p&gt;一个简单，但基本够用的博客就这样搭建完成了。其他还有一些扩展话题，感兴趣的同学可以 google 或者联系我，比如说：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何给你的博客加上 评论功能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-3.png&quot; alt=&quot;github-pages-blog-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何给你的博客加上 cnzz 统计功能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-4.png&quot; alt=&quot;github-pages-blog-4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何给你的博客加上 growingio 统计功能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-5.png&quot; alt=&quot;github-pages-blog-5.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何给你的博客加上 百度分享功能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/github-pages-blog-6.png&quot; alt=&quot;github-pages-blog-6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-6&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_any.png&quot; alt=&quot;wechat_pay_any.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-7&quot;&gt;7. 用本模版搭建的博客&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://yuanlaishiai.com/&quot;&gt;http://yuanlaishiai.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://way1989.github.io/&quot;&gt;http://way1989.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://taotaomami.github.io/&quot;&gt;http://taotaomami.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ljdomain.github.io/&quot;&gt;http://ljdomain.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://darren123chen.github.io/&quot;&gt;http://darren123chen.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://frankchen0130.github.io/&quot;&gt;http://frankchen0130.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://jjaugust.github.io/&quot;&gt;http://jjaugust.github.io/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gsven.bid/&quot;&gt;http://www.gsven.bid/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://frankchen0130.github.io/&quot;&gt;http://frankchen0130.github.io/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
