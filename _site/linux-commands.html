@@ -123,144 +123,67 @@
     <p>无意间发现这本在线书籍挺好的：<a href="http://linuxtools-rst.readthedocs.org/zh_CN/latest/">Linux工具快速教程</a></p>
 
 <h2 id="ps">1. ps</h2>
-<p>　　Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。<br />
-　　要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。   <br />
-　　kill 命令用于杀死进程。 <br />
-　　linux上进程有5种状态:</p>
+<p>Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。</p>
+
+<p>要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。</p>
+
+<p>linux上进程有5种状态:</p>
 
 <ul>
-  <li>运行(正在运行或在运行队列中等待)</li>
-  <li>中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号)</li>
-  <li>不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)</li>
-  <li>僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)</li>
-  <li>停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)</li>
+  <li><code class="highlighter-rouge">R 运行</code> : 正在运行或在运行队列中等待</li>
+  <li><code class="highlighter-rouge">S 中断</code> : 休眠中, 受阻, 在等待某个条件的形成或接受到信号</li>
+  <li><code class="highlighter-rouge">D 不可中断</code> : 收到信号不唤醒和不可运行, 进程必须等待直到有中断发生</li>
+  <li><code class="highlighter-rouge">Z 僵死</code> : 进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放</li>
+  <li><code class="highlighter-rouge">T 停止</code> : 进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行</li>
 </ul>
 
-<p>　　ps工具标识进程的5种状态码:</p>
+<p>命令参数：</p>
 
-<ul>
-  <li>D 不可中断 uninterruptible sleep (usually IO)</li>
-  <li>R 运行 runnable (on run queue)</li>
-  <li>S 中断 sleeping</li>
-  <li>T 停止 traced or stopped</li>
-  <li>
-    <p>Z 僵死 a defunct (”zombie”) process</p>
-  </li>
-  <li>命令格式：
-ps[参数]</li>
-  <li>命令功能：<br />
-用来显示当前进程的状态</li>
-  <li>
-    <p>命令参数：</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  a  显示所有进程
-  -a 显示同一终端下的所有程序
-  -A 显示所有进程
-  c  显示进程的真实名称
-  -N 反向选择
-  -e 等于“-A”
-  e  显示环境变量
-  f  显示程序间的关系
-  -H 显示树状结构
-  r  显示当前终端的进程
-  T  显示当前终端的所有程序
-  u  指定用户的所有进程
-  -au 显示较详细的资讯
-  -aux 显示所有包含其他使用者的行程
-  -C&lt;命令&gt; 列出指定命令的状况
-  --lines&lt;行数&gt; 每页显示的行数
-  --width&lt;字符数&gt; 每页显示的字符数
-  --help 显示帮助信息
-  --version 显示版本显示
-</code></pre>
-    </div>
-  </li>
-</ul>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">a</span>  <span class="err">显示所有进程</span>
+<span class="o">-</span><span class="n">a</span> <span class="err">显示同一终端下的所有程序</span>
+<span class="o">-</span><span class="n">A</span> <span class="err">显示所有进程</span>
+<span class="n">c</span>  <span class="err">显示进程的真实名称</span>
+<span class="o">-</span><span class="n">N</span> <span class="err">反向选择</span>
+<span class="o">-</span><span class="n">e</span> <span class="err">等于“</span><span class="o">-</span><span class="n">A</span><span class="err">”</span>
+<span class="n">e</span>  <span class="err">显示环境变量</span>
+<span class="n">f</span>  <span class="err">显示程序间的关系</span>
+<span class="o">-</span><span class="n">H</span> <span class="err">显示树状结构</span>
+<span class="n">r</span>  <span class="err">显示当前终端的进程</span>
+<span class="n">T</span>  <span class="err">显示当前终端的所有程序</span>
+<span class="n">u</span>  <span class="err">指定用户的所有进程</span>
+<span class="o">-</span><span class="n">au</span> <span class="err">显示较详细的资讯</span>
+<span class="n">aux</span> <span class="err">显示所有包含其他使用者的行程</span>
+<span class="o">-</span><span class="n">C</span><span class="o">&lt;</span><span class="err">命令</span><span class="o">&gt;</span> <span class="err">列出指定命令的状况</span>
+<span class="o">--</span><span class="n">lines</span><span class="o">&lt;</span><span class="err">行数</span><span class="o">&gt;</span> <span class="err">每页显示的行数</span>
+<span class="o">--</span><span class="n">width</span><span class="o">&lt;</span><span class="err">字符数</span><span class="o">&gt;</span> <span class="err">每页显示的字符数</span>
+<span class="o">--</span><span class="n">help</span> <span class="err">显示帮助信息</span>
+<span class="o">--</span><span class="n">version</span> <span class="err">显示版本显示</span></code></pre></figure>
 
 <h2 id="kill">2. kill</h2>
-<p>　　Linux中的kill命令用来终止指定的进程（terminate a process）的运行，是Linux下进程管理的常用命令。通常，终止一个前台进程可以使用Ctrl+C键，但是，对于一个后台进程就须用kill命令来终止，我们就需要先使用ps/pidof/pstree/top等工具获取进程PID，然后使用kill命令来杀掉该进程。kill命令是通过向进程发送指定的信号来结束相应进程的。在默认情况下，采用编号为15的TERM信号。TERM信号将终止所有不能捕获该信号的进程。对于那些可以捕获该信号的进程就要用编号为9的kill信号，强行“杀掉”该进程。 <br />
-- 命令格式：<br />
-kill[参数][进程号]<br />
-- 命令功能：<br />
-　　发送指定的信号到相应进程。不指定型号将发送SIGTERM（15）终止指定进程。如果任无法终止该程序可用“-KILL” 参数，其发送的信号为SIGKILL(9)，将强制结束进程，使用ps命令或者jobs 命令可以查看进程号。root用户将影响用户的进程，非root用户只能影响自己的进程。
-- 命令参数：</p>
+<p>　　Linux中的kill命令用来终止指定的进程（terminate a process）的运行，是Linux下进程管理的常用命令。通常，终止一个前台进程可以使用Ctrl+C键，但是，对于一个后台进程就须用kill命令来终止，我们就需要先使用 ps/pidof/pstree/top 等工具获取进程PID，然后使用kill命令来杀掉该进程。kill命令是通过向进程发送指定的信号来结束相应进程的。在默认情况下，采用编号为15的TERM信号。TERM信号将终止所有不能捕获该信号的进程。对于那些可以捕获该信号的进程就要用编号为9的kill信号，强行“杀掉”该进程。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    -l  信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称
-    -a  当处理当前进程时，不限制命令名和进程号的对应关系
-    -p  指定kill 命令只打印相关进程的进程号，而不发送任何信号
-    -s  指定发送信号
-    -u  指定用户
-</code></pre>
-</div>
+<p>命令参数：</p>
 
-<p>注意：</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-</span><span class="n">l</span>  <span class="err">信号，若果不加信号的编号参数，则使用“</span><span class="o">-</span><span class="n">l</span><span class="err">”参数会列出全部的信号名称</span>
+<span class="o">-</span><span class="n">a</span>  <span class="err">当处理当前进程时，不限制命令名和进程号的对应关系</span>
+<span class="o">-</span><span class="n">p</span>  <span class="err">指定</span><span class="n">kill</span> <span class="err">命令只打印相关进程的进程号，而不发送任何信号</span>
+<span class="o">-</span><span class="n">s</span>  <span class="err">指定发送信号</span>
+<span class="o">-</span><span class="n">u</span>  <span class="err">指定用户</span></code></pre></figure>
 
-<ul>
-  <li>kill命令可以带信号号码选项，也可以不带。如果没有信号号码，kill命令就会发出终止信号(15)，这个信号可以被进程捕获，使得进程在退出之前可以清理并释放资源。也可以用kill向进程发送特定的信号。例如：
-kill -2 123
-它的效果等同于在前台运行PID为123的进程时按下Ctrl+C键。但是，普通用户只能使用不带signal参数的kill命令或最多使用-9信号。</li>
-  <li>kill可以带有进程ID号作为参数。当用kill向这些进程发送信号时，必须是这些进程的主人。如果试图撤销一个没有权限撤销的进程或撤销一个不存在的进程，就会得到一个错误信息。</li>
-  <li>可以向多个进程发信号或终止它们。</li>
-  <li>当kill成功地发送了信号后，shell会在屏幕上显示出进程的终止信息。有时这个信息不会马上显示，只有当按下Enter键使shell的命令提示符再次出现时，才会显示出来。</li>
-  <li>应注意，信号使进程强行终止，这常会带来一些副作用，如数据丢失或者终端无法恢复到正常状态。发送信号时必须小心，只有在万不得已时，才用kill信号(9)，因为进程不能首先捕获它。要撤销所有的后台作业，可以输入kill 0。因为有些在后台运行的命令会启动多个进程，跟踪并找到所有要杀掉的进程的PID是件很麻烦的事。这时，使用kill 0来终止所有由当前shell启动的进程，是个有效的方法。</li>
-</ul>
+<h2 id="env">3. env</h2>
 
-<p>说明： <br />
-　　init是Linux系统操作中不可缺少的程序之一。所谓的init进程，它是一个由内核启动的用户级进程。内核自行启动（已经被载入内存，开始运行，并已初始化所有的设备驱动程序和数据结构等）之后，就通过启动一个用户级程序init的方式，完成引导进程。所以,init始终是第一个进程（其进程编号始终为1）。   其它所有进程都是init进程的子孙。init进程是不可杀的！</p>
+<p>env 命令用于显示系统中已存在的环境变量，以及在定义的环境中执行指令。该命令只使用”-“作为参数选项时，隐藏了选项”-i”的功能。若没有设置任何选项和参数时，则直接显示当前的环境变量。</p>
 
-<h2 id="netstat">3. netstat</h2>
-<p>　　Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。 <br />
-　　执行netstat后，其输出结果为:</p>
+<p><code class="highlighter-rouge">经验案例</code>：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Active Internet connections (w/o servers)
-Proto Recv-Q Send-Q Local Address Foreign Address State
-tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
-tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
-tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
-tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
-tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+<blockquote>
+  <blockquote>
 
-Active UNIX domain sockets (w/o servers)
-Proto RefCnt Flags Type State I-Node Path
-unix 1 [ ] STREAM CONNECTED 16178 @000000dd
-unix 1 [ ] STREAM CONNECTED 16176 @000000dc
-unix 9 [ ] DGRAM 5292 /dev/log
-unix 1 [ ] STREAM CONNECTED 16182 @000000df
-</code></pre>
-</div>
+    <p>某次在一台不熟悉的机器上运行一个开源项目的时候，老是提示 python 相关的错误，大概是说 python shell 的路径不对，但自己明明在启动项目之前 source 了一些相关的环境配置的。很明显，环境变量中有其他变量配置了 python 的路径。此时可以用 env 来查看当前 shell 下所有的环境配置，果然发现一个 PYTHONPATH 的变量被别人配置过了。</p>
+  </blockquote>
+</blockquote>
 
-<p>　　从整体上看，netstat的输出结果可以分为两个部分：</p>
-
-<p>　　一个是Active Internet connections，称为有源TCP连接，其中”Recv-Q”和”Send-Q”指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。</p>
-
-<p>　　另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
-Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。</p>
-
-<ul>
-  <li>
-    <p>常见参数</p>
-
-    <p>-a (all)显示所有选项，默认不显示LISTEN相关
-  -t (tcp)仅显示tcp相关选项
-  -u (udp)仅显示udp相关选项
-  -n 拒绝显示别名，能显示数字的全部转化成数字。
-  -l 仅列出有在 Listen (监听) 的服務状态</p>
-
-    <p>-p 显示建立相关链接的程序名
-  -r 显示路由信息，路由表
-  -e 显示扩展信息，例如uid等
-  -s 按各个协议进行统计
-  -c 每隔一个固定时间，执行该netstat命令。</p>
-  </li>
-</ul>
-
-<p>提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到</p>
-
-<p>备注：<br />
-这篇 <a href="linux命令五分钟系列之四十三">blog</a> 说netstat命令似乎已经不再维护了，后续将被ip和ss命令取代。<br />
-<img src="../images/netstat_subsititute.jpg" alt="netstat-replaced" /></p>
-
-<h2 id="vimdiff">6. vimdiff</h2>
+<h2 id="vimdiff">4. vimdiff</h2>
 
 <p>linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，可编辑保存，不同的地方会有高亮显示。非常实用，我常用来查看不同的配置文件区别。</p>
 
@@ -285,13 +208,13 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 － qa，同时退出不保存</li>
 </ul>
 
-<h2 id="head">7. head</h2>
+<h2 id="head">5. head</h2>
 
 <p>head 可以用来查看一个文件的前几行，我通常用来查看一个文件的结构。算是最简单的一个命令了，但是很实用啊，当然如果配合其他命令使用起来就更舒服了，比如配合管道做 grep，或者配合管道用 column 来格式化显示csv格式的文件。</p>
 
 <p><img src="../images/head_command.jpg" alt="head_command.jpg" /></p>
 
-<h2 id="grep">8. grep</h2>
+<h2 id="grep">6. grep</h2>
 
 <p>这个命令就不用说了，因为用得太多了。常用来在很多数据里找到匹配某一模式［可以是正则哦，很强大］的字段，我更常用的场景是配合 “tail －f” 来在实时更新的日志里查找一些相关的字段，比如查找某一个请求api，在debug的时候比较常用。</p>
 
@@ -307,7 +230,7 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 </code></pre>
 </div>
 
-<h2 id="du">9. du</h2>
+<h2 id="du">7. du</h2>
 
 <p>以前一直没有用过这么命令，因为都用 <code class="highlighter-rouge">ls</code> 加上一些参数来查看文件大小。但有一次，我从 AWS S3 上下载了将近1000个文件下来，想查看这一千个文件的总大小，用 `ls -lh’ 发现只能查看每个文件的大小，而显示的文件夹大小并不是文件夹下所有文件的大小，而且这个文件夹的一些元信息的大小：</p>
 
@@ -322,11 +245,11 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
   <li><a href="http://blog.sina.com.cn/s/blog_70122437010122m1.html">file holes/文件黑洞</a></li>
 </ul>
 
-<h2 id="tail">10. tail</h2>
+<h2 id="tail">8. tail</h2>
 
 <p>tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 “-f” 参数后和grep一起使用。</p>
 
-<h2 id="scp">11. scp</h2>
+<h2 id="scp">9. scp</h2>
 
 <p>scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p>
 
@@ -345,22 +268,15 @@ Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程�
 -l limit  限定用户所能使用的带宽，以Kbit/s为单位。   <br />
 -P port  注意是大写的P, port是指定数据传输用到的端口号</p>
 
-<h2 id="wc">12. wc</h2>
+<h2 id="wc">10. wc</h2>
 
 <p>wc – word, line, character, and byte count</p>
 
-<h2 id="mkdir">13. mkdir</h2>
-
-<h2 id="tar">14. tar</h2>
-
-<h2 id="section">扫一扫</h2>
-
-<p><img src="../../images/share/2014-12-12-linux-commands.md.jpg" alt="2014-12-12-linux-commands.md" /></p>
-
-<h2 id="section-1">参考</h2>
+<h2 id="section">参考</h2>
 
 <ul>
   <li><a href="http://www.ibm.com/developerworks/cn/linux/l-vimdiff/">技巧：Vimdiff 使用</a></li>
+  <li><a href="http://man.linuxde.net/">Linux 命令大全</a></li>
 </ul>
 
 
