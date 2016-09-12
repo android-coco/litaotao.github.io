@@ -28,6 +28,24 @@ Driver, Master, Worker 之间一定要互相都能连通。driver 最好不要�
 
 https://community.hortonworks.com/questions/23699/bad-substitution-error-running-spark-on-yarn.html
 
+## 3. Too many open files
+
+>>
+
+16/09/05 23:26:56 WARN scheduler.TaskSetManager: Lost task 20.0 in stage 188.0 (TID 28165, dn04.wmcloud-stg.com): java.io.FileNotFoundException: /tmp/hadoop/yarn/local/usercache/hdfs/appcache/application_1469778541624_0119/blockmgr-194e6761-1597-45b8-86a0-429b75309dad/34/temp_shuffle_c691ac43-df11-4815-863c-0f6cf581fbdd (Too many open files)
+
+这类情况是在 rdd 数据量特别大，且有 shuffle 需求的时候容易出现的，原因是 shuffle 的时候需要创建一些临时文件，原始数据集比较大的话会需要创建很多临时文件。这是一个系统配置项，解决办法网上已经有很多了：[Why does Spark job fail with “too many open files”?](http://stackoverflow.com/questions/25707629/why-does-spark-job-fail-with-too-many-open-files)，[Spark 常规故障处理: Too many open files](https://zybuluo.com/yanbo-ai/note/43455)
+
+
+## 4. SQLContext does not exist in the JVM
+
+这个和我自身的应用有比较大的关系，可能大家不太可能遇到。应用是这样子的：一个基于 flask 的 python web app，在启动的时候会初始化一个 spark context，然后有一些请求会用到这个 spark context。采用 uwsgi 来部署，其中部署了一个 master，10 个 worker，设置弱请求超过 30 秒，则 kill 掉这个请求。
+
+然后问题出现了：有的请求，会涉及到 spark context，然后请求完成的时间会比较长，此时 uwsgi 会 kill 掉正在执行这个请求的 worker，然后会自动重启这个 worker，但重启的时候不会再去初始化一个 spark context。接下来，当有请求还需要 spark context 的时候，则会抱这样的错误。
+
+
+
+
 
 ## 13. Next
 
