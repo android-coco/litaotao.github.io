@@ -96,13 +96,220 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-09-12T10:58:32+08:00</updated>
+   <updated>2016-09-13T11:01:58+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』13. Spark 2.0 Release Notes 中文版</title>
+     <link href="/spark-2.0-release-notes-zh"/>
+     <updated>2016-09-13T00:00:00+08:00</updated>
+     <id>/spark-2.0-release-notes-zh</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。&lt;/p&gt;
+
+&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 &lt;em&gt;present mode&lt;/em&gt; 哦。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Notes&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;本篇开始，会渐渐的把版本升级到 2.0 上，后续的文章也会逐渐基于 2.0 来写；前面的文章就不改了，反正都是换汤不换药;&lt;/li&gt;
+  &lt;li&gt;本篇是上一篇文章的升级版，关于 spark 2.0 的大概介绍可以直接看上一篇文章，本篇文章是因为最近项目准备从 1.6.1 升级到 2.0，需要对 2.0 有一个整体的了解，所以索性读一遍 2.0 的 release notes，也随手把 release notes 的中文版写下来咯;&lt;/li&gt;
+  &lt;li&gt;虽说是中文版，但是一切都是以能理解为主，有的地方不知道怎么翻译，或者我觉得没有必要翻译的，就没有写成中文了，当然欢迎大家提出修改建议了～&lt;/li&gt;
+  &lt;li&gt;如果要急着陪女票的话，推荐直接看最后的 &lt;em&gt;7. Spark 2.0, 必须知道的几个点&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上一篇文章： 
+&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter&quot;&gt;『 Spark 』12. Spark 2.0  | 10 个特性介绍&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;api-stability&quot;&gt;1. API Stability&lt;/h2&gt;
+
+&lt;p&gt;spark 保证 2.x 中非实验性的 api 的稳定性，2.x 中大部分 api 都与 1.x 中保持一致，但是删除了一些 api，更新了一些 api，并且有部分 api 打算在后续升级中移除，具体见下面，完整的列表参考：&lt;a href=&quot;https://issues.apache.org/jira/browse/SPARK-11806&quot;&gt;Spark 2.0 deprecations and removals&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;removals-api&quot;&gt;1.1 Removals API&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bagel&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;不支持 Hadoop 2.1 及之前老版本&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;The ability to configure closure serializer [闭包序列化？]&lt;/li&gt;
+  &lt;li&gt;HTTPBroadcast&lt;/li&gt;
+  &lt;li&gt;TTL-based metadata cleaning&lt;/li&gt;
+  &lt;li&gt;删除 org.apache.spark.Logging，推荐直接食用 slf4j 包&lt;/li&gt;
+  &lt;li&gt;SparkContext.metricsSystem&lt;/li&gt;
+  &lt;li&gt;Block-oriented integration with Tachyon (subsumed by file system integration)&lt;/li&gt;
+  &lt;li&gt;删掉在 1.x 中标注为 deprecated 的 api&lt;/li&gt;
+  &lt;li&gt;Methods on Python DataFrame that returned RDDs (map, flatMap, mapPartitions, etc). They are still available in dataframe.rdd field, e.g. dataframe.rdd.map.&lt;/li&gt;
+  &lt;li&gt;Less frequently used streaming connectors, including Twitter, Akka, MQTT, ZeroMQ [不知道为啥要删掉这些 api，估计是因为 structure streaming 改动比较大，难以实现这些 connector 吧]&lt;/li&gt;
+  &lt;li&gt;Hash-based shuffle manager&lt;/li&gt;
+  &lt;li&gt;History serving functionality from standalone Master&lt;/li&gt;
+  &lt;li&gt;For Java and Scala, DataFrame no longer exists as a class. As a result, data sources would need to be updated.&lt;/li&gt;
+  &lt;li&gt;Spark EC2 script 被迁移到另外一个 repo，本身与 spark 框架无关&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;behavior-changes-api&quot;&gt;1.2 Behavior Changes API&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;默认使用 scala 2.11 编译，之前默认是 2.10&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;sparksql 中，float 数据类型被解析成 decimal 类型，之前是被解析成 double 类型&lt;/li&gt;
+  &lt;li&gt;Kryo 升级到 3.0&lt;/li&gt;
+  &lt;li&gt;java 中，RDD.flatMap 和 RDD.mapPartitions 中的函数不需要返回所有数据，只需要能返回一个迭代器即可&lt;/li&gt;
+  &lt;li&gt;Java RDD’s countByKey and countAprroxDistinctByKey now returns a map from K to java.lang.Long, rather than to java.lang.Object.&lt;/li&gt;
+  &lt;li&gt;When writing Parquet files, the summary files are not written by default. To re-enable it, users must set “parquet.enable.summary-metadata” to true.&lt;/li&gt;
+  &lt;li&gt;The DataFrame-based API (spark.ml) now depends upon local linear algebra in spark.ml.linalg, rather than in spark.mllib.linalg.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;deprecations&quot;&gt;1.3 Deprecations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Mesos 中的 Fine-grained 模式&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;不支持 Java 7&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;不支持 Support for Python 2.6&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;core-and-spark-sql&quot;&gt;2. Core and Spark SQL&lt;/h2&gt;
+
+&lt;h3 id=&quot;programming-apis&quot;&gt;2.1 Programming APIs&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；&lt;/li&gt;
+  &lt;li&gt;新的 streaming 配置；&lt;/li&gt;
+  &lt;li&gt;新的 accumulator API；&lt;/li&gt;
+  &lt;li&gt;A new, improved Aggregator API for typed aggregation in Datasets&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sql&quot;&gt;2.2 SQL&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Spark 2.0 完全支持 SQL2003 标准.&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;更原生带 sql 解析器；&lt;/li&gt;
+  &lt;li&gt;Native DDL command implementations&lt;/li&gt;
+  &lt;li&gt;支持子查询，包括：
+    &lt;ul&gt;
+      &lt;li&gt;Uncorrelated Scalar Subqueries&lt;/li&gt;
+      &lt;li&gt;Correlated Scalar Subqueries&lt;/li&gt;
+      &lt;li&gt;NOT IN predicate Subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
+      &lt;li&gt;IN predicate subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
+      &lt;li&gt;(NOT) EXISTS predicate subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;View canonicalization support&lt;/li&gt;
+  &lt;li&gt;In addition, when building without Hive support, Spark SQL should have almost all the functionality as when building with Hive support, with the exception of Hive connectivity, Hive UDFs, and script transforms.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;new-features&quot;&gt;2.3 New Features&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;cache 和运行时的堆外内存管理&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Hive style bucketing support&lt;/li&gt;
+  &lt;li&gt;Approximate summary statistics using sketches, including approximate quantile, Bloom filter, and count-min sketch.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;performance-and-runtime&quot;&gt;2.4 Performance and Runtime&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;2～10 倍的性能提升，得益于 whole stage code generation 方案；&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;改善 Parquet 文件的扫描性能&lt;/li&gt;
+  &lt;li&gt;改善 ORC performance&lt;/li&gt;
+  &lt;li&gt;改善 Catalyst query 优化器&lt;/li&gt;
+  &lt;li&gt;改善 window function&lt;/li&gt;
+  &lt;li&gt;Automatic file coalescing for native data sources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mllib&quot;&gt;3. MLlib&lt;/h2&gt;
+
+&lt;p&gt;在 2.x 中，DataFrame-based API 会是主要开发，维护的新的 mllib api。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ML persistence: The DataFrames-based API provides near-complete support for saving and loading ML models and Pipelines in Scala, Java, Python, and R. See &lt;a href=&quot;https://databricks.com/blog/2016/05/31/apache-spark-2-0-preview-machine-learning-model-persistence.html&quot;&gt;this blog&lt;/a&gt; post and the following JIRAs for details: SPARK-6725, SPARK-11939, SPARK-14311.&lt;/li&gt;
+  &lt;li&gt;MLlib in R: SparkR now offers MLlib APIs for generalized linear models, naive Bayes, k-means clustering, and survival regression.&lt;/li&gt;
+  &lt;li&gt;Python: PySpark now offers many more MLlib algorithms, including LDA, Gaussian Mixture Model, Generalized Linear Regression, and more.&lt;/li&gt;
+  &lt;li&gt;Algorithms added to DataFrames-based API: Bisecting K-Means clustering, Gaussian Mixture Model, MaxAbsScaler feature transformer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sparkr&quot;&gt;4. SparkR&lt;/h2&gt;
+
+&lt;p&gt;最大的改善是 2.x 中，sparkr 支持3个 udf: dapply, gapply, and lapply.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Improved algorithm coverage for machine learning in R, including naive Bayes, k-means clustering, and survival regression.&lt;/li&gt;
+  &lt;li&gt;Generalized linear models support more families and link functions.&lt;/li&gt;
+  &lt;li&gt;Save and load for all ML models.&lt;/li&gt;
+  &lt;li&gt;More DataFrame functionality: Window functions API, reader, writer support for JDBC, CSV, SparkSession&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;streaming&quot;&gt;5. Streaming&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dependency-packaging-and-operations&quot;&gt;6. Dependency, Packaging, and Operations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Spark 2.0 no longer requires a fat assembly jar for production deployment.&lt;/li&gt;
+  &lt;li&gt;Akka dependency has been removed, and as a result, user applications can program against any versions of Akka.&lt;/li&gt;
+  &lt;li&gt;Support launching multiple Mesos executors in coarse grained Mesos mode.&lt;/li&gt;
+  &lt;li&gt;Kryo version is bumped to 3.0.&lt;/li&gt;
+  &lt;li&gt;The default build is now using Scala 2.11 rather than Scala 2.10.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spark-20-&quot;&gt;7. Spark 2.0, 必须知道的几个点&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不支持 Hadoop 2.1 及之前老版本&lt;/li&gt;
+  &lt;li&gt;默认使用 scala 2.11 编译，之前默认是 2.10&lt;/li&gt;
+  &lt;li&gt;Mesos 中的 Fine-grained 模式 [Deprecations]&lt;/li&gt;
+  &lt;li&gt;不支持 Java 7 [Deprecations]&lt;/li&gt;
+  &lt;li&gt;不支持 Support for Python 2.6 [Deprecations]&lt;/li&gt;
+  &lt;li&gt;Spark 2.0 完全支持 SQL2003 标准&lt;/li&gt;
+  &lt;li&gt;原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；&lt;/li&gt;
+  &lt;li&gt;SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；&lt;/li&gt;
+  &lt;li&gt;sql中 2～10 倍的性能提升，得益于 whole stage code generation 方案；&lt;/li&gt;
+  &lt;li&gt;统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；&lt;/li&gt;
+  &lt;li&gt;cache 和运行时的堆外内存管理&lt;/li&gt;
+  &lt;li&gt;新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;14. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/releases/spark-release-2-0-0.html&quot;&gt;Spark Release 2.0.0&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://issues.apache.org/jira/browse/SPARK-11806&quot;&gt;Spark 2.0 deprecations and removals&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2016/events/apache-spark-mllib-20-preview-data-science-and-production/&quot;&gt;APACHE SPARK MLLIB 2.0 PREVIEW: DATA SCIENCE AND PRODUCTION&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark?s=inner&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts?s=inner&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model?s=inner&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd?s=inner&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper?s=inner&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model?s=inner&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction?s=inner&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing?s=inner&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>『 读书笔记 』坚持读书 6 个多月的感受</title>
@@ -567,7 +774,7 @@ id_rsa_test.pub                                                                 
 &lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
 最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。&lt;/p&gt;
 
-&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 &lt;em&gt;present mode&lt;/em&gt; 哦。&lt;/p&gt;
 
 &lt;h2 id=&quot;spark-20-&quot;&gt;1. Spark 2.0 !&lt;/h2&gt;
 
@@ -775,6 +982,7 @@ id_rsa_test.pub                                                                 
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1362,8 +1570,9 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
 &lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。   &lt;br /&gt;
-Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦。&lt;/p&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。&lt;/p&gt;
+
+&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 &lt;em&gt;present mode&lt;/em&gt; 哦。&lt;/p&gt;
 
 &lt;h2 id=&quot;spark-more-than-a-framework&quot;&gt;1. Spark! More than A Framework!&lt;/h2&gt;
 
@@ -1484,250 +1693,7 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>一个工程师对产品的唬说扒道</title>
-     <link href="/thinking-of-product-design-and-data-driven"/>
-     <updated>2016-05-15T00:00:00+08:00</updated>
-     <id>/thinking-of-product-design-and-data-driven</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;感谢公司开放的企业文化；&lt;/p&gt;
-
-&lt;p&gt;我是来自优矿的量化工程师，闲时喜欢对自己用的产品思考和研究，公司有很多这方面的专家，他们在产品方面有很多沉淀和见解。今天我主要从即时客服这个功能点，以用户的角度和大家分享一些我对产品设计的看法，共通探讨一下如何定义一个好的产品，以及如何设计一个好的产品；此外，我还会分享一些自己使用 CNZZ, Google Analytics, Google Search Console, GrowingIO, Baidu Share 工具来尝试用户增长的一些想法。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 从几个问题说起&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;有没有哪个软件让你眼前一亮？&lt;/li&gt;
-  &lt;li&gt;有没有哪个应用，在你使用他不到3分钟就 say goodbye？&lt;/li&gt;
-  &lt;li&gt;是什么让你在众多同类软件中，选择当前正在用的这一款？&lt;/li&gt;
-  &lt;li&gt;是什么原因决定了一个产品的销量？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;microsoft-office-wps-google-docs&quot;&gt;2. Microsoft Office, WPS, Google Docs&lt;/h2&gt;
-
-&lt;p&gt;第一次听说 google docs 是在大学时期找工作的时候，当时听说 google 在电话面试的时候会要求在 google docs 上写代码。当时我很纳闷：电话面试？写代码？电话面试的时候面试官怎么看你写的代码呀？&lt;/p&gt;
-
-&lt;p&gt;后来才用了 google docs 之后才知道，原来 docs 功能已经超出我的想象了：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;覆盖了基本的 office 功能&lt;/li&gt;
-  &lt;li&gt;多用户实时在线协同&lt;/li&gt;
-  &lt;li&gt;界面简洁轻便&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;后来自从开始用 google docs 之后，我几乎再也没有碰过 ms office［事实上大学时期也只用 wps 了］，偶尔会用到 wps。&lt;/p&gt;
-
-&lt;p&gt;我经常在思考，为什么我会从 Microsoft Office 转向 WPS，后来为什么又会从 WPS 转到 Google Docs？后来在工作中，闲暇时会琢磨琢磨自己用的一些应用和逛的一些网站，在思考和研究那些应用和网站的时候，我会发现，其实真理是永恒不变的：&lt;em&gt;成功的产品都是相似的，失败的产品各有所因&lt;/em&gt;。&lt;/p&gt;
-
-&lt;p&gt;言归正传，回到我们今天的主题：如何设计一个应用的客服通道？&lt;/p&gt;
-
-&lt;p&gt;上面之所以要讲我的 Microsoft Office, WPS, Google Docs 故事，其实是想引出我最喜欢的 google docs 的一个设计，也是今天的主角，那就是：&lt;em&gt;Floating Action Button&lt;/em&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/product-design-1.png&quot; alt=&quot;product-design-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;floating-action-button-&quot;&gt;3. Floating Action Button ?&lt;/h2&gt;
-
-&lt;p&gt;其实我一开始也不知道居然有专门这样一个设计手册，而且还是 google 出的。当时只是觉得有这么多应用采用 google docs 右下角 button 的设计，应该会有一个地方来说明这种设计好处。所以当我 google 关键字 &lt;a href=&quot;https://www.google.co.jp/search?q=design+button+action&amp;amp;oq=design+button+action&amp;amp;aqs=chrome..69i57j69i60l3.344j0j1&amp;amp;sourceid=chrome&amp;amp;ie=UTF-8&quot;&gt;design button action&lt;/a&gt; 的时候，我发现了宝藏：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/product-design-2.png&quot; alt=&quot;product-design-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/product-design-3.png&quot; alt=&quot;product-design-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/product-design-4.png&quot; alt=&quot;product-design-4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;4. 如何设计一个应用的客服通道&lt;/h2&gt;
-
-&lt;p&gt;上面说了这么多，似乎和今天的 &lt;code class=&quot;highlighter-rouge&quot;&gt;如何设计一个应用的客服通道&lt;/code&gt; 没有多大联系，其实不然，下面我们就开始来谈谈今天的主题，然后再看看上面所说的内容和即时客服的那些关系。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;4.1 客服的历史&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;压根儿就没有客服&lt;/li&gt;
-  &lt;li&gt;电话客服
-    &lt;ul&gt;
-      &lt;li&gt;优点：沟通及时；&lt;/li&gt;
-      &lt;li&gt;缺点：通讯成本高；复杂问题指导难度大；记录难度稍大；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;邮件客服
-    &lt;ul&gt;
-      &lt;li&gt;优点：通讯成本低；方便记录问题；指导难度低；&lt;/li&gt;
-      &lt;li&gt;缺点：沟通不及时；客户保密性弱；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;通讯软件1v1客服
-    &lt;ul&gt;
-      &lt;li&gt;优点：沟通及时；通讯成本低；指导难度低；记录难度一般；&lt;/li&gt;
-      &lt;li&gt;缺点：客户保密性弱；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;用户交流群客服
-    &lt;ul&gt;
-      &lt;li&gt;优点：沟通即时；通讯成本低；指导难度很低；记录难度稍难；&lt;/li&gt;
-      &lt;li&gt;缺点：客户保密性很弱；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;section-4&quot;&gt;4.2 什么是即时客服&lt;/h3&gt;
-
-&lt;p&gt;即提供给客户，允许实时与客服人员进行咨询的工具，常见的一些：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;平台内置：阿里旺旺&lt;/li&gt;
-  &lt;li&gt;三方平台：营销 QQ&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;section-5&quot;&gt;4.3 即时客服的优缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;优势：即时性，提供用户高效的体验，第一时间探知用户心理，进行二次推销&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;例子 ：假设阿里旺旺是仅提供邮件功能？&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;缺点：无法应对大规模访问&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;例子 ：淘宝大店都会有数十个在线客服，双十一期间基本很难及时收到客服回复&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;best-practice&quot;&gt;4.4 Best Practice&lt;/h3&gt;
-
-&lt;p&gt;我一直相信，没有好与不好的设计，只有适用与不适用的设计。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-6&quot;&gt;5. 即时客服方案&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;商业方案：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://app.meiqia.com/&quot;&gt;美洽&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;开源方案：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.ppmessage.com/user/#/app/settings/historymessage&quot;&gt;ppmessage&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://rocket.chat/docs/administrator-guides/livechat/&quot;&gt;rocket.chat&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-7&quot;&gt;6. 题外话：关于增长&lt;/h2&gt;
-
-&lt;p&gt;其实关于增长的话题，我觉得跟客服的发展历史一样，都是当问题积累到一个点，再加以外部因素的驱动得以爆发。增长这个话题，我觉得是伴随最近5年大数据，云计算，互联网产业化的爆发式发展而引出的话题。而有一个新兴的职业，也伴随增长这个话题而出现在现在的职场当中：数据科学家。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/data-scientists.png&quot; alt=&quot;data-scientists.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;aarrr-&quot;&gt;6.1 AARRR 模型&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/product-design-6.png&quot; alt=&quot;product-design-6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;whysharp-arms-broaden-lens&quot;&gt;6.2 Why：&lt;em&gt;Sharp arms, broaden lens&lt;/em&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;推广个人博客：&lt;a href=&quot;litaotao.github.io&quot;&gt;litaotao.github.io&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;结识技术牛人：多做技术交流，不要闭门造车，坐井观天&lt;/li&gt;
-  &lt;li&gt;学习运营技能：扩展自己的知识面&lt;/li&gt;
-  &lt;li&gt;学习产品分析技能：扩展自己的知识面&lt;/li&gt;
-  &lt;li&gt;学习市场研究技能：扩展自己的知识面，案例参考：&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;growth-retention-engagement&quot;&gt;6.3 指标：Growth, Retention, Engagement&lt;/h3&gt;
-
-&lt;p&gt;Growth, Retention 和 Engagement 是做增长的三个大指标：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Growth: 增长数据&lt;/li&gt;
-  &lt;li&gt;Retention: 留存数据&lt;/li&gt;
-  &lt;li&gt;Engagement: 参与/活跃度数据&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Growth, Retention 和 Engagement 是一套比较完善的做增长所需要关注的指标，因为我只维护自己的博客，所以其实只需要关心其中的一小部分指标就足够了。同样的道理，并不是所有的产品都需要做增长，特别是大多数专业领域的商业产品，比如说：恒生电子的 homs 系统；但有的产品是必须要做增长，特别是大多数社交软件，受众群广的对个人的产品，比如说：facebook，twitter，微博，微信，qq，keep。&lt;/p&gt;
-
-&lt;p&gt;下面是我关注的一些指标：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;CNZZ&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;新老访客分布 : 查看新老访客占比，希望老访客稳定在一个区间内&lt;/li&gt;
-      &lt;li&gt;来路域名／来路页面／站内入口 : 推广引流效果，制定推广计划&lt;/li&gt;
-      &lt;li&gt;浏览器分布 : 制定浏览器兼容计划&lt;/li&gt;
-      &lt;li&gt;分辨率分布 : 制定页面优化方案&lt;/li&gt;
-      &lt;li&gt;平均访问时长 : 检验文章质量问题&lt;/li&gt;
-      &lt;li&gt;热点图 : 网站排版优化&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Google Search Console&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;查询词 : SEO 与内容优化&lt;/li&gt;
-      &lt;li&gt;内容关键字 : SEO 与内容优化&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Google Analytics&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;实时 -&amp;gt; 概览［用处不是特别大，但是很炫酷］&lt;/li&gt;
-      &lt;li&gt;受众群体 -&amp;gt; 用户流量 : 用户流失分析，内容优化［推荐系统的重要性］&lt;/li&gt;
-      &lt;li&gt;行为 -&amp;gt; 网站内容 -&amp;gt; 所有页面 : 内容优化，页面质量检查&lt;/li&gt;
-      &lt;li&gt;行为 -&amp;gt; 网站速度 : 速度优化利器
-        &lt;ul&gt;
-          &lt;li&gt;速度优化之图片压缩：本文用到的 &lt;code class=&quot;highlighter-rouge&quot;&gt;8&lt;/code&gt; 张图片，压缩后节省 &lt;code class=&quot;highlighter-rouge&quot;&gt;73%&lt;/code&gt; 的大小，节省 &lt;code class=&quot;highlighter-rouge&quot;&gt;597kb&lt;/code&gt; 的网络传输量，相当于&lt;code class=&quot;highlighter-rouge&quot;&gt;每千次 pv 节省 597MB&lt;/code&gt; 流量；
-  &lt;img src=&quot;../images/product-design-8.png&quot; alt=&quot;product-design-8.png&quot; /&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Baidu Share&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;分享媒体，分享量，会流量，回流比，分享页面&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;img src=&quot;../images/product-design-7.png&quot; alt=&quot;product-design-7.png&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-8&quot;&gt;7. 彩蛋&lt;/h2&gt;
-
-&lt;p&gt;免费的 google 搜索网站［都是从 CNZZ 上的 &lt;em&gt;来路域名&lt;/em&gt; 这个项目里看到的］：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://soguge.com/&quot;&gt;http://soguge.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gugesou.cn/&quot;&gt;http://www.gugesou.cn/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://isfox.com/&quot;&gt;http://isfox.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://g.xsou.co/&quot;&gt;https://g.xsou.co/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.sov5.com/&quot;&gt;http://www.sov5.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.qiangwaiba.com/google&quot;&gt;http://www.qiangwaiba.com/google&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.googto.com/&quot;&gt;http://www.googto.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.laiguge.com/&quot;&gt;https://www.laiguge.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://search.twcc.com/&quot;&gt;http://search.twcc.com/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://kuaiguge.com/&quot;&gt;https://kuaiguge.com/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-9&quot;&gt;8. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_any.png&quot; alt=&quot;wechat_pay_any.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-10&quot;&gt;9. 参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.google.com/design/spec/material-design/introduction.html&quot;&gt;Material Design&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.google.com/design/spec/components/buttons-floating-action-button.html&quot;&gt;Google Design Components&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.woshipm.com/ucd/166400.html&quot;&gt;Material Design：为什么 FAB (Floating Action Button) 是不好的体验设计&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech2ipo.com/10029855&quot;&gt;下拉菜单为何是一种不好的用户体验?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinking-of-wechat-design&quot;&gt;一次微信升级引发到思考&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/157106.html&quot;&gt;二十一世纪最性感的职业：数据科学家&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.indeed.com/jobtrends?q=%22Data+Scientist%22&amp;amp;l=&quot;&gt;Indeed Job Trend&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../files/baby-baby.pdf&quot;&gt;母婴市场研究.pdf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1nvSwiRv&quot;&gt;百度，Google SEO 文档&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;tinypng.com&quot;&gt;在线图片压缩&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>

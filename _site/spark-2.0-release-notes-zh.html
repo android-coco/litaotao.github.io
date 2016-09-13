@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>『 Spark 』1. spark 简介 | Taotao's Zone</title>
+  <title>『 Spark 』13. Spark 2.0 Release Notes 中文版 | Taotao's Zone</title>
   <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
   <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
@@ -112,10 +112,10 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/introduction-to-spark" title="『 Spark 』1. spark 简介">『 Spark 』1. spark 简介</a></h1>    
+    <h1 class="entry-title"><a href="/spark-2.0-release-notes-zh" title="『 Spark 』13. Spark 2.0 Release Notes 中文版">『 Spark 』13. Spark 2.0 Release Notes 中文版</a></h1>    
 
-    <p class="entry-date">2016-02-01 
-        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-02-01-introduction-to-spark.md">最后更新时间: 
+    <p class="entry-date">2016-09-13 
+        <span class="lastModified" style="display: none;" data-source="_posts/new-spark/2016-09-13-spark-2.0-release-notes-zh.md">最后更新时间: 
         </span>
     </p>
 
@@ -129,76 +129,180 @@
 
 <p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 <em>present mode</em> 哦。</p>
 
-<h2 id="spark">1. 如何向别人介绍 spark</h2>
-
-<p><strong><em>Apache Spark™ is a fast and general engine for large-scale data processing.</em></strong></p>
-
-<p>Apache Spark is a fast and general-purpose cluster computing system.  <br />
-It provides high-level APIs in <code class="highlighter-rouge">Java, Scala, Python and R</code>, and an optimized engine that supports general execution graphs.  <br />
-It also supports a rich set of higher-level tools including :</p>
+<p><code class="highlighter-rouge">Notes</code>:</p>
 
 <ul>
-  <li>Spark SQL for SQL and structured data processing, extends to DataFrames and DataSets</li>
-  <li>MLlib for machine learning</li>
-  <li>GraphX for graph processing</li>
-  <li>Spark Streaming for stream data processing</li>
+  <li>本篇开始，会渐渐的把版本升级到 2.0 上，后续的文章也会逐渐基于 2.0 来写；前面的文章就不改了，反正都是换汤不换药;</li>
+  <li>本篇是上一篇文章的升级版，关于 spark 2.0 的大概介绍可以直接看上一篇文章，本篇文章是因为最近项目准备从 1.6.1 升级到 2.0，需要对 2.0 有一个整体的了解，所以索性读一遍 2.0 的 release notes，也随手把 release notes 的中文版写下来咯;</li>
+  <li>虽说是中文版，但是一切都是以能理解为主，有的地方不知道怎么翻译，或者我觉得没有必要翻译的，就没有写成中文了，当然欢迎大家提出修改建议了～</li>
+  <li>如果要急着陪女票的话，推荐直接看最后的 <em>7. Spark 2.0, 必须知道的几个点</em></li>
 </ul>
 
-<h2 id="spark-">2. spark 诞生的一些背景</h2>
+<p>上一篇文章： 
+<a href="http://litaotao.github.io/spark-2.0-faster-easier-smarter">『 Spark 』12. Spark 2.0  | 10 个特性介绍</a></p>
 
-<p><img src="../images/introduction-to-spark-1.jpg" alt="introduction-to-spark-1.jpg" />
-<img src="../images/introduction-to-spark-2.jpg" alt="introduction-to-spark-2.jpg" /></p>
+<h2 id="api-stability">1. API Stability</h2>
 
-<p>Spark started in 2009, open sourced 2010, unlike the various specialized systems[hadoop, storm], Spark’s goal was to :</p>
+<p>spark 保证 2.x 中非实验性的 api 的稳定性，2.x 中大部分 api 都与 1.x 中保持一致，但是删除了一些 api，更新了一些 api，并且有部分 api 打算在后续升级中移除，具体见下面，完整的列表参考：<a href="https://issues.apache.org/jira/browse/SPARK-11806">Spark 2.0 deprecations and removals</a></p>
+
+<h3 id="removals-api">1.1 Removals API</h3>
 
 <ul>
-  <li>generalize MapReduce to support new apps within same engine
+  <li>Bagel</li>
+  <li><em>不支持 Hadoop 2.1 及之前老版本</em></li>
+  <li>The ability to configure closure serializer [闭包序列化？]</li>
+  <li>HTTPBroadcast</li>
+  <li>TTL-based metadata cleaning</li>
+  <li>删除 org.apache.spark.Logging，推荐直接食用 slf4j 包</li>
+  <li>SparkContext.metricsSystem</li>
+  <li>Block-oriented integration with Tachyon (subsumed by file system integration)</li>
+  <li>删掉在 1.x 中标注为 deprecated 的 api</li>
+  <li>Methods on Python DataFrame that returned RDDs (map, flatMap, mapPartitions, etc). They are still available in dataframe.rdd field, e.g. dataframe.rdd.map.</li>
+  <li>Less frequently used streaming connectors, including Twitter, Akka, MQTT, ZeroMQ [不知道为啥要删掉这些 api，估计是因为 structure streaming 改动比较大，难以实现这些 connector 吧]</li>
+  <li>Hash-based shuffle manager</li>
+  <li>History serving functionality from standalone Master</li>
+  <li>For Java and Scala, DataFrame no longer exists as a class. As a result, data sources would need to be updated.</li>
+  <li>Spark EC2 script 被迁移到另外一个 repo，本身与 spark 框架无关</li>
+</ul>
+
+<h3 id="behavior-changes-api">1.2 Behavior Changes API</h3>
+
+<ul>
+  <li><em>默认使用 scala 2.11 编译，之前默认是 2.10</em></li>
+  <li>sparksql 中，float 数据类型被解析成 decimal 类型，之前是被解析成 double 类型</li>
+  <li>Kryo 升级到 3.0</li>
+  <li>java 中，RDD.flatMap 和 RDD.mapPartitions 中的函数不需要返回所有数据，只需要能返回一个迭代器即可</li>
+  <li>Java RDD’s countByKey and countAprroxDistinctByKey now returns a map from K to java.lang.Long, rather than to java.lang.Object.</li>
+  <li>When writing Parquet files, the summary files are not written by default. To re-enable it, users must set “parquet.enable.summary-metadata” to true.</li>
+  <li>The DataFrame-based API (spark.ml) now depends upon local linear algebra in spark.ml.linalg, rather than in spark.mllib.linalg.</li>
+</ul>
+
+<h3 id="deprecations">1.3 Deprecations</h3>
+
+<ul>
+  <li><em>Mesos 中的 Fine-grained 模式</em></li>
+  <li><em>不支持 Java 7</em></li>
+  <li><em>不支持 Support for Python 2.6</em></li>
+</ul>
+
+<h2 id="core-and-spark-sql">2. Core and Spark SQL</h2>
+
+<h3 id="programming-apis">2.1 Programming APIs</h3>
+
+<ul>
+  <li><em>统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；</em></li>
+  <li>SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；</li>
+  <li>新的 streaming 配置；</li>
+  <li>新的 accumulator API；</li>
+  <li>A new, improved Aggregator API for typed aggregation in Datasets</li>
+</ul>
+
+<h3 id="sql">2.2 SQL</h3>
+
+<p><em>Spark 2.0 完全支持 SQL2003 标准.</em></p>
+
+<ul>
+  <li>更原生带 sql 解析器；</li>
+  <li>Native DDL command implementations</li>
+  <li>支持子查询，包括：
     <ul>
-      <li>it’s perfectly compatible with hadoop, can run on Hadoop, Mesos, standalone, or in the cloud. It can access diverse data sources including HDFS, Cassandra, HBase, and S3.</li>
+      <li>Uncorrelated Scalar Subqueries</li>
+      <li>Correlated Scalar Subqueries</li>
+      <li>NOT IN predicate Subqueries (in WHERE/HAVING clauses)</li>
+      <li>IN predicate subqueries (in WHERE/HAVING clauses)</li>
+      <li>(NOT) EXISTS predicate subqueries (in WHERE/HAVING clauses)</li>
     </ul>
   </li>
-  <li>speed up iteration computing over hadoop.
-    <ul>
-      <li>use memory + disk instead of disk as data storage medium</li>
-      <li>design a new programming modal, RDD, which make the data processing more graceful [RDD transformation, action, distributed jobs, stages and tasks]</li>
-    </ul>
-  </li>
+  <li>View canonicalization support</li>
+  <li>In addition, when building without Hive support, Spark SQL should have almost all the functionality as when building with Hive support, with the exception of Hive connectivity, Hive UDFs, and script transforms.</li>
 </ul>
 
-<p><img src="../images/introduction-to-spark-4.jpg" alt="introduction-to-spark-4.jpg" />
-<img src="../images/introduction-to-spark-5.jpg" alt="introduction-to-spark-5.jpg" /></p>
-
-<h2 id="spark-1">3. 为何选用 spark</h2>
+<h3 id="new-features">2.3 New Features</h3>
 
 <ul>
-  <li>designed, implemented and used as libs, instead of specialized systems;
-    <ul>
-      <li>much more useful and maintainable</li>
-    </ul>
-  </li>
+  <li><em>原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；</em></li>
+  <li><em>cache 和运行时的堆外内存管理</em></li>
+  <li>Hive style bucketing support</li>
+  <li>Approximate summary statistics using sketches, including approximate quantile, Bloom filter, and count-min sketch.</li>
 </ul>
 
-<p><img src="../images/introduction-to-spark-3.jpg" alt="introduction-to-spark-3.jpg" /></p>
+<h3 id="performance-and-runtime">2.4 Performance and Runtime</h3>
 
 <ul>
-  <li>from history, it is designed and improved upon hadoop and storm, it has perfect genes;</li>
-  <li>documents, community, products and trends;</li>
-  <li>it provides sql, dataframes, datasets, machine learning lib, graph computing lib and activitily growth 3-party lib, easy to use, cover lots of use cases in lots field;</li>
-  <li>it provides ad-hoc exploring, which boost your data exploring and pre-processing and help you build your data ETL, processing job;</li>
+  <li><em>2～10 倍的性能提升，得益于 whole stage code generation 方案；</em></li>
+  <li>改善 Parquet 文件的扫描性能</li>
+  <li>改善 ORC performance</li>
+  <li>改善 Catalyst query 优化器</li>
+  <li>改善 window function</li>
+  <li>Automatic file coalescing for native data sources</li>
 </ul>
 
-<h2 id="next">4. Next</h2>
+<h2 id="mllib">3. MLlib</h2>
 
-<p>下一篇，简单介绍 spark 里必须深刻理解的基本概念。</p>
-
-<h2 id="section-1">参考文章</h2>
+<p>在 2.x 中，DataFrame-based API 会是主要开发，维护的新的 mllib api。</p>
 
 <ul>
-  <li><a href="http://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf">Intro to Apache Spark</a></li>
-  <li><a href="http://litaotao.github.io/files/introduing_spark.pdf">introducing spark</a></li>
+  <li>ML persistence: The DataFrames-based API provides near-complete support for saving and loading ML models and Pipelines in Scala, Java, Python, and R. See <a href="https://databricks.com/blog/2016/05/31/apache-spark-2-0-preview-machine-learning-model-persistence.html">this blog</a> post and the following JIRAs for details: SPARK-6725, SPARK-11939, SPARK-14311.</li>
+  <li>MLlib in R: SparkR now offers MLlib APIs for generalized linear models, naive Bayes, k-means clustering, and survival regression.</li>
+  <li>Python: PySpark now offers many more MLlib algorithms, including LDA, Gaussian Mixture Model, Generalized Linear Regression, and more.</li>
+  <li>Algorithms added to DataFrames-based API: Bisecting K-Means clustering, Gaussian Mixture Model, MaxAbsScaler feature transformer.</li>
 </ul>
 
-<h2 id="section-2">本系列文章链接</h2>
+<h2 id="sparkr">4. SparkR</h2>
+
+<p>最大的改善是 2.x 中，sparkr 支持3个 udf: dapply, gapply, and lapply.</p>
+
+<ul>
+  <li>Improved algorithm coverage for machine learning in R, including naive Bayes, k-means clustering, and survival regression.</li>
+  <li>Generalized linear models support more families and link functions.</li>
+  <li>Save and load for all ML models.</li>
+  <li>More DataFrame functionality: Window functions API, reader, writer support for JDBC, CSV, SparkSession</li>
+</ul>
+
+<h2 id="streaming">5. Streaming</h2>
+
+<p><em>新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.</em></p>
+
+<h2 id="dependency-packaging-and-operations">6. Dependency, Packaging, and Operations</h2>
+
+<ul>
+  <li>Spark 2.0 no longer requires a fat assembly jar for production deployment.</li>
+  <li>Akka dependency has been removed, and as a result, user applications can program against any versions of Akka.</li>
+  <li>Support launching multiple Mesos executors in coarse grained Mesos mode.</li>
+  <li>Kryo version is bumped to 3.0.</li>
+  <li>The default build is now using Scala 2.11 rather than Scala 2.10.</li>
+</ul>
+
+<h2 id="spark-20-">7. Spark 2.0, 必须知道的几个点</h2>
+
+<ul>
+  <li>不支持 Hadoop 2.1 及之前老版本</li>
+  <li>默认使用 scala 2.11 编译，之前默认是 2.10</li>
+  <li>Mesos 中的 Fine-grained 模式 [Deprecations]</li>
+  <li>不支持 Java 7 [Deprecations]</li>
+  <li>不支持 Support for Python 2.6 [Deprecations]</li>
+  <li>Spark 2.0 完全支持 SQL2003 标准</li>
+  <li>原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；</li>
+  <li>SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；</li>
+  <li>sql中 2～10 倍的性能提升，得益于 whole stage code generation 方案；</li>
+  <li>统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；</li>
+  <li>cache 和运行时的堆外内存管理</li>
+  <li>新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.</li>
+</ul>
+
+<h2 id="section-1">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+
+<p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
+
+<h2 id="section-2">参考文章</h2>
+
+<ul>
+  <li><a href="http://spark.apache.org/releases/spark-release-2-0-0.html">Spark Release 2.0.0</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/SPARK-11806">Spark 2.0 deprecations and removals</a></li>
+  <li><a href="https://spark-summit.org/2016/events/apache-spark-mllib-20-preview-data-science-and-production/">APACHE SPARK MLLIB 2.0 PREVIEW: DATA SCIENCE AND PRODUCTION</a></li>
+</ul>
+
+<h2 id="section-3">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -218,9 +322,9 @@ It also supports a rich set of higher-level tools including :</p>
 
 
     <!-- share icon -->
-    <!-- <div class="ds-share" data-thread-key="/introduction-to-spark" data-title="『 Spark 』1. spark 简介"
+    <!-- <div class="ds-share" data-thread-key="/spark-2.0-release-notes-zh" data-title="『 Spark 』13. Spark 2.0 Release Notes 中文版"
          data-content="content"
-         data-url="http://litaotao.github.io//introduction-to-spark">
+         data-url="http://litaotao.github.io//spark-2.0-release-notes-zh">
         <div class="ds-share-aside-left">
           <div class="ds-share-aside-inner">
           </div>
@@ -236,7 +340,7 @@ It also supports a rich set of higher-level tools including :</p>
     <div id="disqus_container">
       <div style="margin-bottom:20px">
       <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/introduction-to-spark data-title=『 Spark 』1. spark 简介 data-url=/introduction-to-spark></div>
+        <div class="ds-thread" data-thread-key=/spark-2.0-release-notes-zh data-title=『 Spark 』13. Spark 2.0 Release Notes 中文版 data-url=/spark-2.0-release-notes-zh></div>
       <!-- 多说评论框 end -->
       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
       <script type="text/javascript">
