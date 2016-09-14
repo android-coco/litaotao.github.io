@@ -99,6 +99,7 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Databricks Empowers Enterprises to Secure Their Apache Spark Workloads](http://www.marketwired.com/press-release/databricks-empowers-enterprises-to-secure-their-apache-spark-workloads-2132605.htm)
 - [Spark配置参数](http://blog.javachen.com/2015/06/07/spark-configuration.html)
 - [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
+- [How-to: Prepare Your Apache Hadoop Cluster for PySpark Jobs](http://blog.cloudera.com/blog/2015/09/how-to-prepare-your-apache-hadoop-cluster-for-pyspark-jobs/)
 - [Apache Spark’s Hidden REST API](http://arturmkrtchyan.com/apache-spark-hidden-rest-api)
 
 
