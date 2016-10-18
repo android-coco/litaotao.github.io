@@ -132,7 +132,7 @@ ps：还会继续看相关文章，遇到不错的会继续更新上来。
 
 - [刘军斯诺克教学视频](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=401378237&idx=4&sn=6d170c936b7f70335d5e93e73aaee546&scene=1&srcid=043081SXDVkYRdOXcnGQjv9D&key=b28b03434249256b2296b1bd2d750888d47946fdfdd9f98c582ccbb1064092de4c91f02bd6aa0bcb1007f32802b5f501&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1605)&version=11020201&pass_ticket=8qA63fh%2FUVupEI5btNGrCxRGS3sRpbsoRDe0EA989gz9wMDSVuTBStGTOeHm4xig)
 - [【视频】非常标准的斯诺克拉伸式发力的后手动作](https://mp.weixin.qq.com/s?__biz=MzA5NzA4MTQzOQ==&mid=201222767&idx=6&sn=0be40378af5a1f58068d2212044379cc&scene=1&srcid=0513u4FQ54D7mL5Pv70obLgg&key=8d8120cb97983fad2ef987100850208a7fc9b55de6cc0782246474b73ce3730cb7fa27b75dbdae59818e3bf2edee0f63&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&version=11020201&pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L)
-
+- [如果不是因为这个视频，你一定不知道斯诺克还能玩成这样](https://mp.weixin.qq.com/s?__biz=MjM5OTYwNTA2Mg==&mid=2649994290&idx=1&sn=bcbce42ef80c532fe06586fd8087a8d4&chksm=bf3ff21b88487b0d43594d87d066a9e8e64c2e8a75b5a3260d1aa8dbf042ce2ea50f1c9efdd0&scene=0&key=c3acc508db720376ba56549cad930a93e527ec3af0d0c6762db55cd844c99814a5db02f2729891c28637e0fe90fe7201&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=Ubw%2BC8LcQB%2Btkxpjdfw6VvyV9nquqgrEUXUSfwIPzWc%2F10riysR19pXr2pDWFVRP)
 
 ## 4. 进阶视频
 

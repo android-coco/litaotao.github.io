@@ -63,6 +63,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [ Import Notebook Apache Spark on Databricks for Data Engineers](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html)
 - [Structured Streaming In Apache Spark: A new high-level API for streaming](https://databricks.com/blog/2016/07/28/structured-streaming-in-apache-spark.html)
 - [Spark SQL Supported Syntax](https://github.com/databricks/spark-sql-perf/blob/master/src/main/scala/com/databricks/spark/sql/perf/tpcds/TPCDS_1_4_Queries.scala)
+- [Combining Machine Learning Frameworks with Apache Spark](http://www.slideshare.net/databricks/combining-machine-learning-frameworks-with-apache-spark)
+- [Deep Dive: Memory Management in Apache Spark](http://www.slideshare.net/databricks/deep-dive-memory-management-in-apache-spark)
+
 
 
 ## 4. 文章，博客
@@ -101,7 +104,8 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
 - [How-to: Prepare Your Apache Hadoop Cluster for PySpark Jobs](http://blog.cloudera.com/blog/2015/09/how-to-prepare-your-apache-hadoop-cluster-for-pyspark-jobs/)
 - [Apache Spark’s Hidden REST API](http://arturmkrtchyan.com/apache-spark-hidden-rest-api)
-
+- [sqlContext vs hiveContext]
+    - [What is the difference between Apache Spark SQLContext vs HiveContext?](http://stackoverflow.com/questions/33666545/what-is-the-difference-between-apache-spark-sqlcontext-vs-hivecontext)
 
 
 
