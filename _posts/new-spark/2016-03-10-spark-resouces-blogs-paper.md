@@ -104,9 +104,12 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
 - [Running Spark Python Applications](http://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_python.html)
 - [How-to: Prepare Your Apache Hadoop Cluster for PySpark Jobs](http://blog.cloudera.com/blog/2015/09/how-to-prepare-your-apache-hadoop-cluster-for-pyspark-jobs/)
 - [Apache Spark’s Hidden REST API](http://arturmkrtchyan.com/apache-spark-hidden-rest-api)
-- [sqlContext vs hiveContext]
+- [SQL, sqlContext, hiveContext]
     - [What is the difference between Apache Spark SQLContext vs HiveContext?](http://stackoverflow.com/questions/33666545/what-is-the-difference-between-apache-spark-sqlcontext-vs-hivecontext)
-
+    - [SQL Window Functions](https://drill.apache.org/docs/sql-window-functions-introduction/)
+    - [Performance Tuning SQL Queries](https://community.modeanalytics.com/sql/tutorial/sql-performance-tuning/)
+    - [HIVE-vs-RDBMS](http://hadooptutorial.info/hive-vs-rdbms/)
+    - [Windowing and Analytics Functions](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+WindowingAndAnalytics)
 
 
 ## 5. 视频
