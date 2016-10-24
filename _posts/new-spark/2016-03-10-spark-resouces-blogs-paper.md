@@ -110,7 +110,12 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
     - [Performance Tuning SQL Queries](https://community.modeanalytics.com/sql/tutorial/sql-performance-tuning/)
     - [HIVE-vs-RDBMS](http://hadooptutorial.info/hive-vs-rdbms/)
     - [Windowing and Analytics Functions](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+WindowingAndAnalytics)
-
+- [Spark Memory Issues]
+    - [http://www.cnblogs.com/wrencai/p/4231934.html](http://www.cnblogs.com/wrencai/p/4231934.html)
+    - [http://stackoverflow.com/questions/32349611/what-should-be-the-optimal-value-for-spark-sql-shuffle-partitions-or-how-do-we-i](http://stackoverflow.com/questions/32349611/what-should-be-the-optimal-value-for-spark-sql-shuffle-partitions-or-how-do-we-i)
+    - [http://stackoverflow.com/questions/21138751/spark-java-lang-outofmemoryerror-java-heap-space](http://stackoverflow.com/questions/21138751/spark-java-lang-outofmemoryerror-java-heap-space)
+    - [A Beginner's Guide on Troubleshooting Spark Applications](http://www.slideshare.net/jcmia1/a-beginners-guide-on-troubleshooting-spark-applications)
+    - [http://www.mincoder.com/article/2381.shtml](http://www.mincoder.com/article/2381.shtml)
 
 ## 5. 视频
 
