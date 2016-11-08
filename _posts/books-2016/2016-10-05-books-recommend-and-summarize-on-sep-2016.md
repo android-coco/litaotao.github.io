@@ -2,7 +2,7 @@
 category: books-2016
 published: false
 layout: post
-title: 『 读书笔记 』9月读书总结｜博文推荐
+title: 『 读书笔记 』9月，10月读书总结｜博文推荐
 description: the more you read, the more you think, better you'll be.
 ---
 
@@ -30,13 +30,95 @@ ps: 我对好书的定义很简单：
 
 ## 1. 读书总结
 
-### 1.1 [孙子兵法](https://www.amazon.cn/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95%E7%B2%BE%E8%AF%BB-%E9%99%88%E5%AE%87/dp/B00127EU7E/ref=sr_1_2?ie=UTF8&qid=1465825540&sr=8-2&keywords=%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95+%E7%B2%BE%E8%AF%BB)
+### 1.1 公司财务原理，第七，八章
 
-这本书买了不知道有多少年了，但是一直没看过。自从今年3月份培养读书习惯来，就把这本书列上了书单，很是期待这本书，作为6月的第一本书来读。内容方面自然不必多说，满满的都是干货，但是这本书传承了千年，我自始自终都抱着敬畏的态度来读，不能随意的评论。但是，我想说，这本书里的内容，不论在从商，创业，处事，个人规划方面都很有借鉴意义。博大精深，值得反复品读。
+这本书越来越有意思了，曾经听一个朋友说这本书就是讲一些公司财务的东西，看来是顾名思义去了吧。其实就跟我第一次总结的一样，这本书从小来说，能让你了解公司财务，金融市场运作的一些情况，对从事投资方面的人来说很有用；从大来说，这本书能交给你不少关于如何开展，运作一个公司的很多规则和经验，非常有用。严重推荐，值得认真研读。
 
-总结：抱着敬畏的形态来读这本书，之后还会不间断的回顾，希望能多吸取一些精华和感悟。
+比如说，第七，八章就没有讲什么公司财务的东西了，而是讲一些风险，资产定价相关的东西，非常有用。
+
+总结：这本书什么都好，除了原版的太贵了，我看的是第十版原版的打印版，100多，黑白色的；原版印刷版的是彩色版的，死贵了，但是看起来真是贼爽。我有时候都是电子版的印刷版结合黑白色的打印版一起来看的。
 
 推荐指数：`* * * * *`
+
+
+下面是一张原版印刷版的电子截图：
+
+![amazing_book.png](../images/amazing_book.png)
+
+
+### 1.2 [怪诞行为学](https://www.amazon.cn/%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6-%E5%8F%AF%E9%A2%84%E6%B5%8B%E7%9A%84%E9%9D%9E%E7%90%86%E6%80%A7-%E4%B8%B9%E2%80%A2%E8%89%BE%E7%91%9E%E9%87%8C/dp/B0040NO84W/ref=sr_1_1?ie=UTF8&qid=1478565337&sr=8-1&keywords=%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6)
+
+以前大学的时候就浏览过这本书，当时就觉得非常有意思。如今再次品读，更有一番韵味啊。现在市场上还有其他几本非常相似的书，比如说《怪诞行为学2》，《怪诞经济学》，《怪诞心理学》什么的。虽然我觉得先品读一本就够了，把其中的道理领悟就够了。但是我也准备后期抽时间读读其他类型的书，看看是否能找到一些更好玩的东西。
+
+总结：很有意思的一本书。
+
+推荐指数：`* * * * *`
+
+
+### 1.3 [说谎者的扑克牌](https://www.amazon.cn/%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C-%E5%8D%8E%E5%B0%94%E8%A1%97%E7%9A%84%E6%8A%95%E8%B5%84%E6%B8%B8%E6%88%8F-%E8%BF%88%E5%85%8B%E5%B0%94%E2%80%A2%E5%88%98%E6%98%93%E6%96%AF/dp/B00DYRVNJS/ref=sr_1_1?ie=UTF8&qid=1478565669&sr=8-1&keywords=%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C)
+
+这本书是从一个曾在所罗门任职的交易员角度，讲了一些在过去几十年里华尔街的一些变化和华尔街人的各种状态。可能是中文翻译的问题，有些地方读起来感觉很干涩。下次读作者的另外一本出名作《大空头》的时候，准备看看原版的了。
+
+总结：还行吧，如果想了解华尔街以及上世纪华尔街人的一些心理转变的话，可以去看看。
+
+推荐指数：`* * *`
+
+
+### 1.4 [uwsgi document](https://uwsgi-docs.readthedocs.io/en/latest/)
+
+这是 uwsgi 的官方文档，因为之前用 uwsgi 发现一些问题，所以准备系统的看看官方文档。虽然 uwsgi 的文档有的地方写得很简单，不好理解，官方也没有例子来讲解，但是看了之后还是收获多多的。
+
+总结：新手可以直接 copy 别人的 uwsgi 配置文件就行了，要是想升级一下自己的话，推荐多仔细读读相关官方文档。对于那些随便 copy 别人的代码，然后出了问题第一时间就是去 `请教` 的人，哥一向是懒得理的。
+
+推荐指数：`* * * *`
+
+
+### 1.5 [gunicorn document](http://docs.gunicorn.org/en/latest/instrumentation.html)
+
+之所以看了 uwsgi 的文档，还想看 gunicorn 的文档，有以下几个原因：
+
+- 我们的项目里用的是 uwsgi，但是听说 gunicorn 也非常厉害，所以也想看看 gunicorn 的肌肉；
+- 看 uwsgi 的文档的时候，发现有的地方写得非常简洁到难懂，所以准备看看 gunicorn 的文档，如果 gunicorn 的文档比较 nice 的话，后期的项目可以考虑试试 gunicorn；
+- uwsgi 的源代码是用 c 写的，gunicorn 的源代码是用 python 写的，相对来说 gunicorn 的源代码更好读【当然我不是推荐什么东西都去读源代码，除非必要的时候】
+- uwsgi 的时间比较长了，gunicorn 比较年轻，我都喜欢比较年轻的东西，因为一般来说越新的东西在设计之初都会考虑得更全面一些，都会吸收一下前辈们的经验；
+
+总结：gunicorn 的文档相对于 uwsgi 来说是好了一些，但也不是事无巨细，更多情况下还是需要自己多去尝试和google。
+
+推荐指数：`* * * *`
+
+
+### 1.6 [scala school](https://twitter.github.io/scala_school/zh_cn/index.html)
+
+最近想学学 scala，于是找到了 twitter 出的这个在线 scala 教程，个人觉得虽然不错，但似乎不太合我自己的口味，准备换一本书系统的读读。
+
+总结：我相信 twitter 出的教程，可能是自己水土不服吧，哈哈，准备看看 《快学 scala》肿么样。
+
+推荐指数：`* * * *`
+
+
+
+### 1.7 []()
+
+总结：
+
+推荐指数：`* * * *`
+
+
+
+### 1.6 []()
+
+总结：
+
+推荐指数：`* * * *`
+
+
+
+### 1.6 []()
+
+总结：
+
+推荐指数：`* * * *`
+
 
 
 
@@ -58,7 +140,7 @@ ps: 我对好书的定义很简单：
 - [世界经济危机简史（1788-2000年）中](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670931646&idx=1&sn=5d8c001e20c4d9639f9d801f2a99b7c0&chksm=851bde48b26c575e5654a8a2cc749cf2beb60615ac226ca437ecc3414f3c4e211d59ad4624cf&scene=0&key=502b9ab53198616fac715cfd89d4cd684b2e7b345114e400e6054baa39781b03ebd11f0bf6113e49c9355fc5d9c88498&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=WRIhMgloARtS0w69StWALDUe0ZPHP9Gs7XsWyH%2BXSEYKO9t2RbqJlyJqDL7x2BQd)
 - [世界经济危机简史（1788-2000年）下](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670931648&idx=1&sn=6d4edb5a0c75642da4ba54f77a570cae&chksm=851bde36b26c5720ef0068e280fd1594fbcab3e096d52953791e699646974e1f526a04992237&scene=0&key=502b9ab53198616f7fc0cba7403f81d680e173245096ee9887a85dc0c155d23f6d4856cec826a8fa8282608ebc62555b&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=WRIhMgloARtS0w69StWALDUe0ZPHP9Gs7XsWyH%2BXSEYKO9t2RbqJlyJqDL7x2BQd)
 - [如何看待人民日报微信公众号评论员文章称“失去奋斗，房产再多我们也将无家可归”？](https://www.zhihu.com/question/51043149/answer/124226744?from=timeline&isappinstalled=1)
-
+- [python-profiling](http://tech.glowing.com/cn/python-profiling/)
 
 ## 3. 优质产品
 
