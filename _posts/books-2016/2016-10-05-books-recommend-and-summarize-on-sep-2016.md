@@ -97,20 +97,34 @@ ps: 我对好书的定义很简单：
 
 
 
-### 1.7 []()
+### 1.7 [一看就懂的新公司开办全图解](https://www.amazon.cn/%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3-%E6%9D%A8%E5%B0%8F%E4%B8%BD/dp/B01G8JLK9G/ref=sr_1_1?s=books&ie=UTF8&qid=1479100767&sr=1-1&keywords=%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3)
 
-总结：
+最近买了一套创业的大白书来看，这是其中一本。首先内容上来说，对我这种大白真的是够用了，当然政策一直在变，也许到自己真正创业的时候，很多东西都会不一样了。但是我一贯的看法是：万变不离其宗。就算规则，政策变了，只要自己掌握一些标准的流程怎么走，到时候直接电话去相关机构问就行了，再怎么说也不会无头苍蝇乱撞。再说说看完后的感受，尼玛就是8个字：想开个公司真心难。一系列的开公司前的准备，过程中要办那么多证件，开完后要考虑招人，财务等等。关键最后还看到公司所得税那部分，尼玛居然要 25% 的所得税，这下终于知道为啥有辣么多公司要逃税漏税了，这赋税真心太重了啊。以后自己要是开公司了，一定找几个学税法的同学想想怎么 `交税`。
 
-推荐指数：`* * * *`
-
-
-
-### 1.6 []()
-
-总结：
+总结：本书对大白挺有用的，但是要注意的是，本书只是介绍一般开公司的一些流程，具体到你准备去干的时候，尽量先电话问清楚相关机构，要是能找到有过这方面的经验的人就更好了。
 
 推荐指数：`* * * *`
 
+
+
+### 1.6 [Best Python Problems on Stackoverflow](http://stackoverflow.com/questions/tagged/python)
+
+都说想要了解一座城，最好的方法就是去走走。我认为要想深入了解一门语言，除了读书，实践，更好的方法是去社区看看，看看大家在这门语言上都遇到过哪些问题，以及怎样去解决这些问题的。So I make the list bellow:   
+
+- [What does the “yield” keyword do?](http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do)    
+- [What is a metaclass in Python?](http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python)
+- [How do I check whether a file exists using Python?](http://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-using-python)
+- [Does Python have a ternary conditional operator?](http://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator)
+- [Calling an external command in Python](http://stackoverflow.com/questions/89228/calling-an-external-command-in-python)
+- [What does `if __name__ == “__main__”:` do?](http://stackoverflow.com/questions/419163/what-does-if-name-main-do)
+- [How to make a chain of function decorators in Python?](http://stackoverflow.com/questions/739654/how-to-make-a-chain-of-function-decorators-in-python)
+- [Sort a Python dictionary by value](http://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value)
+- [How to check if a directory exists and create it if necessary?](http://stackoverflow.com/questions/273192/how-to-check-if-a-directory-exists-and-create-it-if-necessary)
+- [What is the difference between @staticmethod and @classmethod in Python?](http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python)
+- []()
+- []()
+- []()
+- []()
 
 
 ### 1.6 []()
@@ -141,6 +155,20 @@ ps: 我对好书的定义很简单：
 - [世界经济危机简史（1788-2000年）下](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670931648&idx=1&sn=6d4edb5a0c75642da4ba54f77a570cae&chksm=851bde36b26c5720ef0068e280fd1594fbcab3e096d52953791e699646974e1f526a04992237&scene=0&key=502b9ab53198616f7fc0cba7403f81d680e173245096ee9887a85dc0c155d23f6d4856cec826a8fa8282608ebc62555b&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=WRIhMgloARtS0w69StWALDUe0ZPHP9Gs7XsWyH%2BXSEYKO9t2RbqJlyJqDL7x2BQd)
 - [如何看待人民日报微信公众号评论员文章称“失去奋斗，房产再多我们也将无家可归”？](https://www.zhihu.com/question/51043149/answer/124226744?from=timeline&isappinstalled=1)
 - [python-profiling](http://tech.glowing.com/cn/python-profiling/)
+
+- 美国大选相关文章
+    - [一文看懂美国大选如何影响资本市场](https://mp.weixin.qq.com/s?__biz=MzAwMDM3MDMzMw==&mid=2653401652&idx=3&sn=8a9d1c8ec5546cf6302d9d8c25bfe086&chksm=813ae1c6b64d68d081daa18c144ce65a36e3e4ff99b8f64498ee524bb4ad3b533586567367c2&mpshare=1&scene=24&srcid=1109XDQ8Fo3maRU70G6wf9gw&key=cde9f53f8128acbd003fca83f5489233847f944ff89780143691705703b736752e4857dc15569191772a91deadb54eed&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
+    - [2016美国大选：一场没有赢家的闹剧](https://mp.weixin.qq.com/s?__biz=MzA5NTIwODMwNw==&mid=2651065084&idx=1&sn=12d43a2da6b9bbc140386ea9c34a24ef&chksm=8bb27ce0bcc5f5f6fc49a12c7a49e4e62be7daae1b3264e999404d7e5b7e169d3517682b10e4&mpshare=1&scene=2&srcid=1108CyI6BqpWc1g7Zy54Q1EB&key=cde9f53f8128acbda646f6570b118a6148427df939b41baaf7541ff0194cfec036eca77a2648dba43be7c1a5fc069714&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
+    - [美国大选要点须知及对市场影响简评](https://mp.weixin.qq.com/s?__biz=MjM5NjMxNzgyMw==&mid=2653435388&idx=3&sn=488a71d37b752805280efadbd8972731&chksm=bd378aec8a4003fab65ecfdbcdc24fb17bf0b3dac4343ecfc5afd1b49c36860184caf4126d66&mpshare=1&scene=24&srcid=11096hitz6125QsGqyrU4P52&key=cde9f53f8128acbd33694411c38620a13df771d355888d655cb0473d24ad3747c8dbaaf8f6aec7701fe1d91016bb1a29&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
+    - [美国总统选举制度](http://baike.baidu.com/view/1408004.htm)
+
+- [创业公司如何选大将？](https://mp.weixin.qq.com/s?__biz=MzIyMTA4ODYyNA==&mid=2649715482&idx=1&sn=d0478c4e56b50ee9bfd1937fcd166081&chksm=8fd9cd05b8ae4413a1aa0bf6d9097a7948de0325135827c8e961b0b80c320937b23e067914bc&mpshare=1&scene=2&srcid=1106mly9lHyuMJ6bO1i1KMgI&key=cde9f53f8128acbdf3d894562ee4fe0880d20a102a83885bf1e7294fa629678b6b76b5f00d00f75761bba162eecc4447&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
+- [中国量化对冲策略及产品的全解读](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670933077&idx=3&sn=be565ce308f378989c94636d266dd1bf&chksm=851bc4a3b26c4db5f3ded8a813917a8088ef6e4bad551c469d5822de3c1ab5f883c68be6e5d5&scene=0&key=cde9f53f8128acbdc93e02c39973ec8a03709ba9d4a9b14ff416552e07876255194bb86f2e8f4b8005a16e3fe9a17761&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
+- []()
+- []()
+- []()
+- []()
+
 
 ## 3. 优质产品
 
