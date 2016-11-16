@@ -107,27 +107,42 @@ ps: 我对好书的定义很简单：
 
 
 
-### 1.6 [Best Python Problems on Stackoverflow](http://stackoverflow.com/questions/tagged/python)
+### 1.8 [Best Python Problems on Stackoverflow](http://stackoverflow.com/questions/tagged/python)
 
-都说想要了解一座城，最好的方法就是去走走。我认为要想深入了解一门语言，除了读书，实践，更好的方法是去社区看看，看看大家在这门语言上都遇到过哪些问题，以及怎样去解决这些问题的。So I make the list bellow:   
+都说想要了解一座城，最好的方法就是去走走。我认为要想深入了解一门语言，除了读书，实践，更好的方法是去社区看看，看看大家在这门语言上都遇到过哪些问题，以及怎样去解决这些问题的。所以我整理了一些我觉得比较有意义的问题，在这篇文章中，不间断更新。
 
-- [What does the “yield” keyword do?](http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do)    
-- [What is a metaclass in Python?](http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python)
-- [How do I check whether a file exists using Python?](http://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-using-python)
-- [Does Python have a ternary conditional operator?](http://stackoverflow.com/questions/394809/does-python-have-a-ternary-conditional-operator)
-- [Calling an external command in Python](http://stackoverflow.com/questions/89228/calling-an-external-command-in-python)
-- [What does `if __name__ == “__main__”:` do?](http://stackoverflow.com/questions/419163/what-does-if-name-main-do)
-- [How to make a chain of function decorators in Python?](http://stackoverflow.com/questions/739654/how-to-make-a-chain-of-function-decorators-in-python)
-- [Sort a Python dictionary by value](http://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value)
-- [How to check if a directory exists and create it if necessary?](http://stackoverflow.com/questions/273192/how-to-check-if-a-directory-exists-and-create-it-if-necessary)
-- [What is the difference between @staticmethod and @classmethod in Python?](http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python)
-- []()
-- []()
-- []()
-- []()
+总结：刀不磨，不会快。
+
+推荐指数：`* * * * *`
 
 
-### 1.6 []()
+### 1.9 [超简交易：交易高手速成手册]()
+
+这是在 `超简交易` 这个公众号整理的一本电子书，全书有将近 400 页，内容整理得还是非常好的。之前原本打算把这个公众号的一些文章整理来系统的看看，后来居然出了本电子书，不得不赞一下。本书内容还行，着重讲概念，例子也很仔细，可以粗看一遍，在后期应用的时候再回来细读，遇到再细节的问题的时候，就可以查查其他书籍了。
+
+总结：只能说感谢，电子书做得挺仔细的，非常好。
+
+推荐指数：`* * * *`
+
+
+
+### 1.9 []()
+
+总结：
+
+推荐指数：`* * * *`
+
+
+
+### 1.9 []()
+
+总结：
+
+推荐指数：`* * * *`
+
+
+
+### 1.9 []()
 
 总结：
 
