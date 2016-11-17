@@ -1,6 +1,6 @@
 ---
 category: python
-published: false
+published: true
 layout: post
 title: Best Python Problems on Stackoverflow
 description: Best Python Problems on Stackoverflow 
@@ -26,6 +26,12 @@ description: Best Python Problems on Stackoverflow
 - [Difference between __str__ and __repr__ in Python](http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python)
 - [Explain Python's slice notation](http://stackoverflow.com/questions/509211/explain-pythons-slice-notation)
 - [Understanding Python super() with __init__() methods](http://stackoverflow.com/questions/576169/understanding-python-super-with-init-methods)
+- [How do I copy a file in python?](http://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python)
+- [What does ** (double star) and * (star) do for parameters?](http://stackoverflow.com/questions/36901/what-does-double-star-and-star-do-for-parameters)
+- [Why is “1000000000000000 in range(1000000000000001)” so fast in Python 3?](http://stackoverflow.com/questions/30081275/why-is-1000000000000000-in-range1000000000000001-so-fast-in-python-3)
+- [Calling a function of a module from a string with the function's name in Python](http://stackoverflow.com/questions/3061/calling-a-function-of-a-module-from-a-string-with-the-functions-name-in-python)
+- [Reverse a string in Python](http://stackoverflow.com/questions/931092/reverse-a-string-in-python)
+- [How can you profile a Python script?](http://stackoverflow.com/questions/582336/how-can-you-profile-a-python-script)
 - []()
 - []()
 
