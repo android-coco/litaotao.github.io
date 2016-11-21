@@ -149,6 +149,15 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * *`
 
 
+## 2. TED Talks
+
+- [How the blockchain will radically transform the economy](http://www.ted.com/talks/bettina_warburg_how_the_blockchain_will_radically_transform_the_economy)
+
+>泡沫吹吧吹吧不是罪。
+
+- [Why you think you're right -- even if you're wrong | Julia Galef](https://www.youtube.com/watch?v=w4RLfVxTGH4)
+
+>你说的我们都懂，可是臣妾做不到啊。
 
 
 ## 2. 博文推荐 
