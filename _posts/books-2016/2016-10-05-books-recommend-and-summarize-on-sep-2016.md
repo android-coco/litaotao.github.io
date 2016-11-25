@@ -125,20 +125,13 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * *`
 
 
+### 1.10 [金融市场与金融机构（原书第7版） (华章教材经典译丛) 第1，2，3章](https://www.amazon.cn/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%8E%E9%87%91%E8%9E%8D%E6%9C%BA%E6%9E%84-%E5%BC%97%E9%9B%B7%E5%BE%B7%E9%87%8C%E5%85%8B-S-%E7%B1%B3%E4%BB%80%E9%87%91-%E6%96%AF%E5%9D%A6%E5%88%A9-G-%E5%9F%83%E9%87%91%E6%96%AF-%E8%91%97/dp/B00UFDW1AE)
 
-### 1.9 []()
+这本书是配合 coursera 上的课程 [Basic Principles of Finance and Risk Management](https://www.coursera.org/learn/financial-markets/home/info) 来看的。目前这门课程我的安排是每个月上 3～4 个 week，然后再配合看 [金融市场与金融机构]() 这本书的一些章节。首先需要明确的是，这本书和 coursera 上的课程并不是完全匹配的，但是都是讲金融市场和金融机构的，coursera 上的相对要讲得简单一点，毕竟是网络课程，看这本书可以更加深入，系统的了解相关知识。此外，我是看 kindle 版本的，质量确实很好，书的内容本身也写得非常好。
 
-总结：
+总结：非常好的一本书，可以系统的了解金融市场和金融机构的东西。
 
-推荐指数：`* * * *`
-
-
-
-### 1.9 []()
-
-总结：
-
-推荐指数：`* * * *`
+推荐指数：`* * * * *`
 
 
 
@@ -149,7 +142,15 @@ ps: 我对好书的定义很简单：
 推荐指数：`* * * *`
 
 
-## 2. TED Talks
+
+### 1.9 []()
+
+总结：
+
+推荐指数：`* * * *`
+
+
+## 2. TED or Awesome Talks
 
 - [How the blockchain will radically transform the economy](http://www.ted.com/talks/bettina_warburg_how_the_blockchain_will_radically_transform_the_economy)
 
@@ -159,6 +160,11 @@ ps: 我对好书的定义很简单：
 
 >你说的我们都懂，可是臣妾做不到啊。
 
+- [Jonas Eliasson: How to solve traffic jams](https://www.youtube.com/watch?v=CX_Krxq5eUI)
+
+>最近看的几个 ted 质量都好低啊，ted 不会也要越做越差了吧。还是看看之前的 ted 吧。
+
+- [台湾最新走心广告：致25岁还一无是处的你！](https://mp.weixin.qq.com/s?__biz=MjM5NzA1MTcyMA==&mid=2651162338&idx=1&sn=6d1f5a45dbbf722d8afcc2ad7bfe01c2&chksm=bd2ecac58a5943d3b2f5da754896fbd39d9bd5b27e76386166462d5bd1f807622fd53f4ac3ca&mpshare=1&scene=2&srcid=1124M6cbvvyzoshOwQckj8K0&key=9ed31d4918c154c803f3f803618c1e3615abd26ecec3abd5b0b0e0af160a7aca3e9019bcd7ce8801e1d6ba867930111a&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
 
 ## 2. 博文推荐 
 
@@ -188,9 +194,12 @@ ps: 我对好书的定义很简单：
 
 - [创业公司如何选大将？](https://mp.weixin.qq.com/s?__biz=MzIyMTA4ODYyNA==&mid=2649715482&idx=1&sn=d0478c4e56b50ee9bfd1937fcd166081&chksm=8fd9cd05b8ae4413a1aa0bf6d9097a7948de0325135827c8e961b0b80c320937b23e067914bc&mpshare=1&scene=2&srcid=1106mly9lHyuMJ6bO1i1KMgI&key=cde9f53f8128acbdf3d894562ee4fe0880d20a102a83885bf1e7294fa629678b6b76b5f00d00f75761bba162eecc4447&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
 - [中国量化对冲策略及产品的全解读](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670933077&idx=3&sn=be565ce308f378989c94636d266dd1bf&chksm=851bc4a3b26c4db5f3ded8a813917a8088ef6e4bad551c469d5822de3c1ab5f883c68be6e5d5&scene=0&key=cde9f53f8128acbdc93e02c39973ec8a03709ba9d4a9b14ff416552e07876255194bb86f2e8f4b8005a16e3fe9a17761&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-- []()
-- []()
-- []()
+- [Hadoop、Spark等5种大数据框架对比，你的项目该用哪种？](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2650994876&idx=1&sn=17b2575797089374b64d5ebe10107ff8&chksm=bdbf00ef8ac889f9c4eb10a28babdd97ac0127cb2fa034b7574c804610ad94f6e8db208d7c21&mpshare=1&scene=2&srcid=1123UbXpWwwT74CzhkH1vuQQ&key=9ed31d4918c154c8d05e34f6e450b1cfbf8a88cb97c4a8211690dc6c43cc95ca25441d0156984bd13944f23ad5339160&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
+- [学习笔记：The Log（我所读过的最好的一篇分布式技术文章）](http://blog.jobbole.com/88301/)
+- [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
+- [18岁的希拉里，清纯的本拉登，跑龙套的成龙....这是朋友圈里最珍贵的照片！](https://mp.weixin.qq.com/s?__biz=MzA4NDAxODg4OA==&mid=2651081540&idx=2&sn=7b9a93d2e88e999b5d293d88346011b5&chksm=841d78e3b36af1f569a53c85215c58b354cfa9534d1be66928262b46a6918fde5d80f87e8061&mpshare=1&scene=2&srcid=1120g9rq2Yy4WIqIBVtshcph&key=9ed31d4918c154c89f8f3387a3f995fa6830b43640657bee99ff431268cfea4cb773f8781b361e5de894dadd1773a1c3&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
+- [干货 | Tomcat类加载机制触发的Too many open files问题分析](https://mp.weixin.qq.com/s?__biz=MjM5MDI3MjA5MQ==&mid=2697265591&idx=1&sn=48cd5869b3b1bbcfa9e22b77016e355d&chksm=8376fe83b401779588f1837371c0d85307a1e998f357292fa3a8ce89be402060c2fdbe53bc66&mpshare=1&scene=2&srcid=1115NMJMrArj8mMveoifQjqA&key=9ed31d4918c154c894345cb930ce69ce1ffd239c54f37bca2a9c3eb84e998cfe4c88940dc3a9394d968bdaa90f131305&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
+- [为什么我不选阿里云](https://www.linkedin.com/pulse/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%B8%8D%E9%80%89%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%80-tony-qu-%E7%9E%BF%E6%9D%B0)
 - []()
 
 
