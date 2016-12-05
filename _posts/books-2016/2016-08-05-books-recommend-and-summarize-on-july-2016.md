@@ -174,3 +174,4 @@ IBM Analytics 平台的介绍，video 做得非常好，质量非常高，可以
 - [『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-May-2016)
 - [『 读书笔记 』6月读书总结｜博文推荐](../books-recommend-and-summarize-on-June-2016)
 - [『 读书笔记 』坚持读书 6 个多月的感受](../books-recommend-and-summarize-on-july-2016)
+- [『 读书笔记 』9月，10月读书总结｜博文推荐](../books-recommend-and-summarize-on-sep-2016)

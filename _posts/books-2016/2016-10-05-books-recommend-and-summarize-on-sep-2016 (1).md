@@ -97,45 +97,7 @@ ps: 我对好书的定义很简单：
 
 
 
-### 1.7 [一看就懂的新公司开办全图解](https://www.amazon.cn/%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3-%E6%9D%A8%E5%B0%8F%E4%B8%BD/dp/B01G8JLK9G/ref=sr_1_1?s=books&ie=UTF8&qid=1479100767&sr=1-1&keywords=%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3)
-
-最近买了一套创业的大白书来看，这是其中一本。首先内容上来说，对我这种大白真的是够用了，当然政策一直在变，也许到自己真正创业的时候，很多东西都会不一样了。但是我一贯的看法是：万变不离其宗。就算规则，政策变了，只要自己掌握一些标准的流程怎么走，到时候直接电话去相关机构问就行了，再怎么说也不会无头苍蝇乱撞。再说说看完后的感受，尼玛就是8个字：想开个公司真心难。一系列的开公司前的准备，过程中要办那么多证件，开完后要考虑招人，财务等等。关键最后还看到公司所得税那部分，尼玛居然要 25% 的所得税，这下终于知道为啥有辣么多公司要逃税漏税了，这赋税真心太重了啊。以后自己要是开公司了，一定找几个学税法的同学想想怎么 `交税`。
-
-总结：本书对大白挺有用的，但是要注意的是，本书只是介绍一般开公司的一些流程，具体到你准备去干的时候，尽量先电话问清楚相关机构，要是能找到有过这方面的经验的人就更好了。
-
-推荐指数：`* * * *`
-
-
-
-### 1.8 [Best Python Problems on Stackoverflow](http://stackoverflow.com/questions/tagged/python)
-
-都说想要了解一座城，最好的方法就是去走走。我认为要想深入了解一门语言，除了读书，实践，更好的方法是去社区看看，看看大家在这门语言上都遇到过哪些问题，以及怎样去解决这些问题的。所以我整理了一些我觉得比较有意义的问题，在这篇文章中，不间断更新。
-
-总结：刀不磨，不会快。
-
-推荐指数：`* * * * *`
-
-
-### 1.9 [超简交易：交易高手速成手册]()
-
-这是在 `超简交易` 这个公众号整理的一本电子书，全书有将近 400 页，内容整理得还是非常好的。之前原本打算把这个公众号的一些文章整理来系统的看看，后来居然出了本电子书，不得不赞一下。本书内容还行，着重讲概念，例子也很仔细，可以粗看一遍，在后期应用的时候再回来细读，遇到再细节的问题的时候，就可以查查其他书籍了。
-
-总结：只能说感谢，电子书做得挺仔细的，非常好。
-
-推荐指数：`* * * *`
-
-
-### 1.10 [金融市场与金融机构（原书第7版） (华章教材经典译丛) 第1，2，3章](https://www.amazon.cn/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%8E%E9%87%91%E8%9E%8D%E6%9C%BA%E6%9E%84-%E5%BC%97%E9%9B%B7%E5%BE%B7%E9%87%8C%E5%85%8B-S-%E7%B1%B3%E4%BB%80%E9%87%91-%E6%96%AF%E5%9D%A6%E5%88%A9-G-%E5%9F%83%E9%87%91%E6%96%AF-%E8%91%97/dp/B00UFDW1AE)
-
-这本书是配合 coursera 上的课程 [Basic Principles of Finance and Risk Management](https://www.coursera.org/learn/financial-markets/home/info) 来看的。目前这门课程我的安排是每个月上 3～4 个 week，然后再配合看 [金融市场与金融机构]() 这本书的一些章节。首先需要明确的是，这本书和 coursera 上的课程并不是完全匹配的，但是都是讲金融市场和金融机构的，coursera 上的相对要讲得简单一点，毕竟是网络课程，看这本书可以更加深入，系统的了解相关知识。此外，我是看 kindle 版本的，质量确实很好，书的内容本身也写得非常好。
-
-总结：非常好的一本书，可以系统的了解金融市场和金融机构的东西。
-
-推荐指数：`* * * * *`
-
-
-
-### 1.9 []()
+### 1.7 []()
 
 总结：
 
@@ -143,28 +105,22 @@ ps: 我对好书的定义很简单：
 
 
 
-### 1.9 []()
+### 1.6 []()
 
 总结：
 
 推荐指数：`* * * *`
 
 
-## 2. TED or Awesome Talks
 
-- [How the blockchain will radically transform the economy](http://www.ted.com/talks/bettina_warburg_how_the_blockchain_will_radically_transform_the_economy)
+### 1.6 []()
 
->泡沫吹吧吹吧不是罪。
+总结：
 
-- [Why you think you're right -- even if you're wrong | Julia Galef](https://www.youtube.com/watch?v=w4RLfVxTGH4)
+推荐指数：`* * * *`
 
->你说的我们都懂，可是臣妾做不到啊。
 
-- [Jonas Eliasson: How to solve traffic jams](https://www.youtube.com/watch?v=CX_Krxq5eUI)
 
->最近看的几个 ted 质量都好低啊，ted 不会也要越做越差了吧。还是看看之前的 ted 吧。
-
-- [台湾最新走心广告：致25岁还一无是处的你！](https://mp.weixin.qq.com/s?__biz=MjM5NzA1MTcyMA==&mid=2651162338&idx=1&sn=6d1f5a45dbbf722d8afcc2ad7bfe01c2&chksm=bd2ecac58a5943d3b2f5da754896fbd39d9bd5b27e76386166462d5bd1f807622fd53f4ac3ca&mpshare=1&scene=2&srcid=1124M6cbvvyzoshOwQckj8K0&key=9ed31d4918c154c803f3f803618c1e3615abd26ecec3abd5b0b0e0af160a7aca3e9019bcd7ce8801e1d6ba867930111a&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
 
 ## 2. 博文推荐 
 
@@ -186,23 +142,6 @@ ps: 我对好书的定义很简单：
 - [如何看待人民日报微信公众号评论员文章称“失去奋斗，房产再多我们也将无家可归”？](https://www.zhihu.com/question/51043149/answer/124226744?from=timeline&isappinstalled=1)
 - [python-profiling](http://tech.glowing.com/cn/python-profiling/)
 
-- 美国大选相关文章
-    - [一文看懂美国大选如何影响资本市场](https://mp.weixin.qq.com/s?__biz=MzAwMDM3MDMzMw==&mid=2653401652&idx=3&sn=8a9d1c8ec5546cf6302d9d8c25bfe086&chksm=813ae1c6b64d68d081daa18c144ce65a36e3e4ff99b8f64498ee524bb4ad3b533586567367c2&mpshare=1&scene=24&srcid=1109XDQ8Fo3maRU70G6wf9gw&key=cde9f53f8128acbd003fca83f5489233847f944ff89780143691705703b736752e4857dc15569191772a91deadb54eed&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-    - [2016美国大选：一场没有赢家的闹剧](https://mp.weixin.qq.com/s?__biz=MzA5NTIwODMwNw==&mid=2651065084&idx=1&sn=12d43a2da6b9bbc140386ea9c34a24ef&chksm=8bb27ce0bcc5f5f6fc49a12c7a49e4e62be7daae1b3264e999404d7e5b7e169d3517682b10e4&mpshare=1&scene=2&srcid=1108CyI6BqpWc1g7Zy54Q1EB&key=cde9f53f8128acbda646f6570b118a6148427df939b41baaf7541ff0194cfec036eca77a2648dba43be7c1a5fc069714&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-    - [美国大选要点须知及对市场影响简评](https://mp.weixin.qq.com/s?__biz=MjM5NjMxNzgyMw==&mid=2653435388&idx=3&sn=488a71d37b752805280efadbd8972731&chksm=bd378aec8a4003fab65ecfdbcdc24fb17bf0b3dac4343ecfc5afd1b49c36860184caf4126d66&mpshare=1&scene=24&srcid=11096hitz6125QsGqyrU4P52&key=cde9f53f8128acbd33694411c38620a13df771d355888d655cb0473d24ad3747c8dbaaf8f6aec7701fe1d91016bb1a29&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-    - [美国总统选举制度](http://baike.baidu.com/view/1408004.htm)
-
-- [创业公司如何选大将？](https://mp.weixin.qq.com/s?__biz=MzIyMTA4ODYyNA==&mid=2649715482&idx=1&sn=d0478c4e56b50ee9bfd1937fcd166081&chksm=8fd9cd05b8ae4413a1aa0bf6d9097a7948de0325135827c8e961b0b80c320937b23e067914bc&mpshare=1&scene=2&srcid=1106mly9lHyuMJ6bO1i1KMgI&key=cde9f53f8128acbdf3d894562ee4fe0880d20a102a83885bf1e7294fa629678b6b76b5f00d00f75761bba162eecc4447&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-- [中国量化对冲策略及产品的全解读](https://mp.weixin.qq.com/s?__biz=MzA4NTE1MDEwNQ==&mid=2670933077&idx=3&sn=be565ce308f378989c94636d266dd1bf&chksm=851bc4a3b26c4db5f3ded8a813917a8088ef6e4bad551c469d5822de3c1ab5f883c68be6e5d5&scene=0&key=cde9f53f8128acbdc93e02c39973ec8a03709ba9d4a9b14ff416552e07876255194bb86f2e8f4b8005a16e3fe9a17761&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=RORT6loaK1Xc4EjCOnHYqUceRy%2B%2BlElIjia0Fib85PVuxJJHTMhLibyFBjQh1eZP)
-- [Hadoop、Spark等5种大数据框架对比，你的项目该用哪种？](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2650994876&idx=1&sn=17b2575797089374b64d5ebe10107ff8&chksm=bdbf00ef8ac889f9c4eb10a28babdd97ac0127cb2fa034b7574c804610ad94f6e8db208d7c21&mpshare=1&scene=2&srcid=1123UbXpWwwT74CzhkH1vuQQ&key=9ed31d4918c154c8d05e34f6e450b1cfbf8a88cb97c4a8211690dc6c43cc95ca25441d0156984bd13944f23ad5339160&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
-- [学习笔记：The Log（我所读过的最好的一篇分布式技术文章）](http://blog.jobbole.com/88301/)
-- [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
-- [18岁的希拉里，清纯的本拉登，跑龙套的成龙....这是朋友圈里最珍贵的照片！](https://mp.weixin.qq.com/s?__biz=MzA4NDAxODg4OA==&mid=2651081540&idx=2&sn=7b9a93d2e88e999b5d293d88346011b5&chksm=841d78e3b36af1f569a53c85215c58b354cfa9534d1be66928262b46a6918fde5d80f87e8061&mpshare=1&scene=2&srcid=1120g9rq2Yy4WIqIBVtshcph&key=9ed31d4918c154c89f8f3387a3f995fa6830b43640657bee99ff431268cfea4cb773f8781b361e5de894dadd1773a1c3&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
-- [干货 | Tomcat类加载机制触发的Too many open files问题分析](https://mp.weixin.qq.com/s?__biz=MjM5MDI3MjA5MQ==&mid=2697265591&idx=1&sn=48cd5869b3b1bbcfa9e22b77016e355d&chksm=8376fe83b401779588f1837371c0d85307a1e998f357292fa3a8ce89be402060c2fdbe53bc66&mpshare=1&scene=2&srcid=1115NMJMrArj8mMveoifQjqA&key=9ed31d4918c154c894345cb930ce69ce1ffd239c54f37bca2a9c3eb84e998cfe4c88940dc3a9394d968bdaa90f131305&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=bCi8Vd6N3xy1rQ3QvUJZ%2FhFC39d4n2lnpUnSPAKHQoiJFIscVimSdhmQiGdBRmMg)
-- [为什么我不选阿里云](https://www.linkedin.com/pulse/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%B8%8D%E9%80%89%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%80-tony-qu-%E7%9E%BF%E6%9D%B0)
-- []()
-
-
 ## 3. 优质产品
 
 - [https://coggle.it/](https://coggle.it/)
@@ -216,3 +155,4 @@ ps: 我对好书的定义很简单：
 - [『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-May-2016)
 - [『 读书笔记 』6月读书总结｜博文推荐](../books-recommend-and-summarize-on-June-2016)
 - [『 读书笔记 』坚持读书 6 个多月的感受](../books-recommend-and-summarize-on-july-2016)
+- [『 读书笔记 』9月，10月读书总结｜博文推荐](../books-recommend-and-summarize-on-sep-2016)

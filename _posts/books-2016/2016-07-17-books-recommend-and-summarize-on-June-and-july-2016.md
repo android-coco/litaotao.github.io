@@ -152,3 +152,4 @@ WebApi->user: 200 + JSON
 - [『 读书笔记 』5月读书总结｜博文推荐](../books-recommend-and-summarize-on-May-2016)
 - [『 读书笔记 』6月读书总结｜博文推荐](../books-recommend-and-summarize-on-June-2016)
 - [『 读书笔记 』坚持读书 6 个多月的感受](../books-recommend-and-summarize-on-july-2016)
+- [『 读书笔记 』9月，10月读书总结｜博文推荐](../books-recommend-and-summarize-on-sep-2016)
