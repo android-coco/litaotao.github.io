@@ -174,7 +174,7 @@ ps: 我对好书的定  义很简单：
 >非常非常非常赞的一个 talk，主讲人也超有魅力的哦。
 
 
-## 2. 博文推荐 
+## 3. 博文推荐 
 
 - [吴军博士硅谷第一封来信：不做伪工作者](https://mp.weixin.qq.com/s?__biz=MzA5MDAxMjcwOQ==&mid=2447614867&idx=1&sn=43059c321ee677439178f5d034343528&chksm=84052ed9b372a7cfde9abf42516e3916c601febb4b3e79cd4edec4a2eee625119ad14d9d7667&mpshare=1&scene=2&srcid=101113deGruE0jtN53Y4NSMy&key=c50f8b988e61749a567ba477763007f4301bfaff3d7790f6ebe4d3f8ced508919dc8c96eda38bbb62d63bfd8c073e283&ascene=0&uin=MTAzNTc2NzM4Mg%3D%3D&devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&version=11020201&pass_ticket=DcoELySNvbXVGG7G%2BfzkWJ2yAN%2BDritBJteCurcvOPD4pmdqdOdBdRT%2Bjw59klVv)
 - [程序员怎么升职？](https://www.zhihu.com/question/20259295/answer/125138094?from=timeline&isappinstalled=0)
@@ -217,13 +217,13 @@ ps: 我对好书的定  义很简单：
 >留富兵法周报挺不错的，尝试自己实现到策略里看看。
 
 
-## 3. 优质产品
+## 4. 优质产品
 
 - [https://coggle.it/](https://coggle.it/)
 
 优质在线思维导图。
 
-## 4. 读书总结系列
+## 5. 读书总结系列
 
 - [『 读书笔记 』3月读书总结和推荐](../books-recommend-and-summarize-on-mar-2016)
 - [『 读书笔记 』4月读书总结｜博文推荐](../books-recommend-and-summarize-on-apr-2016)
