@@ -75,6 +75,9 @@ ps: 我对好书的定  义很简单：
 
 ## 2. 看片儿
 
+- [Best Ted Talks 2015 - Draw your future - Take control of your life](https://www.youtube.com/watch?v=4vl6wCiUZYc)
+
+> 比较不错的一个 talk，跟上个月的看的 [Your body language shapes who you are Amy Cuddy](https://www.youtube.com/watch?v=Ks-_Mh1QhMc) 很像，推荐结合起来一起看。
 
 
 ## 3. 博文推荐 

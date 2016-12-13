@@ -96,13 +96,262 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io" rel="alternate" type="text/html" />
-   <updated>2016-12-05T14:20:21+08:00</updated>
+   <updated>2016-12-13T16:48:59+08:00</updated>
    <id>http://litaotao.github.io</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>『 Spark 』14. 一次 Spark SQL 性能提升10倍的经历</title>
+     <link href="/spark-sql-parquet-optimize"/>
+     <updated>2016-12-13T00:00:00+08:00</updated>
+     <id>/spark-sql-parquet-optimize</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
+
+&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
+最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。&lt;/p&gt;
+
+&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 &lt;em&gt;present mode&lt;/em&gt; 哦。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Notes&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;本篇开始，会渐渐的把版本升级到 2.0 上，后续的文章也会逐渐基于 2.0 来写；前面的文章就不改了，反正都是换汤不换药;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上一篇文章： 
+&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;1. 遇到了啥问题&lt;/h2&gt;
+
+&lt;p&gt;是酱紫的，简单来说：并发执行 spark job 的时候，并发的提速很不明显。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/what_are_you_talking_about.png&quot; alt=&quot;what_are_you_talking_about.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;嗯，且听我慢慢道来，啰嗦点说，类似于我们内部有一个系统给分析师用，他们写一些 sql，在我们的 spark cluster 上跑。随着分析师越来越多，sql job 也越来越多，等待运行的时间也越来越长，我们就在想怎么把 sql 运行的时间加快一点。我们的整个架构是 spark 1.6.1 on YARN 的，经过分析一些 sql 发现其实大多数分析语句都是比较简单的统计 sql，集群资源也还算多，一条简单的 sql 语句就把整个集群资源的坑占着略显不合适，有点飞机马达装到拖拉机上的赶脚，所以第一步，我们想，支持 spark job 的并行运行。&lt;/p&gt;
+
+&lt;p&gt;ok，初步方案有了，我们就做了如下几步改善工作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;首先设置 &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.scheduler.mode&lt;/code&gt; 为 &lt;code class=&quot;highlighter-rouge&quot;&gt;FAIR&lt;/code&gt; 模式，首先 &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.scheduler.mode&lt;/code&gt; 有 &lt;code class=&quot;highlighter-rouge&quot;&gt;FIFO&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;FAIR&lt;/code&gt; 两种模式，&lt;code class=&quot;highlighter-rouge&quot;&gt;FIFO&lt;/code&gt; 是说提交的job，都是顺序执行的，后提交的 job 一定要等之前提交的 job 完全执行结束后才可以执行；&lt;code class=&quot;highlighter-rouge&quot;&gt;FAIR&lt;/code&gt; 是说，如果之前提交的 job 没有用完集群资源的话，后提交的job可以即刻开始运行。关于这点在官方文档上有详细的解释：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/schedule_mode.png&quot; alt=&quot;schedule_mode.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;其次，我们生成了 10 个 pool，所谓的 pool，可以理解为资源池，或者通道。你可以在提交 job 的时候指定提交到哪个 pool 里面，可以简单的理解为我们把所有的集群资源分成 10 份，然后在提交 job 的时候指定在哪一份资源中运行这个 job。&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/10_pool.png&quot; alt=&quot;10_pool.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;最后，我们在提交 job 的时候指定提交到的 pool 名字，只需要在提交 job 之前设置一个 sparkContext 的参数即可: &lt;code class=&quot;highlighter-rouge&quot;&gt;sc.setLocalProperty(&quot;spark.scheduler.pool&quot;, &quot;your_pool_id&quot;)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/pool_id.png&quot; alt=&quot;pool_id.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;看似很简单，但能知道上面这些配置的也算是用 spark 比较熟练的人了吧，我迫不及待的测试了一下速度，发现了一个从古至今的大真理：理想很美好，现实很骨干啊。测试下来，发现多个 job 并行运行的时间并没有节省多少。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2. 原因排查&lt;/h2&gt;
+
+&lt;p&gt;上面把问题说得很清楚了：多 job 并行的时候，运行速度并没有明显提升。但是原理上应该不会如此，只要一个 sql job 不需要全局所有集群资源，理论上来说会有较大提升的。下面是一组简单的数据对比：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/data_contrast_1.png&quot; alt=&quot;data_contrast_1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;虽然看到，并行计算后时间只需要之前的 50%，但是这里需要说明一下，这个数据不够稳定的哦，比如说偶尔会新增 10来秒 这样子的。这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;暂且接受提升 50% 的速度这样一个结论吧&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;但是，理论上来说，还能提升更多，不满足 50% 的提升效率，我们接着深度解读 spark web ui 上的一些分析数据，尝试找找能否把速度再度提升一下。终于找到了核心原因，下面我就把整个排查的过程详细记录下来：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;找一个花费时间较长的 job，进去看看执行的详情，这里我们用 job id 为 796 的这个 job&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/spark_optimize_1.png&quot; alt=&quot;spark_optimize_1.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;发现 job 796 有两个 stage，且有 99% 的时间都花在第一个 stage 1590 上了，而且需要注意的是，这个 stage 有 237.6mb 的数据读取，有可能需要经过网络从其他 hdfs 节点读过来，难道跟网络 I/O 有关？继续点进去看看。&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/spark_optimize_2.png&quot; alt=&quot;spark_optimize_2.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进来这个 stage 内部，似乎发现问题所在了，首先我们先关注下图中标记的几个点，可以总结出几个点：&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;首先，该 stage 内的所有任务在 executor 上真正执行的时间【可以理解为 cpu time】是 2s&lt;/li&gt;
+      &lt;li&gt;其次，该 stage 内任务执行完成的时间是 1.1 m，大概是 66s，可以理解为【wall time】&lt;/li&gt;
+      &lt;li&gt;该 stage 内所有的 task，&lt;code class=&quot;highlighter-rouge&quot;&gt;schedule delay&lt;/code&gt; 的时间中位数是 0.5s，最大达到 1s【真正执行的时间也才 2s 哦】&lt;/li&gt;
+      &lt;li&gt;该 stage 内一共有 336 个task&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;../images/spark_optimize_3.png&quot; alt=&quot;spark_optimize_3.png&quot; /&gt;
+  &lt;img src=&quot;../images/spark_optimize_4.png&quot; alt=&quot;spark_optimize_4.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;到这里，问题根源基本上已经知道了，即 job 796 的大多数时间都被消耗在 stage 1590 的 336 个task 的 secheduler delay 上面了。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;3. 如何解决&lt;/h2&gt;
+
+&lt;p&gt;上面问题几乎已经明确了，现在就该看看肿么解决了。我当时是这样去考虑的：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为什么 scheduler delay 会这么大&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;因为资源不够，要解决这个问题，似乎唯一的办法就是增加集群资源了。可是哥们，集群是你想加就能加的吗？那可是要砸钱的呀？而且如果公司缺机器的话，想加集群资源也要经过 申请-&amp;gt;审批-&amp;gt;采购-&amp;gt;分配-&amp;gt;集群配置 大大小小几个阶段，说不一定等你找到女朋友了都还没搞定啊。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;当时想着加资源这个方案短期不可取后，有那么几分钟是觉得有点烧脑的。我就静静的看着 web ui，心里在算，一个 task 如果平均 scheduler delay 0.5s 的话，这 336 个 task 就得 delay 118 秒，基本上都到 2 分钟了。这 delay 的时间可真够长的啊，就在算这个数值的时候，突然想到这样一个公式：&lt;code class=&quot;highlighter-rouge&quot;&gt;total delay time = average delay time * task number&lt;/code&gt;。现在我们的问题是要解决 total delay time，那完全可以从两方面去解决呀：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;降低 average delay time：目前来看似乎唯一的方法是砸钱加资源&lt;/li&gt;
+  &lt;li&gt;降低 task 数：粗略来看，简单的降低 task 数的话，应该是能减少 total delay time 的，但是如果task 数降低了，意味着每个 task 需要处理的数据量就多了，那其他的时间应该是会增加一些的，比如说 &lt;code class=&quot;highlighter-rouge&quot;&gt;Task Deserialization Time, Result Serialization Time, GC Time, Duration&lt;/code&gt; 等。减少 task 数究竟能不能提高整体运行速度，似乎乍一看还真不好确定。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;反正砸钱加资源这个方案暂时是行不通的，要不就再仔细分析一下降低task数这个方案。这里我们在仔细参考一下下图中这一列指标：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark_optimize_5.png&quot; alt=&quot;spark_optimize_5.png&quot; /&gt;
+&lt;img src=&quot;../images/spark_optimize_6.png&quot; alt=&quot;spark_optimize_6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们用 75 分位的统计数据来做一个假设：假设我们把每一个 task 的数据量加 10 倍，那么预计的 task metrics 75 分位大概是一个什么样的数值，假设这些指标都是线性增长的话：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Duration: 扩大到 10 倍，14ms&lt;/li&gt;
+  &lt;li&gt;Scheduler Delay: 这个指标不用估计&lt;/li&gt;
+  &lt;li&gt;Task Deserialization Time: 扩大到 10 倍，6ms&lt;/li&gt;
+  &lt;li&gt;GC Time: 扩大到 10 倍，最多1ms&lt;/li&gt;
+  &lt;li&gt;Result Serialization Time: 扩大到 10 倍，最多1ms&lt;/li&gt;
+  &lt;li&gt;Getting Result Time: 扩大到 10 倍，最多1ms&lt;/li&gt;
+  &lt;li&gt;Peak Execution Memory: 扩大到 10 倍，最多 1b&lt;/li&gt;
+  &lt;li&gt;Input Size / Records: 扩大到 10 倍，918.8 KB * 2 / 2&lt;/li&gt;
+  &lt;li&gt;Shuffle Write Size / Records  0: 扩大到 10 倍，294.0 B * 2/ 20&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以看到，这样大概估计下来，除去 Scheduler Delay 的时间，其实其他时间也没消耗多少，都是毫秒级的，看起来应该是完全可行的呀。&lt;/p&gt;
+
+&lt;p&gt;正准备这样测试的时候，我忽然想到，为什么现在的 metrics 统计是这样的结构的啊，这么多 task？一般来说，一个 task 对应到 hdfs 上的一个 parquet 文件【该项目中所有数据文件都是用 parquet 压缩后存储到 hdfs 上的】，难道是现在存在 hdfs 上的 parquet 文件个数过多，每个文件太小？突然有一种恍然大悟的感觉，赶紧看看现在 hdfs 上文件的结构，如下所示：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ | cat -n | tail
+317  -rw-r--r--   3 taotao hfmkt      1.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00310-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+318  -rw-r--r--   3 taotao hfmkt      1.4 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00311-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+319  -rw-r--r--   3 taotao hfmkt      2.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00312-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+320  -rw-r--r--   3 taotao hfmkt      1.2 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00313-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+321  -rw-r--r--   3 taotao hfmkt      1.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00314-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+322  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+323  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+324  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+325  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+326  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;可以看到，现在有 300 多个文件【上面只是一部分，还有十几个在另外一个文件夹里，一个 sql 会统计两个文件夹里的数据文件】，而且我仔细看了一下，每个文件大小最小的有很多 1kb 的，最大的有 2.9mb 的。难怪了，原来核心根源在这里。再结合上面关于 metrics 的分析，我心里大概确信了，只要把 parquet 文件的问题解决就行了，方法就是压缩 parquet 文件个数，控制每个 parquet 文件的大小即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/bingo.png&quot; alt=&quot;bingo.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;方法确定了，那就干咯。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;4. 效果对比&lt;/h2&gt;
+
+&lt;p&gt;未来方便对比，我把 20161212 的数据文件处理了一下，保留 20161117 这天的数据文件【20161212 的数据文件整体上比 20161117 的数据文件要多 10%】，下面是对比结果：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;parquet 文件个数&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20161117 这天&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | cat -n | tail -n 5
+342  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+343  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+344  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+345  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+346  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20161212 这天&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | cat -n | tail -n 5
+34  -rw-r--r--   3 taotao hfmkt     19.2 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00013-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+35  -rw-r--r--   3 taotao hfmkt     10.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00014-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+36  -rw-r--r--   3 taotao hfmkt     26.0 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00015-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+37  -rw-r--r--   3 taotao hfmkt     20.1 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00016-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+38  -rw-r--r--   3 taotao hfmkt      8.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00017-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;100个job并发执行时间&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20161117 这天：99s&lt;/li&gt;
+  &lt;li&gt;20161212 这天：16s&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Spark Web UI 上一个 job 对比&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20161117 这天&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark_optimize_2.png&quot; alt=&quot;spark_optimize_2.png&quot; /&gt;
+&lt;img src=&quot;../images/spark_optimize_3.png&quot; alt=&quot;spark_optimize_3.png&quot; /&gt;
+&lt;img src=&quot;../images/spark_optimize_4.png&quot; alt=&quot;spark_optimize_4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20161212 这天&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/spark_optimize_7.png&quot; alt=&quot;spark_optimize_7.png&quot; /&gt;
+&lt;img src=&quot;../images/spark_optimize_9.png&quot; alt=&quot;spark_optimize_9.png&quot; /&gt;
+&lt;img src=&quot;../images/spark_optimize_8.png&quot; alt=&quot;spark_optimize_8.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;5. 总结&lt;/h2&gt;
+
+&lt;p&gt;首先，需要说明的是，这次优化应该还有提升的空间，虽然优化后整体从 204s 到 99s 再到 16s，提升了十倍多，确实很大，但是最后我们还是发现 16s 的情况下，scheduler delay 和 Task Deserialization Time 还是有占用了大部分时间，这里我觉得不能一味的在文件个数和大小上下功夫了。需要考虑到用户场景来做一个权衡。所以越到后期的优化，越考验产品功能的设计，当然这是后话了，就不在本文范围内讨论。&lt;/p&gt;
+
+&lt;p&gt;其次，这次优化，从发现问题，追根溯源，到最后解决问题，大概花了 1 小时，基本上还算不错。通过这次排查，还是真心感受到 spark 设计的完善，不得不说，作为一个开源项目，spark 最大的特点，我觉得应该是 spark 是由一帮非程序员设计实现的，而是一帮由程序员，架构师，产品经理组合起来一起干的，更像是一个产品，而不是一个开源项目。怪不得这帮人要去开个公司【databricks：我最看好的公司之一】，看来真的是 born this way。说到这，不得不感触一下，对比 spark 这帮人，现实中真的有太多指令式程序员了，老板叫干嘛就干嘛，丝毫不关注产品功能，未来发展，甚至很多工程师都不用自己开发的产品。我不知道这样的人是怎么想的，反正我自己觉得这样挺可怜的。&lt;/p&gt;
+
+&lt;p&gt;最后，好久都没写 spark 相关的文章了，距离上一片水文过去整整两个月了。最近两个月真心累成狗了，要做好项目，关注竞品的发展，行业动态；还要经常出去拜访客户，维护客户；同时也要做好产品未来几个月甚至几个季度的规划，偶尔还要搞搞运营啥的。文章写少了，但视野真心见长了，anyway，未来再接着抽空多记录点文字下来，哈哈。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;参考文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://parquet.apache.org/documentation/latest/&quot;&gt;Apache Parquet&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/job-scheduling.html#scheduling-within-an-application&quot;&gt;scheduling-within-an-application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/docs/latest/configuration.html#scheduling&quot;&gt;configuration scheduling&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spark.apache.org/docs/latest/job-scheduling.html#configuring-pool-properties&quot;&gt;job-scheduling.html configuring-pool-properties&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/yurunmiao/p/5195754.html&quot;&gt;Spark使用CombineTextInputFormat缓解小文件过多导致Task数目过多的问题&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2009/02/the-small-files-problem/&quot;&gt;The Small Files Problem&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://forums.databricks.com/questions/1509/parquet-file-merging-or-other-optimisation-tips.html&quot;&gt;Parquet file merging or other optimisation tips&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2015/events/data-storage-tips-for-optimal-spark-performance/&quot;&gt;Data Storage Tips for Optimal Spark Performance&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;本系列文章链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark?s=inner&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts?s=inner&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model?s=inner&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd?s=inner&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper?s=inner&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model?s=inner&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction?s=inner&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing?s=inner&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-sql-parquet-optimize?s=inner&quot;&gt;『 Spark 』14. 一次 Spark SQL 性能优化之旅&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>『 读书笔记 』9月，10月读书总结｜博文推荐</title>
@@ -286,7 +535,7 @@
   &lt;p&gt;非常非常非常赞的一个 talk，主讲人也超有魅力的哦。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;2. 博文推荐&lt;/h2&gt;
+&lt;h2 id=&quot;section-5&quot;&gt;3. 博文推荐&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA5MDAxMjcwOQ==&amp;amp;mid=2447614867&amp;amp;idx=1&amp;amp;sn=43059c321ee677439178f5d034343528&amp;amp;chksm=84052ed9b372a7cfde9abf42516e3916c601febb4b3e79cd4edec4a2eee625119ad14d9d7667&amp;amp;mpshare=1&amp;amp;scene=2&amp;amp;srcid=101113deGruE0jtN53Y4NSMy&amp;amp;key=c50f8b988e61749a567ba477763007f4301bfaff3d7790f6ebe4d3f8ced508919dc8c96eda38bbb62d63bfd8c073e283&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&amp;amp;version=11020201&amp;amp;pass_ticket=DcoELySNvbXVGG7G%2BfzkWJ2yAN%2BDritBJteCurcvOPD4pmdqdOdBdRT%2Bjw59klVv&quot;&gt;吴军博士硅谷第一封来信：不做伪工作者&lt;/a&gt;&lt;/li&gt;
@@ -351,7 +600,7 @@
   &lt;p&gt;留富兵法周报挺不错的，尝试自己实现到策略里看看。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section-6&quot;&gt;3. 优质产品&lt;/h2&gt;
+&lt;h2 id=&quot;section-6&quot;&gt;4. 优质产品&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://coggle.it/&quot;&gt;https://coggle.it/&lt;/a&gt;&lt;/li&gt;
@@ -359,7 +608,7 @@
 
 &lt;p&gt;优质在线思维导图。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;4. 读书总结系列&lt;/h2&gt;
+&lt;h2 id=&quot;section-7&quot;&gt;5. 读书总结系列&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
@@ -611,6 +860,7 @@
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-sql-parquet-optimize?s=inner&quot;&gt;『 Spark 』14. 一次 Spark SQL 性能优化之旅&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1289,6 +1539,7 @@ id_rsa_test.pub                                                                 
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-sql-parquet-optimize?s=inner&quot;&gt;『 Spark 』14. 一次 Spark SQL 性能优化之旅&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1487,230 +1738,6 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
   &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/5751144e228e5b86a51fd997&quot;&gt;『06.02 公开课』5. First Show of Sklearn&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511469228e5b86a31fcdf4&quot;&gt;『06.02 公开课』6. Python Quant UQER&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511520228e5b86b11fd182&quot;&gt;『06.02 公开课』7. share_0602 函数库&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 读书笔记 』5月读书总结｜博文推荐</title>
-     <link href="/books-recommend-and-summarize-on-May-2016"/>
-     <updated>2016-05-31T00:00:00+08:00</updated>
-     <id>/books-recommend-and-summarize-on-May-2016</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
-
-&lt;p&gt;月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。&lt;/p&gt;
-
-&lt;p&gt;下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/book-reading-05.png&quot; alt=&quot;book-reading-05.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;本月原计划安排了 19 本书，实际只看了 10 本书，其中标记为 &lt;code class=&quot;highlighter-rouge&quot;&gt;---&lt;/code&gt; 的是正在看的，没有看完的了，下个月看完了再写上来。其中有电子书版的都放到亲爱的&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;度娘云&lt;/a&gt;里了，个人觉得不错的书都是纸板的，不知道有没有电子版的，推荐好书都看纸版的。&lt;/p&gt;
-
-&lt;p&gt;ps: 我对好书的定义很简单：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;给自己有所启发的&lt;/li&gt;
-  &lt;li&gt;高质量的，专业的教程类书籍&lt;/li&gt;
-  &lt;li&gt;后期会再度回首的书&lt;/li&gt;
-  &lt;li&gt;看完后会打算赠送给盆友看的书&lt;/li&gt;
-  &lt;li&gt;留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]&lt;/li&gt;
-  &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
-
-&lt;h3 id=&quot;docker-httpswwwamazoncndockere585a8e694bbe795a5-e5bca0e6b69bdpb01durnag0refsr11ieutf8qid1462330582sr8-1keywordsdockere585a8e694bbe795a5&quot;&gt;1.1 &lt;a href=&quot;https://www.amazon.cn/Docker%E5%85%A8%E6%94%BB%E7%95%A5-%E5%BC%A0%E6%B6%9B/dp/B01DURNAG0/ref=sr_1_1?ie=UTF8&amp;amp;qid=1462330582&amp;amp;sr=8-1&amp;amp;keywords=Docker+%E5%85%A8%E6%94%BB%E7%95%A5&quot;&gt;Docker 全攻略&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;随着虚拟化技术的流行，最近两年 docker 也开始变得越来越火，我也看好这个趋势的发展，它的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Build, Ship, and Run Any App, Anywhere&lt;/code&gt; 的理念很吸引我，这对与初创起来来说是非常可取的一个早期方案［当然后期也可以］。于是准备最近一两个月系统的了解了解 docker 以及它的生态圈，恰逢公司刚刚新购一批书，里面有一本讲docker的书，就拿来看了。总的来说，这本书让我大失所望，通篇80%的内容都是介绍docker的命令用法，参数说明以及一些多余的口舌去了，太过于铺张浪费。通读下来应该感觉都是那种出版社编辑在 qq，微信群里找一些所谓的技术大拿写的［这还是好的，甚至有的出版社编辑直接找大学生写书了；我大三的时候还有一个叫源智天下的出版社找我写单片机的书］。真是不明白为什么有的人会写这种书，说实话，就算是七拼八凑，那性价比也是很低的。一本 500 页的书，顶多能拿个 2～3w 的稿酬，真心没必要。&lt;/p&gt;
-
-&lt;p&gt;书籍内容：全书 534 页，其中 28-467 页全是讲 docker 命令，而且都是官方文档&lt;/p&gt;
-
-&lt;p&gt;最后问了下公司的 docker 大神，他推荐直接官网 ＋ &lt;a href=&quot;http://dockone.io/&quot;&gt;http://dockone.io/&lt;/a&gt; 这个 docker 社区。&lt;/p&gt;
-
-&lt;p&gt;总结：如果你闲得蛋疼的话，来读这本书吧。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpsgithubcomphodalgrowth-ebook&quot;&gt;1.2 &lt;a href=&quot;https://github.com/phodal/growth-ebook&quot;&gt;插播：百度搜索引擎网页质量白皮书&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;中途插入的，当时要在看 &lt;a href=&quot;https://www.amazon.cn/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2-%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%8E%E6%94%B6%E5%85%A5%E5%A2%9E%E9%95%BF%E7%A7%98%E7%B1%8D-%E8%8C%83%E5%86%B0/dp/B011BHQSV0/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1463890320&amp;amp;sr=1-1&amp;amp;keywords=%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2&quot;&gt;增长黑客&lt;/a&gt; 的时候，需要对 SEO 也了解一下，所以就下载了百度的和 google 的 seo 指南，很让我惊奇啊。google 的 seo 指南有满满的140多页，而百度的手册居然连 google 的零头都不到，oh my g~o~d。难以置信，算了，虽然我很想以偏概全，但还是得说百度依然是一个伟大的公司，虽然我从不用它的搜索产品，但其他产品还是挺ok的。&lt;/p&gt;
-
-&lt;p&gt;总结：虽然你看了，并且按照百度制定的规范去做了，对你的 seo 可能也没多大用。不过，推荐也看一看。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;hadoop3httpswwwamazoncnhadoope69d83e5a881e68c87e58d97-e68080e789b9dpb00oufxpdarefsr11sbooksieutf8qid1463474378sr1-1keywordshadoope69d83e5a881e68c87e58d97&quot;&gt;1.3 &lt;a href=&quot;https://www.amazon.cn/Hadoop%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E6%80%80%E7%89%B9/dp/B00OUFXPDA/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1463474378&amp;amp;sr=1-1&amp;amp;keywords=hadoop+%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97&quot;&gt;Hadoop权威指南(第3版)(修订版)&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;之所以要看这本书，是因为最近一直在看一些 spark 的资料，而大多数 spark 应用都把数据存储在 hdfs 上，而且也有同事问过 hadoop 上 datanode 和 namenode 的一些问题，当时我也只能按照自己的理解来回答他。这迫使我相信，要想用好 spark，对 hadoop 以及 hadoop 的生态需要有一定的了解和掌握，这是促使我安排这本书的核心原因。&lt;/p&gt;
-
-&lt;p&gt;这本书讲得比较全，推荐大家看中文第三版修订版或者第四版影音版的，因为涵盖了大多成熟的 hadoop 生态里的其他开源项目，能对 hadoop 及其生态有一个比较简单的了解。&lt;/p&gt;
-
-&lt;p&gt;总结：第三版修订版或第四版影印版值得阅读，对了解 hadoop 的基本原理，运行流程，使用方法很有帮助，还能了解 hadoop 生态系统里的其他开源项目。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncngpproductb00b2fhtomrefohauidetailpageo00s00ieutf8psc1&quot;&gt;1.4 &lt;a href=&quot;https://www.amazon.cn/gp/product/B00B2FHTOM/ref=oh_aui_detailpage_o00_s00?ie=UTF8&amp;amp;psc=1&quot;&gt;急救手册&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;很久之前就想看这样一本书，因为现实生活中遇到过这样一件事：在公交车上遇到一个突发癫痫的老人，当时我就离那个老人不远，但老人倒地，发抖，口吐白沫的时候我突然觉得好像周围都静止了，整个人都惊呆了，因为自己完全不知道该怎么办，好像这种事情就永远不会发生在自己身边一样。现在工作了，思想渐渐成熟，满满发现这些学校里面不会传授的知识在生活中的重要性，于是特地选了这本书来学习急救技能。&lt;/p&gt;
-
-&lt;p&gt;就本书来说，内容对我这种门外汗来说完全够用了，书籍本身印刷质量非常高，铜纸版印刷的，有很多详细的彩色插图介绍，很值得。&lt;/p&gt;
-
-&lt;p&gt;总结：虽然不想承认，但现在人们的健康情况却是越来越差了，掌握一些基础的急救技能真的很有必要，不仅是为了路人，更是为了家人。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne5a29ee995bfe9bb91e5aea2-e5889be4b89ae585ace58fb8e79a84e794a8e688b7e4b88ee694b6e585a5e5a29ee995bfe7a798e7b18d-e88c83e586b0dpb011bhqsv0refsr11sbooksieutf8qid1463890320sr1-1keywordse5a29ee995bfe9bb91e5aea2&quot;&gt;1.5 &lt;a href=&quot;https://www.amazon.cn/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2-%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%8E%E6%94%B6%E5%85%A5%E5%A2%9E%E9%95%BF%E7%A7%98%E7%B1%8D-%E8%8C%83%E5%86%B0/dp/B011BHQSV0/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1463890320&amp;amp;sr=1-1&amp;amp;keywords=%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2&quot;&gt;增长黑客&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;这本书是从公司图书馆借来看的，看完后感觉很有收获，准备在亚马逊上买本回来。这本书讲得挺细致，虽然说并没有特别多的概念，但里面提到了很多实际例子，很有学习和借鉴价值。看完这本书，至少能对增长有一个简单的认识，知道如果自己准备去做一个应用，产品的增长的时候，该从什么方面入手，怎么去制定策略，以及自己还要补充哪些方面的知识才能做一个更好的增长官。不过增长这个概念在国内兴起没有多久，也是伴随大数据兴起的一个产物吧，所以国内对这方面还没有比较系统的介绍，因此，《增长黑客》这本书算是国内对增长这个正在兴起的空白领域一个比较不错的开端吧，相信之后会有更多更好更系统的资料问世。&lt;/p&gt;
-
-&lt;p&gt;总结：内容不错，例子充足，对有意创业，或对增长，用户研究，市场营销推广有兴趣的人很有学习和借鉴价值。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne585ace58fb8e8b4a2e58aa1e58e9fe79086-e79086e69fa5e5beb7-a-e5b883e99bb7e588a9dpb006z2yi32refsr12ieutf8qid1461250263sr8-2keywordse585ace58fb8e8b4a2e58aa1e58e9fe79086&quot;&gt;1.6 &lt;a href=&quot;https://www.amazon.cn/%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86-%E7%90%86%E6%9F%A5%E5%BE%B7-A-%E5%B8%83%E9%9B%B7%E5%88%A9/dp/B006Z2YI32/ref=sr_1_2?ie=UTF8&amp;amp;qid=1461250263&amp;amp;sr=8-2&amp;amp;keywords=%E5%85%AC%E5%8F%B8%E8%B4%A2%E5%8A%A1%E5%8E%9F%E7%90%86&quot;&gt;公司财务原理（第十版），第三，四章&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;第三章，第四章是说债券，股票估值的，讲得一如既往的好。我一般都是先看原版，然后再看第八版的中译本，看看有什么漏掉的地方。第八版是把这两章合并到一章讲的，内容简单很多，还是推荐看第十版原版，讲得详细很多。&lt;/p&gt;
-
-&lt;p&gt;但是这次有个问题，其中第四章提到的 &lt;code class=&quot;highlighter-rouge&quot;&gt;市场资本化率&lt;/code&gt; 这个概念，名字好奇葩啊，难以理解，直接叫 &lt;code class=&quot;highlighter-rouge&quot;&gt;预期到期收益率&lt;/code&gt; 就好理解多了呀。我第一眼看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;市场资本化率&lt;/code&gt; 总是容易理解成 &lt;code class=&quot;highlighter-rouge&quot;&gt;流动股本与总股本比率[其他股本不流通，或者被国家持有类似的]&lt;/code&gt;，oh，先不管了，继续接着看，没准儿哪天就能理解了呢。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/pcf-1.png&quot; alt=&quot;pcf-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;总结：再次说明，&lt;code class=&quot;highlighter-rouge&quot;&gt;公司财务原理&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;估值的艺术&lt;/code&gt; 是我看过的觉得超级不错的讲公司财务的书，而且我觉得不仅仅是讲公司财务，还能理解一些公司运转，公司决策这些思想和原理，强烈推荐，值得认真研读。关于 &lt;code class=&quot;highlighter-rouge&quot;&gt;估值的艺术&lt;/code&gt;，可以看我三月的读书笔记，在这里 &lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;growth-httpsgithubcomphodalgrowth-ebook&quot;&gt;1.7 &lt;a href=&quot;https://github.com/phodal/growth-ebook&quot;&gt;Growth 全栈增长工程师指南&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;本着在 github 上拿下 3k+ 的星的巨大期待来读这本书的，但不得不说让我有点失望了。看目录思路似乎还挺清晰的，但内容上读下来有一种稍显混乱的感觉。标题也有点噱头，不知道是着重讲 growth，还是着重讲全栈工程师。估计作者是想把两者都讲完吧，但两者都讲完，要讲好是需要很深的内功和对行业的深度了解的。不过还是很感谢作者，能够总结一些做前端，后台开发，以及做 growth 的一些经验吧。&lt;/p&gt;
-
-&lt;p&gt;总结：如果你初入职场，对全栈工程师，growth 增长完全不了解，并且有兴趣的话，可以花2-3天时间看完这本书。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;mongodb2pdfhttppanbaiducoms1i5hnu7r&quot;&gt;1.8 &lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;MongoDB权威指南（第2版）.pdf&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;MongoDB权威指南这本书目前出到第二版了，但是第二版只有英文版的。第一版［中文版］是 2011 年写的，应该是基于 1.5 版的 mongodb。第二版目前只有英文版的，2013年出的，内容比较新，是基于 2.4 版的 mongodb。两者都不新了，现在［2016.05］，mongo都到3.2了，我们生产里用的也是 3.2 的mongodb。不过这两本书本来来说内容还是比较不错的，我第一次接触 mongo 的时候就是看的第一版中文版入门的，内容简单，200页不到；第二版英文版内容有 400 多页，相比第一版内容要丰富得多。推荐看第二版的，然后有空可以去官网看看 release log，看看新版的一些改进和变化。&lt;/p&gt;
-
-&lt;p&gt;总结：就书本内容来说，两本都挺不错的。如果之前接触过 mongodb，推荐直接看第二版英文版的；如果之前没接触过 mongodb，推荐直接看第一版中文版的。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne58cbae59d97e993be-e696b0e7bb8fe6b58ee8939de59bbee58f8ae5afbce8afbb-e6a285e585b0e5a6aec2b7e696afe4b887dpb01ane1zh4refsr11ieutf8qid1464594715sr8-1keywordse58cbae59d97e993bee28094e28094e696b0e7bb8fe6b58ee8939de59bbe&quot;&gt;1.9 &lt;a href=&quot;https://www.amazon.cn/%E5%8C%BA%E5%9D%97%E9%93%BE-%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE%E5%8F%8A%E5%AF%BC%E8%AF%BB-%E6%A2%85%E5%85%B0%E5%A6%AE%C2%B7%E6%96%AF%E4%B8%87/dp/B01ANE1ZH4/ref=sr_1_1?ie=UTF8&amp;amp;qid=1464594715&amp;amp;sr=8-1&amp;amp;keywords=%E5%8C%BA%E5%9D%97%E9%93%BE%E2%80%94%E2%80%94%E6%96%B0%E7%BB%8F%E6%B5%8E%E8%93%9D%E5%9B%BE&quot;&gt;区块链——新经济蓝图&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;oh, my gosh. 我能说我还是不明白为什么区块链这么火吗？看了这本书，我知道区块链是什么，比特币是什么，但是真的不敢相信难道这真的会是 the future of finance or other things. 没想懂，分布式的交易账户簿，那我想问这跟复杂的分布式存储有什么关系吗？而且交易的数据量这么大，每个节点都存放完整的记录的话，这需要多大的存储空间啊？比特币，现在确实真的好火，但是这种不被国际政府承认的货币，真的能长久吗？为什么我却觉得比特币有一点&lt;a href=&quot;http://baike.baidu.com/subview/1005782/19581327.htm&quot;&gt;郁金香&lt;/a&gt;的味道呢？&lt;/p&gt;
-
-&lt;p&gt;oh, my gosh.&lt;/p&gt;
-
-&lt;p&gt;总结：oh, my gosh。这本书真不知道咋个写推荐指数了，oh, my gosh.&lt;/p&gt;
-
-&lt;h3 id=&quot;httppanbaiducoms1i5hnu7r&quot;&gt;1.10 &lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;研报系列：宏观择时&lt;/a&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/566a98a5f9f06c6c8a91cb82&quot;&gt;【干货包邮】手把手教你做宏观择时&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;宏观因子模型的择时效应&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;宏观因子择时分析方法&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;基于择时功效的股市宏观多因素预测模型&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1i5hNu7r&quot;&gt;长江证券：宏观经济变量与股市关系系列&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;2. 博文推荐&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;amp;mid=2653547068&amp;amp;idx=1&amp;amp;sn=910e345a35383e9d440d8a41695ccb10&amp;amp;scene=1&amp;amp;srcid=0504Wzmtyh8LNqrTo2XrP1my&amp;amp;from=groupmessage&amp;amp;isappinstalled=0#wechat_redirect&quot;&gt;对话：一个工程师在蘑菇街4年的架构感悟&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100349/&quot;&gt;如果有人问你数据库的原理，叫他看这篇文章&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;p&gt;这篇文章是真的不错。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzA5Nzc4OTA1Mw==&amp;amp;mid=2659597071&amp;amp;idx=1&amp;amp;sn=cd8df9f8c52dfbfb54e65adbe19fae27&amp;amp;scene=0#wechat_redirect&quot;&gt;日请求量过亿，谈陌陌的Feed服务优化之路&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.scalerstalk.com/838-architect&quot;&gt;支付宝架构师：从工程师到架构师的成长之路&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://geek.csdn.net/news/detail/70162&quot;&gt;向Spark开炮：1.6版本问题总结与趟坑&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/e544b7a76dac&quot;&gt;你应该知道的HTTP基础知识&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://tool.oschina.net/commons?type=5&quot;&gt;HTTP CODE 常用对照表&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/blog-recommendation-system-part01&quot;&gt;博客推荐系统——物料准备 (第一部分)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/blog-recommendation-system-part02&quot;&gt;博客推荐系统: 基于内容相似性的推荐 ( 第二部分)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-
-    &lt;p&gt;这两篇文章写得简单易懂，可以帮助新手了解一个简单的推荐系统的结构。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/yexiaochai/p/5311712.html&quot;&gt;小公司的前端应该怎么做？&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzIzNDE0NjMzOQ==&amp;amp;mid=2653923761&amp;amp;idx=1&amp;amp;sn=6af678b749b02aa19b947dcb1c58593a&amp;amp;scene=0&amp;amp;key=b28b03434249256ba48b934c509118b6073fefc76610faa0c26ecce439f484c51d19dcfc83c4a3a7378de329a6739ae2&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=fHxj4QiBJX6%2FngUiCgKPGZz8WHBOrnfOUJgjiQhkTd7CpYCzpY3KoVuHVZxrf88X&quot;&gt;如何更有效的处理数据检索缓存&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://godcoder.me/2016/04/25/%E8%B5%9A%E9%92%B1%E5%BF%85%E7%9C%8B%EF%BC%9A%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E8%80%85%E5%BF%85%E7%9F%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/&quot;&gt;独立开发者必知的一些总结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100702/&quot;&gt;面试官如何面试程序员&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech.meituan.com/spark-tuning-basic.html&quot;&gt;Spark性能优化指南——基础篇&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech.meituan.com/spark-tuning-pro.html&quot;&gt;Spark性能优化指南——高级篇&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;amp;mid=2653749258&amp;amp;idx=1&amp;amp;sn=82d5929393932fbf1cb97d9acbdd41b5&amp;amp;scene=1&amp;amp;srcid=05188fOCSKGwfCzJfI73ssBE&amp;amp;key=8d8120cb97983fad7f2968069d314547f9679b9bbb4497c084f9246b67b6f6f81d90b0cdb2e55a81153d93e2d75b7a89&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;如何在72小时之内快速搞懂一个陌生行业？&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjAzNzMzNTkyMQ==&amp;amp;mid=2653749289&amp;amp;idx=4&amp;amp;sn=a3e57e4400cde387f330e7ea8429d30a&amp;amp;scene=1&amp;amp;srcid=0518elOD5oMp6TNMP4Z9nPxD&amp;amp;key=8d8120cb97983fade74366a3f02b2ceb18dd53e99524441327fe1192e109cf6d1d532b144cd29ce82f208e9e65a7bcc0&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;数据化解析Term Sheet十大核心条款，关于融资的干货都在这儿了&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://colachan.com/post/3502&quot;&gt;优秀配色方案的探索过程&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4NjAzNDg4NA==&amp;amp;mid=2656366443&amp;amp;idx=3&amp;amp;sn=19091f8ca1bd18a1cba55fc88402a7fd&amp;amp;scene=1&amp;amp;srcid=0515hXptbhIi1JhXUGtyqI5r&amp;amp;key=8d8120cb97983fad3adcf075795d583f5889e72bfd0a1874e4d968c4478a422244e16d191be3b8c1c5010484537b5e4f&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=CSAsHNzivWgVTZBKGOYlRae9cr0HEYP6s8AVn13yrEYAGDoNhBI7SNSv3teBBk4L&quot;&gt;知乎上的48条神回复，针针见血，看完整个人都通透多了&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;哈哈，轻松一下&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzAwMjgwMTEzNw==&amp;amp;mid=2652227239&amp;amp;idx=1&amp;amp;sn=fdc9cd6fad120594426a9fe4b80b438c&amp;amp;scene=2&amp;amp;srcid=0514jA1Y6iz4kUl721PEWR6k&amp;amp;from=timeline&amp;amp;isappinstalled=0#wechat_redirect&quot;&gt;几种一致性模型的分析&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://mindhacks.cn/2011/11/04/how-to-interview-a-person-for-two-years/&quot;&gt;怎样花两年时间去面试一个人&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/b2aaee9679c7&quot;&gt;可视化数据采集器import.io与集搜客评测对比&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4ODM1MTMzMQ==&amp;amp;mid=2651791131&amp;amp;idx=2&amp;amp;sn=7512d96b25ba78f4fcb0786f9a2838d4&amp;amp;scene=1&quot;&gt;如何快速在一个陌生领域达到优秀水平&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/5046704.html&quot;&gt;“早知道这些我的公司就不会死”系列（一）：CAC、LTV、PBP&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://36kr.com/p/5046873.html&quot;&gt;“早知道这些我的公司就不会死”系列（二）：Cohort Analysis&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;amp;mid=2651641296&amp;amp;idx=1&amp;amp;sn=3f65244acb598f8f68d5599cb4d5dc15&amp;amp;scene=1&amp;amp;srcid=05220ulv9HLRpscIbHRe6hUe&amp;amp;key=8d8120cb97983faddfc814fefef84d13371f4af24b28d954a8dea6ccdfde9155059791bb67178f5a4fe77a0920295121&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=i2mSa8qzhbxkf7Yygmi7gmQsztfvHYN0h%2FTT558qJiaNMaAltw17D%2F06VteZfWM6&quot;&gt;【重磅长文】技术和科学是不同的源流，一万字读懂人类技术史&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/100702/&quot;&gt;纯干货！面试官如何面试程序员&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/99830/&quot;&gt;纯干货！程序员面试的技巧&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzAxODQwODg3Mg==&amp;amp;mid=2651442463&amp;amp;idx=5&amp;amp;sn=955d59554989ff0f4ea00b8f5281beab&amp;amp;scene=1&amp;amp;srcid=0523LdGhpiCiPyoRgX1saCSg&amp;amp;key=8d8120cb97983fad4f21efed0a495d8c66cd71210271ea6703679184411ede7245147d179559f367e4f1ff02d7426352&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=58KQfrxdep1KCNhDrD4Sowiu6JC%2BtWbJVU3lEFWSuJeI2eHPntuvLd0Cgd%2BlcSfM&quot;&gt;160篇精选干货内容精编20160523 私募工场&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;里面的文章都是经典好文啊。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/19786827&quot;&gt;COOKIE和SESSION有什么区别？&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzAwMDMwNDk0NQ==&amp;amp;mid=402620884&amp;amp;idx=1&amp;amp;sn=748ed5b1fdd1513cbd756f9aba22d9f4&amp;amp;scene=1&amp;amp;srcid=0524PtsNUNNhIeXM5pFVRrZJ&amp;amp;key=8d8120cb97983fadf39272d32286a25d4d1649e9d16065b9ed7505f6343bdbbedf8604b977753336be30e2da19c8a5cf&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1713)&amp;amp;version=11020201&amp;amp;pass_ticket=ouW8BNyym0LBAWwoMu5hF%2B%2Bk9DI8LMK%2BHzsZ%2F0DkMigOaFgpa%2FamlmXSHyRZIDd8&quot;&gt;管理用户状态——Cookie与Session&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.163.com/jey_df/blog/static/1825501612013411105655629/&quot;&gt;均方根值（RMS）+ 均方根误差（RMSE）+标准差（Standard Deviation）&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;4. 优质产品&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.import.io/&quot;&gt;import.io&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;5. 读书总结系列&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-sep-2016&quot;&gt;『 读书笔记 』9月，10月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>

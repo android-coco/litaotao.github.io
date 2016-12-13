@@ -233,7 +233,6 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [A Deep Dive into Structured Streaming]()
 - [`slide` A Deep Dive into Structured Streaming](http://www.slideshare.net/databricks/a-deep-dive-into-structured-streaming)
 
-- []()
 - [`slide` Spark Job Server and Spark as a Query Engine (Spark Meetup 5/14)](http://www.slideshare.net/EvanChan2/spark-job-server-and-spark-as-a-query-engine-spark-meetup-514)
 
 - [Apache spark job server example with installation](https://www.youtube.com/watch?v=JKKqAgNkHZk)
@@ -246,6 +245,9 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 
 - [Spark at Bloomberg: Dynamically Composable Analytics](https://www.youtube.com/watch?v=iMaFRSseeNk&feature=youtu.be)
 - [`slide` Spark at Bloomberg: Dynamically Composable Analytics](http://www.slideshare.net/JenAman/spark-at-bloomberg-dynamically-composable-analytics)
+
+- [Data Storage Tips for Optimal Spark Performance - Vida Ha (Databricks)](https://www.youtube.com/watch?v=XMVyNJz4FzM&index=16&list=PL-x35fyliRwhP52fwDqULJLOnqnrN5nDs)
+- [`slide` Data Storage Tips for Optimal Spark Performance-(Vida Ha, Databricks)](http://www.slideshare.net/SparkSummit/data-storage-tips-for-optimal-spark-performancevida-ha-databricks)
 
 
 ## 6. next
@@ -274,3 +276,4 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [『 Spark 』11. spark 机器学习](http://litaotao.github.io/spark-mlib-machine-learning?s=inner)
 - [『 Spark 』12. Spark 2.0 特性介绍](http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner)
 - [『 Spark 』13. Spark 2.0 Release Notes 中文版 ](http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner)
+- [『 Spark 』14. 一次 Spark SQL 性能优化之旅](http://litaotao.github.io/spark-sql-parquet-optimize?s=inner)
