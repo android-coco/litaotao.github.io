@@ -8,7 +8,7 @@ encoding: UTF-8
 gems: [jekyll-paginate]
 
 title: Taotao's Zone
-url: http://litaotao.github.io
+url: http://litaotao.github.io/
 feed: /atom.xml
 author_info: <a href="http://litaotao.github.io/">taotaoli</a>
 
