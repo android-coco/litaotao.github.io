@@ -79,6 +79,10 @@ ps: 我对好书的定  义很简单：
 
 > 比较不错的一个 talk，跟上个月的看的 [Your body language shapes who you are Amy Cuddy](https://www.youtube.com/watch?v=Ks-_Mh1QhMc) 很像，推荐结合起来一起看。
 
+- [How great leaders inspire action | Simon Sinek TED ](https://www.youtube.com/watch?v=qp0HIF3SfI4)
+
+> 前两年就看过的一个 talk，非常好，道理也很简单，但是知易行难啊。强烈推荐大家也看看。
+
 
 ## 3. 博文推荐 
 
