@@ -55,7 +55,9 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 
  ![spark-in-finance-3.jpg](../images/spark-in-finance-3.jpg)
 
-下载链接：[minute_bar.zip on baidu](http://pan.baidu.com/s/1jIvW4mU)
+下载链接：
+
+- minute_bar.zip : 链接: https://pan.baidu.com/s/1dELLZ5B 密码: bikx
 
 下面，我们先创建 SparkContext，然后加载存放在 hdfs 上的数据。
 
