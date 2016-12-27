@@ -83,6 +83,9 @@ ps: 我对好书的定  义很简单：
 
 > 前两年就看过的一个 talk，非常好，道理也很简单，但是知易行难啊。强烈推荐大家也看看。
 
+- [Shape-shifting tech will change work as we know it | Sean Follmer](https://www.youtube.com/watch?v=8sheoGMsy3Q)
+
+> 来自 MIT Media Lab 的一个talk，讲形态变化对未来科技，生活发展的一些应用，虽然目前这项技术处于非常初级的阶段，但是我非常看好这个方向，变形金刚不是梦啊。
 
 ## 3. 博文推荐 
 
