@@ -79,13 +79,21 @@ ps: 我对好书的定  义很简单：
 
 > 比较不错的一个 talk，跟上个月的看的 [Your body language shapes who you are Amy Cuddy](https://www.youtube.com/watch?v=Ks-_Mh1QhMc) 很像，推荐结合起来一起看。
 
-- [How great leaders inspire action | Simon Sinek TED ](https://www.youtube.com/watch?v=qp0HIF3SfI4)
+- [How great leaders inspire action Simon Sinek TED ](https://www.youtube.com/watch?v=qp0HIF3SfI4)
 
 > 前两年就看过的一个 talk，非常好，道理也很简单，但是知易行难啊。强烈推荐大家也看看。
 
-- [Shape-shifting tech will change work as we know it | Sean Follmer](https://www.youtube.com/watch?v=8sheoGMsy3Q)
+- [Shape-shifting tech will change work as we know it Sean Follmer](https://www.youtube.com/watch?v=8sheoGMsy3Q)
 
 > 来自 MIT Media Lab 的一个talk，讲形态变化对未来科技，生活发展的一些应用，虽然目前这项技术处于非常初级的阶段，但是我非常看好这个方向，变形金刚不是梦啊。
+
+- [New bionics let us run, climb and dance Hugh Herr TED ](https://www.youtube.com/watch?v=CDsNZJTWw0w)
+
+> 也是来自 MIT 一个实验室的视频，可以说非常壮观，讲仿生机械学的最新进展和他们取得的成就，非常震撼。惊叹之余，我只能说国内外的研究差距真的太大了，当然除去很多人力因素外，其实经费也是一个大问题。
+
+- [Do schools kill creativity? | Sir Ken Robinson](https://www.youtube.com/watch?v=iG9CE55wbtY&index=2&list=PLym8Ko04Dio2rGMndvXDiScNtw2HbP5r8)
+
+> 最近看到不少烂的 ted talk，最后还是决定去 youtube 上搜 best ted talks 了。看到了这个ted，2006年出品的，到现在将近 11 年了。这个 video 的录制还是最高 240p 的，画面很一般，但是内容真心很不错。话说最近看了不少 ted talk，很明显感觉到 talk 的质量越来越水了。ok，不抱怨了。回到这个 talk，主讲人很幽默，内容也很丰富，是讲怎么最好的教育孩子，以及主讲人对当前教育体系的一些看法。我强烈推荐做家长做长辈的可以看看这个 talk 哦。
 
 ## 3. 博文推荐 
 
