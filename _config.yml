@@ -3,6 +3,7 @@
 markdown: kramdown
 highlighter: rouge
 paginate: 8
+comments: true
 permalink: /:title
 encoding: UTF-8
 gems: [jekyll-paginate]

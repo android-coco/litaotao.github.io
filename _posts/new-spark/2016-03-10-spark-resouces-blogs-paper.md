@@ -249,6 +249,10 @@ Everyday I'm Shuffling - Tips for Writing Better Spark Programs, Strata San Jose
 - [Data Storage Tips for Optimal Spark Performance - Vida Ha (Databricks)](https://www.youtube.com/watch?v=XMVyNJz4FzM&index=16&list=PL-x35fyliRwhP52fwDqULJLOnqnrN5nDs)
 - [`slide` Data Storage Tips for Optimal Spark Performance-(Vida Ha, Databricks)](http://www.slideshare.net/SparkSummit/data-storage-tips-for-optimal-spark-performancevida-ha-databricks)
 
+- [Sparkling Pandas - using Apache Spark to scale Pandas - Holden Karau and Juliet Hougland](https://www.youtube.com/watch?v=AcyI_V8FeIU)
+
+
+
 
 ## 6. next
 
