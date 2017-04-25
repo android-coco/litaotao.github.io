@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>深度学习第一弹——MNIST for the Newbies | Taotao's Zone</title>
+  <title>深度学习第一弹 —— MNIST for the Newbies | Taotao's Zone</title>
   <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
   <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
@@ -112,7 +112,7 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/mnist-tutoril-deep-learning-for-the-newbies" title="深度学习第一弹——MNIST for the Newbies">深度学习第一弹——MNIST for the Newbies</a></h1>    
+    <h1 class="entry-title"><a href="/mnist-tutoril-deep-learning-for-the-newbies" title="深度学习第一弹 —— MNIST for the Newbies">深度学习第一弹 —— MNIST for the Newbies</a></h1>    
 
     <p class="entry-date">2017-04-21 
         <span class="lastModified" style="display: none;" data-source="_posts/ai/2017-04-21-mnist-tutoril-deep-learning-for-the-newbies.md">最后更新时间: 
@@ -180,9 +180,68 @@
 
 <h2 id="section-1">5. 所以，是时候揭开这个公式的神秘面纱了</h2>
 
-<h2 id="latex-">文中的 latex 公式</h2>
+<p>在 tensorflow 的 <a href="https://www.tensorflow.org/get_started/mnist/beginners">MNIST For ML Beginners</a> 中，最后的模型是这样的：<code class="highlighter-rouge">y = tf.nn.softmax(tf.matmul(x, W) + b)</code>，其中核心部分就是理解 <code class="highlighter-rouge">tf.matmul(x, W) + b</code> 这个内部模型的含义，以及该模型输出的结果，为了方便，我把矩阵 x, W 画出来供大家理解一下。</p>
 
-<figure class="highlight"><pre><code class="language-latex" data-lang="latex">## 权重矩阵
+<ul>
+  <li>内部模型：<code class="highlighter-rouge">y = tf.matmul(x, W) + b</code></li>
+  <li>
+    <p>y: 结果矩阵
+<img src="../images/robot_8_mnist_equation.png" alt="robot_8_mnist_equation.png" /></p>
+  </li>
+  <li>x: 训练样本矩阵</li>
+</ul>
+
+<p><img src="../images/robot_6_mnist_pixel.png" alt="robot_6_mnist_pixel.png" /></p>
+
+<ul>
+  <li>
+    <p>W: 权重矩阵，大小 768 x 10，相当于 10 个列向量，每个列向量代表对结果 0 ~ 9 的权重
+<img src="../images/robot_5_mnist_pixel.png" alt="robot_5_mnist_pixel.png" /></p>
+  </li>
+  <li>
+    <p>b: bias 向量，代码中只是一个行向量，但在实际相加的时候，需要两个向量的shape 一样，tensorflow 中会自动根据矩阵结构来进行扩展，所以最后进行计算的时候实际上 b 是一个 n x 10 的矩阵，但是每一个行向量都是相同的。</p>
+  </li>
+</ul>
+
+<p><img src="../images/robot_10_mnist_pixel.png" alt="robot_10_mnist_pixel.png" /></p>
+
+<ul>
+  <li>所以最后的公式其实是酱紫的
+<img src="../images/robot_9_mnist_equation.png" alt="robot_9_mnist_equation.png" /></li>
+</ul>
+
+<h2 id="section-2">6. 到这里了，还该做些啥</h2>
+
+<p>到这里了，关于 MNIST 的话题算是差不多了，不过这部分其实还是有很多细节可以继续深究，优化的，特别是针对专门做这方面的研究的人来说。接下来的话，可以考虑考虑实现几个例子，然后继续学习后面的内容。就跟游戏打怪一样，一般一个游戏的主线只占了整个游戏情节的 70% 左右，如果一开始就要把所有 npc 搞一遍，把所有支线都通关，那进度肯定会慢很多了；所以我都喜欢先把主线走完，中途当然也可以偶尔过过支线内容，然后最后再返回来做支线任务，会有不同的感受的。</p>
+
+<h2 id="section-3">7. 最后的最后</h2>
+
+<p>博主其实只了解点机器学习，其他深度学习，神经网络和 AI 的东西很欠缺，所以本文或之后相关的文章出现错误不是巧合，而是很正常的哈，望各位大咖批斗轻点，哈哈。</p>
+
+<h2 id="section-4">附注</h2>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=iQdWX1327XQ">What’s an MNIST</a></li>
+  <li><a href="http://yann.lecun.com/exdb/mnist/">http://yann.lecun.com/exdb/mnist/</a></li>
+  <li><a href="https://www.tensorflow.org/get_started/mnist/beginners">MNIST For ML Beginners</a></li>
+  <li><a href="http://www.hostmath.com/">online latex equation editor</a></li>
+  <li><a href="https://www.oreilly.com/learning/not-another-mnist-tutorial-with-tensorflow">Not another MNIST tutorial with TensorFlow</a></li>
+  <li><a href="http://web.stanford.edu/class/cs20si/index.html">CS 20SI: Tensorflow for Deep Learning Research</a></li>
+  <li><a href="http://download.tensorflow.org/paper/whitepaper2015.pdf">TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems</a></li>
+  <li>[文中的 latex 公式]</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="nt">\begin{bmatrix}</span>
+
+x<span class="p">_{</span>11<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>12<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>13<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>1,784<span class="p">}</span>
+<span class="k">\\</span>x<span class="p">_{</span>21<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>22<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>23<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>2,784<span class="p">}</span>
+<span class="k">\\</span>.
+<span class="k">\\</span>.
+<span class="k">\\</span>.
+<span class="k">\\</span>x<span class="p">_{</span>n,1<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>n,2<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>n,3<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>n,784<span class="p">}</span>
+<span class="nt">\end{bmatrix}</span>
+
+*
 
 <span class="nt">\begin{bmatrix}</span>
 
@@ -194,31 +253,31 @@ w<span class="p">_{</span>11<span class="p">}</span> <span class="p">&amp;</span
 <span class="k">\\</span>w<span class="p">_{</span>784,1<span class="p">}</span> <span class="p">&amp;</span> w<span class="p">_{</span>784,2<span class="p">}</span> <span class="p">&amp;</span> w<span class="p">_{</span>784,3<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> w<span class="p">_{</span>784,10<span class="p">}</span>
 <span class="nt">\end{bmatrix}</span>
 
++ 
 
-## 样本图片矩阵
+(n 行)
 <span class="nt">\begin{bmatrix}</span>
 
-x<span class="p">_{</span>11<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>12<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>13<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>1,784<span class="p">}</span>
-<span class="k">\\</span>x<span class="p">_{</span>21<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>22<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>23<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>2,784<span class="p">}</span>
+b<span class="p">_{</span>1<span class="p">}</span> <span class="p">&amp;</span> b<span class="p">_{</span>2<span class="p">}</span> <span class="p">&amp;</span> . . . <span class="p">&amp;</span> b<span class="p">_{</span>10<span class="p">}</span>
+<span class="nt">\end{bmatrix}</span>
+
+= 
+
+<span class="nt">\begin{bmatrix}</span>
+
+y<span class="p">_{</span>11<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>12<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>13<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> y<span class="p">_{</span>1,10<span class="p">}</span>
+<span class="k">\\</span>y<span class="p">_{</span>21<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>22<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>23<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> y<span class="p">_{</span>2,10<span class="p">}</span>
 <span class="k">\\</span>.
 <span class="k">\\</span>.
 <span class="k">\\</span>.
-<span class="k">\\</span>x<span class="p">_{</span>n,1<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>n,2<span class="p">}</span> <span class="p">&amp;</span> x<span class="p">_{</span>n,3<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> x<span class="p">_{</span>n,784<span class="p">}</span>
+<span class="k">\\</span>y<span class="p">_{</span>n,1<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>n,2<span class="p">}</span> <span class="p">&amp;</span> y<span class="p">_{</span>n,3<span class="p">}</span> <span class="p">&amp;</span> ... <span class="p">&amp;</span> y<span class="p">_{</span>n,10<span class="p">}</span>
+
 <span class="nt">\end{bmatrix}</span></code></pre></figure>
 
-<h2 id="section-2">附注</h2>
-
-<ul>
-  <li><a href="https://www.youtube.com/watch?v=iQdWX1327XQ">What’s an MNIST</a></li>
-  <li><a href="http://yann.lecun.com/exdb/mnist/">http://yann.lecun.com/exdb/mnist/</a></li>
-  <li><a href="https://www.tensorflow.org/get_started/mnist/beginners">MNIST For ML Beginners</a></li>
-  <li><a href="http://www.hostmath.com/">online latex equation editor</a></li>
-  <li><a href=""></a></li>
-</ul>
 
 
     <!-- share icon -->
-    <!-- <div class="ds-share" data-thread-key="/mnist-tutoril-deep-learning-for-the-newbies" data-title="深度学习第一弹——MNIST for the Newbies"
+    <!-- <div class="ds-share" data-thread-key="/mnist-tutoril-deep-learning-for-the-newbies" data-title="深度学习第一弹 —— MNIST for the Newbies"
          data-content="content"
          data-url="http://litaotao.github.io//mnist-tutoril-deep-learning-for-the-newbies">
         <div class="ds-share-aside-left">
@@ -236,7 +295,7 @@ x<span class="p">_{</span>11<span class="p">}</span> <span class="p">&amp;</span
 <!--     <div id="disqus_container">
       <div style="margin-bottom:20px">
       多说评论框 start
-        <div class="ds-thread" data-thread-key=/mnist-tutoril-deep-learning-for-the-newbies data-title=深度学习第一弹——MNIST for the Newbies 
+        <div class="ds-thread" data-thread-key=/mnist-tutoril-deep-learning-for-the-newbies data-title=深度学习第一弹 —— MNIST for the Newbies 
              data-url=http://litaotao.github.io/+/mnist-tutoril-deep-learning-for-the-newbies></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)

@@ -1,7 +1,7 @@
 ---
 layout: post
-published: false
-title: 深度学习第一弹——MNIST for the Newbies
+published: true
+title: 深度学习第一弹 —— MNIST for the Newbies
 description: 维数一上去了，感觉脑壳就不够用了呀
 ---  
 
@@ -70,11 +70,62 @@ MNIST 是 Mixed National Institute of Standards and Technology database 的简�
 
 ## 5. 所以，是时候揭开这个公式的神秘面纱了
 
+在 tensorflow 的 [MNIST For ML Beginners](https://www.tensorflow.org/get_started/mnist/beginners) 中，最后的模型是这样的：`y = tf.nn.softmax(tf.matmul(x, W) + b)`，其中核心部分就是理解 `tf.matmul(x, W) + b` 这个内部模型的含义，以及该模型输出的结果，为了方便，我把矩阵 x, W 画出来供大家理解一下。
 
-## 文中的 latex 公式
+- 内部模型：`y = tf.matmul(x, W) + b`
+- y: 结果矩阵
+![robot_8_mnist_equation.png](../images/robot_8_mnist_equation.png)
+
+- x: 训练样本矩阵
+
+![robot_6_mnist_pixel.png](../images/robot_6_mnist_pixel.png)
+
+
+- W: 权重矩阵，大小 768 x 10，相当于 10 个列向量，每个列向量代表对结果 0 ~ 9 的权重
+![robot_5_mnist_pixel.png](../images/robot_5_mnist_pixel.png)
+
+- b: bias 向量，代码中只是一个行向量，但在实际相加的时候，需要两个向量的shape 一样，tensorflow 中会自动根据矩阵结构来进行扩展，所以最后进行计算的时候实际上 b 是一个 n x 10 的矩阵，但是每一个行向量都是相同的。
+
+![robot_10_mnist_pixel.png](../images/robot_10_mnist_pixel.png)
+
+- 所以最后的公式其实是酱紫的
+![robot_9_mnist_equation.png](../images/robot_9_mnist_equation.png)
+
+
+## 6. 到这里了，还该做些啥
+
+到这里了，关于 MNIST 的话题算是差不多了，不过这部分其实还是有很多细节可以继续深究，优化的，特别是针对专门做这方面的研究的人来说。接下来的话，可以考虑考虑实现几个例子，然后继续学习后面的内容。就跟游戏打怪一样，一般一个游戏的主线只占了整个游戏情节的 70% 左右，如果一开始就要把所有 npc 搞一遍，把所有支线都通关，那进度肯定会慢很多了；所以我都喜欢先把主线走完，中途当然也可以偶尔过过支线内容，然后最后再返回来做支线任务，会有不同的感受的。
+
+
+## 7. 最后的最后
+
+博主其实只了解点机器学习，其他深度学习，神经网络和 AI 的东西很欠缺，所以本文或之后相关的文章出现错误不是巧合，而是很正常的哈，望各位大咖批斗轻点，哈哈。
+
+
+## 附注
+
+- [What's an MNIST](https://www.youtube.com/watch?v=iQdWX1327XQ)
+- [http://yann.lecun.com/exdb/mnist/](http://yann.lecun.com/exdb/mnist/)
+- [MNIST For ML Beginners](https://www.tensorflow.org/get_started/mnist/beginners)
+- [online latex equation editor](http://www.hostmath.com/)
+- [Not another MNIST tutorial with TensorFlow](https://www.oreilly.com/learning/not-another-mnist-tutorial-with-tensorflow)
+- [CS 20SI: Tensorflow for Deep Learning Research](http://web.stanford.edu/class/cs20si/index.html)
+- [TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems](http://download.tensorflow.org/paper/whitepaper2015.pdf)
+- [文中的 latex 公式]
 
 {% highlight latex %}
-## 权重矩阵
+
+\begin{bmatrix}
+
+x_{11} & x_{12} & x_{13} & ... & x_{1,784}
+\\x_{21} & x_{22} & x_{23} & ... & x_{2,784}
+\\.
+\\.
+\\.
+\\x_{n,1} & x_{n,2} & x_{n,3} & ... & x_{n,784}
+\end{bmatrix}
+
+*
 
 \begin{bmatrix}
 
@@ -86,25 +137,26 @@ w_{11} & w_{12} & w_{13} & ... & w_{1,10}
 \\w_{784,1} & w_{784,2} & w_{784,3} & ... & w_{784,10}
 \end{bmatrix}
 
++ 
 
-## 样本图片矩阵
+(n 行)
 \begin{bmatrix}
 
-x_{11} & x_{12} & x_{13} & ... & x_{1,784}
-\\x_{21} & x_{22} & x_{23} & ... & x_{2,784}
-\\.
-\\.
-\\.
-\\x_{n,1} & x_{n,2} & x_{n,3} & ... & x_{n,784}
+b_{1} & b_{2} & . . . & b_{10}
 \end{bmatrix}
 
+= 
+
+\begin{bmatrix}
+
+y_{11} & y_{12} & y_{13} & ... & y_{1,10}
+\\y_{21} & y_{22} & y_{23} & ... & y_{2,10}
+\\.
+\\.
+\\.
+\\y_{n,1} & y_{n,2} & y_{n,3} & ... & y_{n,10}
+
+\end{bmatrix}
+
+
 {% endhighlight %}
-
-
-## 附注
-
-- [What's an MNIST](https://www.youtube.com/watch?v=iQdWX1327XQ)
-- [http://yann.lecun.com/exdb/mnist/](http://yann.lecun.com/exdb/mnist/)
-- [MNIST For ML Beginners](https://www.tensorflow.org/get_started/mnist/beginners)
-- [online latex equation editor](http://www.hostmath.com/)
-- []()

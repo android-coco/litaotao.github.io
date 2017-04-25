@@ -96,13 +96,126 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io//atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io/" rel="alternate" type="text/html" />
-   <updated>2017-04-24T15:36:46+08:00</updated>
+   <updated>2017-04-25T10:13:45+08:00</updated>
    <id>http://litaotao.github.io/</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>深度学习第一弹 —— MNIST for the Newbies</title>
+     <link href="/mnist-tutoril-deep-learning-for-the-newbies"/>
+     <updated>2017-04-21T00:00:00+08:00</updated>
+     <id>/mnist-tutoril-deep-learning-for-the-newbies</id>
+     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策布局，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。&lt;/p&gt;
+
+&lt;p&gt;不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的思维其实还是很具有前瞻性的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/robot_1.jpg&quot; alt=&quot;robot_1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ai-&quot;&gt;1. AI, 深度学习，神经网络，机器学习&lt;/h2&gt;
+
+&lt;p&gt;现在整个行业上其实还是略显浮躁的，搞过线性回归的人说自己懂机器学习，搞过机器学习的说自己研究神经网络，搞过神经网络的说自己做深度学习，搞深度学习的直接说自己是 AI 专家了。&lt;/p&gt;
+
+&lt;p&gt;不过话也说来，其实 &lt;code class=&quot;highlighter-rouge&quot;&gt;AI, 深度学习，神经网络，机器学习&lt;/code&gt; 这四个方面目前也没有非常明晰的分类标准，或者说，也许在不久的某一天，都不存在这样的分类了，也许到时候直接说成 &lt;code class=&quot;highlighter-rouge&quot;&gt;AI 的不同等级&lt;/code&gt; 吧。&lt;/p&gt;
+
+&lt;p&gt;所以在表述这个问题上，我更倾向于交流做过的模型，研究过的模型。&lt;/p&gt;
+
+&lt;h2 id=&quot;mnist-&quot;&gt;2. 所以 MNIST 是个啥&lt;/h2&gt;
+
+&lt;p&gt;在很多书，在线培训网站上，基本上涉及到神经网络，深度学习，AI 的内容，都是以 MNIST 例子来开讲的，同时很多讲这些主题的 blog，也几乎没有哪篇没有谈到 MNIST。不过话说，我估计应该没多少人知道 MNIST 是啥的缩写吧，这也是我很强调知其然知其所以然的原因，对新知识，新事物的学习过程，不应该是被饲养般的全吞下去，应该细细咀嚼，慢慢品尝其中的韵味。&lt;/p&gt;
+
+&lt;p&gt;所以既然提到 AI，大家都先以 MNIST 作为入门例子，就连大 google 开放的 tensorflow 也是以 MNIST 作为开篇例子的，那 MNIST 究竟是个啥呢？&lt;/p&gt;
+
+&lt;p&gt;MNIST 是 Mixed National Institute of Standards and Technology database 的简称，从英文原意上还挺难知道到底是干嘛的，不过从官方网站上最终还是找到了它的具体含义 &lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;http://yann.lecun.com/exdb/mnist/&lt;/a&gt;，MNIST 是一个数据库，这个数据库中存储了各个国家地区，不同标准的手写数字，并且是存储的内容都是结果标准化处理了的，专门用于关于手写体识别方面的技术应用。&lt;/p&gt;
+
+&lt;h2 id=&quot;mnist--1&quot;&gt;3. MNIST 数据结构啥样子呢&lt;/h2&gt;
+
+&lt;p&gt;介绍 MNIST 的原理之前，我们先来看看它的数据结构是个啥样吧。这里我们直接复用 tensorflow 官方的代码，链接在这儿：&lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt;。或者也可以直接看我的 github 上的代码：&lt;a href=&quot;https://github.com/litaotao/tensorflow_guide/blob/master/Official%20Document%20-%20Section%201%20:%20get%20started/MNIST%20For%20ML%20Beginners.ipynb&quot;&gt;https://github.com/litaotao/tensorflow_guide/blob/master/Official%20Document%20-%20Section%201%20:%20get%20started/MNIST%20For%20ML%20Beginners.ipynb&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;数据结构可以直接看下面的截图，我们分两部分来说：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.image&lt;/code&gt;: 是一个 ndarray，里面每一个元素是用来训练的图片数据&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.image[index]&lt;/code&gt;: 是一个大小为 (784, ) 的 ndarray，里面每一个元素代表这个图片【标准化为 28*28 大小的正方形】在每个像素框中的像素值【或者是灰度值】&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.labels&lt;/code&gt;: 是一个 ndarray，里面的每一个元素指 mnist.train.image 中根据下标对应的图片真实代表值&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.labels[index]&lt;/code&gt;: 是一个大小为 (10, ) 的 ndarray，里面每一个元素只有 0，1 两种取值，代表了 mnist.train.image[index] 这个图片对应的真实值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/robot_2_mnist.jpg&quot; alt=&quot;robot_2_mnist.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;举个例子，如上图所示：&lt;/p&gt;
+
+&lt;p&gt;我们看下 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.images[0]&lt;/code&gt; 的具体内容，其代表一张标准化为 (28, 28) 的手写数字图片在每一个像素上的值，然后 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.labels[0]&lt;/code&gt;的值为 &lt;code class=&quot;highlighter-rouge&quot;&gt;[ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.]&lt;/code&gt;，其中第 1 个元素【下标为 1，序号从 0 开始哦】为 1，其他皆为 0，代表 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.images[0]&lt;/code&gt; 这张图片代表的真实值是 1。如果 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.labels[0]&lt;/code&gt; 的值为 &lt;code class=&quot;highlighter-rouge&quot;&gt;[ 0.,  0.,  0.,  0.,  0.,  5.,  0.,  0.,  0.,  0.]&lt;/code&gt;，其中第 5 个元素【下标为 5，序号从 0 开始哦】为 1，其他皆为 0，则说明 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.images[0]&lt;/code&gt; 这张图片代表的真实值是 1。&lt;/p&gt;
+
+&lt;p&gt;当然为了验证，可以把 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.images[0]&lt;/code&gt; 这张图画出来看看：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/robot_3_mnist_pixel.jpg&quot; alt=&quot;robot_3_mnist_pixel.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;看到这里，再理解下面这两张图应该就比较轻松了吧：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/robot_3_mnist-train-xs.png&quot; alt=&quot;robot_3_mnist-train-xs.png&quot; /&gt;
+&lt;img src=&quot;../images/robot_4_mnist-train-ys.png&quot; alt=&quot;robot_4_mnist-train-ys.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;softmax-&quot;&gt;4. 那么 softmax 又是个什么鬼&lt;/h2&gt;
+
+&lt;p&gt;关于 softmax 其实我一开始也挺纳闷的，特别是看到一堆公式后，不过现在回顾来看，其实初学时也不必过于深究。现在可以先知道它和一般的回归有啥区别，以及它存在的意义及用途，之后再慢慢琢磨那些公式也可。因为有些东西，只有用起来才能理解其中的含义。&lt;/p&gt;
+
+&lt;p&gt;我们常见的回归一般都是这种形式： &lt;code class=&quot;highlighter-rouge&quot;&gt;y = A * X + b&lt;/code&gt;，即给定一个 x 序列，输出一个特定的值。而 softmax 是指给定一个 x 序列，输出该序列符合某个结果的概率或者置信度。比如说，现在我们 x 是一个 28 * 28 = 784 长的一个 list，代表一张手写数字的像素序列，经过 softmax 回归后，可以得到这个像素序列分别属于 0 ～ 9 中，每个数字的概率。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;5. 所以，是时候揭开这个公式的神秘面纱了&lt;/h2&gt;
+
+&lt;p&gt;在 tensorflow 的 &lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt; 中，最后的模型是这样的：&lt;code class=&quot;highlighter-rouge&quot;&gt;y = tf.nn.softmax(tf.matmul(x, W) + b)&lt;/code&gt;，其中核心部分就是理解 &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.matmul(x, W) + b&lt;/code&gt; 这个内部模型的含义，以及该模型输出的结果，为了方便，我把矩阵 x, W 画出来供大家理解一下。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/robot_4_mnist_pixel.jpg&quot; alt=&quot;robot_4_mnist_pixel.jpg&quot; /&gt;
+&lt;img src=&quot;../images/robot_5_mnist_pixel.jpg&quot; alt=&quot;robot_5_mnist_pixel.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;latex-&quot;&gt;文中的 latex 公式&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;## 权重矩阵
+
+&lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
+
+w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;12&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;21&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;22&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;23&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;
+
+
+## 样本图片矩阵
+&lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
+
+x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;12&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;21&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;22&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;23&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;附注&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=iQdWX1327XQ&quot;&gt;What’s an MNIST&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;http://yann.lecun.com/exdb/mnist/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.hostmath.com/&quot;&gt;online latex equation editor&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oreilly.com/learning/not-another-mnist-tutorial-with-tensorflow&quot;&gt;Not another MNIST tutorial with TensorFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://web.stanford.edu/class/cs20si/index.html&quot;&gt;CS 20SI: Tensorflow for Deep Learning Research&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://download.tensorflow.org/paper/whitepaper2015.pdf&quot;&gt;TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+   </entry>
    
    <entry>
      <title>『 Spark 』14. 一次 Spark SQL 性能提升10倍的经历</title>
@@ -1686,59 +1799,6 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
   &lt;li&gt;&lt;a href=&quot;http://backlogtool.com/git-guide/cn/intro/intro1_1.html&quot;&gt;Git的基础&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-</content>
-   </entry>
-   
-   <entry>
-     <title>Python for Finance, Quant Topic</title>
-     <link href="/python-finance-quant-investing"/>
-     <updated>2016-06-02T00:00:00+08:00</updated>
-     <id>/python-finance-quant-investing</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;这是我在 2016.06.02 的讲座课件。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 讲稿&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/python-quant/python-quant.001.jpeg&quot; alt=&quot;python-quant.001.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.002.jpeg&quot; alt=&quot;python-quant.002.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.003.jpeg&quot; alt=&quot;python-quant.003.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.004.jpeg&quot; alt=&quot;python-quant.004.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.005.jpeg&quot; alt=&quot;python-quant.005.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.006.jpeg&quot; alt=&quot;python-quant.006.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.007.jpeg&quot; alt=&quot;python-quant.007.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.008.jpeg&quot; alt=&quot;python-quant.008.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.009.jpeg&quot; alt=&quot;python-quant.009.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.010.jpeg&quot; alt=&quot;python-quant.0010.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.011.jpeg&quot; alt=&quot;python-quant.0011.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.012.jpeg&quot; alt=&quot;python-quant.0012.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.013.jpeg&quot; alt=&quot;python-quant.0013.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.014.jpeg&quot; alt=&quot;python-quant.0014.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.015.jpeg&quot; alt=&quot;python-quant.0015.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.016.jpeg&quot; alt=&quot;python-quant.0016.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.017.jpeg&quot; alt=&quot;python-quant.0017.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.018.jpeg&quot; alt=&quot;python-quant.0018.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.019.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.020.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.021.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.022.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.023.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.024.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;
-&lt;img src=&quot;../images/python-quant/python-quant.025.jpeg&quot; alt=&quot;python-quant.0019.jpeg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;讲稿 pdf 版：&lt;a href=&quot;http://litaotao.github.io/files/python-quant-uqer.pdf&quot;&gt;python-quant-uqer.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;2. 参考文档&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/575113fa228e5b869e1fc5f2&quot;&gt;『06.02 公开课』1. Python Basics&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511416228e5b86ad1fd44b&quot;&gt;『06.02 公开课』2. First Show of Pandas&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511423228e5b86a51fd996&quot;&gt;『06.02 公开课』3. First Show of Numpy&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511433228e5b86a21fca85&quot;&gt;『06.02 公开课』4. First Show of Matplotlib&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/5751144e228e5b86a51fd997&quot;&gt;『06.02 公开课』5. First Show of Sklearn&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511469228e5b86a31fcdf4&quot;&gt;『06.02 公开课』6. Python Quant UQER&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://uqer.io/community/share/57511520228e5b86b11fd182&quot;&gt;『06.02 公开课』7. share_0602 函数库&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
    </entry>
    
