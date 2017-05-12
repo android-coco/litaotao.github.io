@@ -13,7 +13,7 @@ description: 维数一上去了，感觉脑壳就不够用了呀
 不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的在当时的思维其实还是很具有前瞻性的。
 
 
-![robot_1.jpg](../images/robot_1.jpg)
+![robot_1.jpg](http://litaotao.github.io/images/robot_1.jpg)
 
 
 ## 1. AI, 深度学习，神经网络，机器学习
@@ -45,7 +45,7 @@ MNIST 是 Mixed National Institute of Standards and Technology database 的简�
 - `mnist.train.labels`: 是一个 ndarray，里面的每一个元素指 mnist.train.image 中根据下标对应的图片真实代表值
 - `mnist.train.labels[index]`: 是一个大小为 (10, ) 的 ndarray，里面每一个元素只有 0，1 两种取值，代表了 mnist.train.image[index] 这个图片对应的真实值 
 
-![robot_2_mnist.jpg](../images/robot_2_mnist.jpg)
+![robot_2_mnist.jpg](http://litaotao.github.io/images/robot_2_mnist.jpg)
 
 举个例子，如上图所示：
 
@@ -53,12 +53,12 @@ MNIST 是 Mixed National Institute of Standards and Technology database 的简�
 
 当然为了验证，可以把 `mnist.train.images[0]` 这张图画出来看看：
 
-![robot_3_mnist_pixel.jpg](../images/robot_3_mnist_pixel.jpg)
+![robot_3_mnist_pixel.jpg](http://litaotao.github.io/images/robot_3_mnist_pixel.jpg)
 
 看到这里，再理解下面这两张图应该就比较轻松了吧：
 
-![robot_3_mnist-train-xs.png](../images/robot_3_mnist-train-xs.png)
-![robot_4_mnist-train-ys.png](../images/robot_4_mnist-train-ys.png)
+![robot_3_mnist-train-xs.png](http://litaotao.github.io/images/robot_3_mnist-train-xs.png)
+![robot_4_mnist-train-ys.png](http://litaotao.github.io/images/robot_4_mnist-train-ys.png)
 
 
 ## 4. 那么 softmax 又是个什么鬼
@@ -74,22 +74,22 @@ MNIST 是 Mixed National Institute of Standards and Technology database 的简�
 
 - 内部模型：`y = tf.matmul(x, W) + b`
 - y: 结果矩阵
-![robot_8_mnist_equation.png](../images/robot_8_mnist_equation.png)
+![robot_8_mnist_equation.png](http://litaotao.github.io/images/robot_8_mnist_equation.png)
 
 - x: 训练样本矩阵
 
-![robot_6_mnist_pixel.png](../images/robot_6_mnist_pixel.png)
+![robot_6_mnist_pixel.png](http://litaotao.github.io/images/robot_6_mnist_pixel.png)
 
 
 - W: 权重矩阵，大小 768 x 10，相当于 10 个列向量，每个列向量代表对结果 0 ~ 9 的权重
-![robot_5_mnist_pixel.png](../images/robot_5_mnist_pixel.png)
+![robot_5_mnist_pixel.png](http://litaotao.github.io/images/robot_5_mnist_pixel.png)
 
 - b: bias 向量，代码中只是一个行向量，但在实际相加的时候，需要两个向量的shape 一样，tensorflow 中会自动根据矩阵结构来进行扩展，所以最后进行计算的时候实际上 b 是一个 n x 10 的矩阵，但是每一个行向量都是相同的。
 
-![robot_10_mnist_pixel.png](../images/robot_10_mnist_pixel.png)
+![robot_10_mnist_pixel.png](http://litaotao.github.io/images/robot_10_mnist_pixel.png)
 
 - 所以最后的公式其实是酱紫的
-![robot_9_mnist_equation.png](../images/robot_9_mnist_equation.png)
+![robot_9_mnist_equation.png](http://litaotao.github.io/images/robot_9_mnist_equation.png)
 
 
 ## 6. 到这里了，还该做些啥

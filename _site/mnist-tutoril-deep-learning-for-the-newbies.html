@@ -122,11 +122,11 @@
 
     <h2 id="section">写在前面</h2>
 
-<p>最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策布局，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。</p>
+<p>最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。</p>
 
-<p>不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的思维其实还是很具有前瞻性的。</p>
+<p>不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的在当时的思维其实还是很具有前瞻性的。</p>
 
-<p><img src="../images/robot_1.jpg" alt="robot_1.jpg" /></p>
+<p><img src="http://litaotao.github.io/images/robot_1.jpg" alt="robot_1.jpg" /></p>
 
 <h2 id="ai-">1. AI, 深度学习，神经网络，机器学习</h2>
 
@@ -157,7 +157,7 @@
   <li><code class="highlighter-rouge">mnist.train.labels[index]</code>: 是一个大小为 (10, ) 的 ndarray，里面每一个元素只有 0，1 两种取值，代表了 mnist.train.image[index] 这个图片对应的真实值</li>
 </ul>
 
-<p><img src="../images/robot_2_mnist.jpg" alt="robot_2_mnist.jpg" /></p>
+<p><img src="http://litaotao.github.io/images/robot_2_mnist.jpg" alt="robot_2_mnist.jpg" /></p>
 
 <p>举个例子，如上图所示：</p>
 
@@ -165,12 +165,12 @@
 
 <p>当然为了验证，可以把 <code class="highlighter-rouge">mnist.train.images[0]</code> 这张图画出来看看：</p>
 
-<p><img src="../images/robot_3_mnist_pixel.jpg" alt="robot_3_mnist_pixel.jpg" /></p>
+<p><img src="http://litaotao.github.io/images/robot_3_mnist_pixel.jpg" alt="robot_3_mnist_pixel.jpg" /></p>
 
 <p>看到这里，再理解下面这两张图应该就比较轻松了吧：</p>
 
-<p><img src="../images/robot_3_mnist-train-xs.png" alt="robot_3_mnist-train-xs.png" />
-<img src="../images/robot_4_mnist-train-ys.png" alt="robot_4_mnist-train-ys.png" /></p>
+<p><img src="http://litaotao.github.io/images/robot_3_mnist-train-xs.png" alt="robot_3_mnist-train-xs.png" />
+<img src="http://litaotao.github.io/images/robot_4_mnist-train-ys.png" alt="robot_4_mnist-train-ys.png" /></p>
 
 <h2 id="softmax-">4. 那么 softmax 又是个什么鬼</h2>
 
@@ -186,28 +186,28 @@
   <li>内部模型：<code class="highlighter-rouge">y = tf.matmul(x, W) + b</code></li>
   <li>
     <p>y: 结果矩阵
-<img src="../images/robot_8_mnist_equation.png" alt="robot_8_mnist_equation.png" /></p>
+<img src="http://litaotao.github.io/images/robot_8_mnist_equation.png" alt="robot_8_mnist_equation.png" /></p>
   </li>
   <li>x: 训练样本矩阵</li>
 </ul>
 
-<p><img src="../images/robot_6_mnist_pixel.png" alt="robot_6_mnist_pixel.png" /></p>
+<p><img src="http://litaotao.github.io/images/robot_6_mnist_pixel.png" alt="robot_6_mnist_pixel.png" /></p>
 
 <ul>
   <li>
     <p>W: 权重矩阵，大小 768 x 10，相当于 10 个列向量，每个列向量代表对结果 0 ~ 9 的权重
-<img src="../images/robot_5_mnist_pixel.png" alt="robot_5_mnist_pixel.png" /></p>
+<img src="http://litaotao.github.io/images/robot_5_mnist_pixel.png" alt="robot_5_mnist_pixel.png" /></p>
   </li>
   <li>
     <p>b: bias 向量，代码中只是一个行向量，但在实际相加的时候，需要两个向量的shape 一样，tensorflow 中会自动根据矩阵结构来进行扩展，所以最后进行计算的时候实际上 b 是一个 n x 10 的矩阵，但是每一个行向量都是相同的。</p>
   </li>
 </ul>
 
-<p><img src="../images/robot_10_mnist_pixel.png" alt="robot_10_mnist_pixel.png" /></p>
+<p><img src="http://litaotao.github.io/images/robot_10_mnist_pixel.png" alt="robot_10_mnist_pixel.png" /></p>
 
 <ul>
   <li>所以最后的公式其实是酱紫的
-<img src="../images/robot_9_mnist_equation.png" alt="robot_9_mnist_equation.png" /></li>
+<img src="http://litaotao.github.io/images/robot_9_mnist_equation.png" alt="robot_9_mnist_equation.png" /></li>
 </ul>
 
 <h2 id="section-2">6. 到这里了，还该做些啥</h2>
