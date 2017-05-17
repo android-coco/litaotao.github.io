@@ -96,7 +96,7 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io//atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io/" rel="alternate" type="text/html" />
-   <updated>2017-04-25T10:13:45+08:00</updated>
+   <updated>2017-05-17T14:05:04+08:00</updated>
    <id>http://litaotao.github.io/</id>
    <author>
      <name></name>
@@ -111,11 +111,11 @@
      <id>/mnist-tutoril-deep-learning-for-the-newbies</id>
      <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
 
-&lt;p&gt;最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策布局，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。&lt;/p&gt;
+&lt;p&gt;最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。&lt;/p&gt;
 
-&lt;p&gt;不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的思维其实还是很具有前瞻性的。&lt;/p&gt;
+&lt;p&gt;不过其实我内心还是挺害怕的，现在科技这么发达，没准儿到我 ～60 来岁的时候，真会出现 《I, Robot》电影中的那些场景。《I, Robot》是 2004 年我最喜欢的演员 威尔斯密斯 主演的一部讲机器人觉醒的科幻片，如今过去13年，想想这些导演的在当时的思维其实还是很具有前瞻性的。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/robot_1.jpg&quot; alt=&quot;robot_1.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_1.jpg&quot; alt=&quot;robot_1.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ai-&quot;&gt;1. AI, 深度学习，神经网络，机器学习&lt;/h2&gt;
 
@@ -146,7 +146,7 @@
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.labels[index]&lt;/code&gt;: 是一个大小为 (10, ) 的 ndarray，里面每一个元素只有 0，1 两种取值，代表了 mnist.train.image[index] 这个图片对应的真实值&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/robot_2_mnist.jpg&quot; alt=&quot;robot_2_mnist.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_2_mnist.jpg&quot; alt=&quot;robot_2_mnist.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;举个例子，如上图所示：&lt;/p&gt;
 
@@ -154,12 +154,12 @@
 
 &lt;p&gt;当然为了验证，可以把 &lt;code class=&quot;highlighter-rouge&quot;&gt;mnist.train.images[0]&lt;/code&gt; 这张图画出来看看：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/robot_3_mnist_pixel.jpg&quot; alt=&quot;robot_3_mnist_pixel.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_3_mnist_pixel.jpg&quot; alt=&quot;robot_3_mnist_pixel.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;看到这里，再理解下面这两张图应该就比较轻松了吧：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/robot_3_mnist-train-xs.png&quot; alt=&quot;robot_3_mnist-train-xs.png&quot; /&gt;
-&lt;img src=&quot;../images/robot_4_mnist-train-ys.png&quot; alt=&quot;robot_4_mnist-train-ys.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_3_mnist-train-xs.png&quot; alt=&quot;robot_3_mnist-train-xs.png&quot; /&gt;
+&lt;img src=&quot;http://litaotao.github.io/images/robot_4_mnist-train-ys.png&quot; alt=&quot;robot_4_mnist-train-ys.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;softmax-&quot;&gt;4. 那么 softmax 又是个什么鬼&lt;/h2&gt;
 
@@ -171,12 +171,66 @@
 
 &lt;p&gt;在 tensorflow 的 &lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt; 中，最后的模型是这样的：&lt;code class=&quot;highlighter-rouge&quot;&gt;y = tf.nn.softmax(tf.matmul(x, W) + b)&lt;/code&gt;，其中核心部分就是理解 &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.matmul(x, W) + b&lt;/code&gt; 这个内部模型的含义，以及该模型输出的结果，为了方便，我把矩阵 x, W 画出来供大家理解一下。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../images/robot_4_mnist_pixel.jpg&quot; alt=&quot;robot_4_mnist_pixel.jpg&quot; /&gt;
-&lt;img src=&quot;../images/robot_5_mnist_pixel.jpg&quot; alt=&quot;robot_5_mnist_pixel.jpg&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;内部模型：&lt;code class=&quot;highlighter-rouge&quot;&gt;y = tf.matmul(x, W) + b&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;y: 结果矩阵
+&lt;img src=&quot;http://litaotao.github.io/images/robot_8_mnist_equation.png&quot; alt=&quot;robot_8_mnist_equation.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;x: 训练样本矩阵&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;latex-&quot;&gt;文中的 latex 公式&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_6_mnist_pixel.png&quot; alt=&quot;robot_6_mnist_pixel.png&quot; /&gt;&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;## 权重矩阵
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;W: 权重矩阵，大小 768 x 10，相当于 10 个列向量，每个列向量代表对结果 0 ~ 9 的权重
+&lt;img src=&quot;http://litaotao.github.io/images/robot_5_mnist_pixel.png&quot; alt=&quot;robot_5_mnist_pixel.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;b: bias 向量，代码中只是一个行向量，但在实际相加的时候，需要两个向量的shape 一样，tensorflow 中会自动根据矩阵结构来进行扩展，所以最后进行计算的时候实际上 b 是一个 n x 10 的矩阵，但是每一个行向量都是相同的。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_10_mnist_pixel.png&quot; alt=&quot;robot_10_mnist_pixel.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;所以最后的公式其实是酱紫的
+&lt;img src=&quot;http://litaotao.github.io/images/robot_9_mnist_equation.png&quot; alt=&quot;robot_9_mnist_equation.png&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;6. 到这里了，还该做些啥&lt;/h2&gt;
+
+&lt;p&gt;到这里了，关于 MNIST 的话题算是差不多了，不过这部分其实还是有很多细节可以继续深究，优化的，特别是针对专门做这方面的研究的人来说。接下来的话，可以考虑考虑实现几个例子，然后继续学习后面的内容。就跟游戏打怪一样，一般一个游戏的主线只占了整个游戏情节的 70% 左右，如果一开始就要把所有 npc 搞一遍，把所有支线都通关，那进度肯定会慢很多了；所以我都喜欢先把主线走完，中途当然也可以偶尔过过支线内容，然后最后再返回来做支线任务，会有不同的感受的。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;7. 最后的最后&lt;/h2&gt;
+
+&lt;p&gt;博主其实只了解点机器学习，其他深度学习，神经网络和 AI 的东西很欠缺，所以本文或之后相关的文章出现错误不是巧合，而是很正常的哈，望各位大咖批斗轻点，哈哈。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;附注&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=iQdWX1327XQ&quot;&gt;What’s an MNIST&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;http://yann.lecun.com/exdb/mnist/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.hostmath.com/&quot;&gt;online latex equation editor&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oreilly.com/learning/not-another-mnist-tutorial-with-tensorflow&quot;&gt;Not another MNIST tutorial with TensorFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://web.stanford.edu/class/cs20si/index.html&quot;&gt;CS 20SI: Tensorflow for Deep Learning Research&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://download.tensorflow.org/paper/whitepaper2015.pdf&quot;&gt;TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;[文中的 latex 公式]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
+
+x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;12&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;21&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;22&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;23&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;
+
+*
 
 &lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
 
@@ -188,32 +242,27 @@ w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 &lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; w&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;784,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;
 
++ 
 
-## 样本图片矩阵
+(n 行)
 &lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
 
-x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;12&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;21&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;22&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;23&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+b&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; b&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; . . . &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; b&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;
+
+= 
+
+&lt;span class=&quot;nt&quot;&gt;\begin{bmatrix}&lt;/span&gt;
+
+y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;12&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;1,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;21&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;22&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;23&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;2,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
 &lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
 &lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;.
-&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,784&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\\&lt;/span&gt;y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,3&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; ... &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;n,10&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
 &lt;span class=&quot;nt&quot;&gt;\end{bmatrix}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;附注&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=iQdWX1327XQ&quot;&gt;What’s an MNIST&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;http://yann.lecun.com/exdb/mnist/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.hostmath.com/&quot;&gt;online latex equation editor&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.oreilly.com/learning/not-another-mnist-tutorial-with-tensorflow&quot;&gt;Not another MNIST tutorial with TensorFlow&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://web.stanford.edu/class/cs20si/index.html&quot;&gt;CS 20SI: Tensorflow for Deep Learning Research&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://download.tensorflow.org/paper/whitepaper2015.pdf&quot;&gt;TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
    </entry>
    

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Python 3.x 特性 | Taotao's Zone</title>
+  <title>Python 2.7 都快不维护了，还不来看看 Python 3.x | Taotao's Zone</title>
   <meta name="baidu-site-verification" content="6b2f48c1baf35f9e0eb29b4455265203"/>
   <meta name="baidu-site-verification" content="hgXDOPtWLn" />
   <meta name="google-site-verification" content="YqjJD80rZQfugWoznvslaHlII_viwiMiUDEEgPTLEDw" />
@@ -112,48 +112,47 @@
   </div>
 
   <div class="entry" style="position: relative;">
-    <h1 class="entry-title"><a href="/python-3x-python-2x-difference-choosing-decision" title="Python 3.x 特性">Python 3.x 特性</a></h1>
+    <h1 class="entry-title"><a href="/python-3x-python-2x-difference-choosing-decision" title="Python 2.7 都快不维护了，还不来看看 Python 3.x">Python 2.7 都快不维护了，还不来看看 Python 3.x</a></h1>    
 
-    <p class="entry-date">2016-06-11 
-        <span class="lastModified" style="display: none;" data-source="_posts/python/2016-06-11-python-3x-python-2x-difference-choosing-decision.md">最后更新时间: 
+    <p class="entry-date">2017-05-16 
+        <span class="lastModified" style="display: none;" data-source="_posts/python/2017-05-16-python-3x-python-2x-difference-choosing-decision.md">最后更新时间: 
         </span>
     </p>
 
 
     <h2 id="section">写在前面</h2>
 
+<p>大概去年中的时候，python 官方正式宣布 Python 2.7 在 2020 年后就不再做任何维护了，随着时间的临近，随着 Python 3.x 日益成熟，也有必要开始了解了解 python 3.x，为之后新项目上线，老项目迁移做些准备吧。</p>
+
+<p>还有人做了个倒计时，也是挺有意思的，哈哈～～～</p>
+
+<p>本文是看了一些 python 2 vs python 3 的资料，总结的一些 python 2，3 的不同，或者说总结了一些 python 3 的特性吧，方便大家参考。</p>
+
+<p><img src="../images/python3-python2-1.png" alt="python3-python2-1.png" /></p>
+
 <h2 id="matrix-multiple-">1. Matrix Multiple <em>@</em></h2>
-
-<h2 id="pack-and-unpack">2. Pack and Unpack</h2>
-
-<h2 id="chained-exception">3. Chained Exception</h2>
-
-<h2 id="everything-is-an-iterator">4. Everything is AN Iterator</h2>
-
-<h2 id="yield-from">5. <em>yield from</em></h2>
-
-<h2 id="asyncio">6. <em>asyncio</em></h2>
-
-<h2 id="functoolslrucache">7. <em>functools.lru_cache</em></h2>
-
-<h2 id="unicode-and-bytes">8. Unicode and Bytes</h2>
 
 <h2 id="section-1">参考文档</h2>
 
 <ul>
+  <li><a href="https://docs.python.org/3/howto/pyporting.html">Porting Python 2 Code to Python 3</a></li>
+  <li><a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html">The key differences between Python 2.7.x and Python 3.x with examples</a></li>
+  <li><a href="http://www.asmeurer.com/python3-presentation/slides.html#2">10 awesome features of Python that you can’t use because you refuse to upgrade to Python 3</a></li>
+  <li><a href="https://docs.python.org/3.0/whatsnew/3.0.html">What’s New In Python 3.0</a></li>
+  <li><a href="https://pythonclock.org/">Python 2.7 will retire in</a></li>
   <li><a href="https://wiki.python.org/moin/Python2orPython3">Should I use Python 2 or Python 3 for my development activity?</a></li>
   <li><a href="http://asmeurer.github.io/python3-presentation/python3-presentation.pdf">python3-presentation.pdf</a></li>
   <li><a href="https://docs.python.org/3/whatsnew/3.0.html">What’s New In Python 3.0</a></li>
   <li><a href="http://python-notes.curiousefficiency.org/en/latest/python3/questions_and_answers.html">Python 3 Q &amp; A</a></li>
   <li><a href="https://docs.python.org/3/howto/pyporting.html">Porting Python 2 Code to Python 3</a></li>
   <li><a href="https://docs.python.org/3/library/2to3.html">2to3 - Automated Python 2 to 3 code translation</a></li>
-  <li><a href=""></a></li>
+  <li><a href="http://python-future.org/compatible_idioms.html">Cheat Sheet: Writing Python 2-3 compatible code</a></li>
 </ul>
 
 
 
     <!-- share icon -->
-    <!-- <div class="ds-share" data-thread-key="/python-3x-python-2x-difference-choosing-decision" data-title="Python 3.x 特性"
+    <!-- <div class="ds-share" data-thread-key="/python-3x-python-2x-difference-choosing-decision" data-title="Python 2.7 都快不维护了，还不来看看 Python 3.x"
          data-content="content"
          data-url="http://litaotao.github.io//python-3x-python-2x-difference-choosing-decision">
         <div class="ds-share-aside-left">
@@ -168,12 +167,13 @@
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"7","bdPos":"left","bdTop":"118"},"image":{"viewList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","tqq","renren","sqq","evernotecn","youdao"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
-    <div id="disqus_container">
+<!--     <div id="disqus_container">
       <div style="margin-bottom:20px">
-      <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key=/python-3x-python-2x-difference-choosing-decision data-title=Python 3.x 特性 data-url=/python-3x-python-2x-difference-choosing-decision></div>
-      <!-- 多说评论框 end -->
-      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      多说评论框 start
+        <div class="ds-thread" data-thread-key=/python-3x-python-2x-difference-choosing-decision data-title=Python 2.7 都快不维护了，还不来看看 Python 3.x 
+             data-url=http://litaotao.github.io/+/python-3x-python-2x-difference-choosing-decision></div>
+      多说评论框 end
+      多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">
       var duoshuoQuery = {short_name:"litaotao"};
         (function() {
@@ -186,9 +186,31 @@
            || document.getElementsByTagName('body')[0]).appendChild(ds);
         })();
         </script>
-      <!-- 多说公共JS代码 end -->
+      多说公共JS代码 end
       </div>
-    </div>
+    </div> -->
+
+        <div id="disqus_thread"></div>
+            <script>
+
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+            /*
+            var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            */
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://litaotao-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
+
   </div>
   
   <div id="menuIndex" class="sidenav">
@@ -197,9 +219,10 @@
           <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;">
           </div>
           <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
-          <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+          <a href="http://www.linkedin.com/in/taotaoli"><i class="icon-linkedin-sign icon-large"></i> Linkedin</a>
           <a href="https://github.com/litaotao"><i class="icon-github icon-large"></i> Code</a>
           <a href="mailto:taotao.engineer@gmail.com"><i class="icon-envelope icon-large"></i> Mail</a>
+          <button id="present_button" onclick="present_mode()" style="width: 100%; margin-top: 10px; display: none"><i class="icon-align-justify icon-large"></i> Present Mode</button>
         </center>
     </div>
     <div id="menu"></div>
@@ -213,6 +236,7 @@
     //     location.reload(); 
     // });
 </script>
+
 
   <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
