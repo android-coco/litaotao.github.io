@@ -37,8 +37,6 @@ description: time to say goodbye with 2.x, and give a welcome to 3.x
 - [What’s New In Python 3.0](https://docs.python.org/3.0/whatsnew/3.0.html)
 - [Python 2.7 will retire in](https://pythonclock.org/)
 - [Should I use Python 2 or Python 3 for my development activity?](https://wiki.python.org/moin/Python2orPython3)
-- [python3-presentation.pdf](http://asmeurer.github.io/python3-presentation/python3-presentation.pdf)
-- [What’s New In Python 3.0](https://docs.python.org/3/whatsnew/3.0.html)
 - [Python 3 Q & A](http://python-notes.curiousefficiency.org/en/latest/python3/questions_and_answers.html)
 - [Porting Python 2 Code to Python 3](https://docs.python.org/3/howto/pyporting.html)
 - [2to3 - Automated Python 2 to 3 code translation](https://docs.python.org/3/library/2to3.html)
