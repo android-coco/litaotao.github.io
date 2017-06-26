@@ -1,8 +1,8 @@
 ---
 category: work
-published: true
+published: false
 layout: post
-title: 工作 3 年后的一些思考【Part 2】
+title: 工作 3 年后的一些思考【Part 3】
 description: 晃眼居然都工作三年了啊，我天～～～
 ---
 
