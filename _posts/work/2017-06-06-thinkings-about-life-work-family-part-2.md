@@ -83,3 +83,6 @@ boss 因为经常出差，有时候也参加不了早上晨会，一般这个时
 
 - [湖南卫视：神奇的孩子，第十期，来自澳洲的坎贝尔，第 60 分钟开始](http://www.mgtv.com/b/308627/3892611.html)
 - [Amy Cuddy TED Talk - Fake it Till You Make it](https://www.youtube.com/watch?v=RVmMeMcGc0Y)
+- [工作 3 年后的一些思考【Part 1】](http://localhost:4000/thinkings-about-life-work-family-part-1)
+- [工作 3 年后的一些思考【Part 2】](http://localhost:4000/thinkings-about-life-work-family-part-2)
+- [工作 3 年后的一些思考【Part 3】](http://localhost:4000/thinkings-about-life-work-family-part-3)
