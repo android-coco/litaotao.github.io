@@ -112,6 +112,6 @@ ok，最后再总结一些这个感悟吧：在能力撑不起梦想的时候，
 ## 这些资料，你也许用得着
 
 - [模型中国论坛](http://bbs.mx3g.com/)
-- [工作 3 年后的一些思考【Part 1】](http://localhost:4000/thinkings-about-life-work-family-part-1)
-- [工作 3 年后的一些思考【Part 2】](http://localhost:4000/thinkings-about-life-work-family-part-2)
-- [工作 3 年后的一些思考【Part 3】](http://localhost:4000/thinkings-about-life-work-family-part-3)
+- [工作 3 年后的一些思考【Part 1】](http://litaotao.github.io/thinkings-about-life-work-family-part-1)
+- [工作 3 年后的一些思考【Part 2】](http://litaotao.github.io/thinkings-about-life-work-family-part-2)
+- [工作 3 年后的一些思考【Part 3】](http://litaotao.github.io/thinkings-about-life-work-family-part-3)
