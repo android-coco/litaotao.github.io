@@ -214,11 +214,22 @@ http://www.thelinuxtips.com/2011/02/shell-special-variables/
 
 # Algorithm
 
+- Fibonacci code
+
+```python
+def fib(n):
+    
+```
+
 
 
 # Open-Minded
 
 
+
+- Why do you want to work for our company?
+- Self-introduction: current role simple -> college -> post college -> current role details -> outside of work -> wrap up
+- ​
 
 
 
@@ -229,4 +240,5 @@ http://www.thelinuxtips.com/2011/02/shell-special-variables/
 
 
 - https://www.careercup.com/
-- ​
+- https://www.careercup.com/resume
+
