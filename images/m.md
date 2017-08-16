@@ -212,14 +212,94 @@ http://www.thelinuxtips.com/2011/02/shell-special-variables/
 
 
 
+
+
+
+
 # Algorithm
 
 - Fibonacci code
 
 ```python
 def fib(n):
-    
+    """ O(2 ^ n) """
+    if n < 0:
+        return -1 
+    elif n == 0:
+        return 1
+    else:
+        return fib(n-2) + fib(n - 1)
+
+def fib_v2(n):
+    """ O(n) """
+    a = [0, 1] + [0] * (n - 2)
+    for i in range(2, n):
+        a[i] = a[i-1] + a[i-2]
+    return a
 ```
+
+
+
+- permutations
+
+```python
+## method 1
+
+def to_string(_list):
+    return ''.join(_list)
+
+def permute(a, l, r):
+    """ O(n * n!) 
+    a: string
+    l: starting index of the string
+    r: ending index of the string
+    """
+    if l == r:
+        print to_string(a)
+    else:
+        for i in xrange(l, r+1):
+            print i, l
+            print a[l], a[i]
+            
+            a[l], a[i] = a[i], a[l]
+            permute(a, l+1, r)
+            a[l], a[i] = a[i], a[l]
+            
+## method 2
+def permute_v2(a):
+    import itertools
+    for values in itertools.permutations(a):
+        print values
+        
+```
+
+
+
+- ***Is Unique*** Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
+
+- ***Check Permutation*** : Given two strings, write a method to decide if one is a permutation of the other.
+
+- ***URLify*** : Write a method to replace all spaces in a string with `%20`,  You may assume that the string
+  has suffcient space at the end to hold the additional characters, and that you are given the "true"
+  length of the string. (Note: if implementing in Java, please use a character array so that you can
+  perform this operation in place.)
+
+- ***Palindrome Permutation***: Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
+
+- ***One Away***: There are three types of edits that can be performed on strings: insert a character,remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+
+
+  ​			
+  ​		
+  ​	
+
+- 
+  ​
+  ​	
+
+
+
+​	
 
 
 
@@ -228,8 +308,50 @@ def fib(n):
 
 
 - Why do you want to work for our company?
+
 - Self-introduction: current role simple -> college -> post college -> current role details -> outside of work -> wrap up
+
+- How to solve a problem?
+
+  - A problem-solving flowchart: listen -> example -> brute force -> optimize -> walk through -> implement -> test;
+
+- ***The Hea  Pill***: You have 20 bottles of pills. 19 bottles have 1.0 gram pills, but one has pills of weight 1.1 grams. Given a scale that provides an exact measurement, how would you  nd the heavy bottle? You can only use the scale once.
+
+- ***Basketball***: You have a basketball hoop and someone says that you can play one of two games.
+
+  Game 1: You get one shot to make the hoop.
+
+  Game 2: You get three shots and you have to make two of three shots.
+
+  If p is the probability of making a particular shot, for which values of p should you pick one gameor the other?
+
+- ***Dominos***: There is an 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can cover exactly two squares. Can you use the 31 dominos to cover the entire board? Prove your answer (by providing an example or showing why it's impossible).
+
+- ***Ants on a Triangle***: There are three ants on different vertices of a triangle. What is the probability ofcollision (between any two or all of them) if they start walking on the sides of the triangle? Assumethat each ant randomly picks a direction, with either direction being equally likely to be chosen, andthat they walk at the same speed. Similarly,  nd the probability of collision with n ants on an n-vertex polygon.
+
+- ***Jugs of Water***: You have a  five-quart jug, a three-quart jug, and an unlimited supply of water (but no measuring cups). How would you come up with exactly four quarts of water? Note that the jugs are oddly shaped, such that  lling up exactly "half" of the jug would be impossible.
+
+  - 4 = 5 -1 = 3 + 1 = 2 x 2 = 1 x 4, so the core of this problem is to find 1 quart of water, maybe.
+  - answer: 5 - 3 = 2; 2->3; 3 - 2 = 1; 5 - 1 = 4;
+  - actually, using a 5 quart, and 3 quart jug, we can get 1,2,3,4,5,6,7,8 quart water as we want; core is 1 quart;
+
+
+  ​			
+  ​		
+  ​	
+
+- ​			
+
+
+  ​		
+  ​	
+
 - ​
+
+
+  ​			
+  ​		
+  ​	
 
 
 
@@ -241,4 +363,6 @@ def fib(n):
 
 - https://www.careercup.com/
 - https://www.careercup.com/resume
+- http://rosettacode.org/wiki/Rosetta_Code
+- ​
 
