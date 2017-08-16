@@ -333,14 +333,11 @@ def permute_v2(a):
 
   - 4 = 5 -1 = 3 + 1 = 2 x 2 = 1 x 4, so the core of this problem is to find 1 quart of water, maybe.
   - answer: 5 - 3 = 2; 2->3; 3 - 2 = 1; 5 - 1 = 4;
-  - actually, using a 5 quart, and 3 quart jug, we can get 1,2,3,4,5,6,7,8 quart water as we want; core is 1 quart;
+  - actually, using a 5 quart, and 3 quart jug, we can get 1,2,3,4,5,6,7,8 quart water as we want; core is 1 quart;	
 
+- ***blue-eyed people***: a bunch of people live in an island; one day they receive an order: all blue-eyed people must leave the island. there will be a flight out at 8:00 pm every evening. each people can see others' eye color, but they do not know theirs. additionally, they do not know how many blue-eyed people among them, just only know at least one people does. how many days will it take the blue-eyed people to leave?
 
-  ​			
-  ​		
-  ​	
-
-- ​			
+- ​
 
 
   ​		
