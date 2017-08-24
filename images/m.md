@@ -214,6 +214,62 @@ http://www.thelinuxtips.com/2011/02/shell-special-variables/
 
 
 
+# SQL
+
+- ***Multiple Apartments***: write a sql to get a list of tenants who are renting more than one apartment.
+
+```sql
+select tenantName 
+	from tenants
+	inner join (
+		select tenantID from aptTenants group by tenantID having count(*) > 1
+	) c
+	on tenants.TenantID = c.tenantID;
+```
+
+- ***Open requests***: write a sql to get a list of all buildings and the number of open requests( requests in which status equals 'open')
+
+```sql
+select buildingName, ISNULL(count, 0) as 'count'
+	from buildings
+	left join (
+    	select apartments.buildingID, count(*) as 'count'
+      		from requests inner join apartments
+      		on requests.aptID = apartments.aptID
+      		where requests.status = 'open'
+      		group by apartments.buildings
+    ) reqCounts
+on reqCounts.buildingID = buildings.buildingID;
+```
+
+- ***close all requests***: building #11 is undergoing a major renovation, inplement a query to close all requests from apartments in this building.
+
+```sql
+update requests
+set status = 'closed'
+where aptID in (select aptID from apartments where buldingID = 11);
+```
+
+- ***joins***: what are the different types of joins? please explain how they differ and why certain types are better in certain situations.
+
+```
+join is used to combine the results of two tables. to perform a join, each of the tables must have at least one field that will be used to find matching records from the other table. the join type defines which records will go into the result set.
+
+there are several join types: inner, outer, left outer, right outer, full outer;
+```
+
+- ***denormalization***: what is denormalization and explain pros and cons.
+
+```
+
+```
+
+
+
+
+
+
+
 
 
 # Algorithm
@@ -276,30 +332,33 @@ def permute_v2(a):
 
 
 - ***Is Unique*** Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
-
 - ***Check Permutation*** : Given two strings, write a method to decide if one is a permutation of the other.
-
 - ***URLify*** : Write a method to replace all spaces in a string with `%20`,  You may assume that the string
   has suffcient space at the end to hold the additional characters, and that you are given the "true"
   length of the string. (Note: if implementing in Java, please use a character array so that you can
   perform this operation in place.)
-
 - ***Palindrome Permutation***: Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
-
 - ***One Away***: There are three types of edits that can be performed on strings: insert a character,remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
-
-
-  ​			
-  ​		
-  ​	
-
-- 
-  ​
-  ​	
+- ***Add without plus***: Write a function that adds two numbers, you should not user + or any arithmetic operators.
+- ​
 
 
 
 ​	
+
+
+
+# System Conprehension and Design
+
+- ***Social Network***: how would you design the data structures for a very large social network like facebook or linkedin? describe how you would design an algorithm to show the shortest path between two people( e.g. me -> bob -> susan -> jason -> you)
+- ***Web crawler***: if you were designing a web crawler, hwo would you avoid getting into infinite loops?
+- ***Personal financial manager***: how would you design a personal financial manager. this system would connect to your back accounts analyze your spending habits, and make recommendations.
+- ***Thread vs Process***: what's the difference between a thread and a process?
+- ​
+
+
+
+
 
 
 
@@ -333,14 +392,24 @@ def permute_v2(a):
 
   - 4 = 5 -1 = 3 + 1 = 2 x 2 = 1 x 4, so the core of this problem is to find 1 quart of water, maybe.
   - answer: 5 - 3 = 2; 2->3; 3 - 2 = 1; 5 - 1 = 4;
-  - actually, using a 5 quart, and 3 quart jug, we can get 1,2,3,4,5,6,7,8 quart water as we want; core is 1 quart;	
+  - actually, using a 5 quart, and 3 quart jug, we can get 1,2,3,4,5,6,7,8 quart water as we want; core is 1 quart;
 
 - ***blue-eyed people***: a bunch of people live in an island; one day they receive an order: all blue-eyed people must leave the island. there will be a flight out at 8:00 pm every evening. each people can see others' eye color, but they do not know theirs. additionally, they do not know how many blue-eyed people among them, just only know at least one people does. how many days will it take the blue-eyed people to leave?
+
+- ***The apocalypse***: in the new post-apocalytic world, the queen is desperately concerned about the birth rate. therefore she decided that all families should ensure that they have one girl or else they face massive fines. if all families abide by this policy — that is, they have continue to have children until they have one girl, at which point they immediately stop — what will the gender ratio of the new generation be? assume that the odds of someone having a boy or a girl on any given pregnancy is equal. solve this out logically and then write a computer simulation of it.
+
+- ***The egg drop problem*** : there is a building of 100 floors, if an egg drops from the Nth floor or above, it will break, if it's dropped from any floor below, it will not break. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
+
+  - step by step, first find a general way to find N, and then find a way to minimize the number of drops;
+
+- ***100 lockers***: there are 100 closed lockers in a hallway. a man begins by opening all 100 lockers, next, he closes every second locker. then, on this third pass, he toggles every third locker ( closes it if it is open or opens it if it is closed ). this process continues for 100 passes, sunch that on each pass i, the man toggles every with 'ith' locker, after his 100th pass in the hallway, in which he toggles only locker #100, how many lockers are open?
+
+- ***Posion***: You have 1000 bottles of soda, and exactly one is poisoned. you have 10 test strips which can be used to detect poison. a gingle drop of poison will turn the test strip positive permanently. You can put any number of drops on a test strip at once and you can reuse a test strip as many times as you'd like (as long as the results are negative). however you can only run tests once per day and it takes seven days to return a result. how would you figure out the poisoned bottle in as few days as possible? write code to simulate your approach.
 
 - ​
 
 
-  ​		
+
   ​	
 
 - ​
@@ -361,5 +430,6 @@ def permute_v2(a):
 - https://www.careercup.com/
 - https://www.careercup.com/resume
 - http://rosettacode.org/wiki/Rosetta_Code
+- http://visualgo.net
 - ​
 
