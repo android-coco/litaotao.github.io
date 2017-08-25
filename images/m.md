@@ -340,11 +340,19 @@ def permute_v2(a):
 - ***Palindrome Permutation***: Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
 - ***One Away***: There are three types of edits that can be performed on strings: insert a character,remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
 - ***Add without plus***: Write a function that adds two numbers, you should not user + or any arithmetic operators.
+- Inplement count_words(input_str) function which returns number of words from the input string (hint the edge cases they provide means you have to implement it manually).
+- implement count_substr(input_str, sub_str) function which returns the number of times the sub_str occurs in the input_str.
 - ​
 
 
 
 ​	
+
+
+
+# Data Engineer
+
+- Do you have experience with data modeling? If so, what data modeling tools do you have experience using?
 
 
 
@@ -406,11 +414,19 @@ def permute_v2(a):
 
 - ***Posion***: You have 1000 bottles of soda, and exactly one is poisoned. you have 10 test strips which can be used to detect poison. a gingle drop of poison will turn the test strip positive permanently. You can put any number of drops on a test strip at once and you can reuse a test strip as many times as you'd like (as long as the results are negative). however you can only run tests once per day and it takes seven days to return a result. how would you figure out the poisoned bottle in as few days as possible? write code to simulate your approach.
 
-- ​
+- ***Moral***: What is your biggest weakness?
+
+- ***Open***: Why should we hire you to this job?
+
+  - Skills, experience, personality; energy and passion;
+
+- ***Open***: Do you have any questions to ask us?
+
+  - interview/talk feedback; daily job if joined; team-members;
 
 
 
-  ​	
+  	
 
 - ​
 

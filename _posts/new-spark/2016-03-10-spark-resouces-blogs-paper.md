@@ -65,6 +65,14 @@ Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签�
 - [Spark SQL Supported Syntax](https://github.com/databricks/spark-sql-perf/blob/master/src/main/scala/com/databricks/spark/sql/perf/tpcds/TPCDS_1_4_Queries.scala)
 - [Combining Machine Learning Frameworks with Apache Spark](http://www.slideshare.net/databricks/combining-machine-learning-frameworks-with-apache-spark)
 - [Deep Dive: Memory Management in Apache Spark](http://www.slideshare.net/databricks/deep-dive-memory-management-in-apache-spark)
+- [https://databricks.com/blog/2017/07/11/introducing-apache-spark-2-2.html](https://databricks.com/blog/2017/07/11/introducing-apache-spark-2-2.html)
+- [https://spark-summit.org/east-2017/events/improving-python-and-spark-performance-and-interoperability/](https://spark-summit.org/east-2017/events/improving-python-and-spark-performance-and-interoperability/)
+- [http://www.slideshare.net/wesm/high-performance-python-on-apache-spark](http://www.slideshare.net/wesm/high-performance-python-on-apache-spark)
+- [https://www.slideshare.net/SparkSummit/spark-and-online-analytics-spark-summit-east-talky-by-shubham-chopra](https://www.slideshare.net/SparkSummit/spark-and-online-analytics-spark-summit-east-talky-by-shubham-chopra)
+- [https://www.slideshare.net/SparkSummit/spark-parquet-in-depth-spark-summit-east-talk-by-emily-curtin-and-robbie-strickland](https://www.slideshare.net/SparkSummit/spark-parquet-in-depth-spark-summit-east-talk-by-emily-curtin-and-robbie-strickland)
+- [https://www.slideshare.net/databricks/sparksql-a-compiler-from-queries-to-rdds](https://www.slideshare.net/databricks/sparksql-a-compiler-from-queries-to-rdds)
+
+
 
 
 
@@ -116,6 +124,16 @@ on Large Clusters](http://www.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.
     - [http://stackoverflow.com/questions/21138751/spark-java-lang-outofmemoryerror-java-heap-space](http://stackoverflow.com/questions/21138751/spark-java-lang-outofmemoryerror-java-heap-space)
     - [A Beginner's Guide on Troubleshooting Spark Applications](http://www.slideshare.net/jcmia1/a-beginners-guide-on-troubleshooting-spark-applications)
     - [http://www.mincoder.com/article/2381.shtml](http://www.mincoder.com/article/2381.shtml)
+- [http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/)
+- [http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/](http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/)
+- [http://blog.cloudera.com/blog/2014/05/apache-spark-resource-management-and-yarn-app-models/](http://blog.cloudera.com/blog/2014/05/apache-spark-resource-management-and-yarn-app-models/)
+- [https://spark.apache.org/docs/latest/job-scheduling.html](https://spark.apache.org/docs/latest/job-scheduling.html)
+- [https://databricks.com/blog/2015/06/22/understanding-your-spark-application-through-visualization.html](https://databricks.com/blog/2015/06/22/understanding-your-spark-application-through-visualization.html)
+- [http://blog.csdn.net/u012684933/article/details/50378725](http://blog.csdn.net/u012684933/article/details/50378725)
+
+
+
+
 
 ## 5. 视频
 

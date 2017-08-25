@@ -96,13 +96,26 @@
    <title>Taotao's Zone</title>
    <link href="http://litaotao.github.io//atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://litaotao.github.io/" rel="alternate" type="text/html" />
-   <updated>2017-07-09T17:30:58+08:00</updated>
+   <updated>2017-08-24T21:50:50+08:00</updated>
    <id>http://litaotao.github.io/</id>
    <author>
      <name></name>
      <email></email>
    </author>
 
+   
+   <entry>
+     <title>关于量化投资，你想知道的都在这里了</title>
+     <link href="/things-you-want-to-know-about-quantitative-investing"/>
+     <updated>2017-08-22T00:00:00+08:00</updated>
+     <id>/things-you-want-to-know-about-quantitative-investing</id>
+     <content type="html">&lt;embed src=&quot;../files/litaotao-quant-cn.pdf&quot; width=&quot;100%&quot; height=&quot;1000px&quot; /&gt;
+
+&lt;p&gt;中文简历 pdf: &lt;a href=&quot;../files/litaotao-quant-cn.pdf&quot;&gt;中文简历 pdf&lt;/a&gt;  &lt;br /&gt;
+英文简历 pdf: &lt;a href=&quot;../files/litaotao-quant-en.pdf&quot;&gt;英文简历 pdf&lt;/a&gt;   &lt;br /&gt;
+中文简历 网页: &lt;a href=&quot;../resume&quot;&gt;中文简历 网页&lt;/a&gt;&lt;/p&gt;
+</content>
+   </entry>
    
    <entry>
      <title>工作 3 年后的一些思考【Part 3】</title>
@@ -123,7 +136,9 @@
 
 &lt;p&gt;现在回想，我还是很感谢自己当时的决定的。第一是这几年过得还算温饱，哈哈；其次是这几年学到的东西，增长的见识，我相信在未来无论我在哪里做什么，都会有莫大的帮助；最后当然是针对于金融这个职业，我还算是越来越入道了，也越来越喜欢了。&lt;/p&gt;
 
-&lt;p&gt;ok，最后再总结一些这个感悟吧：在能力撑不起梦想的时候，就努力把当前做到最好吧，毕竟来日方长。&lt;/p&gt;
+&lt;p&gt;ok，最后再总结一些这个感悟吧：在能力撑不起梦想的时候，就努力把当前做到最好吧，沉下心来提升自己，毕竟来日方长。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/settle_down.png&quot; alt=&quot;settle_down.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;be-focus&quot;&gt;8. Be focus&lt;/h2&gt;
 
@@ -140,6 +155,8 @@
 &lt;p&gt;现在回想，当时真的挺感谢那位大佬跟我说的那几句话的，在我自我感觉良好的时候跟我敲了个警钟。最近半年，我发现不仅仅是个人职业发展规划里在初期的时候需要做到 focus，而且在产品发展的过程中也需要做到 focus。比如说一些产品，常常发现越做功能越丰富，但是最核心的功能往往没有得到改善。我自己感触较深的是两个产品，一个是迅雷，一个是有道词典，初期都特别好用，一个用来下载电影，一个用来查单词。但是越到后面越难用，甚至频频卡顿，铺天盖地的广告，糟糕的体验，臃肿的安装包，现在有道词典是很少用了，迅雷的话找到了一个精简版，其他什么毛线都没有，就简简单单的下载，很干净很好用。现实中很多产品，往往一开始起步很不错，能解决用户的核心痛点，但是经常性的越到后面越发难用，核心的东西做不深，倒是周边工具做了一大堆。明明用户只想要一台 12 缸的发动机，偏偏要把拖拉机的马达搭配富丽堂皇的车壳，再加个各种牛皮混杂的坐垫，各种宝石镶嵌的方向盘，只能说是本末倒置了吧。&lt;/p&gt;
 
 &lt;p&gt;所以，从我个人的一些简单经历和思考，我推荐不管在做职业规划还是在做产品的时候，需要认真考虑下 focus 的重要性。人们不会因为你什么都懂一点而看好你，更多的时候是会因为你是某一两个领域的佼佼者而为你竖起大拇指；人们不会因为一个产品功能丰富而买单，更多的时候是会因为这个产品里某个功能解决了他们的核心诉求。所以，在自己还没有核心竞争力之前，在产品还没有在某个领域做到足够顶尖之前，都请 be focus 吧，在这之后，当然可以发展其他更加丰富的技能和特点。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/just_focus.png&quot; alt=&quot;just_focus.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;be-thankful&quot;&gt;9. Be thankful&lt;/h2&gt;
 
@@ -192,7 +209,7 @@
       &lt;li&gt;侄儿初一，能适应初中学习节奏，给侄儿报个课外兴趣班，最好是科技班，这样我们可以继续一起玩玩具，哈哈；&lt;/li&gt;
       &lt;li&gt;全家应该已经搬到贵阳的大 house 里了，希望大家都适应新的环境；&lt;/li&gt;
       &lt;li&gt;和未来的老婆应该准备迎接第一个小生命了吧；&lt;/li&gt;
-      &lt;li&gt;把书房改造成玩具工作室，回家就和侄儿做玩具，航模略危险，就先多做做赛车模型和船模；&lt;/li&gt;
+      &lt;li&gt;把书房改造成玩具工作室，节气回家就和侄儿做玩具，航模略危险，就先多做做赛车模型和船模；&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;工作上
@@ -207,10 +224,15 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;img src=&quot;../images/my_future_self.png&quot; alt=&quot;my_future_self.png&quot; /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;section-3&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://bbs.mx3g.com/&quot;&gt;模型中国论坛&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-1&quot;&gt;工作 3 年后的一些思考【Part 1】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-2&quot;&gt;工作 3 年后的一些思考【Part 2】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-3&quot;&gt;工作 3 年后的一些思考【Part 3】&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -248,7 +270,7 @@
 
 &lt;p&gt;曾经看过一般文章，里面有一个观点：对社会人士来说，最可怕的事情莫过于比你厉害的人比你还要努力。当时我并没有那么深的感触，但最近半年时间，这样的体验更深。一方面是在 boss 身上学到的东西，不管是行业知识还是做事风格，另一方面是常常反思身边的所见所闻。真的发现，这个社会其实也很公平，为什么经常说一个社会 80% 的财富都是积累在少数的 20% 人手中，其实很简单，因为那 20% 人的努力程度远远大于剩下的 80% 的人的总和。&lt;/p&gt;
 
-&lt;h2 id=&quot;be-thankful&quot;&gt;5. Be thankful&lt;/h2&gt;
+&lt;h2 id=&quot;be-integrity&quot;&gt;5. Be integrity&lt;/h2&gt;
 
 &lt;p&gt;有一个问题，大家可以在心里想想自己的答案 &lt;code class=&quot;highlighter-rouge&quot;&gt;从上学到大学毕业，你最感念的恩师都有哪些，why?&lt;/code&gt;。这个问题若我来回答的话，我会说是我的初中英文老师，一位来自农村的非常传统，正直，努力的老师，到现在我们都叫他 &lt;code class=&quot;highlighter-rouge&quot;&gt;老英&lt;/code&gt;。我是 07 年上的初一，虽然我成绩很好，已经进了县城里最好的一个中学，但爸妈为了让我能在个好点的环境学习，就麻烦叔叔把我分到了当时最好的一个班里。我记得当时平均每个班应该只招收 60 来个学生的，但是我们那个班硬是被招入了将近 90 号人，导致桌椅不够，不得不从其他班搬点过来。当时记得很清晰，老英第一节课的第一句话，就是说我们班的人背景都很好，原本 60来人的班硬是被搞到 90 个人，敢光明正大的说这句话在当时还是很有魄力，因为大家都知道，但是还没人敢这样说，而且班里有不少爸妈都是县政府里的人，甚至一些还是校长大大亲自安排进来的呢。后来渐渐听说了老英的一些光辉事迹，一个大城市里的高干曾经请他去给小孩补习一段时间，给老英钱老英就是不要，后来还专程把钱用信封寄过来，老英也没收，给人返还过去了。&lt;/p&gt;
 
@@ -291,6 +313,9 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.mgtv.com/b/308627/3892611.html&quot;&gt;湖南卫视：神奇的孩子，第十期，来自澳洲的坎贝尔，第 60 分钟开始&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=RVmMeMcGc0Y&quot;&gt;Amy Cuddy TED Talk - Fake it Till You Make it&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-1&quot;&gt;工作 3 年后的一些思考【Part 1】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-2&quot;&gt;工作 3 年后的一些思考【Part 2】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-3&quot;&gt;工作 3 年后的一些思考【Part 3】&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -352,6 +377,9 @@
   &lt;li&gt;&lt;a href=&quot;http://zhiqiang.org/blog/finance/riskmanage/how-knight-lost-440-millions.html&quot;&gt;骑士资本的高频交易事故&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.datayes.com&quot;&gt;DataYes: 通联数据，我所在的公司&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://uqer.io&quot;&gt;UQER: 优矿，我所在的项目组&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-1&quot;&gt;工作 3 年后的一些思考【Part 1】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-2&quot;&gt;工作 3 年后的一些思考【Part 2】&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-3&quot;&gt;工作 3 年后的一些思考【Part 3】&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
    </entry>
@@ -1509,151 +1537,6 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;section-5&quot;&gt;6. 读书总结系列&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-apr-2016&quot;&gt;『 读书笔记 』4月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-May-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-June-2016&quot;&gt;『 读书笔记 』6月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-sep-2016&quot;&gt;『 读书笔记 』9月，10月读书总结｜博文推荐&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 读书笔记 』6月读书总结｜博文推荐</title>
-     <link href="/books-recommend-and-summarize-on-June-and-july-2016"/>
-     <updated>2016-07-17T00:00:00+08:00</updated>
-     <id>/books-recommend-and-summarize-on-June-and-july-2016</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
-
-&lt;p&gt;月底读书总结的形式都很简单，只是简单的一个列表和简单的书评，对觉得比较好的书会有单独的读书笔记。另外推荐大家用 excel 来做一些简单的工作管理，我现在就用 google docs 来做工作安排和读书计划，个人感觉比一些常用的神马协同软件强大太多了，简单，够用，就行了。工作中见过太多人把时间都花到使用那些协同软件上去，不得不说避重就轻了，适得其反，哈哈。&lt;/p&gt;
-
-&lt;p&gt;下面是一张我用 google docs 来做本月读书安排的截图，不同颜色代表不同类别的数据，清晰明了实用。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/book-reading-06.png&quot; alt=&quot;book-reading-06.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ps: 我对好书的定义很简单：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;给自己有所启发的&lt;/li&gt;
-  &lt;li&gt;高质量的，专业的教程类书籍&lt;/li&gt;
-  &lt;li&gt;后期会再度回首的书&lt;/li&gt;
-  &lt;li&gt;看完后会打算赠送给盆友看的书&lt;/li&gt;
-  &lt;li&gt;留着给儿子看的书 [好吧，目前我只有个宝贝侄儿，哈哈]&lt;/li&gt;
-  &lt;li&gt;最后一条，印刷质量要好&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-June-and-july-2016&quot;&gt;『 读书笔记 』5月读书总结｜博文推荐&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne5ad99e5ad90e585b5e6b395e7b2bee8afbb-e99988e5ae87dpb00127eu7erefsr12ieutf8qid1465825540sr8-2keywordse5ad99e5ad90e585b5e6b395e7b2bee8afbb&quot;&gt;1.1 &lt;a href=&quot;https://www.amazon.cn/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95%E7%B2%BE%E8%AF%BB-%E9%99%88%E5%AE%87/dp/B00127EU7E/ref=sr_1_2?ie=UTF8&amp;amp;qid=1465825540&amp;amp;sr=8-2&amp;amp;keywords=%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95+%E7%B2%BE%E8%AF%BB&quot;&gt;孙子兵法&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;这本书买了不知道有多少年了，但是一直没看过。自从今年3月份培养读书习惯来，就把这本书列上了书单，很是期待这本书，作为6月的第一本书来读。内容方面自然不必多说，满满的都是干货，但是这本书传承了千年，我自始自终都抱着敬畏的态度来读，不能随意的评论。但是，我想说，这本书里的内容，不论在从商，创业，处事，个人规划方面都很有借鉴意义。博大精深，值得反复品读。&lt;/p&gt;
-
-&lt;p&gt;总结：抱着敬畏的形态来读这本书，之后还会不间断的回顾，希望能多吸取一些精华和感悟。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne5ad99e5ad90e585b5e6b395e7b2bee8afbb-e99988e5ae87dpb00127eu7erefsr12ieutf8qid1465825540sr8-2keywordse5ad99e5ad90e585b5e6b395e7b2bee8afbb-1&quot;&gt;1.2 &lt;a href=&quot;https://www.amazon.cn/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95%E7%B2%BE%E8%AF%BB-%E9%99%88%E5%AE%87/dp/B00127EU7E/ref=sr_1_2?ie=UTF8&amp;amp;qid=1465825540&amp;amp;sr=8-2&amp;amp;keywords=%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95+%E7%B2%BE%E8%AF%BB&quot;&gt;研报：行业轮动系列&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;material-design-httpwikijikexueyuancomprojectmaterial-design&quot;&gt;1.3 &lt;a href=&quot;http://wiki.jikexueyuan.com/project/material-design/&quot;&gt;Material Design 中文版&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;最近两个月对 Material Design 很感兴趣，为了系统的了解 Material Design 的由来，原则和内在的哲理，我安排了这个月读一读 Material Design 的官方资料，因为自己没有这方面的背景，所以是先看极客学院翻译的中文文档，有问题和不理解的地方再阅读 google 的官方文档。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/material-design/&quot;&gt;Material Design 中文版&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://material.google.com&quot;&gt;Material Design&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;随着 Material Design 最近的流行，一些产品开始采用 Material Design，但是最近又看到有公司抛弃 Material Design。作为一个工程师，我无法评定 Material Design 的好与坏，但是我能说的是，作为一个 PM 或者 Designer，就算不用 Material Design，也是很有必要去了解，甚至是深入研究 Material Design 的。&lt;/p&gt;
-
-&lt;p&gt;总结：作为一个工程师，我还是很喜欢 Material Design 的风格和哲理的。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne9878de696b0e5ae9ae4b989e7aea1e79086-e59088e5bc84e588b6e694b9e58f98e4b896e7958c-e5b883e8b596e681a9c2b7e7bd97e4bcafe9808adpb015mqyzgqrefsr11ieutf8qid1467107628sr8-1keywordse9878de696b0e5ae9ae4b989e7aea1e79086&quot;&gt;1.4 &lt;a href=&quot;https://www.amazon.cn/%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86-%E5%90%88%E5%BC%84%E5%88%B6%E6%94%B9%E5%8F%98%E4%B8%96%E7%95%8C-%E5%B8%83%E8%B5%96%E6%81%A9%C2%B7%E7%BD%97%E4%BC%AF%E9%80%8A/dp/B015MQYZGQ/ref=sr_1_1?ie=UTF8&amp;amp;qid=1467107628&amp;amp;sr=8-1&amp;amp;keywords=%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86&quot;&gt;重新定义管理: 合弄制改变世界&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;我参加过公司组织的合弄制培训，结合起当时的培训，这本书的内容，已经一些网上总结的 ppt，真心不觉得合弄制这个东西有什么革命性的优势，本质上还是没有什么改变。未来的一两个月我也参与到公司的一个合弄制试水的项目里了，体验体验所谓的合弄制有哪些优劣。&lt;/p&gt;
-
-&lt;p&gt;就合弄制本身而言，其实也没什么坏处，但是在玩看来合弄制是对传统的企业管理矫枉过正了。我们其实只需要参考其中的一些概念和方法，在扁平化管理的基础上搞出一些微创新，制定一些公司内部微创新的规则和奖励机制就完全足够了。而且，我强烈建议公司内部在搞微创新的时候，千万不要往合弄制的身上生搬硬套一些概念，合弄制的概念真心太多了，心累啊～～～&lt;/p&gt;
-
-&lt;p&gt;总结：虽然我不赞同合弄制的很多做法和思想，但捍卫它为自己争取一丝地位的权利吧。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;httpswwwamazoncne590afe7a4bae5bd95-e68993e980a0e794a8e688b7e5969ce788b1e79a84e4baa7e59381-marty-cagandpb00cwqmxdmrefsr11ieutf8qid1467266470sr8-1keywordse590afe7a4bae5bd95efbc9ae68993e980a0e794a8e688b7e5969ce788b1e79a84e4baa7e59381&quot;&gt;1.5 &lt;a href=&quot;https://www.amazon.cn/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81-Marty-Cagan/dp/B00CWQMXDM/ref=sr_1_1?ie=UTF8&amp;amp;qid=1467266470&amp;amp;sr=8-1&amp;amp;keywords=%E5%90%AF%E7%A4%BA%E5%BD%95%EF%BC%9A%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81&quot;&gt;启示录：打造用户喜爱的产品&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;很不错的一本书，大多数人会把这本书当作产品方面的书，可我觉得，这本书不仅仅是为产品经理写的，还是为公司管理层，项目负责人写的。书很薄，但内容很优质，很久没有看到这种干货漫漫的书了。里面有很多在现实中会遇见的问题，作者的叙述能力很强，有时候会让读者如临其境。很具有实操性的一本书，建议第一遍快速看完，然后第二遍细细品读，之后可以时不时拿来翻翻，对比现实工作中遇到的一些问题场景。&lt;/p&gt;
-
-&lt;p&gt;最后两章［40: 最佳实践经验；41: 产品经理的反省清单］值得反复品读。&lt;/p&gt;
-
-&lt;p&gt;对了，这本书里也提到了一些不错的其它书籍，感兴趣的也可以看看作者推荐的那些书。&lt;/p&gt;
-
-&lt;p&gt;总结：非常好，实操性强，没有废话，干货很多的一本书。建议产品经理，工程师，项目负责人，公司管理层的人都应该读读。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;cloudera-spark-guidehttpwwwclouderacomdocumentationenterpriselatesttopicssparkhtml&quot;&gt;1.6 &lt;a href=&quot;http://www.cloudera.com/documentation/enterprise/latest/topics/spark.html&quot;&gt;cloudera spark guide&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;非常高质量的 spark guide，可以和官方的一起读读，里面会有一些比较细节的问题，比如在 python 编写的 spark 应用中，如何打包应用的依赖等。遇到了很多我现实生活中遇到的问题，很有帮助。&lt;/p&gt;
-
-&lt;p&gt;总结：建议和官方 guide 一起看看，能看完，看懂 70% 就可以直接开干了。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;1.7 公司财务原理，第五，第六章&lt;/h3&gt;
-
-&lt;p&gt;啥都不说了，看过我之前的读书总结的都知道，我对这本书简直就是四粉，粉得彻彻底底的。&lt;/p&gt;
-
-&lt;p&gt;总结：best of the best.&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;linux&quot;&gt;1.8 Linux工具快速教程&lt;/h3&gt;
-
-&lt;p&gt;给实习生推荐的 linux 基本教程，我自己也再看了一遍，非常好，比一些贴命令参数的纸板书好了几个档次。不过里面有一些很细节的，不太常用的东西，不是太有必要一口吃完。建议初学者看完基础那一栏就 ok 了，以后遇到问题了再来翻翻。&lt;/p&gt;
-
-&lt;p&gt;总结：The power of open-source, more than you can imagine.&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;quantcon-2016&quot;&gt;1.9 quantcon 2016&lt;/h3&gt;
-
-&lt;p&gt;quantcon 2016 上的所有 slide，video 只看了一部分。很有用，很有启发，这个资料是私密的，建议想学习的矿友们去官方网站上咨询咨询。&lt;/p&gt;
-
-&lt;p&gt;总结：风已来，等你一起飞。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;1.10 2016券商中期策略&lt;/h3&gt;
-
-&lt;p&gt;总结：券商中期策略简直白花齐放，不仅是观点，还有行文组织上，有的甚至给人的感觉就是一两天赶工出来的报告。&lt;/p&gt;
-
-&lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* *&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;2. 优质产品&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.websequencediagrams.com/&quot;&gt;https://www.websequencediagrams.com/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;不错的在线流程图应用。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;user-&amp;gt;WebApi: GET /jars
-WebApi-&amp;gt;JarManager: ListJars
-JarManager-&amp;gt;WebApi: Map(appName -&amp;gt; uploadTime)
-WebApi-&amp;gt;user: 200 + JSON&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/websequencediagrams.png&quot; alt=&quot;websequencediagrams.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-5&quot;&gt;5. 读书总结系列&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;

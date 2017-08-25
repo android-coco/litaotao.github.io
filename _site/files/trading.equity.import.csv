@@ -1,0 +1,12 @@
+证券代码,交易市场代码,交易方向,交易数量,指令价格,数量模式,价格模式,算法类型,预置开始时间,预置结束时间,触发模式,触发参数,投资类型,币种
+#此为模板文件，仅供参考,,,,,,,,,,,,,
+#交易市场代码：上交所XSHG，深交所XSHE，中金所CCFX，上期所XSGE，郑商所XZCE，大商所XDCE,,,,,,,,,,,,,
+#期货投保类型标注：仅写交易方向意为投机，在交易方向后加下划线及类型标注，套利ARBITRAGE，套保HEDGE。如BUY意为投机盘多头开仓，BUY_HEDGE意为套保盘多头开仓,,,,,,,,,,,,,
+#数量模式代码：绝对数量TRADE_QUANTITY，绝对权重TRADE_WEIGHT，目标数量QUANTITY，目标权重WEIGHT,,,,,,,,,,,,,
+#价格模式代码：指定价格INPUT_PRICE，市价MARKET_PRICE,,,,,,,,,,,,,
+#算法类型目前尚未开放起效,,,,,,,,,,,,,
+63,XSHE,BUY,8000,18.18,TRADE_QUANTITY,INPUT_PRICE,,,,,,,
+100,XSHE,BUY,25000,4.25,QUANTITY,INPUT_PRICE,,,,,,,
+600009,XSHG,BUY,0.15,0,WEIGHT,MARKET_PRICE,,,,,,,
+600018,XSHG,BUY,0.05,0,TRADE_WEIGHT,MARKET_PRICE,,,,,,,
+IF1609,CCFX,BUY,5,0,TRADE_QUANTITY,MARKET_PRICE,,,,,,,
