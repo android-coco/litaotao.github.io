@@ -342,8 +342,144 @@ def permute_v2(a):
 - ***Add without plus***: Write a function that adds two numbers, you should not user + or any arithmetic operators.
 - Inplement count_words(input_str) function which returns number of words from the input string (hint the edge cases they provide means you have to implement it manually).
 - implement count_substr(input_str, sub_str) function which returns the number of times the sub_str occurs in the input_str.
-- ​
+- 给定一个有序数组，除了一个元素出现一次以外其他元素均出现两次，请找到这个只 出现一次的元素，要求O(logn)的时间复杂度和O(1)的空间复杂度。
 
+
+```python
+"""
+异或操作，最快 O(logN)，是否有序没有关系
+"""
+
+def xor(a, b):
+    c = a ^ b
+    print '{}: {:0>8}'.format(a, bin(a)[2:])
+    print '{}: {:0>8}'.format(b, bin(b)[2:])
+    print '{}: {:0>8}'.format(c, bin(c)[2:])
+    
+    print '{} ^ {} = {}'.format(a, b, c)
+    return
+
+def find_one(_list):
+    """pre vs next; o(n), o(1)
+    cases:
+    0 1 1 2 2 
+    0 0 1 2 2
+    0 0 1 1 2
+    """
+    ### checking
+    
+    ### core
+    pre, current = _list[0], _list[1]
+    
+    if pre != current:
+        return pre
+    
+    for i in range(2, len(_list)):
+        pre = current
+        current = _list[i]
+        
+        if pre != current:
+            if i+1 != len(_list) and _list[i+1] != current:
+                return current
+            elif i+1 == len(_list):
+                return current
+            else:
+                continue
+        else:
+            continue
+```
+
+
+
+- ***Spiral Matrix***: Given a matrix of *m* x *n* elements (*m* rows, *n* columns), return all elements of the matrix in spiral order.
+
+```python
+
+def print_spiral_matrix(matrix, x, y):
+    """还不对哦
+    """
+    #  //左右上下四个边界
+    left = 0
+    right = x - 1
+    top = 0
+    bottom = y - 1
+
+    while (True):
+#         print 'left, right, top, bottom: ', left, right, top, bottom
+        
+        # //上边，自左至右
+        for i in range(left, right + 1):
+            print matrix[top][i]
+
+        top += 1
+        if (top > bottom):
+            break
+
+        # //右边，自上至下
+        for i in range(top, bottom + 1):
+            print matrix[i][right]
+
+        right -= 1
+        if (left > right):
+            break
+
+        # //下边，自右至左
+        for i in range(right , left, -1):
+            print matrix[bottom][i]
+            
+        bottom -= 1
+        if (top > bottom):
+            break
+
+        # //左边，自下至上
+        for i in range(bottom , top, -1):
+            print matrix[i][left]
+            
+        left += 1
+        if (left > right):
+            break
+            
+def build_spiral_matrix(n):
+    """生成一个螺旋矩阵，同样也是有问题的哦
+    """
+#     a = [ [0] * n ] * n
+    a = [ [0 for i in range(n)] for j in range(n) ]
+    
+    def spiral_matrix(matrix, x, y, start, n):        
+        if n <= 0:
+            return 
+    
+        if n == 1:
+            matrix[x][y] = start
+            return
+        
+        for i in range(x, x+n):
+            matrix[y][i] = start
+            start += 1
+        
+        for i in range(y, y+n):
+            matrix[i][x+n-1] = start
+            start += 1
+            
+        for i in range(x+n-1, x-1):
+            matrix[y+n-1][i] = start
+            start += 1
+            
+        for i in range(y+n-1, y-1):
+            matrix[j][x] = start
+            start += 1
+        
+        spiral_matrix(a, x+1, y+1, start, n-2)
+        
+    spiral_matrix(a, 0, 0, 0, n)
+    
+    return a
+```
+
+
+
+- What is Tail Call and Tail Recursive ? 
+  - [尾调用优化](http://www.ruanyifeng.com/blog/2015/04/tail-call.html)
 
 
 ​	
@@ -447,5 +583,6 @@ def permute_v2(a):
 - https://www.careercup.com/resume
 - http://rosettacode.org/wiki/Rosetta_Code
 - http://visualgo.net
+- https://github.com/gatieme/CodingInterviews
 - ​
 
