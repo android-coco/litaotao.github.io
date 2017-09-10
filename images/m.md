@@ -510,83 +510,79 @@ def build_spiral_matrix(n):
 ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7eecd74e-8c03-11e7-bf57-0242ac140002)
 
 - ***Permutation without dups***: write a method to compute all permutations of a string of unique characters.
-
 - ***Permutation with duplicates***: write a method to compute all permutations of a string whose characters are not necessary unique. The list of permutations should not have duplicates.
-
 - ***Parens***: Implement an algorithm to print all valid (i.e. properly opened and closed ) combinations of n pairs of parentheses.
   - example: input 3
   - output: ((())), ((), ()), (())(), ()(()), ()()()
-
 - ***Coins***: given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents) and pennies (1 cent), write code to calculate the number of ways of representing n cents.
-
 - ***Eight Queens***: write an algorithm to print all ways of arranging eight queens on an 8x8 chess board.
-
 - ***Sorted Merge***: You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. write a method to merge B into A in sorted order.
-
 - ***Group Anagrams***: write a method to sort an array of strings so that all the anagrams are next to each other.
-
 - ***Sort big file***: imagine you have a 20 GB file with one string per line. explain how you would sort the file.
   - Using ***external sorting*** method.
-
 - ***Missing int***: given an input file with 4 billion non-negative integers. provide an algorithm to generate an integer that is not contained in the file. assume you have 1 GB of memory available for this task. Follow up: what if you have only 10 mb of memory?  assume that all the values are distinct and we now have no more than one billion non-negative integers.
   - bit map algorithm
   - division algorithm
-
 - ***Number swapper***: write a function to swap a number in place (that is without temporary variables)
   - a = a - b
   - b = a + b
   - a = b - a
-
 - ***Bottle of water***: A bottle of coke is $1, you can exchange 2 empty bottles for a bottle of coke. you have N dollars, how many bottles you can drink a lot.
 
   - `f(n) = int(n) + f(0.5 * int(n) + n - int(n))`
-
 - ***二维数组中的查找***: 在一个二维数组中，每一行都是按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序，写一个函数，输入一个这样的数组和整数，判断数组中是否含有该整数。
-
   - 核心：四个角，从哪个角开始便利，找一个数，可以先排除不包含这个数的行或列；
-
 - ***替换空格***：实现一个函数，把字符串中每个空格替换成 "20%"。
-
   - 思考方式同上题，逆向思考。
-
 - ***归并排序***：两个排序的数组a1，a2，a1后有足够多的空间容纳a2【可有可无】，写一个函数把a2所有数字插入 a1并且所有的数字都是排序的。
-
   - 完全同上提，替换空格。
-
 - ***逆序打印***：输入一个链表的头节点，从尾到头打印每个节点的值。
-
   - 递归，考虑到调用栈的溢出哦。
-
 - ***重建二叉树***：输入某二叉树的前序遍历和中序遍历，请重建该二叉树。
-
   - 递归，理解前序，中序，后序遍历方法。所有递归，动态规划算法，考察的基本都是分析问题，将问题拆分，分解的能力。
-
 - ***用两个栈实现队列***：用两个栈实现一个列队，且实现该队列的两个函数：appendTail(), popHead()，分别完成在队列尾部插入节点和在队列头部删除节点的功能。
-
   - 即使用两个 “先进后出” 的数据结构实现一个 “先进先出” 的数据结构。
-
 - ***旋转数组的最小数字***：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。
-
   - O(n) 是最简单的，但是利用排序的特性，可以考虑二分，会更快，所以得出经验，排序数组相关的查找问题，都可以考虑二分。
-
 - ***二进制中1的个数***：写一个函数，输入一个整数，输出该数二进制表示中1的个数。
-
   - 注意负数的情况
   - 是用 0x0001 左移还是用输入的数右移，值得思考
   - 书中提出来一种新颖的算法，只用重复 m 次，且m即为输入数字中1的个数呢，值得研究
-
 - ***调整数组顺序***：输入一个整数，实现一个函数来调整数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
-
   - 同样：若是要所有负数在前面，所有非负数在后面呢？
   - 同样：若是要所有能被3整除的在前面，剩余的在后面呢？
-
 - ***包含 min 函数的栈***：定义栈的数据结构，在该结构中实现一个能够得到栈的最小元素的min函数，使min，push，pop 的时间复杂度都是 O(1)
-
   - 如果用一个临时变量来存储最小值，那当最小值被 pop 后咋办呢？
-
+- ***层次遍历二叉树***：从上往下打印二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+  - 画出二叉树，一步一步分析，使用队列存储即可；
+- ***二叉树后序遍历判断***：输入一个整数数组，判断该整数数组是不是某二叉搜索树的后序遍历结果。
+  - 核心是根据遍历方式找到根节点，然后左右子树递归分析
+- ***数组中出现次数超过一半的数字***：数组中又一个数字出现的次数超过数组长度的一半，请找出这个数字。
+- ***最小的k个数***：输入n个整数，找出其中最小的k个数。
+- ***连续子数组的最大和***：输入一个整型数组，其中有正数也有负数，数组中一个或连续的多个整数组成一个子数组，求所有子数组的和的最大值，要求时间复杂度为 O(n)。
+  - 还可以用动态规划哦，仔细研究推导公式。
+- ***从 1 到 n 整数中 1 出现的次数***：输入一个整数，求从 1 到 n 这n个整数的十进制中 1 的出现次数。例如输入 12，从 1到12这些整数中包含 1 点数字有：1，10，11，12，1一共出现5次。
+  - count += str(number).count('1')
+- ***把数组排成最小的数***：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印出能拼接的所有数字中的最小的一个。
+- ***数组中的逆序对***：在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对，输入一个数组，求出这个数组中的逆序对的总数。
+- ***公共节点***：输入两个链表，找出他们的第一个公共节点。
+- ***只出现一次的数字***：一个整型数组里除了两个数字之外，其他的数字都出现了2次，写程序找出这两个只出现一次的数字，时间复杂度是 O(n)，空间复杂度是 O(1)。
+- ***数组和序列***：输入一个递增排序的数组和一个数字 s，在数组中查找两个数，使他们的和正好是s。
+  - 双指针发，头尾同时遍历
+  - s/2 法，找到平均数，再向头尾遍历
 - ​
 
-  ​
+
+
+
+
+
+
+
+
+
+
+
 
 
 
