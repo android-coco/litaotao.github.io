@@ -79,17 +79,17 @@
 8. amortization expense recognition:
 9. bad debt and warranty expense recognition
 10. Non-recurring items:
- 1. discontinued operations: measurement date, phaseout period;
- 2. unusual or infrequent items: the items are either unusual in nature ***or*** infrequent in occurrence.
- 3. extraordinary items: under GAAP, an extraordinary item was a material transaction or event that was ***both*** unusual and infrequent. for periods beginning after 12.5.2015, GAAP no longer allows items to be treated as extraordinary items, IFRS also does not allow items to be treated this way.
-11. accounting changes: 
+11. discontinued operations: measurement date, phaseout period;
+12. unusual or infrequent items: the items are either unusual in nature ***or*** infrequent in occurrence.
+13. extraordinary items: under GAAP, an extraordinary item was a material transaction or event that was ***both*** unusual and infrequent. for periods beginning after 12.5.2015, GAAP no longer allows items to be treated as extraordinary items, IFRS also does not allow items to be treated this way.
+14. accounting changes: 
     1. accounting principles: a change in accounting principle requires retrospective application;
     2. accounting estimates: is the result of a change in management's judgment, is applied prospectively and does not require the restatement of prior financial statements;
     3. prior-period adjustments: a change from an incorrect accounting method to one that is accepted under GAAP or IFRS or the correction of an accounting error make in previous financial statements.
-12. EPS: basic eps = (net income - preferred dividends) / weighted average number of common shares
-13. Diluted EPS: too complex, skip it
-14. gross profit margin = gross profit( revenue minus cost of goods sold) / revenue
-15. net profit margin = net income / revenue
+15. EPS: basic eps = (net income - preferred dividends) / weighted average number of common shares
+16. Diluted EPS: too complex, skip it
+17. gross profit margin = gross profit( revenue minus cost of goods sold) / revenue
+18. net profit margin = net income / revenue
 
 
 
@@ -122,20 +122,20 @@
    5. trading sercurities: also known as held-for-trading securities, are reported on BS at fair value, and the unrealized gains and losses are recognized in the IS. Derivative instruments are treated the same as trading securities.
    6. available-for-sale securities: debt and equity that are not expected to be held to maturity or traded in the near term, it's reported on the BS at fair value, but any unrealized gains and losses are not recognized in the IS, are reported in other comprehensive income as a part of shareholders' equity.
 10. Non-current liabilities: 非流动负债
- 1. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
- 2. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
-11. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
+11. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
+12. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
+13. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
     1. contributed capital: 
     2. preferred stock: can be classified as debt or equity, perpetual preferred stock that is non-redeemable is equity, preferred stock that calls for mandatory redemption in fixed amounts is debt.
     3. noncontrolling interest: minority interest
     4. retained earnings: 
     5. treasury stock: reacquired by the issuing firm but not yet retired, it reduces stockholders' equity.
     6. accumulated other comprehensive income: aggregates net income and certain special transactions that are not reported in the income statement but that affect stockholders' equity.
-12. liquidity ratios:
+14. liquidity ratios:
     1. current ratio = current assets / current liabilities
     2. quick ratio (acid test ratio) = ( cash + marketable securities + receivables ) / current liabilities
     3. cash ratio = ( cash + marketable securities ) / current liabilities
-13. solvency ratios:
+15. solvency ratios:
     1. long-term debt-to-equity = long-term debt / total equity
     2. total debt-to-equity = total debt / total equity
     3. debt ratio = total debt / total assets
@@ -174,31 +174,31 @@
       1. net cash flows from creditors = new borrowings - principal amounts repaid
       2. net cash flows from shareholders = new equity issued - share repurchases - cash dividends paid
 10. Steps in calculating CFO, CFI, CFF in indirect method ( example on page 114):
-  1. CFO
-     1. begin with net income
-     2. subtract gains or add losses that resulted from financing or investing cash flows (such as gains from sale of land)
-     3. add back all noncash charges to income (such as depreciation and amortization ), and subtract all noncash components of revenue.
-     4. add or subtract changes to balance sheet operating accounts as follows:
-        1. increases in the operating asset accounts (uses of cash) are subtracted, while decreases (sources of cash) are added;
-        2. increases in the operating liability accounts (sources of cash) are added, while decreases (uses of cash) are subtracted.
-  2. ***Free cash flow*** is a measure of cash that is available for discretionary purposes.
-     1. ***FCFF***: free cash flow to the firm is the cash available to all investors, both equity owners and debt holders. is calculated from net income as : 
-        1. FCFF = NI + NCC + ***[Int x (1 - tax rate)]*** - FCInv - WCInv
-        2. FCFF = CFO + [Int x (1 - tax rate)] - FCInv
-     2. ***FCFE***: Free cash flow to equity is the cash flow that would be available for distribution to common shareholders, ca be calculated as follows:
-        1. FCFE = CFO - FCInv + net borrowing
-  3. cash flow ratios can be categorized as performance ratios and coverage ratios:
-     1. [PR] cash flow to revenue ratio measures the amount of CFO for each dollar of revenue: ***现金收入比：cash flow to revenue = CFO / net revenue***
-     2. [PR] cash return-on-assets measures the return of CFO attributed to all providers of capital: ***现在资产比：cash return-on-assets = CFO / average total assets***
-     3. [PR] cash return-on-equity ratio measures the return of CFO attributed to shareholders: ***现金权益比：cash return-on-equity = CFO / average total equity***
-     4. [PR] cash to income ratio measures the ability to generate cash from firm operations: ***现金收益比：cash to income = CFO / operating income***
-     5. [PR] cash flow per share is a variation of basic earnings per share measured by using CFO instead of net income: ***每股现金流：cash flow per share = (CFO - preferred dividends ) / (weighted average number of common shares)***
-     6. [CR] debt coverage ratio measures financial risk and leverage: ***负债保障系数：debt coverage = CFO / total debts***
-     7. [CR] interest coverage ratio measures the firm's ability to meet its interest obligations: ***利息保障倍数：interest coverage = (CFO + interest paid + taxes paid) / interest paid***
-     8. [CR] reinvestment ratio measures the firm's ability to acquire long-term assets with operating cash flow: ***再投资比率： reinvestment = CFO / cash paid to long-term assets***
-     9. [CR] debt payment ratio measures the firm's ability to satisfy long-term debt with operating cash flow: ***负债偿还倍数：debt payment = CFO / cash long-term debt repayment***
-     10. [CR] dividend payment ratio measures the firm's ability to make dividend payments from operating cash flow: ***股利支付倍数：dividend payment = CFO / dividends paid***
-     11. [CR] investing and financing ratio measures the firm's ability to purchase assets, satisfy debts and pay dividends: ***投融资比率：investing and financing = CFO / cash outflows from investing and financing activities***
+ 1. CFO
+    1. begin with net income
+    2. subtract gains or add losses that resulted from financing or investing cash flows (such as gains from sale of land)
+    3. add back all noncash charges to income (such as depreciation and amortization ), and subtract all noncash components of revenue.
+    4. add or subtract changes to balance sheet operating accounts as follows:
+       1. increases in the operating asset accounts (uses of cash) are subtracted, while decreases (sources of cash) are added;
+       2. increases in the operating liability accounts (sources of cash) are added, while decreases (uses of cash) are subtracted.
+ 2. ***Free cash flow*** is a measure of cash that is available for discretionary purposes.
+    1. ***FCFF***: free cash flow to the firm is the cash available to all investors, both equity owners and debt holders. is calculated from net income as : 
+       1. FCFF = NI + NCC + ***[Int x (1 - tax rate)]*** - FCInv - WCInv
+       2. FCFF = CFO + [Int x (1 - tax rate)] - FCInv
+    2. ***FCFE***: Free cash flow to equity is the cash flow that would be available for distribution to common shareholders, ca be calculated as follows:
+       1. FCFE = CFO - FCInv + net borrowing
+ 3. cash flow ratios can be categorized as performance ratios and coverage ratios:
+    1. [PR] cash flow to revenue ratio measures the amount of CFO for each dollar of revenue: ***现金收入比：cash flow to revenue = CFO / net revenue***
+    2. [PR] cash return-on-assets measures the return of CFO attributed to all providers of capital: ***现在资产比：cash return-on-assets = CFO / average total assets***
+    3. [PR] cash return-on-equity ratio measures the return of CFO attributed to shareholders: ***现金权益比：cash return-on-equity = CFO / average total equity***
+    4. [PR] cash to income ratio measures the ability to generate cash from firm operations: ***现金收益比：cash to income = CFO / operating income***
+    5. [PR] cash flow per share is a variation of basic earnings per share measured by using CFO instead of net income: ***每股现金流：cash flow per share = (CFO - preferred dividends ) / (weighted average number of common shares)***
+    6. [CR] debt coverage ratio measures financial risk and leverage: ***负债保障系数：debt coverage = CFO / total debts***
+    7. [CR] interest coverage ratio measures the firm's ability to meet its interest obligations: ***利息保障倍数：interest coverage = (CFO + interest paid + taxes paid) / interest paid***
+    8. [CR] reinvestment ratio measures the firm's ability to acquire long-term assets with operating cash flow: ***再投资比率： reinvestment = CFO / cash paid to long-term assets***
+    9. [CR] debt payment ratio measures the firm's ability to satisfy long-term debt with operating cash flow: ***负债偿还倍数：debt payment = CFO / cash long-term debt repayment***
+    10. [CR] dividend payment ratio measures the firm's ability to make dividend payments from operating cash flow: ***股利支付倍数：dividend payment = CFO / dividends paid***
+    11. [CR] investing and financing ratio measures the firm's ability to purchase assets, satisfy debts and pay dividends: ***投融资比率：investing and financing = CFO / cash outflows from investing and financing activities***
 
 
 
@@ -259,12 +259,36 @@
 
    4. ROE(5) = net income / EBT * EBT / EBIT * EBIT / revenue * revenue / average assets * average assets / average  equity = tax burden * interest burden * EBIT margin * asset turnover * financial leverage
 
+4. Per share measures are not comparable because the number of outstanding shares differ among firms.
+
+5. the proportion of a firm's net income that is retained to fund growth is an important determinant of the firm's ***sustainable growth rate***, to estimate this, the rate of return on resources is measured as the return on equity capital, or the ROE, the proportion of earnings reinvested is known as the ***retention rate***, the formula for the sustainable growth rate is how fast the firm can grow without additional external equity issues while holding leverage constant, is *** g = RR x ROE ***. and the calculation of RR is : RR = ( net income available to common - dividends declared ) / net income available to common = 1 - dividend payout ratiod.
 
 
 
 
+## Reading 28. Inventories
 
 
+
+1. merchandising firms report inventory in one account on the balance sheet, manufacturing firms normally report inventory using three separate accounts: raw materials, work-in-progress, finished goods.
+2. COGS = beginning inventory + purchases - ending inventory
+3. product costs are capitalized in the inventories account:
+   1. purchase cost less trade discounts and rebates
+   2. conversion costs including labor and overhead
+   3. other costs necessary to bring the inventory to its presetn location and condition
+4. period costs are expensed as incurred:
+   1. abnormal waste of materials, labor, or overhead
+   2. storage costs
+   3. administrative overhead
+   4. selling costs
+5. The cost of purchasing or producing inventory will change over time, so firms must select a cost flow method, or ***cost flow assumption*** under GAAP and ***cost flow formula*** under IFRS to allocate the inventory cost to the income statement and the balance sheet.
+6. under IFRS, 3 method: Specific identification; FIFO, Weighted average cost
+7. under GAAP, 4 method: Specific identification, FIFO, Weighted average cost, ***LIFO***
+8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
+9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
+10. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
+
+ 
 
 
 
