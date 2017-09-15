@@ -128,7 +128,8 @@ Python在内存中存储了每个对象的引用计数（reference count）。�
 Python中使用了某些启发式算法（heuristics）来加速垃圾回收。例如，越晚创建的对象更有可能被回收。对象被创建之后，垃圾回收器会分配它们所属的代（generation）。每个对象都会被分配一个代，而被分配更年轻代的对象是优先被处理的。
 ```
 
-
+- what is flask and the difference between django, pyramid?
+- ​
 
 
 
@@ -260,9 +261,87 @@ there are several join types: inner, outer, left outer, right outer, full outer;
 
 - ***denormalization***: what is denormalization and explain pros and cons.
 
-```
+- 事务
 
-```
+- ```
+  事务的概念来自于两个独立的需求：并发数据库访问，系统错误恢复。一个事务是可以被看作一个单元的一系列SQL语句的集合。
+
+  ## 事务的特性（ACID）
+
+  A, atomacity 原子性 
+  事务必须是原子工作单元；对于其数据修改，要么全都执行，要么全都不执行。通常，与某个事务关联的操作具有共同的目标，并且是相互依赖的。如果系统只执行这些操作的一个子集，则可能会破坏事务的总体目标。原子性消除了系统处理操作子集的可能性。
+
+  C, consistency 一致性
+  事务将数据库从一种一致状态转变为下一种一致状态。也就是说，事务在完成时，必须使所有的数据都保持一致状态（各种 constraint 不被破坏）。
+
+  I, isolation 隔离性 
+  由并发事务所作的修改必须与任何其它并发事务所作的修改隔离。事务查看数据时数据所处的状态，要么是另一并发事务修改它之前的状态，要么是另一事务修改它之后的状态，事务不会查看中间状态的数据。换句话说，一个事务的影响在该事务提交前对其他事务都不可见。
+
+  D, durability 持久性
+  事务完成之后，它对于系统的影响是永久性的。该修改即使出现致命的系统故障也将一直保持。
+
+  ## 事务的隔离级别
+
+  如果不对数据库进行并发控制，可能会产生异常情况：
+
+  脏读(Dirty Read)
+  当一个事务读取另一个事务尚未提交的修改时，产生脏读。同一事务内不是脏读。 一个事务开始读取了某行数据，但是另外一个事务已经更新了此数据但没有能够及时提交。这是相当危险的，因为很可能所有的操作都被回滚，也就是说读取出的数据其实是错误的。
+
+  非重复读(Nonrepeatable Read) 
+  一个事务对同一行数据重复读取两次，但是却得到了不同的结果。同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生非重复读。
+
+  幻像读(Phantom Reads) 
+  事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据（这里并不要求两次查询的SQL语句相同）。这是因为在两次查询过程中有另外一个事务插入数据造成的。当对某行执行插入或删除操作，而该行属于某个事务正在读取的行的范围时，会发生幻像读问题。
+
+  丢失修改(Lost Update)
+
+  第一类：当两个事务更新相同的数据源，如果第一个事务被提交，第二个却被撤销，那么连同第一个事务做的更新也被撤销。
+  第二类：有两个并发事务同时读取同一行数据，然后其中一个对它进行修改提交，而另一个也进行了修改提交。这就会造成第一次写操作失效。
+
+  为了兼顾并发效率和异常控制，在标准SQL规范中，定义了4个事务隔离级别，（ Oracle 和 SQL Server 对标准隔离级别有不同的实现 ）
+
+  未提交读(Read Uncommitted)
+  直译就是"读未提交"，意思就是即使一个更新语句没有提交，但是别的事务可以读到这个改变。
+
+  Read Uncommitted允许脏读。
+
+  已提交读(Read Committed)
+  直译就是"读提交"，意思就是语句提交以后，即执行了 Commit 以后别的事务就能读到这个改变，只能读取到已经提交的数据。Oracle等多数数据库默认都是该级别。
+
+  Read Commited 不允许脏读，但会出现非重复读。
+
+  可重复读(Repeatable Read)：
+  直译就是"可以重复读"，这是说在同一个事务里面先后执行同一个查询语句的时候，得到的结果是一样的。
+
+  Repeatable Read 不允许脏读，不允许非重复读，但是会出现幻象读。
+
+  串行读(Serializable)
+
+  直译就是"序列化"，意思是说这个事务执行的时候不允许别的事务并发执行。完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞。
+
+  Serializable 不允许不一致现象的出现。
+
+  ## 事务隔离的实现——锁
+
+  共享锁(S锁)
+  用于只读操作(SELECT)，锁定共享的资源。共享锁不会阻止其他用户读，但是阻止其他的用户写和修改。
+
+  更新锁(U锁)
+  用于可更新的资源中。防止当多个会话在读取、锁定以及随后可能进行的资源更新时发生常见形式的死锁。
+
+  独占锁(X锁，也叫排他锁)
+  一次只能有一个独占锁用在一个资源上，并且阻止其他所有的锁包括共享缩。写是独占锁，可以有效的防止“脏读”。
+
+  Read Uncommited 如果一个事务已经开始写数据，则另外一个数据则不允许同时进行写操作，但允许其他事务读此行数据。该隔离级别可以通过“排他写锁”实现。
+
+  Read Committed 读取数据的事务允许其他事务继续访问该行数据，但是未提交的写事务将会禁止其他事务访问该行。可以通过“瞬间共享读锁”和“排他写锁”实现。
+
+  Repeatable Read 读取数据的事务将会禁止写事务（但允许读事务），写事务则禁止任何其他事务。可以通过“共享读锁”和“排他写锁”实现。
+
+  Serializable 读加共享锁，写加排他锁，读写互斥。
+  ```
+
+- ​
 
 
 
@@ -481,8 +560,110 @@ def build_spiral_matrix(n):
 - What is Tail Call and Tail Recursive ? 
   - [尾调用优化](http://www.ruanyifeng.com/blog/2015/04/tail-call.html)
 
+- ***Triple Step***: A child is running up a staircase with N steps and can hop either 1 step, 2 steps or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.
 
-​	
+  - dynamic programming or recursive or tail recursive: f(n) = f(n-1) + f(n-2) + f(n-3) + 3, but
+    - dynamic programming: *Space O(n), Time O(n)*
+    - recursive: *Space O(1), Time O(3^n)*
+    - tail recursive: *Space O(1), Time O(n)*
+
+- ***Robot in a Grid***: Imagine a robot sitting on the upper left corner of grid with r rows and c columns. the robot can only move in two directions, right and down, but certain cells are off limits such that the robot cannot step on them. Design an algorithm to find a path for the robot from the top left to the bottom right.
+
+- ***Magic Index***: A magic index in an array A [1,2,3,….,n-1] is defined to be an index such that A[i] = i. Given a sorted array of distinct integers, write a method to find a magic index.
+
+  - use the ***Sorted*** characteristic of the array, binary search method, O(logN).
+
+- ***Power set***: write a method to return all subsets of a set.
+
+- ***Recursive Multiply***: write a recursive function to multiply two positive integers without using the * or / operator. you can use addition, subtraction and bit shifting, but you should minimize the number of those operations.
+
+  - binary method.
+
+- ***Towers of Hanoi***: In the classic problem of the Towers of Hanio, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom. you have the following constraints:
+
+  - only one disk can be moved at a time
+  - a disk is slid off the top of one tower onto another tower
+  - a disk cannot be placed on top of a smaller disk
+
+  write a program to move the disks from the first tower to the last using Stacks.
+
+
+![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7eecd74e-8c03-11e7-bf57-0242ac140002)
+
+- ***Permutation without dups***: write a method to compute all permutations of a string of unique characters.
+- ***Permutation with duplicates***: write a method to compute all permutations of a string whose characters are not necessary unique. The list of permutations should not have duplicates.
+- ***Parens***: Implement an algorithm to print all valid (i.e. properly opened and closed ) combinations of n pairs of parentheses.
+  - example: input 3
+  - output: ((())), ((), ()), (())(), ()(()), ()()()
+- ***Coins***: given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents) and pennies (1 cent), write code to calculate the number of ways of representing n cents.
+- ***Eight Queens***: write an algorithm to print all ways of arranging eight queens on an 8x8 chess board.
+- ***Sorted Merge***: You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. write a method to merge B into A in sorted order.
+- ***Group Anagrams***: write a method to sort an array of strings so that all the anagrams are next to each other.
+- ***Sort big file***: imagine you have a 20 GB file with one string per line. explain how you would sort the file.
+  - Using ***external sorting*** method.
+- ***Missing int***: given an input file with 4 billion non-negative integers. provide an algorithm to generate an integer that is not contained in the file. assume you have 1 GB of memory available for this task. Follow up: what if you have only 10 mb of memory?  assume that all the values are distinct and we now have no more than one billion non-negative integers.
+  - bit map algorithm
+  - division algorithm
+- ***Number swapper***: write a function to swap a number in place (that is without temporary variables)
+  - a = a - b
+  - b = a + b
+  - a = b - a
+- ***Bottle of water***: A bottle of coke is $1, you can exchange 2 empty bottles for a bottle of coke. you have N dollars, how many bottles you can drink a lot.
+
+  - `f(n) = int(n) + f(0.5 * int(n) + n - int(n))`
+- ***二维数组中的查找***: 在一个二维数组中，每一行都是按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序，写一个函数，输入一个这样的数组和整数，判断数组中是否含有该整数。
+  - 核心：四个角，从哪个角开始便利，找一个数，可以先排除不包含这个数的行或列；
+- ***替换空格***：实现一个函数，把字符串中每个空格替换成 "20%"。
+  - 思考方式同上题，逆向思考。
+- ***归并排序***：两个排序的数组a1，a2，a1后有足够多的空间容纳a2【可有可无】，写一个函数把a2所有数字插入 a1并且所有的数字都是排序的。
+  - 完全同上提，替换空格。
+- ***逆序打印***：输入一个链表的头节点，从尾到头打印每个节点的值。
+  - 递归，考虑到调用栈的溢出哦。
+- ***重建二叉树***：输入某二叉树的前序遍历和中序遍历，请重建该二叉树。
+  - 递归，理解前序，中序，后序遍历方法。所有递归，动态规划算法，考察的基本都是分析问题，将问题拆分，分解的能力。
+- ***用两个栈实现队列***：用两个栈实现一个列队，且实现该队列的两个函数：appendTail(), popHead()，分别完成在队列尾部插入节点和在队列头部删除节点的功能。
+  - 即使用两个 “先进后出” 的数据结构实现一个 “先进先出” 的数据结构。
+- ***旋转数组的最小数字***：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。
+  - O(n) 是最简单的，但是利用排序的特性，可以考虑二分，会更快，所以得出经验，排序数组相关的查找问题，都可以考虑二分。
+- ***二进制中1的个数***：写一个函数，输入一个整数，输出该数二进制表示中1的个数。
+  - 注意负数的情况
+  - 是用 0x0001 左移还是用输入的数右移，值得思考
+  - 书中提出来一种新颖的算法，只用重复 m 次，且m即为输入数字中1的个数呢，值得研究
+- ***调整数组顺序***：输入一个整数，实现一个函数来调整数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
+  - 同样：若是要所有负数在前面，所有非负数在后面呢？
+  - 同样：若是要所有能被3整除的在前面，剩余的在后面呢？
+- ***包含 min 函数的栈***：定义栈的数据结构，在该结构中实现一个能够得到栈的最小元素的min函数，使min，push，pop 的时间复杂度都是 O(1)
+  - 如果用一个临时变量来存储最小值，那当最小值被 pop 后咋办呢？
+- ***层次遍历二叉树***：从上往下打印二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+  - 画出二叉树，一步一步分析，使用队列存储即可；
+- ***二叉树后序遍历判断***：输入一个整数数组，判断该整数数组是不是某二叉搜索树的后序遍历结果。
+  - 核心是根据遍历方式找到根节点，然后左右子树递归分析
+- ***数组中出现次数超过一半的数字***：数组中又一个数字出现的次数超过数组长度的一半，请找出这个数字。
+- ***最小的k个数***：输入n个整数，找出其中最小的k个数。
+- ***连续子数组的最大和***：输入一个整型数组，其中有正数也有负数，数组中一个或连续的多个整数组成一个子数组，求所有子数组的和的最大值，要求时间复杂度为 O(n)。
+  - 还可以用动态规划哦，仔细研究推导公式。
+- ***从 1 到 n 整数中 1 出现的次数***：输入一个整数，求从 1 到 n 这n个整数的十进制中 1 的出现次数。例如输入 12，从 1到12这些整数中包含 1 点数字有：1，10，11，12，1一共出现5次。
+  - count += str(number).count('1')
+- ***把数组排成最小的数***：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印出能拼接的所有数字中的最小的一个。
+- ***数组中的逆序对***：在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对，输入一个数组，求出这个数组中的逆序对的总数。
+- ***公共节点***：输入两个链表，找出他们的第一个公共节点。
+- ***只出现一次的数字***：一个整型数组里除了两个数字之外，其他的数字都出现了2次，写程序找出这两个只出现一次的数字，时间复杂度是 O(n)，空间复杂度是 O(1)。
+- ***数组和序列***：输入一个递增排序的数组和一个数字 s，在数组中查找两个数，使他们的和正好是s。
+  - 双指针发，头尾同时遍历
+  - s/2 法，找到平均数，再向头尾遍历
+- ​
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -495,10 +676,72 @@ def build_spiral_matrix(n):
 # System Conprehension and Design
 
 - ***Social Network***: how would you design the data structures for a very large social network like facebook or linkedin? describe how you would design an algorithm to show the shortest path between two people( e.g. me -> bob -> susan -> jason -> you)
+
 - ***Web crawler***: if you were designing a web crawler, hwo would you avoid getting into infinite loops?
+
 - ***Personal financial manager***: how would you design a personal financial manager. this system would connect to your back accounts analyze your spending habits, and make recommendations.
+
 - ***Thread vs Process***: what's the difference between a thread and a process?
-- ​
+
+- ***Code Debug: unsigned int***:
+
+  ```c
+  unsigned int i;
+  for (i=100; i>=0; --i)
+    printf("%d\n", i);
+  ```
+
+- linux folder:
+
+  - root: files belong to root
+  - home: files belong to general users
+  - bin: commands
+  - sbin: commands with privilege
+  - mnt: usb, cd
+  - etc: configuration files
+  - var: changable files
+  - boot: starting system files
+  - usr: default directory of installing application, like Program File under windows
+
+- linux commands
+
+  - files
+    - cat
+    - grep
+    - vi
+    - touch
+    - rm
+    - cp
+    - ln
+    - head
+    - tail
+    - more
+    - less
+    - chmod, chown
+  - folders
+    - ls
+    - pwd
+    - cd
+    - mkdir
+    - rmdir
+    - find: find /home -size 10k
+  - other
+    - `>,>>`
+    - zip
+    - unzip
+    - tar
+
+- ***SOA: Service Orented Architecture***:
+
+  - 模块化开发 + 分布式计算
+  - 松耦合：实现，时间，位置，版本
+  - 服务设计原则：
+    - 优化远程调用
+    - 消除冗余数据
+    - 粗粒度契约，通用契约
+    - 低耦合，隔离变化
+
+- soa 是面向服务架构的，而 rest 则是面向资源的；
 
 
 
@@ -552,24 +795,26 @@ def build_spiral_matrix(n):
 
 - ***Moral***: What is your biggest weakness?
 
+
 - ***Open***: Why should we hire you to this job?
 
   - Skills, experience, personality; energy and passion;
-
 - ***Open***: Do you have any questions to ask us?
 
-  - interview/talk feedback; daily job if joined; team-members;
+  - interview/talk feedback; daily job if joined; team-members;  		
+- ***Triangle***: 一个直角三角形，底边是 10，向底边所做的高是6，求这个三角形的面积.
+  - 2 d平面上这样的三角形不存在
+  - 3d 球形面上，这样的三角形的确存在
+- ​
+
+
+
+
+
 
 
 
   	
-
-- ​
-
-
-  ​			
-  ​		
-  ​	
 
 
 
@@ -583,6 +828,54 @@ def build_spiral_matrix(n):
 - https://www.careercup.com/resume
 - http://rosettacode.org/wiki/Rosetta_Code
 - http://visualgo.net
-- https://github.com/gatieme/CodingInterviews
+- [剑指offer github](https://github.com/gatieme/CodingInterviews)
+- [http://www.infoq.com/cn/articles/micro-soa-1](http://www.infoq.com/cn/articles/micro-soa-1)
+- http://www.infoq.com/cn/articles/micro-soa-2
 - ​
 
+
+
+
+
+
+---
+
+# NZ
+
+
+
+## plan
+
+- ~ 2018.05: make money & learn NZ and the world
+- ~ 2018.01: simulate application, make the excel form
+- ~ 2018.01: Make IELTS done
+
+
+-  2018.06 -> China Working Holiday Visa
+  - [x] criteria: https://www.immigration.govt.nz/new-zealand-visas/apply-for-a-visa/criteria/china-working-holiday-visa?nationality=nationality-CHN&country=residence-NZL&applying=no
+  - [x] identity: passport
+  - [ ] healthy: make it before 2018.04
+  - [x] character
+  - [x] bona fide
+  - [x] age: 18 ~ 30
+  - [x] citizenship
+  - [ ] onward travel: make it before 2018.05
+  - [ ] funds: make it before 2018.05
+  - [x] previous approvals
+  - [x] education
+  - [ ] english language: IELTS 5.5 or more, make it before 2018.01
+  - [x] ordinarily resident
+  - [x] location
+  - [x] medical insurance
+-  2018.08 ~ 2019.08 In NZ, feeling and planning 
+
+
+
+
+
+## resources
+
+- http://jack-liu.com/
+- [新西兰打工度假怎么样？需要做什么准备？](https://www.zhihu.com/question/19998099)
+- http://www.newzealand.com/cn/
+- ​

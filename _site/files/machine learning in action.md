@@ -530,11 +530,6 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
 ## resources
 
 - kaggle algorithms test

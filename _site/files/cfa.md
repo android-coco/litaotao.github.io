@@ -43,18 +43,8 @@
 2. IASB:
    1. objective: provide financial information that is useful in making decisions about providing resources to an entity;
    2. qualititative characteristics: relevance and faithful representation; comparability, verifiability, timeliness and understandability;
-3. measurement base: 
-   1. historical cost:the amount originally paid for the assets
-   2. amortized cost: historical cost adjusted for depreciation, amortization, depletion and impairment
-   3. current cost: the amount the firm would have to pay today for the same asset
-   4. realizable value: the amount for which the firm could sell the asset 
-   5. present value: the discounted value of the assets expected future cash flows 
-   6. fair value: the amount at which two parties in an arm's-length transaction would exchange the asset.
+3. measurement base: historical cost, amortized cost, current cost, realizable value, present value, fair value
 4. asuumptions about financial statements: accrual accounting, going concern;
-5. constraints: cost-benefit, non-quantifiable.
-6. IOSCO: protect investors, ensure the fairness, efficiency and transparency of markets, ***reduce*** systemic risk.
-7. qualitative characteristics: relevance and faithful representation; comparability, verifiability, timeliness, understandability.
-8. A coherent financial reporting should be transparent, comprehensive and consistent. barriers to creating a coherent financial reporting framework include valuation, standard setting and measurement.
 
 
 
@@ -184,31 +174,31 @@
       1. net cash flows from creditors = new borrowings - principal amounts repaid
       2. net cash flows from shareholders = new equity issued - share repurchases - cash dividends paid
 10. Steps in calculating CFO, CFI, CFF in indirect method ( example on page 114):
-11. CFO
-     1. begin with net income
-     2. subtract gains or add losses that resulted from financing or investing cash flows (such as gains from sale of land)
-     3. add back all noncash charges to income (such as depreciation and amortization ), and subtract all noncash components of revenue.
-     4. add or subtract changes to balance sheet operating accounts as follows:
-        1. increases in the operating asset accounts (uses of cash) are subtracted, while decreases (sources of cash) are added;
-        2. increases in the operating liability accounts (sources of cash) are added, while decreases (uses of cash) are subtracted.
-12. ***Free cash flow*** is a measure of cash that is available for discretionary purposes.
-     1. ***FCFF***: free cash flow to the firm is the cash available to all investors, both equity owners and debt holders. is calculated from net income as : 
-        1. FCFF = NI + NCC + ***[Int x (1 - tax rate)]*** - FCInv - WCInv
-        2. FCFF = CFO + [Int x (1 - tax rate)] - FCInv
-     2. ***FCFE***: Free cash flow to equity is the cash flow that would be available for distribution to common shareholders, ca be calculated as follows:
-        1. FCFE = CFO - FCInv + net borrowing
-13. cash flow ratios can be categorized as performance ratios and coverage ratios:
-     1. [PR] cash flow to revenue ratio measures the amount of CFO for each dollar of revenue: ***现金收入比：cash flow to revenue = CFO / net revenue***
-     2. [PR] cash return-on-assets measures the return of CFO attributed to all providers of capital: ***现在资产比：cash return-on-assets = CFO / average total assets***
-     3. [PR] cash return-on-equity ratio measures the return of CFO attributed to shareholders: ***现金权益比：cash return-on-equity = CFO / average total equity***
-     4. [PR] cash to income ratio measures the ability to generate cash from firm operations: ***现金收益比：cash to income = CFO / operating income***
-     5. [PR] cash flow per share is a variation of basic earnings per share measured by using CFO instead of net income: ***每股现金流：cash flow per share = (CFO - preferred dividends ) / (weighted average number of common shares)***
-     6. [CR] debt coverage ratio measures financial risk and leverage: ***负债保障系数：debt coverage = CFO / total debts***
-     7. [CR] interest coverage ratio measures the firm's ability to meet its interest obligations: ***利息保障倍数：interest coverage = (CFO + interest paid + taxes paid) / interest paid***
-     8. [CR] reinvestment ratio measures the firm's ability to acquire long-term assets with operating cash flow: ***再投资比率： reinvestment = CFO / cash paid to long-term assets***
-     9. [CR] debt payment ratio measures the firm's ability to satisfy long-term debt with operating cash flow: ***负债偿还倍数：debt payment = CFO / cash long-term debt repayment***
-     10. [CR] dividend payment ratio measures the firm's ability to make dividend payments from operating cash flow: ***股利支付倍数：dividend payment = CFO / dividends paid***
-     11. [CR] investing and financing ratio measures the firm's ability to purchase assets, satisfy debts and pay dividends: ***投融资比率：investing and financing = CFO / cash outflows from investing and financing activities***
+ 1. CFO
+    1. begin with net income
+    2. subtract gains or add losses that resulted from financing or investing cash flows (such as gains from sale of land)
+    3. add back all noncash charges to income (such as depreciation and amortization ), and subtract all noncash components of revenue.
+    4. add or subtract changes to balance sheet operating accounts as follows:
+       1. increases in the operating asset accounts (uses of cash) are subtracted, while decreases (sources of cash) are added;
+       2. increases in the operating liability accounts (sources of cash) are added, while decreases (uses of cash) are subtracted.
+ 2. ***Free cash flow*** is a measure of cash that is available for discretionary purposes.
+    1. ***FCFF***: free cash flow to the firm is the cash available to all investors, both equity owners and debt holders. is calculated from net income as : 
+       1. FCFF = NI + NCC + ***[Int x (1 - tax rate)]*** - FCInv - WCInv
+       2. FCFF = CFO + [Int x (1 - tax rate)] - FCInv
+    2. ***FCFE***: Free cash flow to equity is the cash flow that would be available for distribution to common shareholders, ca be calculated as follows:
+       1. FCFE = CFO - FCInv + net borrowing
+ 3. cash flow ratios can be categorized as performance ratios and coverage ratios:
+    1. [PR] cash flow to revenue ratio measures the amount of CFO for each dollar of revenue: ***现金收入比：cash flow to revenue = CFO / net revenue***
+    2. [PR] cash return-on-assets measures the return of CFO attributed to all providers of capital: ***现在资产比：cash return-on-assets = CFO / average total assets***
+    3. [PR] cash return-on-equity ratio measures the return of CFO attributed to shareholders: ***现金权益比：cash return-on-equity = CFO / average total equity***
+    4. [PR] cash to income ratio measures the ability to generate cash from firm operations: ***现金收益比：cash to income = CFO / operating income***
+    5. [PR] cash flow per share is a variation of basic earnings per share measured by using CFO instead of net income: ***每股现金流：cash flow per share = (CFO - preferred dividends ) / (weighted average number of common shares)***
+    6. [CR] debt coverage ratio measures financial risk and leverage: ***负债保障系数：debt coverage = CFO / total debts***
+    7. [CR] interest coverage ratio measures the firm's ability to meet its interest obligations: ***利息保障倍数：interest coverage = (CFO + interest paid + taxes paid) / interest paid***
+    8. [CR] reinvestment ratio measures the firm's ability to acquire long-term assets with operating cash flow: ***再投资比率： reinvestment = CFO / cash paid to long-term assets***
+    9. [CR] debt payment ratio measures the firm's ability to satisfy long-term debt with operating cash flow: ***负债偿还倍数：debt payment = CFO / cash long-term debt repayment***
+    10. [CR] dividend payment ratio measures the firm's ability to make dividend payments from operating cash flow: ***股利支付倍数：dividend payment = CFO / dividends paid***
+    11. [CR] investing and financing ratio measures the firm's ability to purchase assets, satisfy debts and pay dividends: ***投融资比率：investing and financing = CFO / cash outflows from investing and financing activities***
 
 
 
@@ -297,9 +287,8 @@
 8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
 9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
 10. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
-11. ​
 
-
+ 
 
 
 
