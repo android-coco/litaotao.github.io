@@ -297,7 +297,72 @@
 8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
 9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
 10. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
-11. ​
+11. under IFRS, inventory is reported on the bs at the lower cost or net realizable value, net realizable value is equal to the expected sales price less the estimated selling costs and completion costs. inventory cannot be written up by more than it was previously written down [ exercise at page 191 ]
+12. under GAAP, inventory is reported on the bs at the lower of cost or market. market is usually equal to replacement cost, but cannot be greater than NRV or less than NRV minus a normal profit margin. if there is a subsequent recovery in value, no write-up is allowed under GAAP.
+13. ***Point: impactions of valuing inventory at net realizable value on financial statements and ratios***
+14. inventory disclosures usually found in the financial statement footnotes, are useful in evaluating the firm's inventory management.
+
+
+
+
+## Reading 29. Long-Lived Assets
+
+1. expenditure can be recorded as ***capitalize*** on the BS or as ***expense*** on the IS. for a general rule, an expenditure that is expected to provide a future economic benefit over multiple accounting periods is ***capitalized***, however if the future economic benefit is unlikely or highly uncertain, the expenditure is ***expensed*** in the period incurred.
+2. intangible assets: finite-lived intangible asset is amortized over its useful life; indefinite-lived intangible asset are tested for impairment at least annually. under IFRS, ***identifiable intangible assets*** can be ***separated, controlled, benefits-provided***, unidentifiable intangible assets cannot be purchased separately and may have an indefinite life. bellowing intangible assets will be recorded in BS: created internnaly, purchased externally, obtained as part of a business combination:
+   1. created internally: under IFRS, research costs are expensed as incurred, development costs may be capitalized; under GAAP, both research and development costs are generally expensed as incurred.
+   2. purchased intangible assets: an intangible asset purchased from another party is recorded by its fair value at acquisition.
+   3. obtained in a business combination: ***goodwill***
+3. choice between capitalizing costs and expensing them will affect net income, equity, total assets, CFO, CFI and other financial ratios:
+   1. net income: capitalizing an expenditure delays the recognition of an expense in the income statement, onver the life of an asset, total net income is identical whether the asset's cost is capitalized or expensed. timing of the expense recognition in the income statement is the only difference.
+   2. owners' equity: because capitalization results in higher net income, it is also results in higher shareholders' equity because retained earnings are greater.
+   3. CFO, CFI: record as expense -> CFO outflow; capitalization -> CFI;
+   4. financial ratios: capitalizing an expenditure initially results in higher assets and higher equity.
+4. depreciation is the systematic allocation of an asset's cost over time, ***carrying (book) value*** is the net value of an asset or liability on the bs. ***historical cost*** is the original purchase price of the asset.
+5. depreciation method:
+   1. straight line: (original cost - salvage value) / depreciable life
+   2. double decline method: ( 2 / depreciable life ) * book value at beginning of year X
+   3. units-of-production method: ( original cost - salvage value ) / life in output units * output units in the period
+6. IFRS requires firms to depreciate the components of an asset separately, and componennt depreciation is allowed under GAAP but seldom used. exercise page 217.
+7. IFRS: as asset is impaired when its carrying value exceeds the ***recoverable value***, the recoverable value is the greater one of its fair value less any selling costs and its ***value in use***, the value in use is the present value of its future cash flow stream from continued use.
+8. GAAP: an asset is considered impaired if the carrying value is greater than the asset's future ***undiscounted*** cash flow. if impaired, the asset's value is written down to fair value.
+9. intangible assets with indefinite lives are not amortized, they are tested for impairment at least annually, an impairment loss is recognized when the carrying value exceeds fair value.
+10. eventually long-lived assets are removed from the bs, ***decognition*** occurs when assets are sold, exchanged or abandoned.
+11. Impairment reduces an asset's carrying value on the BS, then affects other financial ratios, but has no impact on cash flow because it is an unrealized loss until the asset is disposed of.
+12. derecognition of assets: under cost model, the carrying value of a long-lived asset is its historical cost minus accumulated depreciation or amortization, adjusted for any impairment charges taken. under the revaluation model, the carrying model of an asset is its value as of the last revaluation date, less any subsequent depreciation or amortization.
+13. The ***average life*** of assets is useful for two reasons:
+    1. older, less-efficient assets may make a firm less competitive;
+    2. helps analysts to estimate the timing of major capital expenditures and a firm's future financing requirements.
+14. calculation of average life: accumulated depreciation / annual depreciation expense
+15. total useful life = historical cost / annual depreciation expense
+16. remaining useful life = ending net PP&E / annual depreciation expense
+17. under IFRS, property that a firm owns for the purpose of collecting rental income, earning capital appreciation or both, is classified as ***investment property***, GAAP does not distinguish this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
