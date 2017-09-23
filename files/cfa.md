@@ -336,7 +336,23 @@
 15. total useful life = historical cost / annual depreciation expense
 16. remaining useful life = ending net PP&E / annual depreciation expense
 17. under IFRS, property that a firm owns for the purpose of collecting rental income, earning capital appreciation or both, is classified as ***investment property***, GAAP does not distinguish this.
+18. A ***fiance lease*** is a purchase of an asset that is financed with debt, over the term of the lease, the lessee will recognize depreciation expense on the asset and interest expense on the liability. An ***operating lease*** is essentially a rental arrangement, no asset or liability is reported by the lessee and the periodic lease payments are simply recognized as rental expense in the IS.
 
+
+
+
+## Reading 30. Income Taxes
+
+1. tax return terminology: taxable income -> taxes payable; income tax paid; tax loss carry forward; tax base;
+2. financial reporting terminology: accounting profit; income tax expense; deferred tax liabilities; deferred tax assets; valuation allowance; carrying value; permanent difference; temporary difference;
+3. A ***DTL: deferred tax liability: 财报上的应缴税所得 大于 纳税申报单上的*** is created when income tax expense is greater than taxes payable due to ***temporary differences***. the most common reason is that different depreciation methods are used on the tax return and the income statement. it will result in future cash outflows.
+4. A ***DTA: deferred tax asset：财报上的应缴税所得 小于 纳税申报单上的*** is created when taxes payable(tax return) are greater than income tax expense(income statement) due to temporary differences. it can provide future tax savings, and typical causes of deferred tax assets are post-employment benefits, warranty expense and tax loss carryforwards.
+5. tax base of assets: depreciable equipment;  research and development; accounts receivable
+6. tax base of liabilities: customer advance; warranty liabilities; note payable;
+7. when the income tax rate changes, DTA and DTL will be changed too, ***income tax expense = taxes payable + $\triangle DTL - \triangle DTA$***.
+8. Permanent difference do not create DTA or DTL, but it will cause the firm's ***effective tax rate*** differ from the ***statutory tax rate***.
+9. if temporary difference is expected to reverse , a DTA or DTL is created. taxable temporary differences will result in expected future taxable income and deductible temporary differences will result in expected future tax deductions.
+10. ​
 
 
 
