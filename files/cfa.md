@@ -59,6 +59,10 @@
 
 
 
+# Session 7
+
+
+
 ## Reading 24: Understanding Income Statement
 
 
@@ -276,6 +280,10 @@
 
 
 
+# Session 8
+
+
+
 ## Reading 28. Inventories
 
 
@@ -352,6 +360,21 @@
 7. when the income tax rate changes, DTA and DTL will be changed too, ***income tax expense = taxes payable + $\triangle DTL - \triangle DTA$***.
 8. Permanent difference do not create DTA or DTL, but it will cause the firm's ***effective tax rate*** differ from the ***statutory tax rate***.
 9. if temporary difference is expected to reverse , a DTA or DTL is created. taxable temporary differences will result in expected future taxable income and deductible temporary differences will result in expected future tax deductions.
+
+
+
+
+## Reading 31. Non-Current ( Long-Term ) Liabilities
+
+1. bond terminology: face value (maturity value, par value), coupon rate, coupon payments, effective rate of interest, balance sheet liability, interest expense;
+2. bond type: par bond, discount bond, premium bond;
+3. ***zero coupon bonds*** make no periodic interest payments, also known as a pure-discount bond.
+4. Under GAAP, issuance costs are capitalized as an asset and allocated to the IS as an expense over the term of the bond. Under IFRS, the iitial bond liability on the BS is reduced by the amount of issuance costs, just treated as ***an unamortized discount***. under GAAP and IFRS, issuance costs are reported on the cash flow as a financing cash flow.
+5. the book value of a bond liability is based on its market yield at issuance, an increase in the bond's yield will result in a decrease in the fair value of the bond liability. vice-verse, and for analysis, the market value of a firm's debt maybe more appropriate than its book value.
+6. when bonds marture, no gain or loss is recognized by the issuer, when bonds are redeemed before maturity, a gain or loss is recognized by subtracting the redemption price from the book value of the bond liability at the reacquisition date.
+7. ***debt covenants*** are restrictions imposed by the leader on the borrower to protect the lender's position, there are ***affirmative covenants*** and ***negative covenants***.
+8. Firms reports all long-term debt on a single line on the BS, the portion that is due within the next year is reported as a current liability, and separartely discloses more detal about its long-term debt in the ***footnotes***, and a discussion of the firm's long-term debt is also found in the ***MD&A***.
+9. why leasing assets instead of purchasing them: less costly financing; reduced risk of obsolescence; less restrictive provisions; off-balance-sheet financing; tax reporting advantages;
 10. ​
 
 
@@ -364,6 +387,7 @@
 
 
 
+# Session 9
 
 
 
