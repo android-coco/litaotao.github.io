@@ -1,3 +1,24 @@
+## Basic Concepts
+
+- 机器学习 开发流程
+
+  ```
+  * 收集数据: 收集样本数据
+  * 准备数据: 注意数据的格式
+  * 分析数据: 为了确保数据集中没有垃圾数据；
+      如果是算法可以处理的数据格式或可信任的数据源，则可以跳过该步骤；
+      另外该步骤需要人工干预，会降低自动化系统的价值。
+  * 训练算法: [机器学习算法核心]如果使用无监督学习算法，由于不存在目标变量值，则可以跳过该步骤
+  * 测试算法: [机器学习算法核心]评估算法效果
+  * 使用算法: 将机器学习算法转为应用程序
+  ```
+
+
+
+
+
+
+
 ## kNN 
 
 1. Pros: High accuracy, insensitive to outliers, no assumptions about data
@@ -533,6 +554,130 @@ if __name__ == "__main__":
 
 ## SVM
 
+- pros: low generalization error, computationally inexpensive, eay to interpret results;
+- cons: sensitive to tuning parameters and kernel choice; natively only handles binary classification;
+- works with: numeric values, nominal values
+- If data points are separated enough that we can draw a straight line with all the points of one class on one side of the side and all the points of the other class on the other side of the line, if such a situation exists, we say the data is ***linearly separable***. and the line used to sparate the dataset is called a ***separating hyperplane***, in 2D plots, is's just a line. but if we have N dimensions data points, we need something N-1 dimensions to separate them. and the N-1 dimension is called a ***hyperplane***, it's the decision boundary. 
+- We'd like to make our classifier in such a way that the farther a data point is from the decision boundary, the more confident we are about the prediction we've made. And we shouldn't use the minimizing the average distance to the separating hyperplane, cause it can not deal with situation bellow, which means B and C are better than D.
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/3860076c-99da-11e7-95fa-0242ac140002)
+
+
+
+- We'd like to find the point closest to the separating hyperplane and make sure this is as far away from the separating line as possible. this is known as ***margin***, we want to have the greatest possible margin, and the points closest to the separating hyperplane are known as ***support vectors [support: make the separating hyperplane confident, vectors: A N dimensions point, (x, y) in 2D plots]***. So now we know that we're trying to maximize the distance from the separating line the support vectors, we need to find a way to optimize this problem.
+- if we want to find the distance from A to the separating plane, we must measure normal or perpendicular to the line, this is given by $\frac {|w_{}^{T} x + b|} {|w|} $, [frankly, I don't get this formula, google 点到直线的距离即可].
+- [点到直线距离公式的几种推导](https://zhuanlan.zhihu.com/p/26307123)
+- ​
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/db3d1bde-99dd-11e7-9497-0242ac140002)
+- For svm, the principles are a little hard to understand, I think we can start from ***learning to use to*** then to slowly find ***how it works***. we can learn from code: https://github.com/litaotao/MachineLearning , a very awesome repo.
+- ***kernels***: is kind of a way for mapping data to higher dimensions. matchematicians like to call this ***mapping from one feature space to another feature space***, and this mapping goes from a lower-dimensional feature space to a higher-dimensions space, usually. if feature space sounds confusing, you can think of it as another distance metric.
+- ***summary***: SVM are a type of classifier, they're called machines because they generate a binary decision, they're decision machines. ther're considered by some to be the best ***stock*** algorithm in unsupervised learning. svm try to maximize margin by solving a quadratic optimization problem. kernel methods or the kernel trick, map data from a low-dimensional space to a high-dimensional space, in a higher dimension, you can solve a linear problem that's nonlinear in lower-dimensional space.
+
+
+
+
+## Adaboost
+
+- concept: meta-algorithms, boosting, adaboost [ adaptive boosting].
+- pros: low generalization error, easy to code, works with most classifiers, no parameters to adjust
+- cons: sensitvie to outliers
+- works with: numeric values, nominal values
+- ​
+
+
+
+
+## Predicting Numeric Values: Regression
+
+- The difference between regression and classification is that in regression our target variable is numeric and continuous.
+- Our goal when using regression is to predict a numeric target value, one way to do this is to write out an equation for the target vaue with respect to the inputs, that's known as ***regression equation***. and for the quation, there are two kinds: ***linear regression and non-linear regression***.
+- our input data is in the matrix $X$, and regression weights in the vector $w$, for a given piece of data $X1$, our predicted value is given by $y1 = X_1^{T} * w$, we have the $Xs$ and $Ys$, but how can we find the $Ws$, one way is to find the $Ws$ which can minimize the error. and we define the error as the difference between predicted $y$ and the actual $Y$. using just the error will allow positive and negative values to cancel out, so we use the squared error, then write this as $\sum_{i=1}^m (y_i^{} - x_i^{T}w)_{}^{2}$ , and we can also wirte this in matrix notation as $(y-xw)_{}^{T} * (y-xw)$, if we take the derivative of this with respect to $w$, we'll get $X_{}^{T} * (y - Xw)$, and we can set this to zero and solve for $w$ to get the following equation: $\hat w = (X_{}^{T} * X)_{}^{-1} * X_{}^{T} * y$. 
+- One way we can calculate how well the predicted data matches our actual data is with the correlation between the two series.
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a3a16466-9e7c-11e7-95fa-0242ac140002)
+
+
+- Bellow the best-fit line does a great job of modeling the data as if it were a straight line. but it looks like the data has some patterns we may want to take advantage of. and one way we can do is called ***locally adjust forecast: 局部加权线性回归*** based on the data.
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1700c10c-9e8e-11e7-9497-0242ac140002)
+
+- Linear regression tends to underfoot the data, and there are a number of ways to reduce the mean-squared error by adding some bias into our estimator. in LWLR we give a weight to data points near our data point of interest, then we compute a least-squares regression similar to above. This type of regression uses the dataset each time a calculation is needed, similar to kNN, the solution is now given by: $\hat w = (X_{}^{T} * X)_{}^{-1} * X_{}^{T} * W * y$, where $W$ is a matrix that's used to weight the data points.
+
+- LWLR uses a kernel something like the kernels demonstrated in SVM to weight nearby points more heavily than other points. the most common kernel to use is a ***Gaussian***, the kernel assigns a weight given by: $w(i, i) = exp(\frac {\mid x_{}^{i} - x \mid} {-2k_{}^{2}})$, this builds the matrix $w$, which has only diagonal elements, the closer the data point x is to the other points, the larger w(i, i) will be, the $k$ will determine how much to weight nearby points.
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/586c36c6-9e93-11e7-9497-0242ac140002)
+
+- the core code of lwlr and the effection is bellow:
+
+- ```python
+  def lwlr(testPoint, xArr, yArr, k=1.0):
+      xMat = mat(xArr)
+      yMat = mat(yArr).T
+      m = shape(xMat)[0]
+      weights = mat(eye(m))
+      
+      for j in range(m):
+          diffMat = testPoint - xMat[j, :]
+          weights[j, j] = exp(diffMat * diffMat.T) / (-2.0 * k ** 2)
+          
+      xTx = xMat.T * (weights * xMat)
+      ws = xTx.I * (xMat.T * (weights * yMat))
+      
+      return testPoint * ws
+
+  def lwlr_test(testArr, xArr, yArr, k=1.0):
+      m = shape(testArr)[0]
+      yHat = zeros(m)
+      for i in range(m):
+          yHat[i] = lwlr(testArr[i], xArr, yArr, k)
+      
+      return yHat
+  ```
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/801f8cca-9e95-11e7-9497-0242ac140002)
+
+- one problem with lwlr is that it involves lots of computations. you have to use the entire dataset to make one estimate.
+
+- what if we have more features than data points? we'll get an error wen compute $X_{}^{T} * X$, and if we have more features than data points (n > m), we day that our data matrix $X$ isn't full rank. to solve this problem, we can use the ***shrinkage methods***. ridge regression and lasso regression.
+
+- ridge regreesion add an matrix $\lambda I$ to the data matrix, so that it's non-singular and can compute the inverse.  then the solution will look like: $\hat w = (X_{}^{T} * X + \lambda I)_{}^{-1} * X_{}^{T} * y$, we can use the $\lambda$ to impose a maximum value on the sum of all our $ws$, by imposing this penalty, we can decrease unimportant parameters, this decreasing is known as ***shrinkage*** in statistics.
+
+- we choose $\lambda$ to minimize prediction error, we take some of our data, set it aside for testing, and the use the remaining data to determine the $ws$, then test this model against our test data and measure its performance, this is repeated with different $\lambda$ values until we find a $\lambda$ that minimizes prediction error.
+
+- There are other shrinkage methods such as the lasso, LAR, PCA regression and subset selection.
+
+- ​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -541,7 +686,16 @@ if __name__ == "__main__":
 
 - kaggle algorithms test
 - http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/
-- ​
+- [点到直线距离公式的几种推导](https://zhuanlan.zhihu.com/p/26307123)
+- [支持向量机(SVM)是什么意思？](https://www.zhihu.com/question/21094489)
+- [如何通俗易懂地解释「协方差」与「相关系数」的概念？](https://www.zhihu.com/question/20852004)
+- [https://github.com/litaotao/MachineLearning](https://github.com/litaotao/MachineLearning)
+- [ 加权最小二乘法与局部加权线性回归 ](https://uqer.io/community/share/57887c7e228e5b8a03932c66)
+- []()
+- []()
+- []()
+
+
 
 
 

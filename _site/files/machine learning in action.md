@@ -1,3 +1,24 @@
+## Basic Concepts
+
+- 机器学习 开发流程
+
+  ```
+  * 收集数据: 收集样本数据
+  * 准备数据: 注意数据的格式
+  * 分析数据: 为了确保数据集中没有垃圾数据；
+      如果是算法可以处理的数据格式或可信任的数据源，则可以跳过该步骤；
+      另外该步骤需要人工干预，会降低自动化系统的价值。
+  * 训练算法: [机器学习算法核心]如果使用无监督学习算法，由于不存在目标变量值，则可以跳过该步骤
+  * 测试算法: [机器学习算法核心]评估算法效果
+  * 使用算法: 将机器学习算法转为应用程序
+  ```
+
+
+
+
+
+
+
 ## kNN 
 
 1. Pros: High accuracy, insensitive to outliers, no assumptions about data
@@ -533,6 +554,48 @@ if __name__ == "__main__":
 
 ## SVM
 
+- pros: low generalization error, computationally inexpensive, eay to interpret results;
+- cons: sensitive to tuning parameters and kernel choice; natively only handles binary classification;
+- works with: numeric values, nominal values
+- If data points are separated enough that we can draw a straight line with all the points of one class on one side of the side and all the points of the other class on the other side of the line, if such a situation exists, we say the data is ***linearly separable***. and the line used to sparate the dataset is called a ***separating hyperplane***, in 2D plots, is's just a line. but if we have N dimensions data points, we need something N-1 dimensions to separate them. and the N-1 dimension is called a ***hyperplane***, it's the decision boundary. 
+- We'd like to make our classifier in such a way that the farther a data point is from the decision boundary, the more confident we are about the prediction we've made. And we shouldn't use the minimizing the average distance to the separating hyperplane, cause it can not deal with situation bellow, which means B and C are better than D.
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/3860076c-99da-11e7-95fa-0242ac140002)
+
+
+
+- We'd like to find the point closest to the separating hyperplane and make sure this is as far away from the separating line as possible. this is known as ***margin***, we want to have the greatest possible margin, and the points closest to the separating hyperplane are known as ***support vectors [support: make the separating hyperplane confident, vectors: A N dimensions point, (x, y) in 2D plots]***. So now we know that we're trying to maximize the distance from the separating line the support vectors, we need to find a way to optimize this problem.
+- if we want to find the distance from A to the separating plane, we must measure normal or perpendicular to the line, this is given by $\frac {|w_{}^{T} x + b|} {|w|} $, [frankly, I don't get this formula, google 点到直线的距离即可].
+- [点到直线距离公式的几种推导](https://zhuanlan.zhihu.com/p/26307123)
+- ​
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/db3d1bde-99dd-11e7-9497-0242ac140002)
+- For svm, the principles are a little hard to understand, I think we can start from ***learning to use to*** then to slowly find ***how it works***. we can learn from code: https://github.com/litaotao/MachineLearning , a very awesome repo.
+- ***kernels***: is kind of a way for mapping data to higher dimensions. matchematicians like to call this ***mapping from one feature space to another feature space***, and this mapping goes from a lower-dimensional feature space to a higher-dimensions space, usually. if feature space sounds confusing, you can think of it as another distance metric.
+- ***summary***: SVM are a type of classifier, they're called machines because they generate a binary decision, they're decision machines. ther're considered by some to be the best ***stock*** algorithm in unsupervised learning. svm try to maximize margin by solving a quadratic optimization problem. kernel methods or the kernel trick, map data from a low-dimensional space to a high-dimensional space, in a higher dimension, you can solve a linear problem that's nonlinear in lower-dimensional space.
+
+
+
+
+## Adaboost
+
+- concept: meta-algorithms, boosting, adaboost [ adaptive boosting].
+- pros: low generalization error, easy to code, works with most classifiers, no parameters to adjust
+- cons: sensitvie to outliers
+- works with: numeric values, nominal values
+- ​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -541,7 +604,16 @@ if __name__ == "__main__":
 
 - kaggle algorithms test
 - http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/
-- ​
+- [点到直线距离公式的几种推导](https://zhuanlan.zhihu.com/p/26307123)
+- [支持向量机(SVM)是什么意思？](https://www.zhihu.com/question/21094489)
+- [如何通俗易懂地解释「协方差」与「相关系数」的概念？](https://www.zhihu.com/question/20852004)
+- [https://github.com/litaotao/MachineLearning](https://github.com/litaotao/MachineLearning)
+- []()
+- []()
+- []()
+- []()
+
+
 
 
 
