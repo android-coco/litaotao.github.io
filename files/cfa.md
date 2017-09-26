@@ -375,15 +375,25 @@
 7. ***debt covenants*** are restrictions imposed by the leader on the borrower to protect the lender's position, there are ***affirmative covenants*** and ***negative covenants***.
 8. Firms reports all long-term debt on a single line on the BS, the portion that is due within the next year is reported as a current liability, and separartely discloses more detal about its long-term debt in the ***footnotes***, and a discussion of the firm's long-term debt is also found in the ***MD&A***.
 9. why leasing assets instead of purchasing them: less costly financing; reduced risk of obsolescence; less restrictive provisions; off-balance-sheet financing; tax reporting advantages;
-10. ​
-
-
-
-
-
-
-
-
+10. under IFRS, the classification of a lease is determined by the ***conomic substance*** of the transaction, if substantially all the rights and risks of ownership are transferred to the lessee, the lease is treated as ***finance lease***.
+11. financial statement and ratio effects of operating and finance leases [by the ***lessee***]:
+    1. BS: A finance lease results in a reported asset and liability. and operating lease are sometimes referred to as ***off-balance-sheet financing activities***.
+    2. IS: operating income (EBIT) will be higher for companies that use finance leases relative to companies that use operating leases. but net income will be lower for a finance lease in its early years and higher in its later years, compared to an operating leases.
+    3. CF: total cash flow is unaffected by the accounting treatment of a lease. if the lease is treated as an operating lease, then the total cash payment reduces cash from operations. if it's treated as a finance lease, then the interest expense reduces cash flow from operations, and the repayment of principal reduces cash flow from financing activities.
+12. financial statement and ratio effects of operating and finance leases [by the ***lessor***]
+    1. from the lessor's perspective, a capital lease under GAAP is treated as either a ***sales-type*** lease or a ***direct financing*** lease. IFRS does not distinguish those.
+    2. a ***sales type lease*** is treated as if the lessor sold the asset for the present value of the lease payments and provided a load to the buyer in the same amount. at the inception of the lease, the lessor recognize a sale equal to the present value of the lease payments, and COGS equal to the carrying value of the asset.
+    3. in a ***direct financing lease***, no gross profit is recogized by the lessor at the inception of the lease.
+    4. if the lease is operating lease, the lessor simply recognizes the lease payment as rental income, and will keep the leased asset on its balance sheet and depreciate it over its useful life.
+13. A ***pension*** is a form of deferred compensation earned over time through employee service. a ***defined contribution plan*** is a retirement plan in which the firm contributes a sum each period the the employee's retirement account. and a ***defined benefit plan*** will promise to make periodic payments to employees after retirement. for a defined benefit plan, the ***net pension asset*** or the ***net pension liability*** is a key element for analysis. if the fair value of the plan's assets is greater than the estimated pension obligation, the plan is said to be ***overfunded***, otherwise.
+14. leverage ratios:
+    1. debt-to-asset  = total debt / total assets
+    2. debt-to-capital = total debt / (total debt + total equity), total capital and total assets differ by the firm's non-interest bearing liabilities.
+    3. debt-to-equity = total debt / total equity
+    4. financial leverage = average total assets / average total equity
+15. coverage ratios:
+    1. interest coverage = EBIT / interest payments
+    2. fixed charge coverage = (EBIT + lease payments) / (interest payments + lease payments)
 
 
 
@@ -391,9 +401,36 @@
 
 
 
+## Reading 32. Financial Reporting Quality
+
+1. ***financial reporting quality*** refers to the characteristics of a firm's financial statements. high quality reporting must be ***decision useful***, two characteristics of decision-useful financial reporting are ***relevance*** and ***faithful representation***. relevant information must also be ***material***, and faithful encompasses the qualities of ***completeness*** and ***neutrality***.
+2. the ***quality of earning*** is a separate issue, can be judged based on the ***substainability*** of the earnings.
+3. ***aggressive accounting*** often results in decreased earnings in future periods, and ***conservative accounting*** will tend to increase future period earnings.
+4. we should avoid thinking about conservatism in financial reporting as good and aggressive reporting as bad.
+5. three factors that exist where management provides low-quality reporting are : motivation, opportunity and rationalization.
+6. accounting methods that could be used to manage earnings, cash flow and balance sheet items:
+   1. revenue recognition
+   2. estimates of credit losses
+   3. valuation allowance
+   4. depreciation methods and estimates
+   5. amortization and impairment
+   6. inventory method
+   7. related-party transactions
+   8. capitalization
+   9. other cash flow effects
 
 
 
+## Reading 33. Financial Statement Analysis: Applications
+
+1. types of items used to credit rating are : scale and diversification; operational efficiency; margin stability; leverge;
+2. adjustments to improve the comparability of firm's financial statements and ratios:
+   1. investments in securities: the classification of a firm's investment securities affects how changes in their values are recorded, which can affect reported earnings and assets.
+   2. inventory accounting differences:
+   3. differences in depreciation methods and estimates
+   4. off-balance-sheet financing
+   5. goodwill
+   6. other intangible assets
 
 
 
