@@ -129,7 +129,16 @@ Python中使用了某些启发式算法（heuristics）来加速垃圾回收。�
 ```
 
 - what is flask and the difference between django, pyramid?
-- ​
+- async programming: 
+  - coroutine
+  - multi-thread
+  - multi-process
+  - asyncio
+  - gevent
+  - uvloop [awesome repo], pyuv
+  - celery
+  - ​
+  - ​
 
 
 
