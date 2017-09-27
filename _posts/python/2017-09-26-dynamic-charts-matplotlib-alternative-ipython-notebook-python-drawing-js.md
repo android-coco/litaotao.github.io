@@ -157,6 +157,14 @@ def print_html(html_text):
 <embed src="http://nbviewer.jupyter.org/url/litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb" width="100%" height="1000px">
 
 
+按照节奏，现在一般应该把源码和案例全放上来了，ok：
+
+- mof_public.py: [http://litaotao.github.io/files/mof_public.py](http://litaotao.github.io/files/mof_public.py)
+- demo notebook: [http://litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb](http://litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb)
+
+回头再看看有木有必要提个 pr 到那哥们的 repo 里。
+
+
 ## 5. 后记
 
 首先还是感谢各位 star 了我的项目的朋友们，下面你们可以来 star 这个新项目了，虽然不会经常更新【经常更新就一定是好事？】，但是保证在一些场景下，绝对比以前的好用好多好多倍呢，所以快来 star 吧。
