@@ -164,6 +164,7 @@ def print_html(html_text):
 
 回头再看看有木有必要提个 pr 到那哥们的 repo 里。
 
+最后贴上我几乎天天在用的一个案例，真正实现了一键出图，哈哈：[http://litaotao.github.io/files/report20170926](http://litaotao.github.io/files/report20170926)
 
 ## 5. 后记
 
