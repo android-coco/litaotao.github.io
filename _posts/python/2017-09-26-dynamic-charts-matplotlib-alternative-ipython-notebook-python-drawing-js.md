@@ -154,6 +154,7 @@ def print_html(html_text):
 下面简单展示下效果，为了大家方便，我把测试数据也准备好了，所以这个 notebook
 大家是可以直接下载下来运行的，我的环境是：python 2.7 + ipython 3.2.2
 
+<embed src="http://nbviewer.jupyter.org/url/litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb" width="100%" height="1000px">
 
 
 ## 5. 后记
@@ -181,4 +182,6 @@ def print_html(html_text):
 
 其实结合起一些经验来看，我发现大千世界真的事事向通。比如说，最近两三年关于创业很多的几本书：《创业维艰》，《精益创业》，《The One Thing》，我总结下来，其实可以简单的说：找到一个核心问题，并且找到一个能解决这个核心问题的解决方案，然后不断的把这个方案做到极致。是不是很熟悉，马上我就能在以前看过的鸡汤书里找到几句雷同的话，比如说我大新东方总教头余老师说的 “努力做到行业内的 top 20”；比如说现在的我大中华传承了几千年的经验 “360行，行行出状元”。如果这些都比较虚，那可以简单反思自己，在你买的很多东西中，不管网上网下，真实的还是虚拟的，你是因为它功能丰富买单呢？还是因为它真切的解决了你的某一项需求而付钱呢？类似的论断，我也在前段时间写的工作感悟中有提到，在这里，第八条：  [工作 3 年后的一些思考【Part 3】](http://litaotao.github.io/thinkings-about-life-work-family-part-3)
 
-好像又扯了不少了，最后
+好像又扯了不少了，最后感谢下开发了这个 [https://github.com/arnoutaertgeerts/python-highcharts](https://github.com/arnoutaertgeerts/python-highcharts) repo 的哥们，的确省了我不少时间，然后也感谢各位观众们，哈哈，不要忘了给我 star 啊，哈哈哈哈～～～
+
+
