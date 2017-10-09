@@ -59,6 +59,10 @@
 
 
 
+# Session 7
+
+
+
 ## Reading 24: Understanding Income Statement
 
 
@@ -276,6 +280,10 @@
 
 
 
+# Session 8
+
+
+
 ## Reading 28. Inventories
 
 
@@ -297,7 +305,143 @@
 8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
 9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
 10. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
-11. ​
+11. under IFRS, inventory is reported on the bs at the lower cost or net realizable value, net realizable value is equal to the expected sales price less the estimated selling costs and completion costs. inventory cannot be written up by more than it was previously written down [ exercise at page 191 ]
+12. under GAAP, inventory is reported on the bs at the lower of cost or market. market is usually equal to replacement cost, but cannot be greater than NRV or less than NRV minus a normal profit margin. if there is a subsequent recovery in value, no write-up is allowed under GAAP.
+13. ***Point: impactions of valuing inventory at net realizable value on financial statements and ratios***
+14. inventory disclosures usually found in the financial statement footnotes, are useful in evaluating the firm's inventory management.
+
+
+
+
+## Reading 29. Long-Lived Assets
+
+1. expenditure can be recorded as ***capitalize*** on the BS or as ***expense*** on the IS. for a general rule, an expenditure that is expected to provide a future economic benefit over multiple accounting periods is ***capitalized***, however if the future economic benefit is unlikely or highly uncertain, the expenditure is ***expensed*** in the period incurred.
+2. intangible assets: finite-lived intangible asset is amortized over its useful life; indefinite-lived intangible asset are tested for impairment at least annually. under IFRS, ***identifiable intangible assets*** can be ***separated, controlled, benefits-provided***, unidentifiable intangible assets cannot be purchased separately and may have an indefinite life. bellowing intangible assets will be recorded in BS: created internnaly, purchased externally, obtained as part of a business combination:
+   1. created internally: under IFRS, research costs are expensed as incurred, development costs may be capitalized; under GAAP, both research and development costs are generally expensed as incurred.
+   2. purchased intangible assets: an intangible asset purchased from another party is recorded by its fair value at acquisition.
+   3. obtained in a business combination: ***goodwill***
+3. choice between capitalizing costs and expensing them will affect net income, equity, total assets, CFO, CFI and other financial ratios:
+   1. net income: capitalizing an expenditure delays the recognition of an expense in the income statement, onver the life of an asset, total net income is identical whether the asset's cost is capitalized or expensed. timing of the expense recognition in the income statement is the only difference.
+   2. owners' equity: because capitalization results in higher net income, it is also results in higher shareholders' equity because retained earnings are greater.
+   3. CFO, CFI: record as expense -> CFO outflow; capitalization -> CFI;
+   4. financial ratios: capitalizing an expenditure initially results in higher assets and higher equity.
+4. depreciation is the systematic allocation of an asset's cost over time, ***carrying (book) value*** is the net value of an asset or liability on the bs. ***historical cost*** is the original purchase price of the asset.
+5. depreciation method:
+   1. straight line: (original cost - salvage value) / depreciable life
+   2. double decline method: ( 2 / depreciable life ) * book value at beginning of year X
+   3. units-of-production method: ( original cost - salvage value ) / life in output units * output units in the period
+6. IFRS requires firms to depreciate the components of an asset separately, and componennt depreciation is allowed under GAAP but seldom used. exercise page 217.
+7. IFRS: as asset is impaired when its carrying value exceeds the ***recoverable value***, the recoverable value is the greater one of its fair value less any selling costs and its ***value in use***, the value in use is the present value of its future cash flow stream from continued use.
+8. GAAP: an asset is considered impaired if the carrying value is greater than the asset's future ***undiscounted*** cash flow. if impaired, the asset's value is written down to fair value.
+9. intangible assets with indefinite lives are not amortized, they are tested for impairment at least annually, an impairment loss is recognized when the carrying value exceeds fair value.
+10. eventually long-lived assets are removed from the bs, ***decognition*** occurs when assets are sold, exchanged or abandoned.
+11. Impairment reduces an asset's carrying value on the BS, then affects other financial ratios, but has no impact on cash flow because it is an unrealized loss until the asset is disposed of.
+12. derecognition of assets: under cost model, the carrying value of a long-lived asset is its historical cost minus accumulated depreciation or amortization, adjusted for any impairment charges taken. under the revaluation model, the carrying model of an asset is its value as of the last revaluation date, less any subsequent depreciation or amortization.
+13. The ***average life*** of assets is useful for two reasons:
+    1. older, less-efficient assets may make a firm less competitive;
+    2. helps analysts to estimate the timing of major capital expenditures and a firm's future financing requirements.
+14. calculation of average life: accumulated depreciation / annual depreciation expense
+15. total useful life = historical cost / annual depreciation expense
+16. remaining useful life = ending net PP&E / annual depreciation expense
+17. under IFRS, property that a firm owns for the purpose of collecting rental income, earning capital appreciation or both, is classified as ***investment property***, GAAP does not distinguish this.
+<<<<<<< HEAD
+=======
+18. A ***fiance lease*** is a purchase of an asset that is financed with debt, over the term of the lease, the lessee will recognize depreciation expense on the asset and interest expense on the liability. An ***operating lease*** is essentially a rental arrangement, no asset or liability is reported by the lessee and the periodic lease payments are simply recognized as rental expense in the IS.
+>>>>>>> aa9a77daa44171ff57c832428de7e342959dd528
+
+
+
+
+## Reading 30. Income Taxes
+
+1. tax return terminology: taxable income -> taxes payable; income tax paid; tax loss carry forward; tax base;
+2. financial reporting terminology: accounting profit; income tax expense; deferred tax liabilities; deferred tax assets; valuation allowance; carrying value; permanent difference; temporary difference;
+3. A ***DTL: deferred tax liability: 财报上的应缴税所得 大于 纳税申报单上的*** is created when income tax expense is greater than taxes payable due to ***temporary differences***. the most common reason is that different depreciation methods are used on the tax return and the income statement. it will result in future cash outflows.
+4. A ***DTA: deferred tax asset：财报上的应缴税所得 小于 纳税申报单上的*** is created when taxes payable(tax return) are greater than income tax expense(income statement) due to temporary differences. it can provide future tax savings, and typical causes of deferred tax assets are post-employment benefits, warranty expense and tax loss carryforwards.
+5. tax base of assets: depreciable equipment;  research and development; accounts receivable
+6. tax base of liabilities: customer advance; warranty liabilities; note payable;
+7. when the income tax rate changes, DTA and DTL will be changed too, ***income tax expense = taxes payable + $\triangle DTL - \triangle DTA$***.
+8. Permanent difference do not create DTA or DTL, but it will cause the firm's ***effective tax rate*** differ from the ***statutory tax rate***.
+9. if temporary difference is expected to reverse , a DTA or DTL is created. taxable temporary differences will result in expected future taxable income and deductible temporary differences will result in expected future tax deductions.
+
+
+
+## Reading 31. Non-Current ( Long-Term ) Liabilities
+
+1. bond terminology: face value (maturity value, par value), coupon rate, coupon payments, effective rate of interest, balance sheet liability, interest expense;
+2. bond type: par bond, discount bond, premium bond;
+3. ***zero coupon bonds*** make no periodic interest payments, also known as a pure-discount bond.
+4. Under GAAP, issuance costs are capitalized as an asset and allocated to the IS as an expense over the term of the bond. Under IFRS, the iitial bond liability on the BS is reduced by the amount of issuance costs, just treated as ***an unamortized discount***. under GAAP and IFRS, issuance costs are reported on the cash flow as a financing cash flow.
+5. the book value of a bond liability is based on its market yield at issuance, an increase in the bond's yield will result in a decrease in the fair value of the bond liability. vice-verse, and for analysis, the market value of a firm's debt maybe more appropriate than its book value.
+6. when bonds marture, no gain or loss is recognized by the issuer, when bonds are redeemed before maturity, a gain or loss is recognized by subtracting the redemption price from the book value of the bond liability at the reacquisition date.
+7. ***debt covenants*** are restrictions imposed by the leader on the borrower to protect the lender's position, there are ***affirmative covenants*** and ***negative covenants***.
+8. Firms reports all long-term debt on a single line on the BS, the portion that is due within the next year is reported as a current liability, and separartely discloses more detal about its long-term debt in the ***footnotes***, and a discussion of the firm's long-term debt is also found in the ***MD&A***.
+9. why leasing assets instead of purchasing them: less costly financing; reduced risk of obsolescence; less restrictive provisions; off-balance-sheet financing; tax reporting advantages;
+10. under IFRS, the classification of a lease is determined by the ***conomic substance*** of the transaction, if substantially all the rights and risks of ownership are transferred to the lessee, the lease is treated as ***finance lease***.
+11. financial statement and ratio effects of operating and finance leases [by the ***lessee***]:
+    1. BS: A finance lease results in a reported asset and liability. and operating lease are sometimes referred to as ***off-balance-sheet financing activities***.
+    2. IS: operating income (EBIT) will be higher for companies that use finance leases relative to companies that use operating leases. but net income will be lower for a finance lease in its early years and higher in its later years, compared to an operating leases.
+    3. CF: total cash flow is unaffected by the accounting treatment of a lease. if the lease is treated as an operating lease, then the total cash payment reduces cash from operations. if it's treated as a finance lease, then the interest expense reduces cash flow from operations, and the repayment of principal reduces cash flow from financing activities.
+12. financial statement and ratio effects of operating and finance leases [by the ***lessor***]
+    1. from the lessor's perspective, a capital lease under GAAP is treated as either a ***sales-type*** lease or a ***direct financing*** lease. IFRS does not distinguish those.
+    2. a ***sales type lease*** is treated as if the lessor sold the asset for the present value of the lease payments and provided a load to the buyer in the same amount. at the inception of the lease, the lessor recognize a sale equal to the present value of the lease payments, and COGS equal to the carrying value of the asset.
+    3. in a ***direct financing lease***, no gross profit is recogized by the lessor at the inception of the lease.
+    4. if the lease is operating lease, the lessor simply recognizes the lease payment as rental income, and will keep the leased asset on its balance sheet and depreciate it over its useful life.
+13. A ***pension*** is a form of deferred compensation earned over time through employee service. a ***defined contribution plan*** is a retirement plan in which the firm contributes a sum each period the the employee's retirement account. and a ***defined benefit plan*** will promise to make periodic payments to employees after retirement. for a defined benefit plan, the ***net pension asset*** or the ***net pension liability*** is a key element for analysis. if the fair value of the plan's assets is greater than the estimated pension obligation, the plan is said to be ***overfunded***, otherwise.
+14. leverage ratios:
+    1. debt-to-asset  = total debt / total assets
+    2. debt-to-capital = total debt / (total debt + total equity), total capital and total assets differ by the firm's non-interest bearing liabilities.
+    3. debt-to-equity = total debt / total equity
+    4. financial leverage = average total assets / average total equity
+15. coverage ratios:
+    1. interest coverage = EBIT / interest payments
+    2. fixed charge coverage = (EBIT + lease payments) / (interest payments + lease payments)
+
+
+
+# Session 9
+
+
+
+## Reading 32. Financial Reporting Quality
+
+1. ***financial reporting quality*** refers to the characteristics of a firm's financial statements. high quality reporting must be ***decision useful***, two characteristics of decision-useful financial reporting are ***relevance*** and ***faithful representation***. relevant information must also be ***material***, and faithful encompasses the qualities of ***completeness*** and ***neutrality***.
+2. the ***quality of earning*** is a separate issue, can be judged based on the ***substainability*** of the earnings.
+3. ***aggressive accounting*** often results in decreased earnings in future periods, and ***conservative accounting*** will tend to increase future period earnings.
+4. we should avoid thinking about conservatism in financial reporting as good and aggressive reporting as bad.
+5. three factors that exist where management provides low-quality reporting are : motivation, opportunity and rationalization.
+6. accounting methods that could be used to manage earnings, cash flow and balance sheet items:
+   1. revenue recognition
+   2. estimates of credit losses
+   3. valuation allowance
+   4. depreciation methods and estimates
+   5. amortization and impairment
+   6. inventory method
+   7. related-party transactions
+   8. capitalization
+   9. other cash flow effects
+
+
+
+## Reading 33. Financial Statement Analysis: Applications
+
+1. types of items used to credit rating are : scale and diversification; operational efficiency; margin stability; leverge;
+2. adjustments to improve the comparability of firm's financial statements and ratios:
+   1. investments in securities: the classification of a firm's investment securities affects how changes in their values are recorded, which can affect reported earnings and assets.
+   2. inventory accounting differences:
+   3. differences in depreciation methods and estimates
+   4. off-balance-sheet financing
+   5. goodwill
+   6. other intangible assets
+
+
+
+
+
+
+
+
+
 
 
 

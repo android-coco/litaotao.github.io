@@ -67,7 +67,7 @@
 
 
 
-1. `revenues - expenses = net income = revenues - ordinary expenses + other income - other expenses + gains - losses`, investors use it for valuation purpose, while lenders use it to see whether or not the firm can make the promised profit and payments on its debts.
+1. basic equation: `revenues - expenses = net income`, investors use it for valuation purpose, while lenders use it to see whether or not the firm can make the promised profit and payments on its debts. or `net income = revenues - ordinary expenses + other income - other expenses + gains - losses`
    1. revenue: the amounts reported from the sale of goods and services in the normal business;
    2. expense: the amounts incurred to generate revenue and include cost of goods sold, operating expenses, interest and taxes, can be grouped by nature or function, group by function is sometimes referred to as the cost of sales method.
 2. multi-step formats:
@@ -75,7 +75,7 @@
    2. gross profit - operating expenses = ***Operating Profit***
    3. operating profit - interest expense = ***Income before Tax***
    4. income before tax -  provision for income tax - earnings from discountinued operations = ***Net Income***
-3. expenses can be grouped by ***nature*** or ***function***: 生产和管理中的折旧费按性质分类；关于生产的一切成本（原料，折旧，人工）按功能分类；
+3. revenue recognition: accrual accoutning does not coincide with the receipt of payment of cash, so firms can manipulate net income by recognizing revenue earlier or later or by delaying or accelerating the recognition of expenses
 4. special revenue recoginition: sometimes revenue may be recognized before delivery occurs or even after delivery taks places:
    1. long-term contacts: if the outcome of a long-term contract can be estimated, use the ***percentage of completion method***, otherwise, under IFRS, use ***to the extent of contract costs*** method and ***completed contract method*** under GAAP. If a loss is expected, it must be recognized immediately under IFRS and GAAP.
    2. Installment sales: under GAAP, if collectibility is certain, revenue is recognized right now; if can not be reasonable estimated, using ***installment method***, if highly uncertain, using ***cost recovery method***.
@@ -104,9 +104,6 @@
 16. Diluted EPS: too complex, skip it
 17. gross profit margin = gross profit( revenue minus cost of goods sold) / revenue
 18. net profit margin = net income / revenue
-19. 股票期权和认证股权[options and warrants]只有当它们的执行价格低于全年股票的平均市场价格时，它们才可被视为可稀释每股收益的证券。使用***库藏股法***来就行计算：
-    1. 假设通过执行期权公司所获得的资金用于以市场平均价格在市场上购买公司的普通股；
-    2. 发行在外的普通股的净增加额等于执行期权所增加的普通股数量减掉执行后获得的收益所回购的股票数；
 
 
 
@@ -114,47 +111,45 @@
 
 
 
-1. use BS to assess a firm's liquidity and solvency, and the ability to make distributions to shareholders. liquidity is the ability to meet short-term obligations, solvency is the ability to meet long-term obligations.
+1. the balance sheet can be used to assess a firm's liquidity and solvency, and the ability to make distributions to shareholders. liquidity is the ability to meet short-term obligations, solvency is the ability to meet long-term obligations.
 2. current assets: cash and other assets that will likely be converted into cash or used up within one year or one operating cycle. it reveals information about the operating activities of the firm.
 3. current liabilities: obligations will be satisfied within one year or one operating cycle.
 4. working capital = current assets - current liabilities, less may indicate liquidity problem, more indicate inefficient use of assets.
 5. noncurrent assets: opposite to current assets, it provide information about the firm's investing activities, which form the foundation upon the firm operates.
 6. noncurrent liabilities: provides the firm's long-term financing activities.
-7. 2 BS formats: ***classified BS*** and ***liquidity-based BS***.
-8. current assets: 流动资产
+7. current assets: 流动资产
    1. cash and cash equivalents: short-term, high liquid investments, are considered financial assets, are reported on the BS at amortized cost or fair value.
    2. marketable securities: financial assets that are traded in a public market.
    3. accounts receivable: are reported at net realizable value, which is based on estimated bad debt expense.
    4. inventories: goods held for sale to customers or used in manufacture of goods to be sold. manufactring firms separately report inventories of raw materials, work-in-progress and finished goods.
    5. other current assets: amounts that may not be material if shown separately, examples include prepaid expenses and deferred tax assets.
-9. inventories: under IFRS, it's reported at the lower of cost or net realizable value; under GAAP, it's reported at the lower of cost or market.
-10. current liabilities: 流动负债
+8. current liabilities: 流动负债
    1. accounts payable 应付账款: also trade payable, amounts the firm owes to suppliers for goods or services purchased on credit.
    2. notes payable and current portion of long-term debt: 应付票据和当期该偿还的长期负债
    3. accured liabilities: also accured expenses, 应记费用, are expenses that have been recognized in the income statement but are not yet contractually due. include taxes payable, interest payable, wages payable and accrued warranty expense.
    4. unearned revenue: 未实现营收，预收收入，also known as unearned income, deferred revenue or deferred income, is cash collected in advance of providing goods and services.
-11. Non-current assets: 非流动资产, property, plant and equipment ( PP&E ), under IFRS, PP&E can be reported using ***cost model*** or ***revaluation model***, under GAAP, only the ***cost model*** can be used.
-    1. investment property
-    2. intangible assets
-    3. goodwill: the excess of purchase price over the fair value of the identifiable net assets acquired in a business acquisition.
-    4. financial assets: financial instruments are measured at historical cost, amortized cost or fair value.
-    5. trading sercurities: also known as held-for-trading securities, are reported on BS at fair value, and the unrealized gains and losses are recognized in the IS. Derivative instruments are treated the same as trading securities.
-    6. available-for-sale securities: debt and equity that are not expected to be held to maturity or traded in the near term, it's reported on the BS at fair value, but any unrealized gains and losses are not recognized in the IS, are reported in other comprehensive income as a part of shareholders' equity.
-12. ***Financial Assets***: hold-to-maturity securities, trading securities, available-for-sale securities;
-13. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
-14. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
-15. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
+9. Non-current assets: 非流动资产, property, plant and equipment ( PP&E ), under IFRS, PP&E can be reported using ***cost model*** or ***revaluation model***, under GAAP, only the ***cost model*** can be used.
+   1. investment property
+   2. intangible assets
+   3. goodwill: the excess of purchase price over the fair value of the identifiable net assets acquired in a business acquisition.
+   4. financial assets: financial instruments are measured at historical cost, amortized cost or fair value.
+   5. trading sercurities: also known as held-for-trading securities, are reported on BS at fair value, and the unrealized gains and losses are recognized in the IS. Derivative instruments are treated the same as trading securities.
+   6. available-for-sale securities: debt and equity that are not expected to be held to maturity or traded in the near term, it's reported on the BS at fair value, but any unrealized gains and losses are not recognized in the IS, are reported in other comprehensive income as a part of shareholders' equity.
+10. Non-current liabilities: 非流动负债
+11. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
+12. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
+13. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
     1. contributed capital: 
     2. preferred stock: can be classified as debt or equity, perpetual preferred stock that is non-redeemable is equity, preferred stock that calls for mandatory redemption in fixed amounts is debt.
     3. noncontrolling interest: minority interest
     4. retained earnings: 
     5. treasury stock: reacquired by the issuing firm but not yet retired, it reduces stockholders' equity.
     6. accumulated other comprehensive income: aggregates net income and certain special transactions that are not reported in the income statement but that affect stockholders' equity.
-16. liquidity ratios:
+14. liquidity ratios:
     1. current ratio = current assets / current liabilities
     2. quick ratio (acid test ratio) = ( cash + marketable securities + receivables ) / current liabilities
     3. cash ratio = ( cash + marketable securities ) / current liabilities
-17. solvency ratios:
+15. solvency ratios:
     1. long-term debt-to-equity = long-term debt / total equity
     2. total debt-to-equity = total debt / total equity
     3. debt ratio = total debt / total assets
@@ -381,24 +376,19 @@
 8. Firms reports all long-term debt on a single line on the BS, the portion that is due within the next year is reported as a current liability, and separartely discloses more detal about its long-term debt in the ***footnotes***, and a discussion of the firm's long-term debt is also found in the ***MD&A***.
 9. why leasing assets instead of purchasing them: less costly financing; reduced risk of obsolescence; less restrictive provisions; off-balance-sheet financing; tax reporting advantages;
 10. under IFRS, the classification of a lease is determined by the ***conomic substance*** of the transaction, if substantially all the rights and risks of ownership are transferred to the lessee, the lease is treated as ***finance lease***.
-11. financial statement and ratio effects of operating and finance leases [by the ***lessee***]:
+11. financial statement and ratio effects of operating and finance leases:
     1. BS: A finance lease results in a reported asset and liability. and operating lease are sometimes referred to as ***off-balance-sheet financing activities***.
     2. IS: operating income (EBIT) will be higher for companies that use finance leases relative to companies that use operating leases. but net income will be lower for a finance lease in its early years and higher in its later years, compared to an operating leases.
     3. CF: total cash flow is unaffected by the accounting treatment of a lease. if the lease is treated as an operating lease, then the total cash payment reduces cash from operations. if it's treated as a finance lease, then the interest expense reduces cash flow from operations, and the repayment of principal reduces cash flow from financing activities.
-12. financial statement and ratio effects of operating and finance leases [by the ***lessor***]
-    1. from the lessor's perspective, a capital lease under GAAP is treated as either a ***sales-type*** lease or a ***direct financing*** lease. IFRS does not distinguish those.
-    2. a ***sales type lease*** is treated as if the lessor sold the asset for the present value of the lease payments and provided a load to the buyer in the same amount. at the inception of the lease, the lessor recognize a sale equal to the present value of the lease payments, and COGS equal to the carrying value of the asset.
-    3. in a ***direct financing lease***, no gross profit is recogized by the lessor at the inception of the lease.
-    4. if the lease is operating lease, the lessor simply recognizes the lease payment as rental income, and will keep the leased asset on its balance sheet and depreciate it over its useful life.
-13. A ***pension*** is a form of deferred compensation earned over time through employee service. a ***defined contribution plan*** is a retirement plan in which the firm contributes a sum each period the the employee's retirement account. and a ***defined benefit plan*** will promise to make periodic payments to employees after retirement. for a defined benefit plan, the ***net pension asset*** or the ***net pension liability*** is a key element for analysis. if the fair value of the plan's assets is greater than the estimated pension obligation, the plan is said to be ***overfunded***, otherwise.
-14. leverage ratios:
-    1. debt-to-asset  = total debt / total assets
-    2. debt-to-capital = total debt / (total debt + total equity), total capital and total assets differ by the firm's non-interest bearing liabilities.
-    3. debt-to-equity = total debt / total equity
-    4. financial leverage = average total assets / average total equity
-15. coverage ratios:
-    1. interest coverage = EBIT / interest payments
-    2. fixed charge coverage = (EBIT + lease payments) / (interest payments + lease payments)
+    4. ​
+
+
+
+
+
+
+
+
 
 
 
@@ -406,36 +396,9 @@
 
 
 
-## Reading 32. Financial Reporting Quality
-
-1. ***financial reporting quality*** refers to the characteristics of a firm's financial statements. high quality reporting must be ***decision useful***, two characteristics of decision-useful financial reporting are ***relevance*** and ***faithful representation***. relevant information must also be ***material***, and faithful encompasses the qualities of ***completeness*** and ***neutrality***.
-2. the ***quality of earning*** is a separate issue, can be judged based on the ***substainability*** of the earnings.
-3. ***aggressive accounting*** often results in decreased earnings in future periods, and ***conservative accounting*** will tend to increase future period earnings.
-4. we should avoid thinking about conservatism in financial reporting as good and aggressive reporting as bad.
-5. three factors that exist where management provides low-quality reporting are : motivation, opportunity and rationalization.
-6. accounting methods that could be used to manage earnings, cash flow and balance sheet items:
-   1. revenue recognition
-   2. estimates of credit losses
-   3. valuation allowance
-   4. depreciation methods and estimates
-   5. amortization and impairment
-   6. inventory method
-   7. related-party transactions
-   8. capitalization
-   9. other cash flow effects
 
 
 
-## Reading 33. Financial Statement Analysis: Applications
-
-1. types of items used to credit rating are : scale and diversification; operational efficiency; margin stability; leverge;
-2. adjustments to improve the comparability of firm's financial statements and ratios:
-   1. investments in securities: the classification of a firm's investment securities affects how changes in their values are recorded, which can affect reported earnings and assets.
-   2. inventory accounting differences:
-   3. differences in depreciation methods and estimates
-   4. off-balance-sheet financing
-   5. goodwill
-   6. other intangible assets
 
 
 

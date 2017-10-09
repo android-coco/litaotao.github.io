@@ -16,6 +16,10 @@
 
 
 
+# Supurvised Learning
+
+
+
 
 
 
@@ -638,14 +642,40 @@ if __name__ == "__main__":
 
 - what if we have more features than data points? we'll get an error wen compute $X_{}^{T} * X$, and if we have more features than data points (n > m), we day that our data matrix $X$ isn't full rank. to solve this problem, we can use the ***shrinkage methods***. ridge regression and lasso regression.
 
-- ridge regreesion add an matrix $\lambda I$ to the data matrix, so that it's non-singular and can compute the inverse.  then the solution will look like: $\hat w = (X_{}^{T} * X + \lambda I)_{}^{-1} * X_{}^{T} * y$, we can use the $\lambda$ to impose a maximum value on the sum of all our $ws$, by imposing this penalty, we can decrease unimportant parameters, this decreasing is known as ***shrinkage*** in statistics.
+- ***ridge regreesion*** add an matrix $\lambda I$ to the data matrix, so that it's non-singular and can compute the inverse.  then the solution will look like: $\hat w = (X_{}^{T} * X + \lambda I)_{}^{-1} * X_{}^{T} * y$, we can use the $\lambda$ to impose a maximum value on the sum of all our $ws$, by imposing this penalty, we can decrease unimportant parameters, this decreasing is known as ***shrinkage*** in statistics.
 
 - we choose $\lambda$ to minimize prediction error, we take some of our data, set it aside for testing, and the use the remaining data to determine the $ws$, then test this model against our test data and measure its performance, this is repeated with different $\lambda$ values until we find a $\lambda$ that minimizes prediction error.
 
 - There are other shrinkage methods such as the lasso, LAR, PCA regression and subset selection.
 
-- ​
+- ***lasso regression*** imposes a different constraint on the weights: $\sum_{k=1}^{n} |w_k \leq \lambda$, if $\lambda$ is small enough, some of the weights are forced to be exactly 0, which makes it easier to understand our data. to solve this we need a quadratic programming, which is too complex, we can use ***forward stagewide regression*** algorithm to get a similar solution.
 
+- ***forward statewide regression*** is a greedy algorithm. it makes the decision that will reduce the error the most at that step, initally the weights are all set to 0, the decision that's made at each step is increasing or decreasing a weight by some small amount.
+
+- summary:
+
+  - regression is the process of predicting a target value similar to classification. the difference between regression and classification is that the variable forecasted in regression is ***continuous***, whereas it's ***discrete*** in classification.
+  - regression is one of the most useful tools in statistics. minimizing the ***sum-of-squares*** error is used to find the best weights for the input features in a regression equation.
+  - regression can be done on any set of data provided that for an input matrix $X$, you can compute the inverse of $X_{}^{T}X$. Just because you can compute a regression equation for a set of data doesn't mean that the results are very good, one test of how good or significant the results are is the ***correlation*** between the predicted values yHat and the original data y.
+  - when you have more features that data points, you can't compute the inverse of $X_{}^{t}X$, if you have more data points that features, you still may not be able to compute $X_{}^{T}X$, if the features are highly correlated. ***ridge regression*** is a regression method that allows you to ocmpute regression coefficients despite being unable to compute the inverse of $X_{}^{T}X$.
+  - ridge is an example of ***shrinkage method***, another method is the ***lasso***, the lasso is difficult to compute, but ***stagewise linear regression*** is easy to compute and gives results close to lasso.
+
+
+
+
+## Tree-based Regression
+
+
+
+
+
+# Unsupurvised Learning
+
+
+
+## Grouping Unlabeled Items Using K-means Clustering
+
+- ​
 
 
 

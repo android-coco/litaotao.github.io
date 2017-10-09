@@ -16,6 +16,10 @@
 
 
 
+# Supurvised Learning
+
+
+
 
 
 
@@ -586,6 +590,114 @@ if __name__ == "__main__":
 
 
 
+## Predicting Numeric Values: Regression
+
+- The difference between regression and classification is that in regression our target variable is numeric and continuous.
+- Our goal when using regression is to predict a numeric target value, one way to do this is to write out an equation for the target vaue with respect to the inputs, that's known as ***regression equation***. and for the quation, there are two kinds: ***linear regression and non-linear regression***.
+- our input data is in the matrix $X$, and regression weights in the vector $w$, for a given piece of data $X1$, our predicted value is given by $y1 = X_1^{T} * w$, we have the $Xs$ and $Ys$, but how can we find the $Ws$, one way is to find the $Ws$ which can minimize the error. and we define the error as the difference between predicted $y$ and the actual $Y$. using just the error will allow positive and negative values to cancel out, so we use the squared error, then write this as $\sum_{i=1}^m (y_i^{} - x_i^{T}w)_{}^{2}$ , and we can also wirte this in matrix notation as $(y-xw)_{}^{T} * (y-xw)$, if we take the derivative of this with respect to $w$, we'll get $X_{}^{T} * (y - Xw)$, and we can set this to zero and solve for $w$ to get the following equation: $\hat w = (X_{}^{T} * X)_{}^{-1} * X_{}^{T} * y$. 
+- One way we can calculate how well the predicted data matches our actual data is with the correlation between the two series.
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a3a16466-9e7c-11e7-95fa-0242ac140002)
+
+
+- Bellow the best-fit line does a great job of modeling the data as if it were a straight line. but it looks like the data has some patterns we may want to take advantage of. and one way we can do is called ***locally adjust forecast: 局部加权线性回归*** based on the data.
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1700c10c-9e8e-11e7-9497-0242ac140002)
+
+- Linear regression tends to underfoot the data, and there are a number of ways to reduce the mean-squared error by adding some bias into our estimator. in LWLR we give a weight to data points near our data point of interest, then we compute a least-squares regression similar to above. This type of regression uses the dataset each time a calculation is needed, similar to kNN, the solution is now given by: $\hat w = (X_{}^{T} * X)_{}^{-1} * X_{}^{T} * W * y$, where $W$ is a matrix that's used to weight the data points.
+
+- LWLR uses a kernel something like the kernels demonstrated in SVM to weight nearby points more heavily than other points. the most common kernel to use is a ***Gaussian***, the kernel assigns a weight given by: $w(i, i) = exp(\frac {\mid x_{}^{i} - x \mid} {-2k_{}^{2}})$, this builds the matrix $w$, which has only diagonal elements, the closer the data point x is to the other points, the larger w(i, i) will be, the $k$ will determine how much to weight nearby points.
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/586c36c6-9e93-11e7-9497-0242ac140002)
+
+- the core code of lwlr and the effection is bellow:
+
+- ```python
+  def lwlr(testPoint, xArr, yArr, k=1.0):
+      xMat = mat(xArr)
+      yMat = mat(yArr).T
+      m = shape(xMat)[0]
+      weights = mat(eye(m))
+      
+      for j in range(m):
+          diffMat = testPoint - xMat[j, :]
+          weights[j, j] = exp(diffMat * diffMat.T) / (-2.0 * k ** 2)
+          
+      xTx = xMat.T * (weights * xMat)
+      ws = xTx.I * (xMat.T * (weights * yMat))
+      
+      return testPoint * ws
+
+  def lwlr_test(testArr, xArr, yArr, k=1.0):
+      m = shape(testArr)[0]
+      yHat = zeros(m)
+      for i in range(m):
+          yHat[i] = lwlr(testArr[i], xArr, yArr, k)
+      
+      return yHat
+  ```
+
+- ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/801f8cca-9e95-11e7-9497-0242ac140002)
+
+- one problem with lwlr is that it involves lots of computations. you have to use the entire dataset to make one estimate.
+
+- what if we have more features than data points? we'll get an error wen compute $X_{}^{T} * X$, and if we have more features than data points (n > m), we day that our data matrix $X$ isn't full rank. to solve this problem, we can use the ***shrinkage methods***. ridge regression and lasso regression.
+
+- ***ridge regreesion*** add an matrix $\lambda I$ to the data matrix, so that it's non-singular and can compute the inverse.  then the solution will look like: $\hat w = (X_{}^{T} * X + \lambda I)_{}^{-1} * X_{}^{T} * y$, we can use the $\lambda$ to impose a maximum value on the sum of all our $ws$, by imposing this penalty, we can decrease unimportant parameters, this decreasing is known as ***shrinkage*** in statistics.
+
+- we choose $\lambda$ to minimize prediction error, we take some of our data, set it aside for testing, and the use the remaining data to determine the $ws$, then test this model against our test data and measure its performance, this is repeated with different $\lambda$ values until we find a $\lambda$ that minimizes prediction error.
+
+- There are other shrinkage methods such as the lasso, LAR, PCA regression and subset selection.
+
+- ***lasso regression*** imposes a different constraint on the weights: $\sum_{k=1}^{n} |w_k \leq \lambda$, if $\lambda$ is small enough, some of the weights are forced to be exactly 0, which makes it easier to understand our data. to solve this we need a quadratic programming, which is too complex, we can use ***forward stagewide regression*** algorithm to get a similar solution.
+
+- ***forward statewide regression*** is a greedy algorithm. it makes the decision that will reduce the error the most at that step, initally the weights are all set to 0, the decision that's made at each step is increasing or decreasing a weight by some small amount.
+
+- summary:
+
+  - regression is the process of predicting a target value similar to classification. the difference between regression and classification is that the variable forecasted in regression is ***continuous***, whereas it's ***discrete*** in classification.
+  - regression is one of the most useful tools in statistics. minimizing the ***sum-of-squares*** error is used to find the best weights for the input features in a regression equation.
+  - regression can be done on any set of data provided that for an input matrix $X$, you can compute the inverse of $X_{}^{T}X$. Just because you can compute a regression equation for a set of data doesn't mean that the results are very good, one test of how good or significant the results are is the ***correlation*** between the predicted values yHat and the original data y.
+  - when you have more features that data points, you can't compute the inverse of $X_{}^{t}X$, if you have more data points that features, you still may not be able to compute $X_{}^{T}X$, if the features are highly correlated. ***ridge regression*** is a regression method that allows you to ocmpute regression coefficients despite being unable to compute the inverse of $X_{}^{T}X$.
+  - ridge is an example of ***shrinkage method***, another method is the ***lasso***, the lasso is difficult to compute, but ***stagewise linear regression*** is easy to compute and gives results close to lasso.
+
+
+
+
+## Tree-based Regression
+
+
+
+
+
+# Unsupurvised Learning
+
+
+
+## Grouping Unlabeled Items Using K-means Clustering
+
+- ​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -608,7 +720,7 @@ if __name__ == "__main__":
 - [支持向量机(SVM)是什么意思？](https://www.zhihu.com/question/21094489)
 - [如何通俗易懂地解释「协方差」与「相关系数」的概念？](https://www.zhihu.com/question/20852004)
 - [https://github.com/litaotao/MachineLearning](https://github.com/litaotao/MachineLearning)
-- []()
+- [ 加权最小二乘法与局部加权线性回归 ](https://uqer.io/community/share/57887c7e228e5b8a03932c66)
 - []()
 - []()
 - []()
