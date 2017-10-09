@@ -349,7 +349,10 @@
 15. total useful life = historical cost / annual depreciation expense
 16. remaining useful life = ending net PP&E / annual depreciation expense
 17. under IFRS, property that a firm owns for the purpose of collecting rental income, earning capital appreciation or both, is classified as ***investment property***, GAAP does not distinguish this.
+<<<<<<< HEAD
+=======
 18. A ***fiance lease*** is a purchase of an asset that is financed with debt, over the term of the lease, the lessee will recognize depreciation expense on the asset and interest expense on the liability. An ***operating lease*** is essentially a rental arrangement, no asset or liability is reported by the lessee and the periodic lease payments are simply recognized as rental expense in the IS.
+>>>>>>> aa9a77daa44171ff57c832428de7e342959dd528
 
 
 
@@ -365,7 +368,6 @@
 7. when the income tax rate changes, DTA and DTL will be changed too, ***income tax expense = taxes payable + $\triangle DTL - \triangle DTA$***.
 8. Permanent difference do not create DTA or DTL, but it will cause the firm's ***effective tax rate*** differ from the ***statutory tax rate***.
 9. if temporary difference is expected to reverse , a DTA or DTL is created. taxable temporary differences will result in expected future taxable income and deductible temporary differences will result in expected future tax deductions.
-
 
 
 
