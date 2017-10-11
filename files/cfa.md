@@ -102,7 +102,7 @@
     3. prior-period adjustments: a change from an incorrect accounting method to one that is accepted under GAAP or IFRS or the correction of an accounting error make in previous financial statements.
 15. EPS: basic eps = (net income - preferred dividends) / weighted average number of common shares
 16. Diluted EPS: too complex, skip it
-17. gross profit margin = gross profit( revenue minus cost of goods sold) / revenue
+17. gross profit margin = gross profit( revenue - cost of goods sold) / revenue
 18. net profit margin = net income / revenue
 19. 股票期权和认证股权[options and warrants]只有当它们的执行价格低于全年股票的平均市场价格时，它们才可被视为可稀释每股收益的证券。使用***库藏股法***来就行计算：
     1. 假设通过执行期权公司所获得的资金用于以市场平均价格在市场上购买公司的普通股；
@@ -129,10 +129,10 @@
    5. other current assets: amounts that may not be material if shown separately, examples include prepaid expenses and deferred tax assets.
 9. inventories: under IFRS, it's reported at the lower of cost or net realizable value; under GAAP, it's reported at the lower of cost or market.
 10. current liabilities: 流动负债
-   1. accounts payable 应付账款: also trade payable, amounts the firm owes to suppliers for goods or services purchased on credit.
-   2. notes payable and current portion of long-term debt: 应付票据和当期该偿还的长期负债
-   3. accured liabilities: also accured expenses, 应记费用, are expenses that have been recognized in the income statement but are not yet contractually due. include taxes payable, interest payable, wages payable and accrued warranty expense.
-   4. unearned revenue: 未实现营收，预收收入，also known as unearned income, deferred revenue or deferred income, is cash collected in advance of providing goods and services.
+  1. accounts payable 应付账款: also trade payable, amounts the firm owes to suppliers for goods or services purchased on credit.
+  2. notes payable and current portion of long-term debt: 应付票据和当期该偿还的长期负债
+  3. accured liabilities: also accured expenses, 应记费用, are expenses that have been recognized in the income statement but are not yet contractually due. include taxes payable, interest payable, wages payable and accrued warranty expense.
+  4. unearned revenue: 未实现营收，预收收入，also known as unearned income, deferred revenue or deferred income, is cash collected in advance of providing goods and services.
 11. Non-current assets: 非流动资产, property, plant and equipment ( PP&E ), under IFRS, PP&E can be reported using ***cost model*** or ***revaluation model***, under GAAP, only the ***cost model*** can be used.
     1. investment property
     2. intangible assets
@@ -294,14 +294,14 @@
 
 
 1. merchandising firms report inventory in one account on the balance sheet, manufacturing firms normally report inventory using three separate accounts: raw materials, work-in-progress, finished goods.
-2. COGS = beginning inventory + purchases - ending inventory
+2. ***COGS = beginning inventory + purchases - ending inventory***
 3. product costs are capitalized in the inventories account:
    1. purchase cost less trade discounts and rebates
    2. conversion costs including labor and overhead
-   3. other costs necessary to bring the inventory to its presetn location and condition
+   3. ***other costs necessary to bring the inventory to its presetn location and condition***
 4. period costs are expensed as incurred:
    1. abnormal waste of materials, labor, or overhead
-   2. storage costs
+   2. storage costs (***unless required as part of production***)
    3. administrative overhead
    4. selling costs
 5. The cost of purchasing or producing inventory will change over time, so firms must select a cost flow method, or ***cost flow assumption*** under GAAP and ***cost flow formula*** under IFRS to allocate the inventory cost to the income statement and the balance sheet.
@@ -309,11 +309,16 @@
 7. under GAAP, 4 method: Specific identification, FIFO, Weighted average cost, ***LIFO***
 8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
 9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
-10. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
-11. under IFRS, inventory is reported on the bs at the lower cost or net realizable value, net realizable value is equal to the expected sales price less the estimated selling costs and completion costs. inventory cannot be written up by more than it was previously written down [ exercise at page 191 ]
-12. under GAAP, inventory is reported on the bs at the lower of cost or market. market is usually equal to replacement cost, but cannot be greater than NRV or less than NRV minus a normal profit margin. if there is a subsequent recovery in value, no write-up is allowed under GAAP.
-13. ***Point: impactions of valuing inventory at net realizable value on financial statements and ratios***
-14. inventory disclosures usually found in the financial statement footnotes, are useful in evaluating the firm's inventory management.
+10. firms that under LIFO mush report a ***LIFO reserve***, the amount by which LIFO inventory is less than FIFO inventory, to make financial statements prepared under FIFO comparable, we should:
+   1. ***add the LIFO reserve to LIFO inventory on the BS***
+   2. ***increase the retained earnings component of shareholder's equity by the LIFO reserve***
+11. ***FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)***
+12. under IFRS, inventory is reported on the bs at the lower cost or net realizable value, net realizable value is equal to the expected sales price less the estimated selling costs and completion costs. inventory cannot be written up by more than it was previously written down [ exercise at page 191 ]
+13. under GAAP, inventory is reported on the bs at the lower of cost or market. market is usually equal to replacement cost, but cannot be greater than NRV or less than NRV minus a normal profit margin. if there is a subsequent recovery in value, no write-up is allowed under GAAP.
+14. ***Point: impactions of valuing inventory at net realizable value on financial statements and ratios***
+15. inventory disclosures usually found in the financial statement footnotes, are useful in evaluating the firm's inventory management.
+16. in certain industries, reporting inventory above historical cost is permitted under IRFS and GAAP, it applies to producers and dealers of commodity-like products, such as ***agricultural and forest products, mineral ores, and precious metals.***
+17. ​
 
 
 
@@ -349,11 +354,7 @@
 15. total useful life = historical cost / annual depreciation expense
 16. remaining useful life = ending net PP&E / annual depreciation expense
 17. under IFRS, property that a firm owns for the purpose of collecting rental income, earning capital appreciation or both, is classified as ***investment property***, GAAP does not distinguish this.
-<<<<<<< HEAD
-=======
 18. A ***fiance lease*** is a purchase of an asset that is financed with debt, over the term of the lease, the lessee will recognize depreciation expense on the asset and interest expense on the liability. An ***operating lease*** is essentially a rental arrangement, no asset or liability is reported by the lessee and the periodic lease payments are simply recognized as rental expense in the IS.
->>>>>>> aa9a77daa44171ff57c832428de7e342959dd528
-
 
 
 
