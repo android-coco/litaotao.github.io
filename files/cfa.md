@@ -1,3 +1,79 @@
+
+
+# Session 1
+
+## Reading 1: Ethics and Trust in the Investment Profession
+
+1. Ethical behavior is that which conforms to a set of rules and moral principles based on shared beliefs about what behavior is acceptable and what behavior is unacceptable.
+2. a professional code of ethics is a way for a profession to communicate to the public that its members will use their knowledge and skills to serve their clients in an honest and ethical way, and can increase public confidence and trust that members will act ethically.
+3. challenges to ethical behavior include overestimating one's own ethical character, considering only near-term consequences and not longer-term consequences of behavior, and letting situational influences, such as peer pressure, unduly affect one's decisions and behavior.
+4. Investment professionals have a special responsibility to use their specialized in knowledge and skills to both protect and grow kind. The fact that investment management is an intangible products makes high ethical standards all the more important in the financial services profession. 
+5. not all unethical actions are illegal. and not all illegal actions are unethical. laws are more specific than ethical principles and often address prior unethical behavior. ethical behavior requires more judgment, acts such as civil disobedience may considered ethical even when they are illegal.
+6. a framework for ethical decision making is designed to lead to better decisions by identifying the stakeholders affected and the conflicts of interest among them, considering alternative actions and the relevant situational influences on decision makers, seeking out different perspectives and evaluating decisions to see if they had unintended consequences.
+
+
+
+## Reading 2: Code of Ethics and Standards of Professional Conduct
+
+1. cfa 协会职业行为工作人员会进行关于职业行为的调查，下列这些情况又可能会引起调查：
+   1. self-disclosure on annual professional conduct statements of involvement in civil litigation or a criminal investigation, or the member is the subject of a written complaint.
+   2. written complaints are received by the Professional Conduct Staff.
+   3. evidence of misconduct by a member received through public sources, such as media article or broadcast.
+   4. a report by cfg exam proctor of a possible violation during the examination.
+   5. analysis of exam materials and monitoring of social media by cfa institute.
+2. once an inquiry begin, the PCS may request explanation from member:
+   1. interview the member
+   2. interview the complainant or other third parties
+   3. collect documents and records relevant to the investigation
+3. the PCS may decide:
+   1. no disciplinary sanctions are appropriate
+   2. issue a cautionary letter
+   3. discipline the member
+4. 6 piece of code of ethics:
+   1. act with integrity, competence, diligence, respect and in an ethical manner with the public, clients, prospective client, employers, employees, colleagues in the investment profession, and other participants in the global capital markets.
+   2. place the integrity of the investment profession and the interests of clients above their own personal interests.
+   3. use reasonable care and exercise independent professional judgment when conducting investment analysis, making investment recommendations, taking investment actions, and engaging in other professional activities.
+   4. practice and encourage others to practice in a professional and ethical way that will reflect credit on themselves and the profession.
+   5. promote the integrity and viability of the global capital markets for the ultimate benefit of society.
+   6. maintain and improve their professional competence and strive to maintain and improve the competence of other investment professionals.
+5. 7 standards of professional conduct:
+   1. professionalism:
+      1. knowledge of the law
+      2. independence and objectivity
+      3. misrepresentation
+      4. misconduct
+   2. integrity of capital markets
+      1. material nonpublic information
+      2. market manipulation 
+   3. duties to clients
+      1. loyalty, prudence, and care
+      2. fair dealing
+      3. suitability
+      4. performance presentation
+      5. preservation of confidentiality
+   4. duties to employers
+      1. loyalty
+      2. additional compensation arrangements
+      3. responsibilities of supervisors
+   5. investment analysis, recommendations and actions
+      1. diligence and reasonable basis
+      2. communication with clients and prospective clients
+      3. record retention
+   6. conflicts of interests
+      1. disclosure of conflicts
+      2. priority of transactions
+      3. referral fees
+   7. responsibilities as cfa institute member or cfa candidate
+      1. conduct as participants in CFA institute programs
+      2. reference to cfa institute, the cfa designation and the cfa program
+6. ​
+
+
+
+
+
+
+
 # Session 6
 
 ## Reading 21: Financial Statement Analysis: Introduction
@@ -103,8 +179,8 @@
 15. EPS: basic eps = (net income - preferred dividends) / weighted average number of common shares
 16. Diluted EPS: too complex, skip it
 17. gross profit margin = gross profit( revenue - cost of goods sold) / revenue
-18. net profit margin = net income / revenue
-19. 股票期权和认证股权[options and warrants]只有当它们的执行价格低于全年股票的平均市场价格时，它们才可被视为可稀释每股收益的证券。使用***库藏股法***来就行计算：
+    1. net profit margin = net income / revenue
+18. 股票期权和认证股权[options and warrants]只有当它们的执行价格低于全年股票的平均市场价格时，它们才可被视为可稀释每股收益的证券。使用***库藏股法***来就行计算：
     1. 假设通过执行期权公司所获得的资金用于以市场平均价格在市场上购买公司的普通股；
     2. 发行在外的普通股的净增加额等于执行期权所增加的普通股数量减掉执行后获得的收益所回购的股票数；
 
@@ -129,32 +205,32 @@
    5. other current assets: amounts that may not be material if shown separately, examples include prepaid expenses and deferred tax assets.
 9. inventories: under IFRS, it's reported at the lower of cost or net realizable value; under GAAP, it's reported at the lower of cost or market.
 10. current liabilities: 流动负债
-  1. accounts payable 应付账款: also trade payable, amounts the firm owes to suppliers for goods or services purchased on credit.
-  2. notes payable and current portion of long-term debt: 应付票据和当期该偿还的长期负债
-  3. accured liabilities: also accured expenses, 应记费用, are expenses that have been recognized in the income statement but are not yet contractually due. include taxes payable, interest payable, wages payable and accrued warranty expense.
-  4. unearned revenue: 未实现营收，预收收入，also known as unearned income, deferred revenue or deferred income, is cash collected in advance of providing goods and services.
-11. Non-current assets: 非流动资产, property, plant and equipment ( PP&E ), under IFRS, PP&E can be reported using ***cost model*** or ***revaluation model***, under GAAP, only the ***cost model*** can be used.
+11. accounts payable 应付账款: also trade payable, amounts the firm owes to suppliers for goods or services purchased on credit.
+12. notes payable and current portion of long-term debt: 应付票据和当期该偿还的长期负债
+13. accured liabilities: also accured expenses, 应记费用, are expenses that have been recognized in the income statement but are not yet contractually due. include taxes payable, interest payable, wages payable and accrued warranty expense.
+14. unearned revenue: 未实现营收，预收收入，also known as unearned income, deferred revenue or deferred income, is cash collected in advance of providing goods and services.
+15. Non-current assets: 非流动资产, property, plant and equipment ( PP&E ), under IFRS, PP&E can be reported using ***cost model*** or ***revaluation model***, under GAAP, only the ***cost model*** can be used.
     1. investment property
     2. intangible assets
     3. goodwill: the excess of purchase price over the fair value of the identifiable net assets acquired in a business acquisition.
     4. financial assets: financial instruments are measured at historical cost, amortized cost or fair value.
     5. trading sercurities: also known as held-for-trading securities, are reported on BS at fair value, and the unrealized gains and losses are recognized in the IS. Derivative instruments are treated the same as trading securities.
     6. available-for-sale securities: debt and equity that are not expected to be held to maturity or traded in the near term, it's reported on the BS at fair value, but any unrealized gains and losses are not recognized in the IS, are reported in other comprehensive income as a part of shareholders' equity.
-12. ***Financial Assets***: hold-to-maturity securities, trading securities, available-for-sale securities;
-13. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
-14. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
-15. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
+16. ***Financial Assets***: hold-to-maturity securities, trading securities, available-for-sale securities;
+17. long-term financial liabilities: include bank loans, notes payable, bonds payable and derivatives.
+18. deferred tax liabilities: amounts of income taxes payable in future periods as a result of taxable temporary differences.
+19. owers' equity: residual interest after subtracting an entity's liabilities. includes contributed capital, preferred stock, treasury stock, retained earnings, non-controlling interest, and accumulated other comprehensive income.
     1. contributed capital: 
     2. preferred stock: can be classified as debt or equity, perpetual preferred stock that is non-redeemable is equity, preferred stock that calls for mandatory redemption in fixed amounts is debt.
     3. noncontrolling interest: minority interest
     4. retained earnings: 
     5. treasury stock: reacquired by the issuing firm but not yet retired, it reduces stockholders' equity.
     6. accumulated other comprehensive income: aggregates net income and certain special transactions that are not reported in the income statement but that affect stockholders' equity.
-16. liquidity ratios:
+20. liquidity ratios:
     1. current ratio = current assets / current liabilities
     2. quick ratio (acid test ratio) = ( cash + marketable securities + receivables ) / current liabilities
     3. cash ratio = ( cash + marketable securities ) / current liabilities
-17. solvency ratios:
+21. solvency ratios:
     1. long-term debt-to-equity = long-term debt / total equity
     2. total debt-to-equity = total debt / total equity
     3. debt ratio = total debt / total assets
@@ -310,8 +386,8 @@
 8. two kinds of inventory system: ***Periodic*** and ***Perpetual***, for FIFO and specific identification methods, ending inventory values and COGS are the same on both Periodic and Perpetual; however, periodic and perpetual system can produce different values for inventory and COGS under the LIFO and weighted average cost methods.
 9. calculate and explain how inflation and deflation of inventory costs affect the financial statements.
 10. firms that under LIFO mush report a ***LIFO reserve***, the amount by which LIFO inventory is less than FIFO inventory, to make financial statements prepared under FIFO comparable, we should:
-   1. ***add the LIFO reserve to LIFO inventory on the BS***
-   2. ***increase the retained earnings component of shareholder's equity by the LIFO reserve***
+ 1. ***add the LIFO reserve to LIFO inventory on the BS***
+ 2. ***increase the retained earnings component of shareholder's equity by the LIFO reserve***
 11. ***FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)***
 12. under IFRS, inventory is reported on the bs at the lower cost or net realizable value, net realizable value is equal to the expected sales price less the estimated selling costs and completion costs. inventory cannot be written up by more than it was previously written down [ exercise at page 191 ]
 13. under GAAP, inventory is reported on the bs at the lower of cost or market. market is usually equal to replacement cost, but cannot be greater than NRV or less than NRV minus a normal profit margin. if there is a subsequent recovery in value, no write-up is allowed under GAAP.
@@ -331,7 +407,7 @@
    2. purchased intangible assets: an intangible asset purchased from another party is recorded by its fair value at acquisition.
    3. obtained in a business combination: ***goodwill***
 3. choice between capitalizing costs and expensing them will affect net income, equity, total assets, CFO, CFI and other financial ratios:
-   1. net income: capitalizing an expenditure delays the recognition of an expense in the income statement, onver the life of an asset, total net income is identical whether the asset's cost is capitalized or expensed. timing of the expense recognition in the income statement is the only difference.
+   1. net income: capitalizing an expenditure delays the recognition of an expense in the income statement, over the life of an asset, total net income is identical whether the asset's cost is capitalized or expensed. timing of the expense recognition in the income statement is the only difference.
    2. owners' equity: because capitalization results in higher net income, it is also results in higher shareholders' equity because retained earnings are greater.
    3. CFO, CFI: record as expense -> CFO outflow; capitalization -> CFI;
    4. financial ratios: capitalizing an expenditure initially results in higher assets and higher equity.
@@ -340,7 +416,7 @@
    1. straight line: (original cost - salvage value) / depreciable life
    2. double decline method: ( 2 / depreciable life ) * book value at beginning of year X
    3. units-of-production method: ( original cost - salvage value ) / life in output units * output units in the period
-6. IFRS requires firms to depreciate the components of an asset separately, and componennt depreciation is allowed under GAAP but seldom used. exercise page 217.
+6. IFRS requires firms to depreciate the components of an asset separately, and component depreciation is allowed under GAAP but seldom used. exercise page 217.
 7. IFRS: as asset is impaired when its carrying value exceeds the ***recoverable value***, the recoverable value is the greater one of its fair value less any selling costs and its ***value in use***, the value in use is the present value of its future cash flow stream from continued use.
 8. GAAP: an asset is considered impaired if the carrying value is greater than the asset's future ***undiscounted*** cash flow. if impaired, the asset's value is written down to fair value.
 9. intangible assets with indefinite lives are not amortized, they are tested for impairment at least annually, an impairment loss is recognized when the carrying value exceeds fair value.
