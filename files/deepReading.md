@@ -296,6 +296,13 @@
     >
     > 在主机中可以使用 `docker inspect` 来查看容器详细信息。
     >
+    > 在 osx 中，查看数据卷的方法如下：
+    >
+    > ```python
+    > screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+    > cd /var/lib/docker
+    > ```
+    >
     > ​
     >
     > ***数据卷容器***： 如果有一些持续更新的数据需要在不同容器之间共享，可以创建数据卷容器，其实就是一个正常的容器，专门用来提供数据卷给其他容器挂载。两步走：
@@ -367,7 +374,7 @@
 
   - 第二章：tensorflow 环境搭建
 
-    > - 主要依赖：protocol buffer 和 bazel。其中 protocol buffer 是google开发的，类似于 xml 和json 的用于处理结构化数据的工具。而 ***处理结构化*** 数据一般即指将规范化格式的数据转变成可以直接在网络中进行传输的数据流，并且在接收端可以将数据流再转变成原始格式的数据，即所谓的序列化和反序列化。protocol buffer序列化之后的数据是二进制流，xml和json都是可读的字符串；其次 protocol buffer 需要数据格式定义文件，而 xml 和 json 不需要；因此 protocol buffer 序列出来的数据要比 xml 小 3～10倍，解析时间要快 20～100倍。bazel 是google 开源的自动化构建工具。
+    > - 主要依赖：protocol buffer 和 bazel。其中 protocol buffer 是google开发的，类似于 xml 和json 的用于处理结构化数据的工具。而 ***处理结构化*** 数据一般即指将规范化格式的数据转变成可以直接在网络中进行传输的数据流，并且在接收端可以将数据流再转变成原始格式的数据，即所谓的序列化和反序列化。protocol buffer序列化之后的数据是二进制流，xml和json都是可读的字符串；其次 protocol buffer 需要数据格式定义文件，而 xml 和 json 不需要；因此 protocol buffer 序列出来的数据要比 xml 小 3～10倍，解析时间要快 20～100倍。bazel 是 google 开源的自动化构建工具。
     >
     > - 按照后测试
     >
@@ -382,7 +389,7 @@
 
   - 第三章：tensorflow 入门
 
-    > - tensorflow计算模型-计算图：计算图是tf中的最基本的概念，tf中所有计算都会被转化为计算图上的节点。其中 tensor 代表张量，可以简单的理解为多维数组，flow 代表计算流，体现了 tensor 的计算流程。所以tensorflow的程序一般分为两个阶段：第一个阶段需要定义计算图中国年所有的计算；第二阶段执行这些计算。tf 会自动将用户定义的计算转化为计算图上的节点，系统会默认维护一个默认的计算图，可以通过 `tf.get_default_graph` 来查看当前使用的计算图。也支持 `tf.Graph` 来生产新的计算图，不同计算图上的张量和运算流都不会共享。tf 中的计算图不仅仅可以用来隔离张量和计算，还可以提供管理张量和计算的机制，比如说计算图可以通过 tf.Graph.device 函数来指定计算的设备，比如说是选择 cpu 还是 gpu。
+    > - tensorflow 计算模型-计算图：计算图是tf中的最基本的概念，tf中所有计算都会被转化为计算图上的节点。其中 tensor 代表张量，可以简单的理解为多维数组，flow 代表计算流，体现了 tensor 的计算流程。所以tensorflow的程序一般分为两个阶段：***第一个阶段需要定义计算图中所有的计算；第二阶段执行这些计算***。tf 会自动将用户定义的计算转化为计算图上的节点，系统会默认维护一个默认的计算图，可以通过 `tf.get_default_graph` 来查看当前使用的计算图。也支持 `tf.Graph` 来生产新的计算图，不同计算图上的张量和运算流都不会共享。tf 中的计算图不仅仅可以用来隔离张量和计算，还可以提供管理张量和计算的机制，比如说计算图可以通过 tf.Graph.device 函数来指定计算的设备，比如说是选择 cpu 还是 gpu。
     >
     >   ```python
     >   g1 = tf.Graph()
@@ -494,8 +501,7 @@
     >   > y = tf.matmul(a, w2)
     >   >
     >   > # 定义损失函数和反向传播算法
-    >   > cross_entropy = -tf.reduce_mean(
-    >   >   				y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
+    >   > cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
     >   > train_step = tf.train.AdamOptimizer(0.001).minimize(cross_entropy)
     >   >
     >   > # 随机生成一个模拟数据集
@@ -508,22 +514,21 @@
     >   >
     >   > # 
     >   > with tf.Session() as sess:
-    >   >   init_op = tf.initialize_all_variables()
-    >   >   sess.run(init_op)
-    >   >   print sess.run(w1)
-    >   >   print sess.run(w2)
-    >   >   
-    >   >   steps = 5000
-    >   >   for i in range(steps):
-    >   >     start = (i * batch_size) % dataset_size
-    >   >     end = min(start + batch_size, dataset_size)
-    >   >     # 通过选取的样本训练神经网络并且更新参数
-    >   >     sess.run(train_step, 
-    >   >              feed_dict={x: X[start: end], y_: Y[start: end]})
-    >   >     if i % 1000 == 0:
-    >   >       total_cross_entropy = sess.run(cross_entropy, 
-    >   >                                      feed_dict={x: X, y: Y})
-    >   >       print total_cross_entropy
+    >   >     init_op = tf.global_variables_initializer()
+    >   >     sess.run(init_op)
+    >   >     print sess.run(w1)
+    >   >     print sess.run(w2)
+    >   >
+    >   >     steps = 5000
+    >   >     for i in range(steps):
+    >   >         start = (i * batch_size) % dataset_size
+    >   >         end = min(start + batch_size, dataset_size)
+    >   >         # 通过选取的样本训练神经网络并且更新参数
+    >   >         sess.run(train_step, 
+    >   >                  feed_dict={x: X[start: end], y_: Y[start: end]})
+    >   >         if i % 1000 == 0:
+    >   >             total_cross_entropy = sess.run(cross_entropy, feed_dict={x: X, y_: Y})
+    >   >             print total_cross_entropy
     >   > ```
 
   - 第四章：深层神经网络
@@ -542,7 +547,7 @@
     >
     > ***损失函数定义***：神经网络模型的效果以及优化的目标都是通过损失函数来定义和度量的。一般通过交叉熵（cross entropy）来评价一个输出向量和期望向量之间的接近程度，交叉熵是一个信息论中的概念，原本用于估算平均编码长度，对于两个概率分布 p 和 q，通过 p 和 q 来计算交叉熵为：
     >
-    > $$H(p, q) = - \sum p(x)log(q(x))$$
+    > ==$$H(p, q) = - \sum p(x)log(q(x))$$==
     >
     > 然而需要注意交叉熵刻画的是两个概率分布之间的距离，然后神经网络的输出却不一定是一个概率分布。但是任意事件发生的概率都在0和1之间，且总有某一个事件发生（概率和为1），如果将分类问题中 “一个样例属于某一个类别” 看成一个概率事件，那么训练数据的正确答案就符合一个概率分布。因为事件 “一个样例属于不正确的类别” 的概率为0，而 “一个样例属于正确的类别” 的概率为1，此时可以通过 softmax 回归将神经网络前向传播得到的结果变成概率分布。假使神经网络的输出为 y1, y2, … yn，那么经过 softmax 回归后的输出为：
     >
@@ -556,11 +561,15 @@
     >
     > 假设有一个三分类问题，某个样例的的正确答案是（1，0，0），某模型经过 softmax 回归后的预测答案是（0.5，0.4，0.1），那么这个预测答案和正确答案之间的交叉熵为：
     >
-    > $$H((1,0,0), (0.5,0.4,0.1)) = -(1*log0.5 + 0*log0.4 + 0*log0.1) = 0.3$$
+    > - $$H((1,0,0), (0.5,0.4,0.1)) = -(1*log0.5 + 0*log0.4 + 0*log0.1) = 0.3$$
+    >
+    >   ​
     >
     > 如果另外一个模型的预测是（0.8，0.1，0.1），那么这个模型的预测值和真实值的交叉熵是：
     >
-    > $$H((1,0,0), (0.8, 0.1, 0.1)) = -(1*log0.8 + 0*log0.1 + 0*log0.1) = 0.1$$
+    > - $$H((1,0,0), (0.8, 0.1, 0.1)) = -(1*log0.8 + 0*log0.1 + 0*log0.1) = 0.1$$
+    >
+    > ​
     >
     > 从直观上说第二个模型会的答案优于第一个，通过交叉熵计算出来的也是同样的结论。tf 中计算交叉熵的代码也很简单 `cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))` ，其中 y_ 代表正确结果，y 代表预测结果。通过 tf.clip_by_value 函数可以将一个张量的数值限制在一个范围之内，这样可以避免一些错误，比如 log0 是无效的。
     >
@@ -574,6 +583,8 @@
     >
     > ***神经网络的进一步优化***： 学习率（learning rate）的设置，太小的话会导致训练次数太多，降低优化速度，太大的话可能优化结果不好，所以一般可以采用可变学习率的方法，比如说指数衰减法，这种情况下一开始时学习率很大，最后学习率会越来越小。
     >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7164f204-be1d-11e7-9497-0242ac140002)
+    >
     > 过拟合问题也经常出现在机器学习，深度学习问题中，比如说，举一个极端的例子，如果一个模型中的参数比训练数据的总数还要多，那么只要训练数据不冲突，这个模型完全可以记住所有训练数据的结果从而使得损失函数为0.为了避免过拟合，一个非常常用的方法是正则化，其思想是在损失函数中加入刻画模型复杂度的指标。比如：假设损失函数为 $J(\theta)$，那么在优化时可以优化函数 $J(\theta) + \lambda R(w)$，其中 $R(w)$ 刻画的是模型的复杂程度，而 $\lambda$ 表示模型复杂损失在总损失中占的比例。常用的刻画模型复杂度的函数 $R(w)$ 有两种，一种是L1正则化：
     >
     > $$R(w) = \parallel w \parallel_1 = \sum \mid w_i \mid$$
@@ -582,19 +593,41 @@
     >
     > $$R(w) = \parallel w \parallel_{2}^{2} = \sum \mid w_i^{2} \mid$$
     >
-    > 无论哪一种正则化，其原理都是希望通过限制权重的大小，使得模型不能任意拟合训练数据中的随机噪声。
+    > 无论哪一种正则化，其原理都是希望通过限制权重的大小，使得模型不能任意拟合训练数据中的随机噪声。但这两种正则化会有很大差别，具体看书或者百科，所以实践中一般可以将两种方法同时使用：
     >
-    > a
+    > $$R(w) = \sum_i \alpha \mid w_i \mid + (1 - \alpha) w_i^2$$
+
+  - 第五章：MNIST 数字识别问题
+
+    > ***MNIST数据处理***
     >
-    > b
+    > ***神经网络模型训练及不同模型结果对比***：例子代码不错，比较完整；
     >
-    > c
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/ebe7c362-be22-11e7-811a-0242ac140002)
     >
-    > d
+    > ***变量管理***：
     >
-    > e
+    > ***TensorFlow模型的持久化***：
     >
-    > ​
+    > ***TensorFlow最佳实践样例程序***：代码例子不错，实现自己体会一下。
+
+  - 第六章：图像识别与卷积神经网络
+
+    > ***图像识别问题简介及经典数据集***：
+    >
+    > ***卷积神经网络介绍***： 卷积神经网络相邻两层之间只有部分节点相连，为了展示每一层神经元的维度，一般会将每一层卷积层的节点组织成一个三维矩阵；除了结构相似，卷积神经网络的输入输出及训练流程与全联接神经网络也基本一致；
+    >
+    > 卷积神经网络的引入：使用全联接神经网络处理图像的最大问题就是全联接层的参数太多。比如对于 mnist 数据集，每一个图片大小是 28x28x1，假设第一层隐藏层的节点数为500个，那么一个全联接层的神经网络就有 28x28x500 + 500 = 392500 个参数，当图片更大时，比如 cifar-10 数据集，图片大小 32x32x3，这样输入层就有 3072 个节点，如果第一层隐藏层仍然有500个节点，则这一层全联接神经网络就有 3072x500 + 500=150m 个参数。参数过多除了导致计算速度减慢，还很容易导致过拟合问题。而卷积神经网络就是一种***有效的减少神经网络中参数个数的算法***。
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/25131b7c-c040-11e7-811a-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7988227c-c042-11e7-abaa-0242ac140002)
+    >
+    > 一般卷积神经网络结构：输入层 -> 卷积层 -> 池化层 -> 全联接层 -> softmax 层
+    >
+    > ***卷积神经网络常用结构***： 
+    >
+    > 卷积层：也被称为过滤器或内核，它将当前神经网络层的一个子节点矩阵转化为下一层神经网络的一个单位节点矩阵。
 
 - answering
 
@@ -603,6 +636,10 @@
 - reviews
 
   - 相关公司：bitfusion，caicloud，
+  - [tensorflow学习笔记（三十八）:损失函数加上正则项](http://blog.csdn.net/u012436149/article/details/70264257)
+  - [TensorFlow四种Cross Entropy算法实现和应用](https://weibo.com/ttarticle/p/show?id=2309404047468714166594&ssl_rnd=1509591642.4778)
+  - [tf.cond 与 tf.control_dependencies 的控制问题](http://yanjoy.win/2017/04/18/tfcond/)
+  - ​
 
 
 
