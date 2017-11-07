@@ -2,8 +2,40 @@
 - 认真读题，圈出关键字，考虑知识点，做完一题通读一边，避免狗眼瞎错误；
 - 有些答案也可以推导出来的，不过要头脑清醒和细心，比如 reading 41 的 9题；
 - 发现似乎每 20～30 题就会有一个狗眼瞎，一定要注意哦；
+- 做题时头脑一定要清醒，最好明白考点是啥；
 - 英语专业词汇是个大问题，以后备考的时候准备一下词汇；
+- 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
+- 内容占比：
+	- Financial Reporting and Analysis:   20% : 24题
+	- Ethical and Professional Standards: 15% : 18题
+	- Quantitative Methods:               12% : 14.4题
+	- Economics:  						  10% : 12题
+	- Equity Investments: 				  10% : 12题
+	- Fixed Income: 					  10% : 12题
+	- Corpornate Finance: 				  7%  : 8.4题
+	- Portfolio Management and Wealth Planning: 7% : 8.4题
+	- Derivatives:								5% : 6题
+	- Alternative Investments: 					4% : 4.8题
 ```
+
+
+
+
+
+
+
+## Session 2 | R 6: The Time Value of Money
+
+1. $requirement rate on security = nominal \ riskfree \ rate + default \ premium + \ liquidity \ premium + \ maturity  \ premium$
+2. $EAR = (1 + stated \ annual \ rate/m)_{}^{m} - 1 = e_{}^{r} - 1$,
+3. 计算器使用：pv, fv, pmt, 1/y, n
+4. 理解 ordinary annuity（年金） 和 annuity due （即期年金）的区别；
+5. $PV_{perpetuity} = \frac {PMT}{1/Y}$
+6. notes 上讲的 annuity 的 pv 都是用计算器的 pv，fv，pmt，1/y，n 来计算的，但习题7有讲到直接用公式：$PV_{annuity} = A *  \frac {1 - \frac {1} {(1+r)_{}^{N}}} {r} $
+
+
+
+
 
 
 
@@ -228,7 +260,36 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 
 
 
+## Session 14 | R 49: Introduction to Industry and Company Analysis
 
+1. Tactical asset allocation involves timing investments in asset classes and does not make use of industry analysis.
+2. A sector rotation strategy is conducted by investors wishing to time investment in industries through an analysis of fundamentals and/or business-cycle conditions.
+3. The Russell system uses three tiers, whereas the other two systems are based on four tiers or levels.
+4. Personal care products 是指个人护理品，属于 comsumer staples，日常用品；
+5. Constructing a peer group is a subjective process, and a logical starting point is to begin with a commercially available classification system. This system will identify a group of companies that may have properties comparable to the business activity of interest.
+6. discretionary/staples: 可选消费品/日常消费品；
+7. economies of scale -> reduce per-unit cost -> increase profit;
+8. embryonic: slow growth, high prices, large investment required, high risk of failure;
+9. growth: rapid growth, limited competitive pressures, falling prices, increasing profitability;
+10. shakeout: growth has slowed, intense competition, increasing industry overcapacity, declining profitability, increased cost cutting, increased failures;
+11. mature: slow growth, consolidation, high barriers to entry, stable pricing, superior firms gain market share;
+12. decline: negative growth, declining prices, consolidation;
+13. An industry that has high barriers to entry generally requires substantial physical capital and/or financial investment. With weak pricing power in the industry, finding a buyer for excess capacity (i.e., to exit the industry) may be difficult.
+14. The cost structure is an appropriate element when analyzing the supply of the product, but analysis of demand relies on the product’s differentiating characteristics and the customers’ needs and wants.
+
+## Session 14 | R 50: Equity Valuation Concepts and Basic Tools
+
+1. FCFE = net income + depreciation - increase in working capital - FCInv - debt principal payments + new debt
+2. FCFE = cash flow from operations - FCInv + net borrowing, and $P0 = \sum \frac {FCFE_t}{(1 + k_e)_{}^{t}}$
+3. 掌握 FCFE 和 DCF 模型之间的关系：FCFE is used in DVF models instead of dividends because it represents the potential amount of cash that could be paid out, it reflects the firm's capcity to pay dividends, and often useful for firms that do not currently pay dividends.
+4. 深刻掌握几种估值模型：dcf/pv models -> ddm, fcfe; multiplier/market multiple models; enterprise value; asset-based models;
+5. gordon models 戈登模型 $P0 = \frac {D0(1 + g_c)}{k_e - g_c} = \frac {D1}{k_c - g_c}$,
+6. multistage dividend growth: $V0 = \frac {D1}{(1 + k_e)} + \frac {D2}{(1 + k_e)_{}^2} + \frac {D3}{(1 + k_e){}^3} +...+ \frac {D1}{(1 + k_e){}^n} + \frac {Pn}{(1 + k_n)_{}^{n}}$, where $Pn = \frac {D_(n+1)}{k_e - g_c}$
+7. sustainable growth = (1 - dividend payout ratio) * ROE = retention rate * ROE
+8. EV = MV of common and preferred stock + MV of debt - cash and short-term investments
+9. DDM model : $V0 = \sum \frac {D_t}{(1 + k_e)_{}^{t}}$
+10. preferred stock value: $V0 = \frac {D_p}{K_p}$, 半年分红，一年到期优先股：$V0 = \frac{D_1}{(1 +k_p/2)_{}^{}} + \frac{D_2}{(1 +k_p/2)_{}^{2}} + \frac{F_2}{(1 +k_p/2)_{}^{2}}$
+11. ​
 
 
 
