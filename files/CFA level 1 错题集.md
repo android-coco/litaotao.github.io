@@ -20,61 +20,298 @@
 
 
 
+### Session 1 | R1: Ethics and Trust in the Investment Profession
+
+no questions;
+
+### Session 1 | R2: Code of Ethics and Standards of Professional Conduct
+
+no questions;
+
+### Session 1 | R3: Guidance for Standard 1 - 7
+
+1. 7 Standards:
+
+   1. Professionalism
+
+      1. knowledge of the law
+      2. independence and objective
+      3. misrepresentation
+      4. misconduct
+
+   2. Integrity of capital markets
+
+      1. material nonpublic information
+      2. market manipulation
+
+   3. duties to clients
+
+      1. loyalty, prudence and care
+      2. fair dealing
+      3. suitability
+      4. performance presentation
+      5. preservation of confidentiality
+
+   4. duties to employers
+
+      1. loyalty
+      2. additional compensation arrangement
+      3. responsibilities of supervisors
+
+   5. investment analysis, recommendations and actions
+
+      1. diligence and reasonable basis
+      2. communications with clients and prospective clients
+      3. record retention
+
+   6. conflicts of interest
+
+      1. disclosure of conflicts
+      2. priority of transactions
+      3. referral fees
+
+   7. responsibilities as a CFA Institute Member or CFA candidate
+
+      1. conduct as participants in the CFA program
+      2. reference to CFA institute, the CFA designation and the CFA program
+
+   8. 这个 session 主要靠熟悉课后习题
+
+   9. [question 4]This question asks about compliance procedures relating to personal investments of members and candidates. The statement in answer C clearly conflicts with the recommended procedures in the *Standards of Practice* *Handbook*. Employers should compare personal transactions of employees with those of clients on a regular basis regardless of the existence of a requirement by any regulatory organization. Such comparisons ensure that employees’ personal trades do not conflict with their duty to their clients, and the comparisons can be conducted in a confidential manner. 
+
+   10. [question 6]Under Standard IV(C)–Responsibilities of Supervisors, members and candidates may delegate supervisory duties to subordinates but such delegation does not relieve members or candidates of their supervisory responsibilities. 
+
+   11. [question 9]Standard VII(B)–Reference to CFA Institute, the CFA Designation, and the CFA Program is the subject of this question. The reference on Albert’s business card implies that there is a “CFA Level II” designation; Tye merely indicates in promotional material that he is participating in the CFA Program and has completed Levels I and II. Candidates may not imply that there is some sort of partial designation earned after passing a level of the CFA exam. Therefore, Albert has violated Standard VII(B). Candidates may communicate that they are participating in the CFA Program, however, and may state the levels that they have completed. Therefore, Tye has not violated Standard VII(B).
+
+   12. mosaic theory: reaching an investment conclusion through perceptive analysis of public and non-material non-public information is not a violation of the standard.
+
+   13. [question 28], soft dollar: 出于对监管当局制定的规则的遵守和防止价格恶性竞争，经纪商通常都会保持交易佣金水平，但是为了吸引客户进行交易，往往私下里为客户提供一定的优惠，如提供研究报告及其他优惠等。这种优惠一般采取非现金形式，因此，被称为“软美元”（soft　dollar）。软美元又称证券互惠行为，是相对于“硬美元”来说的，“软美元”是指基金管理人使用经纪业务为条件来获取经纪商提供的研究服务或其它服务。与此对应，硬美元是指投资者直接用来支付研究服务或其他服务费用的资金。 
+
+   14. [question 32],  The guidance to Standard II(A)–Material Nonpublic Information recommends adding securities to the firm’s restricted list when the firm has or may have material nonpublic information. By adding these securities to this list, Andrews would uphold this standard. Because waiting until the next day will not ensure that news of the merger is made public, 
+
+       ​
+
+### Session 1 | R4: Introduction to the Global Investment Performance Standards(GIPS)
+
+no questions
+
+### Session 1 | R5: The GIPS Standards
 
 
 
+### Session 2 | R6: The Time Value of Money
 
-## Session 2 | R 6: The Time Value of Money
-
-1. $requirement rate on security = nominal \ riskfree \ rate + default \ premium + \ liquidity \ premium + \ maturity  \ premium$
-2. $EAR = (1 + stated \ annual \ rate/m)_{}^{m} - 1 = e_{}^{r} - 1$,
+1. $requirement \ rate \ on \ security = riskfree \ rate + default \ premium + \ liquidity \ premium + \ maturity  \ premium$
+2. $EAR = (1 + \frac {stated \ annual \ rate} {m})_{}^{m} - 1 = e_{}^{r} - 1$,
 3. 计算器使用：pv, fv, pmt, 1/y, n
 4. 理解 ordinary annuity（年金） 和 annuity due （即期年金）的区别；
-5. $PV_{perpetuity} = \frac {PMT}{1/Y}$
-6. notes 上讲的 annuity 的 pv 都是用计算器的 pv，fv，pmt，1/y，n 来计算的，但习题7有讲到直接用公式：$PV_{annuity} = A *  \frac {1 - \frac {1} {(1+r)_{}^{N}}} {r} $
+5. $PV_{perpetuity} = \frac {PMT}{1/Y}$,
+6. notes 上讲的 annuity 的 pv 都是用计算器的 pv，fv，pmt，1/y，n 来计算的，但习题7有讲到直接用公式：$PV_{annuity} = A *  \frac {1 - \frac {1} {(1+r)_{}^{N}}} {r}, 公式可以参考 PV_{perpetuity} 来推导 $,
+7. 复杂的题型记得画出 time line 出来就行了，无非就是分几段计算
 
 
 
+### Session 2 | R7: Discounted Cash Flow Applications
+
+1. 深刻理解 money-weighted-return(kind of IRR) 和 time-weighted-return（annual compound rate）. if funds are contributed to an investment portfolio just before a period of relatively poor performance, the money-weighted-return will tend to be lower than time-weighted-return (习题10).
+2. $r_{BD} = \frac D F * \frac {360} t;   HPY = \frac {P1 - P0 + D1}{P0};  EAY = (1 + HPY)_{}^{365/t} - 1;$
+3. Money-market yield/CD equivalent yield: $r_{MM} = HPY * (360/t) = \frac {360 * r_{BD}}{360 - (t*r_{BD})}$, 
+4. money-weighted-return: the IRR on a portfolio, the beginning value of the account is an inflow, as are all deposits into the account, all withdrawals from the account are outflows, as is the ending value;
+5. time-weighted-return measures the compound growth, 年化后的 time-weighted-return 就是 geometric return 了；
 
 
 
+### Session 2 | R8: Statistical Concepts and Market Returns
 
-## Session 4 | R 14: Topics in Demand and Supply Analysis
+1. 掌握 relative frequency 和 cumulative relative frequency 的算法，习题 5；mode：众数；quintile: 五分之一位；unimodal：单峰；$harmonic \ mean = \frac {N}{\sum \frac {1}{X_i}}$, range: 极差；$Mean \ Absolute \ Deviation = \frac {\sum {abs(X_i - \overline(X))}}{n}$, $population \ variance \ \sigma_{}^{2} =\frac {\sum {(X_i - u)_{}^{2}}}{N}$, $sample \ variance \ s_{}^{2} = \frac {\sum {(X_i - \overline X)_{}^{2}}}{n-1}$, 
+2. $chebyshev's \ inequality: P[\overline x-k*std \leq X \leq \overline x + k* std] \geq 1 - \frac {1}{k_{}^{2}}$, 
+3. $变异系数: coefficient \ of \ variation: CV = \frac {s_x}{\overline X} = \frac {std \ of \ x}{mean \ of \ x}$,
+4. $sharp \ ratio = \frac {\overline r_{p}^{} - r_f}{\sigma_p}，\sigma: 标准差； IR = \frac {策略年化-基准年化}{策略与基准每日收益差值的年化标准差}$, 
+5. positive skew, 右边长尾，mean > median > mode; negative skew, 左边长尾： mean < median < mode；左负右正;
+6. 峰度越大，中间越高，尾部概率相对标准正态分布更大；
+7. 分位值计算，习题13；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/044ded10-c3c7-11e7-811a-0242ac140002)
+
+### Session 2 | R9: Probability Concepts
+
+1. $P(AB) = P(A | B) * P(B);   \ P(A or B) = P(A) + P(B) - P(AB);  $
+2. $total \ probability \ rule = P(A|B)*P(B) + P(A|\overline B)*P(\overline B)$，is used to estimate an expected value based on mutually exclusive and exhaustive scenarios.
+3. exhaustive events: 穷举事件；
+4. 掌握胜率赔率的计算：odds：赔率；先把这个解题模式记住呗；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/17bb7e2e-c81f-11e7-abaa-0242ac140002)![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/8431225e-c3d1-11e7-811a-0242ac140002)
+5. $Cov(r_i, r_j) = E[(r_i - E(r_i))(r_j - E(r_j))]$, 
+6. $Cov(r_i, r_i) = Var(r_i) = \frac {1}{N} * \sum_{1}^{N}(r_i - \overline r)_{}^{2} = \sum_{1}^{N}P_i*(r_i - \overline r)_{}^{2} = E(r_i - \overline r)_{}^{2}$
+7. $Corr(r_i, r_j) = \frac {Cov(r_i, r_j)}{\sigma(r_i)*\sigma(r_j)}$, $Var(R_p) = \sum_{i=1}^{n} \sum_{j=1}^{n}w_i*w_j*Cov(r_i, r_j)$,
+8. $bayes \ law: P(A|B) * P(B) = P(B|A) * P(A) ===> P(A|B) = \frac {P(B|A) * P(A)}{P(B)}$,
+
+
+
+### Session 3 | R10: Common Probabilities Distributions
+
+1. 理解概率函数（probability function），概率密度函数（probability density function），累计分布函数（cumulative distribution function），其中连续型随机变量的 pdf 是指这个随机变量在某个确定的去指点附近的概率。
+2. 理解伯努力随机变量和二项随机变量（binomial random variable），二项随机试验 n 次中恰好成功 x 次的概率：$P(x) = C_{n}^{x} * p_{}^{x} * (1-p)_{}^{n-x} ，期望 E(x) = np, 方差 var(X) = np(1-p)$,
+3. 深刻理解 z 变换的含义，习题7 和 习题9；
+4. continuously compounded rate = $\ln (1 + HPR) ; HPR_T = e_{}^{R_{cc}*T} - 1$,![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/48b3a676-c821-11e7-abaa-0242ac140002)
+5. 正态分布关键性质：$X \sim N(\mu, {\sigma}_{}^{2})$: 
+   1. 偏度 skewness=0，峰度 kurtosis=3，正态分布的线性组合仍然是正态分布
+   2. 几个置信区间：1 -> 68%; 1.65 -> 90%; 1.96 -> 95%; 2 -> 95%; 2.58 -> 99%; 
+   3. z 变换：$z = \frac {x - u}{\sigma}$ ，学会查表，理解表达的区间概率计算，利用对称性；
+6. Roy 安全优先法则：$Minimize P(R_p < R_L)$，其中 Rl 指临界值水平回报；如果组合的回报符合正态分布，roy 安全法则也可以表示如下：$SFRatio (Safety \ first \ ratio) = \frac {E(R_p) - R_L}{\sigma_p}$，与夏普比率像，唯一的区别是 sharp ratio 使用的是无风险利率，而 sfratio 使用的是一个临界水平回报点。而 shortfall risk 是指在一个投资期内，一个组合的价值或者回报低于一个特定目标的概率。当使用 roy 安全法则来筛选组合的时候，需要利用 z 变换。
+7. 对数正态分布是指 $e_{}^{x}$ 其中 x 属于正态分布。
+8. 模特卡洛模拟是通过重复产生影响证券价值的因素的取值，从而得到证券价值的分布的一种方法。对每一个风险因子，都需要给出该因子取值的概率分布。这种方法可以用来对证券的期望值和方差举行推断。
+
+![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/767527ec-c3da-11e7-abaa-0242ac140002)
+
+### Session 3 | R11: Sampling and Estimation
+
+1. 均值：$\mu$, 标准差：$\sigma$, 方差：$\sigma_{}^{2}$;
+
+2. 中心极限定理：从一个均值为 $u$ 方差为 $\sigma_{}^{2}$ 的总体中，抽取一个大小为 n 的简单随机样本，随着样本大小的增大，样本的均值 $x$ 的抽样分布趋向于一个均值为 $u$ 方差为 $\frac {\sigma_{}^{2}} {n}$ 的正态分布。而样本均值构成的分布的标准差，就是样本的标准误差，也就是 $\sigma_x = \frac {\sigma}{\sqrt{n}}$，即总体的标准差除以样本量n。由此可以看到，随着样本大小的增大，样本均值的误差会慢慢减小，理论含义就是样本分布越来越接近总体分布。
+
+3. 一个估计量的理想性质有：
+
+   1. unbiased: the expected value of the estimator is equal to the parameter you are trying to estimate;
+   2. efficiency: the variance of its sampling distribution is smaller than all the other unbiased estimator of the parameter you are trying to estimate;
+   3. consistency: the accuracy of the parameter estimate increases as the sample size increase;
+
+4. t分布：均值对称，钟形分布；只有一个参数（自由度：n-1），比正态分布矮，尾部概率大，自由度增大，趋向正态
+
+   1. 服从近似正态分布，方差未知的整体，样本量较小（<30）时，用 t 分布来构建置信区间；
+   2. 不服从正态分布，方差未知，样本较大，用中心极限定理；
+   3. 服从近似正态分布，也可以用 z 分布来构建置信区间，没有 t 分布精确；
+
+5. 置信区间：给定一个概率 1-a，估计一个参数的真实值的区间。a称为置信水平(level of significance)，1-a 称为置信度(degree of confidence)。置信区间是通过在点估计点上面加减一个适当的值来得到的。
+
+6. 如果总体符合正态分布，且方差已知，那么总体均值的置信区间是：$\overline{x} \pm Z_{\alpha / 2} * \frac {\sigma}{\sqrt{n}}$，其中 $Z_{\alpha / 2}$ 是可靠性因子，用到正态分布的置信区间：1 -> 68%;      1.65 -> 90%;       1.96 -> 95%;             2.58 -> 99%; 
+
+7. 如果总体符合正态分布，且方差未知，那么总体均值的置信区间是：$\overline{x} \pm t_{\alpha / 2} * \frac {s}{\sqrt{n}}$，其中 $t_{\alpha / 2}$ 是 n-1 个自由度下 t 分布随机变量对应的可靠性因子，$\frac {s}{\sqrt{n}}$ 是样本标准误差 。学会查 t 分布表。
+
+8. 如果总体任意分布，方差未知，大样本情况下总体均值的置信区间：
+
+   1. 如果分布不是正态的，但是方差已知，在大样本情况下可以用 z 统计量（中心极限定理）；
+   2. 如果分布不是正态的，总体方差未知，大样本下可以使用 t 统计量，也可以使用 z，但 t 更加保守；
+
+   ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/4561f946-c380-11e7-811a-0242ac140002)
+
+9. 多看《统计学》那本书，唉，基础差啊，已经把这本书列入 12 月清单了：相关概念：统计量，点估计，无偏估计，有偏估计，区间估计，置信区间（样本统计量 +- 抽样误差），置信水平（95% 的置信水平表示在n次抽样中，大概有 0.95n 次中的样本统计量近似等于总体统计量）
+
+10. 熟练掌握 z-table，t-table 的使用和区别；
+
+11. ==本章估计要多看习题了，fuck；==
+
+12. 误差类型：appropriate sample size; data-mining bias; sample selection bias, survivorship bias, look-ahead bias, time-period bias;
+
+
+
+### ==Session 3 | R12: Hypothesis Testing==
+
+1. 假设检验步骤：陈述假设 -> 选择统计量  -> 决定规则  -> 计算样本统计量  -> 作出决定
+
+2. 检验统计量也需要考虑样本大小和总体方差是否已知，常见形式：$Z = \frac {\overline{X} - \mu_0}{\sigma / \sqrt{n}}$,
+
+3. 百度文库：统计学-假设检验概念和方法
+
+4. 本章估计要多看习题了，fuck；
+
+5. type 1 error: rejecting a true null hypothesis; type 2 error: accepting a false null hypothesis;
+
+6. The level of significance is used to establish the rejection points of the hypothesis test.
+
+7. the significance level of a test is the probability of rejecting the null H0 when it's true, the power of a test is the probability of rejecting the null H0 when it's false.
+
+8. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/b498f4fc-c88c-11e7-84a0-0242ac140002)
+
+9. t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$,          z-test:    $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$,
+
+10. p-value: 课本 274 页讲得很赞，多看几遍，熟读于心
+
+
+    > p-value is the probability of obtaining a test statistic that would lead to a rejection of the H0, assuming the H0 is true. it's the smallest level of significance for which the H0 can be rejected.
+    >
+    > For one-tailed tests, the p-value is the probability that lies above the computed test statistic for upper tail test or below the computed test statistic for lower tail test.
+
+
+### Session 3 | R13: Technical Analysis
+
+1. 线条图：一般将收盘价用线条连接起来；条形图：增加最高和最低价，有时候也标注开盘价，每个周期一个竖线，收盘价通过线条旁边的点来反映；蜡烛图即最常见的图；
+2. 趋势线帮助判断趋势的持续和反转，上升趋势中，趋势线由价格的低点联接构成；下降趋势中，趋势线由价格高点联接构成，当价格穿过趋势线一个适当的幅度时，可以考虑趋势的突破了。
+3. 反转类型指趋势无法继续的类型；头肩型表明驱动股价上升的力量正在减弱，尤其是依次出现的价格高点伴随着缩小的成交量；双重顶和三重顶类似于头肩型，表明多头力量逐步减弱，能用于预测下一个下降趋势的目标价位；类似的反转类型还有反向头肩型，双重底，三重底。
+4. 持续类型表明趋势暂停后继续维持原来的趋势，三角形指价格低点依次上升，价格高点依次下降的类型。三角形表明多头空头力量短期内相等，不代表趋势转向。
+5. change in polarity: once a resistence level is breached, it becomes a support level.
+6. 头肩型预测目标价：target = neckline + (neckline - head)
+7. 习题15:  A large increase in the number of IPOs increases the supply of equity and if overall demand remains the same, puts downward pressure on equities. Also, companies tend to issue shares of equity when the managers believe they will receive a premium price, which is also an indicator of a market top.
+8. trin: arms index, short-term trading index: 短期交易指数，指数值大于1表明资金主要流入下跌的股票，指数小于1表明资金主要流入上涨的股票；
+
+### Session 4 | R14: Topics in Demand and Supply Analysis
 
 1. 熟练掌握弹性的计算
-
 2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positve, the opposite is inferior goods.
-
 3. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positve, otherwise complements.
-
 4. giffen good: 劣等品，价格下降时负面的收入弹性效应大于正面的替代效应，理论上可能；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
-
 5. factors of production，生产要素：land，labor，capital，materials。
-
 6. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
-
 7. under perfect competition -> price = mr = ar:
+  1. price = ar = atc: breakeven point, economic profit equals zero
+  2. price > vc, ar > avc, tr > tvc: continue operating
+  3. price < vc, ar < avc: shut down
+  4. (long) price < atc: shut down
+8. under imperfect competition -> mr != price:
+  1. tr = tc: breakeven
+   2. tc > tr > tvc: continue operating in short run, shut down in long run
+   3. tr < tvc: shut down
 
-8. 1. price = ar = atc: breakeven point, economic profit equals zero
-   2. price > vc, ar > avc, tr > tvc: continue operating
-   3. price < vc, ar < avc: shut down
-   4. (long) price < atc: shut down
+### Session 4 | R15: The Firm and Market Structure
 
-9. under imperfect competition -> mr != price:
+1. 完全竞争：持续扩大生产，直到 MR=MC，短期内所有厂商都在 MR=MC 处达到利润最大化（经济利润），长期利润最大化发生在 TR 超过 TC 的最大处。
+2. 习题4，书上完全没印象啊：![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d687a430-c497-11e7-811a-0242ac140002)
+3. 完全竞争市场：价格 = 边际收益 = 边际成本（均衡状态下）；完全需求弹性，经济利润为零；
+4. 垄断竞争市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（有弹性但不完全弹性），长期经济利润为0；
+5. 寡头垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但一段时期后经济利润会趋近于0；
+6. 完全垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但也可能为了维护垄断地位产生费用支出导致经济利润为0；
+7. N-frim concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
 
-10. 1. tr = tc: breakeven
-    2. tc > tr > tvc: continue operating in short run, shut down in long run
-    3. tr < tvc: shut down
+### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth==
+
+1. nominal gdp = Pt * Qt, real gdp = Pi * Qt, gdb deflator = nominal gdp / real gdp
+2. 收入法和支出法：gdp = C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
+3. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
+4. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
+
+### Session 4 | R17: Understanding  Business Cycles
+
+1. expansion(real GDP increase) -> peak(real GDP stops increasing and begin decreasing) -> contraction/recession(real GDP is decreasing) -> trough(real GDP stop decreasing and begins increasing)
+2. Neoclassical: business cycles are temporary and driven by technology, rapid adjustments of wages and input prices cause the economy to move to full-employment equilibrium;
+3. Keynesian: managers' optimism or pessimism cause cycles and contractions can persist because wages are slow to move downward. New Keynesian believe input prices other than wages are also slow to move downward;
+4. Monetarists: changes in money supply cause cycles;
+5. Austrian: government intervention cause interest rates on low levels, then cause cycles;
+6. real business cycle: real economic environment changes cause cycles, such as technology, external shocks, and policymakers should not intervene in business cycles;
+7. 几种失业类型：fractional, structural, cyclical, discouraged worker;
+8. disflation: 反通胀；stagflation: 滞胀；hyperinflation：恶性通胀；deflation：通缩
+9. $CPI = \frac {cost \ of \ basket \ at \ current \ price}{cost \ of \ basket \ at \ base \ period \ price} * 100$
+10. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Passche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$,
+11. 理解两种通胀原因：cost-push（成本推动型）；demand-pull（需求拉动型）
 
 
 
-## Session 10 | R 34: Corporate Governance and ESG: An introduction
+### ==Session 5 | R18: Monetary and Fiscal Policy==
+
+1. 深刻理解货币的创造过程，货币乘数=1/准备金率；货币数量论指货币的数量和经济体中的总支出是相等的，即：货币供应 x 交易速度 = 价格水平 x 实际产出（MV = PY）。
+2. 理解货币学派提出的货币中性观点；费雪效应：名义利率=实际利率+预期通胀率；
+3. ==基本上全是关于央行操作的，奶奶的，宏观经济学好难啊，好担心考不过啊，fuck；==
+
+### Session 5 | R19: International Trade and Capital Flows
+
+1. 基本概念：进出口，autarky（封闭经济），自由贸易（进出口不受限制，不收取费用），贸易保护（对进出口限额及收取费用），世界价格，国内价格；贸易条款（一个国家出口价格指数与以基期价值为100的进口价格指数之间的比例），外国直接投资（FDI，在境外拥有生产资料的所有权），跨国公司；
+2. 概念 GDP 和 GNP；比较优势和绝对优势，以及它们对经济发展的作用；
+3. 自由贸易区（北美自由贸易协议 NAFTA） <- 关税同盟 <- 欧洲共同体 <- 经济组织 <- 货币联盟 （货币联盟）
+
+
+
+
+
+### Session 10 | R34: Corporate Governance and ESG: An introduction
 
 no questions.
 
-
-
-## Session 10 | R 35: Capital Budgeting
+### Session 10 | R35: Capital Budgeting
 
 1. 计算器计算 irr，npv，计算 npv 也可以用公式，如果现金流次数少的话
 2. payback period 和 discounted payback period，细心+耐心计算
@@ -83,7 +320,9 @@ no questions.
 5. 计算pv：pmt, 1/y, n, fv, cpt
 6. 掌握 npv profile 的绘制及其含义，以及多个项目的 npv profile 的 cross rate 含义【npv 相等】
 
-Session 10 | Reading 36: Cost of Capital | 有几个概念没有掌握，还欠缺债的知识
+
+
+### ==Session 10 | R36: Cost of Capital==
 
 1. 计算 cost of equity capital：使用 capm 模型，dividend discount 模型，bond yield 模型；cost of equity capital 有时候也叫 cost of retained earning，dividend discount 模型可以演变成 dcf 模型【习题25】；
 2. 计算 cost of debt，债券的 ytm 计算，使用计算器计算 1/y，注意付息方式；
@@ -93,42 +332,43 @@ Session 10 | Reading 36: Cost of Capital | 有几个概念没有掌握，还欠�
 6. 理解掌握 marginal cost of capital 和 break point 的概念，并且会计算才行哦
 7. 计算country risk premium
 
-
-
-## Session 11 | R 37: Measures of Leverage
+### Session 11 | R37: Measures of Leverage
 
 1. 理解风险分类：商业风险【销售，运营】，财务风险；DOL 的三种计算方法；
 2. 掌握 DFL 的两种计算方式，DTL = DFL * DOL
 3. 理解掌握 breakeven quantity of sales 和 operation breakeven quantity of sales 的计算方法，核心即为销量刚好覆盖成本的点；不过也要融会贯通，breakeven 既可以指销量，也可以指销售金额；
 
-
-
-## Session 11 | R 38: Dividends and Share Repurchases: Basics
+### Session 11 | R38: Dividends and Share Repurchases: Basics
 
 1. 理解现金分红相当于把留存收益送给股东，降低了公司资产和股票市值；股票分红相当于留存收益或资本公积金的资本化，会增加注册资本；
 2. 不要把 pe 和 eps 搞混淆了，我去，还是玩股票这么多年的人了，shame on you
 3. 掌握股票回购后 eps 的算法，以及两种回购方式对 eps 的影响：自由资金和借钱回购，考虑资金成本即可；
 4. 理解如果book value per share = price 的话，那么回购后 book value per share 刚好不变；
 
+### Session 11 | R39: Working Capital Management
 
-
-## Session 11 | R 39: Working Capital Management
-
-1. 一堆公式来袭，稳住
+1. 39 | liquidity
+   1. current ratio = current assets / current liabilities
+   2. quick ratio = (cash + short-term market security + receivable) / current liabilities
+   3. quick ratio = (current assets - inventory) / current liabilities
+   4. receivables turnover = credit sales / average receivalbes
+   5. days of receivables = 365 / receivables turnover
+   6. inventory turnover = cogs / average inventory，可是 39 的习题都是用 ending inventory 来计算的哦
+   7. days of inventory = 365 / inventory turnover
+   8. payables turnover = purchases / average payables
+   9. days of payables = 365 / payables turnover
+   10. operating cycle = days of receivalbes + days of inventory
+   11. cash conversion cycle(net operating cycle) = average days os receivables + average days of inventory - average days of payables
 2. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
 3. 理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit
 
-
-
-## Session 12 | R 40: Portfolio Management: An Overview
+### Session 12 | R40: Portfolio Management: An Overview
 
 1. 理解捐赠基金的存续期一般是最长的；
 2. 掌握组合构建三步走：planning，execution，feedback；
 3. 知道常见的基金分类以及各个类别的特色，比如可以用 nav 交易的有 mutual fund, open-end fund, money market fund;
 
-
-
-## Session 12 | R 41: Risk Management: An Introduction
+### Session 12 | R41: Risk Management: An Introduction
 
 1. 理解掌握 risk management framework:
 
@@ -144,9 +384,7 @@ Session 10 | Reading 36: Cost of Capital | 有几个概念没有掌握，还欠�
 
 4. 掌握 var 和 cvar 的定义和金融含义，CVaR是指投资组合的损失大于某个给定的VaR值的条件下，该投资组合损失的平均值。
 
-
-
-## Session 12 | R 42: Portfolio Risk and Return: Part 1
+### Session 12 | R42: Portfolio Risk and Return: Part 1
 
 1. 计算 hpr 的时候不要忘记分红哦：r = (p1 - p0 + d) / p0
 2. 我发现 cfa 里 reading 42 中都把 variance 和 standard deviation 等同起来了，好几道习题都酱紫的，晕死人了；
@@ -157,21 +395,17 @@ Session 10 | Reading 36: Cost of Capital | 有几个概念没有掌握，还欠�
 7. the portfolios that have the lowest std of all portfolios with a given expected return rate are known as minimum-variance portfolios, and they are together make up the minimum-variance frontier; and the (markowitz) efficient frontier coincides with the top portion of the minimum-variance frontier, the portfolio on the efficient frontier that has the least risk is the global minimum-variance portfolio.
 8. the line representing these possible combinations of risk-free assets and the optimal risky asset portfolio is referred as the capital allocation line.
 
-
-
-## Session 12 | R 43: Portfolio Risk and Return: Part 2
+### Session 12 | R43: Portfolio Risk and Return: Part 2
 
 1. 理解资本市场线 cml 是一种特殊的 cal 而已：under the assumption of homogeneous expectations, the optimal cal for all investors is termed the capital market line. alone this line, there is an equation: E(Rp) = Rf + (E(Rm) - Rf) / Risk_m * Risk_P。the difference between the expected return on the market and the risk-free rate is termed as the market risk premium。
 2. 深刻理解当市场预期收益大于 risk free rate 的时候，或者借钱成本小于市场预期收益的时候，可以通过借钱炒股来使得组合收益更高，这种就叫 borrowing portfolio，page 162 的习题非常好；
 3. 深刻理解：One important conclusion of Captial Market Theory is that equilibrium security returns depend on a stock's or a portfolio's system risk, not its total risk. And the riskest stock does not necessarily have the greatest expected return. So unsystematic risk is not compensated in equilibrium because it can be eliminated for free through diversification.
-4. 个股预期收益公式：Ri = alpha + beta * Rm + Ei，其中注意 Rm 是市场组合的收益。beta = Cov(i, m) / (risk of market)^2，然后 Cov(i, m) = corr(i, m) * risk_i * risk_m，所以 beta = corr(i, m) * risk_i / risk_m，但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：Ri - Rf = alpha + Cov(i, m) / (risk of market)^2 * (Rm - Rf)，自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：E(Ri) = Rf + (E(Rm) - Rf) / (risk of market)&^2 * (Cov(i, m))，实际上，scl 到 sml，只是简单的变换一下 x 轴变量而已了。
+4. 个股预期收益公式：Ri = alpha + beta * Rm + Ei，其中注意 Rm 是市场组合的收益。beta = Cov(i, m) / (risk of market)^2，然后 Cov(i, m) = corr(i, m) * risk_i * risk_m，所以 beta = corr(i, m) * risk_i / risk_m，但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：Ri - Rf = alpha + Cov(i, m) / (risk of market)^2 * (Rm - Rf)，自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：E(Ri) = Rf + (E(Rm) - Rf) / (risk of market)^2 * (Cov(i, m))，实际上，scl 到 sml，只是简单的变换一下 x 轴变量而已了。
 5. 遇到 capm 相关的习题时，需要注意题中说的是 market return 还是 market risk premium，因为 capm: Ri = rf + beta * (Rm - rf) = rf + beta * (risk premium of market)。
 6. sharp ratio = (Rp - Rf) / (risk of portfolio), is its excess returns per unit of total risk，相当于是 cal 的斜率哦。然后 m-squared = (Rp - Rf) * (risk or market) / (risk of portfolio) - (Rm - Rf)。treynor ratio = (Rp - Rf) / (beta of portfolio), interpreted as excess returns per unit of system risk。Jensen's alpha = Rp - [Rf + beta * (Rm - Rf)]。
 7. 如果预期收益率在 sml 下方，则股票被高估了，反之，看书本 p174 加深理解。
 
-
-
-## Session 12 | R 44: Basics of Portfolio Planning and Constructing
+### Session 12 | R44: Basics of Portfolio Planning and Constructing
 
 1. components of IPS:
 
@@ -189,12 +423,12 @@ Session 10 | Reading 36: Cost of Capital | 有几个概念没有掌握，还欠�
 
 5. The core-satellite approach invests the majority of the portfolio in passively managed indexes and invest a smaller in active strategy.
 
-## Session 13 | R 45: Market Organization and Structure
+### Session 13 | R45: Market Organization and Structure
 
 1. The primary market is the market for newly issued securities, subsequent sales are on secondary market.
 2. securities can be classified as fixed income and equity. fixed income includes bonds, notes, commercial paper, government bills, certificate of deposit, repurchase agreement, convertible debt; equity securities includes common stock, preferred stock and warrants.
 3. A forward contract is an agreement to buy or sell an asset in the future at a price specified in the contract at its inception.
-4. Clearinghouses limit counterparty risk that the other party to a transaction will not fulfill its obligation.
+4. Clearing houses limit counterparty risk that the other party to a transaction will not fulfill its obligation.
 5. 看跌期权 ( put option )：
 
 ```
@@ -222,10 +456,10 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 10. 英语啊，我勒个去，`the stock was bought on 75 percent margin` 是说股票买入只交了总价值的 0.75。
 11. 理解各种订单特征：making a new market/inside the market -> make the market -> behind the market -> far from the market; take the market;
 12. complete markets = operational efficient + informationally efficient
+13. $leverage \ ratio = \frac {asset \ value} {equity \ position \ value}$
+14. $margin \ call \ price = P0 (\frac {1 - initial \ margin} {1 - maintenance \ margin})$
 
-
-
-## Session 13 | R 46: Security Market Indices
+### Session 13 | R46: Security Market Indices
 
 1. A security market index is used to represent the performance of an asset class, security market, or segment of a market.
 2. $price \ return \ of \ index = \frac {R1 + R2 + … + Rn} {n}, Rn:\ return \ of \ asset \ n$, total return 需要考虑到个股持有期间的分红；price return 的话更简单了，直接用价格加权来计算，不用考虑分红；
@@ -234,10 +468,9 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 5. Security market indices are used as proxies for measuring market or systematic risk, not as measures of systematic risk.
 6. Sector indices provide a means to determine whether a portfolio manager is more successful at stock selection or sector allocation.
 7. real estate indexes can be constructed using returns based on appraisals of properties, repeat property sales, or the performance of REITs.
+8. $price \ return \ of \ index = \frac {R1 + R2 + … + Rn} {n}, Rn:\ return \ of \ asset \ n$
 
-
-
-## Session 13 | R 47: Market Efficiency
+### Session 13 | R47: Market Efficiency
 
 1. factors affect the degree of market efficiency: number of market participants + availability of information + impediments to trading + transaction and information cost;
 2. weak-form market efficiency: current price fully reflect all currently available security market data, one can't achieve positive risk-adjusted returns on average by using technical analysis;
@@ -246,9 +479,7 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 5. 掌握市场有效和市场无效的概念哦，注意单词，看题目是 efficiency 还是 inefficiency。
 6. Behavioral theories of loss aversion can explain observed overreaction in markets, such that investors dislike losses more than comparable gains (i.e., risk is not symmetrical).
 
-
-
-## Session 14 | R 48: Overview of Equity Securities
+### Session 14 | R48: Overview of Equity Securities
 
 1. types of equity: statutory voting, cumluative voting, callable common shares, putable common shares, preference shares, cumulative preference shares, participating preference shares, convertible preference shares.
 2. Depository receipts represent ownership in a foreign firm and are traded in the markets of other countries in local market currencies. A sponsored DR provides the investor voting rights and is usually subject to greater disclosure requirements.
@@ -257,10 +488,9 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 5. Global registered shares are traded in different currencies on stock exchanges around the world.
 6. the primary goal of firm management is to increase the book value of the firm's equity and thereby increase the market value of its equity. and $book \ value = total \ assets - total \ liabilities$, $roe = \frac {Net Income}{(BV_{t-1} + BV_{t}) / 2} = \frac {Net \ Income}{BV_{t-1}} $，如果 book value 多变的话计算 roe 就用 book value 均值咯。
 7. Companies try to raise funds at the lowest possible cost. Therefore, cost of equity is used as a proxy for the minimum required rate of return.
+8. $book value = total assets - total liabilities$
 
-
-
-## Session 14 | R 49: Introduction to Industry and Company Analysis
+### Session 14 | R49: Introduction to Industry and Company Analysis
 
 1. Tactical asset allocation involves timing investments in asset classes and does not make use of industry analysis.
 2. A sector rotation strategy is conducted by investors wishing to time investment in industries through an analysis of fundamentals and/or business-cycle conditions.
@@ -277,57 +507,41 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 13. An industry that has high barriers to entry generally requires substantial physical capital and/or financial investment. With weak pricing power in the industry, finding a buyer for excess capacity (i.e., to exit the industry) may be difficult.
 14. The cost structure is an appropriate element when analyzing the supply of the product, but analysis of demand relies on the product’s differentiating characteristics and the customers’ needs and wants.
 
-## Session 14 | R 50: Equity Valuation Concepts and Basic Tools
+### Session 14 | R50: Equity Valuation Concepts and Basic Tools
 
 1. FCFE = net income + depreciation - increase in working capital - FCInv - debt principal payments + new debt
 2. FCFE = cash flow from operations - FCInv + net borrowing, and $P0 = \sum \frac {FCFE_t}{(1 + k_e)_{}^{t}}$
 3. 掌握 FCFE 和 DCF 模型之间的关系：FCFE is used in DVF models instead of dividends because it represents the potential amount of cash that could be paid out, it reflects the firm's capcity to pay dividends, and often useful for firms that do not currently pay dividends.
 4. 深刻掌握几种估值模型：dcf/pv models -> ddm, fcfe; multiplier/market multiple models; enterprise value; asset-based models;
 5. gordon models 戈登模型 $P0 = \frac {D0(1 + g_c)}{k_e - g_c} = \frac {D1}{k_c - g_c}$,
-6. multistage dividend growth: $V0 = \frac {D1}{(1 + k_e)} + \frac {D2}{(1 + k_e)_{}^2} + \frac {D3}{(1 + k_e){}^3} +...+ \frac {D1}{(1 + k_e){}^n} + \frac {Pn}{(1 + k_n)_{}^{n}}$, where $Pn = \frac {D_(n+1)}{k_e - g_c}$
+6. multistage dividend growth: $V0 = \frac {D1}{(1 + k_e)} + \frac {D2}{(1 + k_e)_{}^2} + \frac {D3}{(1 + k_e){}^3} +...+ \frac {Dn}{(1 + k_e){}^n} + \frac {Pn}{(1 + k_n)_{}^{n}}$, where $Pn = \frac {D_(n+1)}{k_e - g_c}$
 7. sustainable growth = (1 - dividend payout ratio) * ROE = retention rate * ROE
 8. EV = MV of common and preferred stock + MV of debt - cash and short-term investments
-9. DDM model : $V0 = \sum \frac {D_t}{(1 + k_e)_{}^{t}}$
+9. DDM model : $V0 = \sum \frac {D_t}{(1 + k_e)_{}^{t}}$,
 10. preferred stock value: $V0 = \frac {D_p}{K_p}$, 半年分红，一年到期优先股：$V0 = \frac{D_1}{(1 +k_p/2)_{}^{}} + \frac{D_2}{(1 +k_p/2)_{}^{2}} + \frac{F_2}{(1 +k_p/2)_{}^{2}}$
-11. ​
 
+### Session 15 | R51: Fixed-Income Securities: Defining Elements
 
+1. 概念：债券存续期，永续债券（类似永续年金），货币市场债券（存续期小于1年），资本市场债券（存续期大于1年）
+2. 信用增级：内部（超额抵押，超额价差，债券分级）；外部（保证债，银行担保）
+3. 否定性条款（发行人应该避免的）：不能卖出作为抵押的资产；不能二次抵押资产；不能再次借债；
+4. 肯定性条款（发行人应该做的）：保证财务比率在一定水平之上；按时偿还债务本金和利息；
+5. 本币债：本国发行，本国货币，本国交易；外币债：在外国发行，外国货币，外国市场交易；欧债：不受任何国家监管以某国货币发行，且不同于发行市场的国际货币（比如中国企业发行以日元计价的，且在日本以外市场发行的债券）。
+6. [习题1]The tensor(term to maturity) of the bond is the time remaining until the bond's maturity date. 
+7. [习题3]the coupon rate that applies to the interest payment due on 30 June is based on the 3-month Libor rate prevailing on 31.Mar.
+8. [习题4]The indenture is trust deed, is the legal contract describes the form of the bond, the obligations of the issuer and the rights of the bondholders. and covenants are only one element of the indenture, it clauses the rights of the bondholders and any actions the issuer is obligated to perform and prohibited from performing.
+9. [习题 9]Eurobonds are typically issued as bearer bonds, i.e., bonds for which the trustee does not keep records of ownership. In contrast, domestic and foreign bonds are typically registered bonds for which ownership is recorded by either name or serial number.
+10. 掌握债券资金流的三个结构：bullet structure, fully amortizing, partially amortizing，核心在最后一期付款额度。
+11. 掌握 Floor and Cap in a FRN(Floating Rate Notes) 的用处，step-up coupon bonds(coupon rate increases by a predetermined schedule), credit-linked coupon bond(coupon rate will go up by a certain amount if the credit rating goes down), payment-in-kind(PIK: make coupon payments by increasing the principal amount), deferred/split coupon bond(coupon payments do not begin until a period time), index-linked bond(principal value that is based on an index)
+12. 可赎回债券：美式-随时赎回；欧式-赎回日才行；百慕大-在第一赎回日后的指定日期；
+13. A zero-coupon, or pure discount, bond pays no interest; instead, it is issued at a discount to par value and redeemed at par. As a result, the interest earned is implied and equal to the difference between the par value and the purchase price.
+14. A covered bond is a debt obligation backed by a segregated pool of assets called a “cover pool.” When the assets that are included in the cover pool become non-performing (i.e., the assets are not generating the promised cash flows), the issuer must replace them with performing assets.
+15. The conversion premium is the difference between the convertible bond’s price and its conversion value.
 
+### Session 15 | R52: Fixed-Income Markets, Issuance, Trading and Funding
 
-
-
-
-
-
-
-
-
-
-## Formulas
-
-- 39 | liquidity
-
-- - current ratio = current assets / current liabilities
-  - quick ratio = (cash + short-term market security + receivable) / current liabilities
-  - quick ratio = (current assets - inventory) / current liabilities
-  - receivables turnover = credit sales / average receivalbes
-  - days of receivables = 365 / receivables
-  - inventory turnover = cogs / average inventory，可是 39 的习题都是用 ending inventory 来计算的哦
-  - days of inventory = 365 / inventory turnover
-  - payables turnover = purchases / average payables
-  - days of payables = 365 / payables turnover
-  - operating cycle = days of receivalbes + days of inventory
-  - cash conversion cycle(net operating cycle) = average days os receivables + average days of inventory - average days of payables
-
-- 45 
-
-  - $leverage \ ratio = \frac {asset \ value} {equity \ position \ value}$
-  - $margin \ call \ price = P0 (\frac {1 - initial \ margin} {1 - maintenance \ margin})$
-
-- 46
-
-  - $price \ return \ of \ index = \frac {R1 + R2 + … + Rn} {n}, Rn:\ return \ of \ asset \ n$
-
-- 48
-
-  - $book value = total assets - total liabilities$
+1. 单词：jurisdiction(管辖); secured(担保的); quasi(准。。的)
+2. [习题 6]Interbank offered rates are used as reference rates not only for floating-rate bonds, but also for other debt instruments including mortgages, derivatives such as interest rate and currency swaps, and many other financial contracts and products. 
+3. [习题 9]A shelf registration allows certain authorized issuers to offer additional bonds to the general public without having to prepare a new and separate offering circular. The issuer can offer multiple bond issuances under the same master prospectus, and only has to prepare a short document when additional bonds are issued. A is incorrect because the grey market is a forward market for bonds about to be issued. C is incorrect because a private placement is a non-underwritten, unregistered offering of bonds that are not sold to the general public but directly to an investor or a small group of investors.
+4. [习题 17]Commercial paper, whether US commercial paper or Eurocommercial paper, is negotiable—that is, investors can buy and sell commercial paper on secondary markets.
+5. [习题 21/22]A repurchase agreement (repo) can be viewed as a collateralized loan where the security sold and subsequently repurchased represents the collateral posted.The repo margin (the difference between the market value of the underlying collateral and the value of the loan) is a function of the supply and demand conditions of the collateral. The repo margin is typically lower if the underlying collateral is in short supply or if there is a high demand for it.
