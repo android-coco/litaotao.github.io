@@ -123,13 +123,14 @@ no questions
 
 ### Session 2 | R8: Statistical Concepts and Market Returns
 
-1. 掌握 relative frequency 和 cumulative relative frequency 的算法，习题 5；mode：众数；quintile: 五分之一位；unimodal：单峰；$harmonic \ mean = \frac {N}{\sum \frac {1}{X_i}}$, range: 极差；$Mean \ Absolute \ Deviation = \frac {\sum {abs(X_i - \overline(X))}}{n}$, $population \ variance \ \sigma_{}^{2} =\frac {\sum {(X_i - u)_{}^{2}}}{N}$, $sample \ variance \ s_{}^{2} = \frac {\sum {(X_i - \overline X)_{}^{2}}}{n-1}$, 
+1. 掌握 relative frequency 和 cumulative relative frequency 的算法，习题 5；mode：众数；quintile: 五分之一位；quartile: 四分之一位；deciles：十分之一位；percentiles：百分之一位 ；unimodal：单峰；$harmonic \ mean = \frac {N}{\sum \frac {1}{X_i}}$, range: 极差；$Mean \ Absolute \ Deviation = \frac {\sum {abs(X_i - \overline(X))}}{n}$, $population \ variance \ \sigma_{}^{2} =\frac {\sum {(X_i - u)_{}^{2}}}{N}$, $sample \ variance \ s_{}^{2} = \frac {\sum {(X_i - \overline X)_{}^{2}}}{n-1}$, $ sample \ \ standard \ deviation = s$, 
 2. $chebyshev's \ inequality: P[\overline x-k*std \leq X \leq \overline x + k* std] \geq 1 - \frac {1}{k_{}^{2}}$, 
 3. $变异系数: coefficient \ of \ variation: CV = \frac {s_x}{\overline X} = \frac {std \ of \ x}{mean \ of \ x}$,
 4. $sharp \ ratio = \frac {\overline r_{p}^{} - r_f}{\sigma_p}，\sigma: 标准差； IR = \frac {策略年化-基准年化}{策略与基准每日收益差值的年化标准差}$, 
-5. positive skew, 右边长尾，mean > median > mode; negative skew, 左边长尾： mean < median < mode；左负右正;
-6. 峰度越大，中间越高，尾部概率相对标准正态分布更大；
-7. 分位值计算，习题13；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/044ded10-c3c7-11e7-811a-0242ac140002)
+5. positive skew, 右边长尾，mean > median > mode; negative skew, 左边长尾： mean < median < mode；左负右正，通过x坐标轴来记忆;
+6. 峰度越大，中间越高，尾部概率相对标准正态分布更大；Leptokurtic：尖峰；Mesokurtic：常峰；Platykurtic：低峰；
+7. $permutation(n, r) = \frac {n!}{(n-r)!},  combination(n, r) = \frac {n!}{(n-r)! * r!}$.
+8. 分位值计算，习题13；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/044ded10-c3c7-11e7-811a-0242ac140002)
 
 ### Session 2 | R9: Probability Concepts
 
@@ -242,12 +243,12 @@ no questions
 4. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
 5. factors of production，生产要素：land，labor，capital，materials。
 6. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
-7. under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
+7. 关键要理解，under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
   1. price = ar = atc: breakeven point, economic profit equals zero
   2. price > vc, ar > avc, tr > tvc: continue operating
   3. price < vc, ar < avc, mr < avc: shut down
   4. (long) price < atc: shut down
-8. under imperfect competition -> mr != price:
+8. under imperfect competition -> price != mr:
   1. tr = tc: breakeven
    2. tc > tr > tvc: continue operating in short run, shut down in long run
    3. tr < tvc: shut down
@@ -264,12 +265,12 @@ no questions
 5. 垄断竞争市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（有弹性但不完全弹性），长期经济利润为0；
 6. 寡头垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但一段时期后经济利润会趋近于0；
 7. 完全垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但也可能为了维护垄断地位产生费用支出导致经济利润为0；
-8. N-frim concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
+8. N-firm concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
 
 ### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth== 
 
-1. nominal gdp = Pt * Qt, real gdp = Pi * Qt, gdb deflator = nominal gdp / real gdp
-2. 收入法和支出法：gdp = C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
+1. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
+2. 收入法和支出法：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
 3. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
 4. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
 
@@ -278,14 +279,15 @@ no questions
 1. expansion(real GDP increase) -> peak(real GDP stops increasing and begin decreasing) -> contraction/recession(real GDP is decreasing) -> trough(real GDP stop decreasing and begins increasing)
 2. Neoclassical: business cycles are temporary and driven by technology, rapid adjustments of wages and input prices cause the economy to move to full-employment equilibrium;
 3. Keynesian: managers' optimism or pessimism cause cycles and contractions can persist because wages are slow to move downward. New Keynesian believe input prices other than wages are also slow to move downward;
-4. Monetarists: changes in money supply cause cycles;
+4. Monetarists: changes in money supply cause cycles, Monetarists caution policy effects can occur long after the need for which they were implemented is no longer an issue;
 5. Austrian: government intervention cause interest rates on low levels, then cause cycles;
 6. real business cycle: real economic environment changes cause cycles, such as technology, external shocks, and policymakers should not intervene in business cycles;
 7. 几种失业类型：fractional, structural, cyclical, discouraged worker;
-8. disflation: 反通胀；stagflation: 滞胀；hyperinflation：恶性通胀；deflation：通缩
-9. $CPI = \frac {cost \ of \ basket \ at \ current \ price}{cost \ of \ basket \ at \ base \ period \ price} * 100$
-10. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Passche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$,
-11. 理解两种通胀原因：cost-push（成本推动型）；demand-pull（需求拉动型）
+8.  Core inflation is less volatile since it excludes food and energy prices and therefore will not be as likely to lead to policy overreactions when serving as a target.
+9. disinflation: 反通胀；stagflation: 滞胀；hyperinflation：恶性通胀；deflation：通缩
+10. $CPI = \frac {cost \ of \ basket \ at \ current \ price}{cost \ of \ basket \ at \ base \ period \ price} * 100$,
+11. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Passche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$, 价格不动，关键看产量结构；
+12. 理解两种通胀原因：==cost-push（成本推动型）；demand-pull（需求拉动型）== 
 
 
 
@@ -293,13 +295,17 @@ no questions
 
 1. 深刻理解货币的创造过程，货币乘数=1/准备金率；货币数量论指货币的数量和经济体中的总支出是相等的，即：货币供应 x 交易速度 = 价格水平 x 实际产出（MV = PY）。
 2. 理解货币学派提出的货币中性观点；费雪效应：名义利率=实际利率+预期通胀率；
-3. ==基本上全是关于央行操作的，奶奶的，宏观经济学好难啊，好担心考不过啊，fuck；==
+3. ==基本上全是关于央行操作的，奶奶的，宏观经济学好难啊，好担心考不过啊，fuck；== 
 
 ### Session 5 | R19: International Trade and Capital Flows
 
 1. 基本概念：进出口，autarky（封闭经济），自由贸易（进出口不受限制，不收取费用），贸易保护（对进出口限额及收取费用），世界价格，国内价格；贸易条款（一个国家出口价格指数与以基期价值为100的进口价格指数之间的比例），外国直接投资（FDI，在境外拥有生产资料的所有权），跨国公司；
 2. 概念 GDP 和 GNP；比较优势和绝对优势，以及它们对经济发展的作用；
 3. 自由贸易区（北美自由贸易协议 NAFTA） <- 关税同盟 <- 欧洲共同体 <- 经济组织 <- 货币联盟 （货币联盟）
+
+
+### Session 5 | R20: Currency Exchange Rates
+
 
 
 
