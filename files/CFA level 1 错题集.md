@@ -1,4 +1,4 @@
-```
+```reStructuredText
 - 认真读题，圈出关键字，考虑知识点，做完一题通读一边，避免狗眼瞎错误；
 - 有些答案也可以推导出来的，不过要头脑清醒和细心，比如 reading 41 的 9题；
 - 发现似乎每 20～30 题就会有一个狗眼瞎，一定要注意哦；
@@ -6,16 +6,16 @@
 - 英语专业词汇是个大问题，以后备考的时候准备一下词汇；
 - 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
 - 内容占比：
-	- Financial Reporting and Analysis:   20% : 24题
-	- Ethical and Professional Standards: 15% : 18题
-	- Quantitative Methods:               12% : 14.4题
-	- Economics:  						  10% : 12题
-	- Equity Investments: 				  10% : 12题
-	- Fixed Income: 					  10% : 12题
-	- Corpornate Finance: 				  7%  : 8.4题
-	- Portfolio Management and Wealth Planning: 7% : 8.4题
-	- Derivatives:								5% : 6题
-	- Alternative Investments: 					4% : 4.8题
+	- Financial Reporting and Analysis:----20% : 24题
+	- Ethical and Professional Standards:--15% : 18题
+	- Quantitative Methods:----------------12% : 14.4题
+	- Economics:---------------------------10% : 12题
+	- Equity Investments:------------------10% : 12题
+	- Fixed Income:------------------------10% : 12题
+	- Corpornate Finance:------------------7%  : 8.4题
+	- Portfolio Management and Wealth Planning:-7% : 8.4题
+	- Derivatives:------------------------------5% : 6题
+	- Alternative Investments:------------------4% : 4.8题
 ```
 
 
@@ -101,7 +101,7 @@ no questions
 
 ### Session 2 | R6: The Time Value of Money
 
-1. $requirement \ rate \ on \ security = riskfree \ rate + default \ premium + \ liquidity \ premium + \ maturity  \ premium$
+1. $requirement \ rate \ on \ security = riskfree \ rate + default + \ liquidity + \ maturity  $
 2. $EAR = (1 + \frac {stated \ annual \ rate} {m})_{}^{m} - 1 = e_{}^{r} - 1$,
 3. 计算器使用：pv, fv, pmt, 1/y, n
 4. 理解 ordinary annuity（年金） 和 annuity due （即期年金）的区别；
@@ -114,7 +114,7 @@ no questions
 ### Session 2 | R7: Discounted Cash Flow Applications
 
 1. 深刻理解 money-weighted-return(kind of IRR) 和 time-weighted-return（annual compound rate）. if funds are contributed to an investment portfolio just before a period of relatively poor performance, the money-weighted-return will tend to be lower than time-weighted-return (习题10).
-2. $r_{BD} = \frac D F * \frac {360} t;   HPY = \frac {P1 - P0 + D1}{P0};  EAY = (1 + HPY)_{}^{365/t} - 1;$
+2. $r_{BD} = \frac D F * \frac {360} t;   HPY = \frac {P1 - P0 + D1}{P0}; \ \ \ \ \ \ EAY = (1 + HPY)_{}^{365/t} - 1;$
 3. Money-market yield/CD equivalent yield: $r_{MM} = HPY * (360/t) = \frac {360 * r_{BD}}{360 - (t*r_{BD})}$, 
 4. money-weighted-return: the IRR on a portfolio, the beginning value of the account is an inflow, as are all deposits into the account, all withdrawals from the account are outflows, as is the ending value;
 5. time-weighted-return measures the compound growth, 年化后的 time-weighted-return 就是 geometric return 了；
@@ -137,7 +137,7 @@ no questions
 2. $total \ probability \ rule = P(A|B)*P(B) + P(A|\overline B)*P(\overline B)$，is used to estimate an expected value based on mutually exclusive and exhaustive scenarios.
 3. exhaustive events: 穷举事件；
 4. 掌握胜率赔率的计算：odds：赔率；先把这个解题模式记住呗；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/17bb7e2e-c81f-11e7-abaa-0242ac140002)![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/8431225e-c3d1-11e7-811a-0242ac140002)
-5. $Cov(r_i, r_j) = E[(r_i - E(r_i))(r_j - E(r_j))]$, 
+5. $Cov(r_i, r_j) = E[(r_i - E(r_i)) * (r_j - E(r_j))]$, 
 6. $Cov(r_i, r_i) = Var(r_i) = \frac {1}{N} * \sum_{1}^{N}(r_i - \overline r)_{}^{2} = \sum_{1}^{N}P_i*(r_i - \overline r)_{}^{2} = E(r_i - \overline r)_{}^{2}$
 7. $Corr(r_i, r_j) = \frac {Cov(r_i, r_j)}{\sigma(r_i)*\sigma(r_j)}$, $Var(R_p) = \sum_{i=1}^{n} \sum_{j=1}^{n}w_i*w_j*Cov(r_i, r_j)$,
 8. $bayes \ law: P(A|B) * P(B) = P(B|A) * P(A) ===> P(A|B) = \frac {P(B|A) * P(A)}{P(B)}$,
@@ -205,23 +205,17 @@ no questions
 
 1. 假设检验步骤：陈述假设 -> 选择统计量  -> 决定规则  -> 计算样本统计量  -> 作出决定
 
-2. 检验统计量也需要考虑样本大小和总体方差是否已知，常见形式：$Z = \frac {\overline{X} - \mu_0}{\sigma / \sqrt{n}}$,
+2. 检验统计量也需要考虑样本大小和总体方差是否已知，常见形式： z-test:    $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$, t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$, 
 
-3. 百度文库：统计学-假设检验概念和方法
+3. 本章估计要多看习题了，fuck；
 
-4. 本章估计要多看习题了，fuck；
+4. The level of significance is used to establish the rejection points of the hypothesis test.
 
-5. type 1 error: rejecting a true null hypothesis; type 2 error: accepting a false null hypothesis;
+5. the significance level of a test is the probability of rejecting the null H0 when it's true, the power of a test is the probability of rejecting the null H0 when it's false.
 
-6. The level of significance is used to establish the rejection points of the hypothesis test.
+6. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/b498f4fc-c88c-11e7-84a0-0242ac140002)        
 
-7. the significance level of a test is the probability of rejecting the null H0 when it's true, the power of a test is the probability of rejecting the null H0 when it's false.
-
-8. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/b498f4fc-c88c-11e7-84a0-0242ac140002)
-
-9. t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$,          z-test:    $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$,
-
-10. p-value: 课本 274 页讲得很赞，多看几遍，熟读于心
+7. p-value: 课本 274 页讲得很赞，多看几遍，熟读于心
 
 
     > p-value is the probability of obtaining a test statistic that would lead to a rejection of the H0, assuming the H0 is true. it's the smallest level of significance for which the H0 can be rejected.
@@ -235,7 +229,7 @@ no questions
 2. 趋势线帮助判断趋势的持续和反转，上升趋势中，趋势线由价格的低点联接构成；下降趋势中，趋势线由价格高点联接构成，当价格穿过趋势线一个适当的幅度时，可以考虑趋势的突破了。
 3. 反转类型指趋势无法继续的类型；头肩型表明驱动股价上升的力量正在减弱，尤其是依次出现的价格高点伴随着缩小的成交量；双重顶和三重顶类似于头肩型，表明多头力量逐步减弱，能用于预测下一个下降趋势的目标价位；类似的反转类型还有反向头肩型，双重底，三重底。
 4. 持续类型表明趋势暂停后继续维持原来的趋势，三角形指价格低点依次上升，价格高点依次下降的类型。三角形表明多头空头力量短期内相等，不代表趋势转向。
-5. change in polarity: once a resistence level is breached, it becomes a support level.
+5. change in polarity: once a resistance level is breached, it becomes a support level.
 6. 头肩型预测目标价：target = neckline + (neckline - head)
 7. 习题15:  A large increase in the number of IPOs increases the supply of equity and if overall demand remains the same, puts downward pressure on equities. Also, companies tend to issue shares of equity when the managers believe they will receive a premium price, which is also an indicator of a market top.
 8. trin: arms index, short-term trading index: 短期交易指数，指数值大于1表明资金主要流入下跌的股票，指数小于1表明资金主要流入上涨的股票；
@@ -243,32 +237,36 @@ no questions
 ### Session 4 | R14: Topics in Demand and Supply Analysis
 
 1. 熟练掌握弹性的计算
-2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positve, the opposite is inferior goods.
-3. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positve, otherwise complements.
-4. giffen good: 劣等品，价格下降时负面的收入弹性效应大于正面的替代效应，理论上可能；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
+2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positive, the opposite is inferior goods. complements: consumption goes up or down together, otherwise substitutes. 
+3. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positive, otherwise complements.
+4. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
 5. factors of production，生产要素：land，labor，capital，materials。
 6. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
-7. under perfect competition -> price = mr = ar:
+7. under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
   1. price = ar = atc: breakeven point, economic profit equals zero
   2. price > vc, ar > avc, tr > tvc: continue operating
-  3. price < vc, ar < avc: shut down
+  3. price < vc, ar < avc, mr < avc: shut down
   4. (long) price < atc: shut down
 8. under imperfect competition -> mr != price:
   1. tr = tc: breakeven
    2. tc > tr > tvc: continue operating in short run, shut down in long run
    3. tr < tvc: shut down
+9. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9c15cdce-c909-11e7-a6fc-0242ac140002)
+10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a69dad48-c909-11e7-a6fc-0242ac140002)
+11. ==constant returns to scale==
 
 ### Session 4 | R15: The Firm and Market Structure
 
 1. 完全竞争：持续扩大生产，直到 MR=MC，短期内所有厂商都在 MR=MC 处达到利润最大化（经济利润），长期利润最大化发生在 TR 超过 TC 的最大处。
-2. 习题4，书上完全没印象啊：![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d687a430-c497-11e7-811a-0242ac140002)
-3. 完全竞争市场：价格 = 边际收益 = 边际成本（均衡状态下）；完全需求弹性，经济利润为零；
-4. 垄断竞争市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（有弹性但不完全弹性），长期经济利润为0；
-5. 寡头垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但一段时期后经济利润会趋近于0；
-6. 完全垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但也可能为了维护垄断地位产生费用支出导致经济利润为0；
-7. N-frim concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
+2. ==习题4，书上完全没印象啊：==![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d687a430-c497-11e7-811a-0242ac140002)
+3. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7c323a4e-c90c-11e7-84a0-0242ac140002)
+4. 完全竞争市场：价格 = 边际收益 = 边际成本（均衡状态下）；完全需求弹性，经济利润为零；
+5. 垄断竞争市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（有弹性但不完全弹性），长期经济利润为0；
+6. 寡头垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但一段时期后经济利润会趋近于0；
+7. 完全垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但也可能为了维护垄断地位产生费用支出导致经济利润为0；
+8. N-frim concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
 
-### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth==
+### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth== 
 
 1. nominal gdp = Pt * Qt, real gdp = Pi * Qt, gdb deflator = nominal gdp / real gdp
 2. 收入法和支出法：gdp = C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
@@ -306,6 +304,10 @@ no questions
 
 
 
+----
+
+
+
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
 
@@ -315,7 +317,7 @@ no questions.
 
 1. 计算器计算 irr，npv，计算 npv 也可以用公式，如果现金流次数少的话
 2. payback period 和 discounted payback period，细心+耐心计算
-3. perpetual : pv = pmt / (1/y)
+3. perpetual : $pv = \frac {pmt}{1/y}$, 
 4. probability index = PI = (pv of future cash flow) / CF0
 5. 计算pv：pmt, 1/y, n, fv, cpt
 6. 掌握 npv profile 的绘制及其含义，以及多个项目的 npv profile 的 cross rate 含义【npv 相等】
@@ -327,15 +329,15 @@ no questions.
 1. 计算 cost of equity capital：使用 capm 模型，dividend discount 模型，bond yield 模型；cost of equity capital 有时候也叫 cost of retained earning，dividend discount 模型可以演变成 dcf 模型【习题25】；
 2. 计算 cost of debt，债券的 ytm 计算，使用计算器计算 1/y，注意付息方式；
 3. 计算 wacc：Wd * (Kd * (1 - t)) + Wps * Kps + Wce * Kce，其中 w 一定要用现在的市值来计算；
-4. 理解掌握 project beta 和 asset beta，并能计算，但习题10 让我很迷茫啊，感觉和书上讲的完全不一样。
+4. ==理解掌握 project beta 和 asset beta，并能计算，但习题10 让我很迷茫啊，感觉和书上讲的完全不一样。==
 5. 做大题的时候一定要注意时间，把关键字，关键数字圈出来
 6. 理解掌握 marginal cost of capital 和 break point 的概念，并且会计算才行哦
-7. 计算country risk premium
+7. 计算 country risk premium
 
 ### Session 11 | R37: Measures of Leverage
 
 1. 理解风险分类：商业风险【销售，运营】，财务风险；DOL 的三种计算方法；
-2. 掌握 DFL 的两种计算方式，DTL = DFL * DOL
+2. ==掌握 DFL 的两种计算方式，DTL = DFL * DOL==
 3. 理解掌握 breakeven quantity of sales 和 operation breakeven quantity of sales 的计算方法，核心即为销量刚好覆盖成本的点；不过也要融会贯通，breakeven 既可以指销量，也可以指销售金额；
 
 ### Session 11 | R38: Dividends and Share Repurchases: Basics
@@ -348,19 +350,18 @@ no questions.
 ### Session 11 | R39: Working Capital Management
 
 1. 39 | liquidity
-   1. current ratio = current assets / current liabilities
-   2. quick ratio = (cash + short-term market security + receivable) / current liabilities
-   3. quick ratio = (current assets - inventory) / current liabilities
-   4. receivables turnover = credit sales / average receivalbes
-   5. days of receivables = 365 / receivables turnover
-   6. inventory turnover = cogs / average inventory，可是 39 的习题都是用 ending inventory 来计算的哦
-   7. days of inventory = 365 / inventory turnover
-   8. payables turnover = purchases / average payables
-   9. days of payables = 365 / payables turnover
-   10. operating cycle = days of receivalbes + days of inventory
-   11. cash conversion cycle(net operating cycle) = average days os receivables + average days of inventory - average days of payables
+   1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, 
+   2. $quick \ ratio = \frac {cash + short-term \ market \ security + receivables}{current \ liabilities} = \frac {current \ assets - inventory}{current \ liabilities}$，
+   3. $receivalbes \ turnover = \frac {credit \ sales}{average \ receivables}, days \ of \ receivables \ turnover = \frac {365} {receivables \ turnover}$,
+   4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending inventory 来计算的哦$,
+
+
+   1. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
+   2. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
+   3. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
+   4. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
 2. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
-3. 理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit
+3. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
 ### Session 12 | R40: Portfolio Management: An Overview
 
@@ -371,18 +372,15 @@ no questions.
 ### Session 12 | R41: Risk Management: An Introduction
 
 1. 理解掌握 risk management framework:
-
-2. 1. establishing processes and policies for risk goverance;
+   1. establishing processes and policies for risk governance;
    2. determining the organization's risk tolerance;
    3. identifying and measuring existing risks;
    4. managing and mitigating risks to achieve the optimal bundle of risks;
    5. monitoring risk exposures over time;
    6. communicating across the organization;
    7. performing strategic risk analysis;
-
-3. 掌握金融风险和非金融风险：financial risk -> credit, liquidity, market risk; non-financial risk -> operational, solvency, regulatory, governmental, legal, model, tail, accounting risk；
-
-4. 掌握 var 和 cvar 的定义和金融含义，CVaR是指投资组合的损失大于某个给定的VaR值的条件下，该投资组合损失的平均值。
+2. 掌握金融风险和非金融风险：financial risk -> credit, liquidity, market risk; non-financial risk -> operational, solvency, regulatory, governmental, legal, model, tail, accounting risk；
+3. 掌握 var 和 cvar 的定义和金融含义，CVaR是指投资组合的损失大于某个给定的VaR值的条件下，该投资组合损失的平均值。
 
 ### Session 12 | R42: Portfolio Risk and Return: Part 1
 
@@ -390,20 +388,20 @@ no questions.
 2. 我发现 cfa 里 reading 42 中都把 variance 和 standard deviation 等同起来了，好几道习题都酱紫的，晕死人了；
 3. 两个资产的协方差算法，相关系数算法，两个资产组成的组合的方差公式
 4. 掌握 risk averse，risk neutral，risk seeking 三种情况；averse 偏好 risk 最低的；neutral 对风险无感觉，偏好收益最高的；seeking 爱好风险，收益相同的情况下偏好风险最大的；
-5. 计算 real return rate：(1 + r1) / (1 + inflation) - 1
-6. 效用函数方程：U = E(r) - 0.5 * A * risk^2，其中 A 代表风险厌恶程度
+5. $real return rate = \frac {1 + r_1} {1 + r_{inflation}}- 1$,
+6. 效用函数方程：$U = E(r) - \frac 1 2 * A * risk_{}^{2}$，其中 A 代表风险厌恶程度
 7. the portfolios that have the lowest std of all portfolios with a given expected return rate are known as minimum-variance portfolios, and they are together make up the minimum-variance frontier; and the (markowitz) efficient frontier coincides with the top portion of the minimum-variance frontier, the portfolio on the efficient frontier that has the least risk is the global minimum-variance portfolio.
 8. the line representing these possible combinations of risk-free assets and the optimal risky asset portfolio is referred as the capital allocation line.
 
 ### Session 12 | R43: Portfolio Risk and Return: Part 2
 
-1. 理解资本市场线 cml 是一种特殊的 cal 而已：under the assumption of homogeneous expectations, the optimal cal for all investors is termed the capital market line. alone this line, there is an equation: E(Rp) = Rf + (E(Rm) - Rf) / Risk_m * Risk_P。the difference between the expected return on the market and the risk-free rate is termed as the market risk premium。
+1. 理解资本市场线 cml 是一种特殊的 cal 而已：under the assumption of homogeneous expectations, the optimal cal for all investors is termed the capital market line. alone this line, there is an equation: $E(R_p) = R_f +  \frac {E(R_m - R_f)}{R_m * R_p}$ 。==right?==, the difference between the expected return on the market and the risk-free rate is termed as the market risk premium。
 2. 深刻理解当市场预期收益大于 risk free rate 的时候，或者借钱成本小于市场预期收益的时候，可以通过借钱炒股来使得组合收益更高，这种就叫 borrowing portfolio，page 162 的习题非常好；
 3. 深刻理解：One important conclusion of Captial Market Theory is that equilibrium security returns depend on a stock's or a portfolio's system risk, not its total risk. And the riskest stock does not necessarily have the greatest expected return. So unsystematic risk is not compensated in equilibrium because it can be eliminated for free through diversification.
-4. 个股预期收益公式：Ri = alpha + beta * Rm + Ei，其中注意 Rm 是市场组合的收益。beta = Cov(i, m) / (risk of market)^2，然后 Cov(i, m) = corr(i, m) * risk_i * risk_m，所以 beta = corr(i, m) * risk_i / risk_m，但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：Ri - Rf = alpha + Cov(i, m) / (risk of market)^2 * (Rm - Rf)，自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：E(Ri) = Rf + (E(Rm) - Rf) / (risk of market)^2 * (Cov(i, m))，实际上，scl 到 sml，只是简单的变换一下 x 轴变量而已了。
+4. 个股预期收益公式：$R_i = \alpha + \beta * R_m + \epsilon_i$，其中注意 Rm 是市场组合的收益。$\beta = \frac {Cov(i, m)}{\sigma_m^{2}}$，然后 $Cov(i, m) = \rho_{im} * \sigma_i * \sigma_m$，所以 $\beta = \rho_{im} * \sigma_i / \sigma_m$, 但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：$R_i - r_f = \alpha + \frac {Cov(i, m)}{\sigma_m^{2}} * (R_m - r_f)$, 自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：$E(R_i) = r_f + \frac {E(R_m - r_f)}{\sigma_m^2} * Cov(i, m)$, 实际上，==scl 到 sml，只是简单的变换一下 x 轴变量而已了。==
 5. 遇到 capm 相关的习题时，需要注意题中说的是 market return 还是 market risk premium，因为 capm: Ri = rf + beta * (Rm - rf) = rf + beta * (risk premium of market)。
 6. sharp ratio = (Rp - Rf) / (risk of portfolio), is its excess returns per unit of total risk，相当于是 cal 的斜率哦。然后 m-squared = (Rp - Rf) * (risk or market) / (risk of portfolio) - (Rm - Rf)。treynor ratio = (Rp - Rf) / (beta of portfolio), interpreted as excess returns per unit of system risk。Jensen's alpha = Rp - [Rf + beta * (Rm - Rf)]。
-7. 如果预期收益率在 sml 下方，则股票被高估了，反之，看书本 p174 加深理解。
+7. ==如果预期收益率在 sml 下方，则股票被高估了，反之，看书本 p174 加深理解。==
 
 ### Session 12 | R44: Basics of Portfolio Planning and Constructing
 
