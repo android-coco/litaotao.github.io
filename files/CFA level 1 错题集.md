@@ -4,6 +4,7 @@
 - 发现似乎每 20～30 题就会有一个狗眼瞎，一定要注意哦；
 - 做题时头脑一定要清醒，最好明白考点是啥；
 - 英语专业词汇是个大问题，以后备考的时候准备一下词汇；
+- 如果觉得一道题有多选，一般都是因为对题目里的概念思考点不全，比如说R16的习题4，对 GDP 的特点理解不全；
 - 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
 - 内容占比：
 	- Financial Reporting and Analysis:----20% : 24题
@@ -205,18 +206,13 @@ no questions
 ### ==Session 3 | R12: Hypothesis Testing==
 
 1. 假设检验步骤：陈述假设 -> 选择统计量  -> 决定规则  -> 计算样本统计量  -> 作出决定
-
-2. 检验统计量也需要考虑样本大小和总体方差是否已知，常见形式： z-test:    $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$, t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$, 
-
+2. 检验统计量需要考虑样本大小和总体方差是否已知，常见形式： z-test:   $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$, t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$, 
 3. 本章估计要多看习题了，fuck；
-
 4. The level of significance is used to establish the rejection points of the hypothesis test.
-
 5. the significance level of a test is the probability of rejecting the null H0 when it's true, the power of a test is the probability of rejecting the null H0 when it's false.
-
 6. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/b498f4fc-c88c-11e7-84a0-0242ac140002)        
-
-7. p-value: 课本 274 页讲得很赞，多看几遍，熟读于心
+7. ==pair testing==
+8. p-value: 课本 274 页讲得很赞，多看几遍，熟读于心
 
 
     > p-value is the probability of obtaining a test statistic that would lead to a rejection of the H0, assuming the H0 is true. it's the smallest level of significance for which the H0 can be rejected.
@@ -237,7 +233,7 @@ no questions
 
 ### Session 4 | R14: Topics in Demand and Supply Analysis
 
-1. 熟练掌握弹性的计算
+1. 熟练掌握弹性的计算: $\frac {\% \triangle Q}{\% \triangle P} = \frac {\triangle Q /Q}{\triangle P/P} = \frac {P_0}{Q_0} * \frac {\triangle Q}{\triangle P}$,
 2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positive, the opposite is inferior goods. complements: consumption goes up or down together, otherwise substitutes. 
 3. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positive, otherwise complements.
 4. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
@@ -254,7 +250,7 @@ no questions
    3. tr < tvc: shut down
 9. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9c15cdce-c909-11e7-a6fc-0242ac140002)
 10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a69dad48-c909-11e7-a6fc-0242ac140002)
-11. ==constant returns to scale==
+11. returns to scale(economy of scale) results from factors such as labor specialization, mass production and investment in more efficient equipment and technology. Output increases in the same proportion as input increases occur at constant returns to scale.
 
 ### Session 4 | R15: The Firm and Market Structure
 
@@ -269,10 +265,11 @@ no questions
 
 ### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth== 
 
-1. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
-2. 收入法和支出法：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
-3. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
-4. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
+1. GDP: 只包括 newly produced goods and services，只包括 final goods，中间品不包括，（习题4，电子元器件属中间件）；不包括 transfer payment；
+2. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
+3. 收入法和支出法：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
+4. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
+5. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
 
 ### Session 4 | R17: Understanding  Business Cycles
 
@@ -283,11 +280,11 @@ no questions
 5. Austrian: government intervention cause interest rates on low levels, then cause cycles;
 6. real business cycle: real economic environment changes cause cycles, such as technology, external shocks, and policymakers should not intervene in business cycles;
 7. 几种失业类型：fractional, structural, cyclical, discouraged worker;
-8.  Core inflation is less volatile since it excludes food and energy prices and therefore will not be as likely to lead to policy overreactions when serving as a target.
+8. Core inflation is less volatile since it excludes food and energy prices and therefore will not be as likely to lead to policy overreactions when serving as a target.
 9. disinflation: 反通胀；stagflation: 滞胀；hyperinflation：恶性通胀；deflation：通缩
 10. $CPI = \frac {cost \ of \ basket \ at \ current \ price}{cost \ of \ basket \ at \ base \ period \ price} * 100$,
 11. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Passche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$, 价格不动，关键看产量结构；
-12. 理解两种通胀原因：==cost-push（成本推动型）；demand-pull（需求拉动型）== 
+12. 理解两种通胀原因：cost-push（成本推动型）— results from a decrease in aggregate supply, caused by an increase in the real price of an important factor of production；demand-pull（需求拉动型）— result from an increase in the money supply, government spending or any other change that increases aggregate demand; 
 
 
 
@@ -362,12 +359,12 @@ no questions.
    4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending inventory 来计算的哦$,
 
 
-   1. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
-   2. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
-   3. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
-   4. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
-2. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
-3. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
+      1. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
+      2. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
+      3. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
+      4. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
+   5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
+   6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
 ### Session 12 | R40: Portfolio Management: An Overview
 
