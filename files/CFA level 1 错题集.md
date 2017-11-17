@@ -4,6 +4,7 @@
 - 发现似乎每 20～30 题就会有一个狗眼瞎，一定要注意哦；
 - 做题时头脑一定要清醒，最好明白考点是啥；
 - 英语专业词汇是个大问题，以后备考的时候准备一下词汇；
+- 审题一定要认真，比如说 eliminate systematic risk 这种细节描述的错误；
 - 如果觉得一道题有多选，一般都是因为对题目里的概念思考点不全，比如说R16的习题4，对 GDP 的特点理解不全；
 - 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
 - 内容占比：
@@ -329,6 +330,38 @@ no questions
 ----
 
 
+
+### Session 6 | R21: Financial Statements Analysis: An Introduction
+
+1. Use financial reporting to provide information about the performance and financial position of companies so that users can make economic decisions, use financial statement analysis is to evaluate the financial reports and support the economic decisions.
+2. unqualified: 无保留意见；
+
+### Session 6 | R22: Financial Reporting Mechanics
+
+1. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7dba3e24-cb33-11e7-b5e3-0242ac140002)
+2. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/bb9db554-cb33-11e7-b5e3-0242ac140002)
+3. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/c80828a4-cb35-11e7-91a3-0242ac140002)
+4. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/49354b3c-cb36-11e7-b5e3-0242ac140002)
+5. assets = liabilities + owner's equity = liabilities + contributed capital + ending retained earnings
+6. assets = liabilities + contributed capital + beginning retained earnings + revenue - expense - dividends
+
+### Session 6 | R23: Financial Reporting Standards 
+
+1. A core objective of IOSCO is to ensure that markets are fair, efficient, and transparent. The other core objectives are to reduce, not eliminate, systematic risk and to protect investors, not all users of financial statements.
+2. qualitative characteristic: basic: relevance and faithful; enhance: comparability, verifiability, timeliness, understandability;
+3. financial statement elements measurement base:
+   1. historical cost: the amount originally paid for the asset
+   2. amortized cost: historical cost adjusted for depreciation, amortization, depletion and impairment
+   3. current cost: the firm would have to pay today for the same asset
+   4. realizable value: the amount the firm could sell the asset
+   5. present value: the discounted value of the asset's expected future cash flow
+   6. fair value: the amount at which two parties in an arm's-length transaction would exchange
+4. The elements of financial statements related to the measure of performance are income and expenses.
+5. coherent financial reporting: transparency, comprehensive, consistency; and barriers to creating coherent reporting is : valuation, standard setting, measurement;
+
+### Session 7 | R24: Understanding Income Statement
+
+1.  
 
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
