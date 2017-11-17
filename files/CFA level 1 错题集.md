@@ -7,16 +7,16 @@
 - 如果觉得一道题有多选，一般都是因为对题目里的概念思考点不全，比如说R16的习题4，对 GDP 的特点理解不全；
 - 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
 - 内容占比：
-	- Financial Reporting and Analysis:----20% : 24题
-	- Ethical and Professional Standards:--15% : 18题
-	- Quantitative Methods:----------------12% : 14.4题
-	- Economics:---------------------------10% : 12题
-	- Equity Investments:------------------10% : 12题
-	- Fixed Income:------------------------10% : 12题
-	- Corpornate Finance:------------------7%  : 8.4题
-	- Portfolio Management and Wealth Planning:-7% : 8.4题
-	- Derivatives:------------------------------5% : 6题
-	- Alternative Investments:------------------4% : 4.8题
+  - Financial Reporting and Analysis:----20% : 24题
+  - Ethical and Professional Standards:--15% : 18题
+  - Quantitative Methods:----------------12% : 14.4题
+  - Economics:---------------------------10% : 12题
+  - Equity Investments:------------------10% : 12题
+  - Fixed Income:------------------------10% : 12题
+  - Corpornate Finance:------------------7%  : 8.4题
+  - Portfolio Management and Wealth Planning:-7% : 8.4题
+  - Derivatives:------------------------------5% : 6题
+  - Alternative Investments:------------------4% : 4.8题
 ```
 
 
@@ -267,9 +267,12 @@ no questions
 
 1. GDP: 只包括 newly produced goods and services，只包括 final goods，中间品不包括，（习题4，电子元器件属中间件）；不包括 transfer payment；
 2. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
-3. 收入法和支出法：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口
+3. ==收入法和支出法==：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口; National income = GDP – CCA;
 4. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
 5. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
+6. $小数 = \frac {numerator}{denominator}$, Unincorporated business net income is also known as proprietor’s income and is included in personal income. deficit: 赤字；
+7. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1f5aa314-ca98-11e7-a6fc-0242ac140002)
+8. ==还是没搞懂，要不要网上看个 video 教程吧，2小时内搞定，奶奶的，早知道大学辅修个经济学了，真是千金难买早知道啊。==
 
 ### Session 4 | R17: Understanding  Business Cycles
 
@@ -290,9 +293,25 @@ no questions
 
 ### ==Session 5 | R18: Monetary and Fiscal Policy==
 
-1. 深刻理解货币的创造过程，货币乘数=1/准备金率；货币数量论指货币的数量和经济体中的总支出是相等的，即：货币供应 x 交易速度 = 价格水平 x 实际产出（MV = PY）。
-2. 理解货币学派提出的货币中性观点；费雪效应：名义利率=实际利率+预期通胀率；
-3. ==基本上全是关于央行操作的，奶奶的，宏观经济学好难啊，好担心考不过啊，fuck；== 
+1. 深刻理解货币的创造过程，货币乘数=1/准备金率；货币数量论指货币的数量和经济体中的总支出是相等的，即：货币供应 x 交易速度 = 价格水平 x 实际产出（MV = PY），货币学派提出货币中性的理论，认为v和y变化缓慢，m直接影响p，可以通过m来调整p，且vy不受m的影响。
+2. 费雪效应：名义利率=实际利率+预期通胀率，实际利率相对稳定，同货币中性理论一致；
+3. fiscal policy：财政政策，联邦政府，支出和税收，宏观调控；monetary policy：货币政策，央行，货币总量和信用总量，影响经济活动；
+4. ==基本上全是关于央行操作的，奶奶的，宏观经济学好难啊，好担心考不过啊，fuck；== 
+5. 央行：
+   1. 货币供应者：
+   2. 银行的银行：The supervision of banks is not a role that all central banks assume. When it is a central bank’s role, responsibility may be shared with one or more entities.
+   3. 管理者和监督者：
+   4. 最后的借款者：
+   5. 黄金和外汇储备的持有者：
+   6. 货币政策的实施者：
+6. 央行3种货币工具：
+   1. 政策利率：银行向美联储借款利率，在欧洲则叫做融资利率；
+   2. 存款准备金要求：调整市场借贷的资金量和货币供应量，进而影响利率；
+   3. 公开市场操作：央行也可以直接买卖证券来实施货币政策，核心是调整市场上的货币（现金）供应量；
+7. 央行特性：
+   1. 独立性：操作独立性和目标独立性；
+   2. 可靠性：央行应该遵守承诺；
+   3. 透明性：在一定程度上强化央行的可靠性；
 
 ### Session 5 | R19: International Trade and Capital Flows
 
@@ -363,8 +382,8 @@ no questions.
       2. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
       3. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
       4. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
-   5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
-   6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
+      5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
+      6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
 ### Session 12 | R40: Portfolio Management: An Overview
 
