@@ -361,8 +361,100 @@ no questions
 
 ### Session 7 | R24: Understanding Income Statement
 
-1.  
+1.  All costs associated with manufacturing(raw material, depreciation, labor, etc) as COGS is belong function category.
 
+2. Under IFRS, income includes increases in economic benefits from increases in assets, enhancement of assets, and decreases in liabilities.
+
+3. DDB(double declining balance) = $\frac {2}{useful life} * (cost - accumulated \ depreciation)$, 
+
+4. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7b04d97c-cda0-11e7-ba0d-0242ac140002)
+
+5. > A is correct. A fire may be infrequent, but it would still be part of continuing operations and reported in the profit and loss statement. Discontinued operations relate to a decision to dispose of an operating division.
+
+6. $EPS = \frac {net \ income - preferred \ dividends}{weighted \ average \ shares}$, 注意计算 eps 不要把净利润减去普通股分红，习题 19；
+
+7. $basic \ of \ IS \ sheet: revenues - expenses = net \ income$, 
+
+8. $gross \ profit \ margin = \frac {gross \ profit}{revenue}$, $net \ profit \ margin = \frac {net \ income}{revenue}$,
+
+### Session 7 | R25: Understanding Balance Sheet
+
+1. [Q7] Under IFRS, inventories are carried at historical cost, unless net realizable value of the inventory is less. Under US GAAP, inventories are carried at the lower of cost or market.
+2. [Q12/Q13] For financial assets classified as trading securities, unrealized gains and losses are reported on the income statement and flow to shareholders’ equity as part of retained earnings.For financial assets classified as available for sale, unrealized gains and losses are not recorded on the income statement and instead are part of *other* comprehensive income. Accumulated other comprehensive income is a component of Shareholders’ equity
+3. $basic \ of \ BS \ sheet: Assets - Liabilities = Equity$, 
+4. liquidity ratios:
+   1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
+   2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, 
+5. solvency ratios:
+   1. $long \ term \ debt \ to \ equity =\frac {long \ term \ debt}{total \ equity}$,  $total \ debt \ to \ equity = \frac {total \ debt}{total \ equity}$,
+   2. $debt \ ratio = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {total \ assets}{total \ equity}$, 
+
+### ==Session 7 | R26: Understanding Cash Flow Statement== 
+
+1. CFO: inflows and outflows of cash resulting from transactions that affect a firm's net income;
+
+2. CFI:   inflows and outflows of cash resulting from the acquisition or disposal of long-term assets and certain investments;
+
+3. CFF:   inflows and outflows of cash resulting from transactions that affect a firm's capital structure.
+
+4. [Q4] Non-cash transactions, if significant, are reported as supplementary information, not in the investing or financing sections of the cash flow statement.
+
+5. [Q6] Taxes on income are required to be separately disclosed under IFRS and US GAAP. The disclosure may be in the cash flow statement or elsewhere.
+
+6. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/607adf0c-cdb9-11e7-ba0d-0242ac140002)
+
+7. >Cost of goods sold of $80 million plus the increase in inventory of $5 million equals purchases from suppliers of $85 million. The increase in accounts payable of $2 million means that the company paid $83 million in cash ($85 million minus $2 million) to its suppliers.
+
+8. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/f2b542d0-cdba-11e7-ba0d-0242ac140002)
+
+9. > All dollar amounts are in millions. Net income (NI) for 2010 is 35. This amount is the increase in retained earnings, 25, plus the dividends paid, 10. Depreciation of 25 is added back to net income, and the increases in accounts receivable, 5, and in inventory, 3, are subtracted from net income because they are uses of cash. The decrease in accounts payable is also a use of cash and, therefore, a subtraction from net income. Thus, cash flow from operations is $25 + $10 + $25 – $5 – $3 – $7 = $45.
+
+10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/c582e61a-cdbe-11e7-ba0d-0242ac140002)
+
+11. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/e5af79bc-cdbe-11e7-ba0d-0242ac140002)
+
+12. $FCFF = NI + NCC + [Int * (1-tax \ rate)] - FCInv - WCInv$, 
+
+13. $FCFF = CFO + [Int * (1 - tax \ rate)] - FCInv$, $FCFE = CFO - FCInv + net \ borrowing$,
+
+14. performance ratio
+
+    1. $cash \ flow \ to \ revenue = \frac {CFO}{revenue}$, $cash \ return \ to \ assets = \frac {CFO}{average \ total \ assets}$,
+    2. $cash \ return \ to \ equity = \frac {CFO}{average \ total \ equity}$, $cash \ to \ income = \frac {CFO}{operating \ income}$,
+    3. $cash \ flow \ per \ share = \frac {CFO - preferred \ dividends}{weighted \ average \ number \ of \ common \ shares}$, 
+
+15. coverage ratio
+
+    1. $debt \ coverage = \frac {CFO}{total \ debt}$, $interest \ coverage = \frac {CFO + interest \ paid + taxes \ paid}{interest \ paid}$, 
+    2. $reinvestment \ ratio = \frac {CFO}{cash \ paid \ for \ longterm \ assets}$,  $debt \ payment = \frac {CFO}{cash \ long \ term \ debt \ repayment}$, 
+    3. $dividend \ payment = \frac {CFO}{dividends \ paid}$, 
+    4. $investing \ and \ financing = \frac {CFO}{cash \ outflows \ from \ investing \ and \ financing \ activities}$,
+
+### Session 7 | R27: Financial Analysis Techniques
+
+1. $fixed \ charge \ coverage = \frac {EBIT + lease \ payments}{Interest \ payments + Lease \ payments}$, 
+
+2. > The decline in the company’s equity indicates that the company may be incurring losses, paying dividends greater than income, or repurchasing shares. Recall that ***Beginning equity + New shares issuance – Shares repurchased + Comprehensive income – Dividends = Ending equity*** The book value of a company’s equity is not affected by changes in the market value of its common stock. An increased amount of lending does not necessarily indicate that lenders view a company as increasingly credit-worthy. Creditworthiness is not evaluated based on how much a company has increased its debt but rather on its willingness and ability to pay its obligations. (Its financial strength is indicated by its solvency, liquidity, profitability, efficiency, and other aspects of credit analysis.)
+
+3. activity ratios:
+
+   1. $receivables \ turnover = \frac {annual \ sales}{average \ receivable}$, $days \ of \ sales \ outstanding = \frac {365}{receivables \ turnover}$,
+   2. $inventory \ turnover = \frac {365}{inventory \ turnover}$, $payable \ turnover = \frac {purchases}{average \ trade \ payables}$,
+   3. $number \ of \ days \ payables = \frac {365}{payables \ turnover \ ratio}$, $total \ asset \ turnover = \frac {revenue}{average \ total \ assets}$, 
+   4. $fixed \ asset \ turnover = \frac {revenue}{average \ net \ fixed \ assets}$, $working \ capital \ turnover = \frac {revenue}{average \ working \ capital}$,
+
+4. liquidity ratios
+
+   1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
+   2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, $defensive \ interval = \frac {cash + marketable \ securities + receivables}{average \ daily \ expenditures}$,
+   3. cash conversion cycle = days of sales outstanding + days of inventory on hand - days of payables
+
+5. solvency ratios
+
+   1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
+   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
+   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
 
@@ -409,12 +501,12 @@ no questions.
    2. $quick \ ratio = \frac {cash + short-term \ market \ security + receivables}{current \ liabilities} = \frac {current \ assets - inventory}{current \ liabilities}$，
    3. $receivalbes \ turnover = \frac {credit \ sales}{average \ receivables}, days \ of \ receivables \ turnover = \frac {365} {receivables \ turnover}$,
    4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending inventory 来计算的哦$,
+   5. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
+   6. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
+   7. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
+   8. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
 
 
-      1. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
-      2. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
-      3. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
-      4. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
       5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
       6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
