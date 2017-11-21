@@ -20,7 +20,9 @@
   - Alternative Investments:------------------4% : 4.8题
 ```
 
+计算题解题技巧
 
+![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9eeaebd0-ce98-11e7-ba0d-0242ac140002)
 
 ### Session 1 | R1: Ethics and Trust in the Investment Profession
 
@@ -236,22 +238,23 @@ no questions
 
 1. 熟练掌握弹性的计算: $\frac {\% \triangle Q}{\% \triangle P} = \frac {\triangle Q /Q}{\triangle P/P} = \frac {P_0}{Q_0} * \frac {\triangle Q}{\triangle P}$,
 2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positive, the opposite is inferior goods. complements: consumption goes up or down together, otherwise substitutes. 
-3. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positive, otherwise complements.
-4. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
-5. factors of production，生产要素：land，labor，capital，materials。
-6. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
-7. 关键要理解，under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
+3. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/cb9cd07a-ce9e-11e7-82c3-0242ac140002)
+4. the ratio of the percentage change in the quantity demanded of a good to the percentage change in the price of a related good is termed the cross price elasticity of demand. an increase in the price of a related good increases demand for another good, the two goods are substitutes, i.e, cross price elasticity is positive, otherwise complements.
+5. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
+6. factors of production，生产要素：land，labor，capital，materials。
+7. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
+8. 关键要理解，under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
   1. price = ar = atc: breakeven point, economic profit equals zero
   2. price > vc, ar > avc, tr > tvc: continue operating
   3. price < vc, ar < avc, mr < avc: shut down
   4. (long) price < atc: shut down
-8. under imperfect competition -> price != mr:
+9. under imperfect competition -> price != mr:
   1. tr = tc: breakeven
    2. tc > tr > tvc: continue operating in short run, shut down in long run
    3. tr < tvc: shut down
-9. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9c15cdce-c909-11e7-a6fc-0242ac140002)
-10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a69dad48-c909-11e7-a6fc-0242ac140002)
-11. returns to scale(economy of scale) results from factors such as labor specialization, mass production and investment in more efficient equipment and technology. Output increases in the same proportion as input increases occur at constant returns to scale.
+10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9c15cdce-c909-11e7-a6fc-0242ac140002)
+11. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a69dad48-c909-11e7-a6fc-0242ac140002)
+12. returns to scale(economy of scale) results from factors such as labor specialization, mass production and investment in more efficient equipment and technology. Output increases in the same proportion as input increases occur at constant returns to scale.
 
 ### Session 4 | R15: The Firm and Market Structure
 
@@ -274,6 +277,7 @@ no questions
 6. $小数 = \frac {numerator}{denominator}$, Unincorporated business net income is also known as proprietor’s income and is included in personal income. deficit: 赤字；
 7. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1f5aa314-ca98-11e7-a6fc-0242ac140002)
 8. ==还是没搞懂，要不要网上看个 video 教程吧，2小时内搞定，奶奶的，早知道大学辅修个经济学了，真是千金难买早知道啊。==
+9. ==differences between demand curve and demand function, mock q16==,  
 
 ### Session 4 | R17: Understanding  Business Cycles
 
@@ -287,7 +291,7 @@ no questions
 8. Core inflation is less volatile since it excludes food and energy prices and therefore will not be as likely to lead to policy overreactions when serving as a target.
 9. disinflation: 反通胀；stagflation: 滞胀；hyperinflation：恶性通胀；deflation：通缩
 10. $CPI = \frac {cost \ of \ basket \ at \ current \ price}{cost \ of \ basket \ at \ base \ period \ price} * 100$,
-11. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Passche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$, 价格不动，关键看产量结构；
+11. $Laspeyres = \frac {\sum 今天的价格 * 昨天的产量}{\sum 昨天的价格 * 昨天的产量}$, $Paasche = \frac {\sum 今天的价格 * 今天的产量}{\sum 昨天的价格 * 今天的产量}$, $fisher \ index = \sqrt (paasche * laspeyres)$,价格不动，关键看产量结构；
 12. 理解两种通胀原因：cost-push（成本推动型）— results from a decrease in aggregate supply, caused by an increase in the real price of an important factor of production；demand-pull（需求拉动型）— result from an increase in the money supply, government spending or any other change that increases aggregate demand; 
 
 
@@ -436,25 +440,66 @@ no questions
 
 2. > The decline in the company’s equity indicates that the company may be incurring losses, paying dividends greater than income, or repurchasing shares. Recall that ***Beginning equity + New shares issuance – Shares repurchased + Comprehensive income – Dividends = Ending equity*** The book value of a company’s equity is not affected by changes in the market value of its common stock. An increased amount of lending does not necessarily indicate that lenders view a company as increasingly credit-worthy. Creditworthiness is not evaluated based on how much a company has increased its debt but rather on its willingness and ability to pay its obligations. (Its financial strength is indicated by its solvency, liquidity, profitability, efficiency, and other aspects of credit analysis.)
 
-3. activity ratios:
+3. gross profits = net sales - COGS
+
+4. operating profits = earnings before interest and taxes = EBIT
+
+5. net income = earning after taxes but before dividends
+
+6. total capital = long-term debt + short-term debt + common and preferred equity
+
+7. total capital = total assets
+
+8. activity ratios:
 
    1. $receivables \ turnover = \frac {annual \ sales}{average \ receivable}$, $days \ of \ sales \ outstanding = \frac {365}{receivables \ turnover}$,
    2. $inventory \ turnover = \frac {365}{inventory \ turnover}$, $payable \ turnover = \frac {purchases}{average \ trade \ payables}$,
    3. $number \ of \ days \ payables = \frac {365}{payables \ turnover \ ratio}$, $total \ asset \ turnover = \frac {revenue}{average \ total \ assets}$, 
    4. $fixed \ asset \ turnover = \frac {revenue}{average \ net \ fixed \ assets}$, $working \ capital \ turnover = \frac {revenue}{average \ working \ capital}$,
 
-4. liquidity ratios
+9. liquidity ratios
 
    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
    2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, $defensive \ interval = \frac {cash + marketable \ securities + receivables}{average \ daily \ expenditures}$,
    3. cash conversion cycle = days of sales outstanding + days of inventory on hand - days of payables
 
-5. solvency ratios
+10. solvency ratios
 
-   1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
-   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
-   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
-   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
+    1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+    2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
+    3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
+    4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
+
+11. profitability ratios
+
+    1. $net \ profit \ margin = \frac {net \ income}{revenue}$, $gross \ profit \ margin = \frac {gross \ profit}{revenue}$, 
+    2. $operating \ profit \ margin = \frac {operating \ income}{revenue} = \frac {EBIT}{revenue}$, $pretax \ margin = \frac {EBT}{revenue}$,
+    3. $ROA = \frac {net \ income}{average \ total \ assets}$, $更准确的ROA =\frac {net \ income + interest \ expense * (1 - tax \ rate)}{average \ total \ assets}$, 
+    4. $operating \ return \ on \ assets = \frac {operating \ income}{average \ total \ assets} = \frac {EBIT}{average \ total \ assets}$, 
+    5. $return \ on \ total \ capital = \frac {EBIT}{average \ total \ capital}$, $return \ on \ equity = \frac {net \ income}{average \ total \ equity}$, 
+    6. $return \ on \ common \ equity = \frac {net \ income - preferred \ devidends}{average \ common \ equity}$, 
+    7. DuPont analysis: ROE  = net profit margin * asset turnover * leverage ratio
+       1. $ROE = \frac {net \ income}{revenue} * \frac {revenue}{average \ total \ assets} * \frac {average \ total \ assets}{equity}$,
+
+### Session 8 | R28: Inventories
+
+1. $COGS = begin \ inventory + purchases - ending \ inventory$, 
+2. [Q1] Transportation costs incurred to ship inventory to customers are an expense and may not be capitalized in inventory. (Transportation costs incurred to bring inventory to the business location can be capitalized in inventory.) Storage costs required as part of production, as well as costs incurred as a result of normal waste of materials, can be capitalized in inventory. (Costs incurred as a result of abnormal waste must be expensed.)
+3. [Q2] Inventory expense includes costs of purchase, costs of conversion, and other costs incurred in bringing the inventories to their present location and condition. It does not include storage costs not required as part of production.
+4. [Q3] IFRS allow the inventories of producers and dealers of agricultural and forest products, agricultural produce after harvest, and minerals and mineral products to be carried at net realisable value even if above historical cost. (US GAAP treatment is similar.)
+5. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a96ff576-ce68-11e7-ba0d-0242ac140002)
+6.  US GAAP do not permit inventory write-downs to be reversed.
+7. Inventory (FIFO method) = Inventory (LIFO method) + LIFO reserve 
+8. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
+9. four relations hold when prices have been rising :
+   1. LIFO inventory < FIFO inventory
+   2. LIFO COGS > FIFO COGS
+   3. LIFO net income < FIFO net income
+   4. LIFO tax < FIFO tax
+
+### Session 8 | R29: Long-Lived Assets
+
+1. ​
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
 
