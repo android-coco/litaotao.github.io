@@ -465,10 +465,10 @@ no questions
 
 10. solvency ratios
 
-    1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
-    2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
-    3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
-    4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
+   1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
+   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
+   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
 
 11. profitability ratios
 
@@ -481,14 +481,14 @@ no questions
     7. DuPont analysis: ROE  = net profit margin * asset turnover * leverage ratio
        1. $ROE = \frac {net \ income}{revenue} * \frac {revenue}{average \ total \ assets} * \frac {average \ total \ assets}{equity}$,
 
-### Session 8 | R28: Inventories
+### ==Session 8 | R28: Inventories,课本习题没有做完==
 
 1. $COGS = begin \ inventory + purchases - ending \ inventory$, 
 2. [Q1] Transportation costs incurred to ship inventory to customers are an expense and may not be capitalized in inventory. (Transportation costs incurred to bring inventory to the business location can be capitalized in inventory.) Storage costs required as part of production, as well as costs incurred as a result of normal waste of materials, can be capitalized in inventory. (Costs incurred as a result of abnormal waste must be expensed.)
 3. [Q2] Inventory expense includes costs of purchase, costs of conversion, and other costs incurred in bringing the inventories to their present location and condition. It does not include storage costs not required as part of production.
 4. [Q3] IFRS allow the inventories of producers and dealers of agricultural and forest products, agricultural produce after harvest, and minerals and mineral products to be carried at net realisable value even if above historical cost. (US GAAP treatment is similar.)
 5. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a96ff576-ce68-11e7-ba0d-0242ac140002)
-6.  US GAAP do not permit inventory write-downs to be reversed.
+6. US GAAP do not permit inventory write-downs to be reversed.
 7. Inventory (FIFO method) = Inventory (LIFO method) + LIFO reserve 
 8. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
 9. four relations hold when prices have been rising :
@@ -499,7 +499,10 @@ no questions
 
 ### Session 8 | R29: Long-Lived Assets
 
-1. ​
+1. units of production depreciation = $\frac {original \ cost - salvage \ value}{life \ in \ output \ units} * output \ units \ in \ the \ period$,
+2. $average \ age = \frac {accumulated \ depreciation}{annual \ depreciation \ expense}$, $total \ useful \ life = \frac {historical \ cost}{annual \ depreciation \ expense}$, 
+3. $remaining \ useful \ life = \frac {ending \ net \ PPE}{annual \ depreciation \ expense}$,$ending \ net \ PPE = original \ cost - accumulated \ depreciation$,
+4. ​
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
 
