@@ -271,13 +271,14 @@ no questions
 
 1. GDP: 只包括 newly produced goods and services，只包括 final goods，中间品不包括，（习题4，电子元器件属中间件）；不包括 transfer payment；
 2. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
-3. ==收入法和支出法==：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口; National income = GDP – CCA;
+3. ==收入法和支出法==：GDP= C + I + G + (X - M) = C + S + T  ====> S = I + (G - T) + (X - M) = 投资 + 财政收支余额 + 净出口; National income = GDP – CCA; *CA* = *Sp* − *I* + (*T* − *G* − *R*);
 4. IS(income-saving) 曲线显示了在均衡的商品市场上，实际利率和实际收入之间的负相关性，且均衡市场上实际收入和支出相等，真是难理解，这帮搞经济的也是蛋疼得厉害，核心就是利率对国民收入的影响，然后国民收入正比于 I 和 S，然后的先单独画 r-I, r-S 曲线，就知道 r-Y （也就是 is 曲线）是啥意思了，我擦，真麻烦。
 5. LM(liquidity-money)曲线显示了在均衡的货币市场上，实际利率和收入之间的关系，由于较高的利率降低个人愿意持有的实际货币量，所以在货币供给量(M/P)一定的时候，货币市场上的均衡需要通过在提高实际利率的同时提高收入来实现。
 6. $小数 = \frac {numerator}{denominator}$, Unincorporated business net income is also known as proprietor’s income and is included in personal income. deficit: 赤字；
 7. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1f5aa314-ca98-11e7-a6fc-0242ac140002)
 8. ==还是没搞懂，要不要网上看个 video 教程吧，2小时内搞定，奶奶的，早知道大学辅修个经济学了，真是千金难买早知道啊。==
 9. ==differences between demand curve and demand function, mock q16==,  
+10. The purchase of machinery is an import and affects the current account, not the capital account, so it is ignored. The purchase of a non-produced, non-financial asset such as a patent affects the capital account.
 
 ### Session 4 | R17: Understanding  Business Cycles
 
@@ -327,13 +328,11 @@ no questions
 
 ### Session 5 | R20: Currency Exchange Rates
 
-
-
-
-
-----
-
-
+1. 真实利率 = 名义利率 x [外国 cpi / 本国 cpi]；
+2. 交叉汇率计算：MXN/USD = 12.1; USD/EUR = 1.42 -> MXN/EUR = 12.1 * 1.42 = 17.18;
+3. 远期汇率/即期汇率 - 1，为正代表远期升值，简称升水，为负代表远期贴水；
+4. 马歇尔-纳勒条件：本币贬值将会增加出口，减少进口，进而减少贸易赤字；
+5. The currency with the higher (lower) interest rate will always trade at a discount (premium) in the forward market. The lower interest rate in the domestic country will be offset by the appreciation of the domestic country’s currency over the investment horizon.
 
 ### Session 6 | R21: Financial Statements Analysis: An Introduction
 
@@ -465,10 +464,10 @@ no questions
 
 10. solvency ratios
 
-   1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
-   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
-   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
-   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
+  1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+  2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
+  3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
+  4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
 
 11. profitability ratios
 
@@ -497,12 +496,23 @@ no questions
    3. LIFO net income < FIFO net income
    4. LIFO tax < FIFO tax
 
-### Session 8 | R29: Long-Lived Assets
+### ==Session 8 | R29: Long-Lived Assets==
 
 1. units of production depreciation = $\frac {original \ cost - salvage \ value}{life \ in \ output \ units} * output \ units \ in \ the \ period$,
 2. $average \ age = \frac {accumulated \ depreciation}{annual \ depreciation \ expense}$, $total \ useful \ life = \frac {historical \ cost}{annual \ depreciation \ expense}$, 
 3. $remaining \ useful \ life = \frac {ending \ net \ PPE}{annual \ depreciation \ expense}$,$ending \ net \ PPE = original \ cost - accumulated \ depreciation$,
-4. ​
+4. assets: expensed(provide benefit current), capitalized(provide benefit multiple period);
+5. IFRS, research cost are expensed, development cost are capitalized; GAAP, both are expensed, except in the case of software created for sale to others.
+
+### Session 8 | R30: Income Taxes
+
+1. tax return terminology(纳税申报单): taxable income -> 应纳税所得；taxes payable -> 应付税款；income tax paid -> 所得税费用；tax loss carryforward -> 赋税亏损转接；tax base -> 计税基数；
+2. financial reporting terminology(财务指标): accounting profit -> 会计利润；income tax expense -> 所得税费用；deferred tax liabilities -> 递延所得税负债；deferred tax assets -> 递延所得税资产；valuation allowance -> 估值备抵；carrying value -> 账面价值; permanent difference -> 永久性差异；temporary difference -> 临时性差异；
+3. $income \ tax \ expense = tax \ payable + \triangle DTL + \triangle DTA$, DTA: 纳税申报单上的  taxes payable > 财报上的 income tax expense；
+
+### Session 8 | R31: Non-Current(Long-Term) Liabilities
+
+1. lesses: 承租人；lessor：出租人；
 
 ### Session 10 | R34: Corporate Governance and ESG: An introduction
 
