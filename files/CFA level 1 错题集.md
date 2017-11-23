@@ -464,7 +464,7 @@ no questions
 
 10. solvency ratios
 
-  1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+  1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ capital = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
