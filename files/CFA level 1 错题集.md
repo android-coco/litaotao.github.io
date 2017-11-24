@@ -24,15 +24,7 @@
 
 ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9eeaebd0-ce98-11e7-ba0d-0242ac140002)
 
-### Session 1 | R1: Ethics and Trust in the Investment Profession
-
-no questions;
-
-### Session 1 | R2: Code of Ethics and Standards of Professional Conduct
-
-no questions;
-
-### Session 1 | R3: Guidance for Standard 1 - 7
+### Session 1 | Ethics and Professional Standards
 
 1. 7 Standards:
 
@@ -42,12 +34,10 @@ no questions;
       2. independence and objective
       3. misrepresentation
       4. misconduct
-
    2. Integrity of capital markets
 
       1. material nonpublic information
       2. market manipulation
-
    3. duties to clients
 
       1. loyalty, prudence and care
@@ -55,55 +45,34 @@ no questions;
       3. suitability
       4. performance presentation
       5. preservation of confidentiality
-
    4. duties to employers
 
       1. loyalty
       2. additional compensation arrangement
       3. responsibilities of supervisors
-
    5. investment analysis, recommendations and actions
 
       1. diligence and reasonable basis
       2. communications with clients and prospective clients
       3. record retention
-
    6. conflicts of interest
 
       1. disclosure of conflicts
       2. priority of transactions
       3. referral fees
-
    7. responsibilities as a CFA Institute Member or CFA candidate
 
       1. conduct as participants in the CFA program
       2. reference to CFA institute, the CFA designation and the CFA program
-
    8. 这个 session 主要靠熟悉课后习题
-
    9. [question 4]This question asks about compliance procedures relating to personal investments of members and candidates. The statement in answer C clearly conflicts with the recommended procedures in the *Standards of Practice* *Handbook*. Employers should compare personal transactions of employees with those of clients on a regular basis regardless of the existence of a requirement by any regulatory organization. Such comparisons ensure that employees’ personal trades do not conflict with their duty to their clients, and the comparisons can be conducted in a confidential manner. 
-
    10. [question 6]Under Standard IV(C)–Responsibilities of Supervisors, members and candidates may delegate supervisory duties to subordinates but such delegation does not relieve members or candidates of their supervisory responsibilities. 
-
    11. [question 9]Standard VII(B)–Reference to CFA Institute, the CFA Designation, and the CFA Program is the subject of this question. The reference on Albert’s business card implies that there is a “CFA Level II” designation; Tye merely indicates in promotional material that he is participating in the CFA Program and has completed Levels I and II. Candidates may not imply that there is some sort of partial designation earned after passing a level of the CFA exam. Therefore, Albert has violated Standard VII(B). Candidates may communicate that they are participating in the CFA Program, however, and may state the levels that they have completed. Therefore, Tye has not violated Standard VII(B).
-
    12. mosaic theory: reaching an investment conclusion through perceptive analysis of public and non-material non-public information is not a violation of the standard.
-
    13. [question 28], soft dollar: 出于对监管当局制定的规则的遵守和防止价格恶性竞争，经纪商通常都会保持交易佣金水平，但是为了吸引客户进行交易，往往私下里为客户提供一定的优惠，如提供研究报告及其他优惠等。这种优惠一般采取非现金形式，因此，被称为“软美元”（soft　dollar）。软美元又称证券互惠行为，是相对于“硬美元”来说的，“软美元”是指基金管理人使用经纪业务为条件来获取经纪商提供的研究服务或其它服务。与此对应，硬美元是指投资者直接用来支付研究服务或其他服务费用的资金。 
-
    14. [question 32],  The guidance to Standard II(A)–Material Nonpublic Information recommends adding securities to the firm’s restricted list when the firm has or may have material nonpublic information. By adding these securities to this list, Andrews would uphold this standard. Because waiting until the next day will not ensure that news of the merger is made public, 
 
-       ​
-
-### Session 1 | R4: Introduction to the Global Investment Performance Standards(GIPS)
-
-no questions
-
-### Session 1 | R5: The GIPS Standards
-
-
-
-### Session 2 | R6: The Time Value of Money
+### Session 2 | Quantitative Methods: Basic Concepts
 
 1. $requirement \ rate \ on \ security = riskfree \ rate + default + \ liquidity + \ maturity  $
 2. $EAR = (1 + \frac {stated \ annual \ rate} {m})_{}^{m} - 1 = e_{}^{r} - 1$,
@@ -112,22 +81,16 @@ no questions
 5. $PV_{perpetuity} = \frac {PMT}{1/Y}$,
 6. notes 上讲的 annuity 的 pv 都是用计算器的 pv，fv，pmt，1/y，n 来计算的，但习题7有讲到直接用公式：$PV_{annuity} = A *  \frac {1 - \frac {1} {(1+r)_{}^{N}}} {r}, 公式可以参考 PV_{perpetuity} 来推导 $,
 7. 复杂的题型记得画出 time line 出来就行了，无非就是分几段计算
+8. 深刻理解 money-weighted-return(kind of IRR) 和 time-weighted-return（annual compound rate）. if funds are contributed to an investment portfolio just before a period of relatively poor performance, the money-weighted-return will tend to be lower than time-weighted-return (习题10).
 
 
-
-### Session 2 | R7: Discounted Cash Flow Applications
-
-1. 深刻理解 money-weighted-return(kind of IRR) 和 time-weighted-return（annual compound rate）. if funds are contributed to an investment portfolio just before a period of relatively poor performance, the money-weighted-return will tend to be lower than time-weighted-return (习题10).
-2. $r_{BD} = \frac D F * \frac {360} t;   HPY = \frac {P1 - P0 + D1}{P0}; \ \ \ \ \ \ EAY = (1 + HPY)_{}^{365/t} - 1;$
-3. Money-market yield/CD equivalent yield: $r_{MM} = HPY * (360/t) = \frac {360 * r_{BD}}{360 - (t*r_{BD})}$, 
-4. money-weighted-return: the IRR on a portfolio, the beginning value of the account is an inflow, as are all deposits into the account, all withdrawals from the account are outflows, as is the ending value;
-5. time-weighted-return measures the compound growth, 年化后的 time-weighted-return 就是 geometric return 了；
+1. $r_{BD} = \frac D F * \frac {360} t;   HPY = \frac {P1 - P0 + D1}{P0}; \ \ \ \ \ \ EAY = (1 + HPY)_{}^{365/t} - 1;$
+2. Money-market yield/CD equivalent yield: $r_{MM} = HPY * (360/t) = \frac {360 * r_{BD}}{360 - (t*r_{BD})}$, 
+3. money-weighted-return: the IRR on a portfolio, the beginning value of the account is an inflow, as are all deposits into the account, all withdrawals from the account are outflows, as is the ending value;
+4. time-weighted-return measures the compound growth, 年化后的 time-weighted-return 就是 geometric return 了；
 
 
-
-### Session 2 | R8: Statistical Concepts and Market Returns
-
-1. 掌握 relative frequency 和 cumulative relative frequency 的算法，习题 5；mode：众数；quintile: 五分之一位；quartile: 四分之一位；deciles：十分之一位；percentiles：百分之一位 ；unimodal：单峰；$harmonic \ mean = \frac {N}{\sum \frac {1}{X_i}}$, range: 极差；$Mean \ Absolute \ Deviation = \frac {\sum {abs(X_i - \overline(X))}}{n}$, $population \ variance \ \sigma_{}^{2} =\frac {\sum {(X_i - u)_{}^{2}}}{N}$, $sample \ variance \ s_{}^{2} = \frac {\sum {(X_i - \overline X)_{}^{2}}}{n-1}$, $ sample \ \ standard \ deviation = s$, 
+1. 掌握 relative frequency 和 cumulative relative frequency 的算法，习题 5；mode：众数；quintile: 五分之一位；quartile: 四分之一位；deciles：十分之一位；percentiles：百分之一位 ；unimodal：单峰；$harmonic \ mean = \frac {N}{\sum \frac {1}{X_i}}$, range: 极差；$Mean \ absolute \ deviation = \frac {\sum {abs(X_i - \overline(X))}}{n}$, $population \ variance \ \sigma_{}^{2} =\frac {\sum {(X_i - u)_{}^{2}}}{N}$, $sample \ variance \ s_{}^{2} = \frac {\sum {(X_i - \overline X)_{}^{2}}}{n-1}$, $ sample \ \ standard \ deviation = s$, 
 2. $chebyshev's \ inequality: P[\overline x-k*std \leq X \leq \overline x + k* std] \geq 1 - \frac {1}{k_{}^{2}}$, 
 3. $变异系数: coefficient \ of \ variation: CV = \frac {s_x}{\overline X} = \frac {std \ of \ x}{mean \ of \ x}$,
 4. $sharp \ ratio = \frac {\overline r_{p}^{} - r_f}{\sigma_p}，\sigma: 标准差； IR = \frac {策略年化-基准年化}{策略与基准每日收益差值的年化标准差}$, 
@@ -136,7 +99,6 @@ no questions
 7. $permutation(n, r) = \frac {n!}{(n-r)!},  combination(n, r) = \frac {n!}{(n-r)! * r!}$.
 8. 分位值计算，习题13；![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/044ded10-c3c7-11e7-811a-0242ac140002)
 
-### Session 2 | R9: Probability Concepts
 
 1. $P(AB) = P(A | B) * P(B);   \ P(A or B) = P(A) + P(B) - P(AB);  $
 2. $total \ probability \ rule = P(A|B)*P(B) + P(A|\overline B)*P(\overline B)$，is used to estimate an expected value based on mutually exclusive and exhaustive scenarios.
@@ -149,9 +111,9 @@ no questions
 
 
 
-### Session 3 | R10: Common Probabilities Distributions
+### Session 3 | Quantitative Methods: Applications
 
-1. 理解概率函数（probability function），概率密度函数（probability density function），累计分布函数（cumulative distribution function），其中连续型随机变量的 pdf 是指这个随机变量在某个确定的去指点附近的概率。
+1. 理解概率函数（probability function），概率密度函数（probability density function），累计分布函数（cumulative distribution function，只看右侧哦），其中连续型随机变量的 pdf 是指这个随机变量在某个确定的去指点附近的概率。
 2. 理解伯努力随机变量和二项随机变量（binomial random variable），二项随机试验 n 次中恰好成功 x 次的概率：$P(x) = C_{n}^{x} * p_{}^{x} * (1-p)_{}^{n-x} ，期望 E(x) = np, 方差 var(X) = np(1-p)$,
 3. 深刻理解 z 变换的含义，习题7 和 习题9；
 4. continuously compounded rate = $\ln (1 + HPR) ; HPR_T = e_{}^{R_{cc}*T} - 1$,![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/48b3a676-c821-11e7-abaa-0242ac140002)
@@ -164,8 +126,6 @@ no questions
 8. 模特卡洛模拟是通过重复产生影响证券价值的因素的取值，从而得到证券价值的分布的一种方法。对每一个风险因子，都需要给出该因子取值的概率分布。这种方法可以用来对证券的期望值和方差举行推断。
 
 ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/767527ec-c3da-11e7-abaa-0242ac140002)
-
-### Session 3 | R11: Sampling and Estimation
 
 1. 均值：$\mu$, 标准差：$\sigma$, 方差：$\sigma_{}^{2}$;
 
@@ -205,9 +165,6 @@ no questions
 12. 误差类型：appropriate sample size; data-mining bias; sample selection bias, survivorship bias, look-ahead bias, time-period bias;
 
 
-
-### ==Session 3 | R12: Hypothesis Testing==
-
 1. 假设检验步骤：陈述假设 -> 选择统计量  -> 决定规则  -> 计算样本统计量  -> 作出决定
 2. 检验统计量需要考虑样本大小和总体方差是否已知，常见形式： z-test:   $t_{n-1} = \frac {\overline x - u_0}{\sigma/\sqrt n}$, t-test: $t_{n-1} = \frac {\overline x - u_0}{s/\sqrt n}$, 
 3. 本章估计要多看习题了，fuck；
@@ -222,9 +179,6 @@ no questions
     >
     > For one-tailed tests, the p-value is the probability that lies above the computed test statistic for upper tail test or below the computed test statistic for lower tail test.
 
-
-### Session 3 | R13: Technical Analysis
-
 1. 线条图：一般将收盘价用线条连接起来；条形图：增加最高和最低价，有时候也标注开盘价，每个周期一个竖线，收盘价通过线条旁边的点来反映；蜡烛图即最常见的图；
 2. 趋势线帮助判断趋势的持续和反转，上升趋势中，趋势线由价格的低点联接构成；下降趋势中，趋势线由价格高点联接构成，当价格穿过趋势线一个适当的幅度时，可以考虑趋势的突破了。
 3. 反转类型指趋势无法继续的类型；头肩型表明驱动股价上升的力量正在减弱，尤其是依次出现的价格高点伴随着缩小的成交量；双重顶和三重顶类似于头肩型，表明多头力量逐步减弱，能用于预测下一个下降趋势的目标价位；类似的反转类型还有反向头肩型，双重底，三重底。
@@ -234,7 +188,7 @@ no questions
 7. 习题15:  A large increase in the number of IPOs increases the supply of equity and if overall demand remains the same, puts downward pressure on equities. Also, companies tend to issue shares of equity when the managers believe they will receive a premium price, which is also an indicator of a market top.
 8. trin: arms index, short-term trading index: 短期交易指数，指数值大于1表明资金主要流入下跌的股票，指数小于1表明资金主要流入上涨的股票；
 
-### Session 4 | R14: Topics in Demand and Supply Analysis
+### Session 4 | Economics: Microeconomics and Macroeconomics
 
 1. 熟练掌握弹性的计算: $\frac {\% \triangle Q}{\% \triangle P} = \frac {\triangle Q /Q}{\triangle P/P} = \frac {P_0}{Q_0} * \frac {\triangle Q}{\triangle P}$,
 2. normal goods: an increase in income leads to an increase in quantity demanded, i.e, the income elasticity is positive, the opposite is inferior goods. complements: consumption goes up or down together, otherwise substitutes. 
@@ -243,7 +197,7 @@ no questions
 5. giffen good: 劣等品，某商品的价格上升，消费者对其需求量增加，价格下降，需求量减少的商品(The income effect overwhelms the substitution effect such that an increase in the price of the good results in greater demand for the good, resulting in a positively sloped demand curve.)；veblen good：非劣等品，价格越高，越渴望得到，价格同需求必然有一个限度，或价格无限增长；
 6. factors of production，生产要素：land，labor，capital，materials。
 7. in economics, we define the short run for a firm as the time period over which some factors of production are fixed.
-8. 关键要理解，under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
+8. under perfect competition -> price = mr = ar:   ==继续看书，配合习题18理解==
   1. price = ar = atc: breakeven point, economic profit equals zero
   2. price > vc, ar > avc, tr > tvc: continue operating
   3. price < vc, ar < avc, mr < avc: shut down
@@ -256,10 +210,9 @@ no questions
 11. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a69dad48-c909-11e7-a6fc-0242ac140002)
 12. returns to scale(economy of scale) results from factors such as labor specialization, mass production and investment in more efficient equipment and technology. Output increases in the same proportion as input increases occur at constant returns to scale.
 
-### Session 4 | R15: The Firm and Market Structure
 
 1. 完全竞争：持续扩大生产，直到 MR=MC，短期内所有厂商都在 MR=MC 处达到利润最大化（经济利润），长期利润最大化发生在 TR 超过 TC 的最大处。
-2. ==习题4，书上完全没印象啊：==![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d687a430-c497-11e7-811a-0242ac140002)
+2. ==习题4，书上完全没印象啊==![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d687a430-c497-11e7-811a-0242ac140002)
 3. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7c323a4e-c90c-11e7-84a0-0242ac140002)
 4. 完全竞争市场：价格 = 边际收益 = 边际成本（均衡状态下）；完全需求弹性，经济利润为零；
 5. 垄断竞争市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（有弹性但不完全弹性），长期经济利润为0；
@@ -267,7 +220,6 @@ no questions
 7. 完全垄断市场：价格 > 边际收益 = 边际成本（均衡状态下）；弹性>1（富有弹性），长期可能存在经济利润，但也可能为了维护垄断地位产生费用支出导致经济利润为0；
 8. N-firm concentration ratio: 市场中 n 个最大的公司的市场份额百分比的总和；HHI(herfindahl-hirschman index)：市场中几个较大公司的市场份额平方后加总，能够更好的反应并购对行业集中度的影响。但两种方法都不能度量行业门槛。
 
-### ==Session 4 | R16: Aggregate Output, Prices, and Economic Growth== 
 
 1. GDP: 只包括 newly produced goods and services，只包括 final goods，中间品不包括，（习题4，电子元器件属中间件）；不包括 transfer payment；
 2. $nominal \ GDP= Pt * Qt, real \ GDP = Pi * Qt, GDP\ deflator = \frac {nominal \ GDP} {real \ GDP}$, 
@@ -280,7 +232,6 @@ no questions
 9. ==differences between demand curve and demand function, mock q16==,  
 10. The purchase of machinery is an import and affects the current account, not the capital account, so it is ignored. The purchase of a non-produced, non-financial asset such as a patent affects the capital account.
 
-### Session 4 | R17: Understanding  Business Cycles
 
 1. expansion(real GDP increase) -> peak(real GDP stops increasing and begin decreasing) -> contraction/recession(real GDP is decreasing) -> trough(real GDP stop decreasing and begins increasing)
 2. Neoclassical: business cycles are temporary and driven by technology, rapid adjustments of wages and input prices cause the economy to move to full-employment equilibrium;
@@ -388,6 +339,7 @@ no questions
 4. liquidity ratios:
    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
    2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, 
+   3. current liabilities = accounts payable + taxes payable + load payable
 5. solvency ratios:
    1. $long \ term \ debt \ to \ equity =\frac {long \ term \ debt}{total \ equity}$,  $total \ debt \ to \ equity = \frac {total \ debt}{total \ equity}$,
    2. $debt \ ratio = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {total \ assets}{total \ equity}$, 
@@ -464,7 +416,7 @@ no questions
 
 10. solvency ratios
 
-  1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ capital = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
+  1. $debt \ to \ equity = \frac {total \ debt}{total \ shareholders' \ equity}$, $debt \ to \ equity = \frac {total \ debt}{total \ debt + total \ shareholders' \ equity}$, 
   2. $debt \ to \ assets = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {average \ total \ assets}{average \ total \ equity}$,
   3. $interest \ coverage = \frac {earnings \ before \ interest \ and \ taxes}{interest \ payments}$, 
   4. $fixed \ charge \ coverage = \frac {earnings \ before \ interest \ and \ taxes + lease \ payments}{interest \ payments + lease \ payments}$, 
