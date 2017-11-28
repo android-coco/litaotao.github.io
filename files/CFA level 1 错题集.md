@@ -248,7 +248,7 @@
 
 
 
-### ==Session 5 | R18: Monetary and Fiscal Policy==
+### Session 5 (18-20) | Monetary and Fiscal Policy, International Trade, and Currency Exchange Rates
 
 1. 深刻理解货币的创造过程，货币乘数=1/准备金率；货币数量论指货币的数量和经济体中的总支出是相等的，即：货币供应 x 交易速度 = 价格水平 x 实际产出（MV = PY），货币学派提出货币中性的理论，认为v和y变化缓慢，m直接影响p，可以通过m来调整p，且vy不受m的影响。
 2. 费雪效应：名义利率=实际利率+预期通胀率，实际利率相对稳定，同货币中性理论一致；
@@ -270,27 +270,53 @@
    2. 可靠性：央行应该遵守承诺；
    3. 透明性：在一定程度上强化央行的可靠性；
 
-### Session 5 | R19: International Trade and Capital Flows
 
 1. 基本概念：进出口，autarky（封闭经济），自由贸易（进出口不受限制，不收取费用），贸易保护（对进出口限额及收取费用），世界价格，国内价格；贸易条款（一个国家出口价格指数与以基期价值为100的进口价格指数之间的比例），外国直接投资（FDI，在境外拥有生产资料的所有权），跨国公司；
+
 2. 概念 GDP 和 GNP；比较优势和绝对优势，以及它们对经济发展的作用；
-3. 自由贸易区（北美自由贸易协议 NAFTA） <- 关税同盟 <- 欧洲共同体 <- 经济组织 <- 货币联盟 （货币联盟）
+
+3. 自由贸易区：成员国之间没有进出口壁垒（北美自由贸易协议）
+
+4. 关税同盟：自贸区 + 对非会员国家采取同样的贸易政策；
+
+5. 欧洲共同体：关税同盟 + 成员国之间的劳动力和资本商品的流动限制被消除；
+
+6. 经济组织：欧洲共同体 + 成员国为了经济组织要建立共同的机构和经济政策；
+
+7. 货币联盟：会员国使用同一种货币；（欧盟）
+
+8. 如果一个国家在生产商品时，其所拥有的生产这种商品的资源价格低于其他国家，那么这个国家在生产这种商品时有绝对优势；如果一个国家在生产某种商品时有相对优势，那么用另外一种可以生产的替代品表示的机会成本将比其他国家的低。
+
+   > 绝对优势是指某一生产方生产某种产品的效率比另一生产方高。比如，A生产一辆汽车需要2天，B生产同样的一辆汽车需要3天，则A的生产效率比B高。
+   >
+   > 相对优势指的是某一生产方生产某种产品的机会成本要低于另一方。比如同样的，A生产一辆汽车需要2天，B生产同样的一辆汽车需要3天，但是B用3天时间可以生产5辆自行车，而A用2天时间可以生产10辆同样的自行车。这样看来，如果A不生产汽车的话，他可以生产10辆自行车，换言之，他生产1辆汽车的机会成本是10辆自行车；而B如果不生产汽车的话，他可以生产5辆自行车，换言之，他生产1辆汽车的机会成本只有5辆自行车。
+   >
+   > 所以在这个例子中，A拥有生产汽车的绝对优势，因为他的生产效率高；而B拥有生产汽车的相对优势，因为他的机会成本低。
+
+9. The Ricardian model of international trade attempts to explain the difference in comparative advantage on the basis of technological difference across the nations. 
+
+10. heckscher-ohlin model: 两个生产因素，资本和劳动力，推荐拥有资金较多的国家可以专注生产资本密集型商品，并且与拥有更多劳动力和相对资金较少的国家进行资本密集度较小的商品的贸易交易。
+
+11. The imposition of a tariff will most likely increase domestic government revenue. A tariff is a tax on imports collected by the importing country’s government.
+
+12. balance of payment(国际收支平衡)：
+
+    1. current account：用来计算商品和服务的流通；
+    2. capital account: 包括资本转移，并购和非生产性、非金融性资产处置；
+    3. financial account：记录投资资本流动；
 
 
-### Session 5 | R20: Currency Exchange Rates
-
-1. 真实利率 = 名义利率 x [外国 cpi / 本国 cpi]；
+1. $真实利率 = 名义利率 * \frac {外国 cpi}  {本国 cpi}$；
 2. 交叉汇率计算：MXN/USD = 12.1; USD/EUR = 1.42 -> MXN/EUR = 12.1 * 1.42 = 17.18;
 3. 远期汇率/即期汇率 - 1，为正代表远期升值，简称升水，为负代表远期贴水；
 4. 马歇尔-纳勒条件：本币贬值将会增加出口，减少进口，进而减少贸易赤字；
 5. The currency with the higher (lower) interest rate will always trade at a discount (premium) in the forward market. The lower interest rate in the domestic country will be offset by the appreciation of the domestic country’s currency over the investment horizon.
 
-### Session 6 | R21: Financial Statements Analysis: An Introduction
+### Session 6 (21-23) | Financial Reporting and Analysis
 
 1. Use financial reporting to provide information about the performance and financial position of companies so that users can make economic decisions, use financial statement analysis is to evaluate the financial reports and support the economic decisions.
 2. unqualified: 无保留意见；
 
-### Session 6 | R22: Financial Reporting Mechanics
 
 1. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7dba3e24-cb33-11e7-b5e3-0242ac140002)
 2. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/bb9db554-cb33-11e7-b5e3-0242ac140002)
@@ -299,10 +325,11 @@
 5. assets = liabilities + owner's equity = liabilities + contributed capital + ending retained earnings
 6. assets = liabilities + contributed capital + beginning retained earnings + revenue - expense - dividends
 
-### Session 6 | R23: Financial Reporting Standards 
 
 1. A core objective of IOSCO is to ensure that markets are fair, efficient, and transparent. The other core objectives are to reduce, not eliminate, systematic risk and to protect investors, not all users of financial statements.
-2. qualitative characteristic: basic: relevance and faithful; enhance: comparability, verifiability, timeliness, understandability;
+2. qualitative characteristic: 
+   1. basic: relevance and faithful; 
+   2. enhance: comparability, verifiability, timeliness, understandability;
 3. financial statement elements measurement base:
    1. historical cost: the amount originally paid for the asset
    2. amortized cost: historical cost adjusted for depreciation, amortization, depletion and impairment
@@ -313,13 +340,13 @@
 4. The elements of financial statements related to the measure of performance are income and expenses.
 5. coherent financial reporting: transparency, comprehensive, consistency; and barriers to creating coherent reporting is : valuation, standard setting, measurement;
 
-### Session 7 | R24: Understanding Income Statement
+### Session 7 (24-27) | IS, BS, CFS
 
 1.  All costs associated with manufacturing(raw material, depreciation, labor, etc) as COGS is belong function category.
 
 2. Under IFRS, income includes increases in economic benefits from increases in assets, enhancement of assets, and decreases in liabilities.
 
-3. DDB(double declining balance) = $\frac {2}{useful life} * (cost - accumulated \ depreciation)$, 
+3. DDB(double declining balance) = $\frac {2}{useful \ life} * (cost - accumulated \ depreciation)$, 
 
 4. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7b04d97c-cda0-11e7-ba0d-0242ac140002)
 
@@ -331,10 +358,10 @@
 
 8. $gross \ profit \ margin = \frac {gross \ profit}{revenue}$, $net \ profit \ margin = \frac {net \ income}{revenue}$,
 
-### Session 7 | R25: Understanding Balance Sheet
+9. revenue: 收入；net income: 净利润；conservative: 保守的；
 
 1. [Q7] Under IFRS, inventories are carried at historical cost, unless net realizable value of the inventory is less. Under US GAAP, inventories are carried at the lower of cost or market.
-2. [Q12/Q13] For financial assets classified as trading securities, unrealized gains and losses are reported on the income statement and flow to shareholders’ equity as part of retained earnings.For financial assets classified as available for sale, unrealized gains and losses are not recorded on the income statement and instead are part of *other* comprehensive income. Accumulated other comprehensive income is a component of Shareholders’ equity
+2. [Q12/Q13] For financial assets classified as trading securities, unrealized gains and losses are reported on the income statement and flow to shareholders’ equity as part of retained earnings.For financial assets classified as available for sale, unrealized gains and losses are not recorded on the income statement and instead are part of *other* comprehensive income. Accumulated other comprehensive income is a component of shareholders’ equity
 3. $basic \ of \ BS \ sheet: Assets - Liabilities = Equity$, 
 4. liquidity ratios:
    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
@@ -344,7 +371,6 @@
    1. $long \ term \ debt \ to \ equity =\frac {long \ term \ debt}{total \ equity}$,  $total \ debt \ to \ equity = \frac {total \ debt}{total \ equity}$,
    2. $debt \ ratio = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {total \ assets}{total \ equity}$, 
 
-### ==Session 7 | R26: Understanding Cash Flow Statement== 
 
 1. CFO: inflows and outflows of cash resulting from transactions that affect a firm's net income;
 
@@ -385,7 +411,6 @@
     3. $dividend \ payment = \frac {CFO}{dividends \ paid}$, 
     4. $investing \ and \ financing = \frac {CFO}{cash \ outflows \ from \ investing \ and \ financing \ activities}$,
 
-### Session 7 | R27: Financial Analysis Techniques
 
 1. $fixed \ charge \ coverage = \frac {EBIT + lease \ payments}{Interest \ payments + Lease \ payments}$, 
 
