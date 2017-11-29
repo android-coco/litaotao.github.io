@@ -360,16 +360,16 @@
 
 9. revenue: 收入；net income: 净利润；conservative: 保守的；
 
-1. [Q7] Under IFRS, inventories are carried at historical cost, unless net realizable value of the inventory is less. Under US GAAP, inventories are carried at the lower of cost or market.
-2. [Q12/Q13] For financial assets classified as trading securities, unrealized gains and losses are reported on the income statement and flow to shareholders’ equity as part of retained earnings.For financial assets classified as available for sale, unrealized gains and losses are not recorded on the income statement and instead are part of *other* comprehensive income. Accumulated other comprehensive income is a component of shareholders’ equity
-3. $basic \ of \ BS \ sheet: Assets - Liabilities = Equity$, 
-4. liquidity ratios:
-   1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
-   2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, 
-   3. current liabilities = accounts payable + taxes payable + load payable
-5. solvency ratios:
-   1. $long \ term \ debt \ to \ equity =\frac {long \ term \ debt}{total \ equity}$,  $total \ debt \ to \ equity = \frac {total \ debt}{total \ equity}$,
-   2. $debt \ ratio = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {total \ assets}{total \ equity}$, 
+10. [Q7] Under IFRS, inventories are carried at historical cost, unless net realizable value of the inventory is less. Under US GAAP, inventories are carried at the lower of cost or market.
+11. [Q12/Q13] For financial assets classified as trading securities, unrealized gains and losses are reported on the income statement and flow to shareholders’ equity as part of retained earnings.For financial assets classified as available for sale, unrealized gains and losses are not recorded on the income statement and instead are part of *other* comprehensive income. Accumulated other comprehensive income is a component of shareholders’ equity
+12. $basic \ of \ BS \ sheet: Assets - Liabilities = Equity$, 
+13. liquidity ratios:
+    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, $quick \ ratio = \frac {cash + marketable \ securities + receivables}{current \ liabilities}$,
+    2. $cash \ ratio = \frac {cash + marketable \ securities}{current \ liabilities}$, 
+    3. current liabilities = accounts payable + taxes payable + load payable
+14. solvency ratios:
+    1. $long \ term \ debt \ to \ equity =\frac {long \ term \ debt}{total \ equity}$,  $total \ debt \ to \ equity = \frac {total \ debt}{total \ equity}$,
+    2. $debt \ ratio = \frac {total \ debt}{total \ assets}$, $financial \ leverage = \frac {total \ assets}{total \ equity}$, 
 
 
 1. CFO: inflows and outflows of cash resulting from transactions that affect a firm's net income;
@@ -382,29 +382,33 @@
 
 5. [Q6] Taxes on income are required to be separately disclosed under IFRS and US GAAP. The disclosure may be in the cash flow statement or elsewhere.
 
-6. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/607adf0c-cdb9-11e7-ba0d-0242ac140002)
+6. [Q13] Cash paid to suppliers = COGS + Increase in inventory – Increase in accounts payable;
 
-7. >Cost of goods sold of $80 million plus the increase in inventory of $5 million equals purchases from suppliers of $85 million. The increase in accounts payable of $2 million means that the company paid $83 million in cash ($85 million minus $2 million) to its suppliers.
+7. [Q22] Free cash flow to the firm can be computed as operating cash flows plus after-tax interest expense less capital expenditures.
 
-8. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/f2b542d0-cdba-11e7-ba0d-0242ac140002)
+8. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/607adf0c-cdb9-11e7-ba0d-0242ac140002)
 
-9. > All dollar amounts are in millions. Net income (NI) for 2010 is 35. This amount is the increase in retained earnings, 25, plus the dividends paid, 10. Depreciation of 25 is added back to net income, and the increases in accounts receivable, 5, and in inventory, 3, are subtracted from net income because they are uses of cash. The decrease in accounts payable is also a use of cash and, therefore, a subtraction from net income. Thus, cash flow from operations is $25 + $10 + $25 – $5 – $3 – $7 = $45.
+9. >Cost of goods sold of $80 million plus the increase in inventory of $5 million equals purchases from suppliers of $85 million. The increase in accounts payable of $2 million means that the company paid $83 million in cash ($85 million minus $2 million) to its suppliers.
 
-10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/c582e61a-cdbe-11e7-ba0d-0242ac140002)
+10. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/f2b542d0-cdba-11e7-ba0d-0242ac140002)
 
-11. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/e5af79bc-cdbe-11e7-ba0d-0242ac140002)
+11. > All dollar amounts are in millions. Net income (NI) for 2010 is 35. This amount is the increase in retained earnings, 25, plus the dividends paid, 10. Depreciation of 25 is added back to net income, and the increases in accounts receivable, 5, and in inventory, 3, are subtracted from net income because they are uses of cash. The decrease in accounts payable is also a use of cash and, therefore, a subtraction from net income. Thus, cash flow from operations is $25 + $10 + $25 – $5 – $3 – $7 = $45.
 
-12. $FCFF = NI + NCC + [Int * (1-tax \ rate)] - FCInv - WCInv$, 
+12. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/c582e61a-cdbe-11e7-ba0d-0242ac140002)
 
-13. $FCFF = CFO + [Int * (1 - tax \ rate)] - FCInv$, $FCFE = CFO - FCInv + net \ borrowing$,
+13. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/e5af79bc-cdbe-11e7-ba0d-0242ac140002)
 
-14. performance ratio
+14. $FCFF = NI + NCC + [Int * (1-tax \ rate)] - FCInv - WCInv$, 
+
+15. $FCFF = CFO + [Int * (1 - tax \ rate)] - FCInv$, $FCFE = CFO - FCInv + net \ borrowing$,
+
+16. performance ratio
 
     1. $cash \ flow \ to \ revenue = \frac {CFO}{revenue}$, $cash \ return \ to \ assets = \frac {CFO}{average \ total \ assets}$,
     2. $cash \ return \ to \ equity = \frac {CFO}{average \ total \ equity}$, $cash \ to \ income = \frac {CFO}{operating \ income}$,
     3. $cash \ flow \ per \ share = \frac {CFO - preferred \ dividends}{weighted \ average \ number \ of \ common \ shares}$, 
 
-15. coverage ratio
+17. coverage ratio
 
     1. $debt \ coverage = \frac {CFO}{total \ debt}$, $interest \ coverage = \frac {CFO + interest \ paid + taxes \ paid}{interest \ paid}$, 
     2. $reinvestment \ ratio = \frac {CFO}{cash \ paid \ for \ longterm \ assets}$,  $debt \ payment = \frac {CFO}{cash \ long \ term \ debt \ repayment}$, 
@@ -457,7 +461,7 @@
     7. DuPont analysis: ROE  = net profit margin * asset turnover * leverage ratio
        1. $ROE = \frac {net \ income}{revenue} * \frac {revenue}{average \ total \ assets} * \frac {average \ total \ assets}{equity}$,
 
-### ==Session 8 | R28: Inventories,课本习题没有做完==
+### Session 8 | Inventories, Long-lived Assets, Income Taxes, and Non-current Liabilities
 
 1. $COGS = begin \ inventory + purchases - ending \ inventory$, 
 2. [Q1] Transportation costs incurred to ship inventory to customers are an expense and may not be capitalized in inventory. (Transportation costs incurred to bring inventory to the business location can be capitalized in inventory.) Storage costs required as part of production, as well as costs incurred as a result of normal waste of materials, can be capitalized in inventory. (Costs incurred as a result of abnormal waste must be expensed.)
