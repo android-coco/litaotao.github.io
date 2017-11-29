@@ -539,7 +539,7 @@ no questions.
    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, 
    2. $quick \ ratio = \frac {cash + short-term \ market \ security + receivables}{current \ liabilities} = \frac {current \ assets - inventory}{current \ liabilities}$，
    3. $receivalbes \ turnover = \frac {credit \ sales}{average \ receivables}, days \ of \ receivables \ turnover = \frac {365} {receivables \ turnover}$,
-   4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending inventory 来计算的哦$,
+   4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending \ inventory 来计算的哦$,
    5. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
    6. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
    7. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
@@ -549,13 +549,14 @@ no questions.
       5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
       6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
-### Session 12 | R40: Portfolio Management: An Overview
+### Session 12 (40 - 44)| Portfolio Management
 
 1. 理解捐赠基金的存续期一般是最长的；
 2. 掌握组合构建三步走：planning，execution，feedback；
 3. 知道常见的基金分类以及各个类别的特色，比如可以用 nav 交易的有 mutual fund, open-end fund, money market fund;
+4. Portfolio monitoring and rebalancing occurs in the feedback step of the portfolio management process.
+5. Open-end funds trade at their net asset value per share, whereas closed-end funds and exchange traded funds can trade at a premium or a discount.
 
-### Session 12 | R41: Risk Management: An Introduction
 
 1. 理解掌握 risk management framework:
    1. establishing processes and policies for risk governance;
@@ -567,19 +568,17 @@ no questions.
    7. performing strategic risk analysis;
 2. 掌握金融风险和非金融风险：financial risk -> credit, liquidity, market risk; non-financial risk -> operational, solvency, regulatory, governmental, legal, model, tail, accounting risk；
 3. 掌握 var 和 cvar 的定义和金融含义，CVaR是指投资组合的损失大于某个给定的VaR值的条件下，该投资组合损失的平均值。
+4. Risk governance is the top-down process that defines risk tolerance, provides risk oversight and guidance to align risk with enterprise goals.
 
-### Session 12 | R42: Portfolio Risk and Return: Part 1
 
 1. 计算 hpr 的时候不要忘记分红哦：r = (p1 - p0 + d) / p0
-2. 我发现 cfa 里 reading 42 中都把 variance 和 standard deviation 等同起来了，好几道习题都酱紫的，晕死人了；
-3. 两个资产的协方差算法，相关系数算法，两个资产组成的组合的方差公式
-4. 掌握 risk averse，risk neutral，risk seeking 三种情况；averse 偏好 risk 最低的；neutral 对风险无感觉，偏好收益最高的；seeking 爱好风险，收益相同的情况下偏好风险最大的；
-5. $real return rate = \frac {1 + r_1} {1 + r_{inflation}}- 1$,
-6. 效用函数方程：$U = E(r) - \frac 1 2 * A * risk_{}^{2}$，其中 A 代表风险厌恶程度
-7. the portfolios that have the lowest std of all portfolios with a given expected return rate are known as minimum-variance portfolios, and they are together make up the minimum-variance frontier; and the (markowitz) efficient frontier coincides with the top portion of the minimum-variance frontier, the portfolio on the efficient frontier that has the least risk is the global minimum-variance portfolio.
-8. the line representing these possible combinations of risk-free assets and the optimal risky asset portfolio is referred as the capital allocation line.
+2. 两个资产的协方差算法，相关系数算法，两个资产组成的组合的方差公式
+3. 掌握 risk averse，risk neutral，risk seeking 三种情况；averse 偏好 risk 最低的；neutral 对风险无感觉，偏好收益最高的；seeking 爱好风险，收益相同的情况下偏好风险最大的；
+4. $real \ return \ rate = \frac {1 + r_1} {1 + r_{inflation}}- 1$,
+5. 效用函数方程：$U = E(r) - \frac 1 2 * A * risk_{}^{2}$，其中 A 代表风险厌恶程度
+6. the portfolios that have the lowest std of all portfolios with a given expected return rate are known as minimum-variance portfolios, and they are together make up the minimum-variance frontier; and the (markowitz) efficient frontier coincides with the top portion of the minimum-variance frontier, the portfolio on the efficient frontier that has the least risk is the global minimum-variance portfolio.
+7. the line representing these possible combinations of risk-free assets and the optimal risky asset portfolio is referred as the capital allocation line.
 
-### Session 12 | R43: Portfolio Risk and Return: Part 2
 
 1. 理解资本市场线 cml 是一种特殊的 cal 而已：under the assumption of homogeneous expectations, the optimal cal for all investors is termed the capital market line. alone this line, there is an equation: $E(R_p) = R_f +  \frac {E(R_m - R_f)}{R_m * R_p}$ 。==right?==, the difference between the expected return on the market and the risk-free rate is termed as the market risk premium。
 2. 深刻理解当市场预期收益大于 risk free rate 的时候，或者借钱成本小于市场预期收益的时候，可以通过借钱炒股来使得组合收益更高，这种就叫 borrowing portfolio，page 162 的习题非常好；
