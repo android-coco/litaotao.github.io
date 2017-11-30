@@ -669,16 +669,16 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 5. 掌握市场有效和市场无效的概念哦，注意单词，看题目是 efficiency 还是 inefficiency。
 6. Behavioral theories of loss aversion can explain observed overreaction in markets, such that investors dislike losses more than comparable gains (i.e., risk is not symmetrical).
 
-### Session 14 | R48: Overview of Equity Securities
+### Session 14 (48 - 50) | Equity Analysis and Valuation
 
-1. types of equity: statutory voting, cumluative voting, callable common shares, putable common shares, preference shares, cumulative preference shares, participating preference shares, convertible preference shares.
+1. types of equity: statutory voting, cumulative voting, callable common shares, put-able common shares, preference shares, cumulative preference shares, participating preference shares, convertible preference shares.
 2. Depository receipts represent ownership in a foreign firm and are traded in the markets of other countries in local market currencies. A sponsored DR provides the investor voting rights and is usually subject to greater disclosure requirements.
 3. Global depository receipts are issued outside the US and the issuer's home country, most are traded on London and Luxembourg.
 4. American depository receipts are denominated in US dollars and trade in the US, is based on American depository share.
 5. Global registered shares are traded in different currencies on stock exchanges around the world.
 6. the primary goal of firm management is to increase the book value of the firm's equity and thereby increase the market value of its equity. and $book \ value = total \ assets - total \ liabilities$, $roe = \frac {Net Income}{(BV_{t-1} + BV_{t}) / 2} = \frac {Net \ Income}{BV_{t-1}} $，如果 book value 多变的话计算 roe 就用 book value 均值咯。
 7. Companies try to raise funds at the lowest possible cost. Therefore, cost of equity is used as a proxy for the minimum required rate of return.
-8. $book value = total assets - total liabilities$
+8. $book value = total assets - total liabilities$, 
 
 ### Session 14 | R49: Introduction to Industry and Company Analysis
 
