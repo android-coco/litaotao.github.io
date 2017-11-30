@@ -678,26 +678,25 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 5. Global registered shares are traded in different currencies on stock exchanges around the world.
 6. the primary goal of firm management is to increase the book value of the firm's equity and thereby increase the market value of its equity. and $book \ value = total \ assets - total \ liabilities$, $roe = \frac {Net Income}{(BV_{t-1} + BV_{t}) / 2} = \frac {Net \ Income}{BV_{t-1}} $，如果 book value 多变的话计算 roe 就用 book value 均值咯。
 7. Companies try to raise funds at the lowest possible cost. Therefore, cost of equity is used as a proxy for the minimum required rate of return.
-8. $book value = total assets - total liabilities$, 
+8. $book \ value = total \ assets - total \ liabilities$, 
 
-### Session 14 | R49: Introduction to Industry and Company Analysis
 
 1. Tactical asset allocation involves timing investments in asset classes and does not make use of industry analysis.
 2. A sector rotation strategy is conducted by investors wishing to time investment in industries through an analysis of fundamentals and/or business-cycle conditions.
-3. The Russell system uses three tiers, whereas the other two systems are based on four tiers or levels.
+3. The Russell system uses three tiers, and Industry classification benchmark and Global industry classification standard uses four tiers or levels.
 4. Personal care products 是指个人护理品，属于 comsumer staples，日常用品；
-5. Constructing a peer group is a subjective process, and a logical starting point is to begin with a commercially available classification system. This system will identify a group of companies that may have properties comparable to the business activity of interest.
-6. discretionary/staples: 可选消费品/日常消费品；
-7. economies of scale -> reduce per-unit cost -> increase profit;
-8. embryonic: slow growth, high prices, large investment required, high risk of failure;
-9. growth: rapid growth, limited competitive pressures, falling prices, increasing profitability;
-10. shakeout: growth has slowed, intense competition, increasing industry overcapacity, declining profitability, increased cost cutting, increased failures;
-11. mature: slow growth, consolidation, high barriers to entry, stable pricing, superior firms gain market share;
-12. decline: negative growth, declining prices, consolidation;
-13. An industry that has high barriers to entry generally requires substantial physical capital and/or financial investment. With weak pricing power in the industry, finding a buyer for excess capacity (i.e., to exit the industry) may be difficult.
-14. The cost structure is an appropriate element when analyzing the supply of the product, but analysis of demand relies on the product’s differentiating characteristics and the customers’ needs and wants.
+5. Business-cycle sensitivity falls on a continuum and is not a discrete “either–or” phenomenon.
+6. Constructing a peer group is a subjective process, and a logical starting point is to begin with a commercially available classification system. This system will identify a group of companies that may have properties comparable to the business activity of interest.
+7. discretionary/staples: 可选消费品/日常消费品；
+8. economies of scale -> reduce per-unit cost -> increase profit;
+9. embryonic: slow growth, high prices, large investment required, high risk of failure;
+10. growth: rapid growth, limited competitive pressures, falling prices, increasing profitability;
+11. shakeout: growth has slowed, intense competition, increasing industry overcapacity, declining profitability, increased cost cutting, increased failures;
+12. mature: slow growth, consolidation, high barriers to entry, stable pricing, superior firms gain market share;
+13. decline: negative growth, declining prices, consolidation;
+14. An industry that has high barriers to entry generally requires substantial physical capital and/or financial investment. With weak pricing power in the industry, finding a buyer for excess capacity (i.e., to exit the industry) may be difficult.
+15. The cost structure is an appropriate element when analyzing the supply of the product, but analysis of demand relies on the product’s differentiating characteristics and the customers’ needs and wants.
 
-### Session 14 | R50: Equity Valuation Concepts and Basic Tools
 
 1. FCFE = net income + depreciation - increase in working capital - FCInv - debt principal payments + new debt
 2. FCFE = cash flow from operations - FCInv + net borrowing, and $P0 = \sum \frac {FCFE_t}{(1 + k_e)_{}^{t}}$
@@ -735,3 +734,10 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 3. [习题 9]A shelf registration allows certain authorized issuers to offer additional bonds to the general public without having to prepare a new and separate offering circular. The issuer can offer multiple bond issuances under the same master prospectus, and only has to prepare a short document when additional bonds are issued. A is incorrect because the grey market is a forward market for bonds about to be issued. C is incorrect because a private placement is a non-underwritten, unregistered offering of bonds that are not sold to the general public but directly to an investor or a small group of investors.
 4. [习题 17]Commercial paper, whether US commercial paper or Eurocommercial paper, is negotiable—that is, investors can buy and sell commercial paper on secondary markets.
 5. [习题 21/22]A repurchase agreement (repo) can be viewed as a collateralized loan where the security sold and subsequently repurchased represents the collateral posted.The repo margin (the difference between the market value of the underlying collateral and the value of the loan) is a function of the supply and demand conditions of the collateral. The repo margin is typically lower if the underlying collateral is in short supply or if there is a high demand for it.
+
+### Session 16 (55 - 56) | Fixed Income : Analysis of Risk
+
+### Session 17 (57 - 59) | Derivatives
+
+### Session 18 (60) | Alternative Investments
+
