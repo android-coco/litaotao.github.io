@@ -474,10 +474,10 @@
 8. Inventory (FIFO method) = Inventory (LIFO method) + LIFO reserve 
 9. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
 10. four relations hold when prices have been rising :
-   1. LIFO inventory < FIFO inventory
-   2. LIFO COGS > FIFO COGS
-   3. LIFO net income < FIFO net income
-   4. LIFO tax < FIFO tax
+  1. LIFO inventory < FIFO inventory
+  2. LIFO COGS > FIFO COGS
+  3. LIFO net income < FIFO net income
+  4. LIFO tax < FIFO tax
 
 
 1. units of production depreciation = $\frac {original \ cost - salvage \ value}{life \ in \ output \ units} * output \ units \ in \ the \ period$,
@@ -541,6 +541,7 @@
 2. 不要把 pe 和 eps 搞混淆了，我去，还是玩股票这么多年的人了，shame on you
 3. 掌握股票回购后 eps 的算法，以及两种回购方式对 eps 的影响：自由资金和借钱回购，考虑资金成本即可；
 4. 理解如果book value per share = price 的话，那么回购后 book value per share 刚好不变；
+5. [Q9] If the P/E is 32, the earnings-to-price ratio (earnings yield or E/P) is 1/32 = 3.125 percent. When the cost of capital is greater than the earnings yield, earnings dilution will result from the buyback.
 
 
 1. 39 | liquidity
@@ -552,10 +553,10 @@
    6. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
    7. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
    8. cash conversion cycle(net operating cycle) = average days of receivables + average days of inventory - average days of payables
+2. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
+3. 理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题
+4. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7b821c7e-d58a-11e7-82c3-0242ac140002)
 
-
-      5. 债券收益率计算，discount-basis yield = holding period yield x (365 / days)
-      6. ==理解还款条款的含义，比如 term of "2/10, net 60" ，并通过条款来计算 cost of trade credit,看习题==
 
 ### Session 12 (40 - 44)| Portfolio Management
 
@@ -614,7 +615,7 @@
 
 5. The core-satellite approach invests the majority of the portfolio in passively managed indexes and invest a smaller in active strategy.
 
-### Session 13 | R45: Market Organization and Structure
+### Session 13 (45 - 47) | Market Organization, Market Indices, and Market Efficiency
 
 1. The primary market is the market for newly issued securities, subsequent sales are on secondary market.
 2. securities can be classified as fixed income and equity. fixed income includes bonds, notes, commercial paper, government bills, certificate of deposit, repurchase agreement, convertible debt; equity securities includes common stock, preferred stock and warrants.
@@ -646,22 +647,20 @@ A可以55美元/吨的价格售出看涨期权，A获利50美元/吨（55-5）�
 9. $leverage \ ratio = \frac {asset \ value} {equity \ position \ value}$, $margin \ call \ price = P0 (\frac {1 - initial \ margin} {1 - maintenance \ margin})$
 10. 英语啊，我勒个去，`the stock was bought on 75 percent margin` 是说股票买入只交了总价值的 0.75。
 11. 理解各种订单特征：making a new market/inside the market -> make the market -> behind the market -> far from the market; take the market;
-12. complete markets = operational efficient + informationally efficient
-13. $leverage \ ratio = \frac {asset \ value} {equity \ position \ value}$
-14. $margin \ call \ price = P0 (\frac {1 - initial \ margin} {1 - maintenance \ margin})$
+12. order precedence hierarchy: price priority -> display precedence -> time precedence. 
+13. complete markets = operational efficient + informationally efficient
+14. $leverage \ ratio = \frac {asset \ value} {equity \ position \ value}$
+15. $margin \ call \ price = P0 (\frac {1 - initial \ margin} {1 - maintenance \ margin})$,
 
-### Session 13 | R46: Security Market Indices
 
 1. A security market index is used to represent the performance of an asset class, security market, or segment of a market.
-2. $price \ return \ of \ index = \frac {R1 + R2 + … + Rn} {n}, Rn:\ return \ of \ asset \ n$, total return 需要考虑到个股持有期间的分红；price return 的话更简单了，直接用价格加权来计算，不用考虑分红；
+2. $price \ return \ of \ index(equal-weighted) = \frac {r1 + r2 + … + rn} {n}$, total return 需要考虑到个股持有期间的分红；$price \ return \ of \ index(price-weighted) = \frac {price_{end}} {price_{begin}}$,
 3. price-weighting methods requires an adjustment to the divisor after stock split.
 4. one complication with an equal-weighted index return is that a matching portfolio would have to be adjusted periodically as prices change.
 5. Security market indices are used as proxies for measuring market or systematic risk, not as measures of systematic risk.
 6. Sector indices provide a means to determine whether a portfolio manager is more successful at stock selection or sector allocation.
 7. real estate indexes can be constructed using returns based on appraisals of properties, repeat property sales, or the performance of REITs.
-8. $price \ return \ of \ index = \frac {R1 + R2 + … + Rn} {n}, Rn:\ return \ of \ asset \ n$
 
-### Session 13 | R47: Market Efficiency
 
 1. factors affect the degree of market efficiency: number of market participants + availability of information + impediments to trading + transaction and information cost;
 2. weak-form market efficiency: current price fully reflect all currently available security market data, one can't achieve positive risk-adjusted returns on average by using technical analysis;
