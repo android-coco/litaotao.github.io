@@ -581,14 +581,14 @@ no questions.
 
 
 1. 理解资本市场线 cml 是一种特殊的 cal 而已：under the assumption of homogeneous expectations, the optimal cal for all investors is termed the capital market line. alone this line, there is an equation: $E(R_p) = R_f +  \frac {E(R_m - R_f)}{R_m * R_p}$ 。==right?==, the difference between the expected return on the market and the risk-free rate is termed as the market risk premium。
-2. 深刻理解当市场预期收益大于 risk free rate 的时候，或者借钱成本小于市场预期收益的时候，可以通过借钱炒股来使得组合收益更高，这种就叫 borrowing portfolio，page 162 的习题非常好；
-3. 深刻理解：One important conclusion of Captial Market Theory is that equilibrium security returns depend on a stock's or a portfolio's system risk, not its total risk. And the riskest stock does not necessarily have the greatest expected return. So unsystematic risk is not compensated in equilibrium because it can be eliminated for free through diversification.
-4. 个股预期收益公式：$R_i = \alpha + \beta * R_m + \epsilon_i$，其中注意 Rm 是市场组合的收益。$\beta = \frac {Cov(i, m)}{\sigma_m^{2}}$，然后 $Cov(i, m) = \rho_{im} * \sigma_i * \sigma_m$，所以 $\beta = \rho_{im} * \sigma_i / \sigma_m$, 但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：$R_i - r_f = \alpha + \frac {Cov(i, m)}{\sigma_m^{2}} * (R_m - r_f)$, 自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：$E(R_i) = r_f + \frac {E(R_m - r_f)}{\sigma_m^2} * Cov(i, m)$, 实际上，==scl 到 sml，只是简单的变换一下 x 轴变量而已了。==
-5. 遇到 capm 相关的习题时，需要注意题中说的是 market return 还是 market risk premium，因为 capm: Ri = rf + beta * (Rm - rf) = rf + beta * (risk premium of market)。
-6. sharp ratio = (Rp - Rf) / (risk of portfolio), is its excess returns per unit of total risk，相当于是 cal 的斜率哦。然后 m-squared = (Rp - Rf) * (risk or market) / (risk of portfolio) - (Rm - Rf)。treynor ratio = (Rp - Rf) / (beta of portfolio), interpreted as excess returns per unit of system risk。Jensen's alpha = Rp - [Rf + beta * (Rm - Rf)]。
-7. ==如果预期收益率在 sml 下方，则股票被高估了，反之，看书本 p174 加深理解。==
+2. Capital market theory assumes that investors have homogeneous expectations.
+3. 深刻理解当市场预期收益大于 risk free rate 的时候，或者借钱成本小于市场预期收益的时候，可以通过借钱炒股来使得组合收益更高，这种就叫 borrowing portfolio，page 162 的习题非常好；
+4. 深刻理解：One important conclusion of Captial Market Theory is that equilibrium security returns depend on a stock's or a portfolio's system risk, not its total risk. And the riskest stock does not necessarily have the greatest expected return. So unsystematic risk is not compensated in equilibrium because it can be eliminated for free through diversification.
+5. 个股预期收益公式：$R_i = \alpha + \beta * R_m + \epsilon_i$，其中注意 Rm 是市场组合的收益。$\beta = \frac {Cov(i, m)}{\sigma_m^{2}}$，然后 $Cov(i, m) = \rho_{im} * \sigma_i * \sigma_m$，所以 $\beta = \rho_{im} * \sigma_i / \sigma_m$, 但实践中个股的 beta 都是通过回归计算出来的，这就引出了 security characteristic line 的概念了，方程是：$R_i - r_f = \alpha + \frac {Cov(i, m)}{\sigma_m^{2}} * (R_m - r_f)$, 自己体会，page 168。而有了 scl 呢，又可以通过方程推导出个股风险和收益之间的关系，这又引出了security market line 的概念，方程：$E(R_i) = r_f + \frac {E(R_m - r_f)}{\sigma_m^2} * Cov(i, m)$, 实际上，==scl 到 sml，只是简单的变换一下 x 轴变量而已了。==
+6. 遇到 capm 相关的习题时，需要注意题中说的是 market return 还是 market risk premium，因为 capm: Ri = rf + beta * (Rm - rf) = rf + beta * (risk premium of market)。
+7. sharp ratio = (Rp - Rf) / (risk of portfolio), is its excess returns per unit of total risk，相当于是 cal 的斜率哦。然后 m-squared = (Rp - Rf) * (risk or market) / (risk of portfolio) - (Rm - Rf), *M*-squared adjusts for risk using standard deviation。treynor ratio = (Rp - Rf) / (beta of portfolio), interpreted as excess returns per unit of system risk。Jensen's alpha = Rp - [Rf + beta * (Rm - Rf)]。
+8. ==如果预期收益率在 sml 下方，则股票被高估了，反之，看书本 p174 加深理解。==
 
-### Session 12 | R44: Basics of Portfolio Planning and Constructing
 
 1. components of IPS:
 
