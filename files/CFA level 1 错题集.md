@@ -5,6 +5,7 @@
 - 做题时头脑一定要清醒，最好明白考点是啥；
 - 英语专业词汇是个大问题，以后备考的时候准备一下词汇；
 - 审题一定要认真，比如说 eliminate systematic risk 这种细节描述的错误；
+- 可以借助排除法锁定潜在答案；
 - 如果觉得一道题有多选，一般都是因为对题目里的概念思考点不全，比如说R16的习题4，对 GDP 的特点理解不全；
 - 考试上午 180 分钟，120 单选题；下午 180 分钟，120 单选题；平均保持最多 1.5 分钟一道题；
 - 内容占比：
@@ -461,85 +462,92 @@
     7. DuPont analysis: ROE  = net profit margin * asset turnover * leverage ratio
        1. $ROE = \frac {net \ income}{revenue} * \frac {revenue}{average \ total \ assets} * \frac {average \ total \ assets}{equity}$,
 
-### Session 8 | Inventories, Long-lived Assets, Income Taxes, and Non-current Liabilities
+### Session 8 (28 - 31) | Inventories, Long-lived Assets, Income Taxes, and Non-current Liabilities
 
 1. $COGS = begin \ inventory + purchases - ending \ inventory$, 
-2. [Q1] Transportation costs incurred to ship inventory to customers are an expense and may not be capitalized in inventory. (Transportation costs incurred to bring inventory to the business location can be capitalized in inventory.) Storage costs required as part of production, as well as costs incurred as a result of normal waste of materials, can be capitalized in inventory. (Costs incurred as a result of abnormal waste must be expensed.)
-3. [Q2] Inventory expense includes costs of purchase, costs of conversion, and other costs incurred in bringing the inventories to their present location and condition. It does not include storage costs not required as part of production.
-4. [Q3] IFRS allow the inventories of producers and dealers of agricultural and forest products, agricultural produce after harvest, and minerals and mineral products to be carried at net realisable value even if above historical cost. (US GAAP treatment is similar.)
-5. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a96ff576-ce68-11e7-ba0d-0242ac140002)
-6. US GAAP do not permit inventory write-downs to be reversed.
-7. Inventory (FIFO method) = Inventory (LIFO method) + LIFO reserve 
-8. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
-9. four relations hold when prices have been rising :
+2. $gross \ profit = revenue - COGS$,
+3. [Q1] Transportation costs incurred to ship inventory to customers are an expense and may not be capitalized in inventory. (Transportation costs incurred to bring inventory to the business location can be capitalized in inventory.) Storage costs required as part of production, as well as costs incurred as a result of normal waste of materials, can be capitalized in inventory. (Costs incurred as a result of abnormal waste must be expensed.)
+4. [Q2] Inventory expense includes costs of purchase, costs of conversion, and other costs incurred in bringing the inventories to their present location and condition. It does not include storage costs not required as part of production.
+5. [Q3] IFRS allow the inventories of producers and dealers of agricultural and forest products, agricultural produce after harvest, and minerals and mineral products to be carried at net realisable value even if above historical cost. (US GAAP treatment is similar.)
+6. ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a96ff576-ce68-11e7-ba0d-0242ac140002)
+7. US GAAP do not permit inventory write-downs to be reversed.  LIFO is permitted under US GAAP.
+8. Inventory (FIFO method) = Inventory (LIFO method) + LIFO reserve 
+9. FIFO COGS = LIFO COGS - (ending LIFO reserve - beginning LIFO reserve)
+10. four relations hold when prices have been rising :
    1. LIFO inventory < FIFO inventory
    2. LIFO COGS > FIFO COGS
    3. LIFO net income < FIFO net income
    4. LIFO tax < FIFO tax
 
-### ==Session 8 | R29: Long-Lived Assets==
 
 1. units of production depreciation = $\frac {original \ cost - salvage \ value}{life \ in \ output \ units} * output \ units \ in \ the \ period$,
 2. $average \ age = \frac {accumulated \ depreciation}{annual \ depreciation \ expense}$, $total \ useful \ life = \frac {historical \ cost}{annual \ depreciation \ expense}$, 
 3. $remaining \ useful \ life = \frac {ending \ net \ PPE}{annual \ depreciation \ expense}$,$ending \ net \ PPE = original \ cost - accumulated \ depreciation$,
 4. assets: expensed(provide benefit current), capitalized(provide benefit multiple period);
 5. IFRS, research cost are expensed, development cost are capitalized; GAAP, both are expensed, except in the case of software created for sale to others.
+6. IFRS do not require acquisition dates to be disclosed, do not require fair value of intangible assets to be disclosed.
+7. A company will change from the fair value model to either the cost model or revaluation model when the company transfers investment property to property, plant, and equipment.
 
-### Session 8 | R30: Income Taxes
 
 1. tax return terminology(纳税申报单): taxable income -> 应纳税所得；taxes payable -> 应付税款；income tax paid -> 所得税费用；tax loss carryforward -> 赋税亏损转接；tax base -> 计税基数；
 2. financial reporting terminology(财务指标): accounting profit -> 会计利润；income tax expense -> 所得税费用；deferred tax liabilities -> 递延所得税负债；deferred tax assets -> 递延所得税资产；valuation allowance -> 估值备抵；carrying value -> 账面价值; permanent difference -> 永久性差异；temporary difference -> 临时性差异；
-3. $income \ tax \ expense = tax \ payable + \triangle DTL + \triangle DTA$, DTA: 纳税申报单上的  taxes payable > 财报上的 income tax expense；
+3. $income \ tax \ expense = tax \ payable + \triangle DTL - \triangle DTA$, DTA: 纳税申报单上的  taxes payable > 财报上的 income tax expense；
 
-### Session 8 | R31: Non-Current(Long-Term) Liabilities
 
 1. lesses: 承租人；lessor：出租人；
+2. The effective interest rate is greater than the coupon rate and the bonds will be issued at a discount.
+3. Under US GAAP, expenses incurred when issuing bonds are generally recorded as an asset and amortised to the related expense (legal, etc.) over the life of the bonds. Under IFRS, they are included in the measurement of the liability. The related cash flows are financing activities.
+4. [Q12] When a lease is classified as an operating lease, the underlying asset remains on the lessor’s balance sheet. The lessor will record a depreciation expense that reduces the asset’s value over time.
+5. [Q13] A sales-type lease treats the lease as a sale of the asset, and revenue is recorded at the time of sale equal to the present value of future lease payments. Under a direct financing lease, only interest income is reported as earned. Under an operating lease, revenue from rent is reported when collected. 
 
-### Session 10 | R34: Corporate Governance and ESG: An introduction
+### Session 9 (32 - 33) | Financial Reporting Quality and Financial Statement Analysis
 
-no questions.
+1. [Q8] High-quality financial report may reflect low earnings quality;
+2. LIFO is not permitted under IFRS.
+3. [Q9]To convert LIFO inventory to FIFO inventory, the entire LIFO reserve must be added back
 
-### Session 10 | R35: Capital Budgeting
+### Session 10 (34 - 36) | Corporate Governance, Capital Budgeting, and Cost of Capital
 
 1. 计算器计算 irr，npv，计算 npv 也可以用公式，如果现金流次数少的话
-2. payback period 和 discounted payback period，细心+耐心计算
+2. payback period 和 discounted payback period (每期现金流贴现处理)，细心+耐心计算
 3. perpetual : $pv = \frac {pmt}{1/y}$, 
 4. probability index = PI = (pv of future cash flow) / CF0
 5. 计算pv：pmt, 1/y, n, fv, cpt
 6. 掌握 npv profile 的绘制及其含义，以及多个项目的 npv profile 的 cross rate 含义【npv 相等】
 
 
-
-### ==Session 10 | R36: Cost of Capital==
-
 1. 计算 cost of equity capital：使用 capm 模型，dividend discount 模型，bond yield 模型；cost of equity capital 有时候也叫 cost of retained earning，dividend discount 模型可以演变成 dcf 模型【习题25】；
 2. 计算 cost of debt，债券的 ytm 计算，使用计算器计算 1/y，注意付息方式；
-3. 计算 wacc：Wd * (Kd * (1 - t)) + Wps * Kps + Wce * Kce，其中 w 一定要用现在的市值来计算；
-4. ==理解掌握 project beta 和 asset beta，并能计算，但习题10 让我很迷茫啊，感觉和书上讲的完全不一样。==
-5. 做大题的时候一定要注意时间，把关键字，关键数字圈出来
-6. 理解掌握 marginal cost of capital 和 break point 的概念，并且会计算才行哦
-7. 计算 country risk premium
+3. [Q10] asset beta and equity beta:  Asset risk does not change with a higher debt-to-equity ratio. Equity risk rises with higher debt.
+4. $\beta_{asset} = \beta_{debt} * \frac {D}{D+E} + \beta_{equity} * \frac {E}{E + D}, \ \ \ \  \beta_{equity} = \beta_{asset} * (1 + (1 - t) * \frac D E)$;
+5. $\beta_{project} = \beta_{asset} * (1 + (1 - t) * \frac {D_{project}}{E_{project}})$, $cost \ of \ equity \ for \ project = r_f + \beta_{project}*(r_m - r_f)$, 
+6. cost of capital under dividend discounted model: $K_{ce} = \frac {D_0} {P_1} + g = \frac {D_0} {P_1} + ROE*retention \ rate $,
+7. 计算 wacc：Wd * (Kd * (1 - t)) + Wps * Kps + Wce * Kce，其中 w 一定要用现在的市值来计算；
+8. 理解掌握 marginal cost of capital 和 break point 的概念，并且会计算才行哦
+9. ![](http://upload-images.jianshu.io/upload_images/1548078-581c27708fc2b857.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640)
 
-### Session 11 | R37: Measures of Leverage
+### Session 11 (37 - 39) | Leverage, Dividends and Share Repurchases, and Working Capital Management
 
-1. 理解风险分类：商业风险【销售，运营】，财务风险；DOL 的三种计算方法；
-2. ==掌握 DFL 的两种计算方式，DTL = DFL * DOL==
-3. 理解掌握 breakeven quantity of sales 和 operation breakeven quantity of sales 的计算方法，核心即为销量刚好覆盖成本的点；不过也要融会贯通，breakeven 既可以指销量，也可以指销售金额；
+1. 理解风险分类：商业风险【销售，运营】，财务风险；
+2. $DOL = \frac {Q(P-V)}{Q(P-V) - F} = \frac {\% \triangle operating \ income}{\% \triangle number \ of \ unit \ sales}$,
+3. $DFL = \frac {Q(P-V) - F}{Q(P-V) - F - C} = \frac {\% \triangle net \ income}{\% \triangle operating \ income}$,
+4. $DTL = DOL * DFL = \frac {\% \triangle net \ income}{\% \triangle number \ of \ unit \ sales}$, 
+5. $breakeven \ quantity \ of \ sales = \frac {F + C}{P - V}$, $operation \ breakeven \ quantity \ of \ sales = \frac {F}{P - V}$, 
+6. 理解掌握 breakeven quantity of sales 和 operation breakeven quantity of sales 的计算方法，核心即为销量刚好覆盖成本的点；不过也要融会贯通，breakeven 既可以指销量，也可以指销售金额；
+7. Leverage is the use of fixed costs in a company’s cost structure. Business risk is the risk associated with operating earnings and reflects both sales risk (uncertainty with respect to the price and quantity of sales) and operating risk (the risk related to the use of fixed costs in operations). Financial risk is the risk associated with how a company finances its operations (i.e., the split between equity and debt financing of the business).
 
-### Session 11 | R38: Dividends and Share Repurchases: Basics
 
 1. 理解现金分红相当于把留存收益送给股东，降低了公司资产和股票市值；股票分红相当于留存收益或资本公积金的资本化，会增加注册资本；
 2. 不要把 pe 和 eps 搞混淆了，我去，还是玩股票这么多年的人了，shame on you
 3. 掌握股票回购后 eps 的算法，以及两种回购方式对 eps 的影响：自由资金和借钱回购，考虑资金成本即可；
 4. 理解如果book value per share = price 的话，那么回购后 book value per share 刚好不变；
 
-### Session 11 | R39: Working Capital Management
 
 1. 39 | liquidity
    1. $current \ ratio = \frac {current \ assets}{current \ liabilities}$, 
    2. $quick \ ratio = \frac {cash + short-term \ market \ security + receivables}{current \ liabilities} = \frac {current \ assets - inventory}{current \ liabilities}$，
    3. $receivalbes \ turnover = \frac {credit \ sales}{average \ receivables}, days \ of \ receivables \ turnover = \frac {365} {receivables \ turnover}$,
-   4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending \ inventory 来计算的哦$,
+   4. $inventory \ turnover = \frac {cogs} {average \ inventory}，可是 39 的习题都是用 ending inventory 来计算的哦$,
    5. $days \ of \ inventory = \frac {365}{inventory \ turnover}$,
    6. $payables \ turnover = \frac {purchases}{average \ payables}, days \ of \ payables = \frac {365}{payables \ turnover}$,
    7. $operating \ cycle = days \ of \ receivables + days \ of \ inventory$,
