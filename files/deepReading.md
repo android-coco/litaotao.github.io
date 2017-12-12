@@ -766,25 +766,73 @@
     >
     > ![](http://upload-images.jianshu.io/upload_images/2256672-46acc2c2d52fc366.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480)
     >
-    > 所谓梯度，是指一个向量，并且该向量指向函数值上升最快的方向，反之，梯度的反方向就是函数值下降最快的方向了。
+    > 所谓梯度，是指一个向量，并且该向量指向函数值上升最快的方向，反之，梯度的反方向就是函数值下降最快的方向了。梯度下降算法的公式：$\mathrm{x}_{new}=\mathrm{x}_{old}-\eta\nabla{f(x)}$， 其中 $\nabla$ 是梯度算子。由于$\begin{align}E(\mathrm{w})&=\frac{1}{2}\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})^2\\&=\frac{1}{2}\sum_{i=1}^{n}(\mathrm{y^{(i)}-\mathrm{w}^Tx^{(i)}})^2\end{align}$，
+    >
+    > 所以这个优化函数里的梯度算法应用是：$\mathrm{w}_{new}=\mathrm{w}_{old}-\eta\nabla{E(\mathrm{w})}$, 下面我们只需要研究怎么计算 $\nabla E(w)$ 即可，关于它的推导可以直接看下面，结论先放上来，$\nabla{E(\mathrm{w})}=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}^{(i)}$, $\mathrm{w}_{new}=\mathrm{w}_{old}+\eta\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}^{(i)}\qquad\qquad(式3)$， 或者：
+    >
+    > $\begin{bmatrix}w_0 \\w_1 \\w_2 \\... \\w_m \\\end{bmatrix}_{new}=\begin{bmatrix}w_0 \\w_1 \\w_2 \\... \\w_m \\\end{bmatrix}_{old}+\eta\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\begin{bmatrix}1 \\x_1^{(i)} \\x_2^{(i)} \\... \\x_m^{(i)} \\\end{bmatrix}$,
+    >
+    > - ***推导：$\nabla E(w)$*** 
+    >
+    > ----
+    >
+    > -  函数的梯度的定义就是它相对于各个变量的**偏导数**
+    >
+    > $\begin{align}\nabla{E(\mathrm{w})}&=\frac{\partial}{\partial\mathrm{w}}E(\mathrm{w})\\&=\frac{\partial}{\partial\mathrm{w}}\frac{1}{2}\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})^2\\\end{align}$,
+    >
+    > - 和的导数等于导数的和
+    >
+    > $\begin{align} &\frac{\partial}{\partial\mathrm{w}}\frac{1}{2}\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})^2\\ =&\frac{1}{2}\sum_{i=1}^{n}\frac{\partial}{\partial\mathrm{w}}(y^{(i)}-\bar{y}^{(i)})^2\\\end{align}$,
+    >
+    > 现在我们可以不管高大上的 $\sum$ 了，先专心把里面的导数求出来:
+    >
+    > $\begin{align} &\frac{\partial}{\partial\mathrm{w}}(y^{(i)}-\bar{y}^{(i)})^2\\ =&\frac{\partial}{\partial\mathrm{w}}(y^{(i)2}-2\bar{y}^{(i)}y^{(i)}+\bar{y}^{(i)2})\\\end{align}$,
+    >
+    > 链式求导法:
+    >
+    > $\frac{\partial{E(\mathrm{w})}}{\partial\mathrm{w}}=\frac{\partial{E(\bar{y})}}{\partial\bar{y}}\frac{\partial{\bar{y}}}{\partial\mathrm{w}}$,
+    >
+    > 利用上面的链式求导，分别计算式子右边的两个乘数：
+    >
+    > $\begin{align} \frac{\partial{E(\mathrm{w})}}{\partial\bar{y}}= &\frac{\partial}{\partial\bar{y}}(y^{(i)2}-2\bar{y}^{(i)}y^{(i)}+\bar{y}^{(i)2})\\ =&-2y^{(i)}+2\bar{y}^{(i)}\\\\ \frac{\partial{\bar{y}}}{\partial\mathrm{w}}= &\frac{\partial}{\partial\mathrm{w}}\mathrm{w}^T\mathrm{x}\\ =&\mathrm{x}\end{align}$,
+    >
+    > 代入，我们求得 $\sum$ 里面的偏导数是:
+    >
+    > $\begin{align} &\frac{\partial}{\partial\mathrm{w}}(y^{(i)}-\bar{y}^{(i)})^2\\ =&2(-y^{(i)}+\bar{y}^{(i)})\mathrm{x}\end{align}$ ,
+    >
+    > 最后代入 $\nabla E(w)$，求得:
+    >
+    > $\begin{align} \nabla{E(\mathrm{w})}&=\frac{1}{2}\sum_{i=1}^{n}\frac{\partial}{\partial\mathrm{w}}(y^{(i)}-\bar{y}^{(i)})^2\\ &=\frac{1}{2}\sum_{i=1}^{n}2(-y^{(i)}+\bar{y}^{(i)})\mathrm{x}\\ &=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x} \end{align}$,
+    >
+    > 至此，推算完成，其实就是用了求导的一些法则。
+    >
+    > ----
+    >
+    > 如果我们根据(式3)来训练模型，那么我们每次更新的迭代，要遍历训练数据中所有的样本进行计算，我们称这种算法叫做 **批梯度下降(Batch Gradient Descent)**。如果我们的样本非常大，比如数百万到数亿，那么计算量异常巨大。因此，实用的算法是SGD算法。在SGD算法中，每次更新 w 的迭代，只计算一个样本。这样对于一个具有数百万样本的训练数据，完成一次遍历就会对 w 更新数百万次，效率大大提升。由于样本的噪音和随机性，每次更新 w 并不一定按照减少 E 的方向。然而，虽然存在一定随机性，大量的更新总体上沿着减少 E 的方向前进的，因此最后也能收敛到最小值附近。下图展示了SGD和BGD的区别:
+    >
+    > ![](http://upload-images.jianshu.io/upload_images/2256672-3152002d503d768e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240),
+    >
+    > - 感知器和线性单元区别，激活函数不同而已；
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/2c120af8-df28-11e7-ba0d-0242ac140002)
+    >
+    > ​
+
+  - 神经网络和反向传播算法
+
+    > 神经元和感知器本质上是一样的，只不过我们说感知器的时候，它的激活函数是阶跃函数，而当我们说神经元的时候，激活函数往往是 sigmoid 函数或者 tanh 函数：
+    >
+    > ![](http://upload-images.jianshu.io/upload_images/2256672-49f06e2e9d3eb29f.gif)
+    >
+    > $y = f(x) = sigmoid(x)=\frac{1}{1+e^{-x}}$, 其导数很特殊 $y' = y(1 - y)$，
+    >
+    > ​神经网络实际上就是一个输入向量 $\vec x$ 到输出向量 $\vec y$ 的函数，即 $\vec y = f_{network} (\vec x)$， 
 
 - ***Answering***: Does the book answer your questions
 
 - ***questions:*** Any questions after reading
 
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
-
-
-
-
-```
-
-```
-
-
-
-
-
 
 
 
