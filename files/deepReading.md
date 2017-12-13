@@ -826,7 +826,94 @@
     >
     > $y = f(x) = sigmoid(x)=\frac{1}{1+e^{-x}}$, 其导数很特殊 $y' = y(1 - y)$，
     >
-    > ​神经网络实际上就是一个输入向量 $\vec x$ 到输出向量 $\vec y$ 的函数，即 $\vec y = f_{network} (\vec x)$， 
+    > 神经网络实际上就是一个输入向量 $\vec x$ 到输出向量 $\vec y$ 的函数，即 $\vec y = f_{network} (\vec x)$， 
+    >
+    > 神经网络的数学表示，即上面的方程展开表示，以下面这个神经网络为例：
+    >
+    > ![](http://upload-images.jianshu.io/upload_images/2256672-bfbb364740f898d1.png)
+    >
+    > 首先是隐藏层四个节点的数学表达：
+    >
+    > $a_4=sigmoid(w_{41}x_1+w_{42}x_2+w_{43}x_3+w_{4b})\\ a_5=sigmoid(w_{51}x_1+w_{52}x_2+w_{53}x_3+w_{5b})\\ a_6=sigmoid(w_{61}x_1+w_{62}x_2+w_{63}x_3+w_{6b})\\a_7=sigmoid(w_{71}x_1+w_{72}x_2+w_{73}x_3+w_{7b})\\$,
+    >
+    > 接下来定义网络的输入向量 $\vec x$ 和隐藏层每个节点的权重向量 $\vec w_j$，设置：
+    > $$
+    > \begin{align}
+    > \vec{x}&=\begin{bmatrix}x_1\\x_2\\x_3\\1\end{bmatrix}\\
+    > \vec{w}_4&=[w_{41},w_{42},w_{43},w_{4b}]\\
+    > \vec{w}_5&=[w_{51},w_{52},w_{53},w_{5b}]\\
+    > \vec{w}_6&=[w_{61},w_{62},w_{63},w_{6b}]\\
+    > \vec{w}_7&=[w_{71},w_{72},w_{73},w_{7b}]\\
+    > f&=sigmoid
+    > \end{align}
+    > $$
+    > 代入前面的式子可以得到：
+    > $$
+    > \begin{align}
+    > a_4&=f(\vec{w_4}\centerdot\vec{x})\\
+    > a_5&=f(\vec{w_5}\centerdot\vec{x})\\
+    > a_6&=f(\vec{w_6}\centerdot\vec{x})\\
+    > a_7&=f(\vec{w_7}\centerdot\vec{x})
+    > \end{align}
+    > $$
+    > 其中 $\vec w$ 是 1 x 4 向量，$\vec x$ 是 4 x 1 向量，$\vec w * \vec x$ 是一个标量，即为隐藏层一个神经元的数值；现在我们把上述的四个 a 写到一个矩阵里，每个式子作为矩阵的一行，就可以完全用矩阵来表示了：
+    > $$
+    > \vec{a}=
+    > \begin{bmatrix}
+    > a_4 \\
+    > a_5 \\
+    > a_6 \\
+    > a_7 \\
+    > \end{bmatrix},\qquad W=
+    > \begin{bmatrix}
+    > \vec{w}_4 \\
+    > \vec{w}_5 \\
+    > \vec{w}_6 \\
+    > \vec{w}_7 \\
+    > \end{bmatrix}=
+    > \begin{bmatrix}
+    > w_{41},w_{42},w_{43},w_{4b} \\
+    > w_{51},w_{52},w_{53},w_{5b} \\
+    > w_{61},w_{62},w_{63},w_{6b} \\
+    > w_{71},w_{72},w_{73},w_{7b} \\
+    > \end{bmatrix}
+    > ,\qquad f(
+    > \begin{bmatrix}
+    > x_1\\
+    > x_2\\
+    > x_3\\
+    > .\\
+    > .\\
+    > .\\
+    > \end{bmatrix})=
+    > \begin{bmatrix}
+    > f(x_1)\\
+    > f(x_2)\\
+    > f(x_3)\\
+    > .\\
+    > .\\
+    > .\\
+    > \end{bmatrix}
+    > $$
+    > 代入前面的式子即得：$\vec a = f(W * \vec x)$，这个式子说明神经网络**每一层的作用实际上就是先将输入向量左乘一个数组就行线性变量，得到一个新的向量，然后再对这个向量逐元素应用一个激活函数**。
+    >
+    > 我们可以说神经网络是一个模型，那么神经网络上每个神经元之间的连接上的权重值，就是这个模型的参数，也就是模型需要训练和学习的东西；然后模型的一些参数是不需要学习的，比如连接方式，网络层数，每层节点数，这些人为事先设置的参数称为超参数。而其他参数的训练，一般我们用***反向传播算法，也叫 back propagation，简称 BP算法*** 来进行训练。
+    >
+    > 我们同样以之前的模型来理解，假设每个训练样本为 $(\vec x, \vec t)$, 其中 $\vec x$ 是训练样本的特征，$\vec t$ 是样本的目标值；
+    >
+    > ![](http://upload-images.jianshu.io/upload_images/2256672-6f27ced45cf5c0d8.png)
+    >
+    > 第二节有$\mathrm{w}_{new}=\mathrm{w}_{old}-\eta\nabla{E(\mathrm{w})}$ 和 $\nabla{E(\mathrm{w})}=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}^{(i)}$,对于输出节点 i，令 $\delta_i$ 为该节点的误差项，即为第二节中的 $\nabla{E(\mathrm{w})}$, 比如上面模型中节点8的误差项 $\delta_8$ 应该是：$\delta_8 = y_1(1 - y_1)(t_1 - y_1)$，其中y1 是节点8 的输出值【模型预测值】，t1 是节点8的目标值【真实值】。
+    >
+    > 对于隐藏层节点，
+    >
+    > ​
+    >
+    > adaf
+    >
+    > adsf
+    >
+    > ​
 
 - ***Answering***: Does the book answer your questions
 
