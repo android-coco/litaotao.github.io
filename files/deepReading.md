@@ -897,15 +897,118 @@
     > $$
     > 代入前面的式子即得：$\vec a = f(W * \vec x)$，这个式子说明神经网络**每一层的作用实际上就是先将输入向量左乘一个数组就行线性变量，得到一个新的向量，然后再对这个向量逐元素应用一个激活函数**。
     >
-    > 我们可以说神经网络是一个模型，那么神经网络上每个神经元之间的连接上的权重值，就是这个模型的参数，也就是模型需要训练和学习的东西；然后模型的一些参数是不需要学习的，比如连接方式，网络层数，每层节点数，这些人为事先设置的参数称为超参数。而其他参数的训练，一般我们用***反向传播算法，也叫 back propagation，简称 BP算法*** 来进行训练。
+    > 我们可以说神经网络是一个模型，那么神经网络上每个神经元之间的连接上的权重值，就是这个模型的参数，也就是模型需要训练和学习的东西；然后模型的一些参数是不需要学习的，比如连接方式，网络层数，每层节点数，这些人为事先设置的参数称为 ***超参数***。而其他参数的训练，一般我们用***反向传播算法，也叫 back propagation，简称 BP算法*** 来进行训练。
     >
     > 我们同样以之前的模型来理解，假设每个训练样本为 $(\vec x, \vec t)$, 其中 $\vec x$ 是训练样本的特征，$\vec t$ 是样本的目标值；
     >
     > ![](http://upload-images.jianshu.io/upload_images/2256672-6f27ced45cf5c0d8.png)
     >
-    > 第二节有$\mathrm{w}_{new}=\mathrm{w}_{old}-\eta\nabla{E(\mathrm{w})}$ 和 $\nabla{E(\mathrm{w})}=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}^{(i)}$,对于输出节点 i，令 $\delta_i$ 为该节点的误差项，即为第二节中的 $\nabla{E(\mathrm{w})}$, 比如上面模型中节点8的误差项 $\delta_8$ 应该是：$\delta_8 = y_1(1 - y_1)(t_1 - y_1)$，其中y1 是节点8 的输出值【模型预测值】，t1 是节点8的目标值【真实值】。
+    > 第二节有$\mathrm{w}_{new}=\mathrm{w}_{old}-\eta\nabla{E(\mathrm{w})}$ 和 $\nabla{E(\mathrm{w})}=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}^{(i)}$,对于输出节点 i，令 $\delta_i$ 为该节点的误差项，即为第二节中的 $\nabla{E(\mathrm{w})}$, 比如上面模型中节点8的误差项 $\delta_8$ 应该是：
+    > $$
+    > \delta_8 = y_1(1 - y_1)(t_1 - y_1)
+    > $$
+    > 其中 y1 是节点8 的输出值【模型预测值】，t1 是节点8的目标值【真实值】。对于隐藏层节点则有：
+    > $$
+    > \delta_i=a_i(1-a_i)\sum_{k\in{outputs}}w_{ki}\delta_k\qquad
+    > $$
+    > 其中 $a_i$ 是节点 $i$ 的输出值，$w_{ki}$ 是节点 $i$ 到它的下一层节点 $k$ 的链接的权重，$\delta_k$ 是节点 $i$ 的下一层节点 $k$ 的误差项，例如对于隐藏层节点 4 来说，计算方法如下：
+    > $$
+    > \delta_4 = a_4(1 - a_4) * (w_{84} \delta_8 + w_{94} \delta_9)
+    > $$
+    > 最后更新每个连接上的权值：
+    > $$
+    > w_{ji}  \leftarrow w_{ji} + \eta \delta_j x_{ji}
+    > $$
+    > 其中 $w_{ji}$ 是节点 $i$ 到节点 $j$ 的权重，$\eta$ 是一个称为 ***学习速率*** 的常数，$\delta_j$ 是节点j 的误差项，$x_{ji}$ 节点 $i$ 传递给节点 $j$ 的输入，例如权重 $w_{84}$ 的更新方法如下：
+    > $$
+    > w_{84} \leftarrow w_{84} + \eta \delta_8 a_4
+    > $$
+    > 偏置项的输入值永远是1，例如节点 4 的偏置项 $w_{4b}$ 是权值更新算法如下：
+    > $$
+    > w_{4b} \leftarrow w_{4b} +\eta \delta_4
+    > $$
+    > 上面介绍了神经网络每个节点误差项的计算和权重更新算法，显然可以看到，计算每一个节点的误差项，都需要先计算每个与其连接的下一层的节点的误差项，这就要求误差项的计算顺序必须从输出层开始的，然后反向一次计算每个隐藏层的误差项，知道与输入层相连的那个隐藏层，即第一层隐藏层。这就是 ***反向传播算法*** 的名字含义，当所有节点的误差项计算完毕后，可以根据下面的式子来更新权重了：
+    > $$
+    > w_{ji}  \leftarrow w_{ji} + \eta \delta_j x_{ji}
+    > $$
+    > ***反向传播算法的推导***： 反向传播算法其实就是链式求导法则的应用。然而，这个如此简单且显而易见的方法，却是在Roseblatt提出感知器算法将近30年之后才被发明和普及的。对此，Bengio这样回应道：***很多看似显而易见的想法只有在事后才变得显而易见。***
     >
-    > 对于隐藏层节点，
+    > 下面，我们从数学角度来推导反向传播算法：
+    >
+    > ---
+    >
+    > - 先确定神经网络的目标函数，然后用随机梯度下降优化算法来求目标函数最小值时候的参数值。我们暂且取网络所有输出层节点的误差平方和作为目标函数：
+    >   $$
+    >   E_d\equiv\frac{1}{2}\sum_{i\in outputs}(t_i-y_i)^2
+    >   $$
+    >   其中 $E_d$ 是样本 $d$ 的误差。然后随机梯度下降对目标函数进行优化的过程如下：
+    >   $$
+    >   w_{ji} \leftarrow w_{ji} - \eta \frac {\partial E_d}{\partial w_{ji}}
+    >   $$
+    >   随机梯度下降算法需要求出误差 $E_d$ 对每个权重 $w_{ji}$ 的偏导数，也就是梯度，那怎么求呢？继续观察下图：
+    >
+    >   ![](http://upload-images.jianshu.io/upload_images/2256672-6f27ced45cf5c0d8.png)
+    >
+    >   观察上图，我们发现权重 $w_{ji}$ 仅能通过影响节点 $j$ 的输入值影响网络的其他部分，设 $net_j$ 是节点 $j$ 的加权输入，即：
+    >   $$
+    >   net_j = \overrightarrow w_j * \overrightarrow x_j = \sum_i w_{ji} x_{ji}
+    >   $$
+    >   $E_d$ 是 $net_j$ 的函数，而 $net_j$ 是 $w_{ji}$ 的导数，根据链导法则，有：
+    >   $$
+    >   \begin{align}
+    >   \frac{\partial{E_d}}{\partial{w_{ji}}}&=\frac{\partial{E_d}}{\partial{net_j}}\frac{\partial{net_j}}{\partial{w_{ji}}}\\
+    >   &=\frac{\partial{E_d}}{\partial{net_j}}\frac{\partial{\sum_{i}{w_{ji}}x_{ji}}}{\partial{w_{ji}}}\\
+    >   &=\frac{\partial{E_d}}{\partial{net_j}}x_{ji}
+    >   \end{align}
+    >   $$
+    >   上式中，$x_{ji}$ 是节点 $i$ 传递给节点 $j$ 的输入值，也就是节点 $i$ 的输出值，对于 $\frac {\partial  E_d}{\partial net_j}$ 的推导，需要区分 ***输出层*** 和 ***隐藏层***  两种情况。
+    >
+    >   对于 ***输出层*** 来说，$net_j$ 仅能通过节点 $j$ 的输出值 $y_j$ 来影响网络的其他部分，即 $E_d$ 是 $y_i$ 的函数，而 $y_j$ 是 $net_j$ 的函数，其中 $y_j = sigmoid(net_j)$，所以我们可以再次使用链导法则：
+    >   $$
+    >   \begin{align}
+    >   \frac{\partial{E_d}}{\partial{net_j}}&=\frac{\partial{E_d}}{\partial{y_j}}\frac{\partial{y_j}}{\partial{net_j}}\\
+    >   \end{align}
+    >   $$
+    >   考虑第一项：
+    >   $$
+    >   \begin{align}
+    >   \frac{\partial{E_d}}{\partial{y_j}}&=\frac{\partial}{\partial{y_j}}\frac{1}{2}\sum_{i\in outputs}(t_i-y_i)^2\\
+    >   &=\frac{\partial}{\partial{y_j}}\frac{1}{2}(t_j-y_j)^2\\
+    >   &=-(t_j-y_j)
+    >   \end{align}
+    >   $$
+    >   考虑第二项：
+    >   $$
+    >   \begin{align}
+    >   \frac{\partial{y_j}}{\partial{net_j}}&=\frac{\partial sigmoid(net_j)}{\partial{net_j}}\\
+    >   &=y_j(1-y_j)\\
+    >   \end{align}
+    >   $$
+    >   将第一二项代入式子，得到：
+    >   $$
+    >   \frac{\partial{E_d}}{\partial{net_j}}=-(t_j-y_j)y_j(1-y_j)
+    >   $$
+    >   如果令 $\delta_j = - \frac {\partial E_d}{\partial net_j}$，也就是一个节点的误差项 $\delta$ 是网络误差对这个节点输入的偏导数的相反数，代入上式得到：
+    >   $$
+    >   \delta_j = (t_j - y_j) y_j (1 - y_j)
+    >   $$
+    >   再将这个式子代入梯度下降公式，得到：
+    >   $$
+    >   \begin{align}
+    >   w_{ji}&\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}\\
+    >   &=w_{ji}+\eta(t_j-y_j)y_j(1-y_j)x_{ji}\\
+    >   &=w_{ji}+\eta\delta_jx_{ji}
+    >   \end{align}
+    >   $$
+    >   ***输出层*** 的推导就到此为止了，下面看看 ***隐藏层*** 的 $\frac {\partial E_d}{\partial net_j}$ 推导：
+    >
+    >   首先我们定义节点 $j$ 的所有直接下游节点的集合 $Downstream(j)$，
+    >
+    > adf
+    >
+    > ---
+    >
+    > ​
     >
     > ​
     >
