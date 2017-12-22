@@ -1002,9 +1002,18 @@
     >   $$
     >   ***输出层*** 的推导就到此为止了，下面看看 ***隐藏层*** 的 $\frac {\partial E_d}{\partial net_j}$ 推导：
     >
-    >   首先我们定义节点 $j$ 的所有直接下游节点的集合 $Downstream(j)$，
-    >
-    > adf
+    >   首先我们定义节点 $j$ 的所有直接下游节点的集合 $Downstream(j)$，例如对于节点 4 来说，他的直接下游节点是8，9；可以看到 $net_j$ 只能通过影响 $Downstream(j)$ 再影响 $E(d)$。设 $net_k$ 是节点 $j$ 的下游节点的输入，则 $E_d$ 是 $net_k$ 的函数，而 $net_k$ 是 $net_j$ 的函数，因为 $net_k$ 有多个，我们应用全导数公式可以做如下推导：
+    >   $$
+    >   \begin{align}
+    >   \frac{\partial{E_d}}{\partial{net_j}}&=\sum_{k\in Downstream(j)}\frac{\partial{E_d}}{\partial{net_k}}\frac{\partial{net_k}}{\partial{net_j}}\\
+    >   &=\sum_{k\in Downstream(j)}-\delta_k\frac{\partial{net_k}}{\partial{net_j}}\\
+    >   &=\sum_{k\in Downstream(j)}-\delta_k\frac{\partial{net_k}}{\partial{a_j}}\frac{\partial{a_j}}{\partial{net_j}}\\
+    >   &=\sum_{k\in Downstream(j)}-\delta_kw_{kj}\frac{\partial{a_j}}{\partial{net_j}}\\
+    >   &=\sum_{k\in Downstream(j)}-\delta_kw_{kj}a_j(1-a_j)\\
+    >   &=-a_j(1-a_j)\sum_{k\in Downstream(j)}\delta_kw_{kj}
+    >   \end{align}
+    >   $$
+    >   至此我们也完成了隐藏层的推导，需要注意的是我们的这个推导都是假设激活函数是 sigmoid 函数来做的。如果激活函数不同，误差计算方式不同，网络连接结构不同，优化算法不同，则具体的规则也会不一样，但无论怎样，训练规则的推导方式都是一样的，应用链式法则就行推导。
     >
     > ---
     >
