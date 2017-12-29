@@ -159,8 +159,24 @@ Python中使用了某些启发式算法（heuristics）来加速垃圾回收。�
 ```shell
 file: cat, head, tail, echo, cp, touch, rm, grep, find, locate, wc, scp, wget,
 folder: ls, du, rm, mkdir, tar, 
-env: export, 
-process: ps, netstat, htop, kill, gdb, 
+env: export, source, 
+process: ps, netstat, htop, kill, gdb, nohup, pstree
+```
+
+
+
+```
+nohup: https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/index.html
+pstree: http://www.runoob.com/linux/linux-comm-pstree.html
+
+
+提供回测数据缓存机制
+
+难点：
+- 数据同步，依赖各种数据源，处理好依赖情况，DAG 方式进行调度；
+- 数据校验和检测，监控报警，性能级别的监控；
+- 因子量多，且互相之间有所依赖，采用多进程模式生产，进程间状态共享；
+- 量化因子算法细节问题，异常值，缺失值，TTM 算法，PIT 处理；
 ```
 
 
