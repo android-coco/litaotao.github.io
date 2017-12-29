@@ -14,6 +14,7 @@ list/dict comprehension（列表/字典推导）
 
 ```
 简述python中的多线程，多进程，协程及其实现
+http://blog.willdx.me/2016/07/31/python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%93%E9%A2%9801-GIL-%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%8D%8F%E7%A8%8B-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/
 ```
 
 ```
@@ -57,7 +58,7 @@ python里面正则表达式的search()和match()的区别？ match()函数只检
 ```
 
 ```
- Python的函数参数传递
+Python的函数参数传递
 ```
 
 ```
@@ -66,6 +67,7 @@ Python中的元类(metaclass)
 
 ```
 @staticmethod和@classmethod
+http://www.firefoxbug.com/index.php/archives/2818/
 ```
 
 ```
@@ -73,7 +75,7 @@ Python中的元类(metaclass)
 ```
 
 ```
-Python自省
+Python自省：http://www.cnblogs.com/huxi/archive/2011/01/02/1924317.html
 ```
 
 ```
@@ -152,8 +154,14 @@ Python中使用了某些启发式算法（heuristics）来加速垃圾回收。�
 
 
 
-
 # Shell
+
+```shell
+file: cat, head, tail, echo, cp, touch, rm, grep, find, locate, wc, scp, wget,
+folder: ls, du, rm, mkdir, tar, 
+env: export, 
+process: ps, netstat, htop, kill, gdb, 
+```
 
 
 
@@ -208,12 +216,6 @@ cat a.txt |while read i;do set[$i]=1;echo "${!set[@]}";done|tail -1
  答案
 http://www.thelinuxtips.com/2011/02/shell-special-variables/
 ```
-
-
-
-
-
-
 
 
 
@@ -531,9 +533,6 @@ def fib_v2(n):
 ```python
 ## method 1
 
-def to_string(_list):
-    return ''.join(_list)
-
 def permute(a, l, r):
     """ O(n * n!) 
     a: string
@@ -541,7 +540,7 @@ def permute(a, l, r):
     r: ending index of the string
     """
     if l == r:
-        print to_string(a)
+        print ''.join(a)
     else:
         for i in xrange(l, r+1):
             print i, l
@@ -556,7 +555,6 @@ def permute_v2(a):
     import itertools
     for values in itertools.permutations(a):
         print values
-        
 ```
 
 
