@@ -790,7 +790,7 @@
     >
     > 链式求导法:
     >
-    > $\frac{\partial{E(\mathrm{w})}}{\partial\mathrm{w}}=\frac{\partial{E(\bar{y})}}{\partial\bar{y}}\frac{\partial{\bar{y}}}{\partial\mathrm{w}}$,
+    > $\frac{\partial{E(\mathrm{w})}}{\partial\mathrm{w}}=\frac{\partial{E({w})}}{\partial\bar{y}}\frac{\partial{\bar{y}}}{\partial\mathrm{w}}$,
     >
     > 利用上面的链式求导，分别计算式子右边的两个乘数：
     >
