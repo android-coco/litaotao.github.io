@@ -203,7 +203,7 @@
     >
     > ​
     >
-    > env设置环境变量	：两种格式：`env <key><value> or env <key>=<value> <key>=<value>`。
+    > env设置环境变量 ：两种格式：`env <key><value> or env <key>=<value> <key>=<value>`。
     >
     > ​
     >
@@ -435,7 +435,7 @@
     >   >
     >   > ```python
     >   > config = tf.ConfigProto(
-    >   > 			allow_soft_placement = True, 
+    >   >           allow_soft_placement = True, 
     >   >             log_device_placement = True,
     >   > )
     >   > sess = tf.Session(config=config)
@@ -1018,58 +1018,12 @@
     > ---
     >
     > ​
-
-  - 卷积神经网络 ( Convolutional Neural Network )
-
-    > 前面我们介绍了三个激活函数：
-    >
-    > - $f(x) = x$
-    > - $y=f(\mathrm{w}^T\mathrm{x})\\f(z)=\begin{equation}\begin{cases}1\qquad z>0\\0\qquad otherwise\end{cases}\end{equation}$
-    > - $f(x) = sigmoid(x) = \frac {1}{1 + e_{}^{-x}}$
-    >
-    > 本节我们要再介绍一个新的激活函数，Relu 函数: $f(x) = max(x, 0)$, 函数图像如下图所示：
-    >
-    > ![](http://upload-images.jianshu.io/upload_images/2256672-0ac9923bebd3c9dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640)
-    >
-    > Relu 函数有几个优势：
-    >
-    > - ***速度快***：和 sigmoid 函数需要计算指数和导数相比，relu 函数计算速度要快很多
-    >
-    > - ***减轻梯度消失问题***：梯度计算公式 $\triangledown = \sigma_{}^{'} \delta x$,其中 $\sigma_{}^{'}$ 是sigmoid函数的导数，在使用 BP 算法就行梯度计算的时候，每经过一层 sigmoid 神经元，梯度上就要乘一个 $\sigma_{}^{'}$，由于 $\sigma_{}^{'}$ 的最大值是 0.25，因此每乘一次 $\sigma_{}^{'}$ 会使梯度变小 0.25 倍，这对于深层神经网络来说是一个比较大的问题。而 relu 的导数为1，不会导致梯度变小。当然，激活函数仅仅是导致梯度减小的一个因素，但无论如何在这方面 relu 的表现要强于 sigmoid，使用 relu 激活函数可以更方便的训练深层神经网络。下图是 sigmoid 的导数 $\sigma_{}^{'}$ 的函数图。
-    >
-    >   ![](http://upload-images.jianshu.io/upload_images/2256672-ad98d6b22f1a66ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360)
-    >
-    > - ***稀疏性***：通过对大脑的研究发现，大脑在工作时只有大约 5% 的神经元是激活的，而采用 sigmoid 激活函数的神经网络，其激活率大概是 50%，有论文声称神经网络在 15%-50% 的激活率是比较理想的。因为 relu 函数在输入小于 0 时是完全没有激活的，因此可以获取一个相对更低的激活率。
-    >
-    > 同时，之前我们介绍的都是全连接神经网络，神经网络目前的工业应用基本都集中在图像，声音处理领域。但其实在图像处理方面，全连接神经网络并不太合适，其原因主要有以下几个：
-    >
-    > - ***参数过多***：考虑一个输入 1000*1000 像素的图片（100万像素），输入层就有 100w 个节点，假设第一个隐藏层有100个节点，那么这一层就有 100w x 100 = 1亿 个参数需要训练，因此从参数数量上来看，全连接结构的神经网络并不适合解决图像类问题。
-    > - ***没有利用到相邻像素之间的信息***：图像中每个像素和其周围的像素联系是比较紧密的，和离得很远的像素的联系就很小了。所以我们在设计模型的时候可以把这些位置上的相关性也考虑进去。
-    > - ***网络层数限制***：我们知道一般网络层数越多，其表达能力就越强，但是通过梯度下降算法训练深度神经网络很困难。因为全连接神经网络的梯度很难超过3层。
-    >
-    > 那么 CNN 又是怎么来解决图像处理中的这些问题的呢，主要也是有 3 个思路：
-    >
-    > - ***局部连接***：每个神经元不再和上一层的所有神经元相连，而只和一小部分神经元相连，这样就直接减少了很多参数。
-    > - ***权值共享***：一组连接可以共享同一个权重，而不是每个连接都有一个不同的权重，这样又减少了很多参数。
-    > - ***下采样***：可以使用 pooling 来减少每层的样本数，进一步减少参数数量，同时还可以提升模型的鲁棒性。
-    >
-    > 对于图像识别任务来说，CNN 通过尽量保留重要的参数，去掉大量不重要的参数来达到更好的学习效果。
-    >
-    > 下面先来看看经典的 CNN 网络架构图：
-    >
-    > ![](http://upload-images.jianshu.io/upload_images/2256672-a36210f89c7164a7.png)
-    >
-    > 如上图，一个 CNN 由若干的 卷积层，池化层，全连接成 组成，它的常用架构模式为：
-    > $$
-    > INPUT -> [[CONV]*N -> POOL?] * M -> [FC] * K
-    > $$
-    > 也就是 N 个卷积层叠加，然后可选择的叠加一个池化层，重复这个架构M次，最后叠加 k 个全连接层。
     >
     > ​
     >
-    > ​
+    > adaf
     >
-    > d
+    > adsf
     >
     > ​
 
@@ -1082,7 +1036,111 @@
 
 
 
+## 8. 2018.01 | Python 源码剖析
 
+- ***reason***: 准备深入了解下 Python 的一些机制了，为了以后更加高效的使用 Python。
+
+- ***what***: 就不按照章节总结内容了，按关键字来
+
+  - 内存管理机制
+
+    >4 层内存管理结构：
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a330659a-f0f7-11e7-b54b-0242ac140002)
+    >
+    >c语言中使用宏可以避免一次函数调用的开销。python 2.5 中整个小块内存池可以看为一个层次结构：block，pool，arena 和内存池，其关系为 block -> pool -> arena -> 内存池，（pool 由多个 block 组成）
+    >
+    >引用计数最大的优点就是实时性，一旦没有指向它的引用，就会被立即回收。
+    >
+    >但引用计数机制所带来的维护引用计数的额外操作与 python 运行中所进行的内存分配与释放，引用赋值的次数是成正比的，这是一个弱点。因为主流的垃圾回收技术，比如标记-清除（mark-sweep），停止-复制（stop-copy），它们的额外操作基本上只与待回收的内存数量有关。为了与引用计数机制搭配，在内存的分配和释放上获得最高的效率，python 设计了大量的内存池机制。
+    >
+    >除此之外，引用计数还有一个致命的弱点：循环引用。要解决循环引用，python 引入了标记-清除和分代收集两种技术。
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/4e9279a4-f0fe-11e7-b54b-0242ac140002)
+    >
+    >垃圾回收一般都分为两个阶段：垃圾检测，垃圾回收。python中的标记-清除技术方案也叫三色标记模型。具体实现步骤如下：
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/19e64036-f104-11e7-958b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/38337432-f104-11e7-b54b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/4d856768-f105-11e7-958b-0242ac140002)
+    >
+    >分代回收背后的理论依据
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/ff4d149e-f111-11e7-958b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/25cc9e78-f112-11e7-b54b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/e4c692f2-f117-11e7-958b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/1b4fc832-f11a-11e7-b54b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a907f730-f11a-11e7-b54b-0242ac140002)
+    >
+    >gc package 的使用可以一定程度上解决循环引用的问题。
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/3cbbabde-f11b-11e7-958b-0242ac140002)
+    >
+    >![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/71eae3f6-f11b-11e7-b54b-0242ac140002)
+
+  - Python 虚拟机
+
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7289f3bc-fb23-11e7-b54b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/839c89ca-fb24-11e7-b54b-0242ac140002)
+
+  - Python 虚拟机框架
+
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/a9de7e84-fb2b-11e7-b54b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/fc41bb3c-fb2b-11e7-b54b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/7ff26d4a-fb2d-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/859cde00-fb2e-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/b5a0f546-fb2e-11e7-b54b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/6247fac4-fb2f-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/553c3308-fb30-11e7-958b-0242ac140002)
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/5ade690c-fb30-11e7-b54b-0242ac140002)
+
+  - Python 虚拟机中的类机制
+
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/131bec7a-fb4e-11e7-b54b-0242ac140002)
+
+  - Python 中的 import 机制
+
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/f3e16a02-fbf1-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/9b2abe16-fbf3-11e7-b54b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/e0a0b036-fbf3-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/d698aae8-fbf4-11e7-958b-0242ac140002)
+    >
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/f1e6985a-fbf9-11e7-958b-0242ac140002)
+
+  - Python 多线程机制
+
+    > ![图片注释](http://odqb0lggi.bkt.clouddn.com/5480622df9f06c8e773366f4/21eb5f8a-fbfb-11e7-958b-0242ac140002)
+    >
+    > ​
+
+    ​
+
+- ***Answering***: 嗯，有很多问题想从这本书中找到答案
+
+  - 内存管理垃圾回收：
+  - 高并发，异步，多线程多进程：
+  - 动态导入：
+  - 性能优化：
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
 
