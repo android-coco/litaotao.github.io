@@ -1289,12 +1289,48 @@
 
 
 
-## 11. 2018.03 | 
+## 12. 2018.03 | 怎样解题 
 
 - ***reason***: what makes you read that book
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
 - ***Answering***: Does the book answer your questions
 - ***questions:*** Any questions after reading
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+
+
+
+## 13. 2018.03 | 每天5分钟玩转Docker容器技术 
+
+- ***reason***: what makes you read that book
+
+  > 一个公众号写的，一个讲 docker 的系列文章，写得非常好，毕竟是专业的技术人员来写的，可以多看几遍。也可以当小册子来随时翻阅。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+
+
+
+## 14. 2018.03 | 原则 
+
+- ***reason***: what makes you read that book
+
+  > 此书太火了，而且还是行业内顶尖公司的创始人写的，应该非常值得借鉴。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+  > 讲了dalio 的生活，工作和投资原则，特别是工作和生活方面，特别值得借鉴，干货很多，不准备做详细的读书笔记，而是秉承 ***好书读百遍，胜读百本书*** 的原则，继续反复多读几遍，细细体会和运用。
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
@@ -1309,7 +1345,8 @@
 
 
 
-## 11. 2018.03 | 
+
+## 11. 2018.03 |
 
 - ***reason***: what makes you read that book
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
@@ -1319,7 +1356,7 @@
 
 
 
-## 11. 2018.03 | 
+## 11. 2018.03 |
 
 - ***reason***: what makes you read that book
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
@@ -1327,6 +1364,35 @@
 - ***questions:*** Any questions after reading
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
+
+
+## 11. 2018.03 |
+
+- ***reason***: what makes you read that book
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+- ***Answering***: Does the book answer your questions
+- ***questions:*** Any questions after reading
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+
+
+## 11. 2018.03 |
+
+- ***reason***: what makes you read that book
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+- ***Answering***: Does the book answer your questions
+- ***questions:*** Any questions after reading
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+
+
+## 11. 2018.03 |
+
+- ***reason***: what makes you read that book
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+- ***Answering***: Does the book answer your questions
+- ***questions:*** Any questions after reading
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
 
