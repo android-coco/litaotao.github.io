@@ -2,23 +2,27 @@
 
 
 
-- ***reason***: what makes you read that book
-- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+- ***Reason***: what makes you read that book
+- ***What***: what does that book tells, the opinion, the methodology, using the catalog
 - ***Answering***: Does the book answer your questions
-- ***questions:*** Any questions after reading
-- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
-- ***summary***: use your own word to express summary this book
+- ***Questions:*** Any questions after reading
+- ***Reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+- ***Summary***: use your own word to express and summary this book
 
 
 
-## 1. 2017.10 | 简约至上：交互设计的四原则
+总结链接：https://docs.google.com/spreadsheets/d/1Jto8QPGXjT59hGMDICZ7Sd2hMcLKVJudmBSCe5eVSME/edit#gid=1731945339
 
-- reason
+
+
+## 1. 2017.10 | 简约至上：交互设计的四原则（awesome）
+
+- Reason
   - 了解，学习，掌握产品设计的思路和方法
   - 觉得使用的一些产品设计上有很多蹩脚的地方，但是不确定是本身设计有问题，还是我个人的使用习惯太奇葩，所以学习一些设计相关的东西来进行验证
   - 为将来创业做打算，在产品设计方便，虽然不必做到精通，但要做到知其然，知其所以然
   - 兴趣，觉得产品设计也是门学问，挺有意思的
-- what
+- What
   - 讲述了产品设计中 ***简约至上*** 的原则，我一直很赞同这个观点，这也是我读这本书的最大原因之一
   - 从四个方面来讲如何简约化产品：
     - 删除：去掉所有不必要的按钮，直至减到不能再减
@@ -29,21 +33,21 @@
   - 虽然书薄，但是内容丰富，例子很多，而且配了很多优质插图
 - Answering
   - 的确回答了我一些疑问
-- questions
-  - 从产品设计本身来说，没有什么太大的问题了，但是扩展到创业方面的话，产品设计只是其中一环，在商业模式分析，市场分析，用户分析这些方面还需要加强学习
-- reviews
+- Questions
+  - 从产品设计本身来说，没有什么太大的问题了，但是扩展到创业方面的话，产品设计只是其中一环，在商业模式分析，市场分析，用户分析这些方面还需要加强学习。
+- Reviews
   - 评价都很高，大多都是读书笔记，有推荐其他书：《点石成金》,《启示录》；知乎问题 [哪三本书是产品经理必读书？为什么？](https://www.zhihu.com/question/20752514)， 里面的书也很不错，可以安排时间读一读。
   - 有些很高质量的评价，比如有一个评价讲了 apple 商标的设计：
   - ![](../images/apple.png)
-  - ​
+  - 一句话总结：非常薄但内容丰富的一本交互设计的书，其中四个核心观点就是：删除，组织，隐藏和转移。
 
 
 
 ## 2. 2017.10 | 乌合之众，大众心理研究
 
-- reason
+- Reason
   - 看到不少人推荐这本书，豆瓣评分也不错
-- what
+- What
   - 本书讲了个体和群体之间的心理，以及社会的群体心理特征，可以通过目录来看书写脉络
   - 本书在09.30上海飞贵阳的飞机上看完的，不得不说 kindle 是个好东西，哈哈，但是看完后体验不是特别深刻，只觉得在研究消费群体的时候有一些心理行为可以借鉴，但是也不能一下子说出怎么借鉴
   - 核心观点似乎是说群体都是偏 low 的，人才在群体中会渐渐变得平庸，也许也是从另外一个方面来说天才都是孤独的？
@@ -63,36 +67,37 @@
     - 刑事案件的陪审团：
     - 选民群体
     - 议会
-- answering
+- Answering
   - 没有带着问题阅读，纯属好奇
-- questions
+- Questions
   - 没有问题
-- reviews
+- Reviews
   - 有人说中译本不好，最好直接看英文版《the crowd》
   - 本书可以对比《思考，快与慢》一起来看
+  - 我看完这本书没啥大的感觉，估计是读得不够认真，可以考虑考虑读读英文版试试。
 
 
 
 
 ## 3. 2017.10 | Machine Learning in Action
 
-- reason
+- Reason
 
   - 之前就看过这本书，印象不错，现在想花点时间深入掌握机器学习相关的知识，就准备以本书为主，边看边查边练的方法来深入学习。
 
-- what
+- What
 
   - 原理+代码来讲，可以中英文对照起看，遇到讲解不清楚，不完整的部分直接google，或者看其他书的相关章节，github上找了一个不错的 repo 来做练习，效果不错：https://github.com/litaotao/MachineLearning
 
-- answering
+- Answering
 
   - 嗯，解答了不少知识点，最大的体会是只有实践了才知道自己究竟知道多少，理解多深
 
-- question
+- Question
 
   - 暂无
 
-- reviews
+- Reviews
 
   - 豆瓣评分 8.4，还行，毕竟没有完美的书，只有善用利用书本的人啦。不过可以吸取一些建议，比如后期遇到问题时可以参考周志华的《机器学习》和李航的《统计学习方法》来互补下。
 
@@ -341,7 +346,7 @@
     >
     > ***容器格式***：最初采用 lxc 中的容器格式，后来发展为 libcontainer，现在应该是演化为 runc 和 containerd。
     >
-    > ***网络***：docker 的网络实现骑士就是利用了 linux 上的网络命名空间和虚拟网络设备（特别是 veth pair）。
+    > ***网络***：docker 的网络实现其实就是利用了 linux 上的网络命名空间和虚拟网络设备（特别是 veth pair）。
 
 
 - answering
@@ -349,7 +354,7 @@
 - questions
   - 无
 - reviews
-  - 无
+  - 我觉得这本书写得还不错的，对于入门 docker 来说非常好。
 
 
 
@@ -698,7 +703,7 @@
   >
   > 锚定效应，人们对某一未知量就行评估之前，总会事先对这个量就行一番考量；一旦医药考虑某个数字是否会成为一个估测问题的可能答案时，这个数字就会产生锚定效应。人们的判断明显会收到一些没有任何价值的数字的影响。
   >
-  > ​
+  > 
 
 - ***Answering***: Does the book answer your questions
 
@@ -709,7 +714,7 @@
 
 
 
-## 7. 2017.12 | 零基础入门深度学习
+## 7. 2017.12 | 零基础入门深度学习（awesome）
 
 七篇高质量文章，当一本书来研读，地址：https://www.zybuluo.com/hanbingtao/note/433855
 
@@ -1018,15 +1023,8 @@
     >
     > ---
     >
-    > ​
+    > 
     >
-    > ​
-    >
-    > adaf
-    >
-    > adsf
-    >
-    > ​
 
 - ***Answering***: Does the book answer your questions
 
@@ -1037,7 +1035,7 @@
 
 
 
-## 8. 2018.01 | Python 源码剖析
+## 8. 2018.01 | Python 源码剖析（awesome）
 
 - ***reason***: 准备深入了解下 Python 的一些机制了，为了以后更加高效的使用 Python。
 
@@ -1146,7 +1144,7 @@
 
 
 
-## 9. 2018.03 | 精进 
+## 9. 2018.03 | 精进（awesome） 
 
 - ***reason***: what makes you read that book
 
@@ -1229,7 +1227,7 @@
 
 
 
-## 11. 2018.03 | 卓有成效的管理者
+## 11. 2018.03 | 卓有成效的管理者（awesome）
 
 - ***reason***: what makes you read that book
 
@@ -1317,7 +1315,7 @@
 
 
 
-## 14. 2018.03 | 原则 
+## 14. 2018.03 | 原则（awesome） 
 
 - ***reason***: what makes you read that book
 
@@ -1335,64 +1333,194 @@
 
 
 
-## 11. 2018.03 | 
+## 15. 2018.04 | MySQL必知必会（awesome） 
 
 - ***reason***: what makes you read that book
+
+  > 因为最近在做系统架构的工作，在数据库方面虽然有过一些经验，但是不够系统，想系统的再了解和掌握数据库相关的东西。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+  > 书很薄但内容全，值得当小册子来用。
+
 - ***Answering***: Does the book answer your questions
+
+  > 这本书解答了我的问题，而且让我感受到在不同的阶段去读一本书，都会给我带来不同的感受。所以如果是好书的话，可以在一段时间后再度一两遍，印象会更加深刻，感受也会不同。
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
 
 
-## 11. 2018.03 |
+## 16. 2018.04 | 湖畔大学之智能商业十二讲（awesome）
 
 - ***reason***: what makes you read that book
+
+  > 一是湖畔大学的名气，二是主讲老师曾鸣（阿里的军师），三是粗略看过了湖畔大学app上的内容，质量不错，而且有一些案例分析，很适合我。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+  > 《智能商业十二讲》是其中一个系列，讲曾老师对商业发展的总结和观点，还有一些方法论，内容不错，但是我只看过一遍，我觉得可以再看第二遍的时候做一些笔记或者标注。我希望自己看过的文章或者书籍，一要做到大概知道讲了什么，二要理解作者这样讲的原因，三要能自己总结看过的这些文章和书籍，四要能把这些道理和理论应用到自己的实际生活中，五要能用自己的话来阐述这些道理，做一个传承者。
+
 - ***Answering***: Does the book answer your questions
+
+  > 这里面的内容确实不错，而且还有其他很好的内容，但是需要花不少时间自我总结。我决定每年6月和12月作为读书学习总结季。
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
 
-## 11. 2018.03 |
+## 17. 2018.05 | Case in Point
 
 - ***reason***: what makes you read that book
+
+  > 一直对咨询行业感兴趣，缘为几年前听说的一句话 ： “咨询行业的人可以几天内就摸透一个行业”。而且现在自己正在培养自己的管理，创业思维，当然需要掌握咨询人士的那些思维能力了。所以选了几本相关书籍来看。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+  > 这本书分为两部分内容，一是介绍作者总结的咨询行业的一个案例分析框架 the IVY Case System，二是数十个咨询案例。我并没有一五一十的看完，但是我认真看了这个分析框架，值得学习和掌握，我觉得可以做成脑图的形式来消化和领悟，但是不用现在就做，我认为再看1～2本书，多开阔下自己关于这方面的见识后，再来总结性的做适合自己用的脑图。其他书有《Case Interview Secrets》，《Ten Days in MBA》和《Look Over My Shoulders》。看完了可以整理一份 “如何研究咨询案例” 的思维脑图。
+
 - ***Answering***: Does the book answer your questions
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
 
 
-## 11. 2018.03 |
+## 18. 2018.05 | neo4j developer guide python（awesome）
 
 - ***reason***: what makes you read that book
+
+  > 新项目会基于知识图谱来做，我准备把图谱内容存储在 neo4j 数据库中，所以就系统的看看这方面的资料。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+  > neo4j 的设计模式，编程文档，python 接口啥的，讲得还行。
+
 - ***Answering***: Does the book answer your questions
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
+  > 作为理论基础，本书目前来说已经够用了；作为实践参考，本书同样也可以作为工具书来使用，非常不错的一本书（其实也只是一个比较完善的文档了，归为书籍也没啥）。
 
 
-## 11. 2018.03 |
+
+## 19. 2018.05 | 中国资产管理全体系（awesome）
 
 - ***reason***: what makes you read that book
+
+  > 本身就打算在金融圈深耕下去，就想对国内金融历史和发展多多了解，正好有这本书可以学习学习。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
 - ***Answering***: Does the book answer your questions
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
 
+  > 确实介绍的很全面，可以反复多看看，或者当作工具书来查询使用。
 
 
-## 11. 2018.03 |
+
+## 11. 2018.05 | Case Interview Secrets
 
 - ***reason***: what makes you read that book
+
+  > 看了 case in point，据说要再看这本书和关于面试的那本书效果才好，所以就准备来看看这本书了。
+
 - ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
 - ***Answering***: Does the book answer your questions
+
 - ***questions:*** Any questions after reading
+
 - ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+  > 我觉得在技能这方面，我目前还是花太多时间和精力在单纯的看书这方面了，因为看书是一个确定性的工作，只要看完了就感觉可以 ”交差“ 了，有一定的满足感，可以很多情况下，看完了离真正掌握的距离还很长很长。所以这本书说实话到现在，我都差不多忘干净是讲啥的了，这也是下一期要着重培养的能力，就是在学习相关技能的时候，该怎么最高效的掌握这本技能，而且针对不同的技能可能还有不同的方案的。
+
+
+
+## 20. 2018.05 |MBA 教不了的创富课
+
+- ***reason***: what makes you read that book
+
+  > 据说是雕爷牛腩的雕爷写的书，也想看看这些人的创业经验。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+  > 有些话说得太大，看看就行了，但是有几个观点倒是可以学习学习。
+
+
+
+## 21. 2018.05 |手把手教你读财报 （awesome）
+
+- ***reason***: what makes you read that book
+
+  > 之前就看过这本书，算是我觉得做财务分析非常好的案例书了。然后也因为项目里需要做上市公司基本面财务分析，所以也是为了做准备而看这本书。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+  > 非常好的一本财务分析书籍，值得反复阅读，不断短期长期用处都很大。
+
+
+
+## 22. 2018.05 | 我不是叫你诈
+
+- ***reason***: what makes you read that book
+
+  > 5本讲如何与人待事的书，虽然案例都是瞎编的，不过也讲得还可以看吧。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+  > 没事儿也可以瞎翻翻，或者推荐给姐看看，适合单纯的人看。
+
+
+
+## 23. 2018.05 | High Performance Python（awesome）
+
+- ***reason***: what makes you read that book
+
+  > 这其实是这期看的，只是我觉得这本书很好，也值得多读，所以写到读书笔记里了。目的也是为了更深入的了解 python 这们语言。
+
+- ***what***: what does that book tells, the opinion, the methodology, using the catalog
+
+- ***Answering***: Does the book answer your questions
+
+- ***questions:*** Any questions after reading
+
+- ***reviews:*** read and collect some high-quality reviews by others, best reviews and worst reviews
+
+  > 讲得不错，可以当工具书多读，结合《python源码分析》效果更好。
+
+
+
+
 
 
 
