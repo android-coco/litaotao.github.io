@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -124,7 +125,7 @@
 
     <p>无意间发现这本在线书籍挺好的：<a href="http://linuxtools-rst.readthedocs.org/zh_CN/latest/">Linux工具快速教程</a></p>
 
-<h2 id="ps">1. ps</h2>
+<h2 id="1-ps">1. ps</h2>
 <p>Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。</p>
 
 <p>要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。</p>
@@ -161,7 +162,7 @@
 <span class="o">--</span><span class="n">help</span> <span class="err">显示帮助信息</span>
 <span class="o">--</span><span class="n">version</span> <span class="err">显示版本显示</span></code></pre></figure>
 
-<h2 id="kill">2. kill</h2>
+<h2 id="2-kill">2. kill</h2>
 <p>　　Linux中的kill命令用来终止指定的进程（terminate a process）的运行，是Linux下进程管理的常用命令。通常，终止一个前台进程可以使用Ctrl+C键，但是，对于一个后台进程就须用kill命令来终止，我们就需要先使用 ps/pidof/pstree/top 等工具获取进程PID，然后使用kill命令来杀掉该进程。kill命令是通过向进程发送指定的信号来结束相应进程的。在默认情况下，采用编号为15的TERM信号。TERM信号将终止所有不能捕获该信号的进程。对于那些可以捕获该信号的进程就要用编号为9的kill信号，强行“杀掉”该进程。</p>
 
 <p>命令参数：</p>
@@ -172,7 +173,7 @@
 <span class="o">-</span><span class="n">s</span>  <span class="err">指定发送信号</span>
 <span class="o">-</span><span class="n">u</span>  <span class="err">指定用户</span></code></pre></figure>
 
-<h2 id="env">3. env</h2>
+<h2 id="3-env">3. env</h2>
 
 <p>env 命令用于显示系统中已存在的环境变量，以及在定义的环境中执行指令。该命令只使用”-“作为参数选项时，隐藏了选项”-i”的功能。若没有设置任何选项和参数时，则直接显示当前的环境变量。</p>
 
@@ -185,7 +186,7 @@
   </blockquote>
 </blockquote>
 
-<h2 id="vimdiff">4. vimdiff</h2>
+<h2 id="4-vimdiff">4. vimdiff</h2>
 
 <p>linux/mac 下对比多个不同文件，多个不同文件以vim方式打开，可编辑保存，不同的地方会有高亮显示。非常实用，我常用来查看不同的配置文件区别。</p>
 
@@ -210,13 +211,13 @@
 － qa，同时退出不保存</li>
 </ul>
 
-<h2 id="head">5. head</h2>
+<h2 id="5-head">5. head</h2>
 
 <p>head 可以用来查看一个文件的前几行，我通常用来查看一个文件的结构。算是最简单的一个命令了，但是很实用啊，当然如果配合其他命令使用起来就更舒服了，比如配合管道做 grep，或者配合管道用 column 来格式化显示csv格式的文件。</p>
 
 <p><img src="../images/head_command.jpg" alt="head_command.jpg" /></p>
 
-<h2 id="grep">6. grep</h2>
+<h2 id="6-grep">6. grep</h2>
 
 <p>这个命令就不用说了，因为用得太多了。常用来在很多数据里找到匹配某一模式［可以是正则哦，很强大］的字段，我更常用的场景是配合 “tail －f” 来在实时更新的日志里查找一些相关的字段，比如查找某一个请求api，在debug的时候比较常用。</p>
 
@@ -224,15 +225,14 @@
 
 <p>常用的几个参数：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>-a 以文本文件方式搜索
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-a 以文本文件方式搜索
 -c 计算找到的符合行的次数
 -i 忽略大小写
 -n 顺便输出行号
 -v 反向选择，即找 没有搜索字符串的行
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h2 id="du">7. du</h2>
+<h2 id="7-du">7. du</h2>
 
 <p>以前一直没有用过这么命令，因为都用 <code class="highlighter-rouge">ls</code> 加上一些参数来查看文件大小。但有一次，我从 AWS S3 上下载了将近1000个文件下来，想查看这一千个文件的总大小，用 `ls -lh’ 发现只能查看每个文件的大小，而显示的文件夹大小并不是文件夹下所有文件的大小，而且这个文件夹的一些元信息的大小：</p>
 
@@ -247,11 +247,11 @@
   <li><a href="http://blog.sina.com.cn/s/blog_70122437010122m1.html">file holes/文件黑洞</a></li>
 </ul>
 
-<h2 id="tail">8. tail</h2>
+<h2 id="8-tail">8. tail</h2>
 
 <p>tail命令和head相反，查看文件的最后几行。不过最常用的还是加上 “-f” 参数后和grep一起使用。</p>
 
-<h2 id="scp">9. scp</h2>
+<h2 id="9-scp">9. scp</h2>
 
 <p>scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p>
 
@@ -270,11 +270,11 @@
 -l limit  限定用户所能使用的带宽，以Kbit/s为单位。   <br />
 -P port  注意是大写的P, port是指定数据传输用到的端口号</p>
 
-<h2 id="wc">10. wc</h2>
+<h2 id="10-wc">10. wc</h2>
 
 <p>wc – word, line, character, and byte count</p>
 
-<h2 id="section">参考</h2>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="http://www.ibm.com/developerworks/cn/linux/l-vimdiff/">技巧：Vimdiff 使用</a></li>
@@ -302,7 +302,7 @@
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/linux-commands data-title=我常用到的linux命令 
-             data-url=http://litaotao.github.io/+/linux-commands></div>
+             data-url=http://localhost:4000+/linux-commands></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
@@ -140,7 +141,7 @@
 <p>上一篇文章： 
 <a href="http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner">『 Spark 』13. Spark 2.0 Release Notes 中文版 </a></p>
 
-<h2 id="section-1">1. 遇到了啥问题</h2>
+<h2 id="1-遇到了啥问题">1. 遇到了啥问题</h2>
 
 <p>是酱紫的，简单来说：并发执行 spark job 的时候，并发的提速很不明显。</p>
 
@@ -170,7 +171,7 @@
 
 <p>看似很简单，但能知道上面这些配置的也算是用 spark 比较熟练的人了吧，我迫不及待的测试了一下速度，发现了一个从古至今的大真理：理想很美好，现实很骨干啊。测试下来，发现多个 job 并行运行的时间并没有节省多少。</p>
 
-<h2 id="section-2">2. 原因排查</h2>
+<h2 id="2-原因排查">2. 原因排查</h2>
 
 <p>上面把问题说得很清楚了：多 job 并行的时候，运行速度并没有明显提升。但是原理上应该不会如此，只要一个 sql job 不需要全局所有集群资源，理论上来说会有较大提升的。下面是一组简单的数据对比：</p>
 
@@ -207,7 +208,7 @@
 
 <p>到这里，问题根源基本上已经知道了，即 job 796 的大多数时间都被消耗在 stage 1590 的 336 个task 的 secheduler delay 上面了。</p>
 
-<h2 id="section-3">3. 如何解决</h2>
+<h2 id="3-如何解决">3. 如何解决</h2>
 
 <p>上面问题几乎已经明确了，现在就该看看肿么解决了。我当时是这样去考虑的：</p>
 
@@ -249,17 +250,17 @@
 
 <p>正准备这样测试的时候，我忽然想到，为什么现在的 metrics 统计是这样的结构的啊，这么多 task？一般来说，一个 task 对应到 hdfs 上的一个 parquet 文件【该项目中所有数据文件都是用 parquet 压缩后存储到 hdfs 上的】，难道是现在存在 hdfs 上的 parquet 文件个数过多，每个文件太小？突然有一种恍然大悟的感觉，赶紧看看现在 hdfs 上文件的结构，如下所示：</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ | cat -n | tail
-317  -rw-r--r--   3 taotao hfmkt      1.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00310-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-318  -rw-r--r--   3 taotao hfmkt      1.4 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00311-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-319  -rw-r--r--   3 taotao hfmkt      2.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00312-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-320  -rw-r--r--   3 taotao hfmkt      1.2 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00313-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-321  -rw-r--r--   3 taotao hfmkt      1.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00314-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-322  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-323  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-324  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-325  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-326  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs <span class="nt">-ls</span> <span class="nt">-h</span> hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ | <span class="nb">cat</span> <span class="nt">-n</span> | <span class="nb">tail
+</span>317  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00310-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+318  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.4 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00311-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+319  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      2.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00312-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+320  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.2 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00313-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+321  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00314-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+322  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+323  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+324  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+325  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+326  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet</code></pre></figure>
 
 <p>可以看到，现在有 300 多个文件【上面只是一部分，还有十几个在另外一个文件夹里，一个 sql 会统计两个文件夹里的数据文件】，而且我仔细看了一下，每个文件大小最小的有很多 1kb 的，最大的有 2.9mb 的。难怪了，原来核心根源在这里。再结合上面关于 metrics 的分析，我心里大概确信了，只要把 parquet 文件的问题解决就行了，方法就是压缩 parquet 文件个数，控制每个 parquet 文件的大小即可。</p>
 
@@ -267,7 +268,7 @@
 
 <p>方法确定了，那就干咯。</p>
 
-<h2 id="section-4">4. 效果对比</h2>
+<h2 id="4-效果对比">4. 效果对比</h2>
 
 <p>未来方便对比，我把 20161212 的数据文件处理了一下，保留 20161117 这天的数据文件【20161212 的数据文件整体上比 20161117 的数据文件要多 10%】，下面是对比结果：</p>
 
@@ -277,23 +278,23 @@
   <li>20161117 这天</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_S<span class="k">*</span> | cat -n | tail -n 5
-342  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-343  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-344  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-345  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-346  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs <span class="nt">-ls</span> <span class="nt">-h</span> hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_S<span class="k">*</span> | <span class="nb">cat</span> <span class="nt">-n</span> | <span class="nb">tail</span> <span class="nt">-n</span> 5
+342  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+343  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+344  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+345  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+346  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet</code></pre></figure>
 
 <ul>
   <li>20161212 这天</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_S<span class="k">*</span> | cat -n | tail -n 5
-34  -rw-r--r--   3 taotao hfmkt     19.2 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00013-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-35  -rw-r--r--   3 taotao hfmkt     10.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00014-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-36  -rw-r--r--   3 taotao hfmkt     26.0 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00015-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-37  -rw-r--r--   3 taotao hfmkt     20.1 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00016-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-38  -rw-r--r--   3 taotao hfmkt      8.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00017-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing<span class="nv">$hadoop</span> fs <span class="nt">-ls</span> <span class="nt">-h</span> hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_S<span class="k">*</span> | <span class="nb">cat</span> <span class="nt">-n</span> | <span class="nb">tail</span> <span class="nt">-n</span> 5
+34  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt     19.2 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00013-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+35  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt     10.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00014-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+36  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt     26.0 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00015-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+37  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt     20.1 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00016-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+38  <span class="nt">-rw-r--r--</span>   3 taotao hfmkt      8.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00017-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet</code></pre></figure>
 
 <p><strong><em>100个job并发执行时间</em></strong></p>
 
@@ -320,7 +321,7 @@
 <img src="../images/spark_optimize_9.png" alt="spark_optimize_9.png" />
 <img src="../images/spark_optimize_8.png" alt="spark_optimize_8.png" /></p>
 
-<h2 id="section-5">5. 总结</h2>
+<h2 id="5-总结">5. 总结</h2>
 
 <p>首先，需要说明的是，这次优化应该还有提升的空间，虽然优化后整体从 204s 到 99s 再到 16s，提升了十倍多，确实很大，但是最后我们还是发现 16s 的情况下，scheduler delay 和 Task Deserialization Time 还是有占用了大部分时间，这里我觉得不能一味的在文件个数和大小上下功夫了。需要考虑到用户场景来做一个权衡。所以越到后期的优化，越考验产品功能的设计，当然这是后话了，就不在本文范围内讨论。</p>
 
@@ -328,11 +329,11 @@
 
 <p>最后，好久都没写 spark 相关的文章了，距离上一片水文过去整整两个月了。最近两个月真心累成狗了，要做好项目，关注竞品的发展，行业动态；还要经常出去拜访客户，维护客户；同时也要做好产品未来几个月甚至几个季度的规划，偶尔还要搞搞运营啥的。文章写少了，但视野真心见长了，anyway，未来再接着抽空多记录点文字下来，哈哈。</p>
 
-<h2 id="section-6">6. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="6-打开微信扫一扫点一点棒棒的_">6. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
 
-<h2 id="section-7">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="https://parquet.apache.org/documentation/latest/">Apache Parquet</a></li>
@@ -345,7 +346,7 @@
   <li><a href="https://spark-summit.org/2015/events/data-storage-tips-for-optimal-spark-performance/">Data Storage Tips for Optimal Spark Performance</a></li>
 </ul>
 
-<h2 id="section-8">本系列文章链接</h2>
+<h2 id="本系列文章链接">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -385,7 +386,7 @@
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/spark-sql-parquet-optimize data-title=『 Spark 』14. 一次 Spark SQL 性能提升10倍的经历 
-             data-url=http://litaotao.github.io/+/spark-sql-parquet-optimize></div>
+             data-url=http://localhost:4000+/spark-sql-parquet-optimize></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

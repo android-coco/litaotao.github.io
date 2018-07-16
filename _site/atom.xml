@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -96,10 +97,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
    <title>Taotao's Zone</title>
-   <link href="http://litaotao.github.io//atom.xml" rel="self" type="application/atom+xml"/>
-   <link href="http://litaotao.github.io/" rel="alternate" type="text/html" />
-   <updated>2017-09-27T15:07:21+08:00</updated>
-   <id>http://litaotao.github.io/</id>
+   <link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml"/>
+   <link href="http://localhost:4000" rel="alternate" type="text/html" />
+   <updated>2018-07-16T14:15:35+08:00</updated>
+   <id>http://localhost:4000</id>
    <author>
      <name></name>
      <email></email>
@@ -107,11 +108,349 @@
 
    
    <entry>
+     <title>NoSQL 新贵之崛起的 Neo4j</title>
+     <link href="/graph-database-neo4j-knowledge-graph"/>
+     <updated>2018-07-10T00:00:00+08:00</updated>
+     <id>/graph-database-neo4j-knowledge-graph</id>
+     <content type="html">&lt;h2 id=&quot;1-things-happen-for-a-reason&quot;&gt;1. Things Happen for A Reason&lt;/h2&gt;
+
+&lt;p&gt;我最喜欢的一部电影《危情谍战》中有这样一句台词，“Things Happen for A Reason”，不知道为什么，直到今天我对这句台词的印象都很深刻，也许是当时看到这句话的时候脑海里灵光一现，或是引起共鸣才会烙下这么深刻的印象吧。几乎从那以后，不论是做事还是进行思考，我都会自然而然的养成从底层逻辑逐步的来挖掘和分析事物的核心原理。&lt;/p&gt;
+
+&lt;p&gt;比如说最近在做产品的技术架构设计，其中几乎有一大半时间都是在梳理业务流程和需求，将业务进行分类处理，再做相关的技术调研。其中 Neo4j 算是技术方案中的核心角色之一，这篇 post 也算是做这个架构设计中关于 Neo4j 这个 NoSQL 数据库的一些感想。&lt;/p&gt;
+
+&lt;h3 id=&quot;11-neo4j&quot;&gt;1.1 Neo4j&lt;/h3&gt;
+
+&lt;p&gt;如何快速的了解 Neo4j 呢，网上有很多很长的文字，不过我觉得都没有简单明确的讲清楚。我想了想，如何让大家最快最高效的理解 Neo4j，最好的办法就是下面总结的几句话：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开源 NoSQL 数据库，原生的图数据库，2003 年开始开发，使用 scala和java 语言，2007年开始发布；&lt;/li&gt;
+  &lt;li&gt;世界上最先进的图数据库之一，提供原生的图数据存储，检索和处理；&lt;/li&gt;
+  &lt;li&gt;采用属性图模型（Property graph model），极大的完善和丰富图数据模型；&lt;/li&gt;
+  &lt;li&gt;专属查询语言 Cypher，直观，高效；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-2.gif&quot; alt=&quot;graph-database-neo4j-knowledge-graph-2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-neo4j-kernel&quot;&gt;2. Neo4j Kernel&lt;/h2&gt;
+
+&lt;p&gt;图数据库有很多，在这个 wiki 上有一个比较完整的列表：&lt;a href=&quot;https://en.wikipedia.org/wiki/Graph_database#History&quot;&gt;List of graph databases&lt;/a&gt;，其中有的似乎已经没有维护了，有的呢是传统的 NoSQL 数据库，但是提供图数据结构存储，有的也像 Neo4j 一样是专用的图数据库，但是即使是专门的图数据库，其底层实现，应用场景和生态也是有天差地别的。&lt;/p&gt;
+
+&lt;p&gt;今天我们着重看看 Neo4j，咱们主要从下面几个方面来学习和深入理解 Neo4j。&lt;/p&gt;
+
+&lt;h3 id=&quot;21-native-graph-storage-and-processing&quot;&gt;2.1 Native Graph Storage and Processing&lt;/h3&gt;
+
+&lt;p&gt;前面我们讲过，现在其实已经有很多图数据库了，其中有一些 document 类 NoSQL 数据库（假设叫 A DB），也支持图数据结构的存储和检索，那这类数据库和 Neo4j 最大的区别，就是接下来我们要说的 Native 和 non-Native 图数据库了。简单来说，Neo4j 是 Native 的图数据库，A DB 属于 non-Native 图数据库了。&lt;/p&gt;
+
+&lt;p&gt;所谓 Native 图数据库，中文一般翻译为 “原生图数据库”，指从一开始便是为了解决图类数据结构而设计的数据库。对了解数据结构的同学来看，这里的 “原生” 的体现，其实主要就在两个方面：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;图数据结构的存储&lt;/li&gt;
+  &lt;li&gt;图数据的处理和查询&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们也从这两个点来聊聊 Neo4j。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;图数据结构的存储&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;不管是什么数据库，mysql，sql server，mongo，neo4j 等等，其存储的数据，最终都要落地到文件系统上的，那 neo4j 落地的文件大概都是什么样的呢？这里我以本地的一个应用的数据库来介绍一下。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-3.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是我的本地一个图数据库的数据库文件，可以看出 Neo4j 把其数据库文件分为四大类来分类存储：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;标签&lt;/li&gt;
+  &lt;li&gt;节点&lt;/li&gt;
+  &lt;li&gt;属性&lt;/li&gt;
+  &lt;li&gt;关系&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其实按照我们图论中的一般说法，其实对于一个图数据结构来说，只需要存储节点和关系就可以了，如下面这个图数据一样：
+&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-4.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是现实生活中，我们的图结构是非常复杂的，而且数据量很大，经常需要做各种各样的分析，甚至还需要做聚类分析（这里的聚类分析不是指机器学习里面的聚类模型，而是指把同一类数据提取出来单独做分析，类似于 groupby 的操作）。所以 Neo4j 里面在文件系统上单独存储了标签和属性，就是为了在做检索和分析的时候保证性能。下面咱们以一个形象的例子来介绍什么是标签，什么是属性。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-11.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里是我们应用中一个实际案例，大家看看我们对标签和属性的划分：
+&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-5.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-5&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;-- 这里咱们先看看这个语句表达的什么意思，这是 Neo4j 专用的查询语言 Cypher&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- 大家不要听到又要学一门新语言就打退堂鼓哈，哈哈哈，后面我们会简单讲讲这个语言的，两个字：简单&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- 下面这个查询语句含义如下：&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- step 1: 首先查询一个具有标签为 “沪深股市”，且有一个属性对 “{name: &quot;sha_600610&quot;}” 的节点，&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- step 2: 然后查找这个节点的所有双向关系&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- step 3: 在这些关系的中，要求另外一个节点具有 “人物_公司股东” 这个标签&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- step 4: 返回这个节点，以及满足要求的关系和相关节点&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;沪深股市&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;sha_600610&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;人物&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;公司股东&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;relation&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;有人可能会问，其实也可以不用单独存储标签和属性的呀，我们完全可以把标签和属性作为节点的元信息存储在节点里面。这个说法首先在理论和工程实现上来说完全没有问题。但是试想一下，一个节点和关系非常非常大的图，要做上面这个检索的时候，会不会面临一些问题？而 Neo4j 的这种存储设计，是如何来解决这些问题的呢？这两个问题留给大家思考，可以在评论里交流大家的想法。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;图数据的处理和查询&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;图数据的处理，同传统数据库一样的四字法则：CURD。而因为图数据的特殊性，在大多数情况下，数据库中每一个节点都有与之相连的关系，每一条关系，都必须有这个关系对接的两个节点。这就要求图数据库的创建，更新，读取，删除都必须满足一致性（或者事务完整）的原则。Neo4j 如何实现 ACID 的底层算法我还没有看，感兴趣的可以先看看这个 talk： &lt;a href=&quot;https://neo4j.com/news/evolution-of-neo4j-with-acid-transactions-ha-cluster-and-crud-transactions/&quot;&gt;Evolution of Neo4j with ACID transactions, HA cluster, and CRUD transactions&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;数据库的查询，这个不管是什么数据库，都是最基础的功能，对于 sql 和 nosql 来说，简单的查询其实并没有多大差别，只是一些复杂查询或者针对特定场景的查询条件下才会特地的选择某一种数据库。比如最常见的就是现在的大多数 WEB 应用，在存储上基本上都会涉及下面几类数据库：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HDFS: 存储原始数据文件（这里把 HDFS 叫做数据库有些许不准确，只是想表达常见应用中的数据存储结构，请大家莫深究）&lt;/li&gt;
+  &lt;li&gt;MySQL: 存储应用核心数据&lt;/li&gt;
+  &lt;li&gt;Mongo: 存储一些不合适用关系型数据库存储的数据，比如说图片，文档等&lt;/li&gt;
+  &lt;li&gt;Redis: 缓存热点数据，比如说用户 cookies，应用中的计数器等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;但是在实际应用中，会经常性出现一些很复杂的查询语句，比如下面几种例子：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 APP 应用中，我们想要知道昨天新增的用户中，有多少今天是继续登陆 APP 的，这种查询扩展开来，就是做 APP 用户增长中耳熟能详的 cohort analysis，下面有截图展示这种分析的图表
+&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-6.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-6&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;人际关系网络中，给定两个节点，查询这两个节点的最短路径，并且这些路径满足一定的条件？这样说是不是有点书面化，那我们换一种说法，在社交网络中，如果你想认识特朗普的女儿伊万卡，查询一条最短路径让你结识到伊万卡，并且这个路径中每个人都是单身的。相信我，这是完完全全可能的，而且不管你是谁，很可能通过6～7个人就能认识伊万卡了，amazing。不信的同学可以去了解了解六度分隔理论这个东西。
+&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-7.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-7&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在上面这些复杂查询中，特别是第二种情况，用传统的关系型数据库实现起来实在是不切实际。不光是性能上的原因，还有开发人员可用性的考虑，试想如果这样子一个查询，用 sql 来写的话，这个 sql 语句应该怎样写？下面是一个案例，展示一个查询用 neo4j 和 sql 下的对比。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-8.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-8&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;22-property-graph-model&quot;&gt;2.2 Property Graph Model&lt;/h3&gt;
+
+&lt;p&gt;上面我们讲了 Neo4j 的数据存储大概分为：节点，关系，属性，标签这四个类别，这是 Neo4j 存储模块的工程实现，而现在我们要讲的 Property Graph Model 就是这个工程实现的理论来源。正如有的朋友会说，其实简单的存储节点和关系，然后其他标签，属性什么的都可以算做节点和关系的元信息来存储就行了。工程上实现的确也可以，但是理论上去研究，会发现这样的效率会很低。&lt;/p&gt;
+
+&lt;p&gt;Property Graph Model，简单的说，其实就是 Neo4j 的底层数据模型，这个数据模型推动了工程上按照四个方面来实现存储模型。那什么叫 Property Graph Model 呢，其实从核心上来讲，Property Graph Model 有两个核心要素：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;节点：
+    &lt;ul&gt;
+      &lt;li&gt;每一个节点都是图中的一个实体&lt;/li&gt;
+      &lt;li&gt;每一个节点可以容纳足够多的属性，以键值对的形式&lt;/li&gt;
+      &lt;li&gt;每一个节点可以被打一个标签，这些标签相当于是特定知识领域的一种分类标准&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;关系：
+    &lt;ul&gt;
+      &lt;li&gt;每一条关系可以是有向的，无向的，命名的&lt;/li&gt;
+      &lt;li&gt;每一条关系必须有两个对应的节点&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下面是一个 Property Graph Model 的展示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-9.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-9&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;23-cypher-language&quot;&gt;2.3 Cypher Language&lt;/h3&gt;
+
+&lt;p&gt;每种数据库都有自己的一套查询语言或者标准，就算是 SQL 中的王者 Sql Server 和 MySQL，其在一些语法细节上也有差异，更别说 Mongo, Redis 类似的非关系型数据库了。Neo4j 也一样，有自己专属的查询语言 Cypher。有的朋友听到如果用 Neo4j 又要学习一门新的编程语言就很头疼，其实这里可以分享下我自己的经历，以前我刚接触 Neo4j 的时候，确实觉得又要学习一门新语言有些蛋疼，可是后来接触下来，我觉得可能普通人估计只用花一两天就能掌握 Cypher 了，因为 Cypher 的语意确实简洁，直观。&lt;/p&gt;
+
+&lt;p&gt;比如下面我们直接通过代码来对比下 MySQL 和 Neo4j 里面的查询，我相信即使不写任何注释，即使第一次接触 Neo4j 的人也能轻轻松松的看懂这些查询语句。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;全表扫描&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;查询价格最贵的&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;个商品，只返回商品名字和单价&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;按照商品名字筛选&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Chocolade'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Chocolade&quot;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;其他的写法&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Chocolade&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;按照商品名字筛选&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Chocolade'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Chai'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Chocolade'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Chai'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;模糊查询和数值过滤&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'C%'&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UnitPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;STARTS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WITH&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;unitPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;多表联合查询&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CompanyName&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;customers&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;orders&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CustomerID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CustomerID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;order_details&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;od&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OrderID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;od&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OrderID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;od&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ProductName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Chocolade'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;productName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Chocolade&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PRODUCT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PURCHASED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;distinct&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;companyName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EmployeeID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EmployeeID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EmployeeID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EmployeeID&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Count&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DESC&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;neo4j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SOLD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RETURN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cnt&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DESC&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;24-ecosystem&quot;&gt;2.4 Ecosystem&lt;/h3&gt;
+
+&lt;p&gt;随着应用的复杂化，技术的专业化，现在越来越难全面准确的评论一个框架，平台甚至产品的好坏了。不过在我自身的经验里，我觉得一个好的框架，肯定是有一个完善的周边生态的。这也是我经常说，在比较常见的开源框架里面，neo4j 和 spark 是我觉得做得比较出色的，同时也是我最看好的两个开源团队。其一是他们做的很多事情都是从用户角度来考虑的，而不仅仅是单纯从工程角度来思考，特别是 spark 团队，还成立了他们自己的平台 databricks 提供给大众使用；其二是这两个开源产品的周边生态都很丰富，体现在两个方面，和流行框架产品的融合度，以及自己周边开发工具的丰富程度。&lt;/p&gt;
+
+&lt;p&gt;比如说 Neo4j，官网有专门介绍其生态系统的地方，感兴趣的盆友们请移步这里：&lt;a href=&quot;https://neo4j.com/developer/ecosystem/&quot;&gt;Neo4j Ecosystem&lt;/a&gt;。在这么多开发工具里面，最让我惊叹的是 Neo4j browser 和今年上半年发布的 neo4j bloom。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;neo4j browser&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;neo4j browser 有点类似于 mysql 里面的 workbench 或者 mongo 里面的 RoboMongo，说白了就是一个数据库的客户端，但是 neo4j browser 做得非常友好，甚至看上去，用起来就像是一个成熟的产品一样。记得很久很久以前我在跟团队分享 neo4j 的时候，团队里面对 neo4j 不熟悉的人还问我这个哪个产品，交互做得很不错。amazing！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-10.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;neo4j bloom&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;说起 neo4j bloom，到现在我还忍不住想称赞 neo4j 团队，虽然 bloom 不是实现了什么特别 NB 的算法，也没有什么伟大的创新，但是这个产品却是实打实的站在用户层面去考虑，一下子就把 neo4j 的可用性，宜用性，实用性提高了好几个档次了。&lt;/p&gt;
+
+&lt;p&gt;谈起 bloom，还得说我们准备做的知识图谱产品开展开了，我们做的每一个图谱，都有两个亮点的地方：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;我们做的图谱背后有很多业内专家支持，我们需要把产品设计成支持这些专家修改更新图谱内容的模式&lt;/li&gt;
+  &lt;li&gt;图谱的内容，都是会随着时间变更的，我们也要支持时间序列上的图谱，比如说可以查询某个节点特定时间区间的图谱&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其中第一个亮点，我们之前做了很多调研，发现很多传统的图谱产品在内容更新和修改上都做得很复杂很不好用，比如说有的图谱更新是后台提供一个 excel 表格给相关专业人员去填写这个表格；有的产品呢是有专门做的一个内容管理后台，学会用那个管理后台还得话不少时间。最重要的是，如果以这种模式提供给专家去修改内容，首先我们还得让专家理解从 excel模版或者内容管理后台 到图谱内容结构这样一个过程的思维转变，要不然极有可能出现内容修改错误的情况。&lt;/p&gt;
+
+&lt;p&gt;所以，我们一直想做一个允许特定账号直接在图谱上进行修改的产品，比如说给专家的账号开通修改权限，专家可以和普通用户打开同样的产品页面，看到同样的产品内容，只是专家账号在点击图谱节点时，可以有一个修改节点及其关系的权限，做到实时修改，这样子极大的提高了专家操作的效率，而且还节省了不少前台，后台开发的工程量。&lt;/p&gt;
+
+&lt;p&gt;正当我们定下这个方案不久，我就看到了 neo4j 发布的关于 bloom 的文章和视频，真的大为惊叹，当时我就直接把文章和视频转发到团队的微信群里，neo4j 开发的 bloom 和我们设想的产品模式几乎一致，它直接想把我们做的事完成了，而且还做得漂亮，光说 bloom 的那个交互，就已经把国内不少做图谱的产品甩开几条街了。&lt;/p&gt;
+
+&lt;p&gt;感兴趣的盆友可以先看看这个视频体验体验：&lt;a href=&quot;https://www.youtube.com/watch?v=KjINhGbG-So&amp;amp;t=34s&quot;&gt;Neo4j Bloom: Investigating Patterns in Financial Transactions&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-neo4j-and-knowledge-graph&quot;&gt;3. Neo4j and Knowledge Graph&lt;/h2&gt;
+
+&lt;p&gt;伴随 2012 年 google 正式发布知识图谱搜索引擎和 2013 年 facebook 开放知识图谱搜索入口以来，知识图谱迎来了一波发展浪潮，neo4j 作为原生的图数据库，也迎来了它的春天。但是就业内朋友交流来看，知识图谱类创业公司和产品数量上并不多，质量上也缺乏重磅产品，除了传统的社交网络方面（这方面有 facebook 的关系搜索和 linkedin 的人脉搜索）。究其原因，其实有两个比较大的原因，一个是熟悉图数据库，了解知识图谱的人才还比较少；另外一个原因是业务的抽象化本身门槛就比较高。&lt;/p&gt;
+
+&lt;p&gt;葛优在《天下无贼》中有一句话特别出名 “21世纪什么最贵？人才“。我们在业内交流下来，其实也发现一个比较值得思考的问题，就是虽然知识图谱发展也有六七年的样子，但其实真正在图数据库方面去研究的人才很少。同样是 NoSQL 数据库，为什么经常可以听到关于 mongo，redis 等数据库技术的讨论，却很少见到 neo4j 的技术问答呢？我们觉得，其中的原因可能是因为 mongo，redis 这类数据库相对于 neo4j 来说，是比较 general 的技术，就是说 mongo，redis 在各种应用中的大多数场景中都可以用到，它们并不依赖某一种特定类型的应用。而 neo4j 则有所不同，neo4j 比较专注在图相关的数据结构的存储和查询方面，而且 neo4j 本身还需要使用特定的查询语言 （cypher，我们前面也有讲过），一些企业和工程师就缺乏动力去使用这门新的技术。所以从这两个点来说，neo4j 的辨识度，流行度远远不及 mongo，redis 类的 nosql。下面是我查询了 google trend 自 2008 年来这三个关键词的表现，可见一斑。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-13.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不过如果只看 neo4j 的 google trend 数据的话，它还是慢慢在走向人们的视野。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-14.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;而说到知识图谱，其实国内外在这方面的成熟产品可以说凤毛麟角，出去上面我们说的技术方面的人才储备问题外，其实最大的还是本身业务的抽象化门槛太高。比如说，在金融领域有不少创业公司尝试过用知识图谱来描述和分析一个公司，咱们来看看下面这个案例截图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-12.png&quot; alt=&quot;graph-database-neo4j-knowledge-graph-12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面这个金融知识图谱，眨眼一看，似乎信息还挺齐全，可是如果站在一个金融专业投资者角度来看，问题就暴露很多了：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;图谱本身缺乏时间信息，如果说图谱中的数据发生更新，如何在图谱中体现这个更新&lt;/li&gt;
+  &lt;li&gt;图谱设计缺陷，看完这个图谱上下两个部分的文字内容，估计你多年的颈椎病都可以治好了，哈哈哈&lt;/li&gt;
+  &lt;li&gt;图谱设计缺陷，有的公司光产品，子公司就有上百家，在图谱中如果一次性全展现开来，那个视觉效果可能没法让人接受&lt;/li&gt;
+  &lt;li&gt;缺乏分析基础，类似股东股权关系的时候，在图谱中都没展示比例数据，没法做更细一步的分析&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;还有其他很多的点就不一一列出了，列这么多其实只是想说，在知识图谱这个领域，不管做什么产品都要于业务本身紧密相连，现在是一个论专业化，比专业性的时代，不能简简单单的把一个技术套到一个产品上就叫创新了，而是要通过技术把之前难以实现的具有价值的事情做成做好。&lt;/p&gt;
+
+&lt;h2 id=&quot;4-summary&quot;&gt;4. Summary&lt;/h2&gt;
+
+&lt;p&gt;如果要用几句话来总结这篇 post 里我想表达的意思，我想应该是下面几句：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;凡事均有因果，不论是做事还是思考，在没有找到核心底层逻辑之前，都是存在很大的挖掘和探索空间的；&lt;/li&gt;
+  &lt;li&gt;做技术架构设计，如果你能回答下面几个问题，那你的架构就没有问题：
+    &lt;ul&gt;
+      &lt;li&gt;【1】你的同类产品的架构方案大概是什么样子的，他们都有哪些优缺点&lt;/li&gt;
+      &lt;li&gt;【2】你的产品主要解决的核心问题和面临的核心挑战是哪些&lt;/li&gt;
+      &lt;li&gt;【3】你的这个技术架构设计相对同类产品来说，相对同类产品有哪些优势，是如何解决上面的第二点中的问题的&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;图数据库，本质上是图数据结构的固化，查询解决方案，往底层追问，其实是对真实世界中非结构化的关联关系的计算机抽象表达&lt;/li&gt;
+  &lt;li&gt;不管做架构还是做开发，永远要相信这个世界上没有最好的技术，只有最适合当前应用场景的技术&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;5-reference&quot;&gt;5. Reference&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://bitnine.net/blog-graph-database/history-of-databases-and-graph-database/&quot;&gt;History of Databases and Graph Database&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitnine.net/blog-graph-database/what-is-the-graph-database/&quot;&gt;What is the graph database?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E6%9F%AF%E5%B0%BC%E6%96%AF%E5%A0%A1%E4%B8%83%E6%A1%A5%E9%97%AE%E9%A2%98&quot;&gt;柯尼斯堡七桥问题&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cambridge-intelligence.com/keylines/&quot;&gt;keylines&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://linkurio.us/&quot;&gt;linkurio&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Graph_database#History&quot;&gt;Graph_database&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/blog/8-tips-succeeding-with-neo4j/&quot;&gt;8 Solid Tips for Succeeding with Neo4j&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/blog/native-vs-non-native-graph-technology/&quot;&gt;Graph Databases for Beginners: Native vs. Non-Native Graph Technology&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/aliraza995/neo4j-graph-storage-27104408&quot;&gt;Neo4j Graph Storage&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/thobe/an-overview-of-neo4j-internals&quot;&gt;An overview of Neo4j Internals&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/news/evolution-of-neo4j-with-acid-transactions-ha-cluster-and-crud-transactions/&quot;&gt;Evolution of Neo4j with ACID transactions, HA cluster, and CRUD transactions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neilpatel.com/blog/cohort-analysis-google-analytics-2/&quot;&gt;How to Run a Cohort Analysis in Google Analytics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%85%AD%E5%BA%A6%E5%88%86%E9%9A%94%E7%90%86%E8%AE%BA&quot;&gt;六度分隔理论&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://graphdatamodeling.com/Graph%20Data%20Modeling/GraphDataModeling/page/PropertyGraphs.html&quot;&gt;Property Graphs Explained&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/developer/guide-sql-to-cypher/&quot;&gt;From SQL to Cypher – A hands-on Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/developer/ecosystem/&quot;&gt;Neo4j Ecosystem&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/developer/guide-neo4j-browser/&quot;&gt;Neo4j Browser User Interface Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/blog/introducing-neo4j-bloom-graph-data-visualization-for-everyone/&quot;&gt;Introducing Neo4j Bloom: Graph Data Visualization for Everyone&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=_FIrp84K7xE&quot;&gt;Neo4j Bloom for Visualization - Pre-release Demo of Beer Graph&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=KjINhGbG-So&amp;amp;t=34s&quot;&gt;Neo4j Bloom: Investigating Patterns in Financial Transactions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html&quot;&gt;Google Knowledge Graph&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://newsroom.fb.com/news/2013/01/introducing-graph-search-beta/&quot;&gt;Introducing Graph Search Beta&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+   </entry>
+   
+   <entry>
      <title>如何在 Ipython Notebook 中画动态交互图</title>
      <link href="/dynamic-charts-matplotlib-alternative-ipython-notebook-python-drawing-js"/>
      <updated>2017-09-26T00:00:00+08:00</updated>
      <id>/dynamic-charts-matplotlib-alternative-ipython-notebook-python-drawing-js</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;1-写在前面&quot;&gt;1. 写在前面&lt;/h2&gt;
 
 &lt;p&gt;很久很久以前，我们在 python 里面画图都是用 matplotlib 这个包，当然现在好像也还在用它，不过我一直以来都不太喜欢这种方式，因为 matplotlib 画出来的图都是静态图片，虽然做简单的展示没什么压力，但是图形复杂后就不方面了，比如说下面这些场景：&lt;/p&gt;
 
@@ -123,19 +462,26 @@
   &lt;li&gt;。。。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;所以差不多两年前左右，为了既能在 ipython notebook 里做数据分析和研究，又能有个地方来做数据展示，我搞了个开源项目：&lt;a href=&quot;https://github.com/litaotao/IPython-Dashboard&quot;&gt;Ipython Notebook&lt;/a&gt;，贴张在 github 上的介绍截图：
-&lt;img src=&quot;https://raw.githubusercontent.com/litaotao/IPython-Dashboard/master/docs/template-screenshot-4.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;所以差不多两年前左右，为了既能在 ipython notebook 里做数据分析和研究，又能有个地方来做数据展示，我搞了个开源项目：&lt;a href=&quot;https://github.com/litaotao/IPython-Dashboard&quot;&gt;Ipython Notebook&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;当时这个项目做了几个月，小有成效，完全够用，但是在 2016.04 后就没有再更新过了，因为当时这个项目是为了做数据展示用的，然后要展示的数据是自己做量化策略的一些分析结果，然后当时因为这个项目差不多已经够用了，就没有再继续做下去，而是把更多的时间花在量化策略研究上面了。&lt;/p&gt;
+&lt;p&gt;下面是一张在 github 上的项目介绍截图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/litaotao/IPython-Dashboard/master/docs/template-screenshot-4.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下面是在 youtube 上的 demo 视频，不要问我为什么不放 youku 的链接，因为不想在优酷的广告时间插播，哈哈。&lt;/p&gt;
+
+&lt;iframe width=&quot;100%&quot; height=&quot;500&quot; src=&quot;https://www.youtube.com/embed/Sy_Kmi6FFUg&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;当时这个项目做了几个月，小有成效，完全够用，但是在 2016.04 后就没有再更新过了，因为当时这个项目是为了做数据展示用的，要展示的数据是自己做量化策略的一些分析结果，然后当时因为这个项目差不多已经够用了，就没有再继续做下去，而是把更多的时间花在量化策略研究上面了。&lt;/p&gt;
 
 &lt;p&gt;然后在2016.04 到最近的一年多里，我发现有很多人 star 和 fork 了我这个项目，差不多从 200不到的 star 增加到近 300 个star了，说实话虽然不是很多，但是我心里还是很感谢各位捧场的朋友的。只是我个人的行事风格向来都是 &lt;strong&gt;&lt;em&gt;只关注最核心的事&lt;/em&gt;&lt;/strong&gt;，所以以后也不会再花时间在这个项目上了，并且现在我已经有了更方便快捷好用的，直接能在 ipython notebook 里画动态交互图的方案，所以其实我自己也已经弃用了这个项目了。&lt;/p&gt;
 
 &lt;p&gt;不过看到还有这么多人在关注这个项目，我想大家也许跟以前的我一样，很想要一种在 ipython notebook 里画动态交互图的工具和方法。所以我准备把现在自己是如何解决这个问题的方案写出来跟各位一起分享，算是感谢各位一直对这个项目的关注了。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;2. 原理说明&lt;/h2&gt;
+&lt;h2 id=&quot;2-原理说明&quot;&gt;2. 原理说明&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;ipython notebook 说白了，就是一个 html 格式的文档，那既然 notebook 本身就是 html，那原理上当然也可以把一个 html 格式的图嵌入到 notebook 里吧。&lt;/li&gt;
+  &lt;li&gt;ipython notebook 说白了，就是一个 html 格式的文档，那既然 notebook 本身就是 html，那原理上当然也可以把一个 html 格式的图嵌入到 notebook 里。&lt;/li&gt;
   &lt;li&gt;ipython 本身提供了一个函数，&lt;code class=&quot;highlighter-rouge&quot;&gt;IPython.core.display.publish_display_data&lt;/code&gt; 这样一个内置函数，可以让用户指定输出到 notebook 中要展示的数据是什么样的。&lt;/li&gt;
   &lt;li&gt;所以，我们所要做的工作就很简单了：
     &lt;ul&gt;
@@ -147,7 +493,7 @@
 
 &lt;p&gt;下面，我们就从要做的工作出发，分两步来完成这个工作。&lt;/p&gt;
 
-&lt;h2 id=&quot;python--html-&quot;&gt;3. 如果通过 python 代码来生成 html 格式的图表数据&lt;/h2&gt;
+&lt;h2 id=&quot;3-如果通过-python-代码来生成-html-格式的图表数据&quot;&gt;3. 如果通过 python 代码来生成 html 格式的图表数据&lt;/h2&gt;
 
 &lt;p&gt;现在最常用的动态交互图的前端框架大概有下面几个：highcharts，d3.js，nvd3.js，echarts，c3js 这几个，首先明确一点，要想通过 python 来搞一个 html 格式的交互图，肯定需要间接的通过上面这些 js 库来实现。你别跟我说你要用 python 来从 0 到 1 生成一个 html 格式的图，要不然我真的会对你五体投地~。既然如此，那就先看看 google 大法，分别搜搜 &lt;code class=&quot;highlighter-rouge&quot;&gt;python highcharts&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;python d3.js&lt;/code&gt; 啥的，看看有没有前人已经把轮子造好了。&lt;/p&gt;
 
@@ -156,7 +502,7 @@
 &lt;p&gt;最后我选的是 highcharts 的一个实现，&lt;a href=&quot;https://github.com/arnoutaertgeerts/python-highcharts&quot;&gt;https://github.com/arnoutaertgeerts/python-highcharts&lt;/a&gt;，原因有几点：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;highcharts 有个孪生兄弟 highstock，专门用于画股票行情 k 线的，非常不错&lt;/li&gt;
+  &lt;li&gt;highcharts 有个孪生兄弟 highstock，专门用于画股票行情 k 线的，非常不错，很适合我自己的应用场景&lt;/li&gt;
   &lt;li&gt;我们项目用来画图的库就是 highcharts，有大神在，出问题了可以秒问，省时省力&lt;/li&gt;
   &lt;li&gt;这个库的接口看起来很简单，人家写的例子也不错，入手快：&lt;a href=&quot;http://nbviewer.jupyter.org/github/arnoutaertgeerts/python-highcharts/blob/master/Tutorial.ipynb&quot;&gt;http://nbviewer.jupyter.org/github/arnoutaertgeerts/python-highcharts/blob/master/Tutorial.ipynb&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -168,38 +514,131 @@
   &lt;li&gt;结合 ipython notebook 场景，包装了 &lt;code class=&quot;highlighter-rouge&quot;&gt;IPython.core.display.publish_display_data&lt;/code&gt; 函数&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;4. 我做了哪些工作&lt;/h2&gt;
+&lt;p&gt;下面分开来说：&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;5. 效果展示&lt;/h2&gt;
+&lt;h3 id=&quot;31-dataframe--charts&quot;&gt;3.1 dataframe + charts&lt;/h3&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;6. 源码&lt;/h2&gt;
+&lt;p&gt;都是简单的活儿，直接看核心代码咯，别跟我说看不懂代码，曾经一个同事要求跟我开发一个 module，结果尼玛他一个星期都看不懂千来行的代码，还让我给他画架构图，WTF~~~&lt;/p&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;7. 后记&lt;/h2&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;draw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;核心画图代码，传入 dataframe，和相关的配置，返回图表对象，在 notebook 场景下可直接展示
 
-&lt;p&gt;首先还是感谢各位 star 了我的项目的朋友们，下面你们可以来 star 这个新项目了，虽然不会经常更新【经常更新就一定是好事？】，但是保证在一些场景下，绝对比以前的好用好多好多倍呢，所以快来 star 吧。&lt;/p&gt;
+    该函数包装了 charts 包的一个接口，使之更方便的适配 pandas dataframe 数据结构
+
+    参数：
+        df：dataframe 数据结构
+        x(int / str)： x 坐标轴，必须是传入的 df 的某一个 column
+        y(list)： y 坐标轴，必须在传入的 df 的column中出现
+        title：图表名字
+
+        kwargs：可选参数，默认都是 charts 支持的参数，如：
+            x_type: x 坐标轴的数据类型，默认是 datetime 类型
+            x_labels: 可自定义 x 坐标轴的 label 内容
+            subtitle: 子标题内容，可以显示一些图标的统计指标
+            width: 图表宽度
+            height: 图表高度
+            options: 图表 options，不常用，可以直接参考源码中的默认配置
+    
+    返回：
+        charts 的图表对象，在 notebook 中可以直接运行展示
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deepcopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'title'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'text'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;x_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'x_type'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'x_type'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'datetime'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x_labels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'x_labels'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'x_labels'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subtitle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'subtitle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'subtitle'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;
+     
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'datetime'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_datetime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'xAxis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'type'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_type&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'xAxis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'categories'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tolist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'xAxis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'categories'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_labels&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'options'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'options'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'options'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'width'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'width'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'width'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'height'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'height'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'height'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subtitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'subtitle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'text'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subtitle&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;charts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'inline'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;ok, 到此，从 dataframe 到动态图表已经搞定了，接下来是如何结合到 ipython notebook 中，其实，上面几乎已经完成大半了，因为如果这个画图函数是在 notebook 中的单元格里最后运行的一个函数，且没有把返回结果显示的赋予一个变量的话，notebook 会默认展示函数输出的结果的。比如下面截图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/python_dynamic_charts1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;32-charts-to-ipython-notebook&quot;&gt;3.2 charts to ipython notebook&lt;/h3&gt;
+
+&lt;p&gt;上面截图里，我们把图表对象放到一个变量 figure 里了，这个 figure 变量有个属性：&lt;code class=&quot;highlighter-rouge&quot;&gt;figure.data&lt;/code&gt;，里面存储的就是字符串格式的 html 格式的图表源码，so 那就简单多了，直接复用函数就搞定了： lambda figure: IPython.core.display.publish_display_data({‘text/html’: figure.data})&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;将 charts 图表的 html 数据手动展现，一般适用于循环作图的场景
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;IPython&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish_display_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'text/html'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;html_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;4-效果展示&quot;&gt;4. 效果展示&lt;/h2&gt;
+
+&lt;p&gt;下面简单展示下效果，为了大家方便，我把测试数据也准备好了，所以这个 notebook
+大家是可以直接下载下来运行的，我的环境是：python 2.7 + ipython 3.2.2&lt;/p&gt;
+
+&lt;embed src=&quot;http://nbviewer.jupyter.org/url/litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb&quot; width=&quot;100%&quot; height=&quot;1000px&quot; /&gt;
+
+&lt;p&gt;按照节奏，现在一般应该把源码和案例全放上来了，ok：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mof_public.py: &lt;a href=&quot;http://litaotao.github.io/files/mof_public.py&quot;&gt;http://litaotao.github.io/files/mof_public.py&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;demo notebook: &lt;a href=&quot;http://litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb&quot;&gt;http://litaotao.github.io/files/Dynamic%20Charts%20in%20Ipython%20Notebook.ipynb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;回头再看看有木有必要提个 pr 到那哥们的 repo 里。&lt;/p&gt;
+
+&lt;p&gt;最后贴上我几乎天天在用的一个案例，真正实现了一键出图，哈哈：&lt;a href=&quot;http://litaotao.github.io/files/report20170926&quot;&gt;http://litaotao.github.io/files/report20170926&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-后记&quot;&gt;5. 后记&lt;/h2&gt;
+
+&lt;p&gt;首先还是感谢各位 star 了我的项目的朋友们，下面你们可以来 star 我的博客吧，源码和demo我都放到博客下的 files 下面了。哈哈。虽然不会经常更新【经常更新就一定是好事？】，但是保证在一些场景下，绝对比以前的好用好多好多倍呢，所以快来 star 吧。&lt;/p&gt;
 
 &lt;p&gt;然后是想聊聊做这个项目的一些感触，现在回想，一开始做的时候超兴奋的，甚至有时候回家了还调试，特别是一边现学 html/css/js 那些东西，一边前后端结合起来调试，偶尔还有种 &lt;strong&gt;&lt;em&gt;欲与天公试比高&lt;/em&gt;&lt;/strong&gt; 的激动。不过当时做到后来，我居然开始添加一些很鸡肋的功能【比如说 sql】，当时想的是添加一个 online sql query &amp;amp; visualization，幸好 2016年初来了个股灾3.0，让亏了10几个点的我及时止步，我记得当时再决定是否要继续做这个 sql 工具的时候，我当时的内心独白大概是下面这样子的：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;我最需要的是啥？
-&amp;gt; 一个可以动态画图的工具。&lt;/p&gt;
+  &lt;li&gt;我最需要的是啥？
+    &lt;blockquote&gt;
+      &lt;p&gt;一个可以动态画图的工具。&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;我最在乎的是啥？这个工具？还是这个工具服务的对象：投资策略？
-&amp;gt; 当然是投资策略了，你妹的，我搞工具干嘛~&lt;/p&gt;
+  &lt;li&gt;我最在乎的是啥？这个工具？还是这个工具服务的对象：投资策略？
+    &lt;blockquote&gt;
+      &lt;p&gt;当然是投资策略了，你妹的，我搞工具干嘛~&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;那我为啥会蛋疼的相加一些炫酷的功能？
-&amp;gt; 因为蛋疼，想在 github 上多攒点 star，哈哈。&lt;/p&gt;
+  &lt;li&gt;那我为啥会蛋疼的相加一些炫酷的功能？
+    &lt;blockquote&gt;
+      &lt;p&gt;因为蛋疼，想在 github 上多攒点 star，哈哈。&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;多攒 star 重要还是研究投资策略闷声发财重要？
-&amp;gt; 你妹的，这还用问吗？&lt;/p&gt;
+  &lt;li&gt;多攒 star 重要还是研究投资策略闷声发财重要？
+    &lt;blockquote&gt;
+      &lt;p&gt;你妹的，这还用问吗？&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;那现在工具够用了，你还要接着瞎搞还是回来专心研究策略了呢？
-&amp;gt; 好吧，我浪子回头，工具够用就行了，我要专心研究策略了。&lt;/p&gt;
+  &lt;li&gt;那现在工具够用了，你还要接着瞎搞还是回来专心研究策略了呢？
+    &lt;blockquote&gt;
+      &lt;p&gt;好吧，我浪子回头，工具够用就行了，我要专心研究策略了。&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -207,7 +646,8 @@
 
 &lt;p&gt;其实结合起一些经验来看，我发现大千世界真的事事向通。比如说，最近两三年关于创业很多的几本书：《创业维艰》，《精益创业》，《The One Thing》，我总结下来，其实可以简单的说：找到一个核心问题，并且找到一个能解决这个核心问题的解决方案，然后不断的把这个方案做到极致。是不是很熟悉，马上我就能在以前看过的鸡汤书里找到几句雷同的话，比如说我大新东方总教头余老师说的 “努力做到行业内的 top 20”；比如说现在的我大中华传承了几千年的经验 “360行，行行出状元”。如果这些都比较虚，那可以简单反思自己，在你买的很多东西中，不管网上网下，真实的还是虚拟的，你是因为它功能丰富买单呢？还是因为它真切的解决了你的某一项需求而付钱呢？类似的论断，我也在前段时间写的工作感悟中有提到，在这里，第八条：  &lt;a href=&quot;http://litaotao.github.io/thinkings-about-life-work-family-part-3&quot;&gt;工作 3 年后的一些思考【Part 3】&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;好像又扯了不少了，最后&lt;/p&gt;
+&lt;p&gt;好像又扯了不少了，最后感谢下开发了这个 &lt;a href=&quot;https://github.com/arnoutaertgeerts/python-highcharts&quot;&gt;https://github.com/arnoutaertgeerts/python-highcharts&lt;/a&gt; repo 的哥们，的确省了我不少时间，然后也感谢各位观众们，哈哈，不要忘了给我 star 啊，哈哈哈哈～～～&lt;/p&gt;
+
 </content>
    </entry>
    
@@ -216,17 +656,17 @@
      <link href="/quant-correlation-pearson-spearman-kendall"/>
      <updated>2017-09-13T00:00:00+08:00</updated>
      <id>/quant-correlation-pearson-spearman-kendall</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;前几天在调试一个信号的时候，无意间发现算 ic 的时候一个缺失值对 ic 的影响很大，后来就查了查怎么这个 ic 的算法对结果影响会这么大呢。后来在 &lt;a href=&quot;http://www.cnblogs.com/kemaswill/archive/2012/11/01/2749842.html&quot;&gt;相关性分析 -pearson spearman kendall相关系数&lt;/a&gt; 这里看到了简明的对这三个相关性算法的分析，这里摘抄一下，就不重复做造轮子的活儿了。&lt;/p&gt;
 
-&lt;h2 id=&quot;pearson-&quot;&gt;pearson 算法&lt;/h2&gt;
+&lt;h2 id=&quot;pearson-算法&quot;&gt;pearson 算法&lt;/h2&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;Pearson(x, y) 
 = \frac {cov(x, y)} {\sigma_x^{} \sigma_y^{}}
 = \frac {E[(x - \mu x) (y - \mu y)]} {\sigma x \sigma y}&lt;/script&gt;
 
-&lt;h2 id=&quot;spearman-&quot;&gt;spearman 算法&lt;/h2&gt;
+&lt;h2 id=&quot;spearman-算法&quot;&gt;spearman 算法&lt;/h2&gt;
 
 &lt;p&gt;spearman和kendall都是等级相关系数，&lt;strong&gt;&lt;em&gt;亦即其值与两个相关变量的具体值无关，而仅仅与其值之间的大小关系有关。&lt;/em&gt;&lt;/strong&gt;
 spearman相关系数，亦即秩相关系数，根据随机变量的等级而不是其原始值衡量相关性的一种方法。
@@ -238,18 +678,18 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;然后求替换后的两个随机变量的pearson相关系数即可.&lt;/p&gt;
 
-&lt;h2 id=&quot;kendall-&quot;&gt;kendall 算法&lt;/h2&gt;
+&lt;h2 id=&quot;kendall-算法&quot;&gt;kendall 算法&lt;/h2&gt;
 &lt;p&gt;kendall相关系数又称作和谐系数，也是一种等级相关系数，其计算方法如下：对于X,Y的两对观察值Xi,Yi和Xj,Yj,如果Xi&amp;lt;Yi并且Xj&amp;lt;Yj,或者Xi&amp;gt;Yi并且Xj&amp;gt;Yj，则称这两对观察值是和谐的，否则就是不和谐的。&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;Kendall(x,y) = \frac {number \ of \ conordant \ paris - number \ of \ discordant \ pairs}{0.5 * n * (n-1)}&lt;/script&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;总结&lt;/h2&gt;
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
 
 &lt;p&gt;之前因为自己是用 pandas 里面的 corr 方法来计算 ic 的，然后 pandas 的 corr 默认采用 pearson 算法，所以一个异常值对结果的影响比较大，改成 spearman 方法后 ic 就稳定很多了。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/pandas_corr_ic.jpg&quot; alt=&quot;pandas_corr_ic.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;参考文章&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/kemaswill/archive/2012/11/01/2749842.html&quot;&gt;相关性分析 -pearson spearman kendall相关系数&lt;/a&gt;&lt;/li&gt;
@@ -262,7 +702,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
      <link href="/thinkings-about-life-work-family-part-3"/>
      <updated>2017-06-16T00:00:00+08:00</updated>
      <id>/thinkings-about-life-work-family-part-3</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;7. 爱你所做，做你所爱&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;7-爱你所做做你所爱&quot;&gt;7. 爱你所做，做你所爱&lt;/h2&gt;
 
 &lt;p&gt;相信大家也经常听到，看到，遇到一些朋友，同事说自己对正在做的事情很不感兴趣，完全背离了学生时代的梦想。其实，我也一样，我从小就特别喜欢玩具模型，四驱车，遥控车，遥控飞机，轮船，甚至还想做个遥控的潜水艇,去长白山天池水下看看是不是真的有水怪存在。可是大四找工作的时候，如果我去做这些我喜欢的事，面临两个很大的问题：第一是当时【甚至现在也一样】以这些为主营业务的公司非常少，大都是一些玩具型厂商，而非专业的模型研发，生产，制造和销售公司【当时专业的大都是国外公司】，除了国内一家，深圳大疆创新，但是我又不想去深圳，只想在上海呆，所以这个问题很难解决；第二也算个好的方案，就是回家去开个模型店，经营得好也能活得不错，可是这样一来启动资金要很多钱【要知道真正的玩具模型，一个发动机都是3位数起的】，而且我也不想在人生最具备成长性的这个阶段就创业，很想在一些大公司学习和研究一段时间。&lt;/p&gt;
 
@@ -280,7 +720,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;&lt;img src=&quot;../images/settle_down.png&quot; alt=&quot;settle_down.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;be-focus&quot;&gt;8. Be focus&lt;/h2&gt;
+&lt;h2 id=&quot;8-be-focus&quot;&gt;8. Be focus&lt;/h2&gt;
 
 &lt;p&gt;3 年前，我刚开始工作的时候，和很多毕业生一样心怀大志，觉得终于等到自己指点江山，激扬文字的时候了。可是现在再问我自己，完全没有了当时的年少轻狂，更多的是一份脚踏实地，专注于某一个方向认真发展自己的一种笃定。&lt;/p&gt;
 
@@ -298,7 +738,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;&lt;img src=&quot;../images/just_focus.png&quot; alt=&quot;just_focus.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;be-thankful&quot;&gt;9. Be thankful&lt;/h2&gt;
+&lt;h2 id=&quot;9-be-thankful&quot;&gt;9. Be thankful&lt;/h2&gt;
 
 &lt;p&gt;以前经常听这样一句话 “爱笑的女孩，运气都不会太差”，我想这句话改改，用在这个标题上，可以说 “怀揣感恩之心的人，运气也不会太差”。&lt;/p&gt;
 
@@ -328,7 +768,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;最后简单总结一下咯，常怀感恩之心，快乐他人，更快乐自己，人生苦短，多快乐快乐，哈哈。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;10. 身体才是革命的本钱&lt;/h2&gt;
+&lt;h2 id=&quot;10-身体才是革命的本钱&quot;&gt;10. 身体才是革命的本钱&lt;/h2&gt;
 
 &lt;p&gt;这个问题最近半年考虑得比较多，不知道是因为听说一些同行业的发生猝死，还是经常看到一些年龄不大的同事居然有了白发。总之最近这方面考虑得确实听说的，也开始锻炼起身体来了，以前没注意身体，经常性早饭不吃就来公司了，食堂中午也吃不饱，下午也还要撑到 5~6 点才去食堂吃饭。&lt;/p&gt;
 
@@ -336,7 +776,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;这一点好像写得没啥感染力，不过都是大实话，哈哈。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;11. 写给3年后的自己&lt;/h2&gt;
+&lt;h2 id=&quot;11-写给3年后的自己&quot;&gt;11. 写给3年后的自己&lt;/h2&gt;
 
 &lt;p&gt;本来是想写给未来的自己的，可是写给未来几年的自己呢？想想这篇 blog 不就是写自己的 3 年的总结的吗，何不就写给 3 年后的自己呢？所以就有了这个小标题。&lt;/p&gt;
 
@@ -366,7 +806,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;&lt;img src=&quot;../images/my_future_self.png&quot; alt=&quot;my_future_self.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
+&lt;h2 id=&quot;这些资料你也许用得着&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://bbs.mx3g.com/&quot;&gt;模型中国论坛&lt;/a&gt;&lt;/li&gt;
@@ -382,7 +822,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
      <link href="/thinkings-about-life-work-family-part-2"/>
      <updated>2017-06-06T00:00:00+08:00</updated>
      <id>/thinkings-about-life-work-family-part-2</id>
-     <content type="html">&lt;h2 id=&quot;be-kind-to-others&quot;&gt;3. Be kind to others&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;3-be-kind-to-others&quot;&gt;3. Be kind to others&lt;/h2&gt;
 
 &lt;p&gt;今年湖南卫视上了个新的节目，叫《神奇的孩子》，就是找一些非常有特色的孩子来展示才艺，这个节目远远不局限于去找那些各种竞赛拿奖，或者3岁识千字，5岁背百诗的小孩们。这里面的孩子们有喜欢下面条的，有喜欢当军人的，有喜欢玩滑板的，也有喜欢钢琴，跳舞的，很多很多，非常有意思。但是，其中有个澳洲来的孩子，我印象特别深刻，是一个叫坎贝尔的男孩，而且还是一个喜欢做布娃娃的阳光男孩。在采访中，他做的这些布娃娃，很多都是送给了一些素不相识的患者。其中有的患者病愈后，都很感谢坎贝尔，都说是这些布娃娃在他们最无助孤独的时候带来了阳光和快乐。&lt;/p&gt;
 
@@ -396,7 +836,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;可能看到这里有同学会说，不是说写工作3年的感悟总结吗，怎么不写点工作上的事情？其实我觉得，工作是生活中投入时间最多的一部分了，生活中的一些感悟，肯定会有形无形的影响你在工作中的状态和处事方法，进而，会影响到你未来的工作。总之，善良的人，运气不会太差。&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;4. 很多时候，比你厉害的人，比你还要努力&lt;/h2&gt;
+&lt;h2 id=&quot;4-很多时候比你厉害的人比你还要努力&quot;&gt;4. 很多时候，比你厉害的人，比你还要努力&lt;/h2&gt;
 
 &lt;p&gt;今年年初参与了公司一个内部项目，每天 8:30 都要来公司参加项目的晨会，自此告别了每天 8点起床，8:45 出门的节奏了，改成每天 7：20 起床，7:45 点出门了。基本上相比以前，要提前一个小时到公司，可不来不知道，一来吓一跳。没来之前我还以为自己会是到得最早的，可没想到，每次我到公司，发觉居然大boss已经坐在位置上了，而且，几乎只要boss没出差，总会到得比我早。我第一次发现，原来boss竟然这样拼。这里的 boss，不是 project manager，也不是 technical lead，而是我们公司的 CEO。&lt;/p&gt;
 
@@ -410,7 +850,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;曾经看过一般文章，里面有一个观点：对社会人士来说，最可怕的事情莫过于比你厉害的人比你还要努力。当时我并没有那么深的感触，但最近半年时间，这样的体验更深。一方面是在 boss 身上学到的东西，不管是行业知识还是做事风格，另一方面是常常反思身边的所见所闻。真的发现，这个社会其实也很公平，为什么经常说一个社会 80% 的财富都是积累在少数的 20% 人手中，其实很简单，因为那 20% 人的努力程度远远大于剩下的 80% 的人的总和。&lt;/p&gt;
 
-&lt;h2 id=&quot;be-integrity&quot;&gt;5. Be integrity&lt;/h2&gt;
+&lt;h2 id=&quot;5-be-integrity&quot;&gt;5. Be integrity&lt;/h2&gt;
 
 &lt;p&gt;有一个问题，大家可以在心里想想自己的答案 &lt;code class=&quot;highlighter-rouge&quot;&gt;从上学到大学毕业，你最感念的恩师都有哪些，why?&lt;/code&gt;。这个问题若我来回答的话，我会说是我的初中英文老师，一位来自农村的非常传统，正直，努力的老师，到现在我们都叫他 &lt;code class=&quot;highlighter-rouge&quot;&gt;老英&lt;/code&gt;。我是 07 年上的初一，虽然我成绩很好，已经进了县城里最好的一个中学，但爸妈为了让我能在个好点的环境学习，就麻烦叔叔把我分到了当时最好的一个班里。我记得当时平均每个班应该只招收 60 来个学生的，但是我们那个班硬是被招入了将近 90 号人，导致桌椅不够，不得不从其他班搬点过来。当时记得很清晰，老英第一节课的第一句话，就是说我们班的人背景都很好，原本 60来人的班硬是被搞到 90 个人，敢光明正大的说这句话在当时还是很有魄力，因为大家都知道，但是还没人敢这样说，而且班里有不少爸妈都是县政府里的人，甚至一些还是校长大大亲自安排进来的呢。后来渐渐听说了老英的一些光辉事迹，一个大城市里的高干曾经请他去给小孩补习一段时间，给老英钱老英就是不要，后来还专程把钱用信封寄过来，老英也没收，给人返还过去了。&lt;/p&gt;
 
@@ -428,7 +868,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;现在来看，工作时间越长，越能发现技能，聪慧程度很多时候只能在起跑的时候给你一个大的助推力，但之后决定你能走多远，是否走对了方向，更多的会跟一个人是否正直善良，是否有良好的性格脾性有关。&lt;/p&gt;
 
-&lt;h2 id=&quot;step-by-step-one-goes-far&quot;&gt;6. Step by step, one goes far&lt;/h2&gt;
+&lt;h2 id=&quot;6-step-by-step-one-goes-far&quot;&gt;6. Step by step, one goes far&lt;/h2&gt;
 
 &lt;p&gt;已经想不起来是在哪里听到的这句话了，不过我觉得的真的很有道理。很多职场新人，包括几年前刚开始工作的我，都希望能马上就能一展身手。我觉得一方面是现在的人们都偏向急躁，再加上一些偶像剧里动不动就是踏过几个小挫折就开始走向人生巅峰的情节；另外一个方面是我们这一代，以及我们后面的年轻人们，从小都不缺吃喝，也没有经历过什么大事，太顺利了，导致大家都会觉得工作嘛，只要去做就行了。所以很多人，还没毕业就开始规划起自己未来的几年成绩了。&lt;/p&gt;
 
@@ -446,9 +886,9 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;&lt;img src=&quot;../images/ThePowerOf1ADay.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;to-be-continued&quot;&gt;7. To be continued…&lt;/h2&gt;
+&lt;h2 id=&quot;7-to-be-continued&quot;&gt;7. To be continued…&lt;/h2&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
+&lt;h2 id=&quot;这些资料你也许用得着&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.mgtv.com/b/308627/3892611.html&quot;&gt;湖南卫视：神奇的孩子，第十期，来自澳洲的坎贝尔，第 60 分钟开始&lt;/a&gt;&lt;/li&gt;
@@ -465,7 +905,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
      <link href="/thinkings-about-life-work-family-part-1"/>
      <updated>2017-05-31T00:00:00+08:00</updated>
      <id>/thinkings-about-life-work-family-part-1</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;1. 从 7 年前的一部纪录片说起&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;1-从-7-年前的一部纪录片说起&quot;&gt;1. 从 7 年前的一部纪录片说起&lt;/h2&gt;
 
 &lt;p&gt;故事还得从 7 年前说起，2010年，也是我告别高中，踏入大学生涯的第一年，央视出了一个纪录片：《华尔街》，讲述了新世纪时期的金融发展历程和其中很多有趣的故事，及时现在回顾，我依然还会觉得这是一部非常不错的纪录片。&lt;/p&gt;
 
@@ -489,13 +929,13 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;还记得当时花了 ～3 天时间才租到了个不错的房子，花了几天时间置办了家具和休息了几天，在 4月1号，也就是愚人节那天正式开始了我的工作生涯。之所以记忆这么清晰，还有一个原因，那年的 4月1号 刚好是我阴历的生日，而且能进入 datayes，可以说是误打误撞，一路好运才能进去的吧。虽然说在当时看来，datayes 才成立半年左右，但招聘的人基本上都是研究生毕业的，当时我一个本科也能进去，心里面确实有很强的幸运感。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;2. 工作 3 年，我的一些感悟&lt;/h2&gt;
+&lt;h2 id=&quot;2-工作-3-年我的一些感悟&quot;&gt;2. 工作 3 年，我的一些感悟&lt;/h2&gt;
 
 &lt;p&gt;晃眼间就跌跌撞撞的到了现在，再过一个来月就到了自己正式入职3个年的时间了，虽然实际上偶已经工作3年多了【14年4月1号就以实习的身份进入了公司，当时还没有拿到毕业证书，不能签正式合同】。这三年虽然过得很快，但也发生了很多大大小小，五味杂陈的事情，自己在各个方面也有了更全面深入的认识。&lt;/p&gt;
 
 &lt;p&gt;最近看到一些师兄师姐写的一些工作，生活感悟，想想自己再过几个月也正式工作 3 年整了，觉得也该写点东西，&lt;code class=&quot;highlighter-rouge&quot;&gt;回顾过去，反思现在，寄语未来&lt;/code&gt; 吧。这三年中，从最开始的软开，到现在的量化工程师，短短3年中得到了很多业内专业人士的指导，见识到了很多金融方面的新知，虽然没有做过交易相关的工作，但是我越来约觉得自己所做的事，和几年前《华尔街》里的很多场景都很相似，每每想到这些，我都感到非常幸运，没有想到多年前在心中埋下的对金融这个领域，佩服，向往和好奇的种子，在如今居然能生根发芽，这种感觉真的很奇妙。&lt;/p&gt;
 
-&lt;p&gt;我想这一切也许真的不是简单的巧合，或许在几年前看《华尔街》的时候，就隐隐约约有一些变量在影响着自己，引导自己在毕业找工作的时候选择了现在的这家 fin-tech 公司，并且还能机缘巧合的在 datayes 做在我个人看来最 amazing 的产品。也许，真的应验了那句话：&lt;code class=&quot;highlighter-rouge&quot;&gt;What you are is what you have been. What you&#39;ll be is what you do now.&lt;/code&gt; 我也准备把工作这几年的一些感悟，思考记录下来，看看未来 3年，5年后，再回顾今天的这些文字，我会是怎样的一番心情呢？&lt;/p&gt;
+&lt;p&gt;我想这一切也许真的不是简单的巧合，或许在几年前看《华尔街》的时候，就隐隐约约有一些变量在影响着自己，引导自己在毕业找工作的时候选择了现在的这家 fin-tech 公司，并且还能机缘巧合的在 datayes 做在我个人看来最 amazing 的产品。也许，真的应验了那句话：&lt;code class=&quot;highlighter-rouge&quot;&gt;What you are is what you have been. What you'll be is what you do now.&lt;/code&gt; 我也准备把工作这几年的一些感悟，思考记录下来，看看未来 3年，5年后，再回顾今天的这些文字，我会是怎样的一番心情呢？&lt;/p&gt;
 
 &lt;p&gt;我列了一些自己想记录的列表，准备分几篇写下来，下面是这个列表，看看最后能不能写完啦，哈哈。&lt;/p&gt;
 
@@ -507,9 +947,9 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;这里再次推荐一下，我觉得写周记是很有意义的一件事情，不一定非要每周都写，一月一次都行，只要你觉得有值得记录的事就行啦。我个人很喜欢写，第一个原因是写周记可以让自己在空余的时候冷静回顾和思考过去的一些事情，也能时刻提醒自己如何做事做人做更好的自己；其次，也是最重要的一个原因，是记录自己当前的状态，在以后很多时候可以随时翻来看看这些青春的回忆，肯定超有趣的，就跟看故事书一样，我现在还会偶尔翻翻自己大学期间写的周记，虽然不多，但是确实很有意义，会发现自己在一些观点上发生了一些改变，也会发现自己在一些观点上始终坚持同样的看法，非常有意思。&lt;/p&gt;
 
-&lt;h2 id=&quot;to-be-continued&quot;&gt;3. To be continued…&lt;/h2&gt;
+&lt;h2 id=&quot;3-to-be-continued&quot;&gt;3. To be continued…&lt;/h2&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
+&lt;h2 id=&quot;这些资料你也许用得着&quot;&gt;这些资料，你也许用得着&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%8D%8E%E5%B0%94%E8%A1%97_(%E7%BA%AA%E5%BD%95%E7%89%87)&quot;&gt;华尔街 (纪录片)&lt;/a&gt;&lt;/li&gt;
@@ -529,7 +969,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
      <link href="/mnist-tutoril-deep-learning-for-the-newbies"/>
      <updated>2017-04-21T00:00:00+08:00</updated>
      <id>/mnist-tutoril-deep-learning-for-the-newbies</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;最近抽时间看一些 AI 方面的东西，说实话，我一开始对这方面其实不是很重视的，毕竟现在发展还是处于很初级的阶段。但因为本身职业是跟金融有关的，最近看了不少产业相关的资料，也经常研究国家在各个产业链上的政策，以及经常看到不少国内外企业在 AI 方面的布局和成绩，觉得这个方向还是可圈可点的。所以还是准备花些时间掌握一些这方面的底层原理，做到知其然知其所以然。&lt;/p&gt;
 
@@ -537,7 +977,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_1.jpg&quot; alt=&quot;robot_1.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;ai-&quot;&gt;1. AI, 深度学习，神经网络，机器学习&lt;/h2&gt;
+&lt;h2 id=&quot;1-ai-深度学习神经网络机器学习&quot;&gt;1. AI, 深度学习，神经网络，机器学习&lt;/h2&gt;
 
 &lt;p&gt;现在整个行业上其实还是略显浮躁的，搞过线性回归的人说自己懂机器学习，搞过机器学习的说自己研究神经网络，搞过神经网络的说自己做深度学习，搞深度学习的直接说自己是 AI 专家了。&lt;/p&gt;
 
@@ -545,7 +985,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;所以在表述这个问题上，我更倾向于交流做过的模型，研究过的模型。&lt;/p&gt;
 
-&lt;h2 id=&quot;mnist-&quot;&gt;2. 所以 MNIST 是个啥&lt;/h2&gt;
+&lt;h2 id=&quot;2-所以-mnist-是个啥&quot;&gt;2. 所以 MNIST 是个啥&lt;/h2&gt;
 
 &lt;p&gt;在很多书，在线培训网站上，基本上涉及到神经网络，深度学习，AI 的内容，都是以 MNIST 例子来开讲的，同时很多讲这些主题的 blog，也几乎没有哪篇没有谈到 MNIST。不过话说，我估计应该没多少人知道 MNIST 是啥的缩写吧，这也是我很强调知其然知其所以然的原因，对新知识，新事物的学习过程，不应该是被饲养般的全吞下去，应该细细咀嚼，慢慢品尝其中的韵味。&lt;/p&gt;
 
@@ -553,7 +993,7 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 
 &lt;p&gt;MNIST 是 Mixed National Institute of Standards and Technology database 的简称，从英文原意上还挺难知道到底是干嘛的，不过从官方网站上最终还是找到了它的具体含义 &lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;http://yann.lecun.com/exdb/mnist/&lt;/a&gt;，MNIST 是一个数据库，这个数据库中存储了各个国家地区，不同标准的手写数字，并且是存储的内容都是结果标准化处理了的，专门用于关于手写体识别方面的技术应用。&lt;/p&gt;
 
-&lt;h2 id=&quot;mnist--1&quot;&gt;3. MNIST 数据结构啥样子呢&lt;/h2&gt;
+&lt;h2 id=&quot;3-mnist-数据结构啥样子呢&quot;&gt;3. MNIST 数据结构啥样子呢&lt;/h2&gt;
 
 &lt;p&gt;介绍 MNIST 的原理之前，我们先来看看它的数据结构是个啥样吧。这里我们直接复用 tensorflow 官方的代码，链接在这儿：&lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt;。或者也可以直接看我的 github 上的代码：&lt;a href=&quot;https://github.com/litaotao/tensorflow_guide/blob/master/Official%20Document%20-%20Section%201%20:%20get%20started/MNIST%20For%20ML%20Beginners.ipynb&quot;&gt;https://github.com/litaotao/tensorflow_guide/blob/master/Official%20Document%20-%20Section%201%20:%20get%20started/MNIST%20For%20ML%20Beginners.ipynb&lt;/a&gt;&lt;/p&gt;
 
@@ -581,13 +1021,13 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 &lt;p&gt;&lt;img src=&quot;http://litaotao.github.io/images/robot_3_mnist-train-xs.png&quot; alt=&quot;robot_3_mnist-train-xs.png&quot; /&gt;
 &lt;img src=&quot;http://litaotao.github.io/images/robot_4_mnist-train-ys.png&quot; alt=&quot;robot_4_mnist-train-ys.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;softmax-&quot;&gt;4. 那么 softmax 又是个什么鬼&lt;/h2&gt;
+&lt;h2 id=&quot;4-那么-softmax-又是个什么鬼&quot;&gt;4. 那么 softmax 又是个什么鬼&lt;/h2&gt;
 
 &lt;p&gt;关于 softmax 其实我一开始也挺纳闷的，特别是看到一堆公式后，不过现在回顾来看，其实初学时也不必过于深究。现在可以先知道它和一般的回归有啥区别，以及它存在的意义及用途，之后再慢慢琢磨那些公式也可。因为有些东西，只有用起来才能理解其中的含义。&lt;/p&gt;
 
 &lt;p&gt;我们常见的回归一般都是这种形式： &lt;code class=&quot;highlighter-rouge&quot;&gt;y = A * X + b&lt;/code&gt;，即给定一个 x 序列，输出一个特定的值。而 softmax 是指给定一个 x 序列，输出该序列符合某个结果的概率或者置信度。比如说，现在我们 x 是一个 28 * 28 = 784 长的一个 list，代表一张手写数字的像素序列，经过 softmax 回归后，可以得到这个像素序列分别属于 0 ～ 9 中，每个数字的概率。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;5. 所以，是时候揭开这个公式的神秘面纱了&lt;/h2&gt;
+&lt;h2 id=&quot;5-所以是时候揭开这个公式的神秘面纱了&quot;&gt;5. 所以，是时候揭开这个公式的神秘面纱了&lt;/h2&gt;
 
 &lt;p&gt;在 tensorflow 的 &lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/beginners&quot;&gt;MNIST For ML Beginners&lt;/a&gt; 中，最后的模型是这样的：&lt;code class=&quot;highlighter-rouge&quot;&gt;y = tf.nn.softmax(tf.matmul(x, W) + b)&lt;/code&gt;，其中核心部分就是理解 &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.matmul(x, W) + b&lt;/code&gt; 这个内部模型的含义，以及该模型输出的结果，为了方便，我把矩阵 x, W 画出来供大家理解一下。&lt;/p&gt;
 
@@ -619,15 +1059,15 @@ spearman相关系数的计算可以由计算pearson系数的方法,只需要把�
 &lt;img src=&quot;http://litaotao.github.io/images/robot_9_mnist_equation.png&quot; alt=&quot;robot_9_mnist_equation.png&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;6. 到这里了，还该做些啥&lt;/h2&gt;
+&lt;h2 id=&quot;6-到这里了还该做些啥&quot;&gt;6. 到这里了，还该做些啥&lt;/h2&gt;
 
 &lt;p&gt;到这里了，关于 MNIST 的话题算是差不多了，不过这部分其实还是有很多细节可以继续深究，优化的，特别是针对专门做这方面的研究的人来说。接下来的话，可以考虑考虑实现几个例子，然后继续学习后面的内容。就跟游戏打怪一样，一般一个游戏的主线只占了整个游戏情节的 70% 左右，如果一开始就要把所有 npc 搞一遍，把所有支线都通关，那进度肯定会慢很多了；所以我都喜欢先把主线走完，中途当然也可以偶尔过过支线内容，然后最后再返回来做支线任务，会有不同的感受的。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;7. 最后的最后&lt;/h2&gt;
+&lt;h2 id=&quot;7-最后的最后&quot;&gt;7. 最后的最后&lt;/h2&gt;
 
 &lt;p&gt;博主其实只了解点机器学习，其他深度学习，神经网络和 AI 的东西很欠缺，所以本文或之后相关的文章出现错误不是巧合，而是很正常的哈，望各位大咖批斗轻点，哈哈。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;附注&lt;/h2&gt;
+&lt;h2 id=&quot;附注&quot;&gt;附注&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=iQdWX1327XQ&quot;&gt;What’s an MNIST&lt;/a&gt;&lt;/li&gt;
@@ -691,7 +1131,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
      <link href="/spark-sql-parquet-optimize"/>
      <updated>2016-12-13T00:00:00+08:00</updated>
      <id>/spark-sql-parquet-optimize</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
 
@@ -709,7 +1149,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 &lt;p&gt;上一篇文章： 
 &lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;1. 遇到了啥问题&lt;/h2&gt;
+&lt;h2 id=&quot;1-遇到了啥问题&quot;&gt;1. 遇到了啥问题&lt;/h2&gt;
 
 &lt;p&gt;是酱紫的，简单来说：并发执行 spark job 的时候，并发的提速很不明显。&lt;/p&gt;
 
@@ -739,7 +1179,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;看似很简单，但能知道上面这些配置的也算是用 spark 比较熟练的人了吧，我迫不及待的测试了一下速度，发现了一个从古至今的大真理：理想很美好，现实很骨干啊。测试下来，发现多个 job 并行运行的时间并没有节省多少。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;2. 原因排查&lt;/h2&gt;
+&lt;h2 id=&quot;2-原因排查&quot;&gt;2. 原因排查&lt;/h2&gt;
 
 &lt;p&gt;上面把问题说得很清楚了：多 job 并行的时候，运行速度并没有明显提升。但是原理上应该不会如此，只要一个 sql job 不需要全局所有集群资源，理论上来说会有较大提升的。下面是一组简单的数据对比：&lt;/p&gt;
 
@@ -776,7 +1216,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;到这里，问题根源基本上已经知道了，即 job 796 的大多数时间都被消耗在 stage 1590 的 336 个task 的 secheduler delay 上面了。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;3. 如何解决&lt;/h2&gt;
+&lt;h2 id=&quot;3-如何解决&quot;&gt;3. 如何解决&lt;/h2&gt;
 
 &lt;p&gt;上面问题几乎已经明确了，现在就该看看肿么解决了。我当时是这样去考虑的：&lt;/p&gt;
 
@@ -818,17 +1258,17 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;正准备这样测试的时候，我忽然想到，为什么现在的 metrics 统计是这样的结构的啊，这么多 task？一般来说，一个 task 对应到 hdfs 上的一个 parquet 文件【该项目中所有数据文件都是用 parquet 压缩后存储到 hdfs 上的】，难道是现在存在 hdfs 上的 parquet 文件个数过多，每个文件太小？突然有一种恍然大悟的感觉，赶紧看看现在 hdfs 上文件的结构，如下所示：&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ | cat -n | tail
-317  -rw-r--r--   3 taotao hfmkt      1.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00310-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-318  -rw-r--r--   3 taotao hfmkt      1.4 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00311-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-319  -rw-r--r--   3 taotao hfmkt      2.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00312-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-320  -rw-r--r--   3 taotao hfmkt      1.2 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00313-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-321  -rw-r--r--   3 taotao hfmkt      1.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00314-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-322  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-323  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-324  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-325  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-326  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs &lt;span class=&quot;nt&quot;&gt;-ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ | &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tail
+&lt;/span&gt;317  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00310-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+318  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.4 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00311-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+319  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      2.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00312-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+320  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.2 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00313-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+321  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.9 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00314-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+322  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+323  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+324  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+325  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+326  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;可以看到，现在有 300 多个文件【上面只是一部分，还有十几个在另外一个文件夹里，一个 sql 会统计两个文件夹里的数据文件】，而且我仔细看了一下，每个文件大小最小的有很多 1kb 的，最大的有 2.9mb 的。难怪了，原来核心根源在这里。再结合上面关于 metrics 的分析，我心里大概确信了，只要把 parquet 文件的问题解决就行了，方法就是压缩 parquet 文件个数，控制每个 parquet 文件的大小即可。&lt;/p&gt;
 
@@ -836,7 +1276,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;方法确定了，那就干咯。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;4. 效果对比&lt;/h2&gt;
+&lt;h2 id=&quot;4-效果对比&quot;&gt;4. 效果对比&lt;/h2&gt;
 
 &lt;p&gt;未来方便对比，我把 20161212 的数据文件处理了一下，保留 20161117 这天的数据文件【20161212 的数据文件整体上比 20161117 的数据文件要多 10%】，下面是对比结果：&lt;/p&gt;
 
@@ -846,23 +1286,23 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
   &lt;li&gt;20161117 这天&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | cat -n | tail -n 5
-342  -rw-r--r--   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-343  -rw-r--r--   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-344  -rw-r--r--   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-345  -rw-r--r--   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
-346  -rw-r--r--   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs &lt;span class=&quot;nt&quot;&gt;-ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 5
+342  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.7 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00315-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+343  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt    899.4 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00316-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+344  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      2.3 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00317-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+345  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      1.0 M 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00318-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet
+346  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt    460.9 K 2016-11-17 16:37 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161117/20161117_Transaction_SZ/part-r-00319-38d7cc53-60d2-40b3-a945-0cb5832f30de.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;20161212 这天&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs -ls -h hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | cat -n | tail -n 5
-34  -rw-r--r--   3 taotao hfmkt     19.2 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00013-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-35  -rw-r--r--   3 taotao hfmkt     10.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00014-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-36  -rw-r--r--   3 taotao hfmkt     26.0 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00015-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-37  -rw-r--r--   3 taotao hfmkt     20.1 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00016-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
-38  -rw-r--r--   3 taotao hfmkt      8.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00017-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;taotao@mac007:~/Desktop/dyes/git-mercury/mercury-computing&lt;span class=&quot;nv&quot;&gt;$hadoop&lt;/span&gt; fs &lt;span class=&quot;nt&quot;&gt;-ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_S&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 5
+34  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt     19.2 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00013-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+35  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt     10.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00014-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+36  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt     26.0 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00015-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+37  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt     20.1 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00016-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet
+38  &lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;   3 taotao hfmkt      8.7 M 2016-12-12 15:49 hdfs://hadoop-archive-cluster/hfmkt/level2/datayes/parquet/20161212/20161212_Transaction_SZ/part-r-00017-686bbce5-a7a1-4b5d-b25c-14cd9ddae283.gz.parquet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;100个job并发执行时间&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
@@ -889,7 +1329,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 &lt;img src=&quot;../images/spark_optimize_9.png&quot; alt=&quot;spark_optimize_9.png&quot; /&gt;
 &lt;img src=&quot;../images/spark_optimize_8.png&quot; alt=&quot;spark_optimize_8.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;5. 总结&lt;/h2&gt;
+&lt;h2 id=&quot;5-总结&quot;&gt;5. 总结&lt;/h2&gt;
 
 &lt;p&gt;首先，需要说明的是，这次优化应该还有提升的空间，虽然优化后整体从 204s 到 99s 再到 16s，提升了十倍多，确实很大，但是最后我们还是发现 16s 的情况下，scheduler delay 和 Task Deserialization Time 还是有占用了大部分时间，这里我觉得不能一味的在文件个数和大小上下功夫了。需要考虑到用户场景来做一个权衡。所以越到后期的优化，越考验产品功能的设计，当然这是后话了，就不在本文范围内讨论。&lt;/p&gt;
 
@@ -897,11 +1337,11 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;最后，好久都没写 spark 相关的文章了，距离上一片水文过去整整两个月了。最近两个月真心累成狗了，要做好项目，关注竞品的发展，行业动态；还要经常出去拜访客户，维护客户；同时也要做好产品未来几个月甚至几个季度的规划，偶尔还要搞搞运营啥的。文章写少了，但视野真心见长了，anyway，未来再接着抽空多记录点文字下来，哈哈。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-6&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
+&lt;h2 id=&quot;6-打开微信扫一扫点一点棒棒的_&quot;&gt;6. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;参考文章&lt;/h2&gt;
+&lt;h2 id=&quot;参考文章&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://parquet.apache.org/documentation/latest/&quot;&gt;Apache Parquet&lt;/a&gt;&lt;/li&gt;
@@ -914,7 +1354,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
   &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2015/events/data-storage-tips-for-optimal-spark-performance/&quot;&gt;Data Storage Tips for Optimal Spark Performance&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section-8&quot;&gt;本系列文章链接&lt;/h2&gt;
+&lt;h2 id=&quot;本系列文章链接&quot;&gt;本系列文章链接&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark?s=inner&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
@@ -940,7 +1380,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
      <link href="/books-recommend-and-summarize-on-sep-2016"/>
      <updated>2016-12-05T00:00:00+08:00</updated>
      <id>/books-recommend-and-summarize-on-sep-2016</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;计划是每月读 5-10 本书，书籍类型大概是三个方面的：金融，技术，创业。之所以选择这三个方面，一方面是因为自己对这三个方面都很有兴趣，其次是被 linkedin 创始人 Hoffman 的 &lt;a href=&quot;http://techcrunch.com/2012/02/14/in-startups-and-life-you-need-plan-a-b-and-z/&quot;&gt;ABZ 理论&lt;/a&gt; 深度影响。建议大家都看看 abz 理论那篇文章，如果我有空，也会整理一些常用的这类理论模型到博客里的。&lt;/p&gt;
 
@@ -963,9 +1403,9 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;上月读书总结：&lt;a href=&quot;../books-recommend-and-summarize-on-july-2016&quot;&gt;『 读书笔记 』坚持读书 6 个多月的感受&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;1. 读书总结&lt;/h2&gt;
+&lt;h2 id=&quot;1-读书总结&quot;&gt;1. 读书总结&lt;/h2&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;1.1 公司财务原理，第七，八章&lt;/h3&gt;
+&lt;h3 id=&quot;11-公司财务原理第七八章&quot;&gt;1.1 公司财务原理，第七，八章&lt;/h3&gt;
 
 &lt;p&gt;这本书越来越有意思了，曾经听一个朋友说这本书就是讲一些公司财务的东西，看来是顾名思义去了吧。其实就跟我第一次总结的一样，这本书从小来说，能让你了解公司财务，金融市场运作的一些情况，对从事投资方面的人来说很有用；从大来说，这本书能交给你不少关于如何开展，运作一个公司的很多规则和经验，非常有用。严重推荐，值得认真研读。&lt;/p&gt;
 
@@ -979,7 +1419,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;&lt;img src=&quot;../images/amazing_book.png&quot; alt=&quot;amazing_book.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;httpswwwamazoncne680aae8af9ee8a18ce4b8bae5ada6-e58fafe9a284e6b58be79a84e99d9ee79086e680a7-e4b8b9e280a2e889bee7919ee9878cdpb0040no84wrefsr11ieutf8qid1478565337sr8-1keywordse680aae8af9ee8a18ce4b8bae5ada6&quot;&gt;1.2 &lt;a href=&quot;https://www.amazon.cn/%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6-%E5%8F%AF%E9%A2%84%E6%B5%8B%E7%9A%84%E9%9D%9E%E7%90%86%E6%80%A7-%E4%B8%B9%E2%80%A2%E8%89%BE%E7%91%9E%E9%87%8C/dp/B0040NO84W/ref=sr_1_1?ie=UTF8&amp;amp;qid=1478565337&amp;amp;sr=8-1&amp;amp;keywords=%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6&quot;&gt;怪诞行为学&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;12-怪诞行为学&quot;&gt;1.2 &lt;a href=&quot;https://www.amazon.cn/%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6-%E5%8F%AF%E9%A2%84%E6%B5%8B%E7%9A%84%E9%9D%9E%E7%90%86%E6%80%A7-%E4%B8%B9%E2%80%A2%E8%89%BE%E7%91%9E%E9%87%8C/dp/B0040NO84W/ref=sr_1_1?ie=UTF8&amp;amp;qid=1478565337&amp;amp;sr=8-1&amp;amp;keywords=%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A6&quot;&gt;怪诞行为学&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;以前大学的时候就浏览过这本书，当时就觉得非常有意思。如今再次品读，更有一番韵味啊。现在市场上还有其他几本非常相似的书，比如说《怪诞行为学2》，《怪诞经济学》，《怪诞心理学》什么的。虽然我觉得先品读一本就够了，把其中的道理领悟就够了。但是我也准备后期抽时间读读其他类型的书，看看是否能找到一些更好玩的东西。&lt;/p&gt;
 
@@ -987,7 +1427,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;httpswwwamazoncne8afb4e8b08ee88085e79a84e68991e5858be7898c-e58d8ee5b094e8a197e79a84e68a95e8b584e6b8b8e6888f-e8bf88e5858be5b094e280a2e58898e69893e696afdpb00dyrvnjsrefsr11ieutf8qid1478565669sr8-1keywordse8afb4e8b08ee88085e79a84e68991e5858be7898c&quot;&gt;1.3 &lt;a href=&quot;https://www.amazon.cn/%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C-%E5%8D%8E%E5%B0%94%E8%A1%97%E7%9A%84%E6%8A%95%E8%B5%84%E6%B8%B8%E6%88%8F-%E8%BF%88%E5%85%8B%E5%B0%94%E2%80%A2%E5%88%98%E6%98%93%E6%96%AF/dp/B00DYRVNJS/ref=sr_1_1?ie=UTF8&amp;amp;qid=1478565669&amp;amp;sr=8-1&amp;amp;keywords=%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C&quot;&gt;说谎者的扑克牌&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;13-说谎者的扑克牌&quot;&gt;1.3 &lt;a href=&quot;https://www.amazon.cn/%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C-%E5%8D%8E%E5%B0%94%E8%A1%97%E7%9A%84%E6%8A%95%E8%B5%84%E6%B8%B8%E6%88%8F-%E8%BF%88%E5%85%8B%E5%B0%94%E2%80%A2%E5%88%98%E6%98%93%E6%96%AF/dp/B00DYRVNJS/ref=sr_1_1?ie=UTF8&amp;amp;qid=1478565669&amp;amp;sr=8-1&amp;amp;keywords=%E8%AF%B4%E8%B0%8E%E8%80%85%E7%9A%84%E6%89%91%E5%85%8B%E7%89%8C&quot;&gt;说谎者的扑克牌&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;这本书是从一个曾在所罗门任职的交易员角度，讲了一些在过去几十年里华尔街的一些变化和华尔街人的各种状态。可能是中文翻译的问题，有些地方读起来感觉很干涩。下次读作者的另外一本出名作《大空头》的时候，准备看看原版的了。&lt;/p&gt;
 
@@ -995,7 +1435,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;uwsgi-documenthttpsuwsgi-docsreadthedocsioenlatest&quot;&gt;1.4 &lt;a href=&quot;https://uwsgi-docs.readthedocs.io/en/latest/&quot;&gt;uwsgi document&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;14-uwsgi-document&quot;&gt;1.4 &lt;a href=&quot;https://uwsgi-docs.readthedocs.io/en/latest/&quot;&gt;uwsgi document&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;这是 uwsgi 的官方文档，因为之前用 uwsgi 发现一些问题，所以准备系统的看看官方文档。虽然 uwsgi 的文档有的地方写得很简单，不好理解，官方也没有例子来讲解，但是看了之后还是收获多多的。&lt;/p&gt;
 
@@ -1003,7 +1443,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;gunicorn-documenthttpdocsgunicornorgenlatestinstrumentationhtml&quot;&gt;1.5 &lt;a href=&quot;http://docs.gunicorn.org/en/latest/instrumentation.html&quot;&gt;gunicorn document&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;15-gunicorn-document&quot;&gt;1.5 &lt;a href=&quot;http://docs.gunicorn.org/en/latest/instrumentation.html&quot;&gt;gunicorn document&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;之所以看了 uwsgi 的文档，还想看 gunicorn 的文档，有以下几个原因：&lt;/p&gt;
 
@@ -1018,7 +1458,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;scala-schoolhttpstwittergithubioscalaschoolzhcnindexhtml&quot;&gt;1.6 &lt;a href=&quot;https://twitter.github.io/scala_school/zh_cn/index.html&quot;&gt;scala school&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;16-scala-school&quot;&gt;1.6 &lt;a href=&quot;https://twitter.github.io/scala_school/zh_cn/index.html&quot;&gt;scala school&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;最近想学学 scala，于是找到了 twitter 出的这个在线 scala 教程，个人觉得虽然不错，但似乎不太合我自己的口味，准备换一本书系统的读读。&lt;/p&gt;
 
@@ -1026,7 +1466,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;httpswwwamazoncne4b880e79c8be5b0b1e68782e79a84e696b0e585ace58fb8e5bc80e58a9ee585a8e59bbee8a7a3-e69da8e5b08fe4b8bddpb01g8jlk9grefsr11sbooksieutf8qid1479100767sr1-1keywordse4b880e79c8be5b0b1e68782e79a84e696b0e585ace58fb8e5bc80e58a9ee585a8e59bbee8a7a3&quot;&gt;1.7 &lt;a href=&quot;https://www.amazon.cn/%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3-%E6%9D%A8%E5%B0%8F%E4%B8%BD/dp/B01G8JLK9G/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1479100767&amp;amp;sr=1-1&amp;amp;keywords=%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3&quot;&gt;一看就懂的新公司开办全图解&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;17-一看就懂的新公司开办全图解&quot;&gt;1.7 &lt;a href=&quot;https://www.amazon.cn/%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3-%E6%9D%A8%E5%B0%8F%E4%B8%BD/dp/B01G8JLK9G/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1479100767&amp;amp;sr=1-1&amp;amp;keywords=%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%9A%84%E6%96%B0%E5%85%AC%E5%8F%B8%E5%BC%80%E5%8A%9E%E5%85%A8%E5%9B%BE%E8%A7%A3&quot;&gt;一看就懂的新公司开办全图解&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;最近买了一套创业的大白书来看，这是其中一本。首先内容上来说，对我这种大白真的是够用了，当然政策一直在变，也许到自己真正创业的时候，很多东西都会不一样了。但是我一贯的看法是：万变不离其宗。就算规则，政策变了，只要自己掌握一些标准的流程怎么走，到时候直接电话去相关机构问就行了，再怎么说也不会无头苍蝇乱撞。再说说看完后的感受，尼玛就是8个字：想开个公司真心难。一系列的开公司前的准备，过程中要办那么多证件，开完后要考虑招人，财务等等。关键最后还看到公司所得税那部分，尼玛居然要 25% 的所得税，这下终于知道为啥有辣么多公司要逃税漏税了，这赋税真心太重了啊。以后自己要是开公司了，一定找几个学税法的同学想想怎么 &lt;code class=&quot;highlighter-rouge&quot;&gt;交税&lt;/code&gt;。&lt;/p&gt;
 
@@ -1034,7 +1474,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;best-python-problems-on-stackoverflowhttpstackoverflowcomquestionstaggedpython&quot;&gt;1.8 &lt;a href=&quot;http://stackoverflow.com/questions/tagged/python&quot;&gt;Best Python Problems on Stackoverflow&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;18-best-python-problems-on-stackoverflow&quot;&gt;1.8 &lt;a href=&quot;http://stackoverflow.com/questions/tagged/python&quot;&gt;Best Python Problems on Stackoverflow&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;都说想要了解一座城，最好的方法就是去走走。我认为要想深入了解一门语言，除了读书，实践，更好的方法是去社区看看，看看大家在这门语言上都遇到过哪些问题，以及怎样去解决这些问题的。所以我整理了一些我觉得比较有意义的问题，在这篇文章中，不间断更新。&lt;/p&gt;
 
@@ -1042,7 +1482,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;1.9 &lt;a href=&quot;&quot;&gt;超简交易：交易高手速成手册&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;19-超简交易交易高手速成手册&quot;&gt;1.9 &lt;a href=&quot;&quot;&gt;超简交易：交易高手速成手册&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;这是在 &lt;code class=&quot;highlighter-rouge&quot;&gt;超简交易&lt;/code&gt; 这个公众号整理的一本电子书，全书有将近 400 页，内容整理得还是非常好的。之前原本打算把这个公众号的一些文章整理来系统的看看，后来居然出了本电子书，不得不赞一下。本书内容还行，着重讲概念，例子也很仔细，可以粗看一遍，在后期应用的时候再回来细读，遇到再细节的问题的时候，就可以查查其他书籍了。&lt;/p&gt;
 
@@ -1050,7 +1490,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;httpswwwamazoncne98791e89e8de5b882e59cbae4b88ee98791e89e8de69cbae69e84-e5bc97e99bb7e5beb7e9878ce5858b-s-e7b1b3e4bb80e98791-e696afe59da6e588a9-g-e59f83e98791e696af-e89197dpb00ufdw1ae&quot;&gt;1.10 &lt;a href=&quot;https://www.amazon.cn/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%8E%E9%87%91%E8%9E%8D%E6%9C%BA%E6%9E%84-%E5%BC%97%E9%9B%B7%E5%BE%B7%E9%87%8C%E5%85%8B-S-%E7%B1%B3%E4%BB%80%E9%87%91-%E6%96%AF%E5%9D%A6%E5%88%A9-G-%E5%9F%83%E9%87%91%E6%96%AF-%E8%91%97/dp/B00UFDW1AE&quot;&gt;金融市场与金融机构（原书第7版） (华章教材经典译丛) 第1，2，3章&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;110-金融市场与金融机构原书第7版-华章教材经典译丛-第123章&quot;&gt;1.10 &lt;a href=&quot;https://www.amazon.cn/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%8E%E9%87%91%E8%9E%8D%E6%9C%BA%E6%9E%84-%E5%BC%97%E9%9B%B7%E5%BE%B7%E9%87%8C%E5%85%8B-S-%E7%B1%B3%E4%BB%80%E9%87%91-%E6%96%AF%E5%9D%A6%E5%88%A9-G-%E5%9F%83%E9%87%91%E6%96%AF-%E8%91%97/dp/B00UFDW1AE&quot;&gt;金融市场与金融机构（原书第7版） (华章教材经典译丛) 第1，2，3章&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;这本书是配合 coursera 上的课程 &lt;a href=&quot;https://www.coursera.org/learn/financial-markets/home/info&quot;&gt;Basic Principles of Finance and Risk Management&lt;/a&gt; 来看的。目前这门课程我的安排是每个月上 3～4 个 week，然后再配合看 &lt;a href=&quot;&quot;&gt;金融市场与金融机构&lt;/a&gt; 这本书的一些章节。首先需要明确的是，这本书和 coursera 上的课程并不是完全匹配的，但是都是讲金融市场和金融机构的，coursera 上的相对要讲得简单一点，毕竟是网络课程，看这本书可以更加深入，系统的了解相关知识。此外，我是看 kindle 版本的，质量确实很好，书的内容本身也写得非常好。&lt;/p&gt;
 
@@ -1058,7 +1498,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;httpswwwamazoncne9878fe58c96e68a95e8b584-e7ad96e795a5e4b88ee68a80e69caf-e4b881e9b98fdpb00ff1y1ekrefsr11ieutf8qid1480381034sr8-1keywordse9878fe58c96e68a95e8b584e28094e7ad96e795a5e4b88ee68a80e69caf&quot;&gt;1.11 &lt;a href=&quot;https://www.amazon.cn/%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84-%E7%AD%96%E7%95%A5%E4%B8%8E%E6%8A%80%E6%9C%AF-%E4%B8%81%E9%B9%8F/dp/B00FF1Y1EK/ref=sr_1_1?ie=UTF8&amp;amp;qid=1480381034&amp;amp;sr=8-1&amp;amp;keywords=%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E2%80%94%E7%AD%96%E7%95%A5%E4%B8%8E%E6%8A%80%E6%9C%AF&quot;&gt;量化投资—策略与技术&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;111-量化投资策略与技术&quot;&gt;1.11 &lt;a href=&quot;https://www.amazon.cn/%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84-%E7%AD%96%E7%95%A5%E4%B8%8E%E6%8A%80%E6%9C%AF-%E4%B8%81%E9%B9%8F/dp/B00FF1Y1EK/ref=sr_1_1?ie=UTF8&amp;amp;qid=1480381034&amp;amp;sr=8-1&amp;amp;keywords=%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E2%80%94%E7%AD%96%E7%95%A5%E4%B8%8E%E6%8A%80%E6%9C%AF&quot;&gt;量化投资—策略与技术&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;这个月也把丁鹏的这本书给看了，网上关于这本书的讨论很多，有喷的，有喷的，还有喷的。就我个人来看，我确实承认这本书里面的内容有的地方也许有一些问题，但是还不至于到大家所说的那个地步，当然我也不相信丁鹏所说的他自己的那个 d-alpha 系统了。原因很简单，这本书目前应该就卖出7500本左右。假设后期又加印了，那比如说卖出了 10000 本，每本定价 99 元，那总共也才卖了 99w，一般写书稿费有按页数算的，也有按销量提成的。如果按照最高提成【20%左右】来算的话，写这本书也才能赚个 99w * 20%，20w 左右。乍看起来还不错，可是自己想想，如果你自己真有这么多好的投资系统和策略，赚这 20w 不是轻轻松松的吗？干嘛还要写书呢【当然如果花个万儿八千雇个大学生当枪手就不一定了，哈哈】。&lt;/p&gt;
 
@@ -1070,7 +1510,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;推荐指数：&lt;code class=&quot;highlighter-rouge&quot;&gt;* * * *&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;2. 看片儿&lt;/h2&gt;
+&lt;h2 id=&quot;2-看片儿&quot;&gt;2. 看片儿&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.ted.com/talks/bettina_warburg_how_the_blockchain_will_radically_transform_the_economy&quot;&gt;How the blockchain will radically transform the economy&lt;/a&gt;&lt;/li&gt;
@@ -1117,7 +1557,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
   &lt;p&gt;非常非常非常赞的一个 talk，主讲人也超有魅力的哦。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;3. 博文推荐&lt;/h2&gt;
+&lt;h2 id=&quot;3-博文推荐&quot;&gt;3. 博文推荐&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA5MDAxMjcwOQ==&amp;amp;mid=2447614867&amp;amp;idx=1&amp;amp;sn=43059c321ee677439178f5d034343528&amp;amp;chksm=84052ed9b372a7cfde9abf42516e3916c601febb4b3e79cd4edec4a2eee625119ad14d9d7667&amp;amp;mpshare=1&amp;amp;scene=2&amp;amp;srcid=101113deGruE0jtN53Y4NSMy&amp;amp;key=c50f8b988e61749a567ba477763007f4301bfaff3d7790f6ebe4d3f8ced508919dc8c96eda38bbb62d63bfd8c073e283&amp;amp;ascene=0&amp;amp;uin=MTAzNTc2NzM4Mg%3D%3D&amp;amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.12+build(16A323)&amp;amp;version=11020201&amp;amp;pass_ticket=DcoELySNvbXVGG7G%2BfzkWJ2yAN%2BDritBJteCurcvOPD4pmdqdOdBdRT%2Bjw59klVv&quot;&gt;吴军博士硅谷第一封来信：不做伪工作者&lt;/a&gt;&lt;/li&gt;
@@ -1182,7 +1622,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
   &lt;p&gt;留富兵法周报挺不错的，尝试自己实现到策略里看看。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section-6&quot;&gt;4. 优质产品&lt;/h2&gt;
+&lt;h2 id=&quot;4-优质产品&quot;&gt;4. 优质产品&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://coggle.it/&quot;&gt;https://coggle.it/&lt;/a&gt;&lt;/li&gt;
@@ -1190,7 +1630,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
 
 &lt;p&gt;优质在线思维导图。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-7&quot;&gt;5. 读书总结系列&lt;/h2&gt;
+&lt;h2 id=&quot;5-读书总结系列&quot;&gt;5. 读书总结系列&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;../books-recommend-and-summarize-on-mar-2016&quot;&gt;『 读书笔记 』3月读书总结和推荐&lt;/a&gt;&lt;/li&gt;
@@ -1208,7 +1648,7 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
      <link href="/python-stackoverflow-question"/>
      <updated>2016-11-11T00:00:00+08:00</updated>
      <id>/python-stackoverflow-question</id>
-     <content type="html">&lt;h2 id=&quot;python-stackoverflow-&quot;&gt;Python Stackoverflow 经典问题&lt;/h2&gt;
+     <content type="html">&lt;h2 id=&quot;python-stackoverflow-经典问题&quot;&gt;Python Stackoverflow 经典问题&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do&quot;&gt;What does the “yield” keyword do?&lt;/a&gt;&lt;/li&gt;
@@ -1236,214 +1676,6 @@ y&lt;span class=&quot;p&quot;&gt;_{&lt;/span&gt;11&lt;span class=&quot;p&quot;&g
   &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-</content>
-   </entry>
-   
-   <entry>
-     <title>『 Spark 』13. Spark 2.0 Release Notes 中文版</title>
-     <link href="/spark-2.0-release-notes-zh"/>
-     <updated>2016-09-13T00:00:00+08:00</updated>
-     <id>/spark-2.0-release-notes-zh</id>
-     <content type="html">&lt;h2 id=&quot;section&quot;&gt;写在前面&lt;/h2&gt;
-
-&lt;p&gt;本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。&lt;/p&gt;
-
-&lt;p&gt;其次，本系列是基于目前最新的 spark 1.6.0 系列开始的，spark 目前的更新速度很快，记录一下版本号还是必要的。 &lt;br /&gt;
-最后，如果各位觉得内容有误，欢迎留言备注，所有留言 24 小时内必定回复，非常感谢。&lt;/p&gt;
-
-&lt;p&gt;Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 &lt;em&gt;present mode&lt;/em&gt; 哦。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Notes&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;本篇开始，会渐渐的把版本升级到 2.0 上，后续的文章也会逐渐基于 2.0 来写；前面的文章就不改了，反正都是换汤不换药;&lt;/li&gt;
-  &lt;li&gt;本篇是上一篇文章的升级版，关于 spark 2.0 的大概介绍可以直接看上一篇文章，本篇文章是因为最近项目准备从 1.6.1 升级到 2.0，需要对 2.0 有一个整体的了解，所以索性读一遍 2.0 的 release notes，也随手把 release notes 的中文版写下来咯;&lt;/li&gt;
-  &lt;li&gt;虽说是中文版，但是一切都是以能理解为主，有的地方不知道怎么翻译，或者我觉得没有必要翻译的，就没有写成中文了，当然欢迎大家提出修改建议了～&lt;/li&gt;
-  &lt;li&gt;如果要急着陪女票的话，推荐直接看最后的 &lt;em&gt;7. Spark 2.0, 必须知道的几个点&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上一篇文章： 
-&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter&quot;&gt;『 Spark 』12. Spark 2.0  | 10 个特性介绍&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;api-stability&quot;&gt;1. API Stability&lt;/h2&gt;
-
-&lt;p&gt;spark 保证 2.x 中非实验性的 api 的稳定性，2.x 中大部分 api 都与 1.x 中保持一致，但是删除了一些 api，更新了一些 api，并且有部分 api 打算在后续升级中移除，具体见下面，完整的列表参考：&lt;a href=&quot;https://issues.apache.org/jira/browse/SPARK-11806&quot;&gt;Spark 2.0 deprecations and removals&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;removals-api&quot;&gt;1.1 Removals API&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Bagel&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;不支持 Hadoop 2.1 及之前老版本&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;The ability to configure closure serializer [闭包序列化？]&lt;/li&gt;
-  &lt;li&gt;HTTPBroadcast&lt;/li&gt;
-  &lt;li&gt;TTL-based metadata cleaning&lt;/li&gt;
-  &lt;li&gt;删除 org.apache.spark.Logging，推荐直接食用 slf4j 包&lt;/li&gt;
-  &lt;li&gt;SparkContext.metricsSystem&lt;/li&gt;
-  &lt;li&gt;Block-oriented integration with Tachyon (subsumed by file system integration)&lt;/li&gt;
-  &lt;li&gt;删掉在 1.x 中标注为 deprecated 的 api&lt;/li&gt;
-  &lt;li&gt;Methods on Python DataFrame that returned RDDs (map, flatMap, mapPartitions, etc). They are still available in dataframe.rdd field, e.g. dataframe.rdd.map.&lt;/li&gt;
-  &lt;li&gt;Less frequently used streaming connectors, including Twitter, Akka, MQTT, ZeroMQ [不知道为啥要删掉这些 api，估计是因为 structure streaming 改动比较大，难以实现这些 connector 吧]&lt;/li&gt;
-  &lt;li&gt;Hash-based shuffle manager&lt;/li&gt;
-  &lt;li&gt;History serving functionality from standalone Master&lt;/li&gt;
-  &lt;li&gt;For Java and Scala, DataFrame no longer exists as a class. As a result, data sources would need to be updated.&lt;/li&gt;
-  &lt;li&gt;Spark EC2 script 被迁移到另外一个 repo，本身与 spark 框架无关&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;behavior-changes-api&quot;&gt;1.2 Behavior Changes API&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;默认使用 scala 2.11 编译，之前默认是 2.10&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;sparksql 中，float 数据类型被解析成 decimal 类型，之前是被解析成 double 类型&lt;/li&gt;
-  &lt;li&gt;Kryo 升级到 3.0&lt;/li&gt;
-  &lt;li&gt;java 中，RDD.flatMap 和 RDD.mapPartitions 中的函数不需要返回所有数据，只需要能返回一个迭代器即可&lt;/li&gt;
-  &lt;li&gt;Java RDD’s countByKey and countAprroxDistinctByKey now returns a map from K to java.lang.Long, rather than to java.lang.Object.&lt;/li&gt;
-  &lt;li&gt;When writing Parquet files, the summary files are not written by default. To re-enable it, users must set “parquet.enable.summary-metadata” to true.&lt;/li&gt;
-  &lt;li&gt;The DataFrame-based API (spark.ml) now depends upon local linear algebra in spark.ml.linalg, rather than in spark.mllib.linalg.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;deprecations&quot;&gt;1.3 Deprecations&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Mesos 中的 Fine-grained 模式&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;不支持 Java 7&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;不支持 Support for Python 2.6&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;core-and-spark-sql&quot;&gt;2. Core and Spark SQL&lt;/h2&gt;
-
-&lt;h3 id=&quot;programming-apis&quot;&gt;2.1 Programming APIs&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；&lt;/li&gt;
-  &lt;li&gt;新的 streaming 配置；&lt;/li&gt;
-  &lt;li&gt;新的 accumulator API；&lt;/li&gt;
-  &lt;li&gt;A new, improved Aggregator API for typed aggregation in Datasets&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;sql&quot;&gt;2.2 SQL&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;Spark 2.0 完全支持 SQL2003 标准.&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;更原生带 sql 解析器；&lt;/li&gt;
-  &lt;li&gt;Native DDL command implementations&lt;/li&gt;
-  &lt;li&gt;支持子查询，包括：
-    &lt;ul&gt;
-      &lt;li&gt;Uncorrelated Scalar Subqueries&lt;/li&gt;
-      &lt;li&gt;Correlated Scalar Subqueries&lt;/li&gt;
-      &lt;li&gt;NOT IN predicate Subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
-      &lt;li&gt;IN predicate subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
-      &lt;li&gt;(NOT) EXISTS predicate subqueries (in WHERE/HAVING clauses)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;View canonicalization support&lt;/li&gt;
-  &lt;li&gt;In addition, when building without Hive support, Spark SQL should have almost all the functionality as when building with Hive support, with the exception of Hive connectivity, Hive UDFs, and script transforms.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;new-features&quot;&gt;2.3 New Features&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;cache 和运行时的堆外内存管理&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;Hive style bucketing support&lt;/li&gt;
-  &lt;li&gt;Approximate summary statistics using sketches, including approximate quantile, Bloom filter, and count-min sketch.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;performance-and-runtime&quot;&gt;2.4 Performance and Runtime&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;2～10 倍的性能提升，得益于 whole stage code generation 方案；&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;改善 Parquet 文件的扫描性能&lt;/li&gt;
-  &lt;li&gt;改善 ORC performance&lt;/li&gt;
-  &lt;li&gt;改善 Catalyst query 优化器&lt;/li&gt;
-  &lt;li&gt;改善 window function&lt;/li&gt;
-  &lt;li&gt;Automatic file coalescing for native data sources&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;mllib&quot;&gt;3. MLlib&lt;/h2&gt;
-
-&lt;p&gt;在 2.x 中，DataFrame-based API 会是主要开发，维护的新的 mllib api。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ML persistence: The DataFrames-based API provides near-complete support for saving and loading ML models and Pipelines in Scala, Java, Python, and R. See &lt;a href=&quot;https://databricks.com/blog/2016/05/31/apache-spark-2-0-preview-machine-learning-model-persistence.html&quot;&gt;this blog&lt;/a&gt; post and the following JIRAs for details: SPARK-6725, SPARK-11939, SPARK-14311.&lt;/li&gt;
-  &lt;li&gt;MLlib in R: SparkR now offers MLlib APIs for generalized linear models, naive Bayes, k-means clustering, and survival regression.&lt;/li&gt;
-  &lt;li&gt;Python: PySpark now offers many more MLlib algorithms, including LDA, Gaussian Mixture Model, Generalized Linear Regression, and more.&lt;/li&gt;
-  &lt;li&gt;Algorithms added to DataFrames-based API: Bisecting K-Means clustering, Gaussian Mixture Model, MaxAbsScaler feature transformer.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;sparkr&quot;&gt;4. SparkR&lt;/h2&gt;
-
-&lt;p&gt;最大的改善是 2.x 中，sparkr 支持3个 udf: dapply, gapply, and lapply.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Improved algorithm coverage for machine learning in R, including naive Bayes, k-means clustering, and survival regression.&lt;/li&gt;
-  &lt;li&gt;Generalized linear models support more families and link functions.&lt;/li&gt;
-  &lt;li&gt;Save and load for all ML models.&lt;/li&gt;
-  &lt;li&gt;More DataFrame functionality: Window functions API, reader, writer support for JDBC, CSV, SparkSession&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;streaming&quot;&gt;5. Streaming&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;dependency-packaging-and-operations&quot;&gt;6. Dependency, Packaging, and Operations&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Spark 2.0 no longer requires a fat assembly jar for production deployment.&lt;/li&gt;
-  &lt;li&gt;Akka dependency has been removed, and as a result, user applications can program against any versions of Akka.&lt;/li&gt;
-  &lt;li&gt;Support launching multiple Mesos executors in coarse grained Mesos mode.&lt;/li&gt;
-  &lt;li&gt;Kryo version is bumped to 3.0.&lt;/li&gt;
-  &lt;li&gt;The default build is now using Scala 2.11 rather than Scala 2.10.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;spark-20-&quot;&gt;7. Spark 2.0, 必须知道的几个点&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不支持 Hadoop 2.1 及之前老版本&lt;/li&gt;
-  &lt;li&gt;默认使用 scala 2.11 编译，之前默认是 2.10&lt;/li&gt;
-  &lt;li&gt;Mesos 中的 Fine-grained 模式 [Deprecations]&lt;/li&gt;
-  &lt;li&gt;不支持 Java 7 [Deprecations]&lt;/li&gt;
-  &lt;li&gt;不支持 Support for Python 2.6 [Deprecations]&lt;/li&gt;
-  &lt;li&gt;Spark 2.0 完全支持 SQL2003 标准&lt;/li&gt;
-  &lt;li&gt;原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；&lt;/li&gt;
-  &lt;li&gt;SparkSession: 新的spark 程序入口，SQLContext 和 HiveContext 仍然可用；&lt;/li&gt;
-  &lt;li&gt;sql中 2～10 倍的性能提升，得益于 whole stage code generation 方案；&lt;/li&gt;
-  &lt;li&gt;统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；&lt;/li&gt;
-  &lt;li&gt;cache 和运行时的堆外内存管理&lt;/li&gt;
-  &lt;li&gt;新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;14. 打开微信，扫一扫，点一点，棒棒的，^_^&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;../images/wechat_pay_6-6.png&quot; alt=&quot;wechat_pay_6-6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;参考文章&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://spark.apache.org/releases/spark-release-2-0-0.html&quot;&gt;Spark Release 2.0.0&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://issues.apache.org/jira/browse/SPARK-11806&quot;&gt;Spark 2.0 deprecations and removals&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spark-summit.org/2016/events/apache-spark-mllib-20-preview-data-science-and-production/&quot;&gt;APACHE SPARK MLLIB 2.0 PREVIEW: DATA SCIENCE AND PRODUCTION&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;本系列文章链接&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/introduction-to-spark?s=inner&quot;&gt;『 Spark 』1. spark 简介 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-questions-concepts?s=inner&quot;&gt;『 Spark 』2. spark 基本概念解析 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-programming-model?s=inner&quot;&gt;『 Spark 』3. spark 编程模式 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-what-is-rdd?s=inner&quot;&gt;『 Spark 』4. spark 之 RDD &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-resouces-blogs-paper?s=inner&quot;&gt;『 Spark 』5. 这些年，你不能错过的 spark 学习资源 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/deep-into-spark-exection-model?s=inner&quot;&gt;『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-dataframe-introduction?s=inner&quot;&gt;『 Spark 』7. 使用 Spark DataFrame 进行大数据分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-in-finance-and-investing?s=inner&quot;&gt;『 Spark 』8. 实战案例 ｜ Spark 在金融领域的应用 ｜ 日内走势预测&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/ipython-notebook-spark?s=inner&quot;&gt;『 Spark 』9. 搭建 IPython + Notebook + Spark 开发环境&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/boost-spark-application-performance?s=inner&quot;&gt;『 Spark 』10. spark 应用程序性能优化｜12 个优化方法&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-mlib-machine-learning?s=inner&quot;&gt;『 Spark 』11. spark 机器学习&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-faster-easier-smarter?s=inner&quot;&gt;『 Spark 』12. Spark 2.0 特性介绍&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-2.0-release-notes-zh?s=inner&quot;&gt;『 Spark 』13. Spark 2.0 Release Notes 中文版 &lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://litaotao.github.io/spark-sql-parquet-optimize?s=inner&quot;&gt;『 Spark 』14. 一次 Spark SQL 性能优化之旅&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
    </entry>
    

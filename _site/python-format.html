@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">1. 位置参数</h2>
+    <h2 id="1-位置参数">1. 位置参数</h2>
 
 <p>字符串的format函数可以接受不限个参数，位置可以不按顺序，可以不用或者用多次，不过2.6不能为空{}，2.7才可以。
 值得注意的是，<code class="highlighter-rouge">位置可以不按顺序，可以不用或者用多次</code>，再结合下面的例子，可以发现，这里的位置参数其实和关键字参数是一样的，只是这里的关键字是位置的下标而已了。</p>
@@ -140,12 +141,12 @@
 <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="s">'{0[0]},{0[1]}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="s">'kzc,18'</span></code></pre></figure>
 
-<h2 id="section-1">2. 通过关键字参数</h2>
+<h2 id="2-通过关键字参数">2. 通过关键字参数</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'{name},{age}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">'kzc'</span><span class="p">)</span>  
 <span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s">'kzc,18'</span></code></pre></figure>
 
-<h2 id="section-2">3. 对象属性</h2>
+<h2 id="3-对象属性">3. 对象属性</h2>
 
 <p>这是很多对象的 <code class="highlighter-rouge">str</code>, <code class="highlighter-rouge">__str__</code>, <code class="highlighter-rouge">__repr__</code> 方法的实现。关于这三个方法的区别，可以简单的理解为下面几点：</p>
 
@@ -161,7 +162,7 @@
         <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
             <span class="k">return</span> <span class="s">'This guy is {self.name},is {self.age} old'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>  </code></pre></figure>
 
-<h2 id="section-3">4. 格式限定符 - 填充与对齐</h2>
+<h2 id="4-格式限定符---填充与对齐">4. 格式限定符 - 填充与对齐</h2>
 
 <p>不好解释，解释了还是得看例子才明白，直接看例子吧，哈哈。</p>
 
@@ -196,7 +197,7 @@
 <span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="s">'{:0^9}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="s">'00hello00'</span></code></pre></figure>
 
-<h2 id="section-4">5. 精度与类型</h2>
+<h2 id="5-精度与类型">5. 精度与类型</h2>
 
 <ul>
   <li>f : float类型</li>
@@ -222,11 +223,11 @@
 <span class="n">In</span> <span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="s">'{:,}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="s">'1,234,567,890'</span></code></pre></figure>
 
-<h2 id="section-5">6. 完善的格式文档</h2>
+<h2 id="6-完善的格式文档">6. 完善的格式文档</h2>
 
 <p><img src="../images/python_str_format.jpg" alt="python_str_format.jpg" /></p>
 
-<h2 id="vs-format">7. % VS format</h2>
+<h2 id="7--vs-format">7. % VS format</h2>
 
 <p>我一直都喜欢用 <code class="highlighter-rouge">format</code> ，不知道为什么，可能喜欢一种写法也是不需要原因的吧，哈哈。其它的，可以在这里找到一大堆说法。</p>
 
@@ -234,7 +235,7 @@
   <li><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format">python-string-formatting-vs-format</a></li>
 </ul>
 
-<h2 id="section-6">参考文档</h2>
+<h2 id="参考文档">参考文档</h2>
 
 <ul>
   <li><a href="http://blog.csdn.net/handsomekang/article/details/9183303">飘逸的python - 增强的格式化字符串format函数</a></li>
@@ -263,7 +264,7 @@
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/python-format data-title=Python format 笔记 
-             data-url=http://litaotao.github.io/+/python-format></div>
+             data-url=http://localhost:4000+/python-format></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

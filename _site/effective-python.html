@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,9 +123,9 @@
     </p>
 
 
-    <h2 id="pythonic-thinking">1. Pythonic Thinking</h2>
+    <h2 id="1-pythonic-thinking">1. Pythonic Thinking</h2>
 
-<h3 id="know-which-version-of-python-youre-using">1.1 know which version of python you’re using</h3>
+<h3 id="11-know-which-version-of-python-youre-using">1.1 know which version of python you’re using</h3>
 
 <ul>
   <li>two major python version;</li>
@@ -133,7 +134,7 @@
   <li>prefer python 3 in your next project;</li>
 </ul>
 
-<h3 id="follow-the-pep-8-style-guide">1.2 follow the pep 8 style guide</h3>
+<h3 id="12-follow-the-pep-8-style-guide">1.2 follow the pep 8 style guide</h3>
 
 <ul>
   <li>always follow the pep 8 style guide;</li>
@@ -141,7 +142,7 @@
   <li>using a consistent style, making it easier to maintain your code later;</li>
 </ul>
 
-<h3 id="know-the-differences-between-bytes-str-and-unicode">1.3 know the differences between bytes, str and unicode</h3>
+<h3 id="13-know-the-differences-between-bytes-str-and-unicode">1.3 know the differences between bytes, str and unicode</h3>
 
 <ul>
   <li><a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html">PYTHON-进阶-编码处理小结</a></li>
@@ -151,7 +152,7 @@
   <li>if you want to read or write binary data to/from a file, always open the file using a binary mode (like ‘rb’, ‘wb’);</li>
 </ul>
 
-<h3 id="wirte-helper-functions-instead-of-complex-expressions">1.4 wirte helper functions instead of complex expressions</h3>
+<h3 id="14-wirte-helper-functions-instead-of-complex-expressions">1.4 wirte helper functions instead of complex expressions</h3>
 
 <ul>
   <li>python’s syntax make it easy to write a single line expression that are overly difficult to read;</li>
@@ -159,14 +160,14 @@
   <li>the <code class="highlighter-rouge">if/else</code> expression make it more readable to alternative using bool operators like <code class="highlighter-rouge">and</code> and <code class="highlighter-rouge">or</code>;</li>
 </ul>
 
-<h3 id="know-how-to-slice-sequence">1.5 know how to slice sequence</h3>
+<h3 id="15-know-how-to-slice-sequence">1.5 know how to slice sequence</h3>
 
 <ul>
   <li>avoid being verbose, do not use [0] and [len(sequence)] to fetch the first or end element of a sequence;</li>
   <li>assign to a list slice will replace the origin data in that slice part even if the new data’s length does not equal with the old one;</li>
 </ul>
 
-<h3 id="avoid-using-start-end-and-stride-in-a-single-slice">1.6 avoid using start, end and stride in a single slice</h3>
+<h3 id="16-avoid-using-start-end-and-stride-in-a-single-slice">1.6 avoid using start, end and stride in a single slice</h3>
 
 <ul>
   <li>specifying start, end and stride in a slice can be extremely confusing;</li>
@@ -174,7 +175,7 @@
   <li>avoid using start, end and stride in a single slice, consider doing two assignments(one to slice, the other to stride) or using islice from the itertools module;</li>
 </ul>
 
-<h3 id="use-list-comprehension-instead-of-map-and-filter">1.7 use list comprehension instead of map and filter</h3>
+<h3 id="17-use-list-comprehension-instead-of-map-and-filter">1.7 use list comprehension instead of map and filter</h3>
 
 <ul>
   <li>list comprehension is more clearer than map and filter because it does not need another <code class="highlighter-rouge">lambda</code> expression;</li>
@@ -182,14 +183,14 @@
   <li>dict and set also support comprehension;</li>
 </ul>
 
-<h3 id="avoid-more-than-two-expressions-in-list-comprehension">1.8 avoid more than two expressions in list comprehension</h3>
+<h3 id="18-avoid-more-than-two-expressions-in-list-comprehension">1.8 avoid more than two expressions in list comprehension</h3>
 
 <ul>
   <li>list comprehension support multiple levels of loops and multiple conditions per loop;</li>
   <li>list comprehension with two expressions are difficult to read in some degree;</li>
 </ul>
 
-<h3 id="consider-generator-for-large-list-comprehension">1.9 consider generator for large list comprehension</h3>
+<h3 id="19-consider-generator-for-large-list-comprehension">1.9 consider generator for large list comprehension</h3>
 
 <ul>
   <li>list comprehension can consume large memory for large input;</li>
@@ -197,7 +198,7 @@
   <li>generator can execute very quickly when chained together;</li>
 </ul>
 
-<h3 id="prefer-enumerate-over-range">1.10 prefer enumerate over range</h3>
+<h3 id="110-prefer-enumerate-over-range">1.10 prefer enumerate over range</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="k">print</span> <span class="s">'index : {}, item : {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></code></pre></figure>
@@ -208,7 +209,7 @@
   <li>you can specify a number to the enumerate function, specifying the index you want to iterate with;</li>
 </ul>
 
-<h3 id="use-zip-to-process-iterators-in-parallel">1.11 use zip to process iterators in parallel</h3>
+<h3 id="111-use-zip-to-process-iterators-in-parallel">1.11 use zip to process iterators in parallel</h3>
 
 <ul>
   <li>the <code class="highlighter-rouge">zip</code> can be used to iterate over multiple iterators;</li>
@@ -216,24 +217,24 @@
   <li><code class="highlighter-rouge">zip</code> truncates it’s output silently if you supply it with different length, if you cannot lose any data, use the <code class="highlighter-rouge">zip_longest</code> from <code class="highlighter-rouge">itertools</code>;</li>
 </ul>
 
-<h3 id="avoid-else-blocks-after-for-and-while-loops">1.12 avoid else blocks after for and while loops</h3>
+<h3 id="112-avoid-else-blocks-after-for-and-while-loops">1.12 avoid else blocks after for and while loops</h3>
 
-<h3 id="take-advantage-of-each-block-in-tryexceptelsefinally">1.13 take advantage of each block in try/except/else/finally</h3>
+<h3 id="113-take-advantage-of-each-block-in-tryexceptelsefinally">1.13 take advantage of each block in try/except/else/finally</h3>
 
 <ul>
   <li>the <code class="highlighter-rouge">try/finally</code> statements let you run cleanup code regardless whether there is exceptions in your <code class="highlighter-rouge">try</code> block or not;</li>
 </ul>
 
-<h2 id="functions">2. functions</h2>
+<h2 id="2-functions">2. functions</h2>
 
-<h3 id="prefering-exceptions-to-return-none">2.1 prefering exceptions to return none</h3>
+<h3 id="21-prefering-exceptions-to-return-none">2.1 prefering exceptions to return none</h3>
 
 <ul>
   <li>functions that return <code class="highlighter-rouge">None</code> to indicate special meaning are error prone beacause <code class="highlighter-rouge">None</code> and other values (0, empty string, etc) are evaluated to <code class="highlighter-rouge">False</code> in the conditional expression;</li>
   <li>Raise exceptions to indicate special situations instead of returning <code class="highlighter-rouge">None</code>, expect the calling code to handle the exceptions properly;</li>
 </ul>
 
-<h3 id="know-how-closures-interactive-with-variable-scope">2.2 know how closures interactive with variable scope</h3>
+<h3 id="22-know-how-closures-interactive-with-variable-scope">2.2 know how closures interactive with variable scope</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">sort_priority</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
    <span class="o">...</span><span class="p">:</span>         <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -266,7 +267,7 @@
   </li>
 </ul>
 
-<h3 id="consider-generators-instead-of-returning-list">2.3 consider generators instead of returning list</h3>
+<h3 id="23-consider-generators-instead-of-returning-list">2.3 consider generators instead of returning list</h3>
 
 <ul>
   <li>using generators can be clearer than the alternative of returning lists of accumulated results;</li>
@@ -274,9 +275,9 @@
   <li>generators can produce a sequence of outputs for arbitrarily large inputs because their working memory doesn’t include all inputs and outputs;</li>
 </ul>
 
-<h3 id="be-defensive-when-iterating-over-arguments">2.4 be defensive when iterating over arguments</h3>
+<h3 id="24-be-defensive-when-iterating-over-arguments">2.4 be defensive when iterating over arguments</h3>
 
-<h3 id="reduce-visual-noise-with-variable-positional-arguments">2.5 reduce visual noise with variable positional arguments</h3>
+<h3 id="25-reduce-visual-noise-with-variable-positional-arguments">2.5 reduce visual noise with variable positional arguments</h3>
 
 <ul>
   <li>functions can accept a variable number of positional arguments by using <code class="highlighter-rouge">*args</code> in the def statement;</li>
@@ -285,7 +286,7 @@
   <li>adding new positional parameters to functions that accept <code class="highlighter-rouge">*args</code> can introduce hard-to-find bugs;</li>
 </ul>
 
-<h3 id="provide-optional-behavior-with-keyword-argument">2.6 provide optional behavior with keyword argument</h3>
+<h3 id="26-provide-optional-behavior-with-keyword-argument">2.6 provide optional behavior with keyword argument</h3>
 
 <ul>
   <li>function arguments can be positional or keyword arguments;</li>
@@ -294,7 +295,7 @@
   <li>optional keyword should always be passed using keyword argument other than positional argument;</li>
 </ul>
 
-<h3 id="use-none-and-docstrings-to-specify-dynamic-default-arguments">2.7 use none and docstrings to specify dynamic default arguments</h3>
+<h3 id="27-use-none-and-docstrings-to-specify-dynamic-default-arguments">2.7 use none and docstrings to specify dynamic default arguments</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># when the function is defined, default argument values are evaluated just once per module at the loading time.</span>
 
@@ -310,7 +311,7 @@
   <li>default argument values are only evaluated once;</li>
 </ul>
 
-<h3 id="enforce-clarity-with-keyword-only-argument">2.8 enforce clarity with keyword only argument</h3>
+<h3 id="28-enforce-clarity-with-keyword-only-argument">2.8 enforce clarity with keyword only argument</h3>
 
 <ul>
   <li>keyword argument make the intention of the function more clear;</li>
@@ -319,9 +320,9 @@
   <li>python 2 can emulate keyword only argument by using <code class="highlighter-rouge">**kwargs</code> and manually throw <code class="highlighter-rouge">TypeError</code> exception;</li>
 </ul>
 
-<h2 id="classes-and-inheritance">3. Classes and Inheritance</h2>
+<h2 id="3-classes-and-inheritance">3. Classes and Inheritance</h2>
 
-<h3 id="prefer-helper-classes-over-bookkeeping-with-dictionaries-and-tuples">3.1 prefer helper classes over bookkeeping with dictionaries and tuples</h3>
+<h3 id="31-prefer-helper-classes-over-bookkeeping-with-dictionaries-and-tuples">3.1 prefer helper classes over bookkeeping with dictionaries and tuples</h3>
 
 <ul>
   <li>avoid making dicts with values that are other dicts or long tuple;</li>
@@ -329,7 +330,7 @@
   <li>move your bookkeeping code to use multiple helper classes when your internal state dicts get complicated;</li>
 </ul>
 
-<h3 id="accept-functions-for-simple-interfaces-instead-of-classes">3.2 accept functions for simple interfaces instead of classes</h3>
+<h3 id="32-accept-functions-for-simple-interfaces-instead-of-classes">3.2 accept functions for simple interfaces instead of classes</h3>
 
 <ul>
   <li>instead of defining classes, functions are often all you need for simple interfaces between components in python;</li>
@@ -338,7 +339,7 @@
   <li>when you need a function to maintain state, consider defining a class that provides the <code class="highlighter-rouge">__call__</code> method instead of defining a stateful closure.</li>
 </ul>
 
-<h3 id="use-classmethod-polymorphism-to-construct-objects-generically">3.3 use @classmethod polymorphism to construct objects generically</h3>
+<h3 id="33-use-classmethod-polymorphism-to-construct-objects-generically">3.3 use @classmethod polymorphism to construct objects generically</h3>
 
 <ul>
   <li>python only supports a single constructor per class, the <code class="highlighter-rouge">__init__</code> method;</li>
@@ -346,14 +347,14 @@
   <li>use class method polymorphism to provide generic ways to build and connect concrete subclasses;</li>
 </ul>
 
-<h3 id="initialized-parent-classes-with-super">3.4 initialized parent classes with super</h3>
+<h3 id="34-initialized-parent-classes-with-super">3.4 initialized parent classes with super</h3>
 
 <ul>
   <li>python’s standard method to resolution order (MRO) solves the problems of superclass init order and diamond inheritance;</li>
   <li>always use the super built-in function to init parent classes;</li>
 </ul>
 
-<h3 id="use-multiple-inheritance-only-for-mix-in-utility-classes">3.5 use multiple inheritance only for mix-in utility classes</h3>
+<h3 id="35-use-multiple-inheritance-only-for-mix-in-utility-classes">3.5 use multiple inheritance only for mix-in utility classes</h3>
 
 <ul>
   <li>avoid using multiple inheritance if mix-in classes can achieve the same outcome;</li>
@@ -361,7 +362,7 @@
   <li>compose mix-ins to create complex functionality from simple behaviors;</li>
 </ul>
 
-<h3 id="prefer-public-attributes-over-private-ones">3.6 prefer public attributes over private ones</h3>
+<h3 id="36-prefer-public-attributes-over-private-ones">3.6 prefer public attributes over private ones</h3>
 
 <ul>
   <li>private attributes aren’t rigorously enforced by the python compiler;</li>
@@ -370,7 +371,7 @@
   <li>only consider using private attributes to avoid naming conflicts with subclasses that are out of your control;</li>
 </ul>
 
-<h3 id="inherit-from-collectionsabc-for-custom-container-types">3.7 inherit from collections.abc for custom container types</h3>
+<h3 id="37-inherit-from-collectionsabc-for-custom-container-types">3.7 inherit from collections.abc for custom container types</h3>
 
 <ul>
   <li>inherit directly from python’s container types (list, dict) for simple use cases;</li>
@@ -378,9 +379,9 @@
   <li>have your custom container types inherit from the interfaces defined in collections.abc to ensure that your classes match required interfaces and behaviors;</li>
 </ul>
 
-<h2 id="metaclasses-and-attributes">4. metaclasses and attributes</h2>
+<h2 id="4-metaclasses-and-attributes">4. metaclasses and attributes</h2>
 
-<h3 id="use-plain-attributes-instead-of-get-and-set-methods">4.1 use plain attributes instead of get and set methods</h3>
+<h3 id="41-use-plain-attributes-instead-of-get-and-set-methods">4.1 use plain attributes instead of get and set methods</h3>
 
 <ul>
   <li>define new class interfaces using simple public attributes and avoid set and get methods;</li>
@@ -389,7 +390,7 @@
   <li>ensure that @property methods are fast, do slow or complex work using normal methods;</li>
 </ul>
 
-<h3 id="consider-property-instead-of-refactoring-attributes">4.2 consider @property instead of refactoring attributes</h3>
+<h3 id="42-consider-property-instead-of-refactoring-attributes">4.2 consider @property instead of refactoring attributes</h3>
 
 <ul>
   <li>use @property to give existing instance attributes new functionality;</li>
@@ -397,7 +398,7 @@
   <li>consider refactoring a class and all call sites when you find yourself using @property too heavily;</li>
 </ul>
 
-<h3 id="use-descriptors-for-reusable-property-methods">4.3 use descriptors for reusable @property methods</h3>
+<h3 id="43-use-descriptors-for-reusable-property-methods">4.3 use descriptors for reusable @property methods</h3>
 
 <ul>
   <li>reuse the behavior and validation of @property methods by defining your own descriptor classes;</li>
@@ -405,7 +406,7 @@
   <li>don’t get bogged down trying to understand exactly how <code class="highlighter-rouge">__getattribute__</code> uses the descriptor protocol for getting and setting attrbutes;</li>
 </ul>
 
-<h3 id="use-getattr-getattribute-and-setattr-for-lazy-attributes">4.4 use <code class="highlighter-rouge">__getattr__</code>, <code class="highlighter-rouge">__getattribute__</code>, and <code class="highlighter-rouge">__setattr__</code> for lazy attributes</h3>
+<h3 id="44-use-__getattr__-__getattribute__-and-__setattr__-for-lazy-attributes">4.4 use <code class="highlighter-rouge">__getattr__</code>, <code class="highlighter-rouge">__getattribute__</code>, and <code class="highlighter-rouge">__setattr__</code> for lazy attributes</h3>
 
 <ul>
   <li>use <code class="highlighter-rouge">__getattr__</code> and <code class="highlighter-rouge">__setattr__</code> to lazily load and save attributes for an object;</li>
@@ -413,7 +414,7 @@
   <li>avoid infinite recursion in <code class="highlighter-rouge">__getattribute__</code> and <code class="highlighter-rouge">__setattr__</code> by using methods from super() to access instance attributes directly;</li>
 </ul>
 
-<h3 id="validate-subclass-with-metaclass">4.5 validate subclass with metaclass</h3>
+<h3 id="45-validate-subclass-with-metaclass">4.5 validate subclass with metaclass</h3>
 
 <ul>
   <li>use metaclasses to ensure that subclasses are well formed at the time they are defined, before objects of their type are constructed;</li>
@@ -421,7 +422,7 @@
   <li>the <code class="highlighter-rouge">__new__</code> method of metaclasses is run after the class statement’s entire body has been processed;</li>
 </ul>
 
-<h3 id="register-class-existence-with-metaclasses">4.6 register class existence with metaclasses</h3>
+<h3 id="46-register-class-existence-with-metaclasses">4.6 register class existence with metaclasses</h3>
 
 <ul>
   <li>class registeration is a helpful pattern for building modular python programs;</li>
@@ -429,7 +430,7 @@
   <li>using metaclasses for class register avoids errors by ensuring that you never miss a register call;</li>
 </ul>
 
-<h3 id="annotate-class-attributes-with-metaclasses">4.7 annotate class attributes with metaclasses</h3>
+<h3 id="47-annotate-class-attributes-with-metaclasses">4.7 annotate class attributes with metaclasses</h3>
 
 <ul>
   <li>metaclasses enable you to modify a class’s attributes before the class is fully defined;</li>
@@ -437,9 +438,9 @@
   <li>you can avoid both memory leaks and the weakref module by using metaclasses along with descriptors;</li>
 </ul>
 
-<h2 id="concurrenc-and-parallelism">5. concurrenc and parallelism</h2>
+<h2 id="5-concurrenc-and-parallelism">5. concurrenc and parallelism</h2>
 
-<h3 id="use-subprocess-to-manage-child-processes">5.1 use subprocess to manage child processes</h3>
+<h3 id="51-use-subprocess-to-manage-child-processes">5.1 use subprocess to manage child processes</h3>
 
 <ul>
   <li>use the subprocess module to run child processes and manage their input and output manually;</li>
@@ -447,7 +448,7 @@
   <li>use the timeout parameter with communicate to avoid deadlocks and hanging child proceses;</li>
 </ul>
 
-<h3 id="use-threads-for-blocking-io-avoid-for-parallelism">5.2 use threads for blocking i/o, avoid for parallelism</h3>
+<h3 id="52-use-threads-for-blocking-io-avoid-for-parallelism">5.2 use threads for blocking i/o, avoid for parallelism</h3>
 
 <ul>
   <li>python threads can’t run bytecode in parallel on multiple cpu cores because of the glow interpreter lock;</li>
@@ -455,7 +456,7 @@
   <li>use python threads to make multiple system calls in parallel, this allows you to do blocking io at the same time as computation;</li>
 </ul>
 
-<h3 id="use-lock-to-prevent-data-races-in-threads">5.3 use lock to prevent data races in threads</h3>
+<h3 id="53-use-lock-to-prevent-data-races-in-threads">5.3 use lock to prevent data races in threads</h3>
 
 <ul>
   <li>even though python has global interpreter lock, you’re still responsible for protecting against data races between the threads in your programs;</li>
@@ -463,7 +464,7 @@
   <li>the lock class in the threading built-in module is python’s standard mutual exclusion lock implementation;</li>
 </ul>
 
-<h3 id="use-queue-to-coordinate-work-between-threads">5.4 use queue to coordinate work between threads</h3>
+<h3 id="54-use-queue-to-coordinate-work-between-threads">5.4 use queue to coordinate work between threads</h3>
 
 <ul>
   <li>pipelines are a great way to organize sequences of work that run concurrently using multiple python threads;</li>
@@ -471,7 +472,7 @@
   <li>the queue class has all of the facilities you need to build robust pipelines: blocking operations, buffer sizes and joining;</li>
 </ul>
 
-<h3 id="consider-coroutines-to-run-many-functions-concurrently">5.5 consider coroutines to run many functions concurrently</h3>
+<h3 id="55-consider-coroutines-to-run-many-functions-concurrently">5.5 consider coroutines to run many functions concurrently</h3>
 
 <ul>
   <li>coroutines provie an efficient way to run tens of thousands of functions seemingly at the same time;</li>
@@ -480,7 +481,7 @@
   <li>python 2 doesn’t support yield from or returning values from generators;</li>
 </ul>
 
-<h3 id="consider-concurrentfutures-for-true-parallelism">5.6 consider concurrent.futures for true parallelism</h3>
+<h3 id="56-consider-concurrentfutures-for-true-parallelism">5.6 consider concurrent.futures for true parallelism</h3>
 
 <ul>
   <li>moving cpu bottlenecks to c-extension modules can be an effective way to improve performance while maximizing your investment in python code. however, the cost of doing so is high and may introduce bugs;</li>
@@ -489,9 +490,9 @@
   <li>the advanced parts of the multiprocessing module should be avoided because they are so complex;</li>
 </ul>
 
-<h2 id="built-in-modules">6. built-in modules</h2>
+<h2 id="6-built-in-modules">6. built-in modules</h2>
 
-<h3 id="define-functions-decorators-with-functoolswraps">6.1 define functions decorators with functools.wraps</h3>
+<h3 id="61-define-functions-decorators-with-functoolswraps">6.1 define functions decorators with functools.wraps</h3>
 
 <ul>
   <li>decorators are python syntax for allowing one function to modify another function at runtime;</li>
@@ -499,7 +500,7 @@
   <li>use the <code class="highlighter-rouge">wraps</code> decorator from the <code class="highlighter-rouge">functools</code> built-in modules when you define your own decorators to avoid any issues;</li>
 </ul>
 
-<h3 id="consider-contextlib-and-with-statements-for-reusable-tryfinally-behavior">6.2 consider contextlib and with statements for reusable try/finally behavior</h3>
+<h3 id="62-consider-contextlib-and-with-statements-for-reusable-tryfinally-behavior">6.2 consider contextlib and with statements for reusable try/finally behavior</h3>
 
 <ul>
   <li>the with statement allow you to reuse logic from try/finally blocks and reduce visual noise;</li>
@@ -507,7 +508,7 @@
   <li>the value yielded by context managers is supplied to the as part of the with statement. it’s useful for letting your code directly access the cause of the special context;</li>
 </ul>
 
-<h3 id="make-pickle-reliable-with-copyreg">6.3 make pickle reliable with copyreg</h3>
+<h3 id="63-make-pickle-reliable-with-copyreg">6.3 make pickle reliable with copyreg</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">the</span> <span class="n">pickle</span> <span class="n">module</span><span class="s">'s serialization format is unsafe by design. the serialzed data contains what is essentially a program that describes how to reconstruct the original python object. this means a malicious pickle payload could be used to compromise any part of the python program that attempts to deserialize it.</span></code></pre></figure>
 
@@ -517,7 +518,7 @@
   <li>use the copyreg built-in module with pickle to add missing attribute values, allow versioning of classes, and provide stable import paths;</li>
 </ul>
 
-<h3 id="use-datetime-instead-of-time-for-local-clocks">6.4 use datetime instead of time for local clocks</h3>
+<h3 id="64-use-datetime-instead-of-time-for-local-clocks">6.4 use datetime instead of time for local clocks</h3>
 
 <ul>
   <li>avoid using the time module for translating between different time zones;</li>
@@ -525,25 +526,25 @@
   <li>always represent time in utc and do conversions to local time as the final step before presentation;</li>
 </ul>
 
-<h3 id="use-built-in-algorithms-and-data-structures">6.5 use built-in algorithms and data structures</h3>
+<h3 id="65-use-built-in-algorithms-and-data-structures">6.5 use built-in algorithms and data structures</h3>
 
 <ul>
   <li>use python’s built-in modules for algorithms and data structures;</li>
   <li>don’t reimplement this functionality yourself;</li>
 </ul>
 
-<h3 id="use-decimal-when-precising-is-paramount">6.6 use decimal when precising is paramount</h3>
+<h3 id="66-use-decimal-when-precising-is-paramount">6.6 use decimal when precising is paramount</h3>
 
 <ul>
   <li>python has built-in types and classes in modules that can represent practically every type of numerical value;</li>
   <li>the decimal class is ideal for situations that require high precision and exact rounding behavior, such as computations of monetary values;</li>
 </ul>
 
-<h3 id="know-where-to-find-community-built-modules">6.7 know where to find community-built modules</h3>
+<h3 id="67-know-where-to-find-community-built-modules">6.7 know where to find community-built modules</h3>
 
-<h2 id="collaboration">7. collaboration</h2>
+<h2 id="7-collaboration">7. collaboration</h2>
 
-<h3 id="write-docstring-for-every-function-class-and-module">7.1 write docstring for every function, class and module</h3>
+<h3 id="71-write-docstring-for-every-function-class-and-module">7.1 write docstring for every function, class and module</h3>
 
 <ul>
   <li>write documentation for every module, class and function using docstrings. keep them up to date as your code changes;</li>
@@ -552,7 +553,7 @@
   <li>for functions and methods, document every argument, returned value, raised exception and other behaviors in the docstring following the def statement;</li>
 </ul>
 
-<h3 id="use-packages-to-organize-modules-and-provide-stable-apis">7.2 use packages to organize modules and provide stable apis</h3>
+<h3 id="72-use-packages-to-organize-modules-and-provide-stable-apis">7.2 use packages to organize modules and provide stable apis</h3>
 
 <ul>
   <li>packages in python are modules that contain other modules, packages allow you to organize your code into separate, non-conflicting namespaces with unique absolute module names;</li>
@@ -562,7 +563,7 @@
   <li>when collaborating within a single team or on a single codebase, using <code class="highlighter-rouge">__call__</code> for explicit apis is probably unnecessary;</li>
 </ul>
 
-<h3 id="define-a-root-exception-to-insulate-callers-from-apis">7.3 define a root exception to insulate callers from apis</h3>
+<h3 id="73-define-a-root-exception-to-insulate-callers-from-apis">7.3 define a root exception to insulate callers from apis</h3>
 
 <ul>
   <li>define root exceptions for your modules allows api consumers to insulate themselves from your api;</li>
@@ -571,7 +572,7 @@
   <li>intermediate root exceptions let you add more specific types of exceptions in the future without breaking your api consumers;</li>
 </ul>
 
-<h3 id="know-how-to-break-circular-dependecies">7.4 know how to break circular dependecies</h3>
+<h3 id="74-know-how-to-break-circular-dependecies">7.4 know how to break circular dependecies</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># dialog.py</span>
 <span class="kn">import</span> <span class="nn">app</span>
@@ -649,21 +650,21 @@
   </li>
 </ul>
 
-<h3 id="use-virtual-env-for-isonated-and-reproducible-dependences">7.5 use virtual env for isonated and reproducible dependences</h3>
+<h3 id="75-use-virtual-env-for-isonated-and-reproducible-dependences">7.5 use virtual env for isonated and reproducible dependences</h3>
 
-<h2 id="production">8. Production</h2>
+<h2 id="8-production">8. Production</h2>
 
-<h3 id="consider-module-scoped-code-to-configure-deployment-env">8.1 consider module-scoped code to configure deployment env</h3>
+<h3 id="81-consider-module-scoped-code-to-configure-deployment-env">8.1 consider module-scoped code to configure deployment env</h3>
 
-<h3 id="use-repr-string-for-debugging-output">8.2 use repr string for debugging output</h3>
+<h3 id="82-use-repr-string-for-debugging-output">8.2 use repr string for debugging output</h3>
 
-<h3 id="test-everything-with-unittest">8.3 test everything with unittest</h3>
+<h3 id="83-test-everything-with-unittest">8.3 test everything with unittest</h3>
 
-<h3 id="consider-interactive-debugging-with-pdb">8.4 consider interactive debugging with pdb</h3>
+<h3 id="84-consider-interactive-debugging-with-pdb">8.4 consider interactive debugging with pdb</h3>
 
-<h3 id="profile-before-optimizing">8.5 profile before optimizing</h3>
+<h3 id="85-profile-before-optimizing">8.5 profile before optimizing</h3>
 
-<h3 id="use-tracemalloc-to-understand-memory-usage-and-leaks">8.6 use tracemalloc to understand memory usage and leaks</h3>
+<h3 id="86-use-tracemalloc-to-understand-memory-usage-and-leaks">8.6 use tracemalloc to understand memory usage and leaks</h3>
 
 
 
@@ -687,7 +688,7 @@
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/effective-python data-title=『 读书笔记 』effective Python 
-             data-url=http://litaotao.github.io/+/effective-python></div>
+             data-url=http://localhost:4000+/effective-python></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

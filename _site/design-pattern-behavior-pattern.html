@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">1. 迭代器模式</h2>
+    <h2 id="1-迭代器模式">1. 迭代器模式</h2>
 <p>　　提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。迭代器模式的结构：</p>
 
 <ul>
@@ -132,7 +133,7 @@
   <li>迭代器实现：实现迭代器接口中定义的方法，完成集合的迭代。</li>
 </ul>
 
-<h3 id="python">1.1 Python源码实例</h3>
+<h3 id="11-python源码实例">1.1 Python源码实例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -171,10 +172,10 @@ Implementation of the iterator pattern with a generator"""</span>
 <span class="c"># Counting to five...</span>
 <span class="c"># one two three four five</span></code></pre></figure>
 
-<h2 id="section-1">2. 观察者模式</h2>
+<h2 id="2-观察者模式">2. 观察者模式</h2>
 <p>　　观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。</p>
 
-<h3 id="python-1">2.1 Python源码示例</h3>
+<h3 id="21-python源码示例">2.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -269,10 +270,10 @@ Author: https://github.com/HanWenfang
 <span class="c"># jim got cartoon</span>
 <span class="c"># gee got movie</span></code></pre></figure>
 
-<h2 id="section-2">3. 策略模式</h2>
+<h2 id="3-策略模式">3. 策略模式</h2>
 <p>　　策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。主要是应对：在软件构建过程中，某些对象使用的算法可能多种多样，经常发生变化。如果在对象内部实现这些算法，将会使对象变得异常复杂，甚至会造成性能上的负担。GoF《设计模式》中说道：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。该模式使得算法可独立于它们的客户变化。</p>
 
-<h3 id="python-">3.1 Python 源码示例</h3>
+<h3 id="31-python-源码示例">3.1 Python 源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Duck</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c"># 上面使用继承，这里通用的使用参数方式，传入的就是操作工厂的类</span>
@@ -322,10 +323,10 @@ Author: https://github.com/HanWenfang
     <span class="k">print</span> <span class="n">duck2fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'yes'</span><span class="p">)</span>
     <span class="k">print</span> <span class="n">duck2fly</span><span class="o">.</span><span class="n">fly</span><span class="p">(</span><span class="s">'no'</span><span class="p">)</span></code></pre></figure>
 
-<h2 id="section-3">4. 模板方法模式</h2>
+<h2 id="4-模板方法模式">4. 模板方法模式</h2>
 <p>　　模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。在软件工程中，它是一种软件设计模式，和C++模板没有关连。也可以理解为定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。因此模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定变量。优点是把不变行为搬移到超类，去除子类中的重复代码。</p>
 
-<h3 id="python-2">4.1 Python源码示例</h3>
+<h3 id="41-python源码示例">4.1 Python源码示例</h3>
 <p>　　源码来自<a href="http://blog.csdn.net/five3/article/details/7564578">csdn.net</a></p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python  </span>
@@ -366,7 +367,7 @@ Author: https://github.com/HanWenfang
     <span class="k">print</span> <span class="n">obj1</span><span class="o">.</span><span class="n">__class__</span>
     <span class="k">print</span> <span class="n">obj2</span><span class="o">.</span><span class="n">__class__</span></code></pre></figure>
 
-<h2 id="section-4">扫一扫</h2>
+<h2 id="扫一扫">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-12-design-pattern-behavior-pattern.md.jpg" alt="2015-03-12-design-pattern-behavior-pattern.md" /></p>
 
@@ -391,7 +392,7 @@ Author: https://github.com/HanWenfang
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/design-pattern-behavior-pattern data-title=『 读书笔记 』 设计模式总结之行为型模式 
-             data-url=http://litaotao.github.io/+/design-pattern-behavior-pattern></div>
+             data-url=http://localhost:4000+/design-pattern-behavior-pattern></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

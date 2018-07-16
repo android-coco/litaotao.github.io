@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="enumerate-">1. 枚举 - enumerate 可以有参数哦</h2>
+    <h2 id="1-枚举---enumerate-可以有参数哦">1. 枚举 - enumerate 可以有参数哦</h2>
 
 <p>之前我们这样操作：</p>
 
@@ -144,9 +145,9 @@
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="s">'abc'</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> 
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="section">2. 字典/集合 解析</h2>
+<h2 id="2-字典集合-生成">2. 字典/集合 生成</h2>
 
-<p>你也许知道如何进行列表解析，但是可能不知道字典/集合解析。它们简单易用且高效。就像下面这个例子：</p>
+<p>你也许知道如何进行列表解析，但是可能不知道字典/集合生成。它们简单易用且高效。就像下面这个例子：</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">)}</span> 
 <span class="n">my_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="o">*</span> <span class="mi">15</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">)}</span>
@@ -156,7 +157,7 @@
  
 <span class="c"># 两者的区别在于字典推导中有冒号</span></code></pre></figure>
 
-<h2 id="section-1">3. 强制浮点除法</h2>
+<h2 id="3-强制浮点除法">3. 强制浮点除法</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span> 
 <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
@@ -164,7 +165,7 @@
 </span>
 <span class="c"># 0.5</span></code></pre></figure>
 
-<h2 id="python">4. 对Python表达式求值</h2>
+<h2 id="4-对python表达式求值">4. 对Python表达式求值</h2>
 
 <p>我们都知道eval函数，但是我们知道literal_eval函数么？也许很多人都不知道吧。可以用这种操作：</p>
 
@@ -178,7 +179,7 @@
 
 <p>我相信对于大多数人来说这种形式是第一次看见，但是实际上这个在Python中已经存在很长时间了。</p>
 
-<h2 id="section-2">5. 字符串/数列 逆序</h2>
+<h2 id="5-字符串数列-逆序">5. 字符串/数列 逆序</h2>
 
 <p>你可以用以下方法快速逆序排列数列：</p>
 
@@ -199,7 +200,7 @@
 <span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="s">'boosay'</span></code></pre></figure>
 
-<h2 id="section-3">6. 三元运算</h2>
+<h2 id="6-三元运算">6. 三元运算</h2>
 
 <p>三元运算是if-else 语句的快捷操作，也被称为条件运算。这里有几个例子可以供你参考，它们可以让你的代码更加紧凑，更加美观。</p>
 
@@ -207,7 +208,7 @@
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span>
 <span class="n">small</span> <span class="o">=</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span></code></pre></figure>
 
-<h2 id="python-1">7. Python里面如何拷贝一个对象</h2>
+<h2 id="7-python里面如何拷贝一个对象">7. Python里面如何拷贝一个对象</h2>
 
 <p>标准库中的copy模块提供了两个方法来实现拷贝.一个方法是copy,它返回和参数包含内容一样的对象.</p>
 
@@ -225,9 +226,9 @@
 <span class="n">deepcopy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">_nil</span><span class="o">=</span><span class="p">[])</span>
 <span class="n">Deep</span> <span class="n">copy</span> <span class="n">operation</span> <span class="n">on</span> <span class="n">arbitrary</span> <span class="n">Python</span> <span class="n">objects</span><span class="o">.</span></code></pre></figure>
 
-<h2 id="python-2">8. python中如何判断对象相等</h2>
+<h2 id="8-python中如何判断对象相等">8. python中如何判断对象相等</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>首先是C#中字符串的==和equal方法。
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>首先是C#中字符串的==和equal方法。
 
 “==” :
 对于内置值类型而言， == 判断两个内存值是否相等。
@@ -245,10 +246,9 @@ python中的对象包含三要素:id, type, value
 id 用来标识唯一一个对象，type标识对象的类型，value用来设置对象的值。
 is 判断是否是一个对象，使用id来判断的。
 == 是判断a对象的值是否是b对象的值，默认调用它的__eq__方法。
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h2 id="section-4">9. 命名技巧</h2>
+<h2 id="9-命名技巧">9. 命名技巧</h2>
 
 <p>今天阅读代码，发现一个不错的函数命名方式:</p>
 
@@ -256,7 +256,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>就是把所有的参数前面都加上_下划线，这样你在函数体中，一眼就可以看出那些是局部变量，那些是作为参数传入的，类似把全局变量前面加上g。</p>
 
-<h2 id="section-5">10. 开发者工具集锦</h2>
+<h2 id="10-开发者工具集锦">10. 开发者工具集锦</h2>
 
 <ul>
   <li>pydoc： 模块可以根据源代码中的docstrings为任何可导入模块生成格式良好的文档。</li>
@@ -274,7 +274,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p><img src="../images/pycallgraph.jpg" alt="pycallgraph.jpg" /></p>
 
-<h2 id="python-3">11. Python代码微优化之加快查找</h2>
+<h2 id="11-python代码微优化之加快查找">11. Python代码微优化之加快查找</h2>
 
 <p>collections.OrderedDict类：</p>
 
@@ -303,7 +303,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>换句话说，大概有11.9%的提升 [2]。比我在文章开始处承诺的5%还多！</p>
 
-<h2 id="section-6">12. 包管理</h2>
+<h2 id="12-包管理">12. 包管理</h2>
 
 <p>Python世界最棒的地方之一，就是大量的第三方程序包。同样，管理这些包也非常容易。按照惯例，会在 requirements.txt 文件中列出项目所需要的包。每个包占一行，通常还包含版本号。</p>
 
@@ -311,7 +311,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="n">Markdown</span>
 <span class="n">pelican</span><span class="o">-</span><span class="n">extended</span><span class="o">-</span><span class="n">sitemap</span><span class="o">==</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span></code></pre></figure>
 
-<h2 id="python-4">13. Python函数参数默认值的陷阱和原理深究</h2>
+<h2 id="13-python函数参数默认值的陷阱和原理深究">13. Python函数参数默认值的陷阱和原理深究</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">9</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Dec</span> <span class="mi">19</span> <span class="mi">2014</span><span class="p">,</span> <span class="mo">06</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">48</span><span class="p">)</span>
 <span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">6.0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">600.0</span><span class="o">.</span><span class="mi">56</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
@@ -331,7 +331,7 @@ is 判断是否是一个对象，使用id来判断的。
 <p>可见代码运行结果并不和我们预期的一样。list_2在函数的第二次调用时并没有得到一个新的list并填入2，而是在第一次调用结果的基础上append了一个2。为什么会发生这样在其他编程语言中简直就是设计bug一样的问题呢？ <br />
 可见如果参数默认值是在函数编译compile阶段就已经被确定。之后所有的函数调用时，如果参数不显示的给予赋值，那么所谓的参数默认值不过是一个指向那个在compile阶段就已经存在的对象的指针。如果调用函数时，没有显示指定传入参数值得话。那么所有这种情况下的该参数都会作为编译时创建的那个对象的一种别名存在。如果参数的默认值是一个不可变(Imuttable)数值，那么在函数体内如果修改了该参数，那么参数就会重新指向另一个新的不可变值。而如果参数默认值是和本文最开始的举例一样，是一个可变对象(Muttable)，那么情况就比较糟糕了。所有函数体内对于该参数的修改，实际上都是对compile阶段就已经确定的那个对象的修改。</p>
 
-<h2 id="section-7">14. 单下划线（_）</h2>
+<h2 id="14-单下划线_">14. 单下划线（_）</h2>
 
 <p>1、在解释器中：在这种情况下，“_”代表交互式解释器会话中上一条执行的语句的结果。这种用法首先被标准CPython解释器采用，然后其他类型的解释器也先后采用。</p>
 
@@ -362,7 +362,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>可以发现，场景二和场景三中的使用方法可能会相互冲突，所以我们需要避免在使用“<em>”作为国际化查找转换功能的代码块中同时使用“</em>”作为临时名称。</p>
 
-<h2 id="shahriar">15. 名称前的单下划线（如：_shahriar）</h2>
+<h2 id="15-名称前的单下划线如_shahriar">15. 名称前的单下划线（如：_shahriar）</h2>
 
 <p>程序员使用名称前的单下划线，用于指定该名称属性为“私有”。这有点类似于惯例，为了使其他人（或你自己）使用这些代码时将会知道以“_”开头的名称只供内部使用。正如Python文档中所述：</p>
 
@@ -371,7 +371,7 @@ is 判断是否是一个对象，使用id来判断的。
 <p>正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码 : <code class="highlighter-rouge">from &lt;模块/包名&gt; import *</code>
 ，那么以 _ 开头的名称都不会被导入，除非模块或包中的 <code class="highlighter-rouge">__all__</code> 列表显式地包含了它们。了解更多请查看 <code class="highlighter-rouge">Importing * in Python</code></p>
 
-<h2 id="shahriar-1">16. 名称前的双下划线（如：__shahriar）</h2>
+<h2 id="16-名称前的双下划线如__shahriar">16. 名称前的双下划线（如：__shahriar）</h2>
 
 <p>名称（具体为一个方法名）前双下划线 _ 的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，__spam 这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被 正如所预料的，“_internal_use”并未改变，而“__method_name”却被变成了“_ClassName__method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。spam 这种形式原文取代，在这里 classname 是去掉前导下划线的当前类名。例如下面的例子：</p>
 
@@ -386,13 +386,13 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>正如所预料的，“_internal_use”并未改变，而“__method_name”却被变成了“_ClassName__method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。</p>
 
-<h2 id="init">17. 名称前后的双下划线（如：<strong>init</strong>）</h2>
+<h2 id="17-名称前后的双下划线如init">17. 名称前后的双下划线（如：<strong>init</strong>）</h2>
 
 <p>这种用法表示Python中特殊的方法名。其实，这只是一种惯例，对Python系统来说，这将确保不会与用户自定义的名称冲突。通常，你将会覆写这些方法，并在里面实现你所需要的功能，以便Python调用它们。例如，当定义一个类时，你经常会覆写“<strong>init</strong>”方法。</p>
 
 <p>虽然你也可以编写自己的特殊方法名，但不要这样做。</p>
 
-<h2 id="unpack">17. 隐藏特性 1，函数unpack</h2>
+<h2 id="17-隐藏特性-1函数unpack">17. 隐藏特性 1，函数unpack</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">print</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
@@ -404,7 +404,7 @@ is 判断是否是一个对象，使用id来判断的。
 </span>
 <span class="n">foo</span><span class="p">(</span><span class="o">**</span><span class="n">adict</span><span class="p">)</span>  <span class="c"># 1, 2</span></code></pre></figure>
 
-<h2 id="section-8">18. 隐藏特性 2， 链式比较操作符</h2>
+<h2 id="18-隐藏特性-2-链式比较操作符">18. 隐藏特性 2， 链式比较操作符</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span>
@@ -412,7 +412,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span> <span class="o">&gt;</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">3</span>
 <span class="bp">True</span></code></pre></figure>
 
-<h2 id="section-9">19. 隐藏特性 3，函数的默认参数</h2>
+<h2 id="19-隐藏特性-3函数的默认参数">19. 隐藏特性 3，函数的默认参数</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[]):</span>
 <span class="o">...</span>     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -437,9 +437,9 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span></code></pre></figure>
 
-<h2 id="get">20. 隐藏特性 4，字典的get方法</h2>
+<h2 id="20-隐藏特性-4字典的get方法">20. 隐藏特性 4，字典的get方法</h2>
 
-<h2 id="section-10">21. 隐藏特性 5，带关键字的格式化</h2>
+<h2 id="21-隐藏特性-5带关键字的格式化">21. 隐藏特性 5，带关键字的格式化</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="s">"Hello </span><span class="si">%(name)</span><span class="s">s !"</span> <span class="o">%</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'James'</span><span class="p">}</span>
 <span class="n">Hello</span> <span class="n">James</span> <span class="err">!</span>
@@ -451,7 +451,7 @@ is 判断是否是一个对象，使用id来判断的。
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="s">"Hello {name} !"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"James"</span><span class="p">)</span>
 <span class="n">Hello</span> <span class="n">James</span> <span class="err">!</span></code></pre></figure>
 
-<h2 id="section-11">22. 隐藏特性 6，切片操作的步长参数</h2>
+<h2 id="22-隐藏特性-6切片操作的步长参数">22. 隐藏特性 6，切片操作的步长参数</h2>
 
 <p>可以用步长 -1 来反转链表：</p>
 
@@ -462,7 +462,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span></code></pre></figure>
 
-<h2 id="section-12">23. 隐藏特性 7，嵌套列表推导式</h2>
+<h2 id="23-隐藏特性-7嵌套列表推导式">23. 隐藏特性 7，嵌套列表推导式</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span></code></pre></figure>
@@ -499,13 +499,13 @@ is 判断是否是一个对象，使用id来判断的。
  <span class="s">'dca'</span><span class="p">,</span>
  <span class="s">'dcb'</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="print-">24. 隐藏特性 8，print 重定向输出到文件</h2>
+<h2 id="24-隐藏特性-8print-重定向输出到文件">24. 隐藏特性 8，print 重定向输出到文件</h2>
 
 <p>注意打开的模式: “w+” 而不能 “w” , 当然 “a” 是可以的</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="o">&gt;&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s">"somefile"</span><span class="p">,</span> <span class="s">"w+"</span><span class="p">),</span> <span class="s">"Hello World"</span></code></pre></figure>
 
-<h2 id="python3unpack">25. 隐藏特性 9， Python3中的元组unpack</h2>
+<h2 id="25-隐藏特性-9-python3中的元组unpack">25. 隐藏特性 9， Python3中的元组unpack</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
@@ -526,7 +526,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rest</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="pow">26. 隐藏特性 10，pow的第三个参数</h2>
+<h2 id="26-隐藏特性-10pow的第三个参数">26. 隐藏特性 10，pow的第三个参数</h2>
 
 <p>其实第三个参数是来求模的: pow(x, y, z) == (x ** y) % z，注意，内置的 pow 和 math.pow 并不是一个函数，后者只接受2个参数。</p>
 
@@ -535,7 +535,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="mi">1</span></code></pre></figure>
 
-<h2 id="enumerate">27. 隐藏特性 11，enumerate还有第二个参数¶</h2>
+<h2 id="27-隐藏特性-11enumerate还有第二个参数">27. 隐藏特性 11，enumerate还有第二个参数¶</h2>
 
 <p>enumerate 很赞，可以给我们索引和序列值的对, 但是它还有第二个参数，这个参数用来: 指明索引的起始值。</p>
 
@@ -543,14 +543,14 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="section-13">28. 隐藏特性 12，显式的声明一个集合</h2>
+<h2 id="28-隐藏特性-12显式的声明一个集合">28. 隐藏特性 12，显式的声明一个集合</h2>
 
 <p>在Python 2.7 之后可以这么声明一个集合。</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
 <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span></code></pre></figure>
 
-<h2 id="section-14">29. 隐藏特性 13，用切片来删除序列的某一段</h2>
+<h2 id="29-隐藏特性-13用切片来删除序列的某一段">29. 隐藏特性 13，用切片来删除序列的某一段</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -564,7 +564,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="isinstance">30. 隐藏特性 14，isinstance可以接收一个元组</h2>
+<h2 id="30-隐藏特性-14isinstance可以接收一个元组">30. 隐藏特性 14，isinstance可以接收一个元组</h2>
 
 <p>这个真的鲜为人知, 我们可以用 isinstance(x, (float, int)) 来判断 x 是不是数，也就是那个元组里面是 或 的关系，只要是其中一个的实例就返回 True。</p>
 
@@ -575,7 +575,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">"1.3"</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
 <span class="bp">False</span></code></pre></figure>
 
-<h2 id="section-15">31. 让关键代码依赖于外部包</h2>
+<h2 id="31-让关键代码依赖于外部包">31. 让关键代码依赖于外部包</h2>
 
 <p>虽然Python让许多编程任务变得容易，但它可能并不总能为紧急的任务提供最佳性能。你可以为紧急的任务使用C、C++或机器语言编写的外部包，这样可以提高应用程序的性能。这些包都是不能跨平台的，这意味着你需要根据你正在使用的平台，寻找合适的包。简而言之，这个方案放弃了一些应用程序的可移植性，以换取只有在特定主机上直接编程才能获得的程序性能。这里有一些你应该考虑加入到你的“性能兵工厂”的包：</p>
 
@@ -588,7 +588,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>这些包以不同的方式提高性能。例如，Pyrex能够扩展Python所能做的事情，例如使用C的数据类型来让内存任务更加有效或直接。PyInIne让你在Python应用程序中直接使用C代码。程序中的内联代码单独编译，但它在利用C语言所能提供的效率的同时，也让所有的代码都在同一个地方。</p>
 
-<h2 id="key">32. 排序时使用键（key）</h2>
+<h2 id="32-排序时使用键key">32. 排序时使用键（key）</h2>
 
 <p>有很多老的Python排序代码，它们在你创建一个自定义的排序时花费你的时间，但在运行时确实能加速执行排序过程。元素排序的最好方法是尽可能使用键（key）和默认的sort()排序方法。例如，考虑下面的代码：</p>
 
@@ -607,7 +607,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>每一个实例中，根据你选择的作为key参数部分的索引，数组进行了排序。类似于利用数字进行排序，这种方法同样适用于利用字符串排序。</p>
 
-<h2 id="section-16">33. 优化循环</h2>
+<h2 id="33-优化循环">33. 优化循环</h2>
 
 <p>每种编程语言都会强调需要优化循环。当使用Python的时候，你可以依靠大量的技巧使得循环运行得更快。然而，开发者经常漏掉的一个方法是：避免在一个循环中使用点操作。例如，考虑下面的代码：</p>
 
@@ -624,7 +624,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>（注意：优化循环的方法有很多，这只是其中的一个。例如，许多程序员都会说，列表推导是在循环中提高执行速度的最好方式。这里的关键是，优化循环是程序取得更高的执行速度的更好方式之一。）</p>
 
-<h2 id="section-17">34. 尝试多种编码方法</h2>
+<h2 id="34-尝试多种编码方法">34. 尝试多种编码方法</h2>
 
 <p>如果每次你创建一个应用程序都是用相同的编码方法，几乎肯定会导致一些你的应用程序比它能够达到的运行效率慢的情况。作为分析过程的一部分，你可以尝试一些实验。例如，在一个字典中管理一些元素，你可以采用安全的方法确定元素是否已经存在并更新，或者你可以直接添加元素，然后作为异常处理该元素不存在情况。考虑第一个编码的例子：</p>
 
@@ -651,7 +651,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>两种情况下具有相同的输出：{‘d’: 4, ‘c’: 4, ‘b’: 4, ‘a’: 4}。唯一的不同是这个输出是如何得到的。跳出固定的思维模式，创造新的编码技巧，能够帮助你利用你的应用程序获得更快的结果。</p>
 
-<h2 id="section-18">35. 使用列表推导式</h2>
+<h2 id="35-使用列表推导式">35. 使用列表推导式</h2>
 
 <p>一个列表推导式包含以下几个部分：</p>
 
@@ -745,7 +745,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">tree</span><span class="p">(</span><span class="s">'C:</span><span class="err">\</span><span class="s">Users</span><span class="err">\</span><span class="s">XXX</span><span class="err">\</span><span class="s">Downloads</span><span class="err">\</span><span class="s">Test'</span><span class="p">):</span>
 <span class="err">    </span><span class="k">print</span> <span class="n">name</span></code></pre></figure>
 
-<h2 id="decorators">36. 装饰器(Decorators)</h2>
+<h2 id="36-装饰器decorators">36. 装饰器(Decorators)</h2>
 
 <p>装饰器为我们提供了一个增加已有函数或类的功能的有效方法。听起来是不是很像Java中的面向切面编程(Aspect-Oriented Programming)概念？两者都很简单，并且装饰器有着更为强大的功能。举个例子，假定你希望在一个函数的入口和退出点做一些特别的操作(比如一些安全、追踪以及锁定等操作)就可以使用装饰器。</p>
 
@@ -776,7 +776,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="err"> </span>
 <span class="c"># ('countdown', 0.006999969482421875)</span></code></pre></figure>
 
-<h2 id="contextlib">37. 上下文管理库(ContextLib)</h2>
+<h2 id="37-上下文管理库contextlib">37. 上下文管理库(ContextLib)</h2>
 
 <p>contextlib模块包含了与上下文管理器和with声明相关的工具。通常如果你想写一个上下文管理器，则你需要定义一个类包含__enter__方法以及__exit__方法，例如：</p>
 
@@ -814,9 +814,11 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="err"> </span>
 <span class="c"># counting: 1.36000013351</span></code></pre></figure>
 
-<p>上下文管理器被with声明所激活，这个API涉及到两个方法。
-1. __enter__方法，当执行流进入with代码块时，__enter__方法将执行。并且它将返回一个可供上下文使用的对象。
-2. 当执行流离开with代码块时，__exit__方法被调用，它将清理被使用的资源。</p>
+<p>上下文管理器被with声明所激活，这个API涉及到两个方法。</p>
+<ol>
+  <li>__enter__方法，当执行流进入with代码块时，__enter__方法将执行。并且它将返回一个可供上下文使用的对象。</li>
+  <li>当执行流离开with代码块时，__exit__方法被调用，它将清理被使用的资源。</li>
+</ol>
 
 <p>利用@contextmanager装饰器改写上面那个例子：</p>
 
@@ -841,7 +843,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>看上面这个例子，函数中yield之前的所有代码都类似于上下文管理器中__enter__方法的内容。而yield之后的所有代码都如__exit__方法的内容。如果执行过程中发生了异常，则会在yield语句触发。</p>
 
-<h2 id="descriptors">38. 描述器(Descriptors)</h2>
+<h2 id="38-描述器descriptors">38. 描述器(Descriptors)</h2>
 
 <p>描述器决定了对象属性是如何被访问的。描述器的作用是定制当你想引用一个属性时所发生的操作。</p>
 
@@ -866,7 +868,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="n">temp</span><span class="o">=</span><span class="n">Temperature</span><span class="p">()</span>
 <span class="n">temp</span><span class="o">.</span><span class="n">celsius</span> <span class="c">#calls Celsius.__get__</span></code></pre></figure>
 
-<h2 id="zipping-and-unzipping-lists-and-iterables">39. Zipping and unzipping lists and iterables</h2>
+<h2 id="39-zipping-and-unzipping-lists-and-iterables">39. Zipping and unzipping lists and iterables</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]</span>
@@ -876,7 +878,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="grouping-adjacent-list-items-using-zip">40. Grouping adjacent list items using zip</h2>
+<h2 id="40-grouping-adjacent-list-items-using-zip">40. Grouping adjacent list items using zip</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 
@@ -902,7 +904,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">group_adjacent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,)]</span></code></pre></figure>
 
-<h2 id="sliding-windows-n-grams-using-zip-and-iterators">41. Sliding windows (n-grams) using zip and iterators</h2>
+<h2 id="41-sliding-windows-n-grams-using-zip-and-iterators">41. Sliding windows (n-grams) using zip and iterators</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
@@ -917,7 +919,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">n_grams</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="inverting-a-dictionary-using-zip">42. Inverting a dictionary using zip</h2>
+<h2 id="42-inverting-a-dictionary-using-zip">42. Inverting a dictionary using zip</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'d'</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -928,7 +930,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">mi</span>
 <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s">'a'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'b'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s">'c'</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s">'d'</span><span class="p">}</span></code></pre></figure>
 
-<h2 id="flattening-lists">43. Flattening lists</h2>
+<h2 id="43-flattening-lists">43. Flattening lists</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
@@ -949,7 +951,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">flatten</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="dictionary-comprehensions">44. Dictionary comprehensions</h2>
+<h2 id="44-dictionary-comprehensions">44. Dictionary comprehensions</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">m</span>
@@ -959,7 +961,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">m</span>
 <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">'A0'</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s">'A1'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'A2'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s">'A3'</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s">'A4'</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s">'A5'</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s">'A6'</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="s">'A7'</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="s">'A8'</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span> <span class="s">'A9'</span><span class="p">}</span></code></pre></figure>
 
-<h2 id="section-19">45. 常犯错误，滥用表达式作为函数参数默认值</h2>
+<h2 id="45-常犯错误滥用表达式作为函数参数默认值">45. 常犯错误，滥用表达式作为函数参数默认值</h2>
 
 <p>Python允许开发者指定一个默认值给函数参数，虽然这是该语言的一个特征，但当参数可变时，很容易导致混乱，例如，下面这段函数定义：</p>
 
@@ -994,7 +996,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
 <span class="p">[</span><span class="s">"baz"</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="python-5">46. 误解Python规则范围</h2>
+<h2 id="46-误解python规则范围">46. 误解Python规则范围</h2>
 
 <p>Python的作用域解析是基于LEGB规则，分别是Local、Enclosing、Global、Built-in。实际上，这种解析方法也有一些玄机，看下面这个例子：</p>
 
@@ -1035,7 +1037,7 @@ is 判断是否是一个对象，使用id来判断的。
 <p>为什么foo2失败而foo1运行正常？ 
 答案与前面那个例子是一样的，但又有一些微妙之处。foo1没有赋值给lst，而foo2赋值了。lst += [5]实际上就是lst = lst + [5]，试图给lst赋值（因此，假设Python是在局部作用域里）。然而，我们正在寻找指定给lst的值是基于lst本身，其实尚未确定。</p>
 
-<h2 id="section-20">47. 修改遍历列表</h2>
+<h2 id="47-修改遍历列表">47. 修改遍历列表</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">odd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
@@ -1058,7 +1060,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span>
 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span></code></pre></figure>
 
-<h2 id="copydeepcopy">48. 合理使用copy与deepcopy</h2>
+<h2 id="48-合理使用copy与deepcopy">48. 合理使用copy与deepcopy</h2>
 
 <p>对于dict和list等数据结构的对象，直接赋值使用的是引用的方式。而有些情况下需要复制整个对象，这时可以使用copy包里的copy和deepcopy，这两个函数的不同之处在于后者是递归复制的。效率也不一样：（以下程序在ipython中运行）</p>
 
@@ -1072,7 +1074,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.55</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
 <span class="mi">10</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">151</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
-<h2 id="generatoryield">49. 合理使用生成器（generator）和yield</h2>
+<h2 id="49-合理使用生成器generator和yield">49. 合理使用生成器（generator）和yield</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">))</span>
 <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)]</span>
@@ -1090,7 +1092,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>后者的效率反而更高，但是如果循环里有break,用generator的好处是显而易见的。yield也是用于创建generator：</p>
 
-<h2 id="x--y--z">50. 使用级联比较x &lt; y &lt; z</h2>
+<h2 id="50-使用级联比较x--y--z">50. 使用级联比较x &lt; y &lt; z</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span>
 <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000000</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">z</span><span class="p">:</span><span class="k">pass</span>
@@ -1100,7 +1102,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>x &lt; y &lt; z效率略高，而且可读性更好。</p>
 
-<h2 id="while-1--while-true-">51. while 1 比 while True 更快</h2>
+<h2 id="51-while-1-比-while-true-更快">51. while 1 比 while True 更快</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">while_1</span><span class="p">():</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">100000</span>
@@ -1121,14 +1123,14 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>while 1 比 while true快很多，原因是在python2.x中，True是一个全局变量，而非关键字。</p>
 
-<h2 id="pow-1">52. 使用**而不是pow</h2>
+<h2 id="52-使用而不是pow">52. 使用**而不是pow</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
 <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">20</span>
 <span class="mi">10000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">284</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
 <span class="mi">10000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">16.9</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
-<h2 id="cprofile-cstringio--cpicklecprofile-stringio-pickle">53. 使用 cProfile, cStringIO 和 cPickle等用c实现相同功能（分别对应profile, StringIO, pickle）的包</h2>
+<h2 id="53-使用-cprofile-cstringio-和-cpickle等用c实现相同功能分别对应profile-stringio-pickle的包">53. 使用 cProfile, cStringIO 和 cPickle等用c实现相同功能（分别对应profile, StringIO, pickle）的包</h2>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">cPickle</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -1140,7 +1142,7 @@ is 判断是否是一个对象，使用id来判断的。
 
 <p>由c实现的包，速度快10倍以上！</p>
 
-<h2 id="section-21">54. 使用最佳的反序列化方式</h2>
+<h2 id="54-使用最佳的反序列化方式">54. 使用最佳的反序列化方式</h2>
 
 <p>下面比较了eval, cPickle, json方式三种对相应字符串反序列化的效率，可见json比cPickle快近3倍，比eval快20多倍。</p>
 
@@ -1157,7 +1159,7 @@ is 判断是否是一个对象，使用id来判断的。
 <span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">2.02</span> <span class="n">ms</span> <span class="n">per</span> <span class="n">loop</span>
 <span class="mi">100</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">798</span> <span class="err">µ</span><span class="n">s</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
-<h2 id="python-6">55. 怎么才算精通python</h2>
+<h2 id="55-怎么才算精通python">55. 怎么才算精通python</h2>
 
 <p>这个问题比较难回答，我是看 <a href="http://www.zhihu.com/question/19794855">怎么样才算是精通 Python</a> 这个知乎问答，按照自己的看法整理了一些观点。不要问我是按什么标准整理的，我只能说，整理的这些点，第一，在我看来都说得不错；第二，我自己都会去按照这些点来看看自己离 “精通” python还有多远。</p>
 
@@ -1175,27 +1177,27 @@ is 判断是否是一个对象，使用id来判断的。
   <li>多用内置函数：map，reduce，filter，iter，range，divmod，round，chr，enumerate，all，any，slice，zip+</li>
 </ul>
 
-<h2 id="python-">56. python 猴子补丁相关</h2>
+<h2 id="56-python-猴子补丁相关">56. python 猴子补丁相关</h2>
 
 <p>python里有一个很奇妙的monkey patch，中文叫做猴子补丁，是指的是在运行时动态替换某些已加载的模块的实现。第一次了解这个概念是在使用gevent的时候，需要把python自带的socket，os等相关模块的实现改变成异步形式，但同时不改动python的源代码。</p>
 
-<h2 id="functoolspartial">57. 了解 functools.partial</h2>
+<h2 id="57-了解-functoolspartial">57. 了解 functools.partial</h2>
 
 <p>先参考 <a href="http://blog.csdn.net/handsomekang/article/details/9712125">飘逸的python - 偏函数functools.partial</a></p>
 
-<h2 id="python--1">58. python 中时间格式转换</h2>
+<h2 id="58-python-中时间格式转换">58. python 中时间格式转换</h2>
 
 <p><img src="../images/python-time.jpg" alt="python-time.jpg" /></p>
 
-<h2 id="python--http-">59. python 一行代码启动 http 服务器</h2>
+<h2 id="59-python-一行代码启动-http-服务器">59. python 一行代码启动 http 服务器</h2>
 
 <p><code class="highlighter-rouge">python -mSimpleHTTPServer</code></p>
 
-<h2 id="section-22">60. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="60-打开微信扫一扫点一点棒棒的_">60. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
 
-<h2 id="section-23">参考文档</h2>
+<h2 id="参考文档">参考文档</h2>
 
 <ul>
   <li><a href="http://python.jobbole.com/81393/">初学者必知的Python中优雅的用法</a></li>
@@ -1254,7 +1256,7 @@ is 判断是否是一个对象，使用id来判断的。
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/python-materials data-title=Python 技巧总结 
-             data-url=http://litaotao.github.io/+/python-materials></div>
+             data-url=http://localhost:4000+/python-materials></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

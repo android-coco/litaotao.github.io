@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
@@ -131,25 +132,25 @@
 
 <p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 <em>present mode</em> 哦。</p>
 
-<h2 id="application">1. Application</h2>
+<h2 id="1-application">1. Application</h2>
 
 <p>用户在 spark 上构建的程序，包含了 driver 程序以及在集群上运行的程序代码，物理机器上涉及了 driver，master，worker 三个节点.</p>
 
-<h2 id="driver-program">2. Driver Program</h2>
+<h2 id="2-driver-program">2. Driver Program</h2>
 
 <p>创建 sc ，定义 udf 函数，定义一个 spark 应用程序所需要的三大步骤的逻辑：加载数据集，处理数据，结果展示。</p>
 
-<h2 id="cluster-manager">3. Cluster Manager</h2>
+<h2 id="3-cluster-manager">3. Cluster Manager</h2>
 
 <p>集群的资源管理器，在集群上获取资源的外部服务。
 拿 Yarn 举例，客户端程序会向 Yarn 申请计算我这个任务需要多少的 memory，多少 CPU，etc。
 然后 Cluster Manager 会通过调度告诉客户端可以使用，然后客户端就可以把程序送到每个 Worker Node 上面去执行了。</p>
 
-<h2 id="worker-node">4. Worker Node</h2>
+<h2 id="4-worker-node">4. Worker Node</h2>
 
 <p>集群中任何一个可以运行spark应用代码的节点。Worker Node就是物理节点，可以在上面启动Executor进程。</p>
 
-<h2 id="executor">5. Executor</h2>
+<h2 id="5-executor">5. Executor</h2>
 
 <p>在每个 Worker Node 上为某应用启动的一个进程，该进程负责运行任务，并且负责将数据存在内存或者磁盘上，每个任务都有各自独立的 Executor。
 Executor 是一个执行 Task 的容器。它的主要职责是：</p>
@@ -161,7 +162,7 @@ Executor 是一个执行 Task 的容器。它的主要职责是：</p>
 
 <p>总结：Executor 是一个应用程序运行的监控和执行容器。</p>
 
-<h2 id="jobs">6. Jobs</h2>
+<h2 id="6-jobs">6. Jobs</h2>
 
 <p>包含很多 task 的并行计算，可以认为是 Spark RDD 里面的 action，每个 action 的触发会生成一个job。
 用户提交的 Job 会提交给 DAGScheduler，Job 会被分解成 Stage，Stage 会被细化成 Task，Task 简单的说就是在一个数据 partition 上的单个数据处理流程。关于 job，stage，task，详细可以参考这篇文章：<a href="../deep-into-spark-exection-model">『 Spark 』6. 深入研究 spark 运行原理之 job, stage, task</a></p>
@@ -170,7 +171,7 @@ Executor 是一个执行 Task 的容器。它的主要职责是：</p>
 
 <p>A job is triggered by an <code class="highlighter-rouge">action</code>, like <code class="highlighter-rouge">count()</code> or <code class="highlighter-rouge">saveAsTextFile()</code>, click on a job to see info about the <code class="highlighter-rouge">stages</code> of <code class="highlighter-rouge">tasks</code> inside it.</p>
 
-<h2 id="stage">7. Stage</h2>
+<h2 id="7-stage">7. Stage</h2>
 
 <p>一个 Job 会被拆分为多组 Task，每组任务被称为一个 Stage 就像 Map Stage， Reduce Stage。</p>
 
@@ -190,15 +191,15 @@ Executor 是一个执行 Task 的容器。它的主要职责是：</p>
   </li>
 </ul>
 
-<h2 id="task">8. Task</h2>
+<h2 id="8-task">8. Task</h2>
 
 <p>被送到 executor 上的工作单元。</p>
 
-<h2 id="partition">9. Partition</h2>
+<h2 id="9-partition">9. Partition</h2>
 
 <p>Partition 类似 hadoop 的 Split，计算是以 partition 为单位进行的，当然 partition 的划分依据有很多，这是可以自己定义的，像 HDFS 文件，划分的方式就和 MapReduce 一样，以文件的 block 来划分不同的 partition。总而言之，Spark 的 partition 在概念上与 hadoop 中的 split 是相似的，提供了一种划分数据的方式。</p>
 
-<h2 id="rdd">10. RDD</h2>
+<h2 id="10-rdd">10. RDD</h2>
 
 <p>先看看原文 <a href="../files/spark-rdd-paper.pdf">Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
 In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
@@ -244,7 +245,7 @@ In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
 
 <p>关于 rdd 的更多详情，可以参考这篇文章：<a href="../spark-what-is-rdd">『 Spark 』4. spark 之 RDD </a></p>
 
-<h2 id="scparallelize">11. sc.parallelize</h2>
+<h2 id="11-scparallelize">11. sc.parallelize</h2>
 
 <p>先看看 api 文档里是怎么说的：<a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.SparkContext.parallelize">parallelize</a></p>
 
@@ -260,7 +261,7 @@ In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
 
 <p>简单的说，parallelize 就是把 driver 端定义的一个数据集，或者一个获取数据集的生成器，分发到 worker 上的 executor 中，以供后续分析。这种方式在测试代码逻辑时经常用到，但在构建真正的 spark 应用程序时很少会用到，一般都是从 hdfs 或者数据库去读取数据。</p>
 
-<h2 id="code-distribute">12. code distribute</h2>
+<h2 id="12-code-distribute">12. code distribute</h2>
 
 <p>提交 spark 应用时，spark 会把应用代码分发到所有的 worker 上面，应用依赖的包需要在所有的worker上都存在，有两种解决 worker 上相关包依赖的问题：</p>
 
@@ -269,11 +270,11 @@ In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
   <li>在提交 spark 应用的时候，指定应用依赖的相关包，把 应用代码，应用依赖包 一起分发到 worker；</li>
 </ul>
 
-<h2 id="cache-priority">13. cache priority</h2>
+<h2 id="13-cache-priority">13. cache priority</h2>
 
 <p>cache 是否支持 priority，目前不支持，而且 spark 里面对 rdd 的 cache 和我们常见的缓存系统是不一样的。细节可以找我讨论。</p>
 
-<h2 id="cores">14. cores</h2>
+<h2 id="14-cores">14. cores</h2>
 
 <hr />
 
@@ -283,7 +284,7 @@ In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
 
 <p>每一个 core，相当于一个 worker 上的进程，这些进程会同时执行分配到这个 worker 上的任务。简单的说，就是 spark manager 把一个 job 切分几个 task 分发到 worker 上同步执行，而每个 worker 把分配给自己的 task 再切分成几个 subtask，分配给当前 worker 上的不同进程。</p>
 
-<h2 id="memory">15. Memory</h2>
+<h2 id="15-memory">15. Memory</h2>
 
 <p>分配给 spark 应用的内存是仅仅给 cache 数据用吗？</p>
 
@@ -299,48 +300,48 @@ In-Memory Cluster Computing</a> 是怎么介绍 RDD 的。</p>
   </li>
 </ul>
 
-<h2 id="rdd-narrowwide-dependences">16. RDD narrow/wide dependences</h2>
+<h2 id="16-rdd-narrowwide-dependences">16. RDD narrow/wide dependences</h2>
 
 <p>RDD 之间的依赖类别［ 或者，创建一个 RDD 的不同方法 ］</p>
 
 <p><img src="../images/rdd-dependences.jpg" alt="rdd-dependences.jpg" /></p>
 
-<h2 id="section-1">17. 本地内存与集群内存</h2>
+<h2 id="17-本地内存与集群内存">17. 本地内存与集群内存</h2>
 
 <p>所谓本地内存，是指在 driver 端的程序所需要的内存，由 driver 机器提供，一般用来生成测试数据，接受运算结果等；
 所谓集群内存，是指提交到集群的作业能够向集群申请的最多内存使用量，一般用来存储关键数据；</p>
 
 <p><img src="../images/spark-memory-cluster-and-driver.jpg" alt="spark-memory-cluster-and-driver.jpg" /></p>
 
-<h2 id="section-2">18. 限制用户使用的内存</h2>
+<h2 id="18-限制用户使用的内存">18. 限制用户使用的内存</h2>
 
 <p>可以在启动 spark 应用的时候申请；完全可控。</p>
 
-<h2 id="section-3">19. 当用户申请总资源超过当前集群总资源</h2>
+<h2 id="19-当用户申请总资源超过当前集群总资源">19. 当用户申请总资源超过当前集群总资源</h2>
 
 <p>FIFO 资源分配方式。</p>
 
-<h2 id="sparkcontext--sc">20. SparkContext [经常简称为 sc]</h2>
+<h2 id="20-sparkcontext-经常简称为-sc">20. SparkContext [经常简称为 sc]</h2>
 
 <p>spark app 的起点和入口，一般用来加载数据集，生成第一个 rdd。</p>
 
-<h2 id="rdd--cache-">21. 对一个 rdd 多次 cache 会有什么影响吗？</h2>
+<h2 id="21-对一个-rdd-多次-cache-会有什么影响吗">21. 对一个 rdd 多次 cache 会有什么影响吗？</h2>
 
 <p>不会，只会cache一次。<a href="http://stackoverflow.com/questions/36195105/what-happens-if-i-cache-the-same-rdd-twice-in-spark/36195812#36195812">stackoverflow</a></p>
 
-<h2 id="shuffle">22. 什么是 shuffle</h2>
+<h2 id="22-什么是-shuffle">22. 什么是 shuffle</h2>
 
 <p>shuffle 是两个 stage 之间的数据传输过程。</p>
 
-<h2 id="next">23. Next</h2>
+<h2 id="23-next">23. Next</h2>
 
 <p>下一篇，通过几个简单的例子来介绍 spark 的基本编程模式。</p>
 
-<h2 id="section-4">24. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="24-打开微信扫一扫点一点棒棒的_">24. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
 
-<h2 id="section-5">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="../files/spark-rdd-paper.pdf">spark-rdd-paper : Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
@@ -348,7 +349,7 @@ In-Memory Cluster Computing</a></li>
   <li><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html">spark python API</a></li>
 </ul>
 
-<h2 id="section-6">本系列文章链接</h2>
+<h2 id="本系列文章链接">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -388,7 +389,7 @@ In-Memory Cluster Computing</a></li>
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/spark-questions-concepts data-title=『 Spark 』2. spark 基本概念解析 
-             data-url=http://litaotao.github.io/+/spark-questions-concepts></div>
+             data-url=http://localhost:4000+/spark-questions-concepts></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

@@ -14,6 +14,7 @@ list/dict comprehension（列表/字典推导）
 
 ```
 简述python中的多线程，多进程，协程及其实现
+http://blog.willdx.me/2016/07/31/python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%93%E9%A2%9801-GIL-%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%8D%8F%E7%A8%8B-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/
 ```
 
 ```
@@ -57,7 +58,7 @@ python里面正则表达式的search()和match()的区别？ match()函数只检
 ```
 
 ```
- Python的函数参数传递
+Python的函数参数传递
 ```
 
 ```
@@ -66,6 +67,7 @@ Python中的元类(metaclass)
 
 ```
 @staticmethod和@classmethod
+http://www.firefoxbug.com/index.php/archives/2818/
 ```
 
 ```
@@ -73,7 +75,7 @@ Python中的元类(metaclass)
 ```
 
 ```
-Python自省
+Python自省：http://www.cnblogs.com/huxi/archive/2011/01/02/1924317.html
 ```
 
 ```
@@ -137,16 +139,45 @@ Python中使用了某些启发式算法（heuristics）来加速垃圾回收。�
   - gevent
   - uvloop [awesome repo], pyuv
   - celery
-  - ​
-  - ​
+- python theory
 
 
-
-
+> Simple is better than complex, complex is better than complicated;
+>
+> readability counts;
+>
+> errors should never pass silently;
+>
+> FP and OO in python is on the same level of importance;
+>
+> 
 
 
 
 # Shell
+
+```shell
+file: cat, head, tail, echo, cp, touch, rm, grep, find, locate, wc, scp, wget,
+folder: ls, du, rm, mkdir, tar, 
+env: export, source, 
+process: ps, netstat, htop, kill, gdb, nohup, pstree
+```
+
+
+
+```
+nohup: https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/index.html
+pstree: http://www.runoob.com/linux/linux-comm-pstree.html
+
+
+提供回测数据缓存机制
+
+难点：
+- 数据同步，依赖各种数据源，处理好依赖情况，DAG 方式进行调度；
+- 数据校验和检测，监控报警，性能级别的监控；
+- 因子量多，且互相之间有所依赖，采用多进程模式生产，进程间状态共享；
+- 量化因子算法细节问题，异常值，缺失值，TTM 算法，PIT 处理；
+```
 
 
 
@@ -201,12 +232,6 @@ cat a.txt |while read i;do set[$i]=1;echo "${!set[@]}";done|tail -1
  答案
 http://www.thelinuxtips.com/2011/02/shell-special-variables/
 ```
-
-
-
-
-
-
 
 
 
@@ -269,6 +294,71 @@ there are several join types: inner, outer, left outer, right outer, full outer;
 ```
 
 - ***denormalization***: what is denormalization and explain pros and cons.
+- [2017.10 | 10 SQL Tricks That You Didn’t Think Were Possible](https://blog.jooq.org/2016/04/25/10-sql-tricks-that-you-didnt-think-were-possible/)
+
+
+> 1. Everything is a table (derived table);
+> 2. data generation with recursive SQL;
+> 3. running total calculations: window functions are aggregations/ranking on a subset of rows relative to the current row being transformed by select;
+> 4. finding the largest series with no Gaps; `with` statements, `cast` keyword, `row_number` window function,
+> 5. finding the length of a series
+> 6. the subset sum problem with sql
+> 7. capping a running total
+> 8. time series pattern recognition
+> 9. pivoting and unpivoting
+> 10. abusing xml and json
+
+- [2017.10 | Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/mysql-migration/)
+
+> The early architecture of Uber consisted of a monolithic backend application written in Python that used [Postgres](http://www.postgresql.org/) for data persistence.
+>
+> postgres limitations in uber: inefficient architecture for writes; inefficient data replication; issues with table corruption; poor replica MVCC support; difficulty upgrading to newer releases;
+>
+> Postgres served us well in the early days of Uber, but we ran into significant problems scaling Postgres with our growth. Today, we have some legacy Postgres instances, but the bulk of our databases are either built on top of MySQL (typically using our [Schemaless](https://eng.uber.com/schemaless-part-one/) layer) or, in some specialized cases, NoSQL databases like Cassandra. We are generally quite happy with MySQL, and we may have more blog articles in the future explaining some of its more advanced uses at Uber.
+
+
+
+- [2010.10 | 11个重要的数据库设计规则](http://database.51cto.com/art/201204/328629.htm)
+
+> ***规则1: 弄清楚服务目标，OLTP 还是 OLAP 型；***
+>
+> ***规则2: 将数据按照业务逻辑分成不同的块；***
+>
+> ***规则3: 不要重度使用规则2，凡事物极必反，需要权衡；***
+>
+> ***规则4: 把重复，不统一的数据当成最大的敌人，比如说有2列代表的含义完全一样；或者有一列存储的值类型，格式都不一样；***
+>
+> 规则5: 当心被分隔符分割的数据，它们违反了 “字段不可再分” 的目标，比如说某列的值格式如下：”类目1/商品1“
+>
+> 规则6: 所有字段都必须完整的依赖主键而不是部分依赖；
+>
+> 规则7: 仔细选择派生列：如果你正在开发一个 **OLTP** 型的应用程序，那强制不去使用派生字段会是一个很好的思路，除非有迫切的性能要求，比如经常需要求和、计算的 **OLAP **程序，为了性能，这些派生字段就有必要存在了。
+>
+> ***规则8: 如果性能是关键，不要固执的避免冗余***
+>
+> 规则9: 多位数据是各种不同数据的聚合
+>
+> 规则10: 将那些具有“名值表”特点等表统一起来设计
+>
+> 规则11: 无限分级结构等数据，引用自己的主键作为外键
+
+
+
+- [2010.10 | MySQL数据库设计、优化](https://www.slideshare.net/yejr/my-sql-20130820)
+
+> 读写分离，主库只写和少量实时读取请求；
+>
+> 采用队列方式合并多次写请求，持续写入，避免瞬间压力；
+>
+> 冷热数据进行切分，lru 原则；
+>
+> 单表记录行数控制在1000万以内，行平均长度控制在16kb以内，单表20gb 以内；通过内置数据库 `information_schema` 的表 `tables` 来查看信息；
+>
+> 单实例下数据库表不要超过2000个，单库下数据库表不要超过500个；
+
+- [2010.10 | PostgreSQL 与 MySQL 相比，优势何在？](https://www.zhihu.com/question/20010554)
+
+- [2010.10 | PostgreSQL vs MySQL](https://www.2ndquadrant.com/en/postgresql/postgresql-vs-mysql/)
 
 - 事务
 
@@ -349,9 +439,79 @@ there are several join types: inner, outer, left outer, right outer, full outer;
 
   Serializable 读加共享锁，写加排他锁，读写互斥。
   ```
+  ​
 
-- ​
+  ​
 
+  [2017.10 | 10 SQL Tricks That You Didn’t Think Were Possible](https://blog.jooq.org/2016/04/25/10-sql-tricks-that-you-didnt-think-were-possible/)
+
+  > 1. Everything is a table (derived table);
+  > 2. data generation with recursive SQL;
+  > 3. running total calculations: window functions are aggregations/ranking on a subset of rows relative to the current row being transformed by select;
+  > 4. finding the largest series with no Gaps; `with` statements, `cast` keyword, `row_number` window function,
+  > 5. finding the length of a series
+  > 6. the subset sum problem with sql
+  > 7. capping a running total
+  > 8. time series pattern recognition
+  > 9. pivoting and unpivoting
+  > 10. abusing xml and json
+
+  - [2017.10 | Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/mysql-migration/)
+
+  > The early architecture of Uber consisted of a monolithic backend application written in Python that used [Postgres](http://www.postgresql.org/) for data persistence.
+  >
+  > postgres limitations in uber: inefficient architecture for writes; inefficient data replication; issues with table corruption; poor replica MVCC support; difficulty upgrading to newer releases;
+  >
+  > Postgres served us well in the early days of Uber, but we ran into significant problems scaling Postgres with our growth. Today, we have some legacy Postgres instances, but the bulk of our databases are either built on top of MySQL (typically using our [Schemaless](https://eng.uber.com/schemaless-part-one/) layer) or, in some specialized cases, NoSQL databases like Cassandra. We are generally quite happy with MySQL, and we may have more blog articles in the future explaining some of its more advanced uses at Uber.
+
+  ​
+
+  - [2010.10 | 11个重要的数据库设计规则](http://database.51cto.com/art/201204/328629.htm)
+
+  > ***规则1: 弄清楚服务目标，OLTP 还是 OLAP 型；***
+  >
+  > ***规则2: 将数据按照业务逻辑分成不同的块；***
+  >
+  > ***规则3: 不要重度使用规则2，凡事物极必反，需要权衡；***
+  >
+  > ***规则4: 把重复，不统一的数据当成最大的敌人，比如说有2列代表的含义完全一样；或者有一列存储的值类型，格式都不一样；***
+  >
+  > 规则5: 当心被分隔符分割的数据，它们违反了 “字段不可再分” 的目标，比如说某列的值格式如下：”类目1/商品1“
+  >
+  > 规则6: 所有字段都必须完整的依赖主键而不是部分依赖；
+  >
+  > 规则7: 仔细选择派生列：如果你正在开发一个 **OLTP** 型的应用程序，那强制不去使用派生字段会是一个很好的思路，除非有迫切的性能要求，比如经常需要求和、计算的 **OLAP **程序，为了性能，这些派生字段就有必要存在了。
+  >
+  > ***规则8: 如果性能是关键，不要固执的避免冗余***
+  >
+  > 规则9: 多位数据是各种不同数据的聚合
+  >
+  > 规则10: 将那些具有“名值表”特点等表统一起来设计
+  >
+  > 规则11: 无限分级结构等数据，引用自己的主键作为外键
+
+  ​
+
+  - [2010.10 | MySQL数据库设计、优化](https://www.slideshare.net/yejr/my-sql-20130820)
+
+  > 读写分离，主库只写和少量实时读取请求；
+  >
+  > 采用队列方式合并多次写请求，持续写入，避免瞬间压力；
+  >
+  > 冷热数据进行切分，lru 原则；
+  >
+  > 单表记录行数控制在1000万以内，行平均长度控制在16kb以内，单表20gb 以内；通过内置数据库 `information_schema` 的表 `tables` 来查看信息；
+  >
+  > 单实例下数据库表不要超过2000个，单库下数据库表不要超过500个；
+
+  - [2010.10 | PostgreSQL 与 MySQL 相比，优势何在？](https://www.zhihu.com/question/20010554)
+  - [2010.10 | PostgreSQL vs MySQL](https://www.2ndquadrant.com/en/postgresql/postgresql-vs-mysql/)
+
+  ​
+
+  ​
+
+  ​
 
 
 
@@ -389,9 +549,6 @@ def fib_v2(n):
 ```python
 ## method 1
 
-def to_string(_list):
-    return ''.join(_list)
-
 def permute(a, l, r):
     """ O(n * n!) 
     a: string
@@ -399,7 +556,7 @@ def permute(a, l, r):
     r: ending index of the string
     """
     if l == r:
-        print to_string(a)
+        print ''.join(a)
     else:
         for i in xrange(l, r+1):
             print i, l
@@ -414,7 +571,6 @@ def permute_v2(a):
     import itertools
     for values in itertools.permutations(a):
         print values
-        
 ```
 
 
@@ -752,6 +908,18 @@ def build_spiral_matrix(n):
 
 - soa 是面向服务架构的，而 rest 则是面向资源的；
 
+- [全面了解Nginx主要应用场景](http://www.raye.wang/2017/02/24/quan-mian-liao-jie-nginxdao-di-neng-zuo-shi-yao/)
+
+
+> 反向代理：客户端请求发送到 nginx 上，nginx将请求转发到内部网络的服务器上，并将从服务器上得到的结果返回给客户端。
+>
+> 负载均衡：有两台及两台以上服务器时，可以通过 nginx 来配置，请求转发到哪台服务器上，此时客户端永远只访问 nginx，并不知道后期如何处理的。
+>
+> http 服务器：nginx 其实也是一个服务器，只是不处理逻辑计算相关的，所以完全可以用来存放静态资源，也算是缓存的一种实现方案；也是网站动静分离的一种核心思路；
+>
+> 正向代理：客户端向代理发送一个请求并且制定原始服务器目标，代理将请求转发到客户端指定的服务器目标上，并将获取的结果返回给客户端。
+>
+> 
 
 
 
@@ -819,7 +987,11 @@ def build_spiral_matrix(n):
 
 
 
+# Front-End
 
+- bootstrap: HTML, CSS, JS前端布局框架；支持响应式布局，支持移动设备；
+- angularjs: js框架，javascript -> jQuery -> angularJS;
+- ​
 
 
 
@@ -840,7 +1012,9 @@ def build_spiral_matrix(n):
 - [剑指offer github](https://github.com/gatieme/CodingInterviews)
 - [http://www.infoq.com/cn/articles/micro-soa-1](http://www.infoq.com/cn/articles/micro-soa-1)
 - http://www.infoq.com/cn/articles/micro-soa-2
-- ​
+- [极客学院 算法教程](http://wiki.jikexueyuan.com/list/sort/)
+
+
 
 
 

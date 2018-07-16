@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,9 +123,9 @@
     </p>
 
 
-    <h2 id="section">1. 常用命令</h2>
+    <h2 id="1-常用命令">1. 常用命令</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git init                                                  # 初始化本地git仓库（创建新仓库）
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init                                                  # 初始化本地git仓库（创建新仓库）
 
 git config --global user.name "xxx"                       # 配置用户名
 git config --global user.email "xxx@xxx.com"              # 配置邮件
@@ -228,20 +229,18 @@ git stash apply stash@{0}                                 # 应用第一次暂�
 
 git grep "delete from"                                    # 文件中搜索文本“delete from”
 git grep -e '#define' --and -e SORT_DIRENT
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h2 id="section-1">2. 常用技巧</h2>
+<h2 id="2-常用技巧">2. 常用技巧</h2>
 
 <ul>
   <li>更改分支名字</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git branch -m old_branch new_branch         # Rename branch locally    
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch -m old_branch new_branch         # Rename branch locally    
 git push origin :old_branch                 # Delete the old branch    
 git push --set-upstream origin new_branch   # Push the new branch, set local branch to track the new remote
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>多帐户配置</li>
@@ -249,7 +248,7 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
 
 <p><a href="https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md">git 多帐户配置，一台电脑上同时使用 github, gitlab, gitcafe</a></p>
 
-<h2 id="section-2">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="https://gist.github.com/guweigang/9848271">git命令大全</a></li>
@@ -281,7 +280,7 @@ git push --set-upstream origin new_branch   # Push the new branch, set local bra
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/github-commands-and-tricks data-title=git 常用命令及一些小技巧 
-             data-url=http://litaotao.github.io/+/github-commands-and-tricks></div>
+             data-url=http://localhost:4000+/github-commands-and-tricks></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

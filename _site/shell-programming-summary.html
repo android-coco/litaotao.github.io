@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,9 +123,9 @@
     </p>
 
 
-    <h2 id="section">1. 基本概念</h2>
+    <h2 id="1-基本概念">1. 基本概念</h2>
 
-<h3 id="shell">1.1 什么是 shell</h3>
+<h3 id="11-什么是-shell">1.1 什么是 shell</h3>
 
 <p>业界所说的shell通常都是指shell脚本，但要知道，shell和shell script是两个不同的概念:</p>
 
@@ -133,7 +134,7 @@
   <li>Shell 也是一种命令语言和一种程序设计语言，Shell 脚本（shell script），是一种用shell编写的脚本程序。</li>
 </ul>
 
-<h3 id="shell-">1.2 Shell 环境</h3>
+<h3 id="12-shell-环境">1.2 Shell 环境</h3>
 
 <p>Shell 编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。Linux的Shell种类众多，常见的有：</p>
 
@@ -150,13 +151,13 @@ Bash也是大多数Linux系统默认的Shell。
 在一般情况下，人们并不区分 Bourne Shell 和 Bourne Again Shell，所以，像 <code class="highlighter-rouge"><span class="c">#!/bin/sh</span></code> ，它同样也可以改为 <code class="highlighter-rouge"><span class="c">#!/bin/bash</span></code>。
 <code class="highlighter-rouge">#!</code> 告诉系统其后路径所指定的程序即是解释此脚本文件的Shell程序。</p>
 
-<h3 id="shell--1">1.3 shell 脚本的执行</h3>
+<h3 id="13-shell-脚本的执行">1.3 shell 脚本的执行</h3>
 
 <ul>
   <li>作为可执行程序</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chmod +x ./test.sh  <span class="c">#使脚本具有执行权限</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">chmod</span> +x ./test.sh  <span class="c">#使脚本具有执行权限</span>
 ./test.sh  <span class="c">#执行脚本</span></code></pre></figure>
 
 <p>注意，一定要写成<code class="highlighter-rouge">./test.sh</code>，而不是<code class="highlighter-rouge">test.sh</code>，运行其它二进制的程序也一样，直接写<code class="highlighter-rouge">test.sh</code>，linux系统会去PATH里寻找有没有叫<code class="highlighter-rouge">test.sh</code>的，
@@ -170,7 +171,7 @@ Bash也是大多数Linux系统默认的Shell。
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">/bin/sh test.sh
 /bin/php test.php</code></pre></figure>
 
-<h2 id="shell--2">2. shell 变量</h2>
+<h2 id="2-shell-变量">2. shell 变量</h2>
 
 <p>定义变量时，变量名不加美元符号:</p>
 
@@ -187,7 +188,7 @@ Bash也是大多数Linux系统默认的Shell。
 
 <p>除了显式地直接赋值，还可以用语句给变量赋值，如：</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">for </span>file <span class="k">in</span> <span class="sb">`</span>ls /etc<span class="sb">`</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="k">for </span>file <span class="k">in</span> <span class="sb">`</span><span class="nb">ls</span> /etc<span class="sb">`</span></code></pre></figure>
 
 <p>使用一个定义过的变量，只要在变量名前面加美元符号即可，如：</p>
 
@@ -210,7 +211,7 @@ Bash也是大多数Linux系统默认的Shell。
 <span class="nv">your_name</span><span class="o">=</span><span class="s2">"alibaba"</span>
 <span class="nb">echo</span> <span class="nv">$your_name</span></code></pre></figure>
 
-<h3 id="section-1">2.1 字符串</h3>
+<h3 id="21-字符串">2.1 字符串</h3>
 
 <p>字符串可以用单引号，也可以用双引号，也可以不用引号。</p>
 
@@ -265,9 +266,9 @@ Bash也是大多数Linux系统默认的Shell。
 </ul>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">"alibaba is a great company"</span>
-<span class="nb">echo</span> <span class="sb">`</span>expr index <span class="s2">"</span><span class="nv">$string</span><span class="s2">"</span> is<span class="sb">`</span></code></pre></figure>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">expr </span>index <span class="s2">"</span><span class="nv">$string</span><span class="s2">"</span> is<span class="sb">`</span></code></pre></figure>
 
-<h3 id="section-2">2.2 数组</h3>
+<h3 id="22-数组">2.2 数组</h3>
 
 <p>bash支持一维数组（不支持多维数组），并且没有限定数组的大小。
 类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于0。</p>
@@ -300,7 +301,7 @@ Bash也是大多数Linux系统默认的Shell。
 <span class="c"># 取得数组单个元素的长度</span>
 <span class="nv">lengthn</span><span class="o">=</span><span class="k">${#</span><span class="nv">array_name</span><span class="p">[n]</span><span class="k">}</span></code></pre></figure>
 
-<h2 id="echo-">3. echo 的用途</h2>
+<h2 id="3-echo-的用途">3. echo 的用途</h2>
 
 <ul>
   <li>显示普通字符串</li>
@@ -334,12 +335,12 @@ chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span>
 </ul>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 换行</span>
-<span class="nb">echo</span> -e <span class="s2">"OK!</span><span class="se">\n</span><span class="s2">"</span> <span class="c"># -e 开启转义</span>
+<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"OK!</span><span class="se">\n</span><span class="s2">"</span> <span class="c"># -e 开启转义</span>
 <span class="nb">echo</span> <span class="s2">"It it a test"</span>
 
 <span class="c"># 不换行</span>
 <span class="c">#!/bin/sh</span>
-<span class="nb">echo</span> -e <span class="s2">"OK! </span><span class="se">\c</span><span class="s2">"</span> <span class="c"># -e 开启转义 \c 不换行</span>
+<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"OK! </span><span class="se">\c</span><span class="s2">"</span> <span class="c"># -e 开启转义 \c 不换行</span>
 <span class="nb">echo</span> <span class="s2">"It is a test"</span></code></pre></figure>
 
 <ul>
@@ -347,20 +348,20 @@ chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span>
 </ul>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># 以重写文件的方式重定向</span>
-<span class="nb">echo</span> <span class="s2">"It is a test"</span> &gt; myfile
+<span class="nb">echo</span> <span class="s2">"It is a test"</span> <span class="o">&gt;</span> myfile
 
 <span class="c"># 以添加到文件尾的方式重定向</span>
-<span class="nb">echo</span> <span class="s2">"It is a test"</span> &gt;&gt; myfile</code></pre></figure>
+<span class="nb">echo</span> <span class="s2">"It is a test"</span> <span class="o">&gt;&gt;</span> myfile</code></pre></figure>
 
 <ul>
   <li>显示命令执行结果</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span> -e <span class="k">$(</span>date<span class="k">)</span> <span class="s1">'\n'</span>  <span class="sb">`</span>date<span class="sb">`</span>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007:~/Desktop/github/litaotao.github.io<span class="nv">$echo</span> <span class="nt">-e</span> <span class="k">$(</span><span class="nb">date</span><span class="k">)</span> <span class="s1">'\n'</span>  <span class="sb">`</span><span class="nb">date</span><span class="sb">`</span>
 Tue Nov 17 22:21:05 CST 2015
  Tue Nov 17 22:21:05 CST 2015</code></pre></figure>
 
-<h2 id="section-3">参考文档</h2>
+<h2 id="参考文档">参考文档</h2>
 
 <ul>
   <li><a href="http://www.runoob.com/linux/linux-shell.html">Shell 教程</a></li>
@@ -389,7 +390,7 @@ Tue Nov 17 22:21:05 CST 2015
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/shell-programming-summary data-title=shell 编程总结一，概念，变量 
-             data-url=http://litaotao.github.io/+/shell-programming-summary></div>
+             data-url=http://localhost:4000+/shell-programming-summary></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

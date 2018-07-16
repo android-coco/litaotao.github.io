@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
@@ -131,7 +132,7 @@
 
 <p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 <em>present mode</em> 哦。</p>
 
-<h2 id="rdd">1. 什么是RDD</h2>
+<h2 id="1-什么是rdd">1. 什么是RDD</h2>
 <p>先看下源码里是怎么描述RDD的。</p>
 
 <blockquote>
@@ -170,17 +171,17 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   </blockquote>
 </blockquote>
 
-<h2 id="rdd-1">2. 理解RDD的几个关键概念</h2>
+<h2 id="2-理解rdd的几个关键概念">2. 理解RDD的几个关键概念</h2>
 
 <p>本来我是想参考 RDD 的论文和自己的理解来整理这篇文章的，可是后来想想这样是不是有点过于细致了。我想，认识一个新事物，在时间、资源有限的情况下，不必锱铢必较，可以先 focus on 几个关键点，到后期应用的时候再步步深入。</p>
 
 <p>所以，按照我个人的理解，我认为想用好 spark，必须要理解 RDD ，而为了理解 RDD ，我认为只要了解下面几个 RDD 的几个关键点就能 handle 很多情况下的问题了。所以，下面所有列到的点，都是在我个人看来很重要的，但也许有所欠缺，大家如果想继续深入，可以看第三部分列出的参考资料，或者直接联系我，互相交流。</p>
 
-<h3 id="rdd-2">2.1 RDD的背景及解决的痛点问题</h3>
+<h3 id="21-rdd的背景及解决的痛点问题">2.1 RDD的背景及解决的痛点问题</h3>
 
 <p>RDD 的设计是为了充分利用分布式系统中的内存资源，使得提升一些特定的应用的效率。这里所谓的特定的应用没有明确定义，但可以理解为一类应用到迭代算法，图算法等需要重复利用数据的应用类型；除此之外，RDD 还可以应用在交互式大数据处理方面。所以，我们这里需要明确一下：<code class="highlighter-rouge">RDD并不是万能的，也不是什么带着纱巾的少女那样神奇。简单的理解，就是一群大牛为了解决一个问题而设计的一个特定的数据结构，that's all</code>。</p>
 
-<h3 id="what-is-dag---">2.2 What is DAG - 趣说有向无环图</h3>
+<h3 id="22-what-is-dag---趣说有向无环图">2.2 What is DAG - 趣说有向无环图</h3>
 
 <p>DAG - Direct Acyclic Graph，有向无环图，好久没看图片了，先发个图片来理解理解吧。
 <img src="../../images/dag.jpg" alt="DAG" /><br />
@@ -192,7 +193,7 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   <li>无环：这里就是重点要理解的地方了，spark 的优化器在这里也发挥了很大的作用。首先，我们先理解一下无环的概念，假设有图三中左下 B,D,E 这样一个 RDD 转换图，那当我们的需要执行 D.collect 操作的时候，就会引发一个死循环了。不过，仔细想过的话，就会知道，“无环”这个问题其实已经在“有向”这个概念中提现了，上面说的“有向”，其实更详细的说是一个时间上的先来后到，即祖先与子孙的关系，是不可逆的。</li>
 </ul>
 
-<h3 id="what-is-data-locality---rdd">2.3 What is Data Locality - RDD的位置可见性</h3>
+<h3 id="23-what-is-data-locality---rdd的位置可见性">2.3 What is Data Locality - RDD的位置可见性</h3>
 <p>这个问题就不重复造轮子了，直接引用Quora上的一个<a href="https://www.quora.com/How-do-I-make-clear-the-concept-of-RDD-in-Spark">问答了</a>:</p>
 
 <hr />
@@ -201,10 +202,10 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 <hr />
 
-<h3 id="what-is-lazy-evaluation---">2.4 What is Lazy Evaluation - 神马叫惰性求值</h3>
+<h3 id="24-what-is-lazy-evaluation---神马叫惰性求值">2.4 What is Lazy Evaluation - 神马叫惰性求值</h3>
 <p>本来不想叫“惰性求值”的，看到“惰”这个字实在是各种不爽，实际上，我觉得应该叫”后续求值”，”按需计算”，”晚点搞”这类似的，哈哈。这几天一直在想应该怎么简单易懂地来表达Lazy Evaluation这个概念，本来打算引用MongoDB的Cursor来类比一下的，可总觉得还是小题大做了。这个概念就懒得解释了，主要是觉得太简单了，没有必要把事情搞得这么复杂，哈哈。</p>
 
-<h3 id="what-is-narrowwide-dependency---rdd">2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖</h3>
+<h3 id="25-what-is-narrowwide-dependency---rdd的宽依赖和窄依赖">2.5 What is Narrow/Wide Dependency - RDD的宽依赖和窄依赖</h3>
 <p>首先，先从原文看看宽依赖和窄依赖各自的定义。</p>
 
 <p><code class="highlighter-rouge">narrow dependencies</code>: where each partition of the parent RDD is used by at most one partition of the child RDD, <code class="highlighter-rouge">wide dependencis</code>, where multiple child partitions may depend on it.</p>
@@ -228,10 +229,10 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
 
 <p><img src="../images/spark-rdd-dependency.png" alt="spark-rdd-dependency.png" /></p>
 
-<h2 id="section-1">3. 尚未提到的一些重要概念</h2>
+<h2 id="3-尚未提到的一些重要概念">3. 尚未提到的一些重要概念</h2>
 <p>还有一些基本概念上面没有提到，一些是因为自己还没怎么弄清楚，一些是觉得重要但是容易理解的，所以就先不记录下来了。比如说：粗粒度、细粒度；序列化和反序列化等。</p>
 
-<h2 id="next">4. Next</h2>
+<h2 id="4-next">4. Next</h2>
 
 <p>基础的概念和理论都讲得差不多了，该小试牛刀了，哈哈。</p>
 
@@ -250,11 +251,11 @@ Optionally, a list of preferred locations to compute each split on (e.g. block l
   <li>开始讲 <code class="highlighter-rouge">dataframe 和 datasets</code></li>
 </ul>
 
-<h2 id="section-2">5. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="5-打开微信扫一扫点一点棒棒的_">5. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay.png" alt="wechat_pay.png" /></p>
 
-<h2 id="section-3">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="http://blog.csdn.net/anzhsoft/article/details/39851421">Spark技术内幕：究竟什么是RDD</a></li>
@@ -263,7 +264,7 @@ In-Memory Cluster Computing</a></li>
   <li><a href="http://shiyanjun.cn/archives/744.html">RDD 论文中文版</a></li>
 </ul>
 
-<h2 id="section-4">本系列文章链接</h2>
+<h2 id="本系列文章链接">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -303,7 +304,7 @@ In-Memory Cluster Computing</a></li>
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/spark-what-is-rdd data-title=『 Spark 』4. spark 之 RDD 
-             data-url=http://litaotao.github.io/+/spark-what-is-rdd></div>
+             data-url=http://localhost:4000+/spark-what-is-rdd></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

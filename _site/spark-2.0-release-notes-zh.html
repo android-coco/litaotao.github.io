@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
@@ -143,11 +144,11 @@
 <p>上一篇文章： 
 <a href="http://litaotao.github.io/spark-2.0-faster-easier-smarter">『 Spark 』12. Spark 2.0  | 10 个特性介绍</a></p>
 
-<h2 id="api-stability">1. API Stability</h2>
+<h2 id="1-api-stability">1. API Stability</h2>
 
 <p>spark 保证 2.x 中非实验性的 api 的稳定性，2.x 中大部分 api 都与 1.x 中保持一致，但是删除了一些 api，更新了一些 api，并且有部分 api 打算在后续升级中移除，具体见下面，完整的列表参考：<a href="https://issues.apache.org/jira/browse/SPARK-11806">Spark 2.0 deprecations and removals</a></p>
 
-<h3 id="removals-api">1.1 Removals API</h3>
+<h3 id="11-removals-api">1.1 Removals API</h3>
 
 <ul>
   <li>Bagel</li>
@@ -167,7 +168,7 @@
   <li>Spark EC2 script 被迁移到另外一个 repo，本身与 spark 框架无关</li>
 </ul>
 
-<h3 id="behavior-changes-api">1.2 Behavior Changes API</h3>
+<h3 id="12-behavior-changes-api">1.2 Behavior Changes API</h3>
 
 <ul>
   <li><em>默认使用 scala 2.11 编译，之前默认是 2.10</em></li>
@@ -179,7 +180,7 @@
   <li>The DataFrame-based API (spark.ml) now depends upon local linear algebra in spark.ml.linalg, rather than in spark.mllib.linalg.</li>
 </ul>
 
-<h3 id="deprecations">1.3 Deprecations</h3>
+<h3 id="13-deprecations">1.3 Deprecations</h3>
 
 <ul>
   <li><em>Mesos 中的 Fine-grained 模式</em></li>
@@ -187,9 +188,9 @@
   <li><em>不支持 Support for Python 2.6</em></li>
 </ul>
 
-<h2 id="core-and-spark-sql">2. Core and Spark SQL</h2>
+<h2 id="2-core-and-spark-sql">2. Core and Spark SQL</h2>
 
-<h3 id="programming-apis">2.1 Programming APIs</h3>
+<h3 id="21-programming-apis">2.1 Programming APIs</h3>
 
 <ul>
   <li><em>统一 DataFrame 和 Dataset，在 Scala 和 Java 中, DataFrame 和 Dataset 完成合并；在 Python 和 R 中, DataFrame 和 Dataset 没有合并；</em></li>
@@ -199,7 +200,7 @@
   <li>A new, improved Aggregator API for typed aggregation in Datasets</li>
 </ul>
 
-<h3 id="sql">2.2 SQL</h3>
+<h3 id="22-sql">2.2 SQL</h3>
 
 <p><em>Spark 2.0 完全支持 SQL2003 标准.</em></p>
 
@@ -219,7 +220,7 @@
   <li>In addition, when building without Hive support, Spark SQL should have almost all the functionality as when building with Hive support, with the exception of Hive connectivity, Hive UDFs, and script transforms.</li>
 </ul>
 
-<h3 id="new-features">2.3 New Features</h3>
+<h3 id="23-new-features">2.3 New Features</h3>
 
 <ul>
   <li><em>原生支持 CSV 数据源, 基于 Databricks 的 spark-csv 包；</em></li>
@@ -228,7 +229,7 @@
   <li>Approximate summary statistics using sketches, including approximate quantile, Bloom filter, and count-min sketch.</li>
 </ul>
 
-<h3 id="performance-and-runtime">2.4 Performance and Runtime</h3>
+<h3 id="24-performance-and-runtime">2.4 Performance and Runtime</h3>
 
 <ul>
   <li><em>2～10 倍的性能提升，得益于 whole stage code generation 方案；</em></li>
@@ -239,7 +240,7 @@
   <li>Automatic file coalescing for native data sources</li>
 </ul>
 
-<h2 id="mllib">3. MLlib</h2>
+<h2 id="3-mllib">3. MLlib</h2>
 
 <p>在 2.x 中，DataFrame-based API 会是主要开发，维护的新的 mllib api。</p>
 
@@ -250,7 +251,7 @@
   <li>Algorithms added to DataFrames-based API: Bisecting K-Means clustering, Gaussian Mixture Model, MaxAbsScaler feature transformer.</li>
 </ul>
 
-<h2 id="sparkr">4. SparkR</h2>
+<h2 id="4-sparkr">4. SparkR</h2>
 
 <p>最大的改善是 2.x 中，sparkr 支持3个 udf: dapply, gapply, and lapply.</p>
 
@@ -261,11 +262,11 @@
   <li>More DataFrame functionality: Window functions API, reader, writer support for JDBC, CSV, SparkSession</li>
 </ul>
 
-<h2 id="streaming">5. Streaming</h2>
+<h2 id="5-streaming">5. Streaming</h2>
 
 <p><em>新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.</em></p>
 
-<h2 id="dependency-packaging-and-operations">6. Dependency, Packaging, and Operations</h2>
+<h2 id="6-dependency-packaging-and-operations">6. Dependency, Packaging, and Operations</h2>
 
 <ul>
   <li>Spark 2.0 no longer requires a fat assembly jar for production deployment.</li>
@@ -275,7 +276,7 @@
   <li>The default build is now using Scala 2.11 rather than Scala 2.10.</li>
 </ul>
 
-<h2 id="spark-20-">7. Spark 2.0, 必须知道的几个点</h2>
+<h2 id="7-spark-20-必须知道的几个点">7. Spark 2.0, 必须知道的几个点</h2>
 
 <ul>
   <li>不支持 Hadoop 2.1 及之前老版本</li>
@@ -292,11 +293,11 @@
   <li>新的 streaming 框架 Structured Streaming, 其中 DStream API 大多数都是处于试验阶段，并且只支持 Kafka 0.10 的connector.</li>
 </ul>
 
-<h2 id="section-1">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="14-打开微信扫一扫点一点棒棒的_">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
 
-<h2 id="section-2">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="http://spark.apache.org/releases/spark-release-2-0-0.html">Spark Release 2.0.0</a></li>
@@ -304,7 +305,7 @@
   <li><a href="https://spark-summit.org/2016/events/apache-spark-mllib-20-preview-data-science-and-production/">APACHE SPARK MLLIB 2.0 PREVIEW: DATA SCIENCE AND PRODUCTION</a></li>
 </ul>
 
-<h2 id="section-3">本系列文章链接</h2>
+<h2 id="本系列文章链接">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -344,7 +345,7 @@
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/spark-2.0-release-notes-zh data-title=『 Spark 』13. Spark 2.0 Release Notes 中文版 
-             data-url=http://litaotao.github.io/+/spark-2.0-release-notes-zh></div>
+             data-url=http://localhost:4000+/spark-2.0-release-notes-zh></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

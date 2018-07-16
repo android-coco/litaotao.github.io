@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,10 +123,10 @@
     </p>
 
 
-    <h2 id="section">1. 写在前面</h2>
+    <h2 id="1-写在前面">1. 写在前面</h2>
 <p>　　最近一直在学习spark，延伸到学习IPython，发现IPython这东西还真是不一般啊，所以决定还是应该坐下了认真学习一下。下面都是我在官网上学习时的笔记了。</p>
 
-<h2 id="section-1">2. 前言</h2>
+<h2 id="2-前言">2. 前言</h2>
 <p>　　IPython provides a rich architecture for interactive computing with:</p>
 
 <ul>
@@ -138,7 +139,7 @@
 
 <p>　　IPython 3.x will be the last monolithic release of IPython, containing the notebook server, qtconsole, etc. The language-agnostic parts of the project: the notebook format, message protocol, qtconsole, notebook web application, etc. will move to new projects under the name Jupyter. IPython itself will return to being focused on interactive Python, part of which will be providing a Python kernel for Jupyter.</p>
 
-<h2 id="section-2">3. 介绍</h2>
+<h2 id="3-介绍">3. 介绍</h2>
 <p>　　The goal of IPython is to create a comprehensive environment for interactive and exploratory computing. To support this goal, IPython has three main components:</p>
 
 <ul>
@@ -147,10 +148,10 @@
   <li>An architecture for interactive parallel computing.</li>
 </ul>
 
-<h3 id="enhanced-interactive-python-shell">3.1 Enhanced interactive Python shell</h3>
+<h3 id="31-enhanced-interactive-python-shell">3.1 Enhanced interactive Python shell</h3>
 <p>　　看官网。<a href="http://ipython.org/ipython-doc/stable/overview.html#ipythonzmq">link</a></p>
 
-<h3 id="decoupled-two-process-model">3.2 Decoupled two-process model</h3>
+<h3 id="32-decoupled-two-process-model">3.2 Decoupled two-process model</h3>
 <p>　　IPython has abstracted and extended the notion of a traditional Read-Evaluate-Print Loop (REPL) environment by decoupling the evaluation into its own process. We call this process a kernel: it receives execution instructions from clients and communicates the results back to them.</p>
 
 <p>　　This decoupling allows us to have several clients connected to the same kernel, and even allows clients and kernels to live on different machines. With the exclusion of the traditional single process terminal-based IPython (what you start if you run ipython without any subcommands), all other IPython machinery uses this two-process model. This includes ipython console, ipython qtconsole, and ipython notebook.</p>
@@ -161,15 +162,15 @@
 
 <p>　　zeppelin也是用了这样的机制的，看来databricks也是这样搞的。关于这个机制，这篇notebook有简单的<a href="http://nbviewer.ipython.org/github/ipython/ipython/blob/1.x/examples/notebooks/Frontend-Kernel%20Model.ipynb">描述</a></p>
 
-<h3 id="interactive-parallel-computing">3.3 Interactive parallel computing</h3>
+<h3 id="33-interactive-parallel-computing">3.3 Interactive parallel computing</h3>
 <p>　　看官网。</p>
 
-<h2 id="section-3">4. 安装</h2>
+<h2 id="4-安装">4. 安装</h2>
 <p>　　还是看<a href="../http://ipython.org/ipython-doc/stable/install/install.html">官网</a>有用，主要还是要解决依赖的问题，最好的方法就是 pip install “ipython[all]”。</p>
 
-<h2 id="using-ipython-for-interactive-work">5. Using IPython for interactive work</h2>
+<h2 id="5-using-ipython-for-interactive-work">5. Using IPython for interactive work</h2>
 
-<h3 id="introducing-ipython">5.1 Introducing IPython</h3>
+<h3 id="51-introducing-ipython">5.1 Introducing IPython</h3>
 
 <ul>
   <li>常用的四个帮助方法：
@@ -198,7 +199,7 @@
 
 <p>If you want some code to be run at the beginning of every IPython session, the easiest way is to add Python (.py) or IPython (.ipy) scripts to your profile_default/startup/ directory. Files here will be executed as soon as the IPython shell is constructed, before any other code or scripts you have specified. The files will be run in order of their names, so you can control the ordering with prefixes, like 10-myimports.py.</p>
 
-<h3 id="ipython-reference">5.2 IPython reference</h3>
+<h3 id="52-ipython-reference">5.2 IPython reference</h3>
 
 <ul>
   <li>Command-line usage</li>
@@ -206,9 +207,8 @@
 
 <p>You start IPython with the command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ ipython [options] files
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ipython [options] files
+</code></pre></div></div>
 
 <p>If invoked with no options, it executes all the files listed in sequence and drops you into the interpreter while still acknowledging any options you may have set in your ipython_config.py. This behavior is different from standard Python, which when called as python -i will only execute one file and ignore your configuration setup.</p>
 
@@ -220,29 +220,28 @@
 
 <p>Python honors the environment variable PYTHONSTARTUP and will execute at startup the file referenced by this variable. If you put the following code at the end of that file, then IPython will be your working environment anytime you start Python:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import os, IPython
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os, IPython
 os.environ['PYTHONSTARTUP'] = ''  # Prevent running this again
 IPython.start_ipython()
 raise SystemExit
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The raise SystemExit is needed to exit Python when it finishes, otherwise you’ll be back at the normal Python »&gt; prompt.</p>
 
 <p>This is probably useful to developers who manage multiple Python versions and don’t want to have correspondingly multiple IPython versions. Note that in this mode, there is no way to pass IPython any command-line options, as those are trapped first by Python itself.</p>
 
-<h2 id="the-ipython-notebook">6. The IPython notebook</h2>
+<h2 id="6-the-ipython-notebook">6. The IPython notebook</h2>
 
-<h3 id="running-a-notebook-server">6.1 Running a notebook server</h3>
+<h3 id="61-running-a-notebook-server">6.1 Running a notebook server</h3>
 
 <p>The IPython notebook web-application is based on a server-client structure. This server uses a <strong><em>two-process kernel architecture</em></strong> based on <strong><em>ZeroMQ</em></strong>, as well as <strong><em>Tornado</em></strong> for serving HTTP requests. By default, a notebook server runs on http://127.0.0.1:8888/ and is accessible only from localhost. This document describes how you can secure a notebook server and how to run it on a public interface.</p>
 
-<h2 id="using-ipython-for-parallel-computing">7. Using IPython for parallel computing</h2>
+<h2 id="7-using-ipython-for-parallel-computing">7. Using IPython for parallel computing</h2>
 <p>目前研究的方向和IPython自身的parallel关联不大，暂时不看这块。</p>
 
-<h2 id="configuration-and-customization">8. Configuration and customization</h2>
+<h2 id="8-configuration-and-customization">8. Configuration and customization</h2>
 
-<h3 id="serveral-config-methods">8.1 Serveral config methods</h3>
+<h3 id="81-serveral-config-methods">8.1 Serveral config methods</h3>
 
 <ul>
   <li>Config files</li>
@@ -250,7 +249,7 @@ raise SystemExit
   <li>The config magics</li>
 </ul>
 
-<h3 id="ipython-options">8.2 IPython options</h3>
+<h3 id="82-ipython-options">8.2 IPython options</h3>
 <p>重点研究notebook options和kernel options，细节用到时再仔细看。</p>
 
 <ul>
@@ -260,7 +259,7 @@ raise SystemExit
   <li>IPython Qt console options</li>
 </ul>
 
-<h3 id="ipython-extensions">8.3 IPython extensions</h3>
+<h3 id="83-ipython-extensions">8.3 IPython extensions</h3>
 <p>A level above configuration are IPython extensions, Python modules which modify the behaviour of the shell. They are referred to by an importable module name, and can be placed anywhere you’d normally import from, or in .ipython/extensions/.</p>
 
 <p>Getting extensions
@@ -409,7 +408,7 @@ There are two main ways to define your own magic functions: from standalone func
 <span class="c"># Declare this function as the magic %mycommand</span>
 <span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">'mycommand'</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></code></pre></figure>
 
-<h2 id="ipython-developers-guide">9. IPython developer’s guide</h2>
+<h2 id="9-ipython-developers-guide">9. IPython developer’s guide</h2>
 <p>This are two categories of developer focused documentation:</p>
 
 <ul>
@@ -421,21 +420,20 @@ There are two main ways to define your own magic functions: from standalone func
 
 <p>Developers interested in working on IPython itself should consult our developer information on the IPython GitHub wiki.</p>
 
-<h2 id="how-ipython-works">10 How IPython works</h2>
+<h2 id="10-how-ipython-works">10 How IPython works</h2>
 
-<h3 id="terminal-ipython">10.1 Terminal IPython</h3>
+<h3 id="101-terminal-ipython">10.1 Terminal IPython</h3>
 
 <p>When you type ipython, you get the original IPython interface, running in the terminal. It does something like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>while True:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while True:
     code = input("&gt;&gt;&gt; ")
     exec(code)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Of course, it’s much more complex, because it has to deal with multi-line code, tab completion using readline, magic commands, and so on. But the model is like that: prompt the user for some code, and when they’ve entered it, exec it in the same process. This model is often called a REPL, or Read-Eval-Print-Loop.</p>
 
-<h3 id="the-ipython-kernel">10.2 The IPython Kernel</h3>
+<h3 id="102-the-ipython-kernel">10.2 The IPython Kernel</h3>
 
 <p>All the other interfaces—the Notebook, the Qt console, ipython console in the terminal, and third party interfaces—use the IPython Kernel. This is a separate process which is responsible for running user code, and things like computing possible completions. Frontends communicate with it using JSON messages sent over ZeroMQ sockets; the protocol they use is described in Messaging in IPython.</p>
 
@@ -453,7 +451,7 @@ There are two main ways to define your own magic functions: from standalone func
 
 <p>Wrapper kernels are easier to write quickly for languages that have good Python wrappers, like octave_kernel, or languages where it’s impractical to implement the communications machinery, like bash_kernel. Native kernels are likely to be better maintained by the community using them, like IJulia or IHaskell.</p>
 
-<h3 id="notebook">10.3 Notebook</h3>
+<h3 id="103-notebook">10.3 Notebook</h3>
 
 <p>The Notebook frontend does something extra. In addition to running your code, it stores code and output, together with markdown notes, in an editable document called a notebook. When you save it, this is sent from your browser to the notebook server, which saves it on disk as a JSON file with a .ipynb extension.</p>
 
@@ -473,11 +471,11 @@ There are two main ways to define your own magic functions: from standalone func
 
 <p>The nbviewer website uses nbconvert with the HTML exporter. When you give it a URL, it fetches the notebook from that URL, converts it to HTML, and serves that HTML to you.</p>
 
-<h2 id="messaging-in-ipython">11. Messaging in IPython</h2>
+<h2 id="11-messaging-in-ipython">11. Messaging in IPython</h2>
 
 <p>The IPython message specification is versioned independently of IPython. The current version of the specification is 5.0.</p>
 
-<h3 id="introduction">11.1 Introduction</h3>
+<h3 id="111-introduction">11.1 Introduction</h3>
 
 <p>This document explains the basic communications design and messaging specification for how the various IPython objects interact over a network transport. The current implementation uses the ZeroMQ library for messaging within and between hosts.</p>
 
@@ -505,7 +503,7 @@ All messages are tagged with enough information (details below) for clients to k
 
 <p>The actual format of the messages allowed on each of these channels is specified below. Messages are dicts of dicts with string keys and values that are reasonably representable in JSON. Our current implementation uses JSON explicitly as its message format, but this shouldn’t be considered a permanent feature. As we’ve discovered that JSON has non-trivial performance issues due to excessive copying, we may in the future move to a pure pickle-based raw message format. However, it should be possible to easily convert from the raw objects to JSON, since we may have non-python clients (e.g. a web frontend). As long as it’s easy to make a JSON version of the objects that is a faithful representation of all the data, we can communicate with such clients.</p>
 
-<h3 id="general-message-format">11.2 General Message Format</h3>
+<h3 id="112-general-message-format">11.2 General Message Format</h3>
 
 <p>A message is defined by the following four-dictionary structure:</p>
 
@@ -538,7 +536,7 @@ All messages are tagged with enough information (details below) for clients to k
   <span class="s">'content'</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">}</span></code></pre></figure>
 
-<h2 id="making-kernels-for-ipython">12. Making kernels for IPython</h2>
+<h2 id="12-making-kernels-for-ipython">12. Making kernels for IPython</h2>
 
 <p>A ‘kernel’ is a program that runs and introspects the user’s code. IPython includes a kernel for Python code, and people have written kernels for several other languages.</p>
 
@@ -551,14 +549,14 @@ All messages are tagged with enough information (details below) for clients to k
   <li>You can implement the kernel machinery in your target language. This is more work initially, but the people using your kernel might be more likely to contribute to it if it’s in the language they know.</li>
 </ul>
 
-<h2 id="section-4">学习资源</h2>
+<h2 id="学习资源">学习资源</h2>
 
 <ul>
   <li><a href="http://ipython.org/">官网</a></li>
   <li><a href="https://github.com/ipython/ipython/wiki?path=Cookbook">IPython Cookbook</a></li>
 </ul>
 
-<h2 id="section-5">扫一扫</h2>
+<h2 id="扫一扫">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-10-ipython-learning.md.jpg" alt="2015-03-10-ipython-learning.md" /></p>
 
@@ -583,7 +581,7 @@ All messages are tagged with enough information (details below) for clients to k
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/ipython-learning data-title=IPython 学习 
-             data-url=http://litaotao.github.io/+/ipython-learning></div>
+             data-url=http://localhost:4000+/ipython-learning></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,7 +123,7 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>本系列是综合了自己在学习spark过程中的理解记录 ＋ 对参考文章中的一些理解 ＋ 个人实践spark过程中的一些心得而来。写这样一个系列仅仅是为了梳理个人学习spark的笔记记录，所以一切以能够理解为主，没有必要的细节就不会记录了，而且文中有时候会出现英文原版文档，只要不影响理解，都不翻译了。若想深入了解，最好阅读参考文章和官方文档。</p>
 
@@ -131,7 +132,7 @@
 
 <p>Tips: 如果插图看起来不明显，可以：1. 放大网页；2. 新标签中打开图片，查看原图哦；3. 点击右边目录上方的 <em>present mode</em> 哦。</p>
 
-<h2 id="why-how-when-what">1. 优化? Why? How? When? What?</h2>
+<h2 id="1-优化-why-how-when-what">1. 优化? Why? How? When? What?</h2>
 
 <p><img src="../images/how_when_what_why.jpg" alt="how_when_what_why.jpg" /></p>
 
@@ -153,11 +154,11 @@
 
 <p>OK，下面我们来看看一些常见的优化方法。</p>
 
-<h2 id="repartition-and-coalesce">2. repartition and coalesce</h2>
+<h2 id="2-repartition-and-coalesce">2. repartition and coalesce</h2>
 
 <p><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">原文：</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Spark provides the `repartition()` function, which shuffles the data 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spark provides the `repartition()` function, which shuffles the data 
 across the network to create a new set of partitions. Keep in mind 
 that repartitioning your data is a fairly expensive operation. Spark 
 also has an optimized version of `repartition()` called `coalesce()` 
@@ -166,12 +167,11 @@ the number of RDD partitions. To know whether you can safely call
 coalesce(), you can check the size of the RDD using `rdd.partitions.size()` 
 in Java/Scala and `rdd.getNumPartitions()` in Python and make sure 
 that you are coalescing it to fewer partitions than it currently has.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>总结：当要对 rdd 进行重新分片时，如果目标片区数量小于当前片区数量，那么用 <code class="highlighter-rouge">coalesce</code>，不要用 <code class="highlighter-rouge">repartition</code>。关于 <code class="highlighter-rouge">partition</code> 的更多优化细节，参考 <a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></p>
 
-<h2 id="passing-functions-to-spark">3. Passing Functions to Spark</h2>
+<h2 id="3-passing-functions-to-spark">3. Passing Functions to Spark</h2>
 
 <p>In Python, we have three options for passing functions into Spark.</p>
 
@@ -222,7 +222,7 @@ that you are coalescing it to fewer partitions than it currently has.
       <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span>
       <span class="k">return</span> <span class="n">rdd</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span></code></pre></figure>
 
-<h2 id="worker-cpu-memroy-executors">4. worker 的资源分配：cpu, memroy, executors</h2>
+<h2 id="4-worker-的资源分配cpu-memroy-executors">4. worker 的资源分配：cpu, memroy, executors</h2>
 
 <p>这个话题比较深，而且在不同的部署模式也不一样 [standalone, yarn, mesos]，这里给不了什么建议。唯一的一个宗旨是，不要一昧考虑把所有资源都独立给到 spark 来用，要考虑到机器本身的一些进程，spark 依赖的一些进程，网络情况，任务情况 [计算密集，IO密集，long-live task]等。</p>
 
@@ -232,7 +232,7 @@ that you are coalescing it to fewer partitions than it currently has.
   <li><a href="https://www.youtube.com/watch?v=WyfHUNnMutg">Top 5 Mistakes When Writing Spark Applications</a></li>
 </ul>
 
-<h2 id="shuffle-block-size-limitation">5. shuffle block size limitation</h2>
+<h2 id="5-shuffle-block-size-limitation">5. shuffle block size limitation</h2>
 
 <p><em>No Spark shuffle block can be greater than 2 GB</em> — spark shuffle 里的 block size 不能大于 <em>2g</em>。</p>
 
@@ -266,7 +266,7 @@ that you are coalescing it to fewer partitions than it currently has.
     <span class="o">}</span>
   <span class="o">}</span></code></pre></figure>
 
-<h2 id="level-of-parallel--partition">6. level of parallel － partition</h2>
+<h2 id="6-level-of-parallel--partition">6. level of parallel － partition</h2>
 
 <p>先来看看一个 stage 里所有 task 运行的一些性能指标，其中的一些说明：</p>
 
@@ -311,7 +311,7 @@ that you are coalescing it to fewer partitions than it currently has.
 
 <p>那应该怎么设置 partition 的数量呢？这里同样也没有专门的公式和规范，一般都在尝试几次后有一个比较优化的结果。但宗旨是：尽量不要导致 data skew 问题，尽量让每一个 task 执行的时间在一段变化不大的区间之内。</p>
 
-<h2 id="data-skew">7. data skew</h2>
+<h2 id="7-data-skew">7. data skew</h2>
 
 <p>大多数时候，我们希望的分布式计算带来的好处应该是像下图这样的效果：</p>
 
@@ -332,7 +332,7 @@ that you are coalescing it to fewer partitions than it currently has.
   <li><a href="https://www.youtube.com/watch?v=8hn2KVC8FvA&amp;index=6&amp;list=PL-x35fyliRwiuc6qy9z2erka2VX8LY53x">Sparkling: Speculative Partition of Data for Spark Applications - Peilong Li</a></li>
 </ul>
 
-<h2 id="avoid-cartesian-operation">8. avoid cartesian operation</h2>
+<h2 id="8-avoid-cartesian-operation">8. avoid cartesian operation</h2>
 
 <p><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.cartesian">rdd.cartesian</a> 操作很耗时，特别是当数据集很大的时候，cartesian 的数量级都是平方级增长的，既耗时也耗空间。</p>
 
@@ -340,37 +340,37 @@ that you are coalescing it to fewer partitions than it currently has.
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rdd</span><span class="o">.</span><span class="n">cartesian</span><span class="p">(</span><span class="n">rdd</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">())</span>
 <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span></code></pre></figure>
 
-<h2 id="avoid-shuffle-when-possible">9. avoid shuffle when possible</h2>
+<h2 id="9-avoid-shuffle-when-possible">9. avoid shuffle when possible</h2>
 
 <p><img src="../images/spark-optimization-6.png" alt="spark-optimization-6.png" /></p>
 
 <p>spark 中的 shuffle 默认是把上一个 stage 的数据写到 disk 上，然后下一个 stage 再从 disk 上读取数据。这里的磁盘 IO 会对性能造成很大的影响，特别是数据量大的时候。</p>
 
-<h2 id="use-reducebykey-instead-of-groupbykey-when-possible">10. use reduceByKey instead of GroupByKey when possible</h2>
+<h2 id="10-use-reducebykey-instead-of-groupbykey-when-possible">10. use reduceByKey instead of GroupByKey when possible</h2>
 
 <p><img src="../images/spark-optimization-9.png" alt="spark-optimization-9.png" />
 <img src="../images/spark-optimization-10.png" alt="spark-optimization-10.png" /></p>
 
-<h2 id="use-treereduce-instead-of-reduce-when-possible">11. use treeReduce instead of reduce when possible</h2>
+<h2 id="11-use-treereduce-instead-of-reduce-when-possible">11. use treeReduce instead of reduce when possible</h2>
 
 <p><img src="../images/spark-optimization-4.png" alt="spark-optimization-4.png" /></p>
 
-<h2 id="use-kryo-serializer">12. use Kryo serializer</h2>
+<h2 id="12-use-kryo-serializer">12. use Kryo serializer</h2>
 
 <p>spark 应用程序中，在对 RDD 进行 shuffle 和 cache 时，数据都是需要被序列化才可以存储的，此时除了 IO 外，数据序列化也可能是应用程序的瓶颈。这里推荐使用 kryo 序列库，在数据序列化时能保证较高的序列化效率。</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sc_conf</span> <span class="o">=</span> <span class="n">SparkConf</span><span class="p">()</span>
 <span class="n">sc_conf</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="s">"spark.serializer"</span><span class="p">,</span> <span class="s">"org.apache.spark.serializer.KryoSerializer"</span><span class="p">)</span></code></pre></figure>
 
-<h2 id="next">13. Next</h2>
+<h2 id="13-next">13. Next</h2>
 
 <p>这些都是一些实际实践中的经验和对一些高质量分享的总结［大多数是来自那些高质量分享］，里面可能有说得不完全正确的地方，在未来亲自实践，调试过后会再有一篇性能调试的 blog 的，本篇仅供参考哦。下一次，我们来看看怎么统一部署和配置 spark 的 cluster，那的确几乎来自个人实践经验了。</p>
 
-<h2 id="section-1">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="14-打开微信扫一扫点一点棒棒的_">14. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_6-6.png" alt="wechat_pay_6-6.png" /></p>
 
-<h2 id="section-2">参考文章</h2>
+<h2 id="参考文章">参考文章</h2>
 
 <ul>
   <li><a href="https://www.safaribooksonline.com/library/view/learning-spark/9781449359034/ch04.html">chapter 4 of Learning Spark</a></li>
@@ -384,7 +384,7 @@ that you are coalescing it to fewer partitions than it currently has.
   <li><a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html">Avoid GroupByKey</a></li>
 </ul>
 
-<h2 id="section-3">本系列文章链接</h2>
+<h2 id="本系列文章链接">本系列文章链接</h2>
 
 <ul>
   <li><a href="http://litaotao.github.io/introduction-to-spark?s=inner">『 Spark 』1. spark 简介 </a></li>
@@ -424,7 +424,7 @@ that you are coalescing it to fewer partitions than it currently has.
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/boost-spark-application-performance data-title=『 Spark 』10. spark 应用程序性能优化｜12 个优化方法 
-             data-url=http://litaotao.github.io/+/boost-spark-application-performance></div>
+             data-url=http://localhost:4000+/boost-spark-application-performance></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,13 +123,13 @@
     </p>
 
 
-    <h2 id="section">写在前面</h2>
+    <h2 id="写在前面">写在前面</h2>
 
 <p>使用 github 也快有3年了，的确觉得 github 的方便，易用，而且不仅仅在版本控制方面［版本控制方面个人感觉比 svn 好用了太多太多］，而且还提供了一个平台，让你随时跟进最近技术和趋势。今天就来说说其中一个比较实用</p>
 
 <p>ps: 本文对应的 github repo 在这里：<a href="https://github.com/litaotao/github-blog-template">https://github.com/litaotao/github-blog-template</a></p>
 
-<h2 id="section-1">1. 最简单的步骤</h2>
+<h2 id="1-最简单的步骤">1. 最简单的步骤</h2>
 
 <ul>
   <li>step 1 : 新建一个 repo，并克隆 repo 到本地</li>
@@ -151,11 +152,11 @@
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/tmp<span class="nv">$git</span> clone git@github.com:litaotao/github-blog-template.git
 Cloning into <span class="s1">'github-blog-template'</span>...
-remote: Counting objects: 75, <span class="k">done</span>.
-remote: Compressing objects: 100% <span class="o">(</span>68/68<span class="o">)</span>, <span class="k">done</span>.
+remote: Counting objects: 75, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>68/68<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
 remote: Total 75 <span class="o">(</span>delta 4<span class="o">)</span>, reused 72 <span class="o">(</span>delta 4<span class="o">)</span>, pack-reused 0
-Receiving objects: 100% <span class="o">(</span>75/75<span class="o">)</span>, 1.19 MiB | 425.00 KiB/s, <span class="k">done</span>.
-Resolving deltas: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="k">done</span>.
+Receiving objects: 100% <span class="o">(</span>75/75<span class="o">)</span>, 1.19 MiB | 425.00 KiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
 Checking connectivity... <span class="k">done</span>.</code></pre></figure>
 
 <ul>
@@ -169,7 +170,7 @@ Checking connectivity... <span class="k">done</span>.</code></pre></figure>
 ...
 ...
 drwxr-xr-x  13 taotao  staff   442B May 10 10:32 .git
-taotao@mac007:~/Desktop/tmp/github-blog-template<span class="nv">$sudo</span> rm -rf .git</code></pre></figure>
+taotao@mac007:~/Desktop/tmp/github-blog-template<span class="nv">$sudo</span> <span class="nb">rm</span> <span class="nt">-rf</span> .git</code></pre></figure>
 
 <p>然后，复制模版下所有文件到你的本地repo中，使用命令 <em>cp -r github-blog-template/</em> your_local_repo/*</p>
 
@@ -181,11 +182,11 @@ taotao@mac007:~/Desktop/tmp/github-blog-template<span class="nv">$sudo</span> rm
 
 <p>进入到 your_local_repo 目录，使用 <code class="highlighter-rouge">jekyll server --watch</code> 命令启动本地博客。</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/tmp/your_local_repo<span class="nv">$jekyll</span> server --watch
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/tmp/your_local_repo<span class="nv">$jekyll</span> server <span class="nt">--watch</span>
 Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
             Source: /Users/chenshan/Desktop/tmp/your_local_repo
        Destination: /Users/chenshan/Desktop/tmp/your_local_repo/_site
- Incremental build: disabled. Enable with --incremental
+ Incremental build: disabled. Enable with <span class="nt">--incremental</span>
       Generating...
                     <span class="k">done in </span>0.588 seconds.
  Auto-regeneration: enabled <span class="k">for</span> <span class="s1">'/Users/chenshan/Desktop/tmp/your_local_repo'</span>
@@ -197,7 +198,7 @@ Configuration file: /Users/chenshan/Desktop/tmp/your_local_repo/_config.yml
 
 <p><img src="../images/github-pages-blog-2.png" alt="github-pages-blog-2.png" /></p>
 
-<h2 id="section-2">2. 自定义配置</h2>
+<h2 id="2-自定义配置">2. 自定义配置</h2>
 
 <p>如果你已经成功完成了第一步，那恭喜，你马上就能拥有一个自己的博客了，在此之前，你只需要改一个配置文件即可：github-blog-template/_config.yml，你需要改的地方我用中文标注出来了，可以参考注释说明和我的博客来配置：<a href="https://github.com/litaotao/litaotao.github.io">https://github.com/litaotao/litaotao.github.io</a></p>
 
@@ -211,7 +212,7 @@ gems: <span class="o">[</span>jekyll-paginate]
 title: 你的博客名称
 url: 你的博客地址，就叫 http://github用户名+.github.io
 feed: /atom.xml
-author_info: &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"http://litaotao.github.io/"</span>&gt;你的名字&lt;/a&gt;
+author_info: &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"http://litaotao.github.io/"</span><span class="o">&gt;</span>你的名字&lt;/a&gt;
 
 myblog:
   gavatar: 你的头像地址
@@ -226,7 +227,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
 
 <p>ok,如果你已经更改好配置文件了，并且本地运行正常的话，可以上传到 github 了。</p>
 
-<h2 id="section-3">3. 深度阅读之目录文件说明</h2>
+<h2 id="3-深度阅读之目录文件说明">3. 深度阅读之目录文件说明</h2>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">taotao@mac007:~/Desktop/github/github-blog-template<span class="nv">$tree</span>
 <span class="c">### 404 页面，你可以自定义</span>
@@ -289,7 +290,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
     │   ...
     │   ...</code></pre></figure>
 
-<h2 id="section-4">4. 总结</h2>
+<h2 id="4-总结">4. 总结</h2>
 
 <p>总的来说，利用 github 搭建博客的步骤为：</p>
 
@@ -300,7 +301,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
   <li>本地试运行，上传到github</li>
 </ul>
 
-<h2 id="section-5">5. 其他话题</h2>
+<h2 id="5-其他话题">5. 其他话题</h2>
 
 <p>一个简单，但基本够用的博客就这样搭建完成了。其他还有一些扩展话题，感兴趣的同学可以 google 或者联系我，比如说：</p>
 
@@ -328,11 +329,11 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
 
 <p><img src="../images/github-pages-blog-6.png" alt="github-pages-blog-6.png" /></p>
 
-<h2 id="section-6">6. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
+<h2 id="6-打开微信扫一扫点一点棒棒的_">6. 打开微信，扫一扫，点一点，棒棒的，^_^</h2>
 
 <p><img src="../images/wechat_pay_any.png" alt="wechat_pay_any.png" /></p>
 
-<h2 id="section-7">7. 用本模版搭建的博客</h2>
+<h2 id="7-用本模版搭建的博客">7. 用本模版搭建的博客</h2>
 
 <ul>
   <li><a href="http://yuanlaishiai.com/">http://yuanlaishiai.com/</a></li>
@@ -367,7 +368,7 @@ categories: <span class="o">[</span>你的博客目录名称，对应到 your_lo
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/github-pages-blog data-title=如何使用 github pages 搭建博客 
-             data-url=http://litaotao.github.io/+/github-pages-blog></div>
+             data-url=http://localhost:4000+/github-pages-blog></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

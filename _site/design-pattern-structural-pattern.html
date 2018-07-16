@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,10 +123,10 @@
     </p>
 
 
-    <h2 id="section">1. 适配器模式</h2>
+    <h2 id="1-适配器模式">1. 适配器模式</h2>
 <p>　　在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类工作在一起，做法是将类别自己的接口包裹在一个已存在的类中。</p>
 
-<h3 id="python">1.1 Python源码示例</h3>
+<h3 id="11-python源码示例">1.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -219,10 +220,10 @@
 <span class="c"># A Human goes 'hello'</span>
 <span class="c"># A Car goes vroom!!!</span></code></pre></figure>
 
-<h2 id="section-1">2. 桥接模式</h2>
+<h2 id="2-桥接模式">2. 桥接模式</h2>
 <p>　　桥接模式是软件设计模式中最复杂的模式之一，它把事物对象和其具体行为、具体特征分离开来，使它们可以各自独立的变化。事物对象仅是一个抽象的概念。如“圆形”、“三角形”归于抽象的“形状”之下，而“画圆”、“画三角”归于实现行为的“画图”类之下，然后由“形状”调用“画图”。</p>
 
-<h3 id="python-1">2.1 Python源码示例</h3>
+<h3 id="21-python源码示例">2.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -280,10 +281,10 @@
 <span class="c"># API1.circle at 1:2 radius 7.5</span>
 <span class="c"># API2.circle at 5:7 radius 27.5</span></code></pre></figure>
 
-<h2 id="section-2">3. 组合模式</h2>
+<h2 id="3-组合模式">3. 组合模式</h2>
 <p>　　针对“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
 
-<h3 id="python-2">3.1 Python源码示例</h3>
+<h3 id="31-python源码示例">3.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -622,10 +623,10 @@ Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
 <span class="c"># Submit</span>
 <span class="c"># Browse</span></code></pre></figure>
 
-<h2 id="section-3">4. 修饰模式</h2>
+<h2 id="4-修饰模式">4. 修饰模式</h2>
 <p>　　修饰模式，是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。就功能而言，修饰模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。通过使用修饰模式，可以在运行时扩充一个类的功能。原理是：增加一个修饰类包裹原来的类，包裹的方式一般是通过在将原来的对象作为修饰类的构造函数的参数。装饰类实现新的功能，但是，在不需要用到新功能的地方，它可以直接调用原来的类中的方法。修饰类必须和原来的类有相同的接口。修饰模式是类继承的另外一种选择。类继承在编译时候增加行为，而装饰模式是在运行时增加行为。</p>
 
-<h3 id="python-3">4.1 Python源码示例</h3>
+<h3 id="41-python源码示例">4.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""https://docs.python.org/2/library/functools.html#functools.wraps"""</span>
 <span class="s">"""https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""</span>
@@ -659,10 +660,10 @@ Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
 <span class="c">### OUTPUT ###</span>
 <span class="c"># result:&lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;   name:hello   doc:a decorated hello world</span></code></pre></figure>
 
-<h2 id="section-4">5. 外观模式</h2>
+<h2 id="5-外观模式">5. 外观模式</h2>
 <p>　　外观模式（Facade pattern），是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。</p>
 
-<h3 id="python-4">5.1 Python源码示例</h3>
+<h3 id="51-python源码示例">5.1 Python源码示例</h3>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -753,7 +754,7 @@ Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
 <span class="c"># Test Finished</span>
 <span class="c">#</span></code></pre></figure>
 
-<h2 id="section-5">扫一扫</h2>
+<h2 id="扫一扫">扫一扫</h2>
 
 <p><img src="../../images/share/2015-03-13-design-pattern-structural-pattern.md.jpg" alt="2015-03-13-design-pattern-structural-pattern.md" /></p>
 
@@ -778,7 +779,7 @@ Created Anand B Pillai     &lt;abpillai@gmail.com&gt;
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/design-pattern-structural-pattern data-title=『 读书笔记 』 设计模式总结之结构型模式 
-             data-url=http://litaotao.github.io/+/design-pattern-structural-pattern></div>
+             data-url=http://localhost:4000+/design-pattern-structural-pattern></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">

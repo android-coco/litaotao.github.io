@@ -24,6 +24,7 @@
   <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!-- <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
 
   
   <!-- growingIO code -->
@@ -122,12 +123,12 @@
     </p>
 
 
-    <h2 id="erlang-and-otp-in-action">1. 从我在Erlang and OTP in Action中第六章中的错误说起</h2>
+    <h2 id="1-从我在erlang-and-otp-in-action中第六章中的错误说起">1. 从我在Erlang and OTP in Action中第六章中的错误说起</h2>
 <p>　　前两天看EOIA这本书，觉得终于可以用Erlang来搞点东西玩了，于是决定按照书中流程来实践一下所谓的缓存系统。
 谨慎起见，我还是半抄半写把simple_cache的源码写好了，当前目录结构如下：</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">chenshan@mac007 6-EOIA<span class="nv">$tree</span>
-.
+<span class="nb">.</span>
 ├── ebin
 │   ├── prim_consult.beam
 │   ├── sc_app.beam
@@ -145,9 +146,11 @@
     ├── sc_sup.erl
     └── simple_cache.erl</code></pre></figure>
 
-<p><strong>小提示：</strong> <br />
-&gt; 1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；<br />
-&gt; 2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的；</p>
+<p><strong>小提示：</strong></p>
+<blockquote>
+  <p>1、要把src目录下的erl源文件编译，并把编译后的beam文件放到ebin下有一个快捷的方法，在当前目录下执行：erlc -o ebin/ src/*.erl；<br />
+2、上面出现的prim_consult.erl和prim_consult.beam不用管，后面会提到的，这是我阅读application源码时提取出来的；</p>
+</blockquote>
 
 <p>　　然后进入ebin目录，打开erlang执行环境，用application:start(simple_cache).启动我们的缓存系统，opps，这个时候就出错了。</p>
 
@@ -156,7 +159,7 @@ chenshan@mac007 ebin<span class="nv">$erl</span>
 Erlang/OTP 17 <span class="o">[</span>erts-6.1] <span class="o">[</span><span class="nb">source</span><span class="o">]</span> <span class="o">[</span>64-bit] <span class="o">[</span>smp:4:4] <span class="o">[</span>async-threads:10] <span class="o">[</span>hipe] <span class="o">[</span>kernel-poll:false]
 
 Eshell V6.1  <span class="o">(</span>abort with ^G<span class="o">)</span>
-<span class="gp">1&gt; </span>application:start<span class="o">(</span>simple_cache<span class="o">)</span>.  
+1&gt; application:start<span class="o">(</span>simple_cache<span class="o">)</span><span class="nb">.</span>  
 <span class="o">{</span>error,
     <span class="o">{</span>bad_return,
         <span class="o">{</span>
@@ -190,30 +193,34 @@ Eshell V6.1  <span class="o">(</span>abort with ^G<span class="o">)</span>
                               <span class="o">[{</span>file,<span class="s2">"application_master.erl"</span><span class="o">}</span>,
                                <span class="o">{</span>line,294<span class="o">}]}]}}}}</span>
     <span class="nb">type</span>: temporary
-<span class="gp">2&gt; </span></code></pre></figure>
+2&gt; </code></pre></figure>
 
-<h2 id="applicationotp">2. 看看application行为在启动一个otp应用的简单流程</h2>
+<h2 id="2-看看application行为在启动一个otp应用的简单流程">2. 看看application行为在启动一个otp应用的简单流程</h2>
 <p>　　首先，在erlang环境下执行code:which(application)查看application编译后的文件路径：</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">Eshell V6.1  <span class="o">(</span>abort with ^G<span class="o">)</span>
-<span class="gp">1&gt; </span>code:which<span class="o">(</span>application<span class="o">)</span>.
+1&gt; code:which<span class="o">(</span>application<span class="o">)</span><span class="nb">.</span>
 <span class="s2">"/usr/local/lib/erlang/lib/kernel-3.0.1/ebin/application.beam"</span></code></pre></figure>
 
-<p>　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：<br />
-&gt; 
-* doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；
-+ ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；
-- include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；
-- priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(<application-name>)，便会以字符串形式得到priv目录完整路径；
-- src  存放应用源代码；</application-name></p>
+<p>　　然后，找到application的源文件，熟悉OTP项目目录结构的同志应该很清楚这里应该怎么做了吧，回顾一下OTP项目目录结构：</p>
+<blockquote>
+
+  <ul>
+    <li>doc  用于存放文档。如果文档时用EDoc生成，请将overview.edoc文件放在此处，其余的文件将会自动生成；</li>
+    <li>ebin  用于存放编译后的代码(.beam文件)，包含应用元数据的.app文件也应放在此处；</li>
+    <li>include  用于存放公共头文件。所有作为公共API的一部分的.hrl文件都应该放在这个目录中。仅用于你自己的代码之中且不打算公开的私有.hrl文件则应该与其它源码文件一起放；</li>
+    <li>priv  用于存放各种需要随应用一起发布的其他内容。定位priv目录的方法很简单：调用code:priv_dir(<application-name>)，便会以字符串形式得到priv目录完整路径；</application-name></li>
+    <li>src  存放应用源代码；</li>
+  </ul>
+</blockquote>
 
 <p>　　所以简单就能找到application的源文件了，在/usr/local/lib/erlang/lib/kernel-3.0.1/src/下面，这个目录里面还有其他源文件，安全、简单的方法是拷贝到临时目录里来看，看下面：</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>mkdir ~/Desktop/temp
-<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>cp /usr/local/lib/erlang/lib/kernel-3.0.1/src/application<span class="k">*</span>.erl ~/Desktop/ temp/
-<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>ls ~/Desktop/te
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">root@kali:~/Desktop/erl/6-EOIA/ebin# <span class="nb">mkdir</span> ~/Desktop/temp
+root@kali:~/Desktop/erl/6-EOIA/ebin# <span class="nb">cp</span> /usr/local/lib/erlang/lib/kernel-3.0.1/src/application<span class="k">*</span>.erl ~/Desktop/ temp/
+root@kali:~/Desktop/erl/6-EOIA/ebin# <span class="nb">ls</span> ~/Desktop/te
 temp/ <span class="nb">test</span>/
-<span class="gp">root@kali:~/Desktop/erl/6-EOIA/ebin# </span>ls ~/Desktop/temp/
+root@kali:~/Desktop/erl/6-EOIA/ebin# <span class="nb">ls</span> ~/Desktop/temp/
 application_controller.erl  application.erl  application_master.erl  application_starter.erl</code></pre></figure>
 
 <p>　　Ok, 一切就绪，开干了！先在application.erl里找到start这个函数，如下。</p>
@@ -241,15 +248,19 @@ application_controller.erl  application.erl  application_master.erl  application
       <span class="nv">Error</span>
     <span class="k">end</span><span class="p">.</span></code></pre></figure>
 
-<p>　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：<br />
-&gt; 
-- ok：加入start流程；<br />
-- {error, {already_loaded, Name}}：失败，原因是这个应用已经load过了，可以直接加入start流程；<br />
-- Error：错误，且错误原因不详，需要看console里的输出分析；</p>
+<p>　　可以发现，start已经是一个很高层的封装了，源代码注释里也说了，application.erl只是对application_master.erl和application_controller.erl的一个封装。这里我们是调用了start/1，即以temporary为重启方式来启动我们的simple_cache。start过程从宏观上分为两大步：load和start。其中首先load，然后start，load的结果有三种：</p>
+<blockquote>
+
+  <ul>
+    <li>ok：加入start流程；</li>
+    <li>{error, {already_loaded, Name}}：失败，原因是这个应用已经load过了，可以直接加入start流程；</li>
+    <li>Error：错误，且错误原因不详，需要看console里的输出分析；</li>
+  </ul>
+</blockquote>
 
 <p>　　Ok, 思路清晰了，我们就split it into two seperate but sequential procedures，一步一步来，争取最后不靠调试就解决我们上面遇到的问题吧， here we go！</p>
 
-<h2 id="load">3. load应用的过程分析</h2>
+<h2 id="3-load应用的过程分析">3. load应用的过程分析</h2>
 <p>　　根据application.erl 里第97行知道，load过程是调用application_controller.erl里的函数的，所以这里我们就先去分析application_controller.erl里的load调用了。先上一张图来简单看看load的整个过程。
 <img src="../../images/erlang-application-load.jpg" alt="load 流程图分析" />
 　　上面的图可能画得稍显复杂，没办法，刚开始看源码，还是仔细一点好。仔细了解后，我发现load过程其中重点就只有下面四条：</p>
@@ -258,10 +269,10 @@ application_controller.erl  application.erl  application_master.erl  application
   <li>检查这个应用是否已经load过；</li>
   <li>解析应用描述文件appname.app里的内容；</li>
   <li>根据应用描述文件的描述，把应用的一些原子信息存到一张本地的ets表中；</li>
-  <li>给应用的PID发送一条<code class="highlighter-rouge"><span class="p">{</span><span class="err">ac_load_application_req,</span><span class="w"> </span><span class="err">AppName</span><span class="p">}</span></code>的消息；</li>
+  <li>给应用的PID发送一条<code class="highlighter-rouge">{ac_load_application_req, AppName}</code>的消息；</li>
 </ul>
 
-<h3 id="load-1">3.1 load过程中容易发生错误的地方</h3>
+<h3 id="31-load过程中容易发生错误的地方">3.1 load过程中容易发生错误的地方</h3>
 <ul>
   <li>do_load_application 过程, 解析应用描述文件appname.app出错，相关源码如下。make_appl是一个解析appname.app文件的封装。</li>
 </ul>
@@ -278,7 +289,7 @@ application_controller.erl  application.erl  application_master.erl  application
     <span class="k">end</span><span class="p">.</span></code></pre></figure>
 
 <ul>
-  <li>在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即<code class="highlighter-rouge"><span class="p">{</span><span class="err">reply,</span><span class="w"> </span><span class="err">ok,</span><span class="w"> </span><span class="err">NewS</span><span class="p">}</span></code>，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。</li>
+  <li>在cntrl(A, S, {ac_load_application_req, A})时发生错误，相关源码如下。但这里既是出错的话，返回的信息也是容易辨别的，即<code class="highlighter-rouge">{reply, ok, NewS}</code>，和上面我的那个出错不一样。看来程序在load的过程中没有出错，好吧，那我们就来看看在start的过程中出上面错了。</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">handle_call</span><span class="p">({</span><span class="n">load_application</span><span class="p">,</span> <span class="nv">Application</span><span class="p">},</span> <span class="nv">From</span><span class="p">,</span> <span class="nv">S</span><span class="p">)</span> <span class="o">-&gt;</span>
@@ -300,7 +311,7 @@ application_controller.erl  application.erl  application_master.erl  application
 
 <p>　　PS: 因为这篇博文应该是26号发布的，到现在还么有通过分析源码的方式来找bug，所以为了让本文早点面世，我提前从出错信息里找错误了。事实证明，远远没有我想象的这样复杂，关键是这句<code class="highlighter-rouge">[{file,"../src/sc_app.erl"},{line,6}]},</code>， 我在sc_app.erl的第六行写错了一个字母，so…，不过后续我还会继续分析start过程，看看程序是怎么down的，也来看看怎么解读这个错误。</p>
 
-<h2 id="section">扫一扫</h2>
+<h2 id="扫一扫">扫一扫</h2>
 
 <p><img src="../../images/share/2014-10-21-deep-into-erlang-application.md.jpg" alt="2014-10-21-deep-into-erlang-application.md" /></p>
 
@@ -325,7 +336,7 @@ application_controller.erl  application.erl  application_master.erl  application
       <div style="margin-bottom:20px">
       多说评论框 start
         <div class="ds-thread" data-thread-key=/deep-into-erlang-application data-title=深度分析 Erlang Application 行为 
-             data-url=http://litaotao.github.io/+/deep-into-erlang-application></div>
+             data-url=http://localhost:4000+/deep-into-erlang-application></div>
       多说评论框 end
       多说公共JS代码 start (一个网页只需插入一次)
       <script type="text/javascript">
