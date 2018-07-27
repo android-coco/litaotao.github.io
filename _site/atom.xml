@@ -100,7 +100,7 @@
    <title>Taotao's Zone</title>
    <link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://localhost:4000" rel="alternate" type="text/html" />
-   <updated>2018-07-17T09:07:17+08:00</updated>
+   <updated>2018-07-27T14:35:30+08:00</updated>
    <id>http://localhost:4000</id>
    <author>
      <name></name>
@@ -116,6 +116,8 @@
      <content type="html">&lt;h2 id=&quot;1-things-happen-for-a-reason&quot;&gt;1. Things Happen for A Reason&lt;/h2&gt;
 
 &lt;p&gt;我最喜欢的一部电影《危情谍战》中有这样一句台词，“Things Happen for A Reason”，不知道为什么，直到今天我对这句台词的印象都很深刻，也许是当时看到这句话的时候脑海里灵光一现，或是引起共鸣才会烙下这么深刻的印象吧。几乎从那以后，不论是做事还是进行思考，我都会自然而然的养成从底层逻辑逐步的来挖掘和分析事物的核心原理。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/graph-database-neo4j-knowledge-graph-01.gif&quot; alt=&quot;graph-database-neo4j-knowledge-graph-01&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;比如说最近在做产品的技术架构设计，其中几乎有一大半时间都是在梳理业务流程和需求，将业务进行分类处理，再做相关的技术调研。其中 Neo4j 算是技术方案中的核心角色之一，这篇 post 也算是做这个架构设计中关于 Neo4j 这个 NoSQL 数据库的一些感想。&lt;/p&gt;
 
